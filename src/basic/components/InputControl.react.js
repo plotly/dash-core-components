@@ -1,18 +1,18 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react'
 
 /*
  * A controlled input that calls `notifyObservers` on changes.
  */
 export default class InputControl extends Component {
     constructor() {
-        super();
+        super()
         this.state = {
             value: ''
         }
     }
 
     handleChange(value) {
-        this.setState({value});
+        this.setState({value})
         /**
          * TODO (#22): Remove conditional. Always pass a callback function
          * to components that can change value.
@@ -29,7 +29,7 @@ export default class InputControl extends Component {
                 onChange={e => this.handleChange(e.target.value)}
                 {...this.props}
             />
-        );
+        )
     }
 }
 
@@ -42,4 +42,4 @@ InputControl.propTypes = {
      * value.
      */
     notifyObservers: PropTypes.func
-};
+}
