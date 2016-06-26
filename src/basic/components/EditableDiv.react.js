@@ -10,7 +10,7 @@ const baseStyles = {
     ':hover': {
         color: Styles.colors.baseHover
     }
-}
+};
 
 /**
  * A div for displaying text. The text is editable.
@@ -83,9 +83,9 @@ EditableDiv.propTypes = {
      * Passed in from renderer.
      */
     updateProps: PropTypes.func.isRequired
-}
+};
 
 EditableDiv.defaultProps = {
     style: {},
     editable: false
-}
+};

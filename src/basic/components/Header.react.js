@@ -1,6 +1,4 @@
-'use strict'
-
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 /**
  * A component that greets a person in a header
@@ -17,6 +15,6 @@ Header.propTypes = {
      * The name of the person you want to greet
      */
     name: PropTypes.string.isRequired
-}
+};
 
-export default Header
+export default Header;

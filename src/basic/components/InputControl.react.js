@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 /*
  * A controlled input that calls `notifyObservers` on changes.
@@ -42,4 +42,4 @@ InputControl.propTypes = {
      * value.
      */
     notifyObservers: PropTypes.func
-}
+};
