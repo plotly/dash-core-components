@@ -6,7 +6,7 @@ import InputControl from './components/InputControl.react';
 
 const EditableDiv = Radium(_EditableDiv);
 
-export default {
+export {
     EditableDiv,
     Header,
     InputControl
