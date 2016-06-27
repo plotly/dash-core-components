@@ -1,8 +1,8 @@
 import Radium from 'radium';
 
-import _EditableDiv from './basic/components/EditableDiv.react';
-import Header from './basic/components/Header.react';
-import InputControl from './basic/components/InputControl.react';
+import _EditableDiv from './components/EditableDiv.react';
+import Header from './components/Header.react';
+import InputControl from './components/InputControl.react';
 
 const EditableDiv = Radium(_EditableDiv);
 
