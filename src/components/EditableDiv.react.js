@@ -18,12 +18,17 @@ const baseStyles = {
 export default class EditableDiv extends Component {
 
     constructor(props) {
-        super(props)
-        this.state = {inEditMode: false}
+        super(props);
+
+        this.state = {
+            inEditMode: false
+        };
     }
 
     componentDidUpdate() {
-        if (this.state.inEditMode) ReactDOM.findDOMNode(this.refs.input).focus()
+        if (this.state.inEditMode) {
+            ReactDOM.findDOMNode(this.refs.input).focus();
+        }
     }
 
     render() {
