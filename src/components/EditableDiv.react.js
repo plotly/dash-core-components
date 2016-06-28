@@ -31,6 +31,11 @@ export default class EditableDiv extends Component {
         }
     }
 
+    // TODO: Standardize on `{value}` as payload to `handleChange()`.
+    handleChange(text) {
+        this.props.valueChanged({text});
+    }
+
     render() {
         if (this.state.inEditMode) {
             return (
@@ -44,7 +49,7 @@ export default class EditableDiv extends Component {
                             this.props.style
                         ])}
                         value={this.props.text}
-                        onChange={(e) => this.props.valueChanged({text: e.target.value})}
+                        onChange={(e) => this.handleChange(e.target.value)}
                         onBlur={() => this.setState({inEditMode: false})}
                     />
                 </div>
@@ -86,10 +91,11 @@ EditableDiv.propTypes = {
     /**
      * Function that updates the state tree.
      */
-    valueChanged: PropTypes.func.isRequired
+    valueChanged: PropTypes.func
 };
 
 EditableDiv.defaultProps = {
     style: {},
-    editable: false
+    editable: false,
+    valueChanged: () => {}
 };

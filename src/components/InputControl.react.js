@@ -12,8 +12,8 @@ export default class InputControl extends Component {
     }
 
     handleChange(value) {
-        this.setState({value})
-        this.props.valueChanged({value})
+        this.setState({value});
+        this.props.valueChanged({value});
     }
 
     render() {
@@ -32,5 +32,9 @@ InputControl.propTypes = {
     /**
      * Function that updates the state tree.
      */
-    valueChanged: PropTypes.func.isRequired
+    valueChanged: PropTypes.func
+};
+
+InputControl.defaultProps = {
+    valueChanged: () => {}
 };
