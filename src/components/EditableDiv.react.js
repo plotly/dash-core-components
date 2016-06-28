@@ -39,7 +39,7 @@ export default class EditableDiv extends Component {
                             this.props.style
                         ])}
                         value={this.props.text}
-                        onChange={(e) => this.props.updateProps({text: e.target.value})}
+                        onChange={(e) => this.props.valueChanged({text: e.target.value})}
                         onBlur={() => this.setState({inEditMode: false})}
                     />
                 </div>
@@ -80,9 +80,8 @@ EditableDiv.propTypes = {
 
     /**
      * Function that updates the state tree.
-     * Passed in from renderer.
      */
-    updateProps: PropTypes.func.isRequired
+    valueChanged: PropTypes.func.isRequired
 };
 
 EditableDiv.defaultProps = {
