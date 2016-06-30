@@ -31,7 +31,6 @@ export default class EditableDiv extends Component {
         }
     }
 
-    // TODO: Standardize on `{value}` as payload to `handleChange()`.
     handleChange(text) {
         this.props.valueChanged({text});
     }
