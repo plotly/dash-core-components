@@ -10,6 +10,7 @@
   "scripts": {
     "prepublish": "npm test && builder run transpile-dev",
     "publish-pypi": "npm run prepublish && python setup.py sdist upload",
+    "start": "builder run demo",
     "test": "builder run lint"
   },
   "author": "Per Nilsson <per@sproutlab.com>",
