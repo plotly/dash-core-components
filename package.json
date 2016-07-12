@@ -17,13 +17,13 @@
   "license": "MIT",
   "dependencies": {
     "builder": "2.10.1",
-    "dash-components-archetype": "^0.1.0",
+    "dash-components-archetype": "^0.1.5",
     "radium": "^0.17.1",
     "ramda": "^0.21.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
   },
   "devDependencies": {
-    "dash-components-archetype-dev": "^0.1.0"
+    "dash-components-archetype-dev": "^0.1.5"
   }
 }
