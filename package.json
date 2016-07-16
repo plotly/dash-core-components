@@ -24,6 +24,7 @@
   "dependencies": {
     "builder": "2.10.1",
     "dash-components-archetype": "^0.1.5",
+    "plotly.js": "^1.14.2",
     "radium": "^0.17.1",
     "ramda": "^0.21.0",
     "react": "^15.1.0",
