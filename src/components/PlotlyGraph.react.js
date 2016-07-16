@@ -3,11 +3,9 @@ import Plotly from 'plotly.js';
 
 export default class PlotlyGraph extends Component {
     _plot(){
-        const {figure, id} = this.props;
-        if (!figure) return;
+        const {id, data, layout} = this.props;
 
-        const {data, layout} = figure;
-        Plotly.newPlot(id, data || [], layout || {});
+        Plotly.newPlot(id, data, layout);
     }
 
     // "Invoked once, only on the client (not on the server),
@@ -18,7 +16,11 @@ export default class PlotlyGraph extends Component {
 
     shouldComponentUpdate(nextProps) {
         // TODO optimize this check
-        return JSON.stringify(this.props.figure) !== JSON.stringify(nextProps.figure);
+        const dataChanged = JSON.stringify(this.props.data) !== JSON.stringify(nextProps.data)
+        if (dataChanged) return true;
+
+        const layoutChanged = JSON.stringify(this.props.layout) !== JSON.stringify(nextProps.layout);
+        return layoutChanged;
     }
 
     // "Invoked immediately after the component's updates are flushed to the DOM.
@@ -42,13 +44,16 @@ export default class PlotlyGraph extends Component {
 
 PlotlyGraph.propTypes = {
     /**
-     * Plotly `figure` data. See schema:
+     * Plotly `figure.data` array. See schema:
      * https://api.plot.ly/v2/plot-schema?sha1=
      */
-    figure: PropTypes.shape({
-        data: PropTypes.array,
-        layout: PropTypes.object
-    }),
+    data: PropTypes.array,
+
+    /**
+     * Plotly `figure.layout` object. See schema:
+     * https://api.plot.ly/v2/plot-schema?sha1=
+     */
+    layout: PropTypes.object,
 
     /**
      * Height of graph, e.g. '600px' or '100%'
@@ -62,7 +67,8 @@ PlotlyGraph.propTypes = {
 }
 
 PlotlyGraph.defaultProps = {
-    figure: {data: [], layout: {}},
+    data: [],
+    layout: {},
     height: '600px',
     width: '100%'
 };
