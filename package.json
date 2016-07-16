@@ -12,6 +12,7 @@
     "demo": "builder run demo",
     "install-local": "builder run transpile-dev && python setup.py install",
     "prepublish": "npm test && builder run transpile-dev && npm run copy-metadata",
+    "prepublish": "npm test && builder run transpile-dev",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist upload",
     "start": "builder run transpile-dev-watch",
