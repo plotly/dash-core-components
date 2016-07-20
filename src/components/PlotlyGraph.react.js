@@ -32,36 +32,28 @@ export default class PlotlyGraph extends Component {
         const plotlyNode = document.getElementById(id);
 
         if (bindClick) {
-            this.clickEmitter = plotlyNode.on('plotly_click', (eventData) => {
+            this.eventEmitter = plotlyNode.on('plotly_click', (eventData) => {
                 const clickData = filterEventData(eventData);
                 valueChanged({clickData});
             });
         }
 
         if (bindHover) {
-            this.hoverEmitter = plotlyNode.on('plotly_hover', (eventData) => {
+            this.eventEmitter = plotlyNode.on('plotly_hover', (eventData) => {
                 const hoverData = filterEventData(eventData);
                 valueChanged({hoverData});
             });
         }
     }
 
-    // "Invoked once, only on the client (not on the server),
-    // immediately after the initial rendering occurs."
     componentDidMount() {
         this.plot(this.props);
         this.bindEvents();
     }
 
     componentWillUnmount() {
-        const {clickEmitter, hoverEmitter} = this;
-
-        if (clickEmitter) {
-            clickEmitter.removeAllListeners();
-        }
-
-        if (hoverEmitter) {
-            hoverEmitter.removeAllListeners();
+        if (this.eventEmitter) {
+            this.eventEmitter.removeAllListeners();
         }
     }
 
