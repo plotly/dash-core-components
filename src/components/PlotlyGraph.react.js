@@ -103,7 +103,7 @@ PlotlyGraph.propTypes = {
     bindHover: PropTypes.bool,
 
     /**
-     * Data from latest click event
+     * Data from latest hover event
      */
     hoverData: PropTypes.object,
 
@@ -132,13 +132,17 @@ PlotlyGraph.propTypes = {
     /**
      * Function that updates the state tree.
      */
-    valueChanged: PropTypes.func.isRequired
+    valueChanged: PropTypes.func
 }
 
 PlotlyGraph.defaultProps = {
+    bindClick: false,
+    bindHover: false,
     clickData: null,
+    hoverData: null,
     data: [],
     layout: {},
     height: '600px',
-    width: '100%'
+    width: '100%',
+    valueChanged: () => {}
 };
