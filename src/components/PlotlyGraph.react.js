@@ -73,14 +73,13 @@ export default class PlotlyGraph extends Component {
     }
 
     render(){
-        const {width, height, id} = this.props
-        const style = {width, height};
+        const {style, width, height, id} = this.props
 
         return (
             <div
                 id={id}
                 ref={(node) => this._plotlyNode = node}
-                style={style}
+                style={{...style, width, height}}
             />
         );
     }
@@ -120,12 +119,19 @@ PlotlyGraph.propTypes = {
     layout: PropTypes.object,
 
     /**
-     * Height of graph, e.g. 600, '600px' or '100%'
+     * Generic style overrides
+     */
+    style: PropTypes.object,
+
+    /**
+     * Height of graph, e.g. 600, '600px' or '100%'.
+     * Will override any height set in the `style` prop.
      */
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Width of graph, e.g. 600, '600px' or '100%'
+     * Will override any width set in the `style` prop.
      */
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
