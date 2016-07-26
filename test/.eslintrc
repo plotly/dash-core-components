@@ -1,0 +1,10 @@
+---
+    extends: ../node_modules/dash-components-archetype/config/eslint/eslintrc-node.json
+
+    globals:
+        chai: false
+        sinon-chai: false
+        window: false
+
+    rules:
+        import/no-extraneous-dependencies: 0
