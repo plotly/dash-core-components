@@ -40,7 +40,9 @@ $ npm run test-debug
 2. Click the "DEBUG" button in the top right corner.
 3. Open up Chrome Devtools (`Cmd+opt+i`).
 4. Click the "Sources" tab.
-5. Navigate to `webpack:// -> . -> spec/components` to find your sources.
+5. Find source files
+  - Navigate to `webpack:// -> . -> spec/components` to find your test source files.
+  - Navigate to `webpack:// -> [your/repo/path]] -> dash-core-components -> src` to find your component source files.
 6. Now you can set breakpoints and reload the page to hit them.
 7. The test output is available in the "Console" tab, or in any tab by pressing "Esc".
 
