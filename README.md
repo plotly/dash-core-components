@@ -126,7 +126,15 @@ $ npm run publish-pypi
 ## Builder / Archetype
 
 We use [Builder][] to centrally manage build configuration, dependencies, and
-scripts. See the [dash-components-archetype][] repo for more information.
+scripts.
+
+To see all `builder` scripts available:
+
+```sh
+$ builder help
+```
+
+See the [dash-components-archetype][] repo for more information.
 
 [Builder]: https://github.com/FormidableLabs/builder
 [Dash2]: https://github.com/plotly/dash2
