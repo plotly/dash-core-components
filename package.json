@@ -16,6 +16,8 @@
     "publish-pypi": "npm run prepublish && python setup.py sdist upload",
     "start": "builder run transpile-dev-watch",
     "test": "builder run check",
+    "test-watch": "builder run test-frontend-watch",
+    "test-debug": "builder run test-frontend-debug",
     "uninstall-local": "pip uninstall dash-core-components -y"
   },
   "author": "Per Nilsson <per@sproutlab.com>",
