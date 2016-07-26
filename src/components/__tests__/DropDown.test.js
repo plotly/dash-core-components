@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import DropdownComponent from 'src/components/Dropdown.react';
+import DropdownComponent from '../Dropdown.react';
 
 describe('Dropdown component', () => {
 
