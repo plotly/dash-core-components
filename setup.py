@@ -4,8 +4,8 @@ setup(
     name='dash_core_components',
     version='0.1.4',
     author='plotly',
-    packages=['dash_core_components'],
-    package_data={'dash_core_components': ['metadata.json']},
+    packages=['dash_core_components', 'lib'],
+    package_data={'lib': ['../lib/*']},
     license='MIT',
     description='Dash UI component suite',
     install_requires=['flask', 'plotly', 'flask-cors', 'dash.ly']
