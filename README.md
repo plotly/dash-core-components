@@ -58,9 +58,6 @@ describe.only('Foo component', () => {
 
 ### Testing your components in Dash
 
-The best way to test your components in the real Dash context is by linking into
-`dash2` and testing them from there.
-
 1. Build development bundle to `lib/` and watch for changes
 
         # Once this is started, you can just leave it running.
@@ -79,15 +76,6 @@ The best way to test your components in the real Dash context is by linking into
 
         # Import dash_core_components to your layout, then run it:
         $ python my_dash_layout.py
-
-
-There is a workflow that links your module into `site-packages` which would
-make it unnecessary to re-run `2.` on every change: `python setup.py develop`.
-Unfortunately, this doesn't seem to work with resources defined in
-`package_data`.
-
-See https://github.com/plotly/dash-components-archetype/issues/20
-
 
 ## Installing python package locally
 
