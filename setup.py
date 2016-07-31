@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='dash_core_components',
-    version='0.1.4',
+    version='0.2.0',
     author='plotly',
     packages=['dash_core_components', 'lib'],
     package_data={'lib': ['../lib/*']},
