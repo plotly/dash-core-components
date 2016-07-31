@@ -8,11 +8,9 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "copy-metadata": "cp lib/metadata.json dash_core_components/",
-    "copy-distjs": "cp lib/bundle.js* dash_core_components/",
     "demo": "builder run demo",
     "install-local": "npm run prepublish && python setup.py install",
-    "prepublish": "npm test && builder run build-dist && npm run copy-metadata && npm run copy-distjs",
+    "prepublish": "npm test && builder run build-dist",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist upload",
     "start": "builder run build-dev",
