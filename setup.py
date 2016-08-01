@@ -3,7 +3,8 @@ from setuptools import setup
 setup(
     name='dash_core_components',
     version='0.2.0',
-    author='plotly',
+    author='Chris Parmer',
+    author_email='chris@plot.ly',
     packages=['dash_core_components', 'lib'],
     package_data={'lib': ['../lib/*']},
     license='MIT',
