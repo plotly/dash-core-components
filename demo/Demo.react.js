@@ -11,7 +11,8 @@ import {
     Slider,
     SyntaxHighlighter,
     Interval,
-    Markdown
+    Markdown,
+    URL
 } from '../src';
 
 const MarkdownExample = `
@@ -292,6 +293,28 @@ class Controller extends Component {
 ReactDOM.render(<Controller/>, mountNode);`
 
 
+const URLExample = `
+class Controller extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pathname: '/test'
+        };
+    }
+
+    render() {
+        return (<URL
+            setProps={(props) => {
+                console.warn('setProps: ' + JSON.stringify(props));
+                this.setState(props);
+            }}
+            fireEvent={event => console.warn(event)}
+            pathname={this.state.pathname}
+        />);
+    }
+}
+
+ReactDOM.render(<Controller/>, mountNode);`;
 
 const examples = [
     {name: 'Markdown', code: MarkdownExample},
@@ -303,7 +326,8 @@ const examples = [
     {name: 'Dropdown', code: DropdownExample},
     {name: 'Slider', code: SliderExample},
     {name: 'RangeSlider', code: RangeSliderExample},
-    {name: 'Input', code: InputExample}
+    {name: 'Input', code: InputExample},
+    {name: 'URL', code: URLExample}
 ];
 
 class Demo extends Component {
@@ -318,7 +342,7 @@ class Demo extends Component {
                             <h3>{example.name}</h3>
                             <Playground
                                 codeText={example.code}
-                                scope={{Component, React, ReactDOM, Checklist, Dropdown, Graph, Input, RadioItems, RangeSlider, Slider, SyntaxHighlighter, Interval, Markdown}}
+                                scope={{Component, React, ReactDOM, Checklist, Dropdown, Graph, Input, RadioItems, RangeSlider, Slider, SyntaxHighlighter, Interval, Markdown, URL}}
                                 noRender={false}
                                 theme={'xq-light'}
                             />
