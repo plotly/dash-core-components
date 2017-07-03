@@ -287,7 +287,7 @@
           "name": "bool"
         },
         "required": false,
-        "description": "If True, this will set the `hoverData` attribute to None\nwhen the user \"unhovers\" over a point.",
+        "description": "`clear_on_unhover` on the `Graph` component will clear the\n`hoverData` property when the user \"unhovers\" from a point if True.\nIf False, then the `hoverData` property will be equal to the\ndata from the last point that was hovered over.",
         "defaultValue": {
           "value": "false",
           "computed": false
