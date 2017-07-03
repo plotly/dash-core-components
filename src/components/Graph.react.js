@@ -183,8 +183,8 @@ PlotlyGraph.propTypes = {
     hoverData: PropTypes.object,
 
     /**
-     *`clear_on_unhover` on the `Graph` component will clear the
-     * `hoverData` property when the user "unhovers" from a point if True.
+     * If True, `clear_on_unhover` will clear the `hoverData` property
+     * when the user "unhovers" from a point.
      * If False, then the `hoverData` property will be equal to the
      * data from the last point that was hovered over.
      */
