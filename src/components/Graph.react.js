@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {contains, filter, has, type} from 'ramda';
-import {omit} from 'underscore'
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
@@ -19,26 +18,30 @@ const filterEventData = (gd, eventData, event) => {
         const data = gd.data;
         for(let i=0; i < eventData.points.length; i++) {
             const fullPoint = eventData.points[i];
-            var pointData = filter(function(o) {
+            const pointData = filter(function(o) {
                 return !contains(type(o), ['Object', 'Array'])
             }, fullPoint);
-            if(data[0]['type'].toLowerCase() === 'pie'){
-              return omit(pointData, ['originalEvent', 'cxFinal', 'cyFinal', 'cy', 'cx', 'vTotal']);
-            } else if (data[0]['type'].toLowerCase() === 'sankey'){
-              return pointData
-            }else if (has('customdata', data[pointData.curveNumber]) &&
+            if (has('curveNumber', fullPoint) &&
                 has('pointNumber', fullPoint) &&
-                has('curveNumber', fullPoint)
-            ) {
-                pointData['customdata'] = data[
-                    pointData.curveNumber
-                ].customdata[fullPoint.pointNumber];
+                has('customdata', data[pointData.curveNumber])) {
+               pointData['customdata'] = data[pointData.curveNumber].customdata;
             }
+            console.log(gd);
+            console.log(eventData);
+            console.log(fullPoint);
+            console.log(pointData);
+            console.log(data);
+            if(fullPoint.type==='pie' | fullPoint.type==='sankey'){
+              for(let j=0; j < data.length; j++){
 
+              }
+            }
+            // console.log(pointData['customdata']);
+            // console.log(pointData);
             points[i] = pointData;
-
         }
-        filteredEventData = {points}
+
+        filteredEventData = {points};
     } else if (event === 'relayout') {
         /*
          * relayout shouldn't include any big objects
