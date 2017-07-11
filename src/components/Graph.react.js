@@ -31,13 +31,6 @@ const filterEventData = (gd, eventData, event) => {
             console.log(fullPoint);
             console.log(pointData);
             console.log(data);
-            if(fullPoint.type==='pie' | fullPoint.type==='sankey'){
-              for(let j=0; j < data.length; j++){
-
-              }
-            }
-            // console.log(pointData['customdata']);
-            // console.log(pointData);
             points[i] = pointData;
         }
 
