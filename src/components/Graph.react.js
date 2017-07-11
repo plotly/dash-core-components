@@ -35,27 +35,27 @@ const filterEventData = (gd, eventData, event) => {
               it begins to repeat customdata for different graph or potentially
               shows incorrect customdata
             */
+            if(gd.data.length < 2){
+              const traceNumber = 0;
+              const traceType =  gd.calcdata[0][0]['trace'].type;
+              if(traceType === 'sankey' && has('customdata', gd.data[traceNumber])){
+                const pointNumber = gd.data[traceNumber]
+                                        ['node']
+                                        ['label'].indexOf(pointData['label']);
+                pointData['customdata'] = gd.data[
+                                                traceNumber
+                                              ].customdata[pointNumber];
+                pointData['index'] = pointNumber;
+              }
 
-            const traceNumber = 0;
-            const traceType =  gd.calcdata[0][0]['trace'].type;
-            console.log(traceNumber)
-            if(traceType === 'sankey' && has('customdata', gd.data[traceNumber])){
-              const pointNumber = gd.data[traceNumber]
-                                      ['node']
-                                      ['label'].indexOf(pointData['label']);
-              pointData['customdata'] = gd.data[
-                                              traceNumber
-                                            ].customdata[pointNumber];
-              pointData['index'] = pointNumber;
+              if(traceType === 'pie' && has('customdata', gd.data[traceNumber])){
+                pointData['customdata'] = data[
+                                                traceNumber
+                                              ].customdata[pointData.i];
+              }
             }
-
-            if(traceType === 'pie' && has('customdata', gd.data[traceNumber])){
-              pointData['customdata'] = data[
-                                              traceNumber
-                                            ].customdata[pointData.i];
-            }
-            points[i] = pointData;
-        }
+              points[i] = pointData;
+          }
 
         filteredEventData = {points};
     } else if (event === 'relayout') {
