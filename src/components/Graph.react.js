@@ -32,7 +32,8 @@ const filterEventData = (gd, eventData, event) => {
             /*
               Works to assign customdata values to sankey and pie graph
               this only works if there is one trace per plot otherwise
-              it begins to repeat customdata for different graph
+              it begins to repeat customdata for different graph or potentially
+              shows incorrect customdata
             */
 
             const traceNumber = 0;
