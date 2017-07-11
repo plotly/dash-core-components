@@ -38,20 +38,21 @@ const filterEventData = (gd, eventData, event) => {
             if(gd.data.length < 2){
               const traceNumber = 0;
               const traceType =  gd.calcdata[0][0]['trace'].type;
-              if(traceType === 'sankey' && has('customdata', gd.data[traceNumber])){
-                const pointNumber = gd.data[traceNumber]
-                                        ['node']
-                                        ['label'].indexOf(pointData['label']);
+              if((traceType === 'sankey' | traceType == 'pie') &&
+                  has('customdata', gd.data[traceNumber])){
+                var pointNumber = 0;
+                if(traceType === 'sankey') {
+                  pointNumber = gd.data[traceNumber]
+                                          ['node']
+                                          ['label'].indexOf(pointData['label']);
+                } else {
+                  pointNumber = pointData.i;
+                }
+
                 pointData['customdata'] = gd.data[
                                                 traceNumber
                                               ].customdata[pointNumber];
                 pointData['index'] = pointNumber;
-              }
-
-              if(traceType === 'pie' && has('customdata', gd.data[traceNumber])){
-                pointData['customdata'] = data[
-                                                traceNumber
-                                              ].customdata[pointData.i];
               }
             }
               points[i] = pointData;
