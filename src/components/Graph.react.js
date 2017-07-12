@@ -30,10 +30,10 @@ const filterEventData = (gd, eventData, event) => {
                 ].customdata[fullPoint.pointNumber];
             }
 
-              points[i] = pointData;
-          }
+            points[i] = pointData;
 
-        filteredEventData = {points};
+        }
+        filteredEventData = {points}
     } else if (event === 'relayout') {
         /*
          * relayout shouldn't include any big objects
