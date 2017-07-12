@@ -29,32 +29,6 @@ const filterEventData = (gd, eventData, event) => {
                                         ].customdata[fullPoint.pointNumber];
             }
 
-            /*
-              Works to assign customdata values to sankey and pie graph
-              this only works if there is one trace per plot otherwise
-              it begins to repeat customdata for different graph or potentially
-              shows incorrect customdata
-            */
-            if(gd.data.length < 2){
-              const traceNumber = 0;
-              const traceType =  gd.calcdata[0][0]['trace'].type;
-              if((traceType === 'sankey' | traceType == 'pie') &&
-                  has('customdata', gd.data[traceNumber])){
-                var pointNumber = 0;
-                if(traceType === 'sankey') {
-                  pointNumber = gd.data[traceNumber]
-                                          ['node']
-                                          ['label'].indexOf(pointData['label']);
-                } else {
-                  pointNumber = pointData.i;
-                }
-
-                pointData['customdata'] = gd.data[
-                                                traceNumber
-                                              ].customdata[pointNumber];
-                pointData['index'] = pointNumber;
-              }
-            }
               points[i] = pointData;
           }
 
