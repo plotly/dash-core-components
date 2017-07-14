@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 /**
- * A basic HTML input control for entering text, numbers, or passwords.
+ * A basic HTML input control for entering text, numbers, passwords, or hidden fields.
  *
  * Note that checkbox and radio types are supported through
  * the Checklist and RadioItems component. Dates, times, and file uploads
@@ -16,6 +16,7 @@ export default class Input extends Component {
             fireEvent,
             placeholder,
             style,
+            name,
             value,
             type,
             setProps
@@ -29,6 +30,7 @@ export default class Input extends Component {
                 value={value}
                 placeholder={placeholder}
                 style={style}
+                name={name}
                 onChange={e => {
                     if (setProps) setProps({value: e.target.value});
                     if (fireEvent) fireEvent({event: 'change'});
@@ -68,6 +70,11 @@ Input.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The name of the input element
+     */
+    name: PropTypes.string,
+
+    /**
      * The class of the input element
      */
     className: PropTypes.string,
@@ -76,7 +83,7 @@ Input.propTypes = {
      * The type of control to render.
      */
     type: PropTypes.oneOf([
-        'text', 'number', 'password'
+        'text', 'number', 'password', 'hidden'
     ]),
 
     /**
