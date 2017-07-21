@@ -127,3 +127,10 @@ Dropdown.propTypes = {
 
     dashEvents: PropTypes.oneOf(['change'])
 };
+
+Dropdown.defaultProps = {
+    clearable: true,
+    disabled: false,
+    multi: false,
+    searchable: true
+}
