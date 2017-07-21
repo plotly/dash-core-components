@@ -71,6 +71,14 @@ Dropdown.propTypes = {
     id: PropTypes.string,
 
     className: PropTypes.string,
+
+    /**
+     * Whether or not the dropdown is "clearable", that is, whether or
+     * not a small "x" appears on the right of the dropdown that removes
+     * the selected value.
+     */
+    clearable: PropTypes.bool,
+
     /**
      * If true, the option is disabled
      */
@@ -93,6 +101,11 @@ Dropdown.propTypes = {
      * The grey, default text shown when no option is selected
      */
     placeholder: PropTypes.string,
+
+    /**
+     * Whether to enable the searching feature or not
+     */
+    searchable: PropTypes.bool,
 
     /**
      * The value of the input. If `multi` is false (the default)
