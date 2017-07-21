@@ -40,12 +40,23 @@ export default class Dropdown extends Component {
                     value={selectedValue}
                     onChange={selectedOption => {
                         if (multi) {
-                            const values = R.pluck('value', selectedOption);
-                            this.setState({value: values});
-                            if (setProps) setProps({value: values});
+                            let value;
+                            if (R.isNil(selectedOption)) {
+                                value = []
+                            } else {
+                                value = R.pluck('value', selectedOption);
+                            }
+                            this.setState({value});
+                            if (setProps) setProps({value});
                         } else {
-                            this.setState({value: selectedOption.value});
-                            if (setProps) setProps({value: selectedOption.value});
+                            let value;
+                            if (R.isNil(selectedOption)) {
+                                value = null
+                            } else {
+                                value = selectedOption.value;
+                            }
+                            this.setState({value});
+                            if (setProps) setProps({value});
                         }
                         if (fireEvent) fireEvent('change');
                     }}
