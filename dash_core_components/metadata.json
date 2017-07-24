@@ -1294,5 +1294,84 @@
         "description": "inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object."
       }
     }
+  },
+  "src/components/Textarea.react.js": {
+    "description": "A basic HTML textarea for entering multiline text.",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The value of the textarea"
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "A hint to the user of what can be entered in the control.\nNote: Do not use the placeholder attribute instead of a Label element,\ntheir purposes are different.\nThe Label attribute describes the role of the form element\n(i.e. it indicates what kind of information is expected),\nand the placeholder attribute is a hint about the format\nthat the value should take.\nThere are cases in which the placeholder attribute is\nnever displayed to the user, so the form must be understandable\nwithout it."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The input's inline styles"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The class of the input element"
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If disabled, then the input can not be edited"
+      },
+      "fireEvent": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that gets fired when the input changes."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that gets fired when the value changes."
+      },
+      "dashEvents": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'blur'",
+              "computed": false
+            },
+            {
+              "value": "'change'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      }
+    }
   }
 }
