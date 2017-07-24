@@ -7,12 +7,6 @@ const filterEventData = (gd, eventData, event) => {
     if (contains(event, ['click', 'hover', 'selected'])) {
         const points = [];
 
-        /*
-         * On unselect (double-clicking after selecting data),
-         * the eventData is just `undefined`.
-         * We're treating a graph with no selection data as having a
-         * selectionData of `null` to match the initial state of the graph.
-         */
         if (isNil(eventData)) {
             return null;
         }
@@ -101,12 +95,16 @@ export default class PlotlyGraph extends Component {
         gd.on('plotly_selected', (eventData) => {
             const selectedData = filterEventData(gd, eventData, 'selected');
             if (setProps) setProps({selectedData});
+        gd.on('plotly_deselect', () => {
+            if (setProps) setProps({selectedData: null});
             if (fireEvent) fireEvent({event: 'selected'});
         });
         gd.on('plotly_relayout', (eventData) => {
             const relayoutData = filterEventData(gd, eventData, 'relayout');
-            if (setProps) setProps({relayoutData});
-            if (fireEvent) fireEvent({event: 'relayout'});
+            if (!isNil(relayoutData)) {
+                if (setProps) setProps({relayoutData});
+                if (fireEvent) fireEvent({event: 'relayout'});
+            }
         });
         gd.on('plotly_unhover', () => {
             if (clear_on_unhover) {
