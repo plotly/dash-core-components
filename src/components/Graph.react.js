@@ -84,17 +84,25 @@ export default class PlotlyGraph extends Component {
 
         gd.on('plotly_click', (eventData) => {
             const clickData = filterEventData(gd, eventData, 'click');
-            if (setProps) setProps({clickData});
-            if (fireEvent) fireEvent({event: 'click'});
+            if (!isNil(clickData)) {
+                if (setProps) setProps({clickData});
+                if (fireEvent) fireEvent({event: 'click'});
+            }
         });
         gd.on('plotly_hover', (eventData) => {
             const hoverData = filterEventData(gd, eventData, 'hover');
-            if (setProps) setProps({hoverData});
-            if (fireEvent) fireEvent({event: 'hover'})
+            if (!isNil(hoverData)) {
+                if (setProps) setProps({hoverData});
+                if (fireEvent) fireEvent({event: 'hover'})
+            }
         });
         gd.on('plotly_selected', (eventData) => {
             const selectedData = filterEventData(gd, eventData, 'selected');
-            if (setProps) setProps({selectedData});
+            if (!isNil(selectedData)) {
+                if (setProps) setProps({selectedData});
+                if (fireEvent) fireEvent({event: 'selected'});
+            }
+        });
         gd.on('plotly_deselect', () => {
             if (setProps) setProps({selectedData: null});
             if (fireEvent) fireEvent({event: 'selected'});
