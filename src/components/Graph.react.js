@@ -1,11 +1,21 @@
 import React, {Component, PropTypes} from 'react';
-import {contains, filter, has, type} from 'ramda';
+import {contains, filter, has, isNil, type} from 'ramda';
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
     let filteredEventData;
     if (contains(event, ['click', 'hover', 'selected'])) {
         const points = [];
+
+        /*
+         * On unselect (double-clicking after selecting data),
+         * the eventData is just `undefined`.
+         * We're treating a graph with no selection data as having a
+         * selectionData of `null` to match the initial state of the graph.
+         */
+        if (isNil(eventData)) {
+            return null;
+        }
 
         /*
          * remove `data`, `layout`, `xaxis`, etc
