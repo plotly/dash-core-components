@@ -64,13 +64,13 @@ export default class PlotlyGraph extends Component {
     }
 
     plot(props) {
-        const {id, figure, animate, animation_options} = props;
+        const {id, figure, animate, animation_options, config} = props;
         const {hasPlotted} = this.state;
         const gd = document.getElementById(id);
         if (animate && hasPlotted && figure.data.length === gd.data.length) {
             return Plotly.animate(id, figure, animation_options);
         } else {
-            return  Plotly.newPlot(id, figure).then(() => {
+            return  Plotly.newPlot(id, figure.data, figure.layout, config).then(() => {
                 this.bindEvents(props);
                 this.setState({hasPlotted: true});
             });
