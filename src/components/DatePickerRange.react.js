@@ -202,8 +202,8 @@ export default class DatePickerRange extends Component {
         }
         }
         numberOfMonths={this.props.number_of_months_shown}
-        withPortal={this.state.with_portal && verticalFlag}
-        withFullScreenPortal={this.state.with_full_screen_portal && verticalFlag}
+        withPortal={this.props.with_portal && verticalFlag}
+        withFullScreenPortal={this.props.with_full_screen_portal && verticalFlag}
         firstDayOfWeek={this.props.first_day_of_week}
         minimumNights={this.props.minimum_nights}
         enableOutsideDays={this.props.show_outside_days}
