@@ -61,6 +61,7 @@ export default class DatePickerRange extends Component {
 
     if (typeof props.maxDateAllowed !== 'undefined') {
       max = moment(props.maxDateAllowed);
+      max.add(1, 'days');
     }
 
     try {
@@ -177,7 +178,8 @@ export default class DatePickerRange extends Component {
         isOutsideRange={(date) => {
           if (typeof this.state.minDateAllowed !== 'undefined' &&
               typeof this.state.maxDateAllowed !== 'undefined') {
-            return date < this.state.minDateAllowed || date >= this.state.maxDateAllowed;
+            return date < this.state.minDateAllowed ||
+                   date >= this.state.maxDateAllowed;
           } else if (typeof this.state.minDateAllowed === 'undefined' &&
                      typeof this.state.maxDateAllowed !== 'undefined') {
             return date >= this.state.maxDateAllowed;

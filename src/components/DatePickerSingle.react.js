@@ -53,6 +53,7 @@ export default class DatePickerSingle extends Component {
 
     if (typeof props.maxDateAllowed !== 'undefined') {
       max = moment(props.maxDateAllowed);
+      max.add(1, 'days');
     }
 
     return { date, initialVisibleMonth, min, max };
