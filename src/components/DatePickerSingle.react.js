@@ -283,7 +283,7 @@ DatePickerSingle.propTypes = {
     */
     disabled: PropTypes.bool,
 
-   /* 
+   /**
    * Whether or not the dropdown is "clearable", that is, whether or
    * not a small "x" appears on the right of the dropdown that removes
    * the selected value.
