@@ -359,9 +359,11 @@ DatePickerRange.propTypes = {
      */
     disabled: PropTypes.bool,
 
-    /**
-     * If True, there will be a button that allows for clearing the dates
-     */
+   /**
+   * Whether or not the dropdown is "clearable", that is, whether or
+   * not a small "x" appears on the right of the dropdown that removes
+   * the selected value.
+   */
     clearable: PropTypes.bool,
 
     /**
