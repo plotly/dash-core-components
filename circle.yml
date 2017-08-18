@@ -7,8 +7,6 @@ dependencies:
         - npm install -g eslint
         - pip install tox
         - pip install -r dev-requirements.txt
-
-test:
-    post:
-        # Ensure steps leading up to publishing work.
+        - npm install
         - node_modules/.bin/builder run build-dist
+        - node_modules/.bin/builder run copy-lib
