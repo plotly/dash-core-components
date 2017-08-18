@@ -5,6 +5,8 @@ machine:
 dependencies:
     pre:
         - npm install -g eslint
+        - pip install tox
+        - pip install -r dev-requirements.txt
 
 test:
     post:
