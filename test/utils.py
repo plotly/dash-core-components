@@ -2,7 +2,7 @@ import json
 import time
 
 
-TIMEOUT = 5  # Seconds
+TIMEOUT = 20  # Seconds
 
 
 def invincible(func):
