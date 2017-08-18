@@ -1,8 +1,12 @@
 machine:
-  node:
-    version: 4.4.7
+    node:
+        version: 6.9.2
+
+dependencies:
+    pre:
+        - npm install -g eslint
 
 test:
-  post:
-    # Ensure steps leading up to publishing work.
-    - node_modules/.bin/builder run build-dist
+    post:
+        # Ensure steps leading up to publishing work.
+        - node_modules/.bin/builder run build-dist
