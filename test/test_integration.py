@@ -111,7 +111,13 @@ class Tests(IntegrationTests):
         ])
         self.startServer(app)
         self.driver.get('http://localhost:8050')
-        self.wait_for_element_by_id('waitfor')
+        try:
+            self.wait_for_element_by_id('waitfor')
+        except Exception as e:
+            print(
+                self.wait_for_element_by_id('_dash-app-content').get_attribute('innerHTML')
+            )
+            raise e
 
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
             self.percy_runner.snapshot(name='dash_core_components')
