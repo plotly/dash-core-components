@@ -62,6 +62,34 @@ export default class RadioItems extends Component {
 
 RadioItems.propTypes = {
     id: PropTypes.string,
+
+    /**
+     * An array of options
+     */
+    options: PropTypes.shape({
+        /**
+         * The checkbox's label
+         */
+        label: PropTypes.string,
+
+        /**
+         * The value of the checkbox. This value
+         * corresponds to the items specified in the
+         * `values` property.
+         */
+        value: PropTypes.string,
+
+        /**
+         * If true, this checkbox is disabled and can't be clicked on.
+         */
+        disabled: PropTypes.bool
+    }),
+
+    /**
+     * The currently selected value
+     */
+    value: PropTypes.string,
+
     /**
      * The style of the container (div)
      */
@@ -93,20 +121,6 @@ RadioItems.propTypes = {
      *  and the option's label
      */
     labelClassName: PropTypes.string,
-
-    /**
-     * An array of options
-     */
-    options: PropTypes.shape({
-        label: PropTypes.string,
-        value: PropTypes.string,
-        disabled: PropTypes.bool
-    }),
-
-    /**
-     * The currently selected value
-     */
-    value: PropTypes.string,
 
     /**
      * Dash-assigned callback that gets fired when the radio item gets selected.

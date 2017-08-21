@@ -80,6 +80,40 @@ export default class Dropdown extends Component {
 Dropdown.propTypes = {
     id: PropTypes.string,
 
+    /**
+     * An array of options
+     */
+    options: PropTypes.shape({
+        /**
+         * The checkbox's label
+         */
+        label: PropTypes.string,
+
+        /**
+         * The value of the checkbox. This value
+         * corresponds to the items specified in the
+         * `values` property.
+         */
+        value: PropTypes.string,
+
+        /**
+         * If true, this checkbox is disabled and can't be clicked on.
+         */
+        disabled: PropTypes.bool
+    }),
+
+    /**
+     * The value of the input. If `multi` is false (the default)
+     * then value is just a string that corresponds to the values
+     * provided in the `options` property. If `multi` is true, then
+     * multiple values can be selected at once, and `value` is an
+     * array of items with values corresponding to those in the
+     * `options` prop.
+     */
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
 
     /**
      * className of the dropdown element
@@ -109,14 +143,6 @@ Dropdown.propTypes = {
      */
     multi: PropTypes.bool,
 
-    options: PropTypes.arrayOf(
-        PropTypes.shape({
-            disabled: PropTypes.bool,
-            label: PropTypes.string,
-            value: PropTypes.string
-        })
-    ),
-
     /**
      * The grey, default text shown when no option is selected
      */
@@ -126,19 +152,6 @@ Dropdown.propTypes = {
      * Whether to enable the searching feature or not
      */
     searchable: PropTypes.bool,
-
-    /**
-     * The value of the input. If `multi` is false (the default)
-     * then value is just a string that corresponds to the values
-     * provided in the `options` property. If `multi` is true, then
-     * multiple values can be selected at once, and `value` is an
-     * array of items with values corresponding to those in the
-     * `options` prop.
-     */
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-    ]),
 
     /**
      * Dash-assigned callback that gets fired when the input changes

@@ -68,27 +68,6 @@ export default class Checklist extends Component {
 
 Checklist.propTypes = {
     id: PropTypes.string,
-    /**
-     * The style of the <input> checkbox element
-     */
-    inputStyle: PropTypes.object,
-
-    /**
-     * The class of the <input> checkbox element
-     */
-    inputClassName: PropTypes.string,
-
-    /**
-     * The style of the <label> that wraps the checkbox input
-     *  and the option's label
-     */
-    labelStyle: PropTypes.object,
-
-    /**
-     * The class of the <label> that wraps the checkbox input
-     *  and the option's label
-     */
-    labelClassName: PropTypes.string,
 
     /**
      * An array of options
@@ -126,6 +105,37 @@ Checklist.propTypes = {
      * The style of the container (div)
      */
     style: PropTypes.object,
+
+
+    /**
+     * The style of the <input> radio element
+     */
+    inputStyle: PropTypes.object,
+
+
+    /**
+     * The style of the <input> checkbox element
+     */
+    inputStyle: PropTypes.object,
+
+    /**
+     * The class of the <input> checkbox element
+     */
+    inputClassName: PropTypes.string,
+
+    /**
+     * The style of the <label> that wraps the checkbox input
+     *  and the option's label
+     */
+    labelStyle: PropTypes.object,
+
+    /**
+     * The class of the <label> that wraps the checkbox input
+     *  and the option's label
+     */
+    labelClassName: PropTypes.string,
+
+    /**
      * Dash-assigned callback that gets fired when the checkbox item gets selected.
      */
     fireEvent: PropTypes.func,
