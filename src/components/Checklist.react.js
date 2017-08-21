@@ -19,6 +19,7 @@ export default class Checklist extends Component {
 
     render() {
         const {
+            className,
             fireEvent,
             id,
             inputClassName,
@@ -26,12 +27,13 @@ export default class Checklist extends Component {
             labelClassName,
             labelStyle,
             options,
-            setProps
+            setProps,
+            style
         } = this.props;
         const {values} = this.state;
 
         return (
-            <div id={id}>
+            <div id={id} style={style} className={className}>
                 {options.map(option => (
                     <label
                         key={option.value}
@@ -116,6 +118,14 @@ Checklist.propTypes = {
     values: PropTypes.arrayOf(PropTypes.string),
 
     /**
+     * The class of the container (div)
+     */
+    className: PropTypes.string,
+
+    /**
+     * The style of the container (div)
+     */
+    style: PropTypes.object,
      * Dash-assigned callback that gets fired when the checkbox item gets selected.
      */
     fireEvent: PropTypes.func,

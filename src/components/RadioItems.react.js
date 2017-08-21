@@ -21,6 +21,8 @@ export default class RadioItems extends Component {
         const {
             fireEvent,
             id,
+            className,
+            style,
             inputClassName,
             inputStyle,
             labelClassName,
@@ -35,7 +37,7 @@ export default class RadioItems extends Component {
             ids = {id, key: id};
         }
         return (
-            <div {...ids}>
+            <div {...ids} className={className} style={style}>
                 {options.map(option => (
                     <label style={labelStyle} className={labelClassName}>
                         <input
@@ -60,6 +62,16 @@ export default class RadioItems extends Component {
 
 RadioItems.propTypes = {
     id: PropTypes.string,
+    /**
+     * The style of the container (div)
+     */
+    style: PropTypes.object,
+
+    /**
+     * The class of the container (div)
+     */
+    className: PropTypes.string,
+
     /**
      * The style of the <input> radio element
      */

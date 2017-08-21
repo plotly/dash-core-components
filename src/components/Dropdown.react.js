@@ -43,7 +43,7 @@ export default class Dropdown extends Component {
             selectedValue = value;
         }
         return (
-            <div id={id}>
+            <div id={id} style={style}>
                 <ReactDropdown
                     filterOptions={filterOptions}
                     options={options}
@@ -80,7 +80,17 @@ export default class Dropdown extends Component {
 Dropdown.propTypes = {
     id: PropTypes.string,
 
+
+    /**
+     * className of the dropdown element
+     */
     className: PropTypes.string,
+
+    /**
+     * style of the dropdown container
+     */
+    className: PropTypes.string,
+
 
     /**
      * Whether or not the dropdown is "clearable", that is, whether or
