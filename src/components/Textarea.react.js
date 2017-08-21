@@ -35,7 +35,7 @@ export default class Textarea extends Component {
                 onClick={() => {
                     if (fireEvent) fireEvent({event: 'click'});
                 }}
-                {...this.props}
+                {...omit(['fireEvent', 'setProps', 'value'], this.props)}
             />
         );
     }

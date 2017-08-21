@@ -19,12 +19,7 @@ export default class Input extends Component {
 
     render() {
         const {
-            className,
-            id,
             fireEvent,
-            placeholder,
-            style,
-            type,
             setProps
         } = this.props;
         const {value} = this.state;
@@ -45,6 +40,7 @@ export default class Input extends Component {
                 onBlur={() => {
                     if (fireEvent) fireEvent({event: 'blur'});
                 }}
+                {...omit(['fireEvent', 'setProps', 'value'], this.props)}
             />
         );
     }
