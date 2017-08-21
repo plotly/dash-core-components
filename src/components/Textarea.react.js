@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {omit} from 'ramda'
 
 /**
  * A basic HTML textarea for entering multiline text.

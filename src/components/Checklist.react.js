@@ -112,12 +112,6 @@ Checklist.propTypes = {
      */
     inputStyle: PropTypes.object,
 
-
-    /**
-     * The style of the <input> checkbox element
-     */
-    inputStyle: PropTypes.object,
-
     /**
      * The class of the <input> checkbox element
      */

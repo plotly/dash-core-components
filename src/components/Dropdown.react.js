@@ -1,4 +1,4 @@
-import R from 'ramda';
+import R, {omit} from 'ramda';
 import React, {Component, PropTypes} from 'react';
 import ReactDropdown from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
@@ -35,7 +35,7 @@ export default class Dropdown extends Component {
 
     render() {
         const {
-            className, id, fireEvent, multi, options, setProps
+            id, fireEvent, multi, options, setProps, style
         } = this.props;
         const {filterOptions, value} = this.state;
         let selectedValue;
@@ -119,11 +119,6 @@ Dropdown.propTypes = {
 
     /**
      * className of the dropdown element
-     */
-    className: PropTypes.string,
-
-    /**
-     * style of the dropdown container
      */
     className: PropTypes.string,
 

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {omit} from 'ramda';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -26,12 +27,6 @@ export default class Input extends Component {
 
         return (
             <input
-                className={className}
-                id={id}
-                type={type}
-                value={value}
-                placeholder={placeholder}
-                style={style}
                 onChange={e => {
                     this.setState({value: e.target.value});
                     if (setProps) setProps({value: e.target.value});
@@ -40,6 +35,7 @@ export default class Input extends Component {
                 onBlur={() => {
                     if (fireEvent) fireEvent({event: 'blur'});
                 }}
+                value={value}
                 {...omit(['fireEvent', 'setProps', 'value'], this.props)}
             />
         );

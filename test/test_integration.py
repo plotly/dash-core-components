@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import multiprocessing
+import sys
 import unittest
 import os
 from urlparse import urlparse
@@ -26,7 +27,6 @@ from .utils import assert_clean_console, invincible, wait_for
 
 class Tests(IntegrationTests):
     def setUp(self):
-        self.driver = webdriver.Chrome()
         def wait_for_element_by_id(id):
             wait_for(lambda: None is not invincible(
                 lambda: self.driver.find_element_by_id(id)
@@ -121,8 +121,5 @@ class Tests(IntegrationTests):
 
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
             python_version = sys.version.split(' ')[0]
-            print('Percy Snapshot {}'.format(
-                python_version
-            ))
-
+            print('Percy Snapshot {}'.format(python_version))
             self.percy_runner.snapshot()
