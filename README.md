@@ -2,6 +2,8 @@
 
 This package provides the core React component suite for [Dash][].
 
+[![CircleCI](https://circleci.com/gh/plotly/dash-core-components.svg?style=svg)](https://circleci.com/gh/plotly/dash-core-components)
+
 ## Development
 
 ### Testing Locally
