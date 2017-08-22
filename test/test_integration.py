@@ -2,6 +2,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash
+from datetime import datetime as dt
 import importlib
 import percy
 from selenium import webdriver
@@ -108,7 +109,38 @@ class Tests(IntegrationTests):
                         'y': [4, 1, 4]
                     }]
                 }
-            )
+            ),
+
+            html.Label('DatePickerSingle'),
+            dcc.DatePickerSingle(
+                id='date-picker-single',
+                date=dt(1997, 5, 10)
+            ),
+
+            html.Label('DatePickerRange'),
+            dcc.DatePickerRange(
+                id='date-picker-range',
+                start_date=dt(1997, 5, 3),
+                end_date_placeholder_text='Select a date!'
+            ),
+
+            html.Label('TextArea'),
+            dcc.Textarea(
+                placeholder='Enter a value...',
+                style={'width': '100%'}
+            ),
+
+            html.Markdown('Markdown'),
+            dcc.Markdown('''
+                #### Dash and Markdown
+
+                Dash supports [Markdown](http://commonmark.org/help).
+
+                Markdown is a simple way to write and format text.
+                It includes a syntax for things like **bold text** and *italics*,
+                [links](http://commonmark.org/help), inline `code` snippets, lists,
+                quotes, and more.
+            '''.replace('    ', ''))
         ])
         self.startServer(app)
 
