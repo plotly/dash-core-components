@@ -130,7 +130,7 @@ class Tests(IntegrationTests):
                 style={'width': '100%'}
             ),
 
-            html.Markdown('Markdown'),
+            html.Label('Markdown'),
             dcc.Markdown('''
                 #### Dash and Markdown
 
