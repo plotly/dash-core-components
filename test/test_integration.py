@@ -10,6 +10,7 @@ import time
 import multiprocessing
 import unittest
 import os
+from urlparse import urlparse
 
 from .IntegrationTests import IntegrationTests
 from .utils import assert_clean_console, invincible, wait_for
@@ -119,4 +120,9 @@ class Tests(IntegrationTests):
             raise e
 
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
-            self.percy_runner.snapshot(name='dash_core_components')
+            python_version = sys.version.split(' ')[0]
+            print('Percy Snapshot {}'.format(
+                python_version
+            ))
+
+            self.percy_runner.snapshot()
