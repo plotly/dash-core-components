@@ -13,8 +13,8 @@ class IntegrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         super(IntegrationTests, cls).setUpClass()
-        cls.driver = webdriver.Chrome()
 
+        cls.driver = webdriver.Chrome()
         loader = percy.ResourceLoader(webdriver=cls.driver)
         cls.percy_runner = percy.Runner(loader=loader)
         cls.percy_runner.initialize_build()
