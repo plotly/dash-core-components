@@ -49,7 +49,7 @@ class IntegrationTests(unittest.TestCase):
         # Run on a separate process so that it doesn't block
         self.server_process = multiprocessing.Process(target=run)
         self.server_process.start()
-        time.sleep(0.5)
+        time.sleep(5)
 
         # Visit the dash page
         self.driver.get('http://localhost:8050')
