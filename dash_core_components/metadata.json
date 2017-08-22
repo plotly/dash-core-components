@@ -67,7 +67,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "The style of the <input> radio element",
+        "description": "The style of the <input> checkbox element",
         "defaultValue": {
           "value": "{}",
           "computed": false
@@ -1725,17 +1725,17 @@
           "value": {
             "label": {
               "name": "string",
-              "description": "The checkbox's label",
+              "description": "The radio item's label",
               "required": false
             },
             "value": {
               "name": "string",
-              "description": "The value of the checkbox. This value\ncorresponds to the items specified in the\n`values` property.",
+              "description": "The value of the radio item. This value\ncorresponds to the items specified in the\n`values` property.",
               "required": false
             },
             "disabled": {
               "name": "bool",
-              "description": "If true, this checkbox is disabled and can't be clicked on.",
+              "description": "If true, this radio item is disabled and can't be clicked on.",
               "required": false
             }
           }
