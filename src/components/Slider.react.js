@@ -34,7 +34,7 @@ export default class Slider extends Component {
                     }
                 }}
                 value={value}
-                {...omit(['fireEvent', 'setProps', 'value'], this.props)}
+                {...omit(['fireEvent', 'setProps', 'updatemode', 'value'], this.props)}
             />
         );
     }

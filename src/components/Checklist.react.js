@@ -108,7 +108,7 @@ Checklist.propTypes = {
 
 
     /**
-     * The style of the <input> radio element
+     * The style of the <input> checkbox element
      */
     inputStyle: PropTypes.object,
 

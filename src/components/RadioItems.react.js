@@ -68,19 +68,19 @@ RadioItems.propTypes = {
      */
     options: PropTypes.shape({
         /**
-         * The checkbox's label
+         * The radio item's label
          */
         label: PropTypes.string,
 
         /**
-         * The value of the checkbox. This value
+         * The value of the radio item. This value
          * corresponds to the items specified in the
          * `values` property.
          */
         value: PropTypes.string,
 
         /**
-         * If true, this checkbox is disabled and can't be clicked on.
+         * If true, this radio item is disabled and can't be clicked on.
          */
         disabled: PropTypes.bool
     }),
