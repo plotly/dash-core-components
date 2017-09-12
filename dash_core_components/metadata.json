@@ -2567,5 +2567,36 @@
         "description": ""
       }
     }
+  },
+  "src/components/Upload.react.js": {
+    "description": "",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disable_click": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Disable clicking on the dropzone to bring up file manager",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "contents": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
   }
 }
