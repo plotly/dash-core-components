@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.0rc1] - 2017-09-12
+### :sparkles: Added
+- An `Upload` component
+
 ## [0.12.7] - 2017-09-26
 ### :bug: Fixed
 - Fixed issues related to updating the `max_date_allowed` property of `DatePickerSingle` and `DatePickerRange`  programatically through callbacks
@@ -14,7 +18,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### :bug: Fixed
 -  Non-ascii characters, like chinese characters, are now supported as
    search strings in the `dcc.Dropdown` component (https://github.com/plotly/dash-core-components/pull/75)
-
 
 ## [0.12.5] - 2017-09-11
 ### :bug: Fixed
