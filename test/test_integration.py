@@ -52,8 +52,6 @@ class Tests(IntegrationTests):
 
     def snapshot(self, name):
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
-            python_version = sys.version.split(' ')[0]
-            print('Percy Snapshot {}'.format(python_version))
             self.percy_runner.snapshot(name=name)
 
     def create_upload_component_content_types_test(self, filename):
@@ -303,9 +301,10 @@ class Tests(IntegrationTests):
                 Dash supports [Markdown](http://commonmark.org/help).
 
                 Markdown is a simple way to write and format text.
-                It includes a syntax for things like **bold text** and *italics*,
-                [links](http://commonmark.org/help), inline `code` snippets, lists,
-                quotes, and more.
+                It includes a syntax for things like
+                **bold text** and *italics*,
+                [links](http://commonmark.org/help), inline `code` snippets,
+                lists, quotes, and more.
 
                 北京
             '''.replace('    ', ''))
