@@ -111,6 +111,7 @@ class Tests(IntegrationTests):
         filepath = os.path.join(os.getcwd(), 'upload-assets', filename)
         self.wait_for_element_by_css_selector('input[type=file]').send_keys(
             filepath)
+        time.sleep(5)
         self.snapshot(filename)
 
     def test_upload_csv(self):
