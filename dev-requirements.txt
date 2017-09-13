@@ -12,3 +12,4 @@ requests[security]
 ipdb
 dash-table-experiments
 xlrd
+pandas
