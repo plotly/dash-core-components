@@ -31,9 +31,10 @@ export default class Upload extends Component {
                     const file = files[0];
                     const reader = new FileReader();
                     reader.onload = () => {
+                        window.result = reader.result;
                         if (setProps) setProps({contents: reader.result});
                     }
-                    reader.readAsBinaryString(file);
+                    reader.readAsDataURL(file);
                 }}
 
                 accept={accept}
