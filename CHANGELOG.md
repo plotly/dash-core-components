@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.0rc3] - 2017-09-13
+### :sparkles: Added
+- `Upload` component: Set `content` as a base64 encoded `DataURL` string.
+- `Upload` component: Update default styles
+
+## [0.13.0rc2] - 2017-09-13
+### :sparkles: Added
+- Added several properties to the `Upload` component
+
 ## [0.13.0rc1] - 2017-09-12
 ### :sparkles: Added
 - An `Upload` component
