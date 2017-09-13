@@ -63,23 +63,37 @@ class Tests(IntegrationTests):
         @app.callback(Output('output', 'children'),
                       [Input('upload', 'contents')])
         def update_output(contents):
-            if contents is None:
-                return None
-            print(contents)
-            if 'csv' in filename:
-                df = pd.read_csv(io.StringIO(contents))
-                return html.Div([
-                    dt.DataTable(rows=df.to_dict('records')),
-                    html.Pre(contents)
-                ])
-            elif 'xls' in filename:
-                df = pd.read_excel(io.StringIO(contents))
-                return dt.DataTable(rows=df.to_dict('records'))
-            elif 'png' in filename or 'svg' in filename:
-                return html.Div([
-                    html.Img(src=contents),
-                    html.Pre(contents)
-                ])
+            if contents is not None:
+                content_type, content_string = contents.split(',')
+                if 'csv' in content_type:
+                    df = pd.read_csv(io.StringIO(base64.b64decode(content_string).decode('utf-8')))
+                    return html.Div([
+                        dt.DataTable(rows=df.to_dict('records')),
+                        html.Hr(),
+                        html.Div('Raw Content'),
+                        html.Pre(contents)
+                    ])
+                elif 'spreadsheet' in content_type:
+                    df = pd.read_excel(io.BytesIO(base64.b64decode(content_string)))
+                    return html.Div([
+                        dt.DataTable(rows=df.to_dict('records')),
+                        html.Hr(),
+                        html.Div('Raw Content'),
+                        html.Pre(contents)
+                    ])
+                elif 'image' in content_type:
+                    return html.Div([
+                        html.Img(src=contents),
+                        html.Hr(),
+                        html.Div('Raw Content'),
+                        html.Pre(contents)
+                    ])
+                else:
+                    return html.Div([
+                        html.Hr(),
+                        html.Div('Raw Content'),
+                        html.Pre(contents)
+                    ])
 
         self.startServer(app)
 
@@ -97,9 +111,6 @@ class Tests(IntegrationTests):
 
     def test_upload_csv(self):
         self.create_upload_component_content_types_test('utf8.csv')
-
-    def test_upload_xls(self):
-        self.create_upload_component_content_types_test('utf8.xls')
 
     def test_upload_xlsx(self):
         self.create_upload_component_content_types_test('utf8.xlsx')
