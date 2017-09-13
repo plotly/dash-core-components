@@ -11,3 +11,4 @@ plotly>=2.0.8
 requests[security]
 ipdb
 dash-table-experiments
+xlrd
