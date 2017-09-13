@@ -176,12 +176,18 @@ Upload.defaultProps = {
     max_size: -1,
     min_size: 0,
     multiple: false,
-    style: {
-        'width': 200,
-        'height': 200,
-        'border-width': '2px',
-        'border-color': 'rgb(102, 102, 102)',
-        'border-style': 'dashed',
-        'border-radius': '5px'
+    style: {},
+    style_active: {
+        borderStyle: 'solid',
+        borderColor: '#6c6',
+        backgroundColor: '#eee'
+    },
+    style_disabled: {
+        opacity: 0.5
+    },
+    style_reject: {
+        borderStyle: 'solid',
+        borderColor: '#c66',
+        backgroundColor: '#eee'
     }
 };
