@@ -44,7 +44,9 @@ class Tests(IntegrationTests):
                 lambda: self.driver.find_element_by_css_selector(css_selector)
             ))
             return self.driver.find_element_by_css_selector(css_selector)
-        self.wait_for_element_by_css_selector = wait_for_element_by_css_selector
+        self.wait_for_element_by_css_selector = (
+            wait_for_element_by_css_selector
+        )
 
     def snapshot(self, name):
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
@@ -66,7 +68,8 @@ class Tests(IntegrationTests):
             if contents is not None:
                 content_type, content_string = contents.split(',')
                 if 'csv' in content_type:
-                    df = pd.read_csv(io.StringIO(base64.b64decode(content_string).decode('utf-8')))
+                    df = pd.read_csv(io.StringIO(base64.b64decode(
+                        content_string).decode('utf-8')))
                     return html.Div([
                         dt.DataTable(rows=df.to_dict('records')),
                         html.Hr(),
@@ -74,7 +77,8 @@ class Tests(IntegrationTests):
                         html.Pre(contents)
                     ])
                 elif 'spreadsheet' in content_type:
-                    df = pd.read_excel(io.BytesIO(base64.b64decode(content_string)))
+                    df = pd.read_excel(io.BytesIO(base64.b64decode(
+                        content_string)))
                     return html.Div([
                         dt.DataTable(rows=df.to_dict('records')),
                         html.Hr(),
@@ -217,7 +221,8 @@ class Tests(IntegrationTests):
             dcc.Slider(
                 min=0,
                 max=9,
-                marks={i: 'Label {}'.format(i) if i == 1 else str(i) for i in range(1, 6)},
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
                 value=5,
             ),
 
@@ -258,9 +263,10 @@ class Tests(IntegrationTests):
                 Dash supports [Markdown](http://commonmark.org/help).
 
                 Markdown is a simple way to write and format text.
-                It includes a syntax for things like **bold text** and *italics*,
-                [links](http://commonmark.org/help), inline `code` snippets, lists,
-                quotes, and more.
+                It includes a syntax for things like **bold text**
+                and *italics*,
+                [links](http://commonmark.org/help), inline `code`
+                snippets, lists, quotes, and more.
             '''.replace('    ', ''))
         ])
         self.startServer(app)
