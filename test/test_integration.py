@@ -15,6 +15,7 @@ import sys
 import unittest
 import os
 from urlparse import urlparse
+import base64
 import io
 import pandas as pd
 
@@ -55,9 +56,29 @@ class Tests(IntegrationTests):
     def create_upload_component_content_types_test(self, filename):
         app = dash.Dash(__name__)
 
+        filepath = os.path.join(os.getcwd(), 'test', 'upload-assets', filename)
+
         app.layout = html.Div([
-            html.Div(filename, id='waitfor'),
-            dcc.Upload(id='upload'),
+            html.Div(filepath, id='waitfor'),
+            html.Div(
+                id='upload-div',
+                children=dcc.Upload(
+                    id='upload',
+                    children=html.Div([
+                        'Drag and Drop or ',
+                        html.A('Select a File')
+                    ]),
+                    style={
+                        'width': '100%',
+                        'height': '60px',
+                        'lineHeight': '60px',
+                        'borderWidth': '1px',
+                        'borderStyle': 'dashed',
+                        'borderRadius': '5px',
+                        'textAlign': 'center'
+                    }
+                )
+            ),
             html.Div(id='output'),
             html.Div(dt.DataTable(rows=[{}]), style={'display': 'none'})
         ])
@@ -108,9 +129,10 @@ class Tests(IntegrationTests):
                 '_dash-app-content').get_attribute('innerHTML'))
             raise e
 
-        filepath = os.path.join(os.getcwd(), 'upload-assets', filename)
-        self.wait_for_element_by_css_selector('input[type=file]').send_keys(
-            filepath)
+        upload_div = self.wait_for_element_by_css_selector(
+            '#upload-div input[type=file]')
+
+        upload_div.send_keys(filepath)
         time.sleep(5)
         self.snapshot(filename)
 
