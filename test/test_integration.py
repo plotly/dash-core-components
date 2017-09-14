@@ -95,7 +95,7 @@ class Tests(IntegrationTests):
         def update_output(contents):
             if contents is not None:
                 content_type, content_string = contents.split(',')
-                if 'csv' in content_type:
+                if 'csv' in filepath:
                     df = pd.read_csv(io.StringIO(base64.b64decode(
                         content_string).decode('utf-8')))
                     return html.Div([
@@ -104,7 +104,7 @@ class Tests(IntegrationTests):
                         html.Div('Raw Content'),
                         html.Pre(contents, style=pre_style)
                     ])
-                elif 'spreadsheet' in content_type:
+                elif 'xls' in filepath:
                     df = pd.read_excel(io.BytesIO(base64.b64decode(
                         content_string)))
                     return html.Div([
