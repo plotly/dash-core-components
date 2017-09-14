@@ -4,20 +4,21 @@ import dash_html_components as html
 import dash_table_experiments as dt
 import dash
 from dash.dependencies import Input, Output
+
 from datetime import datetime
-import importlib
-import percy
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import time
-import multiprocessing
-import sys
-import unittest
-import os
 from urlparse import urlparse
 import base64
+import importlib
 import io
+import multiprocessing
+import os
 import pandas as pd
+import percy
+import sys
+import time
+import unittest
 
 from .IntegrationTests import IntegrationTests
 from .utils import assert_clean_console, invincible, wait_for
