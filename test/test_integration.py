@@ -203,6 +203,45 @@ class Tests(IntegrationTests):
             html.Div(id='waitfor'),
             html.Label('Upload'),
             dcc.Upload(),
+
+            html.Label('Horizontal Tabs'),
+            html.Div([
+                dcc.Tabs(
+                    tabs=[
+                        {'label': 'Market Value', 'value': 1},
+                        {'label': 'Usage Over Time', 'value': 2},
+                        {'label': 'Predictions', 'value': 3},
+                        {'label': 'Target Pricing', 'value': 4},
+                    ],
+                    value=3,
+                    id='tabs',
+                    vertical=vertical
+                ),
+                html.Div(id='tab-output')
+            ], style={
+                'width': '80%',
+                'fontFamily': 'Sans-Serif',
+                'margin-left': 'auto',
+                'margin-right': 'auto'
+            }),
+
+            html.Label('Vertical Tabs'),
+            dcc.Tabs(
+                tabs=[
+                    {'label': 'Market Value', 'value': 1},
+                    {'label': 'Usage Over Time', 'value': 2},
+                    {'label': 'Predictions', 'value': 3},
+                    {'label': 'Target Pricing', 'value': 4},
+                ],
+                value=3,
+                id='tabs',
+                vertical=vertical,
+                style={
+                    'borderRight': 'thin lightgrey solid',
+                    'textAlign': 'left'
+                }
+            ),
+
             html.Label('Dropdown'),
             dcc.Dropdown(
                 options=[

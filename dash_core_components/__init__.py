@@ -3,6 +3,8 @@ import dash as _dash
 import sys as _sys
 from .version import __version__
 
+npm_package_version = '0.13.0-rc8'
+
 _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
 _components = _dash.development.component_loader.load_components(
@@ -21,9 +23,9 @@ _js_dist = [
     {
         "relative_package_path": "bundle.js",
         "external_url": (
-            "https://unpkg.com/dash-core-components@0.13.0-rc3"
+            "https://unpkg.com/dash-core-components@{}"
             "/dash_core_components/bundle.js"
-        ),
+        ).format(npm_package_version),
         "namespace": "dash_core_components"
     }
 ]
@@ -42,7 +44,7 @@ _css_dist = [
             "https://unpkg.com/react-virtualized@9.9.0/styles.css",
             "https://unpkg.com/react-virtualized-select@3.1.0/styles.css",
             "https://unpkg.com/rc-slider@6.1.2/assets/index.css",
-            "https://unpkg.com/dash-core-components@{}/dash_core_components/react-dates@12.3.0.css".format(__version__)
+            "https://unpkg.com/dash-core-components@{}/dash_core_components/react-dates@12.3.0.css".format(npm_package_version)
         ],
         "namespace": "dash_core_components"
     }

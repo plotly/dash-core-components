@@ -2345,6 +2345,66 @@
       }
     }
   },
+  "src/components/Tabs.react.js": {
+    "description": "",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Style object to be merged in with the parent level tabs"
+      },
+      "tabs": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "label": {
+                "name": "string",
+                "description": "The checkbox's label",
+                "required": false
+              },
+              "value": {
+                "name": "string",
+                "description": "The value of the checkbox. This value\ncorresponds to the items specified in the\n`values` property.",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "An array of options"
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The currently selected tab"
+      },
+      "vertical": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether or not the tabs are rendered vertically",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    }
+  },
   "src/components/Textarea.react.js": {
     "description": "A basic HTML textarea for entering multiline text.",
     "methods": [],
