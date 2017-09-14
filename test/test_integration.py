@@ -59,6 +59,12 @@ class Tests(IntegrationTests):
 
         filepath = os.path.join(os.getcwd(), 'test', 'upload-assets', filename)
 
+        pre_style = {
+            'whiteSpace': 'pre-wrap',
+            'wordBreak': 'break-all',
+            'whiteSpace': 'normal'
+        }
+
         app.layout = html.Div([
             html.Div(filepath, id='waitfor'),
             html.Div(
@@ -96,7 +102,7 @@ class Tests(IntegrationTests):
                         dt.DataTable(rows=df.to_dict('records')),
                         html.Hr(),
                         html.Div('Raw Content'),
-                        html.Pre(contents)
+                        html.Pre(contents, style=pre_style)
                     ])
                 elif 'spreadsheet' in content_type:
                     df = pd.read_excel(io.BytesIO(base64.b64decode(
@@ -105,20 +111,20 @@ class Tests(IntegrationTests):
                         dt.DataTable(rows=df.to_dict('records')),
                         html.Hr(),
                         html.Div('Raw Content'),
-                        html.Pre(contents)
+                        html.Pre(contents, style=pre_style)
                     ])
                 elif 'image' in content_type:
                     return html.Div([
                         html.Img(src=contents),
                         html.Hr(),
                         html.Div('Raw Content'),
-                        html.Pre(contents)
+                        html.Pre(contents, style=pre_style)
                     ])
                 else:
                     return html.Div([
                         html.Hr(),
                         html.Div('Raw Content'),
-                        html.Pre(contents)
+                        html.Pre(contents, style=pre_style)
                     ])
 
         self.startServer(app)
