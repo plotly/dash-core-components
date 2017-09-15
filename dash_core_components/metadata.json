@@ -2308,6 +2308,13 @@
         "required": false,
         "description": ""
       },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Style object to be merged in with the parent level tabs"
+      },
       "tabs": {
         "type": {
           "name": "arrayOf",
@@ -2336,6 +2343,17 @@
         },
         "required": false,
         "description": "The currently selected tab"
+      },
+      "vertical": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether or not the tabs are rendered vertically",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       }
     }
   },
