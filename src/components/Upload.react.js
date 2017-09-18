@@ -4,6 +4,44 @@ import Dropzone from 'react-dropzone';
 export default class Upload extends Component {
     constructor() {
         super();
+        this.onDrop = this.onDrop.bind(this);
+    }
+
+    onDrop(files) {
+        const {multiple, setProps} = this.props;
+        const newProps = {
+            contents: [],
+            filename: [],
+            last_modified: []
+        }
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                if (setProps) {
+                    /*
+                    * I'm not sure if reader.onload will be executed in order.
+                    * For example, if the 1st file is larger than the 2nd one,
+                    * the 2nd file might load first.
+                    */
+                    newProps.contents.push(reader.result);
+                    newProps.filename.push(file.name);
+                    newProps.last_modified.push(file.lastModified / 1000);
+                    if (newProps.contents.length == files.length) {
+                        if (multiple) {
+                            setProps(newProps);
+                        } else {
+                            setProps({
+                                contents: newProps.contents[0],
+                                filename: newProps.filename[0],
+                                last_modified: newProps.last_modified[0]
+                            });
+                        }
+                    }
+                }
+            }
+            reader.readAsDataURL(file);
+        })
+
     }
 
     render() {
@@ -22,20 +60,11 @@ export default class Upload extends Component {
             style,
             style_active,
             style_reject,
-            style_disabled,
-            setProps
+            style_disabled
         } = this.props;
         return (
             <Dropzone
-                onDrop={ (files) => {
-                    const file = files[0];
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        window.result = reader.result;
-                        if (setProps) setProps({contents: reader.result});
-                    }
-                    reader.readAsDataURL(file);
-                }}
+                onDrop={this.onDrop}
 
                 accept={accept}
                 disabled={disabled}
@@ -75,10 +104,43 @@ Upload.propTypes = {
         PropTypes.string,
 
         /**
-         * If `multiple` is `true`, then the contents will be an array of strings
+         * If `multiple` is `true`, then the contents will be a list of strings
          */
         PropTypes.arrayOf(PropTypes.string)
     ]),
+
+    /**
+     * The name of the file(s) that was(were) uploaded.
+     * Note that this does not include the path of the file
+     * (for security reasons).
+     */
+    filename: PropTypes.oneOfType([
+        /**
+         * If `multiple` is `false`, then the contents will be a string
+         */
+        PropTypes.string,
+
+        /**
+         * If `multiple` is `true`, then the contents will be a list of strings
+         */
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
+
+    /**
+     * The last modified date of the file that was uploaded in unix time
+     * (seconds since 1970).
+     */
+     last_modified: PropTypes.oneOfType([
+         /**
+          * If `multiple` is `false`, then the contents will be a number
+          */
+         PropTypes.number,
+
+         /**
+          * If `multiple` is `true`, then the contents will be a list of numbers
+          */
+         PropTypes.arrayOf(PropTypes.number)
+     ]),
 
     /**
      * Contents of the upload component

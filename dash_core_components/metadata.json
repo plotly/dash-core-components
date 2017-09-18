@@ -2522,7 +2522,20 @@
   },
   "src/components/Upload.react.js": {
     "description": "",
-    "methods": [],
+    "methods": [
+      {
+        "name": "onDrop",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "files",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {
@@ -2548,6 +2561,42 @@
         },
         "required": false,
         "description": "The contents of the uploaded file as a binary string"
+      },
+      "filename": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          ]
+        },
+        "required": false,
+        "description": "The name of the file(s) that was(were) uploaded.\nNote that this does not include the path of the file\n(for security reasons)."
+      },
+      "last_modified": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "number"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "number"
+              }
+            }
+          ]
+        },
+        "required": false,
+        "description": "The last modified date of the file that was uploaded in unix time\n(seconds since 1970)."
       },
       "children": {
         "type": {
