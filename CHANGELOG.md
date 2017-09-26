@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.0rc8] - 2017-09-13
+### :sparkles: Added
+- `Tabs` component
+- Included fixes from 0.12.7
+
 ## [0.13.0rc3] - 2017-09-13
 ### :sparkles: Added
 - `Upload` component: Set `content` as a base64 encoded `DataURL` string.

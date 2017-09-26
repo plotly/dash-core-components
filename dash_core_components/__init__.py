@@ -3,7 +3,7 @@ import dash as _dash
 import sys as _sys
 from .version import __version__
 
-npm_package_version = '0.13.0-rc7'
+npm_package_version = '0.13.0-rc8'
 
 _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
