@@ -16,7 +16,7 @@
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents  
 
-checklist <- function(id = NULL, options = list(), values = NULL, className = NULL, style = NULL, inputStyle = list(), inputClassName = '', labelStyle = list(), labelClassName = '', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+core_checklist <- function(id = NULL, options = list(), values = NULL, className = NULL, style = NULL, inputStyle = list(), inputClassName = '', labelStyle = list(), labelClassName = '', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -100,7 +100,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents Dash-assigned callback that gets fired when the value changes. 
 
-datepickerrange <- function(id = NULL, start_date = NULL, end_date = NULL, min_date_allowed = NULL, max_date_allowed = NULL, initial_visible_month = NULL, start_date_placeholder_text = NULL, end_date_placeholder_text = NULL, day_size = 39, calendar_orientation = 'horizontal', is_RTL = FALSE, reopen_calendar_on_clear = FALSE, number_of_months_shown = 1, with_portal = FALSE, with_full_screen_portal = FALSE, first_day_of_week = 0, minimum_nights = NULL, stay_open_on_select = FALSE, show_outside_days = NULL, month_format = NULL, display_format = NULL, disabled = FALSE, clearable = FALSE, setProps = NULL, dashEvents = NULL) {
+core_datepickerrange <- function(id = NULL, start_date = NULL, end_date = NULL, min_date_allowed = NULL, max_date_allowed = NULL, initial_visible_month = NULL, start_date_placeholder_text = NULL, end_date_placeholder_text = NULL, day_size = 39, calendar_orientation = 'horizontal', is_RTL = FALSE, reopen_calendar_on_clear = FALSE, number_of_months_shown = 1, with_portal = FALSE, with_full_screen_portal = FALSE, first_day_of_week = 0, minimum_nights = NULL, stay_open_on_select = FALSE, show_outside_days = NULL, month_format = NULL, display_format = NULL, disabled = FALSE, clearable = FALSE, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -194,7 +194,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents Dash-assigned callback that gets fired when the value changes. 
 
-datepickersingle <- function(id = NULL, date = NULL, min_date_allowed = NULL, max_date_allowed = NULL, initial_visible_month = NULL, day_size = 39, calendar_orientation = 'horizontal', is_RTL = FALSE, placeholder = NULL, reopen_calendar_on_clear = FALSE, number_of_months_shown = 1, with_portal = FALSE, with_full_screen_portal = FALSE, first_day_of_week = 0, stay_open_on_select = FALSE, show_outside_days = TRUE, month_format = NULL, display_format = NULL, disabled = FALSE, clearable = FALSE, setProps = NULL, dashEvents = NULL) {
+core_datepickersingle <- function(id = NULL, date = NULL, min_date_allowed = NULL, max_date_allowed = NULL, initial_visible_month = NULL, day_size = 39, calendar_orientation = 'horizontal', is_RTL = FALSE, placeholder = NULL, reopen_calendar_on_clear = FALSE, number_of_months_shown = 1, with_portal = FALSE, with_full_screen_portal = FALSE, first_day_of_week = 0, stay_open_on_select = FALSE, show_outside_days = TRUE, month_format = NULL, display_format = NULL, disabled = FALSE, clearable = FALSE, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -274,7 +274,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash-assigned callback that gets fired when the input changes 
 #' @param dashEvents  
 
-dropdown <- function(id = NULL, options = NULL, value = NULL, className = NULL, clearable = TRUE, disabled = FALSE, multi = FALSE, placeholder = NULL, searchable = TRUE, setProps = NULL, dashEvents = NULL) {
+core_dropdown <- function(id = NULL, options = NULL, value = NULL, className = NULL, clearable = TRUE, disabled = FALSE, multi = FALSE, placeholder = NULL, searchable = TRUE, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -347,7 +347,7 @@ assert_no_names <- function(x) {
 #' @param setProps Function that updates the state tree. 
 #' @param dashFireEvent Function that fires events 
 
-graph <- function(id = NULL, clickData = NULL, hoverData = NULL, clear_on_unhover = FALSE, selectedData = NULL, relayoutData = NULL, figure = list(data = list(), layout = list()), style = NULL, className = NULL, animate = FALSE, animation_options = list(frame = list(redraw = FALSE), transition = list(duration = 750, ease = "cubic-in-out")), config = list(staticPlot = FALSE, editable = FALSE, edits = list(annotationPosition = FALSE, annotationTail = FALSE, annotationText = FALSE, axisTitleText = FALSE, colorbarPosition = FALSE, colorbarTitleText = FALSE, legendPosition = FALSE, legendText = FALSE, shapePosition = FALSE, titleText = FALSE), autosizable = FALSE, queueLength = 0, fillFrame = FALSE, frameMargins = 0, scrollZoom = FALSE, doubleClick = "reset+autosize", showTips = TRUE, showAxisDragHandles = TRUE, showAxisRangeEntryBoxes = TRUE, showLink = FALSE, 
+core_graph <- function(id = NULL, clickData = NULL, hoverData = NULL, clear_on_unhover = FALSE, selectedData = NULL, relayoutData = NULL, figure = list(data = list(), layout = list()), style = NULL, className = NULL, animate = FALSE, animation_options = list(frame = list(redraw = FALSE), transition = list(duration = 750, ease = "cubic-in-out")), config = list(staticPlot = FALSE, editable = FALSE, edits = list(annotationPosition = FALSE, annotationTail = FALSE, annotationText = FALSE, axisTitleText = FALSE, colorbarPosition = FALSE, colorbarTitleText = FALSE, legendPosition = FALSE, legendText = FALSE, shapePosition = FALSE, titleText = FALSE), autosizable = FALSE, queueLength = 0, fillFrame = FALSE, frameMargins = 0, scrollZoom = FALSE, doubleClick = "reset+autosize", showTips = TRUE, showAxisDragHandles = TRUE, showAxisRangeEntryBoxes = TRUE, showLink = FALSE, 
     sendData = TRUE, linkText = "Edit chart", showSources = FALSE, displayModeBar = "hover", modeBarButtonsToRemove = list(), modeBarButtonsToAdd = list(), modeBarButtons = FALSE, displaylogo = TRUE, plotGlPixelRatio = 2, topojsonURL = "https://cdn.plot.ly/", mapboxAccessToken = NULL), dashEvents = NULL, setProps = NULL, dashFireEvent = NULL) {
 
 component <- list(
@@ -438,7 +438,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents  
 
-input <- function(id = NULL, value = NULL, style = NULL, className = NULL, type = NULL, autocomplete = NULL, autofocus = NULL, inputmode = NULL, list = NULL, max = NULL, maxlength = NULL, min = NULL, minlength = NULL, multiple = NULL, name = NULL, pattern = NULL, placeholder = NULL, readonly = NULL, required = NULL, selectionDirection = NULL, selectionEnd = NULL, selectionStart = NULL, size = NULL, spellcheck = NULL, step = NULL, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+core_input <- function(id = NULL, value = NULL, style = NULL, className = NULL, type = NULL, autocomplete = NULL, autofocus = NULL, inputmode = NULL, list = NULL, max = NULL, maxlength = NULL, min = NULL, minlength = NULL, multiple = NULL, name = NULL, pattern = NULL, placeholder = NULL, readonly = NULL, required = NULL, selectionDirection = NULL, selectionEnd = NULL, selectionStart = NULL, size = NULL, spellcheck = NULL, step = NULL, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -519,7 +519,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash assigned callback 
 #' @param dashEvents  
 
-interval <- function(id = NULL, interval = 1000, disabled = NULL, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+core_interval <- function(id = NULL, interval = 1000, disabled = NULL, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -578,7 +578,7 @@ assert_no_names <- function(x) {
 #' @param style  
 #' @param id  
 
-link <- function(..., href = NULL, refresh = FALSE, className = NULL, style = NULL, id = NULL) {
+core_link <- function(..., href = NULL, refresh = FALSE, className = NULL, style = NULL, id = NULL) {
 
 component <- list(
   props = list(
@@ -633,7 +633,7 @@ assert_no_names <- function(x) {
 #' @param pathname  
 #' @param refresh  
 
-location <- function(id = NULL, pathname = NULL, refresh = TRUE) {
+core_location <- function(id = NULL, pathname = NULL, refresh = TRUE) {
 
 component <- list(
   props = list(
@@ -687,7 +687,7 @@ assert_no_names <- function(x) {
 #' @param className Class name of the container element 
 #' @param containerProps An object containing custom element props to put on the container element such as id or style 
 
-markdown <- function(..., id = NULL, className = NULL, containerProps = NULL) {
+core_markdown <- function(..., id = NULL, className = NULL, containerProps = NULL) {
 
 component <- list(
   props = list(
@@ -749,7 +749,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents  
 
-radioitems <- function(id = NULL, options = list(), value = NULL, style = NULL, className = NULL, inputStyle = list(), inputClassName = '', labelStyle = list(), labelClassName = '', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+core_radioitems <- function(id = NULL, options = list(), value = NULL, style = NULL, className = NULL, inputStyle = list(), inputClassName = '', labelStyle = list(), labelClassName = '', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -826,7 +826,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents  
 
-rangeslider <- function(id = NULL, marks = NULL, value = NULL, allowCross = NULL, className = NULL, count = NULL, disabled = NULL, dots = NULL, included = NULL, min = NULL, max = NULL, pushable = NULL, step = NULL, vertical = NULL, updatemode = 'mouseup', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+core_rangeslider <- function(id = NULL, marks = NULL, value = NULL, allowCross = NULL, className = NULL, count = NULL, disabled = NULL, dots = NULL, included = NULL, min = NULL, max = NULL, pushable = NULL, step = NULL, vertical = NULL, updatemode = 'mouseup', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -906,7 +906,7 @@ assert_no_names <- function(x) {
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents  
 
-slider <- function(id = NULL, marks = NULL, value = NULL, className = NULL, disabled = NULL, dots = NULL, included = NULL, min = NULL, max = NULL, step = NULL, vertical = NULL, updatemode = 'mouseup', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+core_slider <- function(id = NULL, marks = NULL, value = NULL, className = NULL, disabled = NULL, dots = NULL, included = NULL, min = NULL, max = NULL, step = NULL, vertical = NULL, updatemode = 'mouseup', fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -981,7 +981,7 @@ assert_no_names <- function(x) {
 #' @param wrapLines a boolean value that determines whether or not each line of code should be wrapped in a parent element. defaults to false, when false one can not take action on an element on the line level. You can see an example of what this enables here 
 #' @param lineStyle inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object. 
 
-syntaxhighlighter <- function(..., id = NULL, language = NULL, theme = NULL, customStyle = NULL, codeTagProps = NULL, useInlineStyles = NULL, showLineNumbers = NULL, startingLineNumber = NULL, lineNumberContainerStyle = NULL, lineNumberStyle = NULL, wrapLines = NULL, lineStyle = NULL) {
+core_syntaxhighlighter <- function(..., id = NULL, language = NULL, theme = NULL, customStyle = NULL, codeTagProps = NULL, useInlineStyles = NULL, showLineNumbers = NULL, startingLineNumber = NULL, lineNumberContainerStyle = NULL, lineNumberStyle = NULL, wrapLines = NULL, lineStyle = NULL) {
 
 component <- list(
   props = list(
@@ -1069,7 +1069,7 @@ assert_no_names <- function(x) {
 #' @param fireEvent A callback for firing events to dash. 
 #' @param dashEvents  
 
-textarea <- function(id = NULL, value = NULL, autoFocus = NULL, cols = NULL, disabled = NULL, form = NULL, maxLength = NULL, minLength = NULL, name = NULL, placeholder = NULL, readOnly = NULL, required = NULL, rows = NULL, wrap = NULL, accessKey = NULL, className = NULL, contentEditable = NULL, contextMenu = NULL, dir = NULL, draggable = NULL, hidden = NULL, lang = NULL, spellCheck = NULL, style = NULL, tabIndex = NULL, title = NULL, setProps = NULL, fireEvent = NULL, dashEvents = NULL) {
+core_textarea <- function(id = NULL, value = NULL, autoFocus = NULL, cols = NULL, disabled = NULL, form = NULL, maxLength = NULL, minLength = NULL, name = NULL, placeholder = NULL, readOnly = NULL, required = NULL, rows = NULL, wrap = NULL, accessKey = NULL, className = NULL, contentEditable = NULL, contextMenu = NULL, dir = NULL, draggable = NULL, hidden = NULL, lang = NULL, spellCheck = NULL, style = NULL, tabIndex = NULL, title = NULL, setProps = NULL, fireEvent = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
