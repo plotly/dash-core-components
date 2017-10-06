@@ -7,7 +7,7 @@ Core component suite for Dash
 dashCoreComponents is not yet available on CRAN, but you can install with:
 
 ```r
-remotes::install_github("plotly/dashCoreComponents")
+remotes::install_github("plotly/dash-core-components")
 ```
 
 ## Usage
