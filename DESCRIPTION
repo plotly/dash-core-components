@@ -1,0 +1,16 @@
+Package: dashCoreComponents
+Title: Core component suite for Dash
+Version: 0.0.1
+Authors@R: c(
+  person(family = "plotly", role = c("aut", "cre"), email = "chris@plot.ly"),
+  person("Carson", "Sievert", role = "aut"))
+Description: Core component suite for Dash
+Suggests: 
+	testthat,
+	roxygen2
+License: MIT + file LICENSE
+URL: https://github.com/plotly/dash-core-components
+BugReports: https://github.com/plotly/dash-core-components/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

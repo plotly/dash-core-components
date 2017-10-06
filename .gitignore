@@ -1,10 +1,11 @@
 build/
+coverage/
 dist/
 lib/
 lib/bundle.js*
-coverage/
-dash_core_components/bundle.js*
 node_modules/
+dash_core_components/metadata.json
+dash_core_components/bundle.js*
 .npm
 vv/
 venv/
@@ -12,5 +13,3 @@ venv/
 *.egg-info
 *.log
 .DS_Store
-
-bundle.js

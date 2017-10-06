@@ -12,14 +12,17 @@
     "build-dist": "builder run clean-lib && builder run extract-metadata && NODE_ENV=production webpack --config=./config/webpack/webpack.config.dist.js",
     "copy-lib": "cp lib/* dash_core_components",
     "install-local": "npm run copy-lib && python setup.py install",
+    "install-local-r": "npm run copy-lib && Rscript inst/transpile.R && Rscript -e 'roxygen2::roxygenise()' && R CMD install .",
     "prepublish": "npm test && builder run build-dist && npm run copy-lib",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist && twine upload --sign --skip-existing",
+    "publish-cran": "npm run prepublish &&  Rscript -e 'devtools::release()'",
     "start": "./node_modules/.bin/builder run build-dev",
     "test": "./node_modules/.bin/eslint --fix --ignore-path .gitignore --ext *.js src",
     "test-watch": "./node_modules/.bin/builder run test-frontend-watch",
     "test-debug": "./node_modules/.bin/builder run test-frontend-debug",
-    "uninstall-local": "pip uninstall dash-core-components -y"
+    "uninstall-local": "pip uninstall dash-core-components -y",
+    "uninstall-local-r": "Rscript -e \"utils::remove.packages(read.dcf('DESCRIPTION')[, 'Package'])\""
   },
   "author": "Chris Parmer <chris@plot.ly>",
   "license": "MIT",
