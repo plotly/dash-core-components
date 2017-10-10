@@ -1,1 +1,1 @@
-/Users/cpsievert/github/dash-core-components/dash_core_components/bundle.js
+dash_core_components/bundle.js
