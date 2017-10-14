@@ -3,6 +3,18 @@ import React, {Component, PropTypes} from 'react';
 import ReactDropdown from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 
+// Custom tokenizer, see https://github.com/bvaughn/js-search/issues/43
+const REGEX = /\s+/; // Split on spaces
+const TOKENIZER = {
+  tokenize(text) {
+    return text
+      .split(REGEX)
+      .filter(
+        (text) => text // Filter empty tokens
+      );
+  }
+}
+
 const DELIMETER = ',';
 
 /**
@@ -20,7 +32,10 @@ export default class Dropdown extends Component {
         super(props);
         this.state = {
             value: props.value,
-            filterOptions: createFilterOptions({options: props.options})
+            filterOptions: createFilterOptions({
+                options: props.options,
+                tokenizer: TOKENIZER
+            })
         };
     }
 
@@ -28,7 +43,10 @@ export default class Dropdown extends Component {
         this.setState({value: newProps.value});
         if (newProps.options !== this.props.options) {
             this.setState({
-                filterOptions: createFilterOptions({options: newProps.options})
+                filterOptions: createFilterOptions({
+                    options: newProps.options,
+                    tokenizer: TOKENIZER
+                })
             });
         }
     }

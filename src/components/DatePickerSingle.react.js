@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-import { SingleDatePicker } from 'react-dates';
+import {SingleDatePicker} from 'react-dates';
 import moment from 'moment';
+import R from 'ramda';
+import React, {Component, PropTypes} from 'react';
 
 /**
- * DatePickerRange is a tailor made component designed for selecting
+ * DatePickerSingle is a tailor made component designed for selecting
  * a single day off of a calendar.
  *
  * The DatePicker integrates well with the Python datetime module with the
@@ -14,153 +15,121 @@ import moment from 'moment';
  * which can be found here: https://github.com/airbnb/react-dates
  */
 export default class DatePickerSingle extends Component {
-  constructor(props) {
-    super(props);
-    const propObj = {
-      date: this.props.date,
-      initialVisibleMonth: this.props.initial_visible_month,
-      minDateAllowed: this.props.min_date_allowed,
-      maxDateAllowed: this.props.max_date_allowed
-    };
-    const momentProps = this.convertPropsToMoment(propObj);
-    this.state = {
-      date: momentProps.date,
-      focused: props.autoFocus,
-      initialVisibleMonth: momentProps.initialVisibleMonth,
-      minDateAllowed: momentProps.min,
-      maxDateAllowed: momentProps.max,
-      prevInitialVisibleMonth: props.initial_visible_month,
-      prevMinDateAllowed: props.min_date_allowed,
-      prevMaxDateAllowed: props.max_date_allowed
-    };
-  }
-
-  convertPropsToMoment(props) {
-    let date = null;
-    let initialVisibleMonth = moment(props.date);
-    if (typeof props.date !== 'undefined') {
-      date = moment(props.date);
+    constructor() {
+        super();
+        this.propsToState = this.propsToState.bind(this);
+        this.isOutsideRange = this.isOutsideRange.bind(this);
+        this.onDateChange = this.onDateChange.bind(this);
     }
 
-    if (typeof props.initialVisibleMonth !== 'undefined') {
-      initialVisibleMonth = moment(props.initialVisibleMonth);
-    }
-
-    let min; let max;
-    if (typeof props.minDateAllowed !== 'undefined') {
-      min = moment(props.minDateAllowed);
-    }
-
-    if (typeof props.maxDateAllowed !== 'undefined') {
-      max = moment(props.maxDateAllowed);
-      max.add(1, 'days');
-    }
-
-    return { date, initialVisibleMonth, min, max };
-  }
-
-  componentWillReceiveProps(newProps) {
-    const propObj = {
-      date: newProps.date,
-      initialVisibleMonth: newProps.initial_visible_month,
-      minDateAllowed: newProps.min_date_allowed,
-      maxDateAllowed: newProps.max_date_allowed
-    };
-    const momentProps = this.convertPropsToMoment(propObj);
-    if (this.state.date !== momentProps.date) {
-      this.setState({ date: momentProps.date });
-    }
-
-    if (this.state.prevInitialVisibleMonth !== newProps.initial_visible_month) {
-      this.setState({
-          prevInitialVisibleMonth: newProps.initial_visible_month,
-          initialVisibleMonth: momentProps.initialVisibleMonth
-        });
-    }
-
-    if (this.state.prevMinDateAllowed !== newProps.min_date_allowed) {
-      this.setState({
-        prevMinDateAllowed: newProps.min_date_allowed,
-        minDateAllowed: momentProps.minDateAllowed
-      });
-    }
-
-    if (this.state.prevMaxDateAllowed !== newProps.max_date_allowed) {
-      this.setState({
-        prevMaxDateAllowed: newProps.max_date_allowed,
-        maxDateAllowed: momentProps.maxDateAllowed
-      });
-    }
-  }
-
-  render() {
-    const { setProps, fireEvent } = this.props;
-    let verticalFlag = true;
-    if (this.props.calendar_orientation === 'vertical') {
-      verticalFlag = false;
-    }
-
-    return (
-      <SingleDatePicker
-        date={this.state.date}
-        onDateChange={(date) => {
-            this.setState({ date });
-            if (date !== null) {
-              const dateStr = date.format('YYYY-MM-DD');
-              if (setProps) {
-                setProps({
-                  date: dateStr
-                });
-              }
-              if (fireEvent) {
-                fireEvent('change');
-              }
+    propsToState(newProps) {
+        /*
+         * state includes:
+         * - user modifiable attributes
+         * - moment converted attributes
+         */
+        const newState = {};
+        const momentProps = [
+            'date',
+            'initial_visible_month',
+            'max_date_allowed',
+            'min_date_allowed'
+        ]
+        momentProps.forEach(prop => {
+            if (R.type(newProps[prop]) !== 'Undefined') {
+                newState[prop] = moment(newProps[prop]);
             }
-          }
+            if (prop === 'max_date_allowed' && R.has(prop, newState)) {
+                newState[prop].add(1, 'days');
+            }
+        });
+        this.setState(newState);
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.propsToState(newProps)
+    }
+
+    componentWillMount() {
+        this.propsToState(this.props);
+    }
+
+    isOutsideRange(date) {
+        const {min_date_allowed, max_date_allowed} = this.state;
+        const notUndefined = R.complement(R.pipe(R.type, R.equals('Undefined')));
+        return (
+            (notUndefined(min_date_allowed) && date < min_date_allowed) ||
+            (notUndefined(max_date_allowed) && date >= max_date_allowed)
+        );
+    }
+
+
+    onDateChange(date) {
+        const {setProps, fireEvent} = this.props;
+        if (setProps && date !== null) {
+            setProps({date: date.format('YYYY-MM-DD')});
+        } else {
+            this.setState({date});
         }
-        focused={this.state.focused}
-        onFocusChange={({ focused }) => this.setState({ focused })}
-        initialVisibleMonth={() => {
-          if (this.state.date !== null) {
-            return this.state.date;
-          } else {
-            return this.state.initialVisibleMonth;
-          }
+        if (fireEvent) {
+            fireEvent('change');
         }
-        }
-        isOutsideRange={(date) => {
-          if (typeof this.state.minDateAllowed !== 'undefined' &&
-              typeof this.state.maxDateAllowed !== 'undefined') {
-            return date < this.state.minDateAllowed || date >= this.state.maxDateAllowed;
-          } else if (typeof this.state.minDateAllowed === 'undefined' &&
-                     typeof this.state.maxDateAllowed !== 'undefined') {
-            return date >= this.state.maxDateAllowed;
-          } else if (typeof this.state.minDateAllowed !== 'undefined' &&
-                     typeof this.state.maxDateAllowed === 'undefined') {
-            return date < this.state.minDateAllowed;
-          } else {
-            return false;
-          }
-        }
-        }
-        numberOfMonths={this.props.number_of_months_shown}
-        withPortal={this.props.with_portal && verticalFlag}
-        withFullScreenPortal={this.props.with_full_screen_portal && verticalFlag}
-        firstDayOfWeek={this.props.first_day_of_week}
-        enableOutSideDays={this.props.show_outside_days}
-        monthFormat={this.props.month_format}
-        displayFormat={this.props.display_format}
-        placeholder={this.props.placeholder}
-        showClearDate={this.props.clearable}
-        disabled={this.props.disabled}
-        keepOpenOnDateSelect={this.props.stay_open_on_select}
-        reopenPickerOnClearDates={this.props.reopen_calendar_on_clear}
-        isRTL={this.props.is_RTL}
-        orientation={this.props.calendar_orientation}
-        daySize={this.props.day_size}
-      />
-    );
-  }
+    }
+
+    render() {
+        const {
+            date,
+            focused,
+            initial_visible_month
+        } = this.state;
+
+        const {
+            calendar_orientation,
+            clearable,
+            day_size,
+            disabled,
+            display_format,
+            first_day_of_week,
+            is_RTL,
+            month_format,
+            number_of_months_shown,
+            placeholder,
+            reopen_calendar_on_clear,
+            show_outside_days,
+            stay_open_on_select,
+            with_full_screen_portal,
+            with_portal
+        } = this.props;
+
+        const verticalFlag = (calendar_orientation !== 'vertical');
+
+        return (
+            <SingleDatePicker
+                date={date}
+                onDateChange={this.onDateChange}
+                focused={focused}
+                onFocusChange={({focused}) => this.setState({focused})}
+                initialVisibleMonth={() => date || initial_visible_month}
+                isOutsideRange={this.isOutsideRange}
+                numberOfMonths={number_of_months_shown}
+                withPortal={with_portal && verticalFlag}
+                withFullScreenPortal={with_full_screen_portal && verticalFlag}
+                firstDayOfWeek={first_day_of_week}
+                enableOutSideDays={show_outside_days}
+
+                monthFormat={month_format}
+                displayFormat={display_format}
+                placeholder={placeholder}
+                showClearDate={clearable}
+                disabled={disabled}
+                keepOpenOnDateSelect={stay_open_on_select}
+                reopenPickerOnClearDates={reopen_calendar_on_clear}
+                isRTL={is_RTL}
+                orientation={calendar_orientation}
+                daySize={day_size}
+            />
+        );
+    }
 }
 
 DatePickerSingle.propTypes = {
@@ -283,11 +252,11 @@ DatePickerSingle.propTypes = {
     */
     disabled: PropTypes.bool,
 
-   /**
-   * Whether or not the dropdown is "clearable", that is, whether or
-   * not a small "x" appears on the right of the dropdown that removes
-   * the selected value.
-   */
+     /**
+     * Whether or not the dropdown is "clearable", that is, whether or
+     * not a small "x" appears on the right of the dropdown that removes
+     * the selected value.
+     */
     clearable: PropTypes.bool,
 
     /**
@@ -299,19 +268,19 @@ DatePickerSingle.propTypes = {
     * Dash-assigned callback that gets fired when the value changes.
     */
     dashEvents: PropTypes.oneOf(['change'])
-  };
+    };
 
 DatePickerSingle.defaultProps = {
-  calendar_orientation: 'horizontal',
-  is_RTL: false,
-  day_size: 39,
-  with_portal: false,
-  with_full_screen_portal: false,
-  show_outside_days: true,
-  first_day_of_week: 0,
-  number_of_months_shown: 1,
-  stay_open_on_select: false,
-  reopen_calendar_on_clear: false,
-  clearable: false,
-  disabled: false
+    calendar_orientation: 'horizontal',
+    is_RTL: false,
+    day_size: 39,
+    with_portal: false,
+    with_full_screen_portal: false,
+    show_outside_days: true,
+    first_day_of_week: 0,
+    number_of_months_shown: 1,
+    stay_open_on_select: false,
+    reopen_calendar_on_clear: false,
+    clearable: false,
+    disabled: false
 };
