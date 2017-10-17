@@ -1,3 +1,4 @@
+/* global window:true */
 import R from 'ramda';
 import React, {PropTypes} from 'react';
 
@@ -42,7 +43,7 @@ function Tab(props) {
 
     return (
         <div style={style} onClick={props.onClick} key={props.value}>
-            {props.label}
+            {props.render(props.label)}
 
             {props.isSelected && !props.vertical ? <div style={{
                 'position': 'absolute',
@@ -72,6 +73,7 @@ function Tab(props) {
 
 
 function Tabs(props) {
+    window.tabsProps = props;
     return (
         <div>
             <div style={R.merge({
@@ -86,7 +88,8 @@ function Tabs(props) {
                         onClick: () => props.setProps({value: t.value}),
                         isSelected: t.value === props.value,
                         nTabs: props.tabs.length,
-                        vertical: props.vertical
+                        vertical: props.vertical,
+                        render: props.render
                     }));
                 })}
             </div>
