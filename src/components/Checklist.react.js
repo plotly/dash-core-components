@@ -59,6 +59,7 @@ export default class Checklist extends Component {
                             }}
                         />
                         {option.label}
+                        {option.children}
                     </label>
                 ))}
             </div>
@@ -88,7 +89,13 @@ Checklist.propTypes = {
         /**
          * If true, this checkbox is disabled and can't be clicked on.
          */
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+
+
+        /**
+         * Optinal wrapped components within this option
+         */
+        children: PropTypes.node
     }),
 
     /**

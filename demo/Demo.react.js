@@ -299,6 +299,48 @@ class Controller extends Component {
 ReactDOM.render(<Controller/>, mountNode);`
 
 
+const ChecklistContainerExample = `
+const applesDescription = (<div style={{marginLeft: '20px', marginBottom: '20px'}}>
+                                <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Apples.jpg/97px-Apples.jpg" alt="Apples.jpg" /></p>
+                                <p>This option selects the best and most fancy apples in the world</p>
+                            </div>);
+
+const orangesDescription = (<p style={{marginLeft: '15px'}}>There is no oranges available. Please come back in oranges season.</p>);
+
+const properties = {
+    id: 'my checklist',
+    labelStyle: {'display': 'block'},
+    disabled: false,
+    options: [
+        {'label': 'Melons', 'value': 'melons', 'disabled': false},
+        {'label': 'Apples', 'value': 'apples', 'children': [applesDescription]},
+        {'label': 'Oranges', 'value': 'oranges', 'disabled': true, 'children': [orangesDescription]}
+    ]
+};
+
+class Controller extends Component {
+    constructor() {
+        super();
+        this.state = {
+            values: ['melons', 'apples']
+        };
+    }
+
+    render() {
+        return (<Checklist
+            setProps={(props) => {
+                this.setState(props);
+            }}
+            fireEvent={event => console.warn(event)}
+            values={this.state.values}
+            {...properties}
+        />);
+    }
+}
+
+ReactDOM.render(<Controller/>, mountNode);`
+
+
 
 const examples = [
     {name: 'Upload', code: UploadExample},
@@ -308,6 +350,7 @@ const examples = [
     {name: 'SyntaxHighlighter', code: SyntaxHighlighterExample},
     {name: 'Radio', code: RadioExample},
     {name: 'Checklist', code: ChecklistExample},
+    {name: 'Checklist with containers options', code: ChecklistContainerExample},
     {name: 'Dropdown', code: DropdownExample},
     {name: 'Slider', code: SliderExample},
     {name: 'RangeSlider', code: RangeSliderExample},
