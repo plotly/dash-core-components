@@ -268,7 +268,6 @@ const ChecklistExample = `
 const properties = {
     id: 'my checklist',
     labelStyle: {'display': 'block'},
-    disabled: false,
     options: [
         {'label': 'Melons', 'value': 'melons', 'disabled': false},
         {'label': 'Apples', 'value': 'apples'},
@@ -308,13 +307,19 @@ const applesDescription = (<div style={{marginLeft: '20px', marginBottom: '20px'
 const orangesDescription = (<p style={{marginLeft: '15px'}}>There is no oranges available. Please come back in oranges season.</p>);
 
 const properties = {
-    id: 'my checklist',
+    id: 'my container checklist',
     labelStyle: {'display': 'block'},
-    disabled: false,
     options: [
         {'label': 'Melons', 'value': 'melons', 'disabled': false},
-        {'label': 'Apples', 'value': 'apples', 'children': [applesDescription]},
-        {'label': 'Oranges', 'value': 'oranges', 'disabled': true, 'children': [orangesDescription]}
+        {'label': 'Apples', 'value': 'apples',
+            'children': applesDescription,
+            'collapseChildrenButton': true,
+            'initiallyExpanded': false
+            },
+        {'label': 'Oranges', 'value': 'oranges', 'disabled': true,
+        'children': orangesDescription,
+        'collapseChildrenButton': true,
+        'initiallyExpanded': true}
     ]
 };
 

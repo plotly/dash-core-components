@@ -1,4 +1,4 @@
-import {append, contains, merge, without} from 'ramda';
+import {append, contains,  without} from 'ramda';
 import React, {Component, PropTypes} from 'react';
 
 class Checkbox extends Component {
@@ -10,8 +10,8 @@ class Checkbox extends Component {
             this.state = {
                 collapsed: props.initiallyExpanded
             };
+            this.handleCollapseClick = this.handleCollapseClick.bind(this);
         }
-        this.handleCollapseClick = this.handleCollapseClick.bind(this);
       }
 
     handleCollapseClick() {
@@ -24,7 +24,6 @@ class Checkbox extends Component {
             children,
             collapsable,
             disabled,
-            onChange,
             inputClassName,
             inputStyle,
             isChecked,
@@ -34,38 +33,48 @@ class Checkbox extends Component {
             value
         } = this.props;
 
-        const arrow = (
-            <div
-              onClick={this.handleCollapseClick}
-            >
-            '▾'
-            </div>
-        );
 
-        const CollapsableChildren = (
-              <div>
-                {this.state.collapsed ? null : children}
-              </div>
-          );
+        let arrow;
+        let CollapsableChildren;
+
+        if (collapsable) {
+            const collapsed = this.state.collapsed;
+            arrow = (
+                <div
+                    onClick={this.handleCollapseClick}
+                    style={{cursor: 'pointer', marginLeft: '12px'}}
+                    >
+                    {collapsed? '▾' : '▴'}
+                </div>
+            );
+
+            CollapsableChildren = (
+                <div>
+                    {collapsed ? null : children}
+                </div>
+            );
+        }
 
         return (
             <div>
-                <label
-                    key={value}
-                    style={labelStyle}
-                    className={labelClassName}
-                >
-                    <input
-                        checked={isChecked}
-                        className={inputClassName}
-                        disabled={Boolean(disabled)}
-                        style={inputStyle}
-                        type="checkbox"
-                        onChange={onChange(value)}
-                    />
-                    {label}
+                <div style={{display: 'flex'}}>
+                    <label
+                        style={labelStyle}
+                        className={labelClassName}
+                    >
+                        <input
+                            checked={isChecked}
+                            className={inputClassName}
+                            disabled={Boolean(disabled)}
+                            style={inputStyle}
+                            type="checkbox"
+                            onChange={() => this.props.handleOnChange(value)}
+                        />
+                        {label}
+                    </label>
                     {collapsable? arrow : null}
-                </label>
+                    </div>
+
                 {collapsable? CollapsableChildren : children}
             </div>
         );
@@ -99,19 +108,26 @@ Checkbox.propTypes = {
     /**
      * Show a button to show/hide children components of this option
      */
-     collapsable: PropTypes.boolean,
+     collapsable: PropTypes.bool,
 
     /**
      * Change default for the initiallyExpanded to be initially collapsed (hidden)
      */
-     initiallyExpanded: PropTypes.boolean,
+     initiallyExpanded: PropTypes.bool,
 
-     isChecked: PropTypes.function,
-     onChange: PropTypes.function
+     /**
+      * Mark if the input is checked or not
+      */
+     checked: PropTypes.bool,
+
+     /**
+      * Callback to the parent to add or remove this option from the Checklist
+      */
+     handleOnChange: PropTypes.func
 }
 
 Checkbox.defaultProps = {
-    defaultChildrenHidden: false
+    initiallyExpanded: true
 }
 
 /**
@@ -124,6 +140,8 @@ export default class Checklist extends Component {
     constructor(props) {
         super(props);
         this.state = {values: props.values};
+
+        this.handleOnChange = this.handleOnChange.bind(this);
     }
 
     componentWillReceiveProps(newProps) {
@@ -131,7 +149,6 @@ export default class Checklist extends Component {
     }
 
     handleOnChange(value) {
-        const {fireEvent, setProps} = this.props;
         const values = this.state.values;
         let newValues;
         if (contains(value, values)) {
@@ -140,6 +157,8 @@ export default class Checklist extends Component {
             newValues = append(value, values);
         }
         this.setState({values: newValues});
+
+        const {fireEvent, setProps} = this.props;
         if (setProps) setProps({values: newValues});
         if (fireEvent) fireEvent({event: 'change'});
     }
@@ -156,15 +175,20 @@ export default class Checklist extends Component {
 
         return (
             <div id={id} style={style} className={className}>
-                {options.map(option => {
-                    let optionProps = merge(rest, option);
-                    return (<Checkbox
-                            onChange = {this.handleOnChange}
-                            checked = {({value}) => {contains(value, values)}}
+                {options.map(option => (
+                    <Checkbox
+                            handleOnChange = {this.handleOnChange}
+                            checked = {contains(option.value, values)}
                             collapsable = {option.children && option.collapseChildrenButton}
-                            props = {optionProps} />
-                    );
-                }
+                            children = {option.children}
+                            label = {option.label}
+                            value = {option.value}
+                            disabled = {option.disabled}
+                            initiallyExpanded = {option.initiallyExpanded}
+                            key = {option.value}
+                            {...rest}
+                            />
+                    )
                 )}
             </div>
         );
@@ -177,40 +201,42 @@ Checklist.propTypes = {
     /**
      * An array of options
      */
-    options: PropTypes.shape({
-        /**
-         * The checkbox's label
-         */
-        label: PropTypes.string,
+    options: PropTypes.arrayOf(
+        PropTypes.shape({
+            /**
+             * The checkbox's label
+             */
+            label: PropTypes.string,
 
-        /**
-         * The value of the checkbox. This value
-         * corresponds to the items specified in the
-         * `values` property.
-         */
-        value: PropTypes.string,
+            /**
+             * The value of the checkbox. This value
+             * corresponds to the items specified in the
+             * `values` property.
+             */
+            value: PropTypes.string,
 
-        /**
-         * If true, this checkbox is disabled and can't be clicked on.
-         */
-        disabled: PropTypes.bool,
+            /**
+             * If true, this checkbox is disabled and can't be clicked on.
+             */
+            disabled: PropTypes.bool,
 
+            /**
+             * Optinal wrapped components within this option
+             */
+            children: PropTypes.node,
 
-        /**
-         * Optinal wrapped components within this option
-         */
-        children: PropTypes.node,
+            /**
+             * Show a button to show/hide children components of this option
+             */
+             collapseChildrenButton: PropTypes.bool,
 
-        /**
-         * Show a button to show/hide children components of this option
-         */
-         collapseChildrenButton: PropTypes.boolean,
+            /**
+             * Change default for the collapseChildrenButton to be initially hidden
+             */
+             initiallyExpanded: PropTypes.bool
 
-        /**
-         * Change default for the collapseChildrenButton to be initially hidden
-         */
-         initiallyExpanded: PropTypes.boolean
-    }),
+        })
+    ),
 
     /**
      * The currently selected value
