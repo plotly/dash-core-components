@@ -1911,6 +1911,13 @@
         },
         "required": false,
         "description": ""
+      },
+      "render": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback for rendering"
       }
     }
   },

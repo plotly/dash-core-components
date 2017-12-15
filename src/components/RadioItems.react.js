@@ -28,7 +28,8 @@ export default class RadioItems extends Component {
             labelClassName,
             labelStyle,
             options,
-            setProps
+            setProps,
+            render
         } = this.props;
         const {value} = this.state;
 
@@ -52,7 +53,7 @@ export default class RadioItems extends Component {
                                 if (fireEvent) fireEvent({event: 'change'});
                             }}
                         />
-                        {option.label}
+                        {render(option.label)}
                     </label>
                 ))}
             </div>
@@ -134,7 +135,12 @@ RadioItems.propTypes = {
      */
     setProps: PropTypes.func,
 
-    dashEvents: PropTypes.oneOf(['change'])
+    dashEvents: PropTypes.oneOf(['change']),
+
+    /**
+     * Dash-assigned callback for rendering
+     */
+    render: PropTypes.func
 };
 
 RadioItems.defaultProps = {
