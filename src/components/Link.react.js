@@ -8,7 +8,13 @@ export default class Link extends Component {
         this.updateLocation = this.updateLocation.bind(this);
     }
 
-    updateLocation() {
+    updateLocation(e) {
+        /*
+         * since Link is handled by Location, 
+         * prevent the standard browser page update
+         * see https://github.com/plotly/dash-core-components/issues/129
+         */
+        e.preventDefault(); 
         const {href, refresh} = this.props;
         if (refresh) {
             window.location.pathname = href;
@@ -19,7 +25,7 @@ export default class Link extends Component {
     }
 
     render() {
-        const {className, style, id} = this.props;
+        const {className, style, id, href} = this.props;
         /*
          * ideally, we would use cloneElement however
          * that doesn't work with dash's recursive
@@ -30,6 +36,7 @@ export default class Link extends Component {
                className={className}
                style={style}
                onClick={this.updateLocation}
+               href={href}
             >
                 {this.props.children}
             </a>
