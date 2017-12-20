@@ -21,7 +21,7 @@ coreChecklist <- function(id = NULL, options = list(), values = NULL, className 
 component <- list(
   props = list(
     id=id, 
-				options=options, 
+				options=optify(options), 
 				values=values, 
 				className=className, 
 				style=style, 
@@ -279,7 +279,7 @@ coreDropdown <- function(id = NULL, options = NULL, value = NULL, className = NU
 component <- list(
   props = list(
     id=id, 
-				options=options, 
+				options=optify(options), 
 				value=value, 
 				className=className, 
 				clearable=clearable, 
@@ -760,7 +760,7 @@ coreRadioItems <- function(id = NULL, options = list(), value = NULL, style = NU
 component <- list(
   props = list(
     id=id, 
-				options=options, 
+				options=optify(options), 
 				value=value, 
 				style=style, 
 				className=className, 
@@ -837,7 +837,7 @@ coreRangeSlider <- function(id = NULL, marks = NULL, value = NULL, allowCross = 
 component <- list(
   props = list(
     id=id, 
-				marks=marks, 
+				marks=markify(marks), 
 				value=value, 
 				allowCross=allowCross, 
 				className=className, 
@@ -917,7 +917,7 @@ coreSlider <- function(id = NULL, marks = NULL, value = NULL, className = NULL, 
 component <- list(
   props = list(
     id=id, 
-				marks=marks, 
+				marks=markify(marks), 
 				value=value, 
 				className=className, 
 				disabled=disabled, 
@@ -1235,3 +1235,29 @@ assert_no_names <- function(x) {
   names(x) <- NULL
   x
 }
+
+# allow one to pass an atomic vector to marks
+# (where the names attribute are used for the labels)
+markify <- function(x) {
+  # TODO: check for list names?
+  if (!is.atomic(x)) return(x)
+  nms <- names(x)
+  if (is.null(nms)) nms <- x
+  # TODO: throw warning if not a numeric vector?
+  # yes, it's confusing, but object keys are the 'value' and values are the label
+  setNames(as.list(nms), setNames(x, NULL))
+}
+
+
+# allow one to pass an atomic vector to marks
+# (where the names attribute are used for the labels)
+optify <- function(x) {
+# TODO: check for list names?
+if (!is.atomic(x)) return(x)
+nms <- names(x)
+if (is.null(nms)) nms <- x
+# TODO: throw warning if not a numeric vector?
+# yes, it's confusing, but object keys are the 'value' and values are the label
+Map(function(x, y) list(value = x, label = y), x, nms, USE.NAMES = FALSE)
+}
+
