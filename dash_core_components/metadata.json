@@ -1709,7 +1709,7 @@
     }
   },
   "src/components/Location.react.js": {
-    "description": "",
+    "description": "Update and track the current window.location object through the window.history state",
     "displayName": "Location",
     "methods": [
       {
@@ -1738,14 +1738,35 @@
           "name": "string"
         },
         "required": false,
-        "description": ""
+        "description": "pathname in window.location - e.g., \"/my/full/pathname\""
+      },
+      "search": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "search in window.location - e.g., \"?myargument=1\""
+      },
+      "hash": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "hash in window.location - e.g., \"#myhash\""
+      },
+      "href": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "href in window.location - e.g., \"/my/full/pathname?myargument=1#myhash\""
       },
       "refresh": {
         "type": {
           "name": "bool"
         },
         "required": false,
-        "description": "",
+        "description": "Refresh the page when the location is updated?",
         "defaultValue": {
           "value": "true",
           "computed": false
