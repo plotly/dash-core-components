@@ -20,8 +20,6 @@ export default class Location extends Component {
             setProps
         } = props;
 
-        const propsToSet = {};
-
         /**
          * Check if the field exists in props. If the prop with "fieldName" is not defined,
          * then it was not set by the user and needs to be equal to the value in window.location.
@@ -34,16 +32,22 @@ export default class Location extends Component {
          *  Returns true if the prop with fieldName is different and the window state needs to be updated
          */
         const checkExistsUpdateWindowLocation = (fieldName) => {
-            const propVal = propsToSet[fieldName];
+            const propVal = props[fieldName];
 
-            if (!propVal) // Prop is undefined?
-                propsToSet[fieldName] = window.location[fieldName];
-            else if (propVal !== window.location[fieldName]) { // Prop has changed?
-                if (refresh) // Refresh the page?
+            if (!propVal && window.location[fieldName] && setProps) { // Prop is undefined?
+                const update = {};
+                update[fieldName] = window.location[fieldName];
+                setProps(update);
+            } else if (propVal && (propVal !== window.location[fieldName])) { // Prop has changed?
+                if (refresh) { // Refresh the page?
                     window.location[fieldName] = propVal;
-                else {
-                    propsToSet[fieldName] = propVal;
-                    return true;
+                } else if ((this.props[fieldName] !== propVal)) { // If this prop has changed, need to setProps
+                    const update = {};
+                    update[fieldName] = propVal;
+
+                    if (setProps)
+                        setProps(update);
+                    return true; // This needs to be pushed in the window.history
                 }
             }
 
@@ -51,13 +55,10 @@ export default class Location extends Component {
         };
 
         // Check if the prop value needs to be updated (note that this mutates propsToSet)
-        const hrefUpdated = checkExistsUpdateWindowLocation('href');
         const pathnameUpdated = checkExistsUpdateWindowLocation('pathname');
+        const hrefUpdated = checkExistsUpdateWindowLocation('href');
         const hashUpdated = checkExistsUpdateWindowLocation('hash');
         const searchUpdated = checkExistsUpdateWindowLocation('search');
-
-        if (Object.keys(propsToSet).length > 0) // Update the props if there are new props
-            setProps(propsToSet);
 
         if (hrefUpdated) // Special case -- overrides everything!
             window.history.pushState({}, '', href);
