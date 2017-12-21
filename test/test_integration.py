@@ -8,7 +8,10 @@ from dash.dependencies import Input, Output
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from urlparse import urlparse
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 import base64
 import importlib
 import io
@@ -324,3 +327,6 @@ class Tests(IntegrationTests):
             '#dropdown .Select-input input'
         ).send_keys(u'北')
         self.snapshot('gallery - chinese character')
+
+    def test_location_link(self):
+        raise NotImplementedError
