@@ -147,186 +147,186 @@ class Tests(IntegrationTests):
         time.sleep(5)
         self.snapshot(filename)
 
-    # def test_upload_csv(self):
-    #     self.create_upload_component_content_types_test('utf8.csv')
-    #
-    # def test_upload_xlsx(self):
-    #     self.create_upload_component_content_types_test('utf8.xlsx')
-    #
-    # def test_upload_png(self):
-    #     self.create_upload_component_content_types_test('dash-logo-stripe.png')
-    #
-    # def test_upload_svg(self):
-    #     self.create_upload_component_content_types_test('dash-logo-stripe.svg')
-    #
-    # def test_upload_gallery(self):
-    #     app = dash.Dash(__name__)
-    #     app.layout = html.Div([
-    #         html.Div(id='waitfor'),
-    #         html.Label('Empty'),
-    #         dcc.Upload(),
-    #
-    #         html.Label('Button'),
-    #         dcc.Upload(html.Button('Upload File')),
-    #
-    #         html.Label('Text'),
-    #         dcc.Upload('Upload File'),
-    #
-    #         html.Label('Link'),
-    #         dcc.Upload(html.A('Upload File')),
-    #
-    #         html.Label('Style'),
-    #         dcc.Upload([
-    #             'Drag and Drop or ',
-    #             html.A('Select a File')
-    #         ], style={
-    #             'widatetimeh': '100%',
-    #             'height': '60px',
-    #             'lineHeight': '60px',
-    #             'borderWidatetimeh': '1px',
-    #             'borderStyle': 'dashed',
-    #             'borderRadius': '5px',
-    #             'textAlign': 'center'
-    #         })
-    #     ])
-    #     self.startServer(app)
-    #
-    #     try:
-    #         self.wait_for_element_by_id('waitfor')
-    #     except Exception as e:
-    #         print(self.wait_for_element_by_id(
-    #             '_dash-app-content').get_attribute('innerHTML'))
-    #         raise e
-    #
-    #     self.snapshot('test_upload_gallery')
-    #
-    # def test_gallery(self):
-    #     app = dash.Dash(__name__)
-    #
-    #     app.layout = html.Div([
-    #         html.Div(id='waitfor'),
-    #         html.Label('Upload'),
-    #         dcc.Upload(),
-    #         html.Label('Dropdown'),
-    #         dcc.Dropdown(
-    #             options=[
-    #                 {'label': 'New York City', 'value': 'NYC'},
-    #                 {'label': u'Montréal', 'value': 'MTL'},
-    #                 {'label': 'San Francisco', 'value': 'SF'},
-    #                 {'label': u'北京', 'value': u'北京'}
-    #             ],
-    #             value='MTL',
-    #             id='dropdown'
-    #         ),
-    #
-    #         html.Label('Multi-Select Dropdown'),
-    #         dcc.Dropdown(
-    #             options=[
-    #                 {'label': 'New York City', 'value': 'NYC'},
-    #                 {'label': u'Montréal', 'value': 'MTL'},
-    #                 {'label': 'San Francisco', 'value': 'SF'},
-    #                 {'label': u'北京', 'value': u'北京'}
-    #             ],
-    #             value=['MTL', 'SF'],
-    #             multi=True
-    #         ),
-    #
-    #         html.Label('Radio Items'),
-    #         dcc.RadioItems(
-    #             options=[
-    #                 {'label': 'New York City', 'value': 'NYC'},
-    #                 {'label': u'Montréal', 'value': 'MTL'},
-    #                 {'label': 'San Francisco', 'value': 'SF'},
-    #                 {'label': u'北京', 'value': u'北京'}
-    #             ],
-    #             value='MTL'
-    #         ),
-    #
-    #         html.Label('Checkboxes'),
-    #         dcc.Checklist(
-    #             options=[
-    #                 {'label': 'New York City', 'value': 'NYC'},
-    #                 {'label': u'Montréal', 'value': 'MTL'},
-    #                 {'label': 'San Francisco', 'value': 'SF'},
-    #                 {'label': u'北京', 'value': u'北京'}
-    #             ],
-    #             values=['MTL', 'SF']
-    #         ),
-    #
-    #         html.Label('Text Input'),
-    #         dcc.Input(value='MTL', type='text'),
-    #
-    #         html.Label('Slider'),
-    #         dcc.Slider(
-    #             min=0,
-    #             max=9,
-    #             marks={i: 'Label {}'.format(i) if i == 1 else str(i)
-    #                    for i in range(1, 6)},
-    #             value=5,
-    #         ),
-    #
-    #         html.Label('Graph'),
-    #         dcc.Graph(
-    #             id='graph',
-    #             figure={
-    #                 'data': [{
-    #                     'x': [1, 2, 3],
-    #                     'y': [4, 1, 4]
-    #                 }],
-    #                 'layout': {
-    #                     'title': u'北京'
-    #                 }
-    #             }
-    #         ),
-    #
-    #         html.Label('DatePickerSingle'),
-    #         dcc.DatePickerSingle(
-    #             id='date-picker-single',
-    #             date=datetime(1997, 5, 10)
-    #         ),
-    #
-    #         html.Label('DatePickerRange'),
-    #         dcc.DatePickerRange(
-    #             id='date-picker-range',
-    #             start_date=datetime(1997, 5, 3),
-    #             end_date_placeholder_text='Select a date!'
-    #         ),
-    #
-    #         html.Label('TextArea'),
-    #         dcc.Textarea(
-    #             placeholder='Enter a value... 北京',
-    #             style={'width': '100%'}
-    #         ),
-    #
-    #         html.Label('Markdown'),
-    #         dcc.Markdown('''
-    #             #### Dash and Markdown
-    #
-    #             Dash supports [Markdown](http://commonmark.org/help).
-    #
-    #             Markdown is a simple way to write and format text.
-    #             It includes a syntax for things like **bold text** and *italics*,
-    #             [links](http://commonmark.org/help), inline `code` snippets, lists,
-    #             quotes, and more.
-    #
-    #             北京
-    #         '''.replace('    ', ''))
-    #     ])
-    #     self.startServer(app)
-    #
-    #     try:
-    #         self.wait_for_element_by_id('waitfor')
-    #     except Exception as e:
-    #         print(self.wait_for_element_by_id(
-    #             '_dash-app-content').get_attribute('innerHTML'))
-    #         raise e
-    #
-    #     self.snapshot('gallery')
-    #
-    #     self.driver.find_element_by_css_selector(
-    #         '#dropdown .Select-input input'
-    #     ).send_keys(u'北')
-    #     self.snapshot('gallery - chinese character')
+    def test_upload_csv(self):
+        self.create_upload_component_content_types_test('utf8.csv')
+
+    def test_upload_xlsx(self):
+        self.create_upload_component_content_types_test('utf8.xlsx')
+
+    def test_upload_png(self):
+        self.create_upload_component_content_types_test('dash-logo-stripe.png')
+
+    def test_upload_svg(self):
+        self.create_upload_component_content_types_test('dash-logo-stripe.svg')
+
+    def test_upload_gallery(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            html.Div(id='waitfor'),
+            html.Label('Empty'),
+            dcc.Upload(),
+
+            html.Label('Button'),
+            dcc.Upload(html.Button('Upload File')),
+
+            html.Label('Text'),
+            dcc.Upload('Upload File'),
+
+            html.Label('Link'),
+            dcc.Upload(html.A('Upload File')),
+
+            html.Label('Style'),
+            dcc.Upload([
+                'Drag and Drop or ',
+                html.A('Select a File')
+            ], style={
+                'widatetimeh': '100%',
+                'height': '60px',
+                'lineHeight': '60px',
+                'borderWidatetimeh': '1px',
+                'borderStyle': 'dashed',
+                'borderRadius': '5px',
+                'textAlign': 'center'
+            })
+        ])
+        self.startServer(app)
+
+        try:
+            self.wait_for_element_by_id('waitfor')
+        except Exception as e:
+            print(self.wait_for_element_by_id(
+                '_dash-app-content').get_attribute('innerHTML'))
+            raise e
+
+        self.snapshot('test_upload_gallery')
+
+    def test_gallery(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Div(id='waitfor'),
+            html.Label('Upload'),
+            dcc.Upload(),
+            html.Label('Dropdown'),
+            dcc.Dropdown(
+                options=[
+                    {'label': 'New York City', 'value': 'NYC'},
+                    {'label': u'Montréal', 'value': 'MTL'},
+                    {'label': 'San Francisco', 'value': 'SF'},
+                    {'label': u'北京', 'value': u'北京'}
+                ],
+                value='MTL',
+                id='dropdown'
+            ),
+
+            html.Label('Multi-Select Dropdown'),
+            dcc.Dropdown(
+                options=[
+                    {'label': 'New York City', 'value': 'NYC'},
+                    {'label': u'Montréal', 'value': 'MTL'},
+                    {'label': 'San Francisco', 'value': 'SF'},
+                    {'label': u'北京', 'value': u'北京'}
+                ],
+                value=['MTL', 'SF'],
+                multi=True
+            ),
+
+            html.Label('Radio Items'),
+            dcc.RadioItems(
+                options=[
+                    {'label': 'New York City', 'value': 'NYC'},
+                    {'label': u'Montréal', 'value': 'MTL'},
+                    {'label': 'San Francisco', 'value': 'SF'},
+                    {'label': u'北京', 'value': u'北京'}
+                ],
+                value='MTL'
+            ),
+
+            html.Label('Checkboxes'),
+            dcc.Checklist(
+                options=[
+                    {'label': 'New York City', 'value': 'NYC'},
+                    {'label': u'Montréal', 'value': 'MTL'},
+                    {'label': 'San Francisco', 'value': 'SF'},
+                    {'label': u'北京', 'value': u'北京'}
+                ],
+                values=['MTL', 'SF']
+            ),
+
+            html.Label('Text Input'),
+            dcc.Input(value='MTL', type='text'),
+
+            html.Label('Slider'),
+            dcc.Slider(
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=5,
+            ),
+
+            html.Label('Graph'),
+            dcc.Graph(
+                id='graph',
+                figure={
+                    'data': [{
+                        'x': [1, 2, 3],
+                        'y': [4, 1, 4]
+                    }],
+                    'layout': {
+                        'title': u'北京'
+                    }
+                }
+            ),
+
+            html.Label('DatePickerSingle'),
+            dcc.DatePickerSingle(
+                id='date-picker-single',
+                date=datetime(1997, 5, 10)
+            ),
+
+            html.Label('DatePickerRange'),
+            dcc.DatePickerRange(
+                id='date-picker-range',
+                start_date=datetime(1997, 5, 3),
+                end_date_placeholder_text='Select a date!'
+            ),
+
+            html.Label('TextArea'),
+            dcc.Textarea(
+                placeholder='Enter a value... 北京',
+                style={'width': '100%'}
+            ),
+
+            html.Label('Markdown'),
+            dcc.Markdown('''
+                #### Dash and Markdown
+
+                Dash supports [Markdown](http://commonmark.org/help).
+
+                Markdown is a simple way to write and format text.
+                It includes a syntax for things like **bold text** and *italics*,
+                [links](http://commonmark.org/help), inline `code` snippets, lists,
+                quotes, and more.
+
+                北京
+            '''.replace('    ', ''))
+        ])
+        self.startServer(app)
+
+        try:
+            self.wait_for_element_by_id('waitfor')
+        except Exception as e:
+            print(self.wait_for_element_by_id(
+                '_dash-app-content').get_attribute('innerHTML'))
+            raise e
+
+        self.snapshot('gallery')
+
+        self.driver.find_element_by_css_selector(
+            '#dropdown .Select-input input'
+        ).send_keys(u'北')
+        self.snapshot('gallery - chinese character')
 
     def test_location_link(self):
         app = dash.Dash(__name__)
@@ -346,7 +346,8 @@ class Tests(IntegrationTests):
             dcc.Link(
                 html.Button('I am a clickable search button'),
                 id='test-link-search',
-                href='?testQuery=testValue'),
+                href='?testQuery=testValue',
+                refresh=False),
             html.Button('I am a magic button that updates pathname', id='test-button'),
             html.A('link to click', href='/test/pathname/a', id='test-a'),
             html.A('link to click', href='#test-hash', id='test-a-hash'),
@@ -394,12 +395,14 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        try:
-            self.wait_for_element_by_id('waitfor')
-        except Exception as e:
-            print(self.wait_for_element_by_id(
-                '_dash-app-content').get_attribute('innerHTML'))
-            raise e
+        def _waiter():
+            time.sleep(1)
+            try:
+                self.wait_for_element_by_id('waitfor')
+            except Exception as e:
+                print(self.wait_for_element_by_id(
+                    '_dash-app-content').get_attribute('innerHTML'))
+                raise e
 
         self.snapshot('link -- location')
 
@@ -438,7 +441,8 @@ class Tests(IntegrationTests):
 
         # Check that pathname is updated through an a tag click via props
         self.driver.find_element_by_id('test-a').click()
-
+        _waiter()
+        
         self.snapshot('link -- /test/pathname/a')
         self.assertEqual(self.driver.find_element_by_id('test-pathname').text, '/test/pathname/a')
         self.assertEqual(self.driver.find_element_by_id('test-search').text, '')
@@ -454,13 +458,7 @@ class Tests(IntegrationTests):
 
         # Check that hash is updated through an a tag click via props
         self.driver.find_element_by_id('test-a-query').click()
-
-        try:
-            self.wait_for_element_by_id('waitfor')
-        except Exception as e:
-            print(self.wait_for_element_by_id(
-                '_dash-app-content').get_attribute('innerHTML'))
-            raise e
+        _waiter()
 
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
         self.assertEqual(self.driver.find_element_by_id('test-pathname').text, '/test/pathname/a')
