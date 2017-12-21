@@ -62,8 +62,11 @@ export default class Location extends Component {
 
         if (hrefUpdated) // Special case -- overrides everything!
             window.history.pushState({}, '', href);
-        else if (pathnameUpdated || hashUpdated || searchUpdated) // Otherwise, we can mash everything together
-            window.history.pushState({}, '', `${pathname}${search}${hash}`);
+        else if (pathnameUpdated || hashUpdated || searchUpdated) { // Otherwise, we can mash everything together
+            const searchVal = typeof search !== 'undefined' ? search : '';
+            const hashVal = typeof hash !== 'undefined' ? hash : '';
+            window.history.pushState({}, '', `${pathname}${searchVal}${hashVal}`);
+        }
     }
 
     componentDidMount() {
