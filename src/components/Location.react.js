@@ -1,8 +1,10 @@
 import {Component, PropTypes} from 'react';
+import R from 'ramda';
 /* global window:true */
 
 /**
- * Update and track the current window.location object through the window.history state
+ * Update and track the current window.location object through the window.history state.
+ * Use in conjunction with the `dash_core_components.Link` component to make apps with multiple pages.
  */
 export default class Location extends Component {
     constructor(props) {
@@ -20,6 +22,9 @@ export default class Location extends Component {
             setProps
         } = props;
 
+        // Keep track of props relating to window.location that may need to be updated via setProps
+        const propsToSet = {};
+
         /**
          * Check if the field exists in props. If the prop with "fieldName" is not defined,
          * then it was not set by the user and needs to be equal to the value in window.location.
@@ -34,24 +39,21 @@ export default class Location extends Component {
         const checkExistsUpdateWindowLocation = (fieldName) => {
             const propVal = props[fieldName];
 
-            if (!propVal && window.location[fieldName] && setProps) { // Prop is undefined?
-                const update = {};
-                update[fieldName] = window.location[fieldName];
-                setProps(update);
-            } else if (propVal && (propVal !== window.location[fieldName])) { // Prop has changed?
+            if ((R.type(propVal) === 'Undefined' || propVal === null)
+                && R.type(window.location[fieldName]) !== 'Undefined') {
+                // propVal is undefined or null, but window.location has this fieldName defined
+                propsToSet[fieldName] = window.location[fieldName];
+            } else if (propVal !== window.location[fieldName]) { // Prop has changed?
                 if (refresh) { // Refresh the page?
                     window.location[fieldName] = propVal;
-                } else if ((this.props[fieldName] !== propVal)) { // If this prop has changed, need to setProps
-                    const update = {};
-                    update[fieldName] = propVal;
+                } else if (this.props[fieldName] !== propVal) { // If this prop has changed, need to setProps
+                    propsToSet[fieldName] = propVal;
 
-                    if (setProps)
-                        setProps(update);
-                    return true; // This needs to be pushed in the window.history
+                    return true; // This (`${fieldName}`: propVal) needs to be pushed in the window.history
                 }
             }
 
-            return false;
+            return false; // This (`${fieldName}`: propVal) DOES NOT need to be pushed in the window.history
         };
 
         // Check if the prop value needs to be updated (note that this mutates propsToSet)
@@ -60,11 +62,16 @@ export default class Location extends Component {
         const hashUpdated = checkExistsUpdateWindowLocation('hash');
         const searchUpdated = checkExistsUpdateWindowLocation('search');
 
+        // propsToSet has been updated -- batch update to Dash
+        if (R.type(setProps) === 'Function' && (Object.keys(propsToSet).length > 0)) {
+            setProps(propsToSet);
+        }
+
         if (hrefUpdated) // Special case -- overrides everything!
             window.history.pushState({}, '', href);
         else if (pathnameUpdated || hashUpdated || searchUpdated) { // Otherwise, we can mash everything together
-            const searchVal = typeof search !== 'undefined' ? search : '';
-            const hashVal = typeof hash !== 'undefined' ? hash : '';
+            const searchVal = R.type(search) !== 'Undefined' ? search : '';
+            const hashVal = R.type(hash) !== 'Undefined'  ? hash : '';
             window.history.pushState({}, '', `${pathname}${searchVal}${hashVal}`);
         }
     }

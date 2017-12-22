@@ -1709,7 +1709,7 @@
     }
   },
   "src/components/Location.react.js": {
-    "description": "Update and track the current window.location object through the window.history state",
+    "description": "Update and track the current window.location object through the window.history state.\nUse in conjunction with the `dash_core_components.Link` component to make apps with multiple pages.",
     "displayName": "Location",
     "methods": [
       {
