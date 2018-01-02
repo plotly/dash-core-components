@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.15.4] - 2017-12-21
+### Changed
+- The `dash_core_components.Location` component now supports `hash`,
+`href`, and `search` in addition to the already supported `pathname`
+(mimicking the `window.location` API). `href` can be used to handle
+`pathname`, `hash`, and `search` in aggregate, or each can be manipulated
+independently.
+- The `children` property of `dash_core_components.Markdown` and 
+`dash_core_components.SyntaxHighlighter` now accepts an 
+array of strings (previously it *had* to be a string). Now,
+if an array is provided, it is collapsed into a string with line 
+breaks (see #134).
+
 ## [0.15.3] - 2017-12-11
 ### Fixed
 - Upgrade the version of [plotly.js](https://github.com/plotly/plotly.js) from 1.31.0 to 1.31.2. See the list of fixes here: https://github.com/plotly/plotly.js/blob/master/CHANGELOG.md

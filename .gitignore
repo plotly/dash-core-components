@@ -12,6 +12,7 @@ venv/
 *.pyc
 *.egg-info
 *.log
+.idea/
 .DS_Store
 .Rproj.user
 .Rhistory
