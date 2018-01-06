@@ -16,7 +16,7 @@ coreMarkdown(..., id = NULL, className = NULL, containerProps = NULL,
 
 \item{containerProps}{An object containing custom element props to put on the container element such as id or style}
 
-\item{children}{A markdown string that adhreres to the CommonMark spec}
+\item{children}{A markdown string (or array of strings) that adhreres to the CommonMark spec}
 }
 \description{
 A component that renders Markdown text as specified by the CommonMark spec.
