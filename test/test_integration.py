@@ -100,7 +100,9 @@ class Tests(IntegrationTests):
                     df = pd.read_csv(io.StringIO(base64.b64decode(
                         content_string).decode('utf-8')))
                     return html.Div([
-                        dt.DataTable(rows=df.to_dict('records')),
+                        dt.DataTable(
+                            rows=df.to_dict('records'),
+                            columns=['city', 'country']),
                         html.Hr(),
                         html.Div('Raw Content'),
                         html.Pre(contents, style=pre_style)
@@ -109,7 +111,9 @@ class Tests(IntegrationTests):
                     df = pd.read_excel(io.BytesIO(base64.b64decode(
                         content_string)))
                     return html.Div([
-                        dt.DataTable(rows=df.to_dict('records')),
+                        dt.DataTable(
+                            rows=df.to_dict('records'),
+                            columns=['city', 'country']),
                         html.Hr(),
                         html.Div('Raw Content'),
                         html.Pre(contents, style=pre_style)
