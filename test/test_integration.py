@@ -38,7 +38,7 @@ class Tests(IntegrationTests):
 
     def wait_for_element_by_css_selector(self, selector):
         start_time = time.time()
-        while time.time() < start_time + 10:
+        while time.time() < start_time + 20:
             try:
                 return self.driver.find_element_by_css_selector(selector)
             except Exception as e:
