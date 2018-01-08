@@ -435,7 +435,7 @@ class Tests(IntegrationTests):
 
         # Check that pathname is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a').click()
-        self.wait_for_element_by_css_selector('#').click()
+        self.wait_for_element_by_css_selector('#waitfor').click()
 
         self.snapshot('link -- /test/pathname/a')
         self.assertEqual(
