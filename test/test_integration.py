@@ -389,17 +389,16 @@ class Tests(IntegrationTests):
 
         # Check that link updates pathname
         self.wait_for_element_by_css_selector('#test-link').click()
-        self.snapshot('link --- /test/pathname')
         self.assertEqual(
             self.driver.current_url.replace('http://localhost:8050', ''),
             '/test/pathname')
         self.assertEqual(
             self.wait_for_element_by_css_selector('#test-pathname').text,
             '/test/pathname')
+        self.snapshot('link --- /test/pathname')
 
         # Check that hash is updated in the Location
         self.wait_for_element_by_css_selector('#test-link-hash').click()
-        self.snapshot('link -- /test/pathname#test')
         self.assertEqual(
             self.wait_for_element_by_css_selector('#test-pathname').text,
             '/test/pathname'
@@ -408,10 +407,10 @@ class Tests(IntegrationTests):
             self.wait_for_element_by_css_selector('#test-hash').text,
             '#test'
         )
+        self.snapshot('link -- /test/pathname#test')
 
         # Check that search is updated in the Location -- note that this goes through href and therefore wipes the hash
         self.wait_for_element_by_css_selector('#test-link-search').click()
-        self.snapshot('link -- /test/pathname?testQuery=testValue')
         self.assertEqual(
             self.wait_for_element_by_css_selector('#test-search').text,
             '?testQuery=testValue'
@@ -420,10 +419,10 @@ class Tests(IntegrationTests):
             self.wait_for_element_by_css_selector('#test-hash').text,
             ''
         )
+        self.snapshot('link -- /test/pathname?testQuery=testValue')
 
         # Check that pathname is updated through a Button click via props
         self.wait_for_element_by_css_selector('#test-button').click()
-        self.snapshot('link -- /new/pathname?testQuery=testValue')
         self.assertEqual(
             self.wait_for_element_by_css_selector('#test-pathname').text,
             '/new/pathname'
@@ -432,6 +431,7 @@ class Tests(IntegrationTests):
             self.wait_for_element_by_css_selector('#test-search').text,
             '?testQuery=testValue'
         )
+        self.snapshot('link -- /new/pathname?testQuery=testValue')
 
         # Check that pathname is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a').click()
@@ -442,8 +442,6 @@ class Tests(IntegrationTests):
                 '#_dash-app-content').get_attribute('innerHTML'))
             raise e
 
-
-        self.snapshot('link -- /test/pathname/a')
         self.assertEqual(
             self.wait_for_element_by_css_selector('#test-pathname').text,
             '/test/pathname/a'
@@ -456,11 +454,10 @@ class Tests(IntegrationTests):
             self.wait_for_element_by_css_selector('#test-hash').text,
             ''
         )
+        self.snapshot('link -- /test/pathname/a')
 
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-hash').click()
-
-        self.snapshot('link -- /test/pathname/a#test-hash')
         self.assertEqual(
             self.wait_for_element_by_css_selector('#test-pathname').text,
             '/test/pathname/a'
@@ -473,12 +470,11 @@ class Tests(IntegrationTests):
             self.wait_for_element_by_css_selector('#test-hash').text,
             '#test-hash'
         )
+        self.snapshot('link -- /test/pathname/a#test-hash')
 
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-query').click()
         self.wait_for_element_by_css_selector('#waitfor')
-
-        self.snapshot('link -- /test/pathname/a?queryA=valueA')
         self.assertEqual(
             self.wait_for_element_by_css_selector('#test-pathname').text,
             '/test/pathname/a'
@@ -491,3 +487,4 @@ class Tests(IntegrationTests):
             self.wait_for_element_by_css_selector('#test-hash').text,
             ''
         )
+        self.snapshot('link -- /test/pathname/a?queryA=valueA')
