@@ -46,6 +46,17 @@ class Tests(IntegrationTests):
             time.sleep(0.25)
         raise e
 
+    def wait_for_text_to_equal(self, selector, assertion_text):
+        start_time = time.time()
+        while time.time() < start_time + 20:
+            el = self.wait_for_element_by_css_selector(selector)
+            try:
+                return self.assertEqual(el.text, assertion_text)
+            except Exception as e:
+                pass
+            time.sleep(0.25)
+        raise e
+
     def snapshot(self, name):
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
             python_version = sys.version.split(' ')[0]
@@ -392,45 +403,24 @@ class Tests(IntegrationTests):
         self.assertEqual(
             self.driver.current_url.replace('http://localhost:8050', ''),
             '/test/pathname')
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-pathname').text,
-            '/test/pathname')
-        self.snapshot('link --- /test/pathname')
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname')
 
         # Check that hash is updated in the Location
         self.wait_for_element_by_css_selector('#test-link-hash').click()
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-pathname').text,
-            '/test/pathname'
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-hash').text,
-            '#test'
-        )
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname')
+        self.wait_for_text_to_equal('#test-hash', '#test')
         self.snapshot('link -- /test/pathname#test')
 
         # Check that search is updated in the Location -- note that this goes through href and therefore wipes the hash
         self.wait_for_element_by_css_selector('#test-link-search').click()
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-search').text,
-            '?testQuery=testValue'
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-hash').text,
-            ''
-        )
+        self.wait_for_text_to_equal('#test-search', '?testQuery=testValue')
+        self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname?testQuery=testValue')
 
         # Check that pathname is updated through a Button click via props
         self.wait_for_element_by_css_selector('#test-button').click()
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-pathname').text,
-            '/new/pathname'
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-search').text,
-            '?testQuery=testValue'
-        )
+        self.wait_for_text_to_equal('#test-pathname', '/new/pathname')
+        self.wait_for_text_to_equal('#test-search', '?testQuery=testValue')
         self.snapshot('link -- /new/pathname?testQuery=testValue')
 
         # Check that pathname is updated through an a tag click via props
@@ -442,49 +432,22 @@ class Tests(IntegrationTests):
                 '#_dash-app-content').get_attribute('innerHTML'))
             raise e
 
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-pathname').text,
-            '/test/pathname/a'
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-search').text,
-            ''
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-hash').text,
-            ''
-        )
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-search', '')
+        self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a')
 
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-hash').click()
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-pathname').text,
-            '/test/pathname/a'
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-search').text,
-            ''
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-hash').text,
-            '#test-hash'
-        )
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-search', '')
+        self.wait_for_text_to_equal('#test-hash', '#test-hash')
         self.snapshot('link -- /test/pathname/a#test-hash')
 
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-query').click()
         self.wait_for_element_by_css_selector('#waitfor')
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-pathname').text,
-            '/test/pathname/a'
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-search').text,
-            '?queryA=valueA'
-        )
-        self.assertEqual(
-            self.wait_for_element_by_css_selector('#test-hash').text,
-            ''
-        )
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-search', '?queryA=valueA')
+        self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
