@@ -20,6 +20,7 @@ const filterEventData = (gd, eventData, event) => {
          * into the event object
          */
         const data = gd.data;
+
         for(let i=0; i < eventData.points.length; i++) {
             const fullPoint = eventData.points[i];
             const pointData = filter(function(o) {
@@ -32,6 +33,11 @@ const filterEventData = (gd, eventData, event) => {
                 pointData['customdata'] = data[
                     pointData.curveNumber
                 ].customdata[fullPoint.pointNumber];
+            }
+
+            // specific to histogram. see https://github.com/plotly/plotly.js/pull/2113/
+            if (has('pointNumbers', fullPoint)) {
+                pointData.pointNumbers = fullPoint.pointNumbers;
             }
 
             points[i] = pointData;
