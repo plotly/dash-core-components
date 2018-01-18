@@ -19,7 +19,9 @@ export default function SyntaxHighlighter(props) {
     if(type(props.children) === 'Array') {
         props.children = props.children.join('\n');
     }
-
+    if(type(props.children) === 'Null') {
+        props.children = '';
+    }
     return (
         <ReactSyntaxHighlighter
             style={style}
@@ -37,7 +39,7 @@ SyntaxHighlighter.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
-    ]).isRequired,
+    ]),
 
     /**
      * the language to highlight code in.
