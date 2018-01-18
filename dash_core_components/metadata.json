@@ -2329,7 +2329,11 @@
           ]
         },
         "required": false,
-        "description": "The text to display and highlight"
+        "description": "The text to display and highlight",
+        "defaultValue": {
+          "value": "''",
+          "computed": false
+        }
       },
       "language": {
         "type": {
