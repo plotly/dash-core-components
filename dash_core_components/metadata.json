@@ -1,4 +1,95 @@
 {
+  "src/components/Card.react.js": {
+    "description": "A generalised component for showing information in an info card with variable visibility",
+    "displayName": "Card",
+    "methods": [
+      {
+        "name": "getShadow",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "computeStyles",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "merge",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "a",
+            "type": null
+          },
+          {
+            "name": "b",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "visible": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Is the card visible?"
+      },
+      "elevation": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Used for shadow styling"
+      },
+      "transition": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether or not we should add transitions as a base style",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
   "src/components/Checklist.react.js": {
     "description": "Checklist is a component that encapsulates several checkboxes.\nThe values and labels of the checklist is specified in the `options`\nproperty and the checked items are specified with the `values` property.\nEach checkbox is rendered as an input with a surrounding label.",
     "displayName": "Checklist",
