@@ -326,7 +326,8 @@ class Tests(IntegrationTests):
             dcc.SyntaxHighlighter([
                 'import python',
                 'print(3)'
-            ], language='python')
+            ], language='python'),
+            dcc.SyntaxHighlighter()
         ])
         self.startServer(app)
 
