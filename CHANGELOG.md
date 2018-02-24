@@ -2,6 +2,28 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.20.0] - 2018-02-24
+### Changed
+- Update versions for:
+    - `react-dates` to `"16.3.2"`
+    - `react-dropzone` to `"4.2.8"`
+    - `react-markdown` to `"3.2.1"`
+    - `react-select` to `"1.2.1"`
+    - `react-select-fast-filter-options` to `"0.2.3"`
+    - `react-syntax-highlighter` to `"7.0.0"`
+    - `react-virtualized-select` to `"3.1.3"`
+    - `react` and `react-dom` as peerDependencies `"^15.4.0 || ^16.0.0"`
+- Add `style-loader` and `css-loader` to webpack babel loaders to support
+new version of `react-dates` with separate css file
+- Change import location from `react-syntax-highlighter` to:
+ ```js
+ import {arduinoLight, monokai} from 'react-syntax-highlighter/styles/hljs';
+ ```
+- Change import location from `react-virtualized-select` to:
+```js
+import ReactDropdown from 'react-virtualized-select/dist/umd/react-virtualized-select';
+```
+
 ## [0.19.0] - 2018-02-11
 ### Changed
 - `PropTypes` now uses `prop-types` package instead of `React` to support move to React 16+
