@@ -1,3 +1,5 @@
+import 'react-dates/initialize'; // https://github.com/airbnb/react-dates/issues/750#issuecomment-335013909
+import 'react-dates/lib/css/_datepicker.css'; // react-dates css
 import {SingleDatePicker} from 'react-dates';
 import moment from 'moment';
 import PropTypes from 'prop-types';

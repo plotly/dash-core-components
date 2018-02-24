@@ -10,7 +10,7 @@ module.exports = function (config) {
     return partial(config, {
         module: {
             loaders: [
-                { test: /\.json$/, loader: 'json-loader' },
+                {test: /\.json$/, loader: 'json-loader'},
                 {
                     test: /\.js/,
                     include: [SRC],
@@ -19,8 +19,15 @@ module.exports = function (config) {
                      * and avoid webpack's magick loader resolution
                      */
                     loader: require.resolve('babel-loader')
+                },
+                {
+                    test: /\.css$/,
+                    loaders: ['style-loader', 'css-loader']
                 }
             ]
+        },
+        alias: {
+          'react-dates/lib/css/_datepicker.css': path.join(ROOT, 'node_modules', 'react-dates/lib/css/_datepicker.css')
         }
     });
 };
