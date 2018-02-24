@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-// import Dropdown from './components/Dropdown.react';
+import Dropdown from './components/Dropdown.react';
 import Input from './components/Input.react';
 import Graph from './components/Graph.react';
 import RangeSlider from './components/RangeSlider.react';
@@ -18,7 +18,7 @@ import Upload from './components/Upload.react';
 
 export {
     Checklist,
-    // Dropdown,
+    Dropdown,
     Graph,
     Input,
     RadioItems,
