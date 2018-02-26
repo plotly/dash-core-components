@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 
 export default class Upload extends Component {
@@ -68,7 +69,7 @@ export default class Upload extends Component {
 
                 accept={accept}
                 disabled={disabled}
-                disableClic={disable_click}
+                disableClick={disable_click}
                 maxSize={max_size === -1 ? Infinity : max_size}
                 minSize={min_size}
                 multiple={multiple}

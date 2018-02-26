@@ -1,27 +1,27 @@
 # -*- coding: utf-8 -*-
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_table_experiments as dt
-import dash
-from dash.dependencies import Input, Output
-
-from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from urlparse import urlparse
 import base64
-import importlib
+from datetime import datetime
 import io
-import multiprocessing
 import os
-import pandas as pd
-import percy
 import sys
 import time
-import unittest
+import pandas as pd
+
+import dash
+from dash.dependencies import Input, Output, State
+import dash_html_components as html
+import dash_core_components as dcc
+import dash_table_experiments as dt
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+from textwrap import dedent
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 
 from .IntegrationTests import IntegrationTests
-from .utils import assert_clean_console, invincible, wait_for
 
 # Download geckodriver: https://github.com/mozilla/geckodriver/releases
 # And add to path:
@@ -34,21 +34,28 @@ from .utils import assert_clean_console, invincible, wait_for
 
 class Tests(IntegrationTests):
     def setUp(self):
-        def wait_for_element_by_id(id):
-            wait_for(lambda: None is not invincible(
-                lambda: self.driver.find_element_by_id(id)
-            ))
-            return self.driver.find_element_by_id(id)
-        self.wait_for_element_by_id = wait_for_element_by_id
+        pass
 
-        def wait_for_element_by_css_selector(css_selector):
-            wait_for(lambda: None is not invincible(
-                lambda: self.driver.find_element_by_css_selector(css_selector)
-            ))
-            return self.driver.find_element_by_css_selector(css_selector)
-        self.wait_for_element_by_css_selector = (
-            wait_for_element_by_css_selector
-        )
+    def wait_for_element_by_css_selector(self, selector):
+        start_time = time.time()
+        while time.time() < start_time + 20:
+            try:
+                return self.driver.find_element_by_css_selector(selector)
+            except Exception as e:
+                pass
+            time.sleep(0.25)
+        raise e
+
+    def wait_for_text_to_equal(self, selector, assertion_text):
+        start_time = time.time()
+        while time.time() < start_time + 20:
+            el = self.wait_for_element_by_css_selector(selector)
+            try:
+                return self.assertEqual(el.text, assertion_text)
+            except Exception as e:
+                pass
+            time.sleep(0.25)
+        raise e
 
     def snapshot(self, name):
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
@@ -61,8 +68,7 @@ class Tests(IntegrationTests):
 
         pre_style = {
             'whiteSpace': 'pre-wrap',
-            'wordBreak': 'break-all',
-            'whiteSpace': 'normal'
+            'wordBreak': 'break-all'
         }
 
         app.layout = html.Div([
@@ -99,7 +105,9 @@ class Tests(IntegrationTests):
                     df = pd.read_csv(io.StringIO(base64.b64decode(
                         content_string).decode('utf-8')))
                     return html.Div([
-                        dt.DataTable(rows=df.to_dict('records')),
+                        dt.DataTable(
+                            rows=df.to_dict('records'),
+                            columns=['city', 'country']),
                         html.Hr(),
                         html.Div('Raw Content'),
                         html.Pre(contents, style=pre_style)
@@ -108,7 +116,9 @@ class Tests(IntegrationTests):
                     df = pd.read_excel(io.BytesIO(base64.b64decode(
                         content_string)))
                     return html.Div([
-                        dt.DataTable(rows=df.to_dict('records')),
+                        dt.DataTable(
+                            rows=df.to_dict('records'),
+                            columns=['city', 'country']),
                         html.Hr(),
                         html.Div('Raw Content'),
                         html.Pre(contents, style=pre_style)
@@ -130,10 +140,10 @@ class Tests(IntegrationTests):
         self.startServer(app)
 
         try:
-            self.wait_for_element_by_id('waitfor')
+            self.wait_for_element_by_css_selector('#waitfor')
         except Exception as e:
-            print(self.wait_for_element_by_id(
-                '_dash-app-content').get_attribute('innerHTML'))
+            print(self.wait_for_element_by_css_selector(
+                '#_dash-app-content').get_attribute('innerHTML'))
             raise e
 
         upload_div = self.wait_for_element_by_css_selector(
@@ -188,10 +198,10 @@ class Tests(IntegrationTests):
         self.startServer(app)
 
         try:
-            self.wait_for_element_by_id('waitfor')
+            self.wait_for_element_by_css_selector('#waitfor')
         except Exception as e:
-            print(self.wait_for_element_by_id(
-                '_dash-app-content').get_attribute('innerHTML'))
+            print(self.wait_for_element_by_css_selector(
+                '#_dash-app-content').get_attribute('innerHTML'))
             raise e
 
         self.snapshot('test_upload_gallery')
@@ -346,16 +356,20 @@ class Tests(IntegrationTests):
                 lists, quotes, and more.
 
                 北京
-            '''.replace('    ', ''))
+            '''.replace('    ', '')),
+            dcc.Markdown(['# Line one', '## Line two']),
+            dcc.Markdown(),
+            dcc.SyntaxHighlighter(dedent('''import python
+                print(3)'''), language='python'),
+            dcc.SyntaxHighlighter([
+                'import python',
+                'print(3)'
+            ], language='python'),
+            dcc.SyntaxHighlighter()
         ])
         self.startServer(app)
 
-        try:
-            self.wait_for_element_by_id('waitfor')
-        except Exception as e:
-            print(self.wait_for_element_by_id(
-                '_dash-app-content').get_attribute('innerHTML'))
-            raise e
+        self.wait_for_element_by_css_selector('#waitfor')
 
         self.snapshot('gallery')
 
@@ -363,3 +377,124 @@ class Tests(IntegrationTests):
             '#dropdown .Select-input input'
         ).send_keys(u'北')
         self.snapshot('gallery - chinese character')
+
+    def test_location_link(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Div(id='waitfor'),
+            dcc.Location(id='test-location', refresh=False),
+
+            dcc.Link(
+                html.Button('I am a clickable button'),
+                id='test-link',
+                href='/test/pathname'),
+            dcc.Link(
+                html.Button('I am a clickable hash button'),
+                id='test-link-hash',
+                href='#test'),
+            dcc.Link(
+                html.Button('I am a clickable search button'),
+                id='test-link-search',
+                href='?testQuery=testValue',
+                refresh=False),
+            html.Button('I am a magic button that updates pathname', id='test-button'),
+            html.A('link to click', href='/test/pathname/a', id='test-a'),
+            html.A('link to click', href='#test-hash', id='test-a-hash'),
+            html.A('link to click', href='?queryA=valueA', id='test-a-query'),
+            html.Div(id='test-pathname', children=[]),
+            html.Div(id='test-hash', children=[]),
+            html.Div(id='test-search', children=[]),
+        ])
+
+        @app.callback(
+            output=Output(component_id='test-pathname', component_property='children'),
+            inputs=[Input(component_id='test-location', component_property='pathname')])
+        def update_location_on_page(pathname):
+            return pathname
+
+        @app.callback(
+            output=Output(component_id='test-hash', component_property='children'),
+            inputs=[Input(component_id='test-location', component_property='hash')])
+        def update_location_on_page(hash_val):
+            if hash_val is None:
+                return ''
+
+            return hash_val
+
+        @app.callback(
+            output=Output(component_id='test-search', component_property='children'),
+            inputs=[Input(component_id='test-location', component_property='search')])
+        def update_location_on_page(search):
+            if search is None:
+                return ''
+
+            return search
+
+        @app.callback(
+            output=Output(component_id='test-location', component_property='pathname'),
+            inputs=[Input(component_id='test-button', component_property='n_clicks')],
+            state=[State(component_id='test-location', component_property='pathname')])
+        def update_pathname(n_clicks, current_pathname):
+            if n_clicks is not None:
+                return '/new/pathname'
+
+            return current_pathname
+
+        self.startServer(app=app)
+
+        self.snapshot('link -- location')
+
+        # Check that link updates pathname
+        self.wait_for_element_by_css_selector('#test-link').click()
+        self.assertEqual(
+            self.driver.current_url.replace('http://localhost:8050', ''),
+            '/test/pathname')
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname')
+
+        # Check that hash is updated in the Location
+        self.wait_for_element_by_css_selector('#test-link-hash').click()
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname')
+        self.wait_for_text_to_equal('#test-hash', '#test')
+        self.snapshot('link -- /test/pathname#test')
+
+        # Check that search is updated in the Location -- note that this goes through href and therefore wipes the hash
+        self.wait_for_element_by_css_selector('#test-link-search').click()
+        self.wait_for_text_to_equal('#test-search', '?testQuery=testValue')
+        self.wait_for_text_to_equal('#test-hash', '')
+        self.snapshot('link -- /test/pathname?testQuery=testValue')
+
+        # Check that pathname is updated through a Button click via props
+        self.wait_for_element_by_css_selector('#test-button').click()
+        self.wait_for_text_to_equal('#test-pathname', '/new/pathname')
+        self.wait_for_text_to_equal('#test-search', '?testQuery=testValue')
+        self.snapshot('link -- /new/pathname?testQuery=testValue')
+
+        # Check that pathname is updated through an a tag click via props
+        self.wait_for_element_by_css_selector('#test-a').click()
+        try:
+            self.wait_for_element_by_css_selector('#waitfor')
+        except Exception as e:
+            print(self.wait_for_element_by_css_selector(
+                '#_dash-app-content').get_attribute('innerHTML'))
+            raise e
+
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-search', '')
+        self.wait_for_text_to_equal('#test-hash', '')
+        self.snapshot('link -- /test/pathname/a')
+
+        # Check that hash is updated through an a tag click via props
+        self.wait_for_element_by_css_selector('#test-a-hash').click()
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-search', '')
+        self.wait_for_text_to_equal('#test-hash', '#test-hash')
+        self.snapshot('link -- /test/pathname/a#test-hash')
+
+        # Check that hash is updated through an a tag click via props
+        self.wait_for_element_by_css_selector('#test-a-query').click()
+        self.wait_for_element_by_css_selector('#waitfor')
+        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-search', '?queryA=valueA')
+        self.wait_for_text_to_equal('#test-hash', '')
+        self.snapshot('link -- /test/pathname/a?queryA=valueA')

@@ -1,9 +1,9 @@
 import os as _os
-import dash as _dash
 import sys as _sys
+import dash as _dash
 from .version import __version__
 
-npm_package_version = '0.13.0-rc8'
+npm_package_version = '0.21.0-rc1'
 
 _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
@@ -16,8 +16,8 @@ _this_module = _sys.modules[__name__]
 
 _js_dist = [
     {
-        'external_url': 'https://cdn.plot.ly/plotly-1.31.0.min.js',
-        'relative_package_path': 'plotly-1.31.0.min.js',
+        'external_url': 'https://cdn.plot.ly/plotly-1.33.1.min.js',
+        'relative_package_path': 'plotly-1.33.1.min.js',
         'namespace': 'dash_core_components'
     },
     {
@@ -32,12 +32,12 @@ _js_dist = [
 
 _css_dist = [
     {
-        "relative_package_path": [
-            "rc-slider@6.1.2.css",
-            "react-select@1.0.0-rc.3.min.css",
-            "react-virtualized@9.9.0.css",
-            "react-virtualized-select@3.1.0.css",
-            "react-dates@12.3.0.css"
+        'relative_package_path': [
+            'rc-slider@6.1.2.css',
+            'react-select@1.0.0-rc.3.min.css',
+            'react-virtualized@9.9.0.css',
+            'react-virtualized-select@3.1.0.css',
+            'react-dates@12.3.0.css'
         ],
         "external_url": [
             "https://unpkg.com/react-select@1.0.0-rc.3/dist/react-select.min.css",
@@ -46,7 +46,7 @@ _css_dist = [
             "https://unpkg.com/rc-slider@6.1.2/assets/index.css",
             "https://unpkg.com/dash-core-components@{}/dash_core_components/react-dates@12.3.0.css".format(npm_package_version)
         ],
-        "namespace": "dash_core_components"
+        'namespace': 'dash_core_components'
     }
 ]
 

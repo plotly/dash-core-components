@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import {append, contains, without} from 'ramda';
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 /**
  * Checklist is a component that encapsulates several checkboxes.
@@ -72,24 +73,26 @@ Checklist.propTypes = {
     /**
      * An array of options
      */
-    options: PropTypes.shape({
-        /**
-         * The checkbox's label
-         */
-        label: PropTypes.string,
+     options: PropTypes.arrayOf(
+         PropTypes.shape({
+            /**
+             * The checkbox's label
+             */
+            label: PropTypes.string,
 
-        /**
-         * The value of the checkbox. This value
-         * corresponds to the items specified in the
-         * `values` property.
-         */
-        value: PropTypes.string,
+            /**
+             * The value of the checkbox. This value
+             * corresponds to the items specified in the
+             * `values` property.
+             */
+            value: PropTypes.string,
 
-        /**
-         * If true, this checkbox is disabled and can't be clicked on.
-         */
-        disabled: PropTypes.bool
-    }),
+            /**
+             * If true, this checkbox is disabled and can't be clicked on.
+             */
+            disabled: PropTypes.bool
+        })
+    ),
 
     /**
      * The currently selected value

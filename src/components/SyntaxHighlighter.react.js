@@ -1,6 +1,7 @@
 import {arduinoLight, monokai} from 'react-syntax-highlighter/dist/styles';
-import {omit} from 'ramda';
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import {omit, type} from 'ramda';
+import React from 'react';
 import ReactSyntaxHighlighter from 'react-syntax-highlighter';
 
 /**
@@ -13,6 +14,14 @@ export default function SyntaxHighlighter(props) {
         style = monokai;
     } else {
         style = arduinoLight;
+    }
+
+    // must be a string or an array of strings
+    if(type(props.children) === 'Array') {
+        props.children = props.children.join('\n');
+    }
+    if(type(props.children) === 'Null') {
+        props.children = '';
     }
     return (
         <ReactSyntaxHighlighter
@@ -28,7 +37,10 @@ SyntaxHighlighter.propTypes = {
     /**
      * The text to display and highlight
      */
-    children: PropTypes.string,
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ]),
 
     /**
      * the language to highlight code in.
@@ -58,7 +70,7 @@ SyntaxHighlighter.propTypes = {
     /**
      * if showLineNumbers is enabled the line numbering will start from here.
      */
-    startingLineNumber: PropTypes.bool,
+    startingLineNumber: PropTypes.number,
     /**
      * the line numbers container default to appearing to the left with 10px of right padding. You can use this to override those styles.
      */
@@ -75,4 +87,4 @@ SyntaxHighlighter.propTypes = {
      * inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object.
      */
     lineStyle: PropTypes.object
-}
+};

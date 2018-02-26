@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {omit} from 'ramda';
 
 /**
@@ -21,15 +22,22 @@ export default class Input extends Component {
     render() {
         const {
             fireEvent,
-            setProps
+            setProps,
+            type
         } = this.props;
         const {value} = this.state;
-
         return (
             <input
                 onChange={e => {
                     this.setState({value: e.target.value});
-                    if (setProps) setProps({value: e.target.value});
+                    if (setProps) {
+                        if (type === 'number') {
+                            setProps({value: Number(e.target.value)});
+                        }
+                        else {
+                            setProps({value: e.target.value});
+                        }
+                    }
                     if (fireEvent) fireEvent({event: 'change'});
                 }}
                 onBlur={() => {
