@@ -1,4 +1,6 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import {type} from 'ramda';
 import Markdown from 'react-markdown';
 
 /**
@@ -7,8 +9,7 @@ import Markdown from 'react-markdown';
  */
 function DashMarkdown (props) {
 
-    // must be a string or an array of strings
-    if(typeof props.children !== 'string') {
+    if(type(props.children) === 'Array') {
         props.children = props.children.join('\n');
     }
 
@@ -37,7 +38,10 @@ DashMarkdown.propTypes = {
     /**
      * A markdown string (or array of strings) that adhreres to the CommonMark spec
      */
-    children: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)])
-}
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ])
+};
 
 export default DashMarkdown;
