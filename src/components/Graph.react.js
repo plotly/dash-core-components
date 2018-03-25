@@ -77,7 +77,7 @@ export default class PlotlyGraph extends Component {
         if (animate && hasPlotted && figure.data.length === gd.data.length) {
             return Plotly.animate(id, figure, animation_options);
         } else {
-            return  Plotly.newPlot(id, figure.data, figure.layout, config).then(() => {
+            return  Plotly.react(id, figure.data, figure.layout, config).then(() => {
                 this.bindEvents(props);
                 this.setState({hasPlotted: true});
             });
@@ -88,6 +88,7 @@ export default class PlotlyGraph extends Component {
         const {id, fireEvent, setProps, clear_on_unhover} = props;
 
         const gd = document.getElementById(id);
+        gd.removeAllListeners();
 
         gd.on('plotly_click', (eventData) => {
             const clickData = filterEventData(gd, eventData, 'click');
