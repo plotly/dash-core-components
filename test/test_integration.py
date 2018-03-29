@@ -38,7 +38,7 @@ class Tests(IntegrationTests):
         pass
 
     @staticmethod
-    def snapshot_name(snapshot, react_version: dash_renderer._DEFAULT_REACT_VERSION):
+    def snapshot_name(snapshot, react_version=dash_renderer._DEFAULT_REACT_VERSION):
         if react_version == dash_renderer._DEFAULT_REACT_VERSION:
             return snapshot
         else:
