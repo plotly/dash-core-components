@@ -5,6 +5,8 @@ import unittest
 import percy
 from selenium import webdriver
 
+import dash_renderer
+
 
 class IntegrationTests(unittest.TestCase):
 
@@ -31,8 +33,10 @@ class IntegrationTests(unittest.TestCase):
         self.server_process.terminate()
         time.sleep(3)
 
-    def startServer(self, app):
+    def startServer(self, app, react_version=dash_renderer._DEFAULT_REACT_VERSION):
         def run():
+            # Update React version to allow tests to be run with different versions of React
+            dash_renderer._set_react_version(react_version=react_version)
             app.scripts.config.serve_locally = True
             app.css.config.serve_locally = True
             app.run_server(

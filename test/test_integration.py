@@ -11,6 +11,7 @@ import dash
 from dash.dependencies import Input, Output, State
 import dash_html_components as html
 import dash_core_components as dcc
+import dash_renderer
 import dash_table_experiments as dt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -35,6 +36,13 @@ from .IntegrationTests import IntegrationTests
 class Tests(IntegrationTests):
     def setUp(self):
         pass
+
+    @staticmethod
+    def snapshot_name(snapshot, react_version: dash_renderer._DEFAULT_REACT_VERSION):
+        if react_version == dash_renderer._DEFAULT_REACT_VERSION:
+            return snapshot
+        else:
+            return snapshot + 'v' + react_version
 
     def wait_for_element_by_css_selector(self, selector):
         start_time = time.time()
@@ -167,7 +175,7 @@ class Tests(IntegrationTests):
     def test_upload_svg(self):
         self.create_upload_component_content_types_test('dash-logo-stripe.svg')
 
-    def test_upload_gallery(self):
+    def create_test_upload_gallery(self, react_version=dash_renderer._DEFAULT_REACT_VERSION):
         app = dash.Dash(__name__)
         app.layout = html.Div([
             html.Div(id='waitfor'),
@@ -197,7 +205,7 @@ class Tests(IntegrationTests):
                 'textAlign': 'center'
             })
         ])
-        self.startServer(app)
+        self.startServer(app, react_version)
 
         try:
             self.wait_for_element_by_css_selector('#waitfor')
@@ -206,9 +214,16 @@ class Tests(IntegrationTests):
                 '#_dash-app-content').get_attribute('innerHTML'))
             raise e
 
-        self.snapshot('test_upload_gallery')
+        self.snapshot(self.snapshot_name('test_upload_gallery', react_version))
 
-    def test_gallery(self):
+    def test_upload_gallery(self):
+        self.create_test_upload_gallery()
+
+    def test_upload_gallery_v16(self):
+        self.create_test_upload_gallery(react_version='16.2.0')
+
+    def create_test_gallery(self, react_version=dash_renderer._DEFAULT_REACT_VERSION):
+
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
@@ -329,18 +344,25 @@ class Tests(IntegrationTests):
             ], language='python'),
             dcc.SyntaxHighlighter()
         ])
-        self.startServer(app)
+        self.startServer(app, react_version=react_version)
 
         self.wait_for_element_by_css_selector('#waitfor')
 
-        self.snapshot('gallery')
+        self.snapshot(self.snapshot_name('gallery', react_version))
 
         self.driver.find_element_by_css_selector(
             '#dropdown .Select-input input'
         ).send_keys(u'北')
-        self.snapshot('gallery - chinese character')
 
-    def test_location_link(self):
+        self.snapshot(self.snapshot_name('gallery - chinese character', react_version))
+
+    def test_gallery(self):
+        self.create_test_gallery()
+
+    def test_gallery_v16(self):
+        self.create_test_gallery('16.2.0')
+
+    def create_test_location_link(self, react_version=dash_renderer._DEFAULT_REACT_VERSION):
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
@@ -403,9 +425,9 @@ class Tests(IntegrationTests):
 
             return current_pathname
 
-        self.startServer(app=app)
+        self.startServer(app=app, react_version=react_version)
 
-        self.snapshot('link -- location')
+        self.snapshot(self.snapshot_name('link -- location', react_version))
 
         # Check that link updates pathname
         self.wait_for_element_by_css_selector('#test-link').click()
@@ -418,19 +440,19 @@ class Tests(IntegrationTests):
         self.wait_for_element_by_css_selector('#test-link-hash').click()
         self.wait_for_text_to_equal('#test-pathname', '/test/pathname')
         self.wait_for_text_to_equal('#test-hash', '#test')
-        self.snapshot('link -- /test/pathname#test')
+        self.snapshot(self.snapshot_name('link -- /test/pathname#test', react_version))
 
         # Check that search is updated in the Location -- note that this goes through href and therefore wipes the hash
         self.wait_for_element_by_css_selector('#test-link-search').click()
         self.wait_for_text_to_equal('#test-search', '?testQuery=testValue')
         self.wait_for_text_to_equal('#test-hash', '')
-        self.snapshot('link -- /test/pathname?testQuery=testValue')
+        self.snapshot(self.snapshot_name('link -- /test/pathname?testQuery=testValue', react_version))
 
         # Check that pathname is updated through a Button click via props
         self.wait_for_element_by_css_selector('#test-button').click()
         self.wait_for_text_to_equal('#test-pathname', '/new/pathname')
         self.wait_for_text_to_equal('#test-search', '?testQuery=testValue')
-        self.snapshot('link -- /new/pathname?testQuery=testValue')
+        self.snapshot(self.snapshot_name('link -- /new/pathname?testQuery=testValue', react_version))
 
         # Check that pathname is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a').click()
@@ -445,6 +467,7 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-search', '')
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a')
+        self.snapshot(self.snapshot_name('link -- /test/pathname/a', react_version))
 
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-hash').click()
@@ -452,6 +475,7 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-search', '')
         self.wait_for_text_to_equal('#test-hash', '#test-hash')
         self.snapshot('link -- /test/pathname/a#test-hash')
+        self.snapshot(self.snapshot_name('link -- /test/pathname/a#test-hash', react_version))
 
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-query').click()
@@ -460,3 +484,10 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-search', '?queryA=valueA')
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
+        self.snapshot(self.snapshot_name('link -- /test/pathname/a?queryA=valueA', react_version))
+
+    def test_location_link(self):
+        self.create_test_location_link()
+
+    def test_location_link_v16(self):
+        self.create_test_location_link(react_version='16.2.0')
