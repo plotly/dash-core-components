@@ -18,6 +18,6 @@ class TestDashImport(unittest.TestCase):
         """Test that program exits if the wrong dash module was imported"""
         
         with self.assertRaises(SystemExit) as cm:
-            import dash_html_components
+            import dash_core_components
 
         self.assertEqual(cm.exception.code, 1)
