@@ -2,8 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.22.0] - 2018-02-24
+## [1.0.0] - 2018-04-01
 ### Changed
+**BREAKING**
 - Update versions for:
     - `react-dates` to `"16.3.2"`
     - `react-dropzone` to `"4.2.8"`
@@ -13,8 +14,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - `react-syntax-highlighter` to `"7.0.0"`
     - `react-virtualized-select` to `"3.1.3"`
     - `react` and `react-dom` as peerDependencies `"^15.4.0 || ^16.0.0"`
-- Add `style-loader` and `css-loader` to webpack babel loaders to support
-new version of `react-dates` with separate css file
+
+Note that these changes may involve changes to the stylesheets for the dependencies.
+External CSS overrides (e.g., from user stylesheets) may no longer work as intended.
+
 - Change import location from `react-syntax-highlighter` to:
  ```js
  import {arduinoLight, monokai} from 'react-syntax-highlighter/styles/hljs';
