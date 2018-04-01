@@ -42,7 +42,7 @@ class Tests(IntegrationTests):
         if react_version == dash_renderer._DEFAULT_REACT_VERSION:
             return snapshot
         else:
-            return snapshot + 'v' + react_version
+            return snapshot + '__v' + react_version
 
     def wait_for_element_by_css_selector(self, selector):
         start_time = time.time()
@@ -466,7 +466,6 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
         self.wait_for_text_to_equal('#test-search', '')
         self.wait_for_text_to_equal('#test-hash', '')
-        self.snapshot('link -- /test/pathname/a')
         self.snapshot(self.snapshot_name('link -- /test/pathname/a', react_version))
 
         # Check that hash is updated through an a tag click via props
@@ -474,7 +473,6 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
         self.wait_for_text_to_equal('#test-search', '')
         self.wait_for_text_to_equal('#test-hash', '#test-hash')
-        self.snapshot('link -- /test/pathname/a#test-hash')
         self.snapshot(self.snapshot_name('link -- /test/pathname/a#test-hash', react_version))
 
         # Check that hash is updated through an a tag click via props
@@ -483,7 +481,6 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
         self.wait_for_text_to_equal('#test-search', '?queryA=valueA')
         self.wait_for_text_to_equal('#test-hash', '')
-        self.snapshot('link -- /test/pathname/a?queryA=valueA')
         self.snapshot(self.snapshot_name('link -- /test/pathname/a?queryA=valueA', react_version))
 
     def test_location_link(self):

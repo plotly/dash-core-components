@@ -31,10 +31,10 @@ _js_dist = [
 _css_dist = [
     {
         'relative_package_path': [
-            'rc-slider@6.1.2.css',
+            'rc-slider@8.6.0.css',
             'react-select@1.2.1.min.css',
-            'react-virtualized@9.9.0.css',
-            'react-virtualized-select@3.1.0.css',
+            'react-virtualized@9.18.5.css',
+            'react-virtualized-select@3.1.3.css',
             'react-dates_datepicker@16.3.2.min.css'
         ],
         'external_url': [
