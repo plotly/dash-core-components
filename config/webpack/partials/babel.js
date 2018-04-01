@@ -19,15 +19,8 @@ module.exports = function (config) {
                      * and avoid webpack's magick loader resolution
                      */
                     loader: require.resolve('babel-loader')
-                },
-                {
-                    test: /\.css$/,
-                    loaders: ['style-loader', 'css-loader']
                 }
             ]
-        },
-        alias: {
-          'react-dates/lib/css/_datepicker.css': path.join(ROOT, 'node_modules', 'react-dates/lib/css/_datepicker.css')
         }
     });
 };

@@ -42,7 +42,6 @@
   },
   "devDependencies": {
     "component-playground": "^2.0.0",
-    "css-loader": "^0.28.10",
     "dash-components-archetype-dev": "^0.2.11",
     "enzyme": "^2.4.1",
     "style-loader": "^0.20.2"
