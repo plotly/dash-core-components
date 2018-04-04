@@ -892,12 +892,7 @@
         "name": "bindEvents",
         "docblock": null,
         "modifiers": [],
-        "params": [
-          {
-            "name": "props",
-            "type": null
-          }
-        ],
+        "params": [],
         "returns": null
       }
     ],

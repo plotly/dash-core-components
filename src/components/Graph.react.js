@@ -67,25 +67,27 @@ export default class PlotlyGraph extends Component {
     constructor(props) {
         super(props);
         this.bindEvents = this.bindEvents.bind(this);
-        this.state = {hasPlotted: false};
+        this._hasPlotted = false;
     }
 
     plot(props) {
         const {id, figure, animate, animation_options, config} = props;
-        const {hasPlotted} = this.state;
         const gd = document.getElementById(id);
-        if (animate && hasPlotted && figure.data.length === gd.data.length) {
+        if (animate && this._hasPlotted && figure.data.length === gd.data.length) {
             return Plotly.animate(id, figure, animation_options);
         } else {
-            return  Plotly.react(id, figure.data, figure.layout, config).then(() => {
-                this.bindEvents(props);
-                this.setState({hasPlotted: true});
+            return Plotly.react(id, figure.data, figure.layout, config).then(() => {
+                if (!this._hasPlotted) {
+                    this.bindEvents();
+                    Plotly.Plots.resize(document.getElementById(id));
+                    this._hasPlotted = true;
+                }
             });
         }
     }
 
-    bindEvents(props) {
-        const {id, fireEvent, setProps, clear_on_unhover} = props;
+    bindEvents() {
+        const {id, fireEvent, setProps, clear_on_unhover} = this.props;
 
         const gd = document.getElementById(id);
 
@@ -162,19 +164,8 @@ export default class PlotlyGraph extends Component {
 
         const figureChanged = this.props.figure !== nextProps.figure;
 
-        /*
-         * Rebind events in case fireEvent or setProps
-         * wasn't defined on initial render
-         * TODO - Is it safe to rebind events?
-         */
-        const shouldBindEvents = (
-            (!this.props.setProps && nextProps.setProps) ||
-            (!this.props.fireEvent && nextProps.fireEvent)
-        );
         if (figureChanged) {
             this.plot(nextProps);
-        } else if (shouldBindEvents) {
-            this.bindEvents(nextProps);
         }
     }
 
