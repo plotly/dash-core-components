@@ -98,6 +98,11 @@ export default class PlotlyGraph extends Component {
                 if (fireEvent) fireEvent({event: 'click'});
             }
         });
+        gd.on('plotly_clickannotation', (eventData) => {
+            const clickAnnotationData = eventData;
+            if (setProps) setProps({clickAnnotationData});
+            if (fireEvent) fireEvent({event: 'clickannotation'});
+        });
         gd.on('plotly_hover', (eventData) => {
             const hoverData = filterEventData(gd, eventData, 'hover');
             if (!isNil(hoverData)) {
@@ -196,6 +201,11 @@ PlotlyGraph.propTypes = {
      * Data from latest click event
      */
     clickData: PropTypes.object,
+    
+    /**
+     * Data from latest click annotation event
+     */
+    clickAnnotationData: PropTypes.object,
 
     /**
      * Data from latest hover event
@@ -433,6 +443,7 @@ PlotlyGraph.propTypes = {
      */
     dashEvents: PropTypes.oneOf([
         'click',
+        'clickannotation',
         'hover',
         'selected',
         'relayout',
@@ -452,6 +463,7 @@ PlotlyGraph.propTypes = {
 
 PlotlyGraph.defaultProps = {
     clickData: null,
+    clickAnnotationData: null,
     hoverData: null,
     selectedData: null,
     relayoutData: null,
