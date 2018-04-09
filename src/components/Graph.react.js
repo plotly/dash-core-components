@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {contains, filter, has, isNil, type} from 'ramda';
+import {contains, intersection, filter, has, isNil, type, pluck} from 'ramda';
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
@@ -79,8 +79,8 @@ export default class PlotlyGraph extends Component {
         } else {
 
             let PlotMethod;
-            if (R.intersection(
-                R.pluck('type', figure.data),
+            if (intersection(
+                pluck('type', figure.data),
                 ['candlestick', 'ohlc']).length
             ) {
                 PlotMethod = Plotly.newPlot;
