@@ -53,3 +53,6 @@ coreGraph(id = NULL, clickData = NULL, hoverData = NULL,
 
 \item{dashFireEvent}{Function that fires events}
 }
+\description{
+Graph dash-core-components component
+}

@@ -22,3 +22,6 @@ coreLink(..., href = NULL, refresh = FALSE, className = NULL,
 
 \item{children}{}
 }
+\description{
+Link dash-core-components component
+}
