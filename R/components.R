@@ -39,6 +39,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -111,6 +112,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -177,6 +179,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -221,6 +224,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -274,6 +278,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -352,6 +357,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -388,6 +394,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -423,6 +430,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -457,6 +465,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -488,6 +497,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -534,6 +544,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -592,6 +603,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -644,6 +656,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -693,6 +706,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -773,6 +787,7 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
@@ -836,11 +851,17 @@ component <- list(
   package = 'dashCoreComponents'
 )
 
+component$props <- filter_null(component$props)
 
 
 structure(component, class = c('dash_component', 'list'))
 }
 
+
+filter_null <- function(x) {
+  if (length(x) == 0 || !is.list(x)) return(x)
+  x[!vapply(x, is.null, logical(1))]
+}
 
 assert_valid_children <- function(..., wildcards = NULL) {
   kids <- list(...)
