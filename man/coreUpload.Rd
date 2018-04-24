@@ -57,6 +57,3 @@ coreUpload(..., id = NULL, contents = NULL, filename = NULL,
 
 \item{setProps}{Dash-supplied function for updating props}
 }
-\description{
-Upload dash-core-components component
-}
