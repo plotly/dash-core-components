@@ -12,7 +12,7 @@
     "build-dist": "builder run clean-lib && builder run extract-metadata && NODE_ENV=production webpack --config=./config/webpack/webpack.config.dist.js",
     "copy-lib": "cp lib/* dash_core_components",
     "install-local": "npm run copy-lib && python setup.py install",
-    "install-local-r": "npm run copy-lib && Rscript inst/transpile.R && Rscript -e 'roxygen2::roxygenise()' && R CMD install .",
+    "install-local-r": "npm run copy-lib && Rscript tools/transpile.R && Rscript -e 'roxygen2::roxygenise()' && R CMD install .",
     "prepublish": "npm test && builder run build-dist && npm run copy-lib",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist && twine upload --sign --skip-existing",
