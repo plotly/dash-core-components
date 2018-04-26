@@ -920,6 +920,17 @@
           "computed": false
         }
       },
+      "clear_on_doubleclick": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If True, `clear_on_doubleclick` will clear the `clickData` property\nwhen the user double clicks (when dragmode='zoom').",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
       "hoverData": {
         "type": {
           "name": "object"

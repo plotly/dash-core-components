@@ -102,7 +102,7 @@ export default class PlotlyGraph extends Component {
     }
 
     bindEvents() {
-        const {id, fireEvent, setProps, clear_on_unhover} = this.props;
+        const {id, fireEvent, setProps, clear_on_unhover, clear_on_doubleclick} = this.props;
 
         const gd = document.getElementById(id);
 
@@ -144,6 +144,13 @@ export default class PlotlyGraph extends Component {
                 if (fireEvent) fireEvent({event: 'unhover'});
             }
         });
+        gd.on('plotly_doubleclick', () => {
+            if (clear_on_doubleclick) {
+                if (setProps) setProps({clickData: null});
+                if (fireEvent) fireEvent({event: 'doubleclick'});
+            }
+        })
+
     }
 
     componentDidMount() {
@@ -213,6 +220,12 @@ PlotlyGraph.propTypes = {
     clickData: PropTypes.object,
 
     /**
+     * If True, `clear_on_doubleclick` will clear the `clickData` property
+     * when the user double clicks (when dragmode='zoom').
+     */
+    clear_on_doubleclick: PropTypes.bool,
+
+    /**
      * Data from latest hover event
      */
     hoverData: PropTypes.object,
@@ -224,6 +237,7 @@ PlotlyGraph.propTypes = {
      * data from the last point that was hovered over.
      */
     clear_on_unhover: PropTypes.bool,
+
 
     /**
      * Data from latest select event
@@ -481,6 +495,7 @@ PlotlyGraph.defaultProps = {
             ease: 'cubic-in-out'
         }
     },
+    clear_on_doubleclick: false,
     clear_on_unhover: false,
     config: {
         staticPlot: false,
