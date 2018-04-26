@@ -296,6 +296,7 @@ structure(component, class = c('dash_component', 'list'))
 #' @param type The type of control to render. 
 #' @param autocomplete This attribute indicates whether the value of the control can be automatically completed by the browser. 
 #' @param autofocus The element should be automatically focused after the page loaded. 
+#' @param disabled If true, the input is disabled and can't be clicked on. 
 #' @param inputmode  
 #' @param list Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in the same document. The browser displays only options that are valid values for this input element. This attribute is ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type. 
 #' @param max The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value. 
@@ -318,7 +319,7 @@ structure(component, class = c('dash_component', 'list'))
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents  
 
-coreInput <- function(id = NULL, value = NULL, style = NULL, className = NULL, type = NULL, autocomplete = NULL, autofocus = NULL, inputmode = NULL, list = NULL, max = NULL, maxlength = NULL, min = NULL, minlength = NULL, multiple = NULL, name = NULL, pattern = NULL, placeholder = NULL, readonly = NULL, required = NULL, selectionDirection = NULL, selectionEnd = NULL, selectionStart = NULL, size = NULL, spellcheck = NULL, step = NULL, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+coreInput <- function(id = NULL, value = NULL, style = NULL, className = NULL, type = NULL, autocomplete = NULL, autofocus = NULL, disabled = NULL, inputmode = NULL, list = NULL, max = NULL, maxlength = NULL, min = NULL, minlength = NULL, multiple = NULL, name = NULL, pattern = NULL, placeholder = NULL, readonly = NULL, required = NULL, selectionDirection = NULL, selectionEnd = NULL, selectionStart = NULL, size = NULL, spellcheck = NULL, step = NULL, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -329,6 +330,7 @@ component <- list(
 				type=type, 
 				autocomplete=autocomplete, 
 				autofocus=autofocus, 
+				disabled=disabled, 
 				inputmode=inputmode, 
 				list=list, 
 				max=max, 
@@ -353,7 +355,7 @@ component <- list(
   ),
   type = 'Input',
   namespace = 'dash_core_components',
-  propNames = c('id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step', 'fireEvent', 'setProps', 'dashEvents'),
+  propNames = c('id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step', 'fireEvent', 'setProps', 'dashEvents'),
   package = 'dashCoreComponents'
 )
 

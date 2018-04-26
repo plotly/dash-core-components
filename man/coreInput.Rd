@@ -5,10 +5,10 @@
 \title{Input dash-core-components component}
 \usage{
 coreInput(id = NULL, value = NULL, style = NULL, className = NULL,
-  type = NULL, autocomplete = NULL, autofocus = NULL, inputmode = NULL,
-  list = NULL, max = NULL, maxlength = NULL, min = NULL,
-  minlength = NULL, multiple = NULL, name = NULL, pattern = NULL,
-  placeholder = NULL, readonly = NULL, required = NULL,
+  type = NULL, autocomplete = NULL, autofocus = NULL, disabled = NULL,
+  inputmode = NULL, list = NULL, max = NULL, maxlength = NULL,
+  min = NULL, minlength = NULL, multiple = NULL, name = NULL,
+  pattern = NULL, placeholder = NULL, readonly = NULL, required = NULL,
   selectionDirection = NULL, selectionEnd = NULL, selectionStart = NULL,
   size = NULL, spellcheck = NULL, step = NULL, fireEvent = NULL,
   setProps = NULL, dashEvents = NULL)
@@ -27,6 +27,8 @@ coreInput(id = NULL, value = NULL, style = NULL, className = NULL,
 \item{autocomplete}{This attribute indicates whether the value of the control can be automatically completed by the browser.}
 
 \item{autofocus}{The element should be automatically focused after the page loaded.}
+
+\item{disabled}{If true, the input is disabled and can't be clicked on.}
 
 \item{inputmode}{}
 
