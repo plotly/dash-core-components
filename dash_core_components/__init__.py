@@ -22,6 +22,11 @@ _components = _dash.development.component_loader.load_components(
 _this_module = _sys.modules[__name__]
 
 _js_dist = [
+	{
+        'external_url': 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        'relative_package_path': 'mathjax-2.7.4.js',
+        'namespace': 'dash_core_components'
+    },
     {
         'external_url': 'https://cdn.plot.ly/plotly-1.35.2.min.js',
         'relative_package_path': 'plotly-1.35.2.min.js',
