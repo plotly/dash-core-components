@@ -515,6 +515,7 @@ class Tests(IntegrationTests):
                 }
             ),
         ])
+        self.startServer(app=app)
 
         graph = self.wait_for_element_by_css_selector('#graph')
         time.sleep(2)
