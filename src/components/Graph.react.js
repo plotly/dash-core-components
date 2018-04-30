@@ -130,6 +130,10 @@ export default class PlotlyGraph extends Component {
         gd.on('plotly_deselect', () => {
             if (setProps) setProps({selectedData: null});
             if (fireEvent) fireEvent({event: 'selected'});
+            if (clear_on_doubleclick) {
+                if (setProps) setProps({clickData: null});
+                if (fireEvent) fireEvent({event: 'unclick'});
+            }
         });
         gd.on('plotly_relayout', (eventData) => {
             const relayoutData = filterEventData(gd, eventData, 'relayout');
@@ -147,7 +151,7 @@ export default class PlotlyGraph extends Component {
         gd.on('plotly_doubleclick', () => {
             if (clear_on_doubleclick) {
                 if (setProps) setProps({clickData: null});
-                if (fireEvent) fireEvent({event: 'doubleclick'});
+                if (fireEvent) fireEvent({event: 'unclick'});
             }
         })
 
@@ -221,7 +225,7 @@ PlotlyGraph.propTypes = {
 
     /**
      * If True, `clear_on_doubleclick` will clear the `clickData` property
-     * when the user double clicks (when dragmode='zoom').
+     * when the user double clicks.
      */
     clear_on_doubleclick: PropTypes.bool,
 
