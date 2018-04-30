@@ -20,7 +20,7 @@ coreGraph(id = NULL, clickData = NULL, hoverData = NULL,
   displayModeBar = "hover", modeBarButtonsToRemove = list(), modeBarButtonsToAdd
   = list(), modeBarButtons = FALSE, displaylogo = TRUE, plotGlPixelRatio = 2,
   topojsonURL = "https://cdn.plot.ly/", mapboxAccessToken = NULL),
-  dashEvents = NULL, setProps = NULL, dashFireEvent = NULL)
+  dashEvents = NULL, setProps = NULL, fireEvent = NULL)
 }
 \arguments{
 \item{id}{(required)}
@@ -51,5 +51,5 @@ coreGraph(id = NULL, clickData = NULL, hoverData = NULL,
 
 \item{setProps}{Function that updates the state tree.}
 
-\item{dashFireEvent}{Function that fires events}
+\item{fireEvent}{Function that fires events}
 }
