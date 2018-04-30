@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreDatePickerRange}
 \alias{coreDatePickerRange}
-\title{DatePickerRange dash-core-components component}
+\title{DatePickerRange component}
 \usage{
 coreDatePickerRange(id = NULL, start_date = NULL, end_date = NULL,
   min_date_allowed = NULL, max_date_allowed = NULL,

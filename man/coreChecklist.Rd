@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreChecklist}
 \alias{coreChecklist}
-\title{Checklist dash-core-components component}
+\title{Checklist component}
 \usage{
 coreChecklist(id = NULL, options = list(), values = NULL,
   className = NULL, style = NULL, inputStyle = list(),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreInput}
 \alias{coreInput}
-\title{Input dash-core-components component}
+\title{Input component}
 \usage{
 coreInput(id = NULL, value = NULL, style = NULL, className = NULL,
   type = NULL, autocomplete = NULL, autofocus = NULL, disabled = NULL,

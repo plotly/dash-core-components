@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreUpload}
 \alias{coreUpload}
-\title{Upload dash-core-components component}
+\title{Upload component}
 \usage{
 coreUpload(..., id = NULL, contents = NULL, filename = NULL,
   last_modified = NULL, children = NULL, accept = NULL,
@@ -15,7 +15,7 @@ coreUpload(..., id = NULL, contents = NULL, filename = NULL,
   style_disabled = list(opacity = 0.5), setProps = NULL)
 }
 \arguments{
-\item{...}{(implicit) children of this component, which are combined with the more explicit `children` (a list of components)}
+\item{...}{Contents of the upload component}
 
 \item{id}{ID of the component. Used to identify component in Dash callback functions.}
 

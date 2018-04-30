@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreSlider}
 \alias{coreSlider}
-\title{Slider dash-core-components component}
+\title{Slider component}
 \usage{
 coreSlider(id = NULL, marks = NULL, value = NULL, className = NULL,
   disabled = NULL, dots = NULL, included = NULL, min = NULL,

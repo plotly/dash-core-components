@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreGraph}
 \alias{coreGraph}
-\title{Graph dash-core-components component}
+\title{Graph component}
 \usage{
 coreGraph(id = NULL, clickData = NULL, hoverData = NULL,
   clear_on_unhover = FALSE, selectedData = NULL, relayoutData = NULL,

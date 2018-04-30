@@ -2,13 +2,13 @@
 % Please edit documentation in R/components.R
 \name{coreLink}
 \alias{coreLink}
-\title{Link dash-core-components component}
+\title{Link component}
 \usage{
 coreLink(..., href = NULL, refresh = FALSE, className = NULL,
   style = NULL, id = NULL, children = NULL)
 }
 \arguments{
-\item{...}{(implicit) children of this component, which are combined with the more explicit `children` (a list of components)}
+\item{...}{}
 
 \item{href}{}
 

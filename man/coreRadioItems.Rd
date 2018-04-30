@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreRadioItems}
 \alias{coreRadioItems}
-\title{RadioItems dash-core-components component}
+\title{RadioItems component}
 \usage{
 coreRadioItems(id = NULL, options = list(), value = NULL, style = NULL,
   className = NULL, inputStyle = list(), inputClassName = "",

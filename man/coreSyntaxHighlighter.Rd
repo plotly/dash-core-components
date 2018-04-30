@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreSyntaxHighlighter}
 \alias{coreSyntaxHighlighter}
-\title{SyntaxHighlighter dash-core-components component}
+\title{SyntaxHighlighter component}
 \usage{
 coreSyntaxHighlighter(..., id = NULL, children = NULL, language = NULL,
   theme = NULL, customStyle = NULL, codeTagProps = NULL,
@@ -11,7 +11,7 @@ coreSyntaxHighlighter(..., id = NULL, children = NULL, language = NULL,
   lineNumberStyle = NULL, wrapLines = NULL, lineStyle = NULL)
 }
 \arguments{
-\item{...}{(implicit) children of this component, which are combined with the more explicit `children` (a list of components)}
+\item{...}{The text to display and highlight}
 
 \item{id}{}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreRangeSlider}
 \alias{coreRangeSlider}
-\title{RangeSlider dash-core-components component}
+\title{RangeSlider component}
 \usage{
 coreRangeSlider(id = NULL, marks = NULL, value = NULL,
   allowCross = NULL, className = NULL, count = NULL, disabled = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreLocation}
 \alias{coreLocation}
-\title{Location dash-core-components component}
+\title{Location component}
 \usage{
 coreLocation(id = NULL, pathname = NULL, search = NULL, hash = NULL,
   href = NULL, refresh = TRUE)

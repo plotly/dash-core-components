@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreInterval}
 \alias{coreInterval}
-\title{Interval dash-core-components component}
+\title{Interval component}
 \usage{
 coreInterval(id = NULL, interval = 1000, disabled = NULL,
   n_intervals = 0, fireEvent = NULL, setProps = NULL, dashEvents = NULL)

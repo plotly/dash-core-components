@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreDropdown}
 \alias{coreDropdown}
-\title{Dropdown dash-core-components component}
+\title{Dropdown component}
 \usage{
 coreDropdown(id = NULL, options = NULL, value = NULL, className = NULL,
   clearable = TRUE, disabled = FALSE, multi = FALSE, placeholder = NULL,

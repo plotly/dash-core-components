@@ -2,13 +2,13 @@
 % Please edit documentation in R/components.R
 \name{coreMarkdown}
 \alias{coreMarkdown}
-\title{Markdown dash-core-components component}
+\title{Markdown component}
 \usage{
 coreMarkdown(..., id = NULL, className = NULL, containerProps = NULL,
   children = NULL)
 }
 \arguments{
-\item{...}{(implicit) children of this component, which are combined with the more explicit `children` (a list of components)}
+\item{...}{A markdown string (or array of strings) that adhreres to the CommonMark spec}
 
 \item{id}{}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreDatePickerSingle}
 \alias{coreDatePickerSingle}
-\title{DatePickerSingle dash-core-components component}
+\title{DatePickerSingle component}
 \usage{
 coreDatePickerSingle(id = NULL, date = NULL, min_date_allowed = NULL,
   max_date_allowed = NULL, initial_visible_month = NULL, day_size = 39,

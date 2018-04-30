@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{coreTextarea}
 \alias{coreTextarea}
-\title{Textarea dash-core-components component}
+\title{Textarea component}
 \usage{
 coreTextarea(id = NULL, value = NULL, autoFocus = NULL, cols = NULL,
   disabled = NULL, form = NULL, maxLength = NULL, minLength = NULL,
