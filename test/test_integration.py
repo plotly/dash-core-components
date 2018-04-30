@@ -519,3 +519,4 @@ class Tests(IntegrationTests):
         graph = self.wait_for_element_by_css_selector('#graph')
         time.sleep(2)
         self.snapshot('latex rendering in graph')
+        
