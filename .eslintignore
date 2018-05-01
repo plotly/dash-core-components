@@ -12,3 +12,5 @@ venv/
 *.log
 .idea/
 .DS_Store
+dash_core_components/
+config/
