@@ -510,7 +510,7 @@ class Tests(IntegrationTests):
                         'y': [1, 3, 5, 9, 13]
                     }],
                     'layout': {
-                        'title': 'sqrt{(n_\\text{c}(t|{T_\\text{early}}))}$
+                        'title': 'sqrt{(n_\\text{c}(t|{T_\\text{early}}))}$'
                     }
                 }
             ),
