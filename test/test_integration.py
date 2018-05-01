@@ -526,7 +526,7 @@ class Tests(IntegrationTests):
         self.startServer(app)
 
         # check initial text
-        wait_for_text_to_equal('output', 'None')
+        self.wait_for_text_to_equal('output', 'None')
 
         self.snapshot('initial rendering of checklist')
 
@@ -534,7 +534,7 @@ class Tests(IntegrationTests):
         self.wait_for_element_by_css_selector(
             '#checklist-container input')[0].click()
         # check the output text
-        wait_for_text_to_equal('output', '[option-1]')
+        self.wait_for_text_to_equal('output', '[option-1]')
 
         # check that the callback was fired twice
         self.assertEqual(call_count.value, 2)
