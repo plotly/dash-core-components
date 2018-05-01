@@ -22,6 +22,7 @@ except ImportError:
     from urllib.parse import urlparse
 
 from .IntegrationTests import IntegrationTests
+from multiprocessing import Value
 
 # Download geckodriver: https://github.com/mozilla/geckodriver/releases
 # And add to path:
@@ -360,7 +361,8 @@ class Tests(IntegrationTests):
                 id='test-link-search',
                 href='?testQuery=testValue',
                 refresh=False),
-            html.Button('I am a magic button that updates pathname', id='test-button'),
+            html.Button('I am a magic button that updates pathname',
+                        id='test-button'),
             html.A('link to click', href='/test/pathname/a', id='test-a'),
             html.A('link to click', href='#test-hash', id='test-a-hash'),
             html.A('link to click', href='?queryA=valueA', id='test-a-query'),
@@ -370,13 +372,15 @@ class Tests(IntegrationTests):
         ])
 
         @app.callback(
-            output=Output(component_id='test-pathname', component_property='children'),
+            output=Output(component_id='test-pathname',
+                          component_property='children'),
             inputs=[Input(component_id='test-location', component_property='pathname')])
         def update_location_on_page(pathname):
             return pathname
 
         @app.callback(
-            output=Output(component_id='test-hash', component_property='children'),
+            output=Output(component_id='test-hash',
+                          component_property='children'),
             inputs=[Input(component_id='test-location', component_property='hash')])
         def update_location_on_page(hash_val):
             if hash_val is None:
@@ -385,7 +389,8 @@ class Tests(IntegrationTests):
             return hash_val
 
         @app.callback(
-            output=Output(component_id='test-search', component_property='children'),
+            output=Output(component_id='test-search',
+                          component_property='children'),
             inputs=[Input(component_id='test-location', component_property='search')])
         def update_location_on_page(search):
             if search is None:
@@ -394,8 +399,10 @@ class Tests(IntegrationTests):
             return search
 
         @app.callback(
-            output=Output(component_id='test-location', component_property='pathname'),
-            inputs=[Input(component_id='test-button', component_property='n_clicks')],
+            output=Output(component_id='test-location',
+                          component_property='pathname'),
+            inputs=[Input(component_id='test-button',
+                          component_property='n_clicks')],
             state=[State(component_id='test-location', component_property='pathname')])
         def update_pathname(n_clicks, current_pathname):
             if n_clicks is not None:
@@ -461,7 +468,6 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
 
-
     def test_candlestick(self):
         app = dash.Dash(__name__)
         app.layout = html.Div([
@@ -496,3 +502,41 @@ class Tests(IntegrationTests):
         button.click()
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
+
+    def test_checklist_empty_values(self):
+        app = dash.Dash()
+        app.layout = html.Div([
+            dcc.Checklist(
+                id='checklist',
+                options=[
+                    {'label': 'option 1', 'value': 'option-1'},
+                    {'label': 'option 2', 'value': 'option-2'},
+                    {'label': 'option 3', 'value': 'option-3'},
+                ]
+            ),
+            html.Div(id='output')
+        ])
+        call_count = Value('i', 0)
+
+        @app.callback(Output('output', 'children'),[Input('checklist', 'values')])
+        def update_output(value):
+            call_count.value = call_count.value + 1
+            return str(value)
+
+        self.startServer(app)
+
+        # check initial text
+        wait_for_text_to_equal('output', 'None')
+
+        self.snapshot('initial rendering of checklist')
+
+        # click on the value
+        self.wait_for_element_by_css_selector(
+            '#checklist-container input')[0].click()
+        # check the output text
+        wait_for_text_to_equal('output', '[option-1]')
+
+        # check that the callback was fired twice
+        self.assertEqual(call_count.value, 2)
+
+        self.snapshot('second rendering of checklist')
