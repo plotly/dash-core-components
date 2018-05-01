@@ -510,13 +510,13 @@ class Tests(IntegrationTests):
                         'y': [1, 3, 5, 9, 13]
                     }],
                     'layout': {
-                        'title': 'Graph of \(y = \frac{x^2 - 2}{4}\)'
+                        'title': 'sqrt{(n_\\text{c}(t|{T_\\text{early}}))}$
                     }
                 }
             ),
         ])
         self.startServer(app=app)
 
-        graph = self.wait_for_element_by_css_selector('#graph')
-        time.sleep(2)
+        graph = self.wait_for_element_by_css_selector('#graph .svg-container')
+        time.sleep(4)
         self.snapshot('latex rendering in graph')
