@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {contains, intersection, filter, has, isNil, type, pluck} from 'ramda';
+import {contains, intersection, filter, has, isNil, type, pluck, omit} from 'ramda';
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
@@ -114,7 +114,7 @@ export default class PlotlyGraph extends Component {
             }
         });
         gd.on('plotly_clickannotation', (eventData) => {
-            const clickAnnotationData = eventData;
+            const clickAnnotationData = omit(['event', 'fullAnnotation'], eventData);
             if (setProps) setProps({clickAnnotationData});
             if (fireEvent) fireEvent({event: 'clickannotation'});
         });
