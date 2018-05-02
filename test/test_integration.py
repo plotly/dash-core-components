@@ -387,7 +387,8 @@ class Tests(IntegrationTests):
                 id='test-link-search',
                 href='?testQuery=testValue',
                 refresh=False),
-            html.Button('I am a magic button that updates pathname', id='test-button'),
+            html.Button('I am a magic button that updates pathname',
+                        id='test-button'),
             html.A('link to click', href='/test/pathname/a', id='test-a'),
             html.A('link to click', href='#test-hash', id='test-a-hash'),
             html.A('link to click', href='?queryA=valueA', id='test-a-query'),
@@ -397,13 +398,15 @@ class Tests(IntegrationTests):
         ])
 
         @app.callback(
-            output=Output(component_id='test-pathname', component_property='children'),
+            output=Output(component_id='test-pathname',
+                          component_property='children'),
             inputs=[Input(component_id='test-location', component_property='pathname')])
         def update_location_on_page(pathname):
             return pathname
 
         @app.callback(
-            output=Output(component_id='test-hash', component_property='children'),
+            output=Output(component_id='test-hash',
+                          component_property='children'),
             inputs=[Input(component_id='test-location', component_property='hash')])
         def update_location_on_page(hash_val):
             if hash_val is None:
@@ -412,7 +415,8 @@ class Tests(IntegrationTests):
             return hash_val
 
         @app.callback(
-            output=Output(component_id='test-search', component_property='children'),
+            output=Output(component_id='test-search',
+                          component_property='children'),
             inputs=[Input(component_id='test-location', component_property='search')])
         def update_location_on_page(search):
             if search is None:
@@ -421,8 +425,10 @@ class Tests(IntegrationTests):
             return search
 
         @app.callback(
-            output=Output(component_id='test-location', component_property='pathname'),
-            inputs=[Input(component_id='test-button', component_property='n_clicks')],
+            output=Output(component_id='test-location',
+                          component_property='pathname'),
+            inputs=[Input(component_id='test-button',
+                          component_property='n_clicks')],
             state=[State(component_id='test-location', component_property='pathname')])
         def update_pathname(n_clicks, current_pathname):
             if n_clicks is not None:
@@ -487,7 +493,6 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-search', '?queryA=valueA')
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
-
 
     def test_candlestick(self):
         app = dash.Dash(__name__)
