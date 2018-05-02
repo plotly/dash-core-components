@@ -14,6 +14,7 @@ import dash_core_components as dcc
 import dash_table_experiments as dt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import InvalidElementStateException
 import time
 from textwrap import dedent
 try:
@@ -266,7 +267,11 @@ class Tests(IntegrationTests):
             ),
 
             html.Label('Text Input'),
-            dcc.Input(value='MTL', type='text'),
+            dcc.Input(value='', placeholder='type here', type='text',
+                      id='textinput'),
+            html.Label('Disabled Text Input'),
+            dcc.Input(value='disabled', type='text',
+                      id='disabled-textinput', disabled=True),
 
             html.Label('Slider'),
             dcc.Slider(
@@ -343,6 +348,24 @@ class Tests(IntegrationTests):
             '#dropdown .Select-input input'
         ).send_keys(u'北')
         self.snapshot('gallery - chinese character')
+
+        text_input = self.driver.find_element_by_id('textinput')
+        disabled_text_input = self.driver.find_element_by_id(
+            'disabled-textinput')
+        text_input.send_keys('HODOR')
+
+        # It seems selenium errors when send(ing)_keys on a disabled element.
+        # In case this changes we try anyway and catch the particular
+        # exception. In any case Percy will snapshot the disabled input style
+        # so we are not totally dependent on the send_keys behaviour for
+        # testing disabled state.
+        try:
+            disabled_text_input.send_keys('RODOH')
+        except InvalidElementStateException:
+            pass
+
+        self.snapshot('gallery - text input')
+
 
     def test_location_link(self):
         app = dash.Dash(__name__)
