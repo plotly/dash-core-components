@@ -1354,6 +1354,13 @@
         "required": false,
         "description": "The element should be automatically focused after the page loaded."
       },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, the input is disabled and can't be clicked on."
+      },
       "inputmode": {
         "type": {
           "name": "enum",
