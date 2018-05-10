@@ -1,6 +1,6 @@
-if (!require(dashTranspileR)) remotes::install_github("plotly/dashTranspileR")
+if (!require(dashRtranspile)) remotes::install_github("plotly/dashRtranspile")
 
-library(dashTranspileR)
+library(dashRtranspile)
 x <- transpile(prefix = "core")
 
 # ---------------------------------------------------------------------------
