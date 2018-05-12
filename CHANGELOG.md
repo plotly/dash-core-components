@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.2] - 2018-04-30
+### Fixed
+- Previously, dash did not render LateX since the MathJax.js library was not loaded. This has now been fixed.
+See https://github.com/plotly/dash-core-components/pull/194.
+
 ## [0.22.1] - 2018-04-09
 ### Fixed
 - Various bugs with the `ohlc` and `candlestick` chart type in the `dcc.Graph`

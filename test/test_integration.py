@@ -496,3 +496,27 @@ class Tests(IntegrationTests):
         button.click()
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
+
+    def test_latex(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+
+            html.Label('Graph'),
+            dcc.Graph(
+                id='graph',
+                figure={
+                    'data': [{
+                        'x': [1, 2, 3, 4, 5],
+                        'y': [1, 3, 5, 9, 13]
+                    }],
+                    'layout': {
+                        'title': '$sqrt{(n_\\text{c}(t|{T_\\text{early}}))}$'
+                    }
+                }
+            ),
+        ])
+        self.startServer(app=app)
+
+        graph = self.wait_for_element_by_css_selector('#graph .svg-container')
+        time.sleep(4)
+        self.snapshot('latex rendering in graph')
