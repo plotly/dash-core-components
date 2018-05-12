@@ -7,6 +7,6 @@ include dash_core_components/plotly-1.35.2.min.js
 include dash_core_components/react-virtualized-select@3.1.0.css
 include dash_core_components/react-virtualized@9.9.0.css
 include dash_core_components/react-dates@12.3.0.css
-include README.md
-include LICENSE.md
 include dash_core_components/mathjax-2.7.4.js
+include README.md
+include LICENSE.txt
