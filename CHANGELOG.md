@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.22.3] - 2018-05-22
+### :bug: Fixed
+- The issue [#115](https://github.com/plotly/dash-core-components/issues/115)
+with datepicker, which didn't appear when the date value is `None` was fixed.
+By default, current month would appear in such cases for
+`DatePickerRange` and `DatePickerSingle` components.
+See pull request https://github.com/plotly/dash-core-components/pull/201.
+
 ## [0.22.2] - 2018-05-22
 ### Fixed
 - `dcc.Input` component now handles `disabled=False` property.

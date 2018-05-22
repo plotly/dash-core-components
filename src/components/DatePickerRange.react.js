@@ -130,12 +130,12 @@ export default class DatePickerRange extends Component {
                 initialVisibleMonth={() => {
                     if (initial_visible_month) {
                         return initial_visible_month
+                    } else if (end_date && focusedInput === 'endDate') {
+                        return end_date;
+                    } else if (start_date && focusedInput === 'startDate') {
+                        return start_date;
                     } else {
-                        if (focusedInput === 'endDate') {
-                            return end_date;
-                        } else {
-                            return start_date;
-                        }
+                        return moment();
                     }
                 }}
                 isOutsideRange={this.isOutsideRange}
