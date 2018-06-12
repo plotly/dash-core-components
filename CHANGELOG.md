@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.24.0] - UNRELEASED
+### Changed
+- `dash_core_components/__init__.py` now imports from python class files rather than generating classes at runtime,
+adding support for IDE autocomplete ect.
+
 ## [0.23.0] - UNRELEASED
 ### Added
 - Upgraded Plotly.js, the underlying library behind the

@@ -2,6 +2,8 @@ from __future__ import print_function as _
 
 import os as _os
 import sys as _sys
+import glob as _glob
+from importlib import import_module as _import
 
 import dash as _dash
 
@@ -14,10 +16,20 @@ if not hasattr(_dash, 'development'):
 
 _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
-_components = _dash.development.component_loader.load_components(
-    _os.path.join(_current_path, 'metadata.json'),
-    'dash_core_components'
+_component_files = map(
+    lambda x: _os.path.splitext(_os.path.basename(x))[0],
+    filter(
+        lambda x: _os.path.basename(x) not in ['__init__.py', 'version.py'],
+        _glob.glob(_os.path.join(_current_path, '*.py'))
+    )
 )
+
+_components = [
+    getattr(
+        _import(".{:s}".format(c), package='dash_core_components'),
+        c
+    ) for c in _component_files
+]
 
 _this_module = _sys.modules[__name__]
 
