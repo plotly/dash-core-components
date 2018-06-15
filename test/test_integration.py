@@ -555,7 +555,6 @@ class Tests(IntegrationTests):
         time.sleep(1)
         button.click()
         time.sleep(1)
-        self.snapshot('confirmation -> click')
 
         self.driver.switch_to.alert.accept()
         self.wait_for_text_to_equal('#confirmed', 'confirmed')
