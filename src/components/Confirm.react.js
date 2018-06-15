@@ -46,18 +46,38 @@ Confirm.defaultProps = {
         timestamp: -1
     },
     call_on_cancel: false
-}
+};
 
 Confirm.propTypes = {
     id: PropTypes.string,
+
+    /**
+     * Message to show in the popup.
+     */
     message: PropTypes.string,
+
+    /**
+     * Initial values
+     * value: The value that will be sent in the result.
+     * ask: Tell the component to ask the confirmation.
+     */
     init: PropTypes.shape({
         value: PropTypes.any,
         ask: PropTypes.bool
     }),
+
+    /**
+     * If true, the callback will work even if the user click cancel.
+     */
     call_on_cancel: PropTypes.bool,
+
+    /**
+     * The result sent when the user clicks ok.
+     * timestamp: time at which the user clicked ok.
+     * value: the value of init.value
+     */
     result: PropTypes.shape({
-        timestamp: PropTypes.integer,
+        timestamp: PropTypes.number,
         value: PropTypes.any
     }),
 
