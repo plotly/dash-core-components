@@ -8,7 +8,8 @@ machine:
 
 dependencies:
     override:
-      - pip install tox==2.8.2
+      - pip install setuptools --upgrade
+      - pip install tox
       - npm install -g eslint
       - npm install --ignore-scripts
       - node_modules/.bin/builder run build-dist
