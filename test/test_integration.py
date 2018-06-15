@@ -15,8 +15,9 @@ import dash_table_experiments as dt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException
-import time
+
 from textwrap import dedent
+
 try:
     from urlparse import urlparse
 except ImportError:
@@ -366,7 +367,6 @@ class Tests(IntegrationTests):
 
         self.snapshot('gallery - text input')
 
-
     def test_location_link(self):
         app = dash.Dash(__name__)
 
@@ -528,3 +528,36 @@ class Tests(IntegrationTests):
         button.click()
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
+
+    def test_confirm(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Button(id='button', children='Send confirm', n_clicks=0),
+            dcc.Confirm(id='confirm', message='Please confirm.'),
+            html.Div(id='confirmed')
+        ])
+
+        @app.callback(Output('confirm', 'init'), [Input('button', 'n_clicks')])
+        def on_click_confirm(n_clicks):
+            if n_clicks > 0:
+                return {'ask': True, 'value': 'confirmed'}
+            return
+
+        @app.callback(Output('confirmed', 'children'), [Input('confirm', 'result')])
+        def on_confirmed(result):
+            if result:
+                return result.get('value')
+
+        self.startServer(app)
+        button = self.wait_for_element_by_css_selector('#button')
+        self.snapshot('confirmation -> initial')
+        time.sleep(1)
+        button.click()
+        time.sleep(1)
+        self.snapshot('confirmation -> click')
+
+        self.driver.switch_to.alert.accept()
+        self.wait_for_text_to_equal('#confirmed', 'confirmed')
+
+        self.snapshot('confirmation -> confirmed')
