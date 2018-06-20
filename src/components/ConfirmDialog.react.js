@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 /**
- * Confirm wraps window.confirm
+ * ConfirmDialog wraps window.confirm
  */
-export default class Confirm extends Component {
+export default class ConfirmDialog extends Component {
 
     constructor(props) {
         super(props);
@@ -30,18 +30,14 @@ export default class Confirm extends Component {
     }
 }
 
-Confirm.defaultProps = {
-    result: {
-        timestamp: -1
-    },
-    call_on_cancel: false,
+ConfirmDialog.defaultProps = {
     n_clicks: 0,
     n_clicks_timestamp: -1,
     submit_n_clicks: 0,
     cancel_n_clicks: 0,
 };
 
-Confirm.propTypes = {
+ConfirmDialog.propTypes = {
     id: PropTypes.string,
 
     /**

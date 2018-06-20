@@ -534,7 +534,7 @@ class Tests(IntegrationTests):
 
         app.layout = html.Div([
             html.Button(id='button', children='Send confirm', n_clicks=0),
-            dcc.Confirm(id='confirm', message='Please confirm.'),
+            dcc.ConfirmDialog(id='confirm', message='Please confirm.'),
             html.Div(id='confirmed')
         ])
 
@@ -552,7 +552,6 @@ class Tests(IntegrationTests):
                 return 'confirmed'
             elif n_clicks == 2:
                 return 'canceled'
-
 
         self.startServer(app)
         button = self.wait_for_element_by_css_selector('#button')
