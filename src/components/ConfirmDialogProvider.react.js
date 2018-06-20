@@ -21,13 +21,18 @@ export default class ConfirmDialogProvider extends React.Component {
             }
         });
 
-        const realChild = children.props ? children.props.children : children;
+        const realChild = children.props
+            ? children.props.children
+            : children.map(e => e.props.children);
 
         return (
             <div id={id}>
-                {realChild && realChild.length ? realChild.map(wrapClick) :
-                    wrapClick(children.props.children)}
-                <ConfirmDialog ref={this._dialog} {...this.props}/>
+                {
+                    realChild && realChild.length
+                        ? realChild.map(wrapClick)
+                        : wrapClick(realChild)
+                }
+                <ConfirmDialog {...this.props}/>
             </div>
         )
     }
