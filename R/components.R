@@ -892,16 +892,14 @@ names2 <- function(x) names(x) %||% rep('', length(x))
 
 assert_no_names <- function(x) {
   nms <- names(x)
-  if (!is.null(nms)) {
-    stop(
-      sprintf(
-        "Didn't recognize the following named arguments: '%s'",
-         paste(nms, collapse = "', '")
-       ), call. = FALSE
-    )
-  }
-  names(x) <- NULL
-  x
+  if (is.null(nms)) return(x)
+  if (identical('', unique(nms))) return(setNames(x, NULL))
+  stop(
+    sprintf(
+      "Didn't recognize the following named arguments: '%s'",
+      paste(nms, collapse = "', '")
+    ), call. = FALSE
+  )
 }
 
 # allow one to pass an atomic vector to marks
