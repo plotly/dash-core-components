@@ -15,22 +15,24 @@ import Textarea from './components/Textarea.react';
 import DatePickerSingle from './components/DatePickerSingle.react';
 import DatePickerRange from './components/DatePickerRange.react';
 import Upload from './components/Upload.react';
+import Tabs from './components/Tabs.react';
 
 export {
-    Checklist,
-    Dropdown,
-    Graph,
-    Input,
-    RadioItems,
-    RangeSlider,
-    Slider,
-    SyntaxHighlighter,
-    Interval,
-    Markdown,
-    Location,
-    Link,
-    Textarea,
-    DatePickerSingle,
-    DatePickerRange,
-    Upload
+  Checklist,
+  Dropdown,
+  Graph,
+  Input,
+  RadioItems,
+  RangeSlider,
+  Slider,
+  SyntaxHighlighter,
+  Interval,
+  Markdown,
+  Location,
+  Link,
+  Textarea,
+  DatePickerSingle,
+  DatePickerRange,
+  Upload,
+  Tabs
 };
