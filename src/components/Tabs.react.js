@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const EnhancedTab = ({ index, label, children, selected, selectHandler }) => {
+const greyColor = '#d6d6d6';
+
+const EnhancedTab = ({ index, label, selected, selectHandler }) => {
   return (
-    <div>
-      <p
-        onClick={() => {
-          selectHandler(index);
-        }}
-      >
-        {label}
-      </p>
-      <div>{selected ? children : ''}</div>
+    <div
+      className={selected ? 'tab tab--selected' : 'tab'}
+      onClick={() => {
+        selectHandler(index);
+      }}
+    >
+      <span>{label}</span>
+      <style jsx>{`
+        .tab {
+          display: inline-block;
+          background-color: white;
+          box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14),
+            0 -2px 10px 0 rgba(0, 0, 0, 0.12),
+            0 0px 10px -1px rgba(0, 0, 0, 0.3);
+          padding: 20px;
+          transition: background-color, transform 200ms;
+          font-family: 'system-ui';
+        }
+        .tab:hover {
+          cursor: pointer;
+          transform: scale(1.05);
+        }
+        .tab--selected {
+          background-color: ${greyColor};
+        }
+
+        .tab__content {
+          position: absolute;
+          left: 0;
+        }
+      `}</style>
     </div>
   );
 };
@@ -46,7 +70,12 @@ export default class Tabs extends Component {
       );
     });
 
-    return <div>{EnhancedTabs}</div>;
+    return (
+      <div>
+        {EnhancedTabs}
+        {this.props.children[this.state.selected].props.children}
+      </div>
+    );
   }
 }
 

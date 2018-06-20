@@ -1,18 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tab = ({ children }) => {
-  return (
-    <div>
-      {children}
-      <style jsx>{`
-        p {
-          color: red;
-        }
-      `}</style>
-    </div>
-  );
-};
+const Tab = ({ children }) => <div>{children}</div>;
 
 Tab.propTypes = {
   /**
