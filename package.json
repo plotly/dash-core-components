@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "builder": "3.2.2",
-    "dash-components-archetype": "^0.2.11",
+    "dash-components-archetype": "^0.3.0",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "radium": "^0.19.4",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "component-playground": "^2.0.0",
-    "dash-components-archetype-dev": "^0.2.11",
+    "dash-components-archetype-dev": "^0.3.0",
     "enzyme": "^2.4.1"
   },
   "peerDependencies": {

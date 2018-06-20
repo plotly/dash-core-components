@@ -1,3 +1,5 @@
+# AUTO GENERATED FILE - DO NOT EDIT
+
 from dash.development.base_component import Component
 
 
@@ -90,7 +92,7 @@ Available events: 'click', 'hover', 'selected', 'relayout', 'unhover'"""
         self.available_properties = ['id', 'clickData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
         self.available_wildcard_properties =            []
 
-        for k in [u'id']:
+        for k in ['id']:
             if k not in kwargs:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')

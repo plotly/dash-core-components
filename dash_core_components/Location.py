@@ -1,3 +1,5 @@
+# AUTO GENERATED FILE - DO NOT EDIT
+
 from dash.development.base_component import Component
 
 
@@ -24,7 +26,7 @@ Available events: """
         self.available_properties = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self.available_wildcard_properties =            []
 
-        for k in [u'id']:
+        for k in ['id']:
             if k not in kwargs:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
