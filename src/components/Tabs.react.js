@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const TabItem = ({ tab }) => {
-  // render tab here
+const EnhancedTab = ({ index, label, children, selected, selectHandler }) => {
   return (
     <div>
-      <p>{tab.label}</p>
-      <style jsx>{`
-        p {
-          color: red;
-        }
-      `}</style>
+      <p
+        onClick={() => {
+          selectHandler(index);
+        }}
+      >
+        {label}
+      </p>
+      <div>{selected ? children : ''}</div>
     </div>
   );
 };
@@ -18,15 +19,34 @@ const TabItem = ({ tab }) => {
 export default class Tabs extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: props.value };
+    this.state = {
+      selected: 0
+    };
+
+    this.selectHandler = this.selectHandler.bind(this);
+  }
+  selectHandler(index) {
+    this.setState({
+      selected: index
+    });
   }
   render() {
-    // create TabItems for all tabs
-    const TabElements = this.props.tabs.map((tab, index) => {
-      return <TabItem key={index} tab={tab} />;
+    // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
+    // TODO: ensure that children are Tab components
+    const EnhancedTabs = this.props.children.map((child, index) => {
+      return (
+        <EnhancedTab
+          key={index}
+          index={index}
+          label={child.props.label || child.props.children.props.label}
+          selected={this.state.selected === index}
+          selectHandler={this.selectHandler}
+          children={child.props.children}
+        />
+      );
     });
 
-    return <div>{TabElements}</div>;
+    return <div>{EnhancedTabs}</div>;
   }
 }
 
@@ -41,19 +61,7 @@ Tabs.propTypes = {
   /**
    * An array holding the values for tabs - it should contain objects of options that holds a 'label' value for the label displayed on the tab, and a 'content' value which holds all the content for that tab.
    */
-  tabs: PropTypes.arrayOf(
-    PropTypes.shape({
-      /**
-       * The tab's label
-       */
-      label: PropTypes.string,
-
-      /**
-       * The content of the tab - will only be displayed if this tab is active
-       */
-      content: PropTypes.node
-    })
-  ),
+  tabs: PropTypes.arrayOf(PropTypes.shape({})),
 
   /**
    * Overrides the default class for the tabs container
@@ -93,5 +101,10 @@ Tabs.propTypes = {
   /**
    * Overrides the default styles for the tab content container
    */
-  contentStyles: PropTypes.string
+  contentStyles: PropTypes.string,
+
+  /**
+   * Array that holds TabItems
+   */
+  children: PropTypes.node
 };
