@@ -2,11 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const greyColor = '#d6d6d6';
+const offWhiteColor = '#f9f9f9';
 
-const EnhancedTab = ({ index, label, selected, selectHandler }) => {
+const EnhancedTab = ({
+  index,
+  label,
+  selected,
+  className,
+  style,
+  selectedClassName,
+  selectedStyle,
+  selectHandler
+}) => {
   return (
     <div
-      className={selected ? 'tab tab--selected' : 'tab'}
+      className={
+        selected
+          ? `${className || ''} ${selectedClassName || ''} tab tab--selected`
+          : `${className} tab`
+      }
+      style={selected ? { ...style, ...selectedStyle } : style}
       onClick={() => {
         selectHandler(index);
       }}
@@ -15,25 +30,29 @@ const EnhancedTab = ({ index, label, selected, selectHandler }) => {
       <style jsx>{`
         .tab {
           display: inline-block;
-          background-color: white;
-          box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14),
-            0 -2px 10px 0 rgba(0, 0, 0, 0.12),
-            0 0px 10px -1px rgba(0, 0, 0, 0.3);
+          background-color: ${offWhiteColor};
+          border-left: 1px solid ${greyColor};
+          border-right: 1px solid ${greyColor};
           padding: 20px;
-          transition: background-color, transform 200ms;
+          transition: background-color, color 200ms;
           font-family: 'system-ui';
+          width: 100%;
+          box-sizing: border-box;
+          color: ${greyColor};
         }
         .tab:hover {
           cursor: pointer;
-          transform: scale(1.05);
+          color: black;
         }
         .tab--selected {
           background-color: ${greyColor};
+          color: black;
         }
 
-        .tab__content {
-          position: absolute;
-          left: 0;
+        @media screen and (min-width: 1000px) {
+          .tab {
+            width: auto;
+          }
         }
       `}</style>
     </div>
@@ -56,7 +75,7 @@ export default class Tabs extends Component {
   }
   render() {
     // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
-    // TODO: ensure that children are Tab components
+    // TODO: handle components that are not dcc.Tab components (throw error)
     const EnhancedTabs = this.props.children.map((child, index) => {
       return (
         <EnhancedTab
@@ -66,14 +85,23 @@ export default class Tabs extends Component {
           selected={this.state.selected === index}
           selectHandler={this.selectHandler}
           children={child.props.children}
+          className={child.props.className}
+          style={child.props.style}
+          selectedClassName={child.props.selectedClassName}
+          selectedStyle={child.props.selectedStyle}
         />
       );
     });
 
     return (
-      <div>
+      <div className={this.props.className} style={this.props.style}>
         {EnhancedTabs}
-        {this.props.children[this.state.selected].props.children}
+        <div
+          className={this.props.contentClassName}
+          style={this.props.contentStyle}
+        >
+          {this.props.children[this.state.selected].props.children}
+        </div>
       </div>
     );
   }
@@ -93,44 +121,24 @@ Tabs.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({})),
 
   /**
-   * Overrides the default class for the tabs container
+   * Appends a class to the tabs container
    */
   className: PropTypes.string,
 
   /**
-   * Overrides the default class for a tab item
-   */
-  tabClassName: PropTypes.string,
-
-  /**
-   * Overrides the default class for the active tab
-   */
-  activeClassName: PropTypes.string,
-
-  /**
-   * Overrides the default class for the tab content container
+   * Appends a class to the tab content container
    */
   contentClassName: PropTypes.string,
 
   /**
-   * Overrides the default styles for the tabs container
+   * Appends (inline) styles to the tabs container
    */
-  styles: PropTypes.string,
+  style: PropTypes.object,
 
   /**
-   * Overrides the default styles for a tab item
+   * Appends (inline) styles to the tab content container
    */
-  tabStyles: PropTypes.string,
-
-  /**
-   * Overrides the default styles for the active tab
-   */
-  activeStyles: PropTypes.string,
-
-  /**
-   * Overrides the default styles for the tab content container
-   */
-  contentStyles: PropTypes.string,
+  contentStyle: PropTypes.object,
 
   /**
    * Array that holds TabItems
