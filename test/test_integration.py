@@ -538,16 +538,21 @@ class Tests(IntegrationTests):
             html.Div(id='confirmed')
         ])
 
-        @app.callback(Output('confirm', 'init'), [Input('button', 'n_clicks')])
+        @app.callback(Output('confirm', 'send_confirm'), [Input('button', 'n_clicks')])
         def on_click_confirm(n_clicks):
-            if n_clicks > 0:
-                return {'ask': True, 'value': 'confirmed'}
-            return
+            if n_clicks:
+                return True
 
-        @app.callback(Output('confirmed', 'children'), [Input('confirm', 'result')])
-        def on_confirmed(result):
-            if result:
-                return result.get('value')
+        @app.callback(Output('confirmed', 'children'),
+                      [Input('confirm', 'n_clicks'), Input('confirm', 'submit_n_clicks'), Input('confirm', 'cancel_n_clicks')],)
+        def on_confirmed(n_clicks, submit_n_clicks, cancel_n_clicks):
+            if not n_clicks:
+                return
+            if n_clicks == 1:
+                return 'confirmed'
+            elif n_clicks == 2:
+                return 'canceled'
+
 
         self.startServer(app)
         button = self.wait_for_element_by_css_selector('#button')
@@ -560,3 +565,12 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#confirmed', 'confirmed')
 
         self.snapshot('confirmation -> confirmed')
+
+        time.sleep(0.2)
+        button.click()
+        time.sleep(1)
+        self.driver.switch_to.alert.dismiss()
+        time.sleep(0.5)
+        self.wait_for_text_to_equal('#confirmed', 'canceled')
+
+        self.snapshot('confirmation -> canceled')

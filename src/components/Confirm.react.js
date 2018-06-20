@@ -10,29 +10,18 @@ export default class Confirm extends Component {
         super(props);
     }
 
-    componentDidUpdate(prevProps) {
-        const previouslyAsked = prevProps.init && prevProps.init.ask;
-        const currentlyAsking = this.props.init && this.props.init.ask;
+    componentDidUpdate() {
+        const { displayed, message, send_confirm, setProps, cancel_n_clicks, submit_n_clicks, n_clicks } = this.props;
 
-        if (!previouslyAsked && currentlyAsking) {
-            const accepted = window.confirm(this.props.message);
-            if (!this.props.setProps) {
-                return;
-            }
-            if (!accepted && !this.props.call_on_cancel) {
-                this.props.setProps({init: {ask: false}});
-            } else {
-                this.props.setProps({
-                    result: {
-                        timestamp: Date.now(),
-                        value: this.props.init.value,
-                        accepted: accepted
-                    },
-                    init: {
-                        ask: false
-                    }
-                })
-            }
+        if (send_confirm && !displayed) {
+            setProps({send_confirm: false, displayed: true});
+            new Promise(resolve => resolve(window.confirm(message))).then(result => setProps({
+                n_clicks: n_clicks + 1,
+                n_clicks_timestamp: Date.now(),
+                cancel_n_clicks: !result ? cancel_n_clicks + 1 : cancel_n_clicks,
+                submit_n_clicks: result ? submit_n_clicks + 1: submit_n_clicks,
+                displayed: false,
+            }));
         }
     }
 
@@ -45,7 +34,11 @@ Confirm.defaultProps = {
     result: {
         timestamp: -1
     },
-    call_on_cancel: false
+    call_on_cancel: false,
+    n_clicks: 0,
+    n_clicks_timestamp: -1,
+    submit_n_clicks: 0,
+    cancel_n_clicks: 0,
 };
 
 Confirm.propTypes = {
@@ -57,29 +50,29 @@ Confirm.propTypes = {
     message: PropTypes.string,
 
     /**
-     * Initial values
-     * value: The value that will be sent in the result.
-     * ask: Tell the component to ask the confirmation.
+     * Number of times the modal was submited or canceled.
      */
-    init: PropTypes.shape({
-        value: PropTypes.any,
-        ask: PropTypes.bool
-    }),
-
+    n_clicks: PropTypes.number,
     /**
-     * If true, the callback will work even if the user click cancel.
+     * Last timestamp the popup was clicked.
      */
-    call_on_cancel: PropTypes.bool,
-
+    n_clicks_timestamp: PropTypes.number,
     /**
-     * The result sent when the user clicks ok.
-     * timestamp: time at which the user clicked ok.
-     * value: the value of init.value
+     * Number of times the submit was clicked
      */
-    result: PropTypes.shape({
-        timestamp: PropTypes.number,
-        value: PropTypes.any
-    }),
+    submit_n_clicks: PropTypes.number,
+    /**
+     * Number of times the popup was canceled.
+     */
+    cancel_n_clicks: PropTypes.number,
+    /**
+     * Set to true to send the popup.
+     */
+    send_confirm: PropTypes.bool,
+    /**
+     * Is the modal currently displayed.
+     */
+    displayed: PropTypes.bool,
 
     /**
      * Dash-assigned callback that gets fired when the value changes.
