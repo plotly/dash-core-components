@@ -6,6 +6,11 @@ const TabItem = ({ tab }) => {
   return (
     <div>
       <p>{tab.label}</p>
+      <style jsx>{`
+        p {
+          color: red;
+        }
+      `}</style>
     </div>
   );
 };
