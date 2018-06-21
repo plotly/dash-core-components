@@ -10,27 +10,27 @@ Tab.propTypes = {
   label: PropTypes.string,
 
   /**
-   * The content of the tab - will only be displayed if this tab is active
+   * The content of the tab - will only be displayed if this tab is selected
    */
   children: PropTypes.node,
 
   /**
-   * Appends a class to the tab item
+   * Appends a class to the Tab component.
    */
   className: PropTypes.string,
 
   /**
-   * Appends a class to the tab that's selected
+   * Appends a class to the Tab component when it is selected.
    */
   selectedClassName: PropTypes.string,
 
   /**
-   * Overrides the default styles for a tab item
+   * Overrides the default (inline) styles for the Tab component.
    */
   style: PropTypes.object,
 
   /**
-   * Overrides the default styles for the active tab
+   * Overrides the default (inline) styles for the Tab component when it is selected.
    */
   selectedStyle: PropTypes.object
 };

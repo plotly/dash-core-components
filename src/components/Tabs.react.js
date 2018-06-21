@@ -163,37 +163,32 @@ Tabs.propTypes = {
   id: PropTypes.string,
 
   /**
-   * An array holding the values for tabs - it should contain objects of options that holds a 'label' value for the label displayed on the tab, and a 'content' value which holds all the content for that tab.
-   */
-  tabs: PropTypes.arrayOf(PropTypes.shape({})),
-
-  /**
-   * Appends a class to the tabs container
+   * Appends a class to the Tabs container holding the individual Tab components.
    */
   className: PropTypes.string,
 
   /**
-   * Appends a class to the tab content container
+   * Appends a class to the Tab content container holding the children of the Tab that is selected.
    */
   contentClassName: PropTypes.string,
 
   /**
-   * Appends a class to the top-level parent container
+   * Appends a class to the top-level parent container holding both the Tabs container and the content container.
    */
   parentClassName: PropTypes.string,
 
   /**
-   * Appends (inline) styles to the tabs container
+   * Appends (inline) styles to the Tabs container holding the individual Tab components.
    */
   style: PropTypes.object,
 
   /**
-   * Appends (inline) styles to the top-level parent container
+   * Appends (inline) styles to the top-level parent container holding both the Tabs container and the content container.
    */
   parentStyle: PropTypes.object,
 
   /**
-   * Appends (inline) styles to the tab content container
+   * Appends (inline) styles to the tab content container holding the children of the Tab that is selected.
    */
   contentStyle: PropTypes.object,
 
