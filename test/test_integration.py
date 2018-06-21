@@ -227,20 +227,8 @@ class Tests(IntegrationTests):
                     children=[
                         dcc.Tab(label='Tab one', children=[
                             html.Div([
-                                dcc.Graph(
-                                    id='example-graph',
-                                    figure={
-                                        'data': [
-                                            {'x': [1, 2, 3], 'y': [4, 1, 2],
-                                                'type': 'bar', 'name': 'SF'},
-                                            {'x': [1, 2, 3], 'y': [2, 4, 5],
-                                             'type': 'bar', 'name': u'Montréal'},
-                                        ],
-                                        'layout': {
-                                            'title': 'Dash Data Visualization'
-                                        }
-                                    }
-                                )
+                                html.H1("This is the content in tab 1"),
+                                html.P("A graph here would be nice!")
                             ])
                         ]),
                         dcc.Tab(label='Tab two', children=[
@@ -254,8 +242,9 @@ class Tests(IntegrationTests):
                                 html.H1("This is the content in tab 3"),
                             ])
                         ]),
-            ],
-        ),
+                    ],
+                )
+            ]),
 
             html.Label('Dropdown'),
             dcc.Dropdown(
