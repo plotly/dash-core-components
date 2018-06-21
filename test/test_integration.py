@@ -224,41 +224,38 @@ class Tests(IntegrationTests):
             html.Label('Horizontal Tabs'),
             html.Div([
                 dcc.Tabs(
-                    tabs=[
-                        {'label': 'Market Value', 'value': 1},
-                        {'label': 'Usage Over Time', 'value': 2},
-                        {'label': 'Predictions', 'value': 3},
-                        {'label': 'Target Pricing', 'value': 4},
-                    ],
-                    value=3,
-                    id='tabs',
-                    vertical=False
-                ),
-                html.Div(id='tab-output')
-            ], style={
-                'width': '80%',
-                'fontFamily': 'Sans-Serif',
-                'margin-left': 'auto',
-                'margin-right': 'auto'
-            }),
-
-            html.Label('Vertical Tabs'),
-            dcc.Tabs(
-                tabs=[
-                    {'label': 'Market Value', 'value': 1},
-                    {'label': 'Usage Over Time', 'value': 2},
-                    {'label': 'Predictions', 'value': 3},
-                    {'label': 'Target Pricing', 'value': 4},
-                ],
-                value=3,
-                id='tabs',
-                vertical=True,
-                style={
-                    'borderRight': 'thin lightgrey solid',
-                    'textAlign': 'left'
-                }
-            ),
-
+                    children=[
+                        dcc.Tab(label='Tab one', children=[
+                            html.Div([
+                                dcc.Graph(
+                                    id='example-graph',
+                                    figure={
+                                        'data': [
+                                            {'x': [1, 2, 3], 'y': [4, 1, 2],
+                                                'type': 'bar', 'name': 'SF'},
+                                            {'x': [1, 2, 3], 'y': [2, 4, 5],
+                                             'type': 'bar', 'name': u'Montréal'},
+                                        ],
+                                        'layout': {
+                                            'title': 'Dash Data Visualization'
+                                        }
+                                    }
+                                )
+                            ])
+                        ]),
+                        dcc.Tab(label='Tab two', children=[
+                            html.Div([
+                                html.H1("This is the content in tab 2"),
+                                html.P("A graph here would be nice!")
+                            ])
+                        ]),
+                        dcc.Tab(label='Tab three', children=[
+                            html.Div([
+                                html.H1("This is the content in tab 3"),
+                            ])
+                        ]),
+            ],
+        ),
 
             html.Label('Dropdown'),
             dcc.Dropdown(
