@@ -100,8 +100,15 @@ export default class Tabs extends Component {
       ? 'tab-content tab-content--vert'
       : 'tab-content';
 
+    const tabParentClass = this.props.vertical
+      ? 'tab-parent tab-parent--vert'
+      : 'tab-parent';
+
     return (
-      <div>
+      <div
+        className={`${tabParentClass} ${this.props.parentClassName || ''}`}
+        style={this.props.parentStyle}
+      >
         <div
           className={`${tabContainerClass} ${this.props.className || ''}`}
           style={this.props.style}
@@ -115,12 +122,15 @@ export default class Tabs extends Component {
           {this.props.children[this.state.selected].props.children}
         </div>
         <style jsx>{`
+          .tab-parent {
+            display: flex;
+            flex-direction: column;
+          }
           .tab-container {
           }
           .tab-container--vert {
             display: inline-flex;
             flex-direction: column;
-            padding-right: 10px;
           }
           :global(.tab-container--vert .tab--selected) {
             border-top: 1px solid ${greyColor};
@@ -132,6 +142,11 @@ export default class Tabs extends Component {
           .tab-content--vert {
             display: inline-flex;
             flex-direction: column;
+          }
+          @media screen and (min-width: 1000px) {
+            .tab-parent--vert {
+              flex-direction: row;
+            }
           }
         `}</style>
       </div>
@@ -163,9 +178,19 @@ Tabs.propTypes = {
   contentClassName: PropTypes.string,
 
   /**
+   * Appends a class to the top-level parent container
+   */
+  parentClassName: PropTypes.string,
+
+  /**
    * Appends (inline) styles to the tabs container
    */
   style: PropTypes.object,
+
+  /**
+   * Appends (inline) styles to the top-level parent container
+   */
+  parentStyle: PropTypes.object,
 
   /**
    * Appends (inline) styles to the tab content container
