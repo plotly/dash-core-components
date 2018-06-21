@@ -220,6 +220,56 @@ class Tests(IntegrationTests):
             html.Div(id='waitfor'),
             html.Label('Upload'),
             dcc.Upload(),
+
+            html.Label('Horizontal Tabs'),
+            dcc.Tabs(id="tabs", children=[
+                dcc.Tab(label='Tab one', className='test', style={'border': '1px solid magenta'}, children=[
+                    html.Div(['Test'])
+                ]),
+                dcc.Tab(label='Tab two', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 2"),
+                        html.P("A graph here would be nice!")
+                    ])
+                ]),
+                dcc.Tab(label='Tab three', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 3"),
+                    ])
+                ]),
+            ],
+                style={
+                'fontFamily': 'system-ui'
+            },
+                contentStyle={
+                'border': '1px solid #d6d6d6',
+                'padding': '44px'
+            },
+                parentStyle={
+                'maxWidth': '1000px',
+                'margin': '0 auto'
+            }
+            ),
+
+            html.Label('Vertical Tabs'),
+            dcc.Tabs(id="tabs", vertical=True, children=[
+                dcc.Tab(label='Tab one', children=[
+                    html.Div(['Test'])
+                ]),
+                dcc.Tab(label='Tab two', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 2"),
+                        html.P("A graph here would be nice!")
+                    ])
+                ]),
+                dcc.Tab(label='Tab three', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 3"),
+                    ])
+                ]),
+            ]
+            ),
+
             html.Label('Dropdown'),
             dcc.Dropdown(
                 options=[
@@ -365,7 +415,6 @@ class Tests(IntegrationTests):
             pass
 
         self.snapshot('gallery - text input')
-
 
     def test_location_link(self):
         app = dash.Dash(__name__)
