@@ -220,6 +220,32 @@ class Tests(IntegrationTests):
             html.Div(id='waitfor'),
             html.Label('Upload'),
             dcc.Upload(),
+
+            html.Label('Horizontal Tabs'),
+            html.Div([
+                dcc.Tabs(
+                    children=[
+                        dcc.Tab(label='Tab one', children=[
+                            html.Div([
+                                html.H1("This is the content in tab 1"),
+                                html.P("A graph here would be nice!")
+                            ])
+                        ]),
+                        dcc.Tab(label='Tab two', children=[
+                            html.Div([
+                                html.H1("This is the content in tab 2"),
+                                html.P("A graph here would be nice!")
+                            ])
+                        ]),
+                        dcc.Tab(label='Tab three', children=[
+                            html.Div([
+                                html.H1("This is the content in tab 3"),
+                            ])
+                        ]),
+                    ],
+                )
+            ]),
+
             html.Label('Dropdown'),
             dcc.Dropdown(
                 options=[
