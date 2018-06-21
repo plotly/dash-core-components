@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const greyColor = '#d6d6d6';
 const offWhiteColor = '#f9f9f9';
+const primaryColor = '#1975FA';
 
 const EnhancedTab = ({
   index,
@@ -19,7 +20,7 @@ const EnhancedTab = ({
       className={
         selected
           ? `${className || ''} ${selectedClassName || ''} tab tab--selected`
-          : `${className} tab`
+          : `${className || ''} tab`
       }
       style={selected ? { ...style, ...selectedStyle } : style}
       onClick={() => {
@@ -31,21 +32,19 @@ const EnhancedTab = ({
         .tab {
           display: inline-block;
           background-color: ${offWhiteColor};
-          border-left: 1px solid ${greyColor};
-          border-right: 1px solid ${greyColor};
+          border: 1px solid ${greyColor};
           padding: 20px;
           transition: background-color, color 200ms;
           font-family: 'system-ui';
           width: 100%;
           box-sizing: border-box;
-          color: ${greyColor};
         }
         .tab:hover {
           cursor: pointer;
-          color: black;
         }
         .tab--selected {
-          background-color: ${greyColor};
+          border-top: 2px solid ${primaryColor};
+          border-bottom: none;
           color: black;
         }
 
@@ -93,15 +92,48 @@ export default class Tabs extends Component {
       );
     });
 
+    const tabContainerClass = this.props.vertical
+      ? 'tab-container tab-container--vert'
+      : 'tab-container';
+
+    const tabContentClass = this.props.vertical
+      ? 'tab-content tab-content--vert'
+      : 'tab-content';
+
     return (
-      <div className={this.props.className} style={this.props.style}>
-        {EnhancedTabs}
+      <div>
         <div
-          className={this.props.contentClassName}
+          className={`${tabContainerClass} ${this.props.className || ''}`}
+          style={this.props.style}
+        >
+          {EnhancedTabs}
+        </div>
+        <div
+          className={`${tabContentClass} ${this.props.contentClassName || ''}`}
           style={this.props.contentStyle}
         >
           {this.props.children[this.state.selected].props.children}
         </div>
+        <style jsx>{`
+          .tab-container {
+          }
+          .tab-container--vert {
+            display: inline-flex;
+            flex-direction: column;
+            padding-right: 10px;
+          }
+          :global(.tab-container--vert .tab--selected) {
+            border-top: 1px solid ${greyColor};
+            border-left: 2px solid ${primaryColor};
+            border-right: none;
+          }
+          .tab-content {
+          }
+          .tab-content--vert {
+            display: inline-flex;
+            flex-direction: column;
+          }
+        `}</style>
       </div>
     );
   }
@@ -139,6 +171,11 @@ Tabs.propTypes = {
    * Appends (inline) styles to the tab content container
    */
   contentStyle: PropTypes.object,
+
+  /**
+   * Renders the tabs vertically (on the side)
+   */
+  vertical: PropTypes.bool,
 
   /**
    * Array that holds TabItems
