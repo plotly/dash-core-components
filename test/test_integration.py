@@ -5,6 +5,7 @@ import io
 import os
 import sys
 import time
+import multiprocessing
 import pandas as pd
 
 import dash
@@ -529,6 +530,43 @@ class Tests(IntegrationTests):
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
 
+    def _test_confirm(self, app, test_name):
+        count = multiprocessing.Value('i', 0)
+
+        @app.callback(Output('confirmed', 'children'),
+                      [Input('confirm', 'n_clicks'),
+                       Input('confirm', 'submit_n_clicks'),
+                       Input('confirm', 'cancel_n_clicks')])
+        def _on_confirmed(n_clicks, submit_n_clicks, cancel_n_clicks):
+            if not n_clicks:
+                return ''
+            count.value = n_clicks
+            if n_clicks == 1:
+                self.assertEqual(1, submit_n_clicks)
+                return 'confirmed'
+            elif n_clicks == 2:
+                self.assertEqual(1, cancel_n_clicks)
+                return 'canceled'
+
+        self.startServer(app)
+        self.snapshot(test_name + ' -> initial')
+        button = self.wait_for_element_by_css_selector('#button')
+
+        button.click()
+        time.sleep(1)
+        self.driver.switch_to.alert.accept()
+        self.wait_for_text_to_equal('#confirmed', 'confirmed')
+        self.snapshot(test_name + ' -> confirmed')
+
+        button.click()
+        time.sleep(0.5)
+        self.driver.switch_to.alert.dismiss()
+        time.sleep(0.5)
+        self.wait_for_text_to_equal('#confirmed', 'canceled')
+        self.snapshot(test_name + ' -> canceled')
+
+        self.assertEqual(2, count.value, 'Expected 2 callback but got ' + str(count.value))
+
     def test_confirm(self):
         app = dash.Dash(__name__)
 
@@ -543,33 +581,14 @@ class Tests(IntegrationTests):
             if n_clicks:
                 return True
 
-        @app.callback(Output('confirmed', 'children'),
-                      [Input('confirm', 'n_clicks'), Input('confirm', 'submit_n_clicks'), Input('confirm', 'cancel_n_clicks')],)
-        def on_confirmed(n_clicks, submit_n_clicks, cancel_n_clicks):
-            if not n_clicks:
-                return
-            if n_clicks == 1:
-                return 'confirmed'
-            elif n_clicks == 2:
-                return 'canceled'
+        self._test_confirm(app, 'ConfirmDialog')
 
-        self.startServer(app)
-        button = self.wait_for_element_by_css_selector('#button')
-        self.snapshot('confirmation -> initial')
-        time.sleep(1)
-        button.click()
-        time.sleep(1)
+    def test_confirm_dialog_provider(self):
+        app = dash.Dash(__name__)
 
-        self.driver.switch_to.alert.accept()
-        self.wait_for_text_to_equal('#confirmed', 'confirmed')
+        app.layout = html.Div([
+            dcc.ConfirmDialogProvider(html.Button('click me', id='button'), id='confirm', message='Please confirm.'),
+            html.Div(id='confirmed')
+        ])
 
-        self.snapshot('confirmation -> confirmed')
-
-        time.sleep(0.2)
-        button.click()
-        time.sleep(1)
-        self.driver.switch_to.alert.dismiss()
-        time.sleep(0.5)
-        self.wait_for_text_to_equal('#confirmed', 'canceled')
-
-        self.snapshot('confirmation -> canceled')
+        self._test_confirm(app, 'ConfirmDialogProvider')

@@ -8,7 +8,7 @@ import ConfirmDialog from './ConfirmDialog.react'
 /**
  * Wrap children onClick to send a confirmation dialog.
  * You can add a button directly as a children:
- * `dcc.ConfirmDialogProvider(dcc.Button('click me', id='btn'), id='confirm')`
+ * `dcc.ConfirmDialogProvider(html.Button('click me', id='btn'), id='confirm')`
  */
 export default class ConfirmDialogProvider extends React.Component {
     render() {
@@ -71,10 +71,6 @@ ConfirmDialogProvider.propTypes = {
      * Number of times the popup was canceled.
      */
     cancel_n_clicks: PropTypes.number,
-    /**
-     * Set to true to send the popup.
-     */
-    send_confirm: PropTypes.bool,
     /**
      * Is the modal currently displayed.
      */
