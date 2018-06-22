@@ -7,6 +7,8 @@ import ConfirmDialog from './ConfirmDialog.react'
 
 /**
  * Wrap children onClick to send a confirmation dialog.
+ * You can add a button directly as a children:
+ * `dcc.ConfirmDialogProvider(dcc.Button('click me', id='btn'), id='confirm')`
  */
 export default class ConfirmDialogProvider extends React.Component {
     render() {
@@ -16,7 +18,7 @@ export default class ConfirmDialogProvider extends React.Component {
         const wrapClick = (child) => React.cloneElement(child, {onClick: () =>
             {
                 setProps({
-                    send_confirm: true
+                    displayed: true
                 });
             }
         });

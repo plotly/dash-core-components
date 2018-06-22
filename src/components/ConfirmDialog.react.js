@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 /**
- * ConfirmDialog wraps window.confirm
+ * ConfirmDialog is used to display the browser's native "confirm" modal,
+ * with an optional message and two buttons ("OK" and "Cancel").
+ * This ConfirmDialog can be used in conjunction with buttons when the user
+ * is performing an action that should require an extra step of verification.
  */
 export default class ConfirmDialog extends Component {
 
@@ -11,10 +14,9 @@ export default class ConfirmDialog extends Component {
     }
 
     componentDidUpdate() {
-        const { displayed, message, send_confirm, setProps, cancel_n_clicks, submit_n_clicks, n_clicks } = this.props;
+        const { displayed, message, setProps, cancel_n_clicks, submit_n_clicks, n_clicks } = this.props;
 
-        if (send_confirm && !displayed) {
-            setProps({send_confirm: false, displayed: true});
+        if (displayed) {
             new Promise(resolve => resolve(window.confirm(message))).then(result => setProps({
                 n_clicks: n_clicks + 1,
                 n_clicks_timestamp: Date.now(),
@@ -62,11 +64,7 @@ ConfirmDialog.propTypes = {
      */
     cancel_n_clicks: PropTypes.number,
     /**
-     * Set to true to send the popup.
-     */
-    send_confirm: PropTypes.bool,
-    /**
-     * Is the modal currently displayed.
+     *  Set to true to send the ConfirmDialog.
      */
     displayed: PropTypes.bool,
 

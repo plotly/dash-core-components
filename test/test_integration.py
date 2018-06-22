@@ -538,7 +538,7 @@ class Tests(IntegrationTests):
             html.Div(id='confirmed')
         ])
 
-        @app.callback(Output('confirm', 'send_confirm'), [Input('button', 'n_clicks')])
+        @app.callback(Output('confirm', 'displayed'), [Input('button', 'n_clicks')])
         def on_click_confirm(n_clicks):
             if n_clicks:
                 return True
