@@ -251,6 +251,25 @@ class Tests(IntegrationTests):
             }
             ),
 
+            html.Label('One Horizontal Tab'),
+            dcc.Tabs(id="tabs", children=[
+                dcc.Tab(label='Tab one', className='test', style={'border': '1px solid magenta'}, children=[
+                    html.Div(['Test'])
+                ]),
+            ],
+                style={
+                'fontFamily': 'system-ui'
+            },
+                contentStyle={
+                'border': '1px solid #d6d6d6',
+                'padding': '44px'
+            },
+                parentStyle={
+                'maxWidth': '1000px',
+                'margin': '0 auto'
+            }
+            ),
+
             html.Label('Vertical Tabs'),
             dcc.Tabs(id="tabs", vertical=True, children=[
                 dcc.Tab(label='Tab one', children=[
