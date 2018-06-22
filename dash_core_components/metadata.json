@@ -139,73 +139,6 @@
       }
     }
   },
-  "src/components/Confirm.react.js": {
-    "description": "Confirm wraps window.confirm",
-    "displayName": "Confirm",
-    "methods": [],
-    "props": {
-      "id": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "message": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "init": {
-        "type": {
-          "name": "shape",
-          "value": {
-            "value": {
-              "name": "any",
-              "required": false
-            },
-            "ask": {
-              "name": "bool",
-              "required": false
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "result": {
-        "type": {
-          "name": "shape",
-          "value": {
-            "timestamp": {
-              "name": "custom",
-              "raw": "PropTypes.integer",
-              "required": false
-            },
-            "value": {
-              "name": "any",
-              "required": false
-            }
-          }
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "{\n    timestamp: -1\n}",
-          "computed": false
-        }
-      },
-      "setProps": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": "Dash-assigned callback that gets fired when the value changes."
-      }
-    }
-  },
   "src/components/DatePickerRange.react.js": {
     "description": "DatePickerRange is a tailor made component designed for selecting\ntimespan across multiple days off of a calendar.\n\nThe DatePicker integrates well with the Python datetime module with the\nstartDate and endDate being returned in a string format suitable for\ncreating datetime objects.\n\nThis component is based off of Airbnb's react-dates react component\nwhich can be found here: https://github.com/airbnb/react-dates",
     "displayName": "DatePickerRange",
@@ -2486,6 +2419,137 @@
         },
         "required": false,
         "description": "inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object."
+      }
+    }
+  },
+  "src/components/Tab.react.js": {
+    "description": "",
+    "methods": [],
+    "props": {
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The tab's label"
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "The content of the tab - will only be displayed if this tab is selected"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Appends a class to the Tab component."
+      },
+      "selectedClassName": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Appends a class to the Tab component when it is selected."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Overrides the default (inline) styles for the Tab component."
+      },
+      "selectedStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Overrides the default (inline) styles for the Tab component when it is selected."
+      }
+    }
+  },
+  "src/components/Tabs.react.js": {
+    "description": "",
+    "displayName": "Tabs",
+    "methods": [
+      {
+        "name": "selectHandler",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "index",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Appends a class to the Tabs container holding the individual Tab components."
+      },
+      "contentClassName": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Appends a class to the Tab content container holding the children of the Tab that is selected."
+      },
+      "parentClassName": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Appends a class to the top-level parent container holding both the Tabs container and the content container."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Appends (inline) styles to the Tabs container holding the individual Tab components."
+      },
+      "parentStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Appends (inline) styles to the top-level parent container holding both the Tabs container and the content container."
+      },
+      "contentStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Appends (inline) styles to the tab content container holding the children of the Tab that is selected."
+      },
+      "vertical": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Renders the tabs vertically (on the side)"
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": "Array that holds TabItems"
       }
     }
   },

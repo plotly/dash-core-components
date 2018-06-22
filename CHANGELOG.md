@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.24.0] - UNRELEASED
+### Added
+- New Tabs and Tab components!
+
 ## [0.23.0] - UNRELEASED
 ### Added
 - Upgraded Plotly.js, the underlying library behind the
