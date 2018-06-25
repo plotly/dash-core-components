@@ -416,6 +416,39 @@ class Tests(IntegrationTests):
 
         self.snapshot('gallery - text input')
 
+    def test_tabs_without_children(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.H1('Dash Tabs component demo'),
+            dcc.Tabs(id="tabs", value='tab-1', children=[
+                dcc.Tab(label='Tab one', value='tab-1'),
+                dcc.Tab(label='Tab two', value='tab-2'),
+                ]),
+            html.Div(id='tabs-content')
+        ])
+
+        @app.callback(dash.dependencies.Output('tabs-content', 'children'),
+                    [dash.dependencies.Input('tabs', 'value')])
+        def render_content(tab):
+            if(tab == 'tab-1'):
+                return html.Div([
+                    html.H3('Test content 1')
+                ], id='test-tab-1')
+            elif(tab == 'tab-2'):
+                return html.Div([
+                    html.H3('Test content 2')
+                ], id='test-tab-2')
+
+        self.startServer(app=app)
+
+        for i in range(1):
+            selected_tab = self.wait_for_element_by_css_selector('#test-tab-{}'.format(i+1))
+            tabs_content = self.wait_for_element_by_css_selector('#tabs-content')
+            selected_tab.click()
+            self.assertEqual(tabs_content.text, 'Test content {}'.format(i+1))
+
+
     def test_location_link(self):
         app = dash.Dash(__name__)
 
