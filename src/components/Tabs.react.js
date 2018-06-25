@@ -80,18 +80,27 @@ export default class Tabs extends Component {
     // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
     // TODO: handle components that are not dcc.Tab components (throw error)
     const EnhancedTabs = this.props.children.map((child, index) => {
+      let childProps;
+
+      if(child.props.children) {
+        // if props appears on .children, props are coming from Dash
+        childProps = child.props.children.props
+      } else {
+        // else props are coming from React (Demo.react.js)
+        childProps = child.props
+      }
       return (
         <EnhancedTab
           key={index}
           index={index}
-          label={child.props.label || child.props.children.props.label}
+          label={childProps.label}
           selected={this.state.selected === index}
           selectHandler={this.selectHandler}
-          className={child.props.className || child.props.children.props.className}
-          style={child.props.style || child.props.children.props.style}
-          selectedClassName={child.props.selectedClassName || child.props.children.props.selectedClassName}
-          selectedStyle={child.props.selectedStyle || child.props.children.props.selectedStyle}
-          value={child.props.value || child.props.children.props.value}
+          className={childProps.className}
+          style={childProps.style}
+          selectedClassName={childProps.selectedClassName}
+          selectedStyle={childProps.selectedStyle}
+          value={childProps.value}
         />
       );
     });
@@ -207,7 +216,7 @@ Tabs.propTypes = {
   vertical: PropTypes.bool,
 
   /**
-   * Array that holds TabItems
+   * Array that holds Tab components
    */
   children: PropTypes.node
 };
