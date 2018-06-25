@@ -25,7 +25,6 @@ const EnhancedTab = ({
       }
       style={selected ? { ...style, ...selectedStyle } : style}
       onClick={() => {
-        console.log('click', value)
         selectHandler(index, value);
       }}
     >
@@ -81,7 +80,6 @@ export default class Tabs extends Component {
     // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
     // TODO: handle components that are not dcc.Tab components (throw error)
     const EnhancedTabs = this.props.children.map((child, index) => {
-      console.log('child', child.props)
       return (
         <EnhancedTab
           key={index}
