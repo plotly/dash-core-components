@@ -32,21 +32,25 @@ const EnhancedTab = ({
       <style jsx>{`
         .tab {
           display: inline-block;
-          background-color: ${offWhiteColor};
+          background-color: white;
           border: 1px solid ${greyColor};
           padding: 20px;
           transition: background-color, color 200ms;
           font-family: 'system-ui';
-          width: 100%;
+          width: auto;
           box-sizing: border-box;
         }
         .tab:hover {
           cursor: pointer;
+          background-color: ${offWhiteColor};
         }
         .tab--selected {
+          border: none;
           border-top: 2px solid ${primaryColor};
-          border-bottom: none;
           color: black;
+        }
+        .tab--selected:hover {
+          background-color: white;
         }
 
         @media screen and (min-width: 1000px) {
