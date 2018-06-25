@@ -13,7 +13,8 @@ const EnhancedTab = ({
   style,
   selectedClassName,
   selectedStyle,
-  selectHandler
+  selectHandler,
+  value
 }) => {
   return (
     <div
@@ -24,7 +25,8 @@ const EnhancedTab = ({
       }
       style={selected ? { ...style, ...selectedStyle } : style}
       onClick={() => {
-        selectHandler(index);
+        console.log('click', value)
+        selectHandler(index, value);
       }}
     >
       <span>{label}</span>
@@ -67,15 +69,19 @@ export default class Tabs extends Component {
 
     this.selectHandler = this.selectHandler.bind(this);
   }
-  selectHandler(index) {
+  selectHandler(index, value) {
     this.setState({
       selected: index
     });
+    if(this.props.setProps) {
+      this.props.setProps({value: value})
+    }
   }
   render() {
     // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
     // TODO: handle components that are not dcc.Tab components (throw error)
     const EnhancedTabs = this.props.children.map((child, index) => {
+      console.log('child', child.props)
       return (
         <EnhancedTab
           key={index}
@@ -83,11 +89,11 @@ export default class Tabs extends Component {
           label={child.props.label || child.props.children.props.label}
           selected={this.state.selected === index}
           selectHandler={this.selectHandler}
-          children={child.props.children}
-          className={child.props.className}
-          style={child.props.style}
-          selectedClassName={child.props.selectedClassName}
-          selectedStyle={child.props.selectedStyle}
+          className={child.props.className || child.props.children.props.className}
+          style={child.props.style || child.props.children.props.style}
+          selectedClassName={child.props.selectedClassName || child.props.children.props.selectedClassName}
+          selectedStyle={child.props.selectedStyle || child.props.children.props.selectedStyle}
+          value={child.props.value || child.props.children.props.value}
         />
       );
     });
@@ -161,6 +167,11 @@ Tabs.propTypes = {
    * components in an app.
    */
   id: PropTypes.string,
+
+  /**
+   * The value of the currently selected Tab 
+   */
+  value: PropTypes.string,
 
   /**
    * Appends a class to the Tabs container holding the individual Tab components.

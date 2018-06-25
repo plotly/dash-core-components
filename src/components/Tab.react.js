@@ -15,6 +15,11 @@ Tab.propTypes = {
   children: PropTypes.node,
 
   /**
+   * Value for determining which Tab is currently selected
+   */
+  value: PropTypes.string,
+
+  /**
    * Appends a class to the Tab component.
    */
   className: PropTypes.string,

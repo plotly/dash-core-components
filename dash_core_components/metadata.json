@@ -2440,6 +2440,13 @@
         "required": false,
         "description": "The content of the tab - will only be displayed if this tab is selected"
       },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Value for determining which Tab is currently selected"
+      },
       "className": {
         "type": {
           "name": "string"
@@ -2494,6 +2501,13 @@
         },
         "required": false,
         "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The value of the currently selected Tab"
       },
       "className": {
         "type": {
