@@ -14,7 +14,8 @@ const EnhancedTab = ({
   selectedClassName,
   selectedStyle,
   selectHandler,
-  value
+  value,
+  mobile_breakpoint,
 }) => {
   return (
     <div
@@ -37,7 +38,7 @@ const EnhancedTab = ({
           padding: 20px;
           transition: background-color, color 200ms;
           font-family: 'system-ui';
-          width: auto;
+          width: 100%;
           box-sizing: border-box;
         }
         .tab:hover {
@@ -53,7 +54,7 @@ const EnhancedTab = ({
           background-color: white;
         }
 
-        @media screen and (min-width: 1000px) {
+        @media screen and (min-width: ${mobile_breakpoint}px) {
           .tab {
             width: auto;
           }
@@ -105,6 +106,7 @@ export default class Tabs extends Component {
           selectedClassName={childProps.selectedClassName}
           selectedStyle={childProps.selectedStyle}
           value={childProps.value}
+          mobile_breakpoint={this.props.mobile_breakpoint}
         />
       );
     });
@@ -160,7 +162,7 @@ export default class Tabs extends Component {
             display: inline-flex;
             flex-direction: column;
           }
-          @media screen and (min-width: 1000px) {
+          @media screen and (min-width: ${this.props.mobile_breakpoint}) {
             .tab-parent--vert {
               flex-direction: row;
             }
@@ -169,6 +171,10 @@ export default class Tabs extends Component {
       </div>
     );
   }
+}
+
+Tabs.defaultProps = {
+  mobile_breakpoint: 1000
 }
 
 Tabs.propTypes = {
@@ -218,6 +224,11 @@ Tabs.propTypes = {
    * Renders the tabs vertically (on the side)
    */
   vertical: PropTypes.bool,
+  
+  /**
+   * Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)
+   */
+  mobile_breakpoint: PropTypes.number,
 
   /**
    * Array that holds Tab components

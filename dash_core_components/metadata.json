@@ -2489,6 +2489,10 @@
           {
             "name": "index",
             "type": null
+          },
+          {
+            "name": "value",
+            "type": null
           }
         ],
         "returns": null
@@ -2558,12 +2562,36 @@
         "required": false,
         "description": "Renders the tabs vertically (on the side)"
       },
+      "mobile_layout": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'stacked'",
+              "computed": false
+            },
+            {
+              "value": "'horizontal'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Defines how the tabs will be rendered on mobile - 'stacked' or 'horizontal'"
+      },
+      "mobile_breakpoint": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Breakpoint at which mobile_layout kicks in"
+      },
       "children": {
         "type": {
           "name": "node"
         },
         "required": false,
-        "description": "Array that holds TabItems"
+        "description": "Array that holds Tab components"
       }
     }
   },
