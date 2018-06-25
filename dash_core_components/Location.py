@@ -20,7 +20,7 @@ Available events: """
     def __init__(self, **kwargs):
         self._prop_names = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self._type = 'Location'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
         self.available_properties = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']

@@ -50,7 +50,7 @@ Available events: 'blur', 'change'"""
     def __init__(self, **kwargs):
         self._prop_names = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step']
         self._type = 'Input'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['blur', 'change']
         self.available_properties = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step']

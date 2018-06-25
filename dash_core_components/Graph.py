@@ -86,7 +86,7 @@ Available events: 'click', 'hover', 'selected', 'relayout', 'unhover'"""
     def __init__(self, **kwargs):
         self._prop_names = ['id', 'clickData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
         self._type = 'Graph'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['click', 'hover', 'selected', 'relayout', 'unhover']
         self.available_properties = ['id', 'clickData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']

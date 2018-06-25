@@ -27,7 +27,7 @@ Available events: 'change'"""
     def __init__(self, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self._type = 'RadioItems'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['change']
         self.available_properties = ['id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']

@@ -19,7 +19,7 @@ Available events: """
     def __init__(self, children=None, **kwargs):
         self._prop_names = ['children', 'href', 'refresh', 'className', 'style', 'id']
         self._type = 'Link'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
         self.available_properties = ['children', 'href', 'refresh', 'className', 'style', 'id']

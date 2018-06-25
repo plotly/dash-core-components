@@ -27,7 +27,7 @@ Available events: 'change'"""
     def __init__(self, **kwargs):
         self._prop_names = ['id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self._type = 'Checklist'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['change']
         self.available_properties = ['id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']

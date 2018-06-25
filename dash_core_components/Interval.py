@@ -22,7 +22,7 @@ Available events: 'interval'"""
     def __init__(self, **kwargs):
         self._prop_names = ['id', 'interval', 'disabled', 'n_intervals']
         self._type = 'Interval'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['interval']
         self.available_properties = ['id', 'interval', 'disabled', 'n_intervals']

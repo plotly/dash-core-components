@@ -26,7 +26,7 @@ Available events: """
     def __init__(self, children=None, **kwargs):
         self._prop_names = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
         self._type = 'SyntaxHighlighter'
-        self._namespace = 'lib'
+        self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
         self.available_properties = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
