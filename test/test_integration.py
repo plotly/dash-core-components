@@ -231,7 +231,7 @@ class Tests(IntegrationTests):
                         html.H1("This is the content in tab 2"),
                         html.P("A graph here would be nice!")
                     ])
-                ]),
+                ], value='1', id='tab-one'),
                 dcc.Tab(label='Tab three', children=[
                     html.Div([
                         html.H1("This is the content in tab 3"),
@@ -241,11 +241,11 @@ class Tests(IntegrationTests):
                 style={
                 'fontFamily': 'system-ui'
             },
-                contentStyle={
+                content_style={
                 'border': '1px solid #d6d6d6',
                 'padding': '44px'
             },
-                parentStyle={
+                parent_style={
                 'maxWidth': '1000px',
                 'margin': '0 auto'
             }
