@@ -15,7 +15,7 @@ const EnhancedTab = ({
   selectedStyle,
   selectHandler,
   value,
-  mobile_breakpoint,
+  mobile_breakpoint
 }) => {
   return (
     <div
@@ -81,22 +81,30 @@ export default class Tabs extends Component {
     this.setState({
       selected: index
     });
-    if(this.props.setProps) {
-      this.props.setProps({value: value})
+    if (this.props.setProps) {
+      this.props.setProps({ value: value });
     }
   }
   render() {
-    // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
-    // TODO: handle components that are not dcc.Tab components (throw error)
-    const EnhancedTabs = this.props.children.map((child, index) => {
+    let EnhancedTabs;
+
+    if (!Array.isArray(this.props.children)) {
+      // if dcc.Tabs.children contains just one single element, it gets passed as an object
+      // instead of an array - so we put in in array ourselves!
+      this.props.children = [this.props.children];
+    }
+
+    EnhancedTabs = this.props.children.map((child, index) => {
+      // TODO: handle components that are not dcc.Tab components (throw error)
+      // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
       let childProps;
 
-      if(child.props.children) {
+      if (child.props.children) {
         // if props appears on .children, props are coming from Dash
-        childProps = child.props.children.props
+        childProps = child.props.children.props;
       } else {
         // else props are coming from React (Demo.react.js)
-        childProps = child.props
+        childProps = child.props;
       }
       return (
         <EnhancedTab
@@ -180,7 +188,7 @@ export default class Tabs extends Component {
 
 Tabs.defaultProps = {
   mobile_breakpoint: 1000
-}
+};
 
 Tabs.propTypes = {
   /**
@@ -191,7 +199,7 @@ Tabs.propTypes = {
   id: PropTypes.string,
 
   /**
-   * The value of the currently selected Tab 
+   * The value of the currently selected Tab
    */
   value: PropTypes.string,
 
@@ -229,7 +237,7 @@ Tabs.propTypes = {
    * Renders the tabs vertically (on the side)
    */
   vertical: PropTypes.bool,
-  
+
   /**
    * Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)
    */
