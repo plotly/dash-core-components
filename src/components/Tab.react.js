@@ -27,7 +27,7 @@ Tab.propTypes = {
   /**
    * Appends a class to the Tab component when it is selected.
    */
-  selectedClassName: PropTypes.string,
+  selected_className: PropTypes.string,
 
   /**
    * Overrides the default (inline) styles for the Tab component.
@@ -37,7 +37,7 @@ Tab.propTypes = {
   /**
    * Overrides the default (inline) styles for the Tab component when it is selected.
    */
-  selectedStyle: PropTypes.object
+  selected_style: PropTypes.object
 };
 
 export default Tab;

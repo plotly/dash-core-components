@@ -12,7 +12,7 @@ const EnhancedTab = ({
   className,
   style,
   selectedClassName,
-  selectedStyle,
+  selected_style,
   selectHandler,
   value,
   mobile_breakpoint
@@ -24,7 +24,7 @@ const EnhancedTab = ({
           ? `${className || ''} ${selectedClassName || ''} tab tab--selected`
           : `${className || ''} tab`
       }
-      style={selected ? { ...style, ...selectedStyle } : style}
+      style={selected ? { ...style, ...selected_style } : style}
       onClick={() => {
         selectHandler(index, value);
       }}
@@ -115,8 +115,8 @@ export default class Tabs extends Component {
           selectHandler={this.selectHandler}
           className={childProps.className}
           style={childProps.style}
-          selectedClassName={childProps.selectedClassName}
-          selectedStyle={childProps.selectedStyle}
+          selectedClassName={childProps.selected_className}
+          selected_style={childProps.selected_style}
           value={childProps.value}
           mobile_breakpoint={this.props.mobile_breakpoint}
         />
@@ -137,8 +137,8 @@ export default class Tabs extends Component {
 
     return (
       <div
-        className={`${tabParentClass} ${this.props.parentClassName || ''}`}
-        style={this.props.parentStyle}
+        className={`${tabParentClass} ${this.props.parent_className || ''}`}
+        style={this.props.parent_style}
       >
         <div
           className={`${tabContainerClass} ${this.props.className || ''}`}
@@ -147,8 +147,8 @@ export default class Tabs extends Component {
           {EnhancedTabs}
         </div>
         <div
-          className={`${tabContentClass} ${this.props.contentClassName || ''}`}
-          style={this.props.contentStyle}
+          className={`${tabContentClass} ${this.props.content_className || ''}`}
+          style={this.props.content_style}
         >
           {this.props.children[this.state.selected].props.children}
         </div>
@@ -211,12 +211,12 @@ Tabs.propTypes = {
   /**
    * Appends a class to the Tab content container holding the children of the Tab that is selected.
    */
-  contentClassName: PropTypes.string,
+  content_className: PropTypes.string,
 
   /**
    * Appends a class to the top-level parent container holding both the Tabs container and the content container.
    */
-  parentClassName: PropTypes.string,
+  parent_className: PropTypes.string,
 
   /**
    * Appends (inline) styles to the Tabs container holding the individual Tab components.
@@ -226,12 +226,12 @@ Tabs.propTypes = {
   /**
    * Appends (inline) styles to the top-level parent container holding both the Tabs container and the content container.
    */
-  parentStyle: PropTypes.object,
+  parent_style: PropTypes.object,
 
   /**
    * Appends (inline) styles to the tab content container holding the children of the Tab that is selected.
    */
-  contentStyle: PropTypes.object,
+  content_style: PropTypes.object,
 
   /**
    * Renders the tabs vertically (on the side)
