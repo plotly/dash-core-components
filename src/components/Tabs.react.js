@@ -70,6 +70,11 @@ const EnhancedTab = ({
   );
 };
 
+/**
+ * A Dash component that lets you render pages with tabs - the Tabs component's children
+ * can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold
+ * children components that will be that tab's content.
+ */
 export default class Tabs extends Component {
   constructor(props) {
     super(props);

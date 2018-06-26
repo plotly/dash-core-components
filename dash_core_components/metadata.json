@@ -2485,7 +2485,7 @@
     }
   },
   "src/components/Tabs.react.js": {
-    "description": "",
+    "description": "A Dash component that lets you render pages with tabs - the Tabs component's children\ncan be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold\nchildren components that will be that tab's content.",
     "displayName": "Tabs",
     "methods": [
       {
