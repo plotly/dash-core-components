@@ -7,6 +7,7 @@ const primaryColor = '#1975FA';
 
 const EnhancedTab = ({
   index,
+  id,
   label,
   selected,
   className,
@@ -24,6 +25,7 @@ const EnhancedTab = ({
           ? `${className || ''} ${selectedClassName || ''} tab tab--selected`
           : `${className || ''} tab`
       }
+      id={id}
       style={selected ? { ...style, ...selected_style } : style}
       onClick={() => {
         selectHandler(index, value);
@@ -110,6 +112,7 @@ export default class Tabs extends Component {
         <EnhancedTab
           key={index}
           index={index}
+          id={childProps.id}
           label={childProps.label}
           selected={this.state.selected === index}
           selectHandler={this.selectHandler}

@@ -2426,6 +2426,13 @@
     "description": "",
     "methods": [],
     "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
+      },
       "label": {
         "type": {
           "name": "string"
@@ -2454,7 +2461,7 @@
         "required": false,
         "description": "Appends a class to the Tab component."
       },
-      "selectedClassName": {
+      "selected_className": {
         "type": {
           "name": "string"
         },
@@ -2468,7 +2475,7 @@
         "required": false,
         "description": "Overrides the default (inline) styles for the Tab component."
       },
-      "selectedStyle": {
+      "selected_style": {
         "type": {
           "name": "object"
         },
@@ -2520,14 +2527,14 @@
         "required": false,
         "description": "Appends a class to the Tabs container holding the individual Tab components."
       },
-      "contentClassName": {
+      "content_className": {
         "type": {
           "name": "string"
         },
         "required": false,
         "description": "Appends a class to the Tab content container holding the children of the Tab that is selected."
       },
-      "parentClassName": {
+      "parent_className": {
         "type": {
           "name": "string"
         },
@@ -2541,14 +2548,14 @@
         "required": false,
         "description": "Appends (inline) styles to the Tabs container holding the individual Tab components."
       },
-      "parentStyle": {
+      "parent_style": {
         "type": {
           "name": "object"
         },
         "required": false,
         "description": "Appends (inline) styles to the top-level parent container holding both the Tabs container and the content container."
       },
-      "contentStyle": {
+      "content_style": {
         "type": {
           "name": "object"
         },
@@ -2562,29 +2569,16 @@
         "required": false,
         "description": "Renders the tabs vertically (on the side)"
       },
-      "mobile_layout": {
-        "type": {
-          "name": "enum",
-          "value": [
-            {
-              "value": "'stacked'",
-              "computed": false
-            },
-            {
-              "value": "'horizontal'",
-              "computed": false
-            }
-          ]
-        },
-        "required": false,
-        "description": "Defines how the tabs will be rendered on mobile - 'stacked' or 'horizontal'"
-      },
       "mobile_breakpoint": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "Breakpoint at which mobile_layout kicks in"
+        "description": "Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)",
+        "defaultValue": {
+          "value": "1000",
+          "computed": false
+        }
       },
       "children": {
         "type": {
