@@ -59,7 +59,7 @@ const EnhancedTab = ({
             width: auto;
           }
           .tab--selected {
-            border: none;
+            border-bottom: none;
             border-top: 2px solid ${primaryColor};
           }
         }
@@ -156,7 +156,7 @@ export default class Tabs extends Component {
             flex-direction: column;
           }
           :global(.tab-container--vert .tab--selected) {
-            border-top: 1px solid ${greyColor};
+            border: 1px solid ${greyColor};
             border-left: 2px solid ${primaryColor};
             border-right: none;
           }
@@ -168,6 +168,7 @@ export default class Tabs extends Component {
           }
           @media screen and (min-width: ${this.props.mobile_breakpoint}px) {
             .tab-parent--vert {
+              display: inline-flex;
               flex-direction: row;
             }
           }
