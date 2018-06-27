@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class Textarea(Component):
@@ -38,7 +38,8 @@ components in an app.
 - title (string; optional): Text to be displayed in a tooltip when hovering over the element.
 
 Available events: 'click', 'blur', 'change'"""
-    def __init__(self, **kwargs):
+    @_explicitize_args
+    def __init__(self, id=None, value=None, autoFocus=None, cols=None, disabled=None, form=None, maxLength=None, minLength=None, name=None, placeholder=None, readOnly=None, required=None, rows=None, wrap=None, accessKey=None, className=None, contentEditable=None, contextMenu=None, dir=None, draggable=None, hidden=None, lang=None, spellCheck=None, style=None, tabIndex=None, title=None, setProps=None, fireEvent=None, dashEvents=None, **kwargs):
         self._prop_names = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title']
         self._type = 'Textarea'
         self._namespace = 'dash_core_components'
@@ -47,12 +48,16 @@ Available events: 'click', 'blur', 'change'"""
         self.available_properties = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in []:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(Textarea, self).__init__(**kwargs)
+        super(Textarea, self).__init__(**args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

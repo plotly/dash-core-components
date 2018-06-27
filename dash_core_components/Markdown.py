@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class Markdown(Component):
@@ -16,7 +16,8 @@ Keyword arguments:
 element such as id or style
 
 Available events: """
-    def __init__(self, children=None, **kwargs):
+    @_explicitize_args
+    def __init__(self, children=None, id=None, className=None, containerProps=None, **kwargs):
         self._prop_names = ['children', 'id', 'className', 'containerProps']
         self._type = 'Markdown'
         self._namespace = 'dash_core_components'
@@ -25,12 +26,16 @@ Available events: """
         self.available_properties = ['children', 'id', 'className', 'containerProps']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in []:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(Markdown, self).__init__(children=children, **kwargs)
+        super(Markdown, self).__init__(children=children, **args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class SyntaxHighlighter(Component):
@@ -23,7 +23,8 @@ Keyword arguments:
 - lineStyle (dict; optional): inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object.
 
 Available events: """
-    def __init__(self, children=None, **kwargs):
+    @_explicitize_args
+    def __init__(self, children=None, id=None, language=None, theme=None, customStyle=None, codeTagProps=None, useInlineStyles=None, showLineNumbers=None, startingLineNumber=None, lineNumberContainerStyle=None, lineNumberStyle=None, wrapLines=None, lineStyle=None, **kwargs):
         self._prop_names = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
         self._type = 'SyntaxHighlighter'
         self._namespace = 'dash_core_components'
@@ -32,12 +33,16 @@ Available events: """
         self.available_properties = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in []:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(SyntaxHighlighter, self).__init__(children=children, **kwargs)
+        super(SyntaxHighlighter, self).__init__(children=children, **args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

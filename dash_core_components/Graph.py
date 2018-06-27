@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class Graph(Component):
@@ -83,7 +83,8 @@ If using an Mapbox Atlas server, set this option to '',
 so that plotly.js won't attempt to authenticate to the public Mapbox server.
 
 Available events: 'click', 'hover', 'selected', 'relayout', 'unhover'"""
-    def __init__(self, **kwargs):
+    @_explicitize_args
+    def __init__(self, id=None, clickData=None, hoverData=None, clear_on_unhover=None, selectedData=None, relayoutData=None, figure=None, style=None, className=None, animate=None, animation_options=None, config=None, dashEvents=None, setProps=None, fireEvent=None, **kwargs):
         self._prop_names = ['id', 'clickData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
         self._type = 'Graph'
         self._namespace = 'dash_core_components'
@@ -92,12 +93,16 @@ Available events: 'click', 'hover', 'selected', 'relayout', 'unhover'"""
         self.available_properties = ['id', 'clickData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in ['id']:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(Graph, self).__init__(**kwargs)
+        super(Graph, self).__init__(**args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

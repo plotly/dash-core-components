@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class DatePickerRange(Component):
@@ -74,7 +74,8 @@ not a small "x" appears on the right of the dropdown that removes
 the selected value.
 
 Available events: 'change'"""
-    def __init__(self, **kwargs):
+    @_explicitize_args
+    def __init__(self, id=None, start_date=None, end_date=None, min_date_allowed=None, max_date_allowed=None, initial_visible_month=None, start_date_placeholder_text=None, end_date_placeholder_text=None, day_size=None, calendar_orientation=None, is_RTL=None, reopen_calendar_on_clear=None, number_of_months_shown=None, with_portal=None, with_full_screen_portal=None, first_day_of_week=None, minimum_nights=None, stay_open_on_select=None, show_outside_days=None, month_format=None, display_format=None, disabled=None, clearable=None, setProps=None, dashEvents=None, **kwargs):
         self._prop_names = ['id', 'start_date', 'end_date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'start_date_placeholder_text', 'end_date_placeholder_text', 'day_size', 'calendar_orientation', 'is_RTL', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'minimum_nights', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']
         self._type = 'DatePickerRange'
         self._namespace = 'dash_core_components'
@@ -83,12 +84,16 @@ Available events: 'change'"""
         self.available_properties = ['id', 'start_date', 'end_date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'start_date_placeholder_text', 'end_date_placeholder_text', 'day_size', 'calendar_orientation', 'is_RTL', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'minimum_nights', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in []:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(DatePickerRange, self).__init__(**kwargs)
+        super(DatePickerRange, self).__init__(**args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

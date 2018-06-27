@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class Location(Component):
@@ -17,7 +17,8 @@ Keyword arguments:
 - refresh (boolean; optional): Refresh the page when the location is updated?
 
 Available events: """
-    def __init__(self, **kwargs):
+    @_explicitize_args
+    def __init__(self, id=None, pathname=None, search=None, hash=None, href=None, refresh=None, **kwargs):
         self._prop_names = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self._type = 'Location'
         self._namespace = 'dash_core_components'
@@ -26,12 +27,16 @@ Available events: """
         self.available_properties = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in ['id']:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(Location, self).__init__(**kwargs)
+        super(Location, self).__init__(**args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

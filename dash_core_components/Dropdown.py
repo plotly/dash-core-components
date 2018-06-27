@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class Dropdown(Component):
@@ -33,7 +33,8 @@ the selected value.
 - searchable (boolean; optional): Whether to enable the searching feature or not
 
 Available events: 'change'"""
-    def __init__(self, **kwargs):
+    @_explicitize_args
+    def __init__(self, id=None, options=None, value=None, className=None, clearable=None, disabled=None, multi=None, placeholder=None, searchable=None, setProps=None, dashEvents=None, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable']
         self._type = 'Dropdown'
         self._namespace = 'dash_core_components'
@@ -42,12 +43,16 @@ Available events: 'change'"""
         self.available_properties = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in []:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(Dropdown, self).__init__(**kwargs)
+        super(Dropdown, self).__init__(**args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

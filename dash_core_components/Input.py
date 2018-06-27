@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class Input(Component):
@@ -47,7 +47,8 @@ hidden, checkbox, radio, file, or a button type.
 - step (string; optional): Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
 
 Available events: 'blur', 'change'"""
-    def __init__(self, **kwargs):
+    @_explicitize_args
+    def __init__(self, id=None, value=None, style=None, className=None, type=None, autocomplete=None, autofocus=None, disabled=None, inputmode=None, list=None, max=None, maxlength=None, min=None, minlength=None, multiple=None, name=None, pattern=None, placeholder=None, readonly=None, required=None, selectionDirection=None, selectionEnd=None, selectionStart=None, size=None, spellcheck=None, step=None, fireEvent=None, setProps=None, dashEvents=None, **kwargs):
         self._prop_names = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step']
         self._type = 'Input'
         self._namespace = 'dash_core_components'
@@ -56,12 +57,16 @@ Available events: 'blur', 'change'"""
         self.available_properties = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in []:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(Input, self).__init__(**kwargs)
+        super(Input, self).__init__(**args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None

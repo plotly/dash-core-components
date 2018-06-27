@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-from dash.development.base_component import Component
+from dash.development.base_component import Component, _explicitize_args
 
 
 class Upload(Component):
@@ -39,7 +39,8 @@ See: https://github.com/react-dropzone/react-dropzone/issues/276
 - style_disabled (dict; optional): CSS styles if disabled
 
 Available events: """
-    def __init__(self, children=None, **kwargs):
+    @_explicitize_args
+    def __init__(self, children=None, id=None, contents=None, filename=None, last_modified=None, accept=None, disabled=None, disable_click=None, max_size=None, min_size=None, multiple=None, className=None, className_active=None, className_reject=None, className_disabled=None, style=None, style_active=None, style_reject=None, style_disabled=None, setProps=None, **kwargs):
         self._prop_names = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
         self._type = 'Upload'
         self._namespace = 'dash_core_components'
@@ -48,12 +49,16 @@ Available events: """
         self.available_properties = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
         self.available_wildcard_properties =            []
 
+        _explicit_params = kwargs.pop('_explicit_params')
+        _locals = locals()
+        _locals.update(kwargs)  # For wildcard attrs
+        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+
         for k in []:
-            if k not in kwargs:
+            if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-
-        super(Upload, self).__init__(children=children, **kwargs)
+        super(Upload, self).__init__(children=children, **args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
