@@ -494,6 +494,43 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
 
+    def test_link_scroll(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Location(id='test-url', refresh=False),
+
+            html.Div(id='push-to-bottom', children=[], style={
+                'display': 'block',
+                'height': '200vh'
+            }),
+            html.Div(id='page-content'),
+            dcc.Link('Test link', href='/test-link', id='test-link')
+        ])
+
+        @app.callback(Output('page-content', 'children'),
+                       [Input('test-url', 'pathname')])
+        def display_page(pathname):
+            return 'You are on page {}'.format(pathname)
+
+        self.startServer(app=app)
+
+        # test if link correctly scrolls back to top of page
+        test_link = self.wait_for_element_by_css_selector('#test-link')
+        test_link.send_keys(Keys.NULL)
+        self.snapshot('link on bottom of page - initial')
+        test_link.click()
+        time.sleep(2)
+        self.snapshot('link on bottom of page - after clicking (should be scrolled back to top)')
+
+        # test link still fires update on Location
+        page_content = self.wait_for_element_by_css_selector('#page-content')
+        self.assertNotEquals(page_content.text, 'You are on page /')
+        self.assertEquals(page_content.text, 'You are on page /test-link')
+
+        #test if rendered Link's <a> tag has a href attribute
+        link_href = test_link.get_attribute("href")
+        self.assertEqual(link_href, 'http://localhost:8050/test-link')
+
     def test_candlestick(self):
         app = dash.Dash(__name__)
         app.layout = html.Div([
