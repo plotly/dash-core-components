@@ -59,10 +59,10 @@ Available events: 'change'"""
         self.available_properties = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']
         self.available_wildcard_properties =            []
 
-        _explicit_params = kwargs.pop('_explicit_params')
+        _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
 
         for k in []:
             if k not in args:

@@ -49,10 +49,10 @@ Available events: """
         self.available_properties = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
         self.available_wildcard_properties =            []
 
-        _explicit_params = kwargs.pop('_explicit_params')
+        _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
 
         for k in []:
             if k not in args:

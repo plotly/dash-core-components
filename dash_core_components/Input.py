@@ -57,10 +57,10 @@ Available events: 'blur', 'change'"""
         self.available_properties = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step']
         self.available_wildcard_properties =            []
 
-        _explicit_params = kwargs.pop('_explicit_params')
+        _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
 
         for k in []:
             if k not in args:

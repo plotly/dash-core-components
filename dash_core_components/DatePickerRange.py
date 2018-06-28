@@ -84,10 +84,10 @@ Available events: 'change'"""
         self.available_properties = ['id', 'start_date', 'end_date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'start_date_placeholder_text', 'end_date_placeholder_text', 'day_size', 'calendar_orientation', 'is_RTL', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'minimum_nights', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']
         self.available_wildcard_properties =            []
 
-        _explicit_params = kwargs.pop('_explicit_params')
+        _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_params if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
 
         for k in []:
             if k not in args:
