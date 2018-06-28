@@ -72,6 +72,7 @@ export default class PlotlyGraph extends Component {
 
     plot(props) {
         const {id, figure, animate, animation_options, config} = props;
+        console.log('id in plot(props):', id)
         const gd = document.getElementById(id);
 
         if (animate && this._hasPlotted && figure.data.length === gd.data.length) {
@@ -103,6 +104,7 @@ export default class PlotlyGraph extends Component {
 
     bindEvents() {
         const {id, fireEvent, setProps, clear_on_unhover} = this.props;
+        console.log('id in bindEvents():', id)
 
         const gd = document.getElementById(id);
 
@@ -169,6 +171,7 @@ export default class PlotlyGraph extends Component {
 
     componentWillReceiveProps(nextProps) {
         const idChanged = this.props.id !== nextProps.id;
+        console.log('idChanged in componentWillReceiveProps():', idChanged)
         if (idChanged) {
             /*
              * then the dom needs to get re-rendered with a new ID.
@@ -206,7 +209,12 @@ export default class PlotlyGraph extends Component {
 }
 
 PlotlyGraph.propTypes = {
-    id: PropTypes.string.isRequired,
+    /**
+     * The ID of this component, used to identify dash components
+     * in callbacks. The ID needs to be unique across all of the
+     * components in an app.
+     */
+    id: PropTypes.string,
     /**
      * Data from latest click event
      */
@@ -466,6 +474,7 @@ PlotlyGraph.propTypes = {
 }
 
 PlotlyGraph.defaultProps = {
+    id: null,
     clickData: null,
     hoverData: null,
     selectedData: null,
