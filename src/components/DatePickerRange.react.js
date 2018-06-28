@@ -58,14 +58,16 @@ export default class DatePickerRange extends Component {
 
     onDatesChange({startDate: start_date, endDate: end_date}) {
         const {setProps, fireEvent} = this.props;
+        const old_start_date = this.state.start_date
+        const old_end_date = this.state.end_date
         const newState = {};
-        if (setProps && start_date !== null) {
+        if (setProps && start_date !== null && start_date !== old_start_date) {
             setProps({start_date: start_date.format('YYYY-MM-DD')});
         } else {
             newState.start_date = start_date;
         }
 
-        if (setProps && end_date !== null) {
+        if (setProps && end_date !== null && end_date !== old_end_date) {
             setProps({end_date: end_date.format('YYYY-MM-DD')});
         } else {
             newState.end_date = end_date;
