@@ -566,4 +566,6 @@ class Tests(IntegrationTests):
 
         # updated both dates, callback should now fire and update output
         end_date.send_keys("1997-05-04")
+        end_date.click() 
+
         self.assertEquals(date_content.text, '1997-05-03 - 1997-05-04')
