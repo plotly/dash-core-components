@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.23.1]
+### Fixed
+- Fixed bug where Graph wouldn't render if figure.data wasn't set (#223)
+
 ## [0.23.0]
 ### Added
 - Upgraded Plotly.js, the underlying library behind the

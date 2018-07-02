@@ -528,3 +528,16 @@ class Tests(IntegrationTests):
         button.click()
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
+
+    def test_graph_without_data(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.Graph(id='graph', figure={
+            })
+        ])
+
+        self.startServer(app=app)
+
+        self.snapshot('graph without figure.data')
+

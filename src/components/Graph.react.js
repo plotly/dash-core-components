@@ -79,7 +79,7 @@ export default class PlotlyGraph extends Component {
         } else {
 
             let PlotMethod;
-            if (intersection(
+            if (has('data')(figure) && intersection(
                 pluck('type', figure.data),
                 ['candlestick', 'ohlc']).length
             ) {
