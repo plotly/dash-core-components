@@ -471,7 +471,7 @@ PlotlyGraph.propTypes = {
 }
 
 PlotlyGraph.defaultProps = {
-    id: 'untitled-graph',
+    id: 'graph-' + Math.random().toString(36).substring(2,7),
     clickData: null,
     hoverData: null,
     selectedData: null,
