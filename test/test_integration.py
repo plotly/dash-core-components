@@ -539,5 +539,8 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
+        graph_rendered = self.wait_for_element_by_css_selector('#graph')
+        self.assertTrue(graph_rendered)
+
         self.snapshot('graph without figure.data')
 
