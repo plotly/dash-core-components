@@ -73,44 +73,6 @@ You could also look in `tox.ini` and see which tests it runs, and run those comm
 python -m unittest test.test_integration
 ```
 
-#### To run lint and unit tests:
-
-```sh
-$ npm test
-```
-
-#### To run unit tests and watch for changes:
-
-```sh
-$ npm run test-watch
-```
-
-#### To debug unit tests in a browser (Chrome):
-
-```sh
-$ npm run test-debug
-```
-
-1. Wait until Chrome launches.
-2. Click the "DEBUG" button in the top right corner.
-3. Open up Chrome Devtools (`Cmd+opt+i`).
-4. Click the "Sources" tab.
-5. Find source files
-  - Navigate to `webpack:// -> . -> spec/components` to find your test source files.
-  - Navigate to `webpack:// -> [your/repo/path]] -> dash-core-components -> src` to find your component source files.
-6. Now you can set breakpoints and reload the page to hit them.
-7. The test output is available in the "Console" tab, or in any tab by pressing "Esc".
-
-#### To run a specific test
-
-In your test, append `.only` to a `describe` or `it` statement:
-
-```javascript
-describe.only('Foo component', () => {
-    // ...
-});
-```
-
 ### Testing your components in Dash
 
 1. Build development bundle to `lib/` and watch for changes
