@@ -142,26 +142,18 @@ publishing steps into one workflow.
 
 Ask @chriddyp to get NPM / PyPi package publishing access.
 
-1. Preparing to publish to NPM
+1 - Update `version.py`
 
-        # Bump the package version
-        $ npm version major|minor|patch
+2 - Update `package.json`
 
-        # Push branch and tags to repo
-        $ git push --follow-tags
+4 - Publish: `npm run publish-all` (Make sure you have access to NPM and PyPI)
+4b - If the `publish-all` script fails on the `twine` command, try running
+```sh
+twine upload dist/dash_core_components-xx.x.x.tar.gz # where xx.x.x is the version number
+```
 
-2. Preparing to publish to PyPi
-
-        # Bump the PyPi package to the same version
-        $ vi setup.py
-
-        # Commit to github
-        $ git add setup.py
-        $ git commit -m "Bump pypi package version to vx.x.x"
-
-3. Publish to npm and PyPi
-
-        $ npm run publish-all
+If you want to publish a prerelease package, change `version.py` to X.XX.Xrc1 (0.23.1rc1 for example) and
+`package.json` to X.XX.X-rc1 (notice how the rc syntax is different between node and python. npm requires a - between the version number and the prerelease tag while python's pip just has 0.23.1rc1)
 
 
 ## Builder / Archetype
