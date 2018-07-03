@@ -59,6 +59,20 @@ You have to maintain the list of components in `demo/Demo.react.js`.
 
 ### Code quality and tests
 
+### To run integration tests (test_integration.py)
+We run our integration tests on CircleCI with help from Tox. There’s a tox.ini file which holds the configuration, refer to [tox's documentation](http://tox.readthedocs.io/en/latest/index.html) for help. I found that I needed to set environment variables in my terminal, like `TOX_PYTHON_27` to my version of python that I wanted tox to use. So running:
+
+```sh
+export TOX_PYTHON_27=python2
+```
+
+set the `TOX_PYTHON_27` env variable to point to `python2`, which is Python 2.7 running on my machine. 
+You could also look in `tox.ini` and see which tests it runs, and run those commands yourself: 
+
+```sh
+python -m unittest test.test_integration
+```
+
 #### To run lint and unit tests:
 
 ```sh
