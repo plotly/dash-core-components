@@ -60,7 +60,7 @@ You have to maintain the list of components in `demo/Demo.react.js`.
 ### Code quality and tests
 
 ### To run integration tests (test_integration.py)
-We run our integration tests on CircleCI with help from Tox. There’s a tox.ini file which holds the configuration, refer to [tox's documentation](http://tox.readthedocs.io/en/latest/index.html) for help. I found that I needed to set environment variables in my terminal, like `TOX_PYTHON_27` to my version of python that I wanted tox to use. So running:
+We run our integration tests on CircleCI with help from Tox. There’s a tox.ini file which holds the configuration, refer to [tox's documentation](http://tox.readthedocs.io/en/latest/index.html) for help. You may need to set environment variables in your terminal, like `TOX_PYTHON_27` to my version of python that I wanted tox to use. So running:
 
 ```sh
 export TOX_PYTHON_27=python2
@@ -118,18 +118,18 @@ publishing steps into one workflow.
 
 Ask @chriddyp to get NPM / PyPi package publishing access.
 
-1 - Update `version.py`
+1 - Update `version.py`, we're using [semantic versioning](https://semver.org/)!
 
 2 - Update `package.json`
 
 4 - Publish: `npm run publish-all` (Make sure you have access to NPM and PyPI)
 4b - If the `publish-all` script fails on the `twine` command, try running
 ```sh
-twine upload dist/dash_core_components-xx.x.x.tar.gz # where xx.x.x is the version number
+twine upload dist/dash_core_components-X.X.X.tar.gz # where xx.x.x is the version number
 ```
 
-If you want to publish a prerelease package, change `version.py` to X.XX.Xrc1 (0.23.1rc1 for example) and
-`package.json` to X.XX.X-rc1 (notice how the rc syntax is different between node and python. npm requires a - between the version number and the prerelease tag while python's pip just has 0.23.1rc1)
+If you want to publish a prerelease package, change `version.py` to X.X.XrcX (0.23.1rc1 for example) and
+`package.json` to X.X.X-rcX (notice how the rc syntax is different between node and python. npm requires a - between the version number and the prerelease tag while python's pip just has 0.23.1rc1)
 
 
 ## Builder / Archetype
