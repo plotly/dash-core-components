@@ -13,10 +13,15 @@ import dash_html_components as html
 import dash_core_components as dcc
 import dash_table_experiments as dt
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException
 import time
 from textwrap import dedent
+
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
 try:
     from urlparse import urlparse
 except ImportError:
@@ -539,8 +544,9 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        time.sleep(2)
-        graph_rendered = self.driver.find_element_by_id('graph')
+        graph_rendered = WebDriverWait(self.driver, 10).until(
+            expected_conditions.presence_of_element_located((By.ID, 'graph'))
+        )
 
         self.assertTrue(graph_rendered)
 
