@@ -539,9 +539,9 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        graph_rendered = self.wait_for_element_by_css_selector('#graph')
-
         time.sleep(2)
+        graph_rendered = self.driver.find_element_by_id('graph')
+
         self.assertTrue(graph_rendered)
 
         self.snapshot('graph without figure.data')
