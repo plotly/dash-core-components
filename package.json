@@ -24,7 +24,7 @@
   "author": "Chris Parmer <chris@plot.ly>",
   "license": "MIT",
   "dependencies": {
-    "builder": "3.2.2",
+    "builder": "3.2.3",
     "dash-components-archetype": "^0.2.11",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
