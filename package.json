@@ -41,7 +41,7 @@
     "react-virtualized-select": "^3.1.0"
   },
   "devDependencies": {
-    "component-playground": "^2.0.0",
+    "component-playground": "^3.0.0",
     "dash-components-archetype-dev": "^0.2.11",
     "enzyme": "^2.4.1"
   },
