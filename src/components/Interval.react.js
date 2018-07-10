@@ -35,7 +35,7 @@ export default class Interval extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.n_intervals < this.props.max_intervals || this.props.max_intervals === 0) {
+        if(nextProps.n_intervals < this.props.max_intervals || this.props.max_intervals === -1) {
             if ((!this.props.fireEvent && nextProps.fireEvent) ||
                 (!this.props.setProps && nextProps.setProps)
             ) {
@@ -102,5 +102,5 @@ Interval.propTypes = {
 Interval.defaultProps = {
     interval: 1000,
     n_intervals: 0,
-    max_intervals: 0
+    max_intervals: -1
 };

@@ -1627,7 +1627,7 @@
         "required": false,
         "description": "Number of times the interval will be fired",
         "defaultValue": {
-          "value": "0",
+          "value": "-1",
           "computed": false
         }
       },
