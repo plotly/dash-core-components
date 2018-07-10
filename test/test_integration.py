@@ -534,18 +534,18 @@ class Tests(IntegrationTests):
         count = multiprocessing.Value('i', 0)
 
         @app.callback(Output('confirmed', 'children'),
-                      [Input('confirm', 'n_clicks'),
-                       Input('confirm', 'submit_n_clicks'),
-                       Input('confirm', 'cancel_n_clicks')])
-        def _on_confirmed(n_clicks, submit_n_clicks, cancel_n_clicks):
-            if not n_clicks:
+                      [Input('confirm', 'submit_n_clicks'),
+                       Input('confirm', 'cancel_n_clicks')],
+                      [State('confirm', 'submit_n_clicks_timestamp'),
+                       State('confirm', 'cancel_n_clicks_timestamp')])
+        def _on_confirmed(submit_n_clicks, cancel_n_clicks,
+                          submit_timestamp, cancel_timestamp):
+            if not submit_n_clicks and not cancel_n_clicks:
                 return ''
-            count.value = n_clicks
-            if n_clicks == 1:
-                self.assertEqual(1, submit_n_clicks)
+            count.value = submit_n_clicks + cancel_n_clicks
+            if submit_timestamp > cancel_timestamp:
                 return 'confirmed'
-            elif n_clicks == 2:
-                self.assertEqual(1, cancel_n_clicks)
+            else:
                 return 'canceled'
 
         self.startServer(app)
@@ -576,7 +576,8 @@ class Tests(IntegrationTests):
             html.Div(id='confirmed')
         ])
 
-        @app.callback(Output('confirm', 'displayed'), [Input('button', 'n_clicks')])
+        @app.callback(Output('confirm', 'displayed'),
+                      [Input('button', 'n_clicks')])
         def on_click_confirm(n_clicks):
             if n_clicks:
                 return True
@@ -587,7 +588,9 @@ class Tests(IntegrationTests):
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
-            dcc.ConfirmDialogProvider(html.Button('click me', id='button'), id='confirm', message='Please confirm.'),
+            dcc.ConfirmDialogProvider(
+                html.Button('click me', id='button'),
+                id='confirm', message='Please confirm.'),
             html.Div(id='confirmed')
         ])
 

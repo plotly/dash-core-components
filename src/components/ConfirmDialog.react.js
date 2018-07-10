@@ -14,15 +14,23 @@ export default class ConfirmDialog extends Component {
     }
 
     componentDidUpdate() {
-        const { displayed, message, setProps, cancel_n_clicks, submit_n_clicks, n_clicks } = this.props;
+        const {
+            displayed, message, setProps,
+            cancel_n_clicks, cancel_n_clicks_timestamp,
+            submit_n_clicks, submit_n_clicks_timestamp
+        } = this.props;
 
         if (displayed) {
             new Promise(resolve => resolve(window.confirm(message))).then(result => setProps({
-                n_clicks: n_clicks + 1,
-                n_clicks_timestamp: Date.now(),
-                cancel_n_clicks: !result ? cancel_n_clicks + 1 : cancel_n_clicks,
-                submit_n_clicks: result ? submit_n_clicks + 1: submit_n_clicks,
-                displayed: false,
+                cancel_n_clicks: !result ?
+                    cancel_n_clicks + 1 : cancel_n_clicks,
+                cancel_n_clicks_timestamp: !result ?
+                    Date.now() :  cancel_n_clicks_timestamp,
+                submit_n_clicks: result ?
+                    submit_n_clicks + 1: submit_n_clicks,
+                submit_n_clicks_timestamp: result ?
+                    Date.now() : submit_n_clicks_timestamp,
+                displayed: false
             }));
         }
     }
@@ -33,10 +41,10 @@ export default class ConfirmDialog extends Component {
 }
 
 ConfirmDialog.defaultProps = {
-    n_clicks: 0,
-    n_clicks_timestamp: -1,
     submit_n_clicks: 0,
+    submit_n_clicks_timestamp: -1,
     cancel_n_clicks: 0,
+    cancel_n_clicks_timestamp: -1
 };
 
 ConfirmDialog.propTypes = {
@@ -46,23 +54,22 @@ ConfirmDialog.propTypes = {
      * Message to show in the popup.
      */
     message: PropTypes.string,
-
     /**
-     * Number of times the modal was submited or canceled.
-     */
-    n_clicks: PropTypes.number,
-    /**
-     * Last timestamp the popup was clicked.
-     */
-    n_clicks_timestamp: PropTypes.number,
-    /**
-     * Number of times the submit was clicked
+     * Number of times the submit button was clicked
      */
     submit_n_clicks: PropTypes.number,
+    /**
+     * Last time the submit button was clicked.
+     */
+    submit_n_clicks_timestamp: PropTypes.number,
     /**
      * Number of times the popup was canceled.
      */
     cancel_n_clicks: PropTypes.number,
+    /**
+     * Last time the cancel button was clicked.
+     */
+    cancel_n_clicks_timestamp: PropTypes.number,
     /**
      *  Set to true to send the ConfirmDialog.
      */

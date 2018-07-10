@@ -6,9 +6,16 @@ import ConfirmDialog from './ConfirmDialog.react'
 
 
 /**
- * Wrap children onClick to send a confirmation dialog.
- * You can add a button directly as a children:
- * `dcc.ConfirmDialogProvider(html.Button('click me', id='btn'), id='confirm')`
+ * A wrapper component that will display a confirmation dialog
+ * when its child component has been clicked on.
+ *
+ * For example:
+ * ```
+ * dcc.ConfirmDialogProvider(
+ *     html.Button('click me', id='btn'),
+ *     message='Danger - Are you sure you want to continue.'
+ *     id='confirm')
+ * ```
  */
 export default class ConfirmDialogProvider extends React.Component {
     render() {
@@ -38,13 +45,13 @@ export default class ConfirmDialogProvider extends React.Component {
             </div>
         )
     }
-};
+}
 
 ConfirmDialogProvider.defaultProps = {
-    n_clicks: 0,
-    n_clicks_timestamp: -1,
     submit_n_clicks: 0,
+    submit_n_clicks_timestamp: -1,
     cancel_n_clicks: 0,
+    cancel_n_clicks_timestamp: -1
 };
 
 ConfirmDialogProvider.propTypes = {
@@ -54,23 +61,22 @@ ConfirmDialogProvider.propTypes = {
      * Message to show in the popup.
      */
     message: PropTypes.string,
-
-    /**
-     * Number of times the modal was submited or canceled.
-     */
-    n_clicks: PropTypes.number,
-    /**
-     * Last timestamp the popup was clicked.
-     */
-    n_clicks_timestamp: PropTypes.number,
     /**
      * Number of times the submit was clicked
      */
     submit_n_clicks: PropTypes.number,
     /**
+     * Last time the submit button was clicked.
+     */
+    submit_n_clicks_timestamp: PropTypes.number,
+    /**
      * Number of times the popup was canceled.
      */
     cancel_n_clicks: PropTypes.number,
+    /**
+     * Last time the cancel button was clicked.
+     */
+    cancel_n_clicks_timestamp: PropTypes.number,
     /**
      * Is the modal currently displayed.
      */
@@ -80,5 +86,8 @@ ConfirmDialogProvider.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
-    children: PropTypes.any,
+    /**
+     * The children to hijack clicks from and display the popup.
+     */
+    children: PropTypes.any
 };
