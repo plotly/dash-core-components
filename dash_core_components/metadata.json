@@ -2586,6 +2586,31 @@
         },
         "required": false,
         "description": "Array that holds Tab components"
+      },
+      "colors": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "border": {
+              "name": "string",
+              "required": false
+            },
+            "primary": {
+              "name": "string",
+              "required": false
+            },
+            "background": {
+              "name": "string",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so: \ncolors: {\n   border: '#d6d6d6',\n   primary: '#1975FA',\n   background: '#f9f9f9'\n }",
+        "defaultValue": {
+          "value": "{\n  border: '#d6d6d6',\n  primary: '#1975FA',\n  background: '#f9f9f9'\n}",
+          "computed": false
+        }
       }
     }
   },

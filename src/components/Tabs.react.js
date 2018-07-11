@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const greyColor = '#d6d6d6';
-const offWhiteColor = '#f9f9f9';
-const primaryColor = '#1975FA';
-
 const EnhancedTab = ({
   index,
   id,
@@ -17,7 +13,8 @@ const EnhancedTab = ({
   selectHandler,
   value,
   mobile_breakpoint,
-  amountOfTabs
+  amountOfTabs,
+  colors
 }) => {
   return (
     <div
@@ -36,8 +33,8 @@ const EnhancedTab = ({
       <style jsx>{`
         .tab {
           display: inline-block;
-          background-color: ${offWhiteColor};
-          border: 1px solid ${greyColor};
+          background-color: ${colors['background']};
+          border: 1px solid ${colors['border']};
           border-bottom: none;
           padding: 20px 25px;
           transition: background-color, color 200ms;
@@ -46,14 +43,14 @@ const EnhancedTab = ({
           box-sizing: border-box;
         }
         .tab:last-of-type {
-          border-right: 1px solid ${greyColor};
-          border-bottom: 1px solid ${greyColor};
+          border-right: 1px solid ${colors['border']};
+          border-bottom: 1px solid ${colors['border']};
         }
         .tab:hover {
           cursor: pointer;
         }
         .tab--selected {
-          border-top: 2px solid ${primaryColor};
+          border-top: 2px solid ${colors['primary']};
           color: black;
           background-color: white;
         }
@@ -63,13 +60,13 @@ const EnhancedTab = ({
 
         @media screen and (min-width: ${mobile_breakpoint}px) {
           .tab {
-            border: 1px solid ${greyColor};
+            border: 1px solid ${colors['border']};
             border-right: none;
             width: calc(100% / ${amountOfTabs});
           }
           .tab--selected {
             border-bottom: none !important;
-            border-top: 2px solid ${primaryColor};
+            border-top: 2px solid ${colors['primary']};
           }
         }
       `}</style>
@@ -137,6 +134,7 @@ export default class Tabs extends Component {
           value={childProps.value}
           mobile_breakpoint={this.props.mobile_breakpoint}
           amountOfTabs={amountOfTabs}
+          colors={this.props.colors}
         />
       );
     });
@@ -190,11 +188,11 @@ export default class Tabs extends Component {
               border-bottom: none;
             }
             :global(.tab-container--vert .tab:last-of-type) {
-              border-bottom: 1px solid ${greyColor} !important;
+              border-bottom: 1px solid ${this.props.colors['border']} !important;
             }
             :global(.tab-container--vert .tab--selected) {
-              border: 1px solid ${greyColor};
-              border-left: 2px solid ${primaryColor};
+              border: 1px solid ${this.props.colors['border']};
+              border-left: 2px solid ${this.props.colors['primary']};
               border-right: none;
             }
 
@@ -210,7 +208,12 @@ export default class Tabs extends Component {
 }
 
 Tabs.defaultProps = {
-  mobile_breakpoint: 800
+  mobile_breakpoint: 800,
+  colors: {
+    border: '#d6d6d6',
+    primary: '#1975FA',
+    background: '#f9f9f9'
+  }
 };
 
 Tabs.propTypes = {
@@ -269,5 +272,15 @@ Tabs.propTypes = {
   /**
    * Array that holds Tab components
    */
-  children: PropTypes.node
+  children: PropTypes.node,
+
+  /**
+   * Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so: 
+   * colors: {
+   *    border: '#d6d6d6',
+   *    primary: '#1975FA',
+   *    background: '#f9f9f9'
+   *  }
+   */
+  colors: PropTypes.shape({border: PropTypes.string, primary: PropTypes.string, background: PropTypes.string})
 };
