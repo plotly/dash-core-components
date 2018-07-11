@@ -210,7 +210,7 @@ export default class Tabs extends Component {
 }
 
 Tabs.defaultProps = {
-  mobile_breakpoint: 1000
+  mobile_breakpoint: 800
 };
 
 Tabs.propTypes = {

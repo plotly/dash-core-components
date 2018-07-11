@@ -2576,7 +2576,7 @@
         "required": false,
         "description": "Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)",
         "defaultValue": {
-          "value": "1000",
+          "value": "800",
           "computed": false
         }
       },

@@ -5,7 +5,7 @@ const Tab = ({ children }) => <div>{children}</div>;
 
 /**
  * Part of dcc.Tabs - this is the child Tab component used to render a tabbed page.
- * It's children will be set as the content of that tab, which if clicked will become visible.
+ * Its children will be set as the content of that tab, which if clicked will become visible.
  */
 Tab.propTypes = {
   /**
