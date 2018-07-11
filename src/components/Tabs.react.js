@@ -16,7 +16,8 @@ const EnhancedTab = ({
   selected_style,
   selectHandler,
   value,
-  mobile_breakpoint
+  mobile_breakpoint,
+  amountOfTabs
 }) => {
   return (
     <div
@@ -35,22 +36,26 @@ const EnhancedTab = ({
       <style jsx>{`
         .tab {
           display: inline-block;
-          background-color: white;
+          background-color: ${offWhiteColor};
           border: 1px solid ${greyColor};
-          padding: 20px;
+          border-bottom: none;
+          padding: 20px 25px;
           transition: background-color, color 200ms;
-          font-family: 'system-ui';
           width: 100%;
+          text-align: center;
           box-sizing: border-box;
+        }
+        .tab:last-of-type {
+          border-right: 1px solid ${greyColor};
+          border-bottom: 1px solid ${greyColor};
         }
         .tab:hover {
           cursor: pointer;
-          background-color: ${offWhiteColor};
         }
         .tab--selected {
-          border: 1px solid ${greyColor};
           border-top: 2px solid ${primaryColor};
           color: black;
+          background-color: white;
         }
         .tab--selected:hover {
           background-color: white;
@@ -58,10 +63,12 @@ const EnhancedTab = ({
 
         @media screen and (min-width: ${mobile_breakpoint}px) {
           .tab {
-            width: auto;
+            border: 1px solid ${greyColor};
+            border-right: none;
+            width: calc(100% / ${amountOfTabs});
           }
           .tab--selected {
-            border-bottom: none;
+            border-bottom: none !important;
             border-top: 2px solid ${primaryColor};
           }
         }
@@ -101,6 +108,8 @@ export default class Tabs extends Component {
       this.props.children = [this.props.children];
     }
 
+    const amountOfTabs = this.props.children.length
+
     EnhancedTabs = this.props.children.map((child, index) => {
       // TODO: handle components that are not dcc.Tab components (throw error)
       // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
@@ -127,6 +136,7 @@ export default class Tabs extends Component {
           selected_style={childProps.selected_style}
           value={childProps.value}
           mobile_breakpoint={this.props.mobile_breakpoint}
+          amountOfTabs={amountOfTabs}
         />
       );
     });
@@ -165,24 +175,29 @@ export default class Tabs extends Component {
             display: flex;
             flex-direction: column;
           }
-          .tab-container {
-          }
           .tab-container--vert {
             display: inline-flex;
             flex-direction: column;
-          }
-          :global(.tab-container--vert .tab--selected) {
-            border: 1px solid ${greyColor};
-            border-left: 2px solid ${primaryColor};
-            border-right: none;
-          }
-          .tab-content {
           }
           .tab-content--vert {
             display: inline-flex;
             flex-direction: column;
           }
           @media screen and (min-width: ${this.props.mobile_breakpoint}px) {
+            :global(.tab-container--vert .tab) {
+              width: auto;
+              border-right: none !important;
+              border-bottom: none;
+            }
+            :global(.tab-container--vert .tab:last-of-type) {
+              border-bottom: 1px solid ${greyColor} !important;
+            }
+            :global(.tab-container--vert .tab--selected) {
+              border: 1px solid ${greyColor};
+              border-left: 2px solid ${primaryColor};
+              border-right: none;
+            }
+
             .tab-parent--vert {
               display: inline-flex;
               flex-direction: row;
