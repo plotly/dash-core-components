@@ -24,6 +24,8 @@ except ImportError:
 
 from .IntegrationTests import IntegrationTests
 
+from multiprocessing import Value
+
 # Download geckodriver: https://github.com/mozilla/geckodriver/releases
 # And add to path:
 # export PATH=$PATH:/Users/chriddyp/Repos/dash-stuff/dash-integration-tests
@@ -507,12 +509,21 @@ class Tests(IntegrationTests):
             dcc.Link('Test link', href='/test-link', id='test-link')
         ])
 
+        call_count = Value('i', 0)
+
         @app.callback(Output('page-content', 'children'),
                        [Input('test-url', 'pathname')])
         def display_page(pathname):
+            call_count.value = call_count.value + 1
             return 'You are on page {}'.format(pathname)
 
         self.startServer(app=app)
+
+        #callback is called twice when defined
+        self.assertEqual(
+            call_count.value,
+            2
+        )
 
         # test if link correctly scrolls back to top of page
         test_link = self.wait_for_element_by_css_selector('#test-link')
@@ -524,12 +535,18 @@ class Tests(IntegrationTests):
 
         # test link still fires update on Location
         page_content = self.wait_for_element_by_css_selector('#page-content')
-        self.assertNotEquals(page_content.text, 'You are on page /')
-        self.assertEquals(page_content.text, 'You are on page /test-link')
+        self.assertNotEqual(page_content.text, 'You are on page /')
+        self.assertEqual(page_content.text, 'You are on page /test-link')
 
         #test if rendered Link's <a> tag has a href attribute
         link_href = test_link.get_attribute("href")
         self.assertEqual(link_href, 'http://localhost:8050/test-link')
+
+        #test if callback is only fired once (offset of 2)
+        self.assertEqual(
+            call_count.value,
+            2 + 1
+        )
 
     def test_candlestick(self):
         app = dash.Dash(__name__)
