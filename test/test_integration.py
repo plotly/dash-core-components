@@ -366,7 +366,6 @@ class Tests(IntegrationTests):
 
         self.snapshot('gallery - text input')
 
-
     def test_location_link(self):
         app = dash.Dash(__name__)
 
@@ -528,3 +527,41 @@ class Tests(IntegrationTests):
         button.click()
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
+
+    def test_graphs_with_different_figures(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Graph(
+                id='example-graph',
+                figure={
+                    'data': [
+                        {'x': [1, 2, 3], 'y': [4, 1, 2],
+                            'type': 'bar', 'name': 'SF'},
+                        {'x': [1, 2, 3], 'y': [2, 4, 5],
+                         'type': 'bar', 'name': u'Montréal'},
+                    ],
+                    'layout': {
+                        'title': 'Dash Data Visualization'
+                    }
+                }
+            ),
+            dcc.Graph(
+                id='example-graph-2',
+                figure={
+                    'data': [
+                        {'x': [20, 24, 33], 'y': [5, 2, 3],
+                            'type': 'bar', 'name': 'SF'},
+                        {'x': [11, 22, 33], 'y': [22, 44, 55],
+                         'type': 'bar', 'name': u'Montréal'},
+                    ],
+                    'layout': {
+                        'title': 'Dash Data Visualization'
+                    }
+                }
+            ),
+
+        ])
+
+        self.startServer(app=app)
+
+        self.snapshot('2 graphs with different figures')
