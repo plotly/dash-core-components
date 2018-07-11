@@ -4,9 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.23.1]
 ### Fixed
-- Improved DatePickerRange, fixing issues #209 and 152
+- Improved DatePickerRange, fixing issues [#209](https://github.com/plotly/dash-core-components/issues/209) and [#152](https://github.com/plotly/dash-core-components/issues/152)
 
-### Added
 ## [0.23.0]
 ### Added
 - Upgraded Plotly.js, the underlying library behind the
