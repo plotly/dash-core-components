@@ -543,7 +543,7 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        time.sleep(2) # wait for interval to finish
+        time.sleep(5) # wait for interval to finish
 
         output = self.wait_for_element_by_css_selector('#output')
         self.assertEqual(output.text, '2')
