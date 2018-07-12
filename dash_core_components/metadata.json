@@ -1641,6 +1641,17 @@
           "computed": false
         }
       },
+      "max_intervals": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
       "fireEvent": {
         "type": {
           "name": "func"
