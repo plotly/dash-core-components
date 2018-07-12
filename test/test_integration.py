@@ -525,14 +525,6 @@ class Tests(IntegrationTests):
             2
         )
 
-        # test if link correctly scrolls back to top of page
-        test_link = self.wait_for_element_by_css_selector('#test-link')
-        test_link.send_keys(Keys.NULL)
-        self.snapshot('link on bottom of page - initial')
-        test_link.click()
-        time.sleep(2)
-        self.snapshot('link on bottom of page - after clicking (should be scrolled back to top)')
-
         # test link still fires update on Location
         page_content = self.wait_for_element_by_css_selector('#page-content')
         self.assertNotEqual(page_content.text, 'You are on page /')
