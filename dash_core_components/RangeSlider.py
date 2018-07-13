@@ -50,7 +50,7 @@ Only use `drag` if your updates are fast.
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=Component._NO_DEFAULT_ARG, marks=Component._NO_DEFAULT_ARG, value=Component._NO_DEFAULT_ARG, allowCross=Component._NO_DEFAULT_ARG, className=Component._NO_DEFAULT_ARG, count=Component._NO_DEFAULT_ARG, disabled=Component._NO_DEFAULT_ARG, dots=Component._NO_DEFAULT_ARG, included=Component._NO_DEFAULT_ARG, min=Component._NO_DEFAULT_ARG, max=Component._NO_DEFAULT_ARG, pushable=Component._NO_DEFAULT_ARG, step=Component._NO_DEFAULT_ARG, vertical=Component._NO_DEFAULT_ARG, updatemode=Component._NO_DEFAULT_ARG, fireEvent=Component._NO_DEFAULT_ARG, setProps=Component._NO_DEFAULT_ARG, dashEvents=Component._NO_DEFAULT_ARG, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, marks=Component._NO_DEFAULT_ARG, value=Component._NO_DEFAULT_ARG, allowCross=Component._NO_DEFAULT_ARG, className=Component._NO_DEFAULT_ARG, count=Component._NO_DEFAULT_ARG, disabled=Component._NO_DEFAULT_ARG, dots=Component._NO_DEFAULT_ARG, included=Component._NO_DEFAULT_ARG, min=Component._NO_DEFAULT_ARG, max=Component._NO_DEFAULT_ARG, pushable=Component._NO_DEFAULT_ARG, step=Component._NO_DEFAULT_ARG, vertical=Component._NO_DEFAULT_ARG, updatemode=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']
         self._type = 'RangeSlider'
         self._namespace = 'dash_core_components'

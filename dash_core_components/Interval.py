@@ -20,7 +20,7 @@ an event.
 
 Available events: 'interval'"""
     @_explicitize_args
-    def __init__(self, id=Component._NO_DEFAULT_ARG, interval=1000, disabled=Component._NO_DEFAULT_ARG, n_intervals=0, fireEvent=Component._NO_DEFAULT_ARG, setProps=Component._NO_DEFAULT_ARG, dashEvents=Component._NO_DEFAULT_ARG, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, interval=1000, disabled=Component._NO_DEFAULT_ARG, n_intervals=0, **kwargs):
         self._prop_names = ['id', 'interval', 'disabled', 'n_intervals']
         self._type = 'Interval'
         self._namespace = 'dash_core_components'
