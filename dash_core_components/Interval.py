@@ -20,7 +20,7 @@ an event.
 
 Available events: 'interval'"""
     @_explicitize_args
-    def __init__(self, id=None, interval=None, disabled=None, n_intervals=None, fireEvent=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, interval=1000, disabled=Component._NO_DEFAULT_ARG, n_intervals=0, fireEvent=Component._NO_DEFAULT_ARG, setProps=Component._NO_DEFAULT_ARG, dashEvents=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['id', 'interval', 'disabled', 'n_intervals']
         self._type = 'Interval'
         self._namespace = 'dash_core_components'
@@ -31,11 +31,12 @@ Available events: 'interval'"""
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Interval, self).__init__(**args)

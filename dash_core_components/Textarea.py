@@ -39,7 +39,7 @@ components in an app.
 
 Available events: 'click', 'blur', 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, value=None, autoFocus=None, cols=None, disabled=None, form=None, maxLength=None, minLength=None, name=None, placeholder=None, readOnly=None, required=None, rows=None, wrap=None, accessKey=None, className=None, contentEditable=None, contextMenu=None, dir=None, draggable=None, hidden=None, lang=None, spellCheck=None, style=None, tabIndex=None, title=None, setProps=None, fireEvent=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, value=Component._NO_DEFAULT_ARG, autoFocus=Component._NO_DEFAULT_ARG, cols=Component._NO_DEFAULT_ARG, disabled=Component._NO_DEFAULT_ARG, form=Component._NO_DEFAULT_ARG, maxLength=Component._NO_DEFAULT_ARG, minLength=Component._NO_DEFAULT_ARG, name=Component._NO_DEFAULT_ARG, placeholder=Component._NO_DEFAULT_ARG, readOnly=Component._NO_DEFAULT_ARG, required=Component._NO_DEFAULT_ARG, rows=Component._NO_DEFAULT_ARG, wrap=Component._NO_DEFAULT_ARG, accessKey=Component._NO_DEFAULT_ARG, className=Component._NO_DEFAULT_ARG, contentEditable=Component._NO_DEFAULT_ARG, contextMenu=Component._NO_DEFAULT_ARG, dir=Component._NO_DEFAULT_ARG, draggable=Component._NO_DEFAULT_ARG, hidden=Component._NO_DEFAULT_ARG, lang=Component._NO_DEFAULT_ARG, spellCheck=Component._NO_DEFAULT_ARG, style=Component._NO_DEFAULT_ARG, tabIndex=Component._NO_DEFAULT_ARG, title=Component._NO_DEFAULT_ARG, setProps=Component._NO_DEFAULT_ARG, fireEvent=Component._NO_DEFAULT_ARG, dashEvents=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title']
         self._type = 'Textarea'
         self._namespace = 'dash_core_components'
@@ -50,11 +50,12 @@ Available events: 'click', 'blur', 'change'"""
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Textarea, self).__init__(**args)

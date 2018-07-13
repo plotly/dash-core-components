@@ -18,7 +18,7 @@ Keyword arguments:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, id=None, pathname=None, search=None, hash=None, href=None, refresh=None, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, pathname=Component._NO_DEFAULT_ARG, search=Component._NO_DEFAULT_ARG, hash=Component._NO_DEFAULT_ARG, href=Component._NO_DEFAULT_ARG, refresh=True, **kwargs):
         self._prop_names = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self._type = 'Location'
         self._namespace = 'dash_core_components'
@@ -29,11 +29,12 @@ Available events: """
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in ['id']:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Location, self).__init__(**args)

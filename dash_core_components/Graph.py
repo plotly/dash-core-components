@@ -84,7 +84,7 @@ so that plotly.js won't attempt to authenticate to the public Mapbox server.
 
 Available events: 'click', 'hover', 'selected', 'relayout', 'unhover'"""
     @_explicitize_args
-    def __init__(self, id=None, clickData=None, hoverData=None, clear_on_unhover=None, selectedData=None, relayoutData=None, figure=None, style=None, className=None, animate=None, animation_options=None, config=None, dashEvents=None, setProps=None, fireEvent=None, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, clickData=None, hoverData=None, clear_on_unhover=False, selectedData=None, relayoutData=None, figure={'data': [], 'layout': {}}, style=Component._NO_DEFAULT_ARG, className=Component._NO_DEFAULT_ARG, animate=False, animation_options={'frame': {'redraw': False}, 'transition': {'duration': 750, 'ease': 'cubic-in-out'}}, config={'staticPlot': False, 'editable': False, 'edits': {'annotationPosition': False, 'annotationTail': False, 'annotationText': False, 'axisTitleText': False, 'colorbarPosition': False, 'colorbarTitleText': False, 'legendPosition': False, 'legendText': False, 'shapePosition': False, 'titleText': False}, 'autosizable': False, 'queueLength': 0, 'fillFrame': False, 'frameMargins': 0, 'scrollZoom': False, 'doubleClick': 'reset+autosize', 'showTips': True, 'showAxisDragHandles': True, 'showAxisRangeEntryBoxes': True, 'showLink': False, 'sendData': True, 'linkText': 'Edit chart', 'showSources': False, 'displayModeBar': 'hover', 'modeBarButtonsToRemove': [], 'modeBarButtonsToAdd': [], 'modeBarButtons': False, 'displaylogo': True, 'plotGlPixelRatio': 2, 'topojsonURL': 'https://cdn.plot.ly/', 'mapboxAccessToken': None}, dashEvents=Component._NO_DEFAULT_ARG, setProps=Component._NO_DEFAULT_ARG, fireEvent=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['id', 'clickData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
         self._type = 'Graph'
         self._namespace = 'dash_core_components'
@@ -95,11 +95,12 @@ Available events: 'click', 'hover', 'selected', 'relayout', 'unhover'"""
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in ['id']:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Graph, self).__init__(**args)

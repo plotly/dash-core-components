@@ -48,7 +48,7 @@ hidden, checkbox, radio, file, or a button type.
 
 Available events: 'blur', 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, value=None, style=None, className=None, type=None, autocomplete=None, autofocus=None, disabled=None, inputmode=None, list=None, max=None, maxlength=None, min=None, minlength=None, multiple=None, name=None, pattern=None, placeholder=None, readonly=None, required=None, selectionDirection=None, selectionEnd=None, selectionStart=None, size=None, spellcheck=None, step=None, fireEvent=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, value=Component._NO_DEFAULT_ARG, style=Component._NO_DEFAULT_ARG, className=Component._NO_DEFAULT_ARG, type=Component._NO_DEFAULT_ARG, autocomplete=Component._NO_DEFAULT_ARG, autofocus=Component._NO_DEFAULT_ARG, disabled=Component._NO_DEFAULT_ARG, inputmode=Component._NO_DEFAULT_ARG, list=Component._NO_DEFAULT_ARG, max=Component._NO_DEFAULT_ARG, maxlength=Component._NO_DEFAULT_ARG, min=Component._NO_DEFAULT_ARG, minlength=Component._NO_DEFAULT_ARG, multiple=Component._NO_DEFAULT_ARG, name=Component._NO_DEFAULT_ARG, pattern=Component._NO_DEFAULT_ARG, placeholder=Component._NO_DEFAULT_ARG, readonly=Component._NO_DEFAULT_ARG, required=Component._NO_DEFAULT_ARG, selectionDirection=Component._NO_DEFAULT_ARG, selectionEnd=Component._NO_DEFAULT_ARG, selectionStart=Component._NO_DEFAULT_ARG, size=Component._NO_DEFAULT_ARG, spellcheck=Component._NO_DEFAULT_ARG, step=Component._NO_DEFAULT_ARG, fireEvent=Component._NO_DEFAULT_ARG, setProps=Component._NO_DEFAULT_ARG, dashEvents=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step']
         self._type = 'Input'
         self._namespace = 'dash_core_components'
@@ -59,11 +59,12 @@ Available events: 'blur', 'change'"""
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Input, self).__init__(**args)

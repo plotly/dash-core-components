@@ -34,7 +34,7 @@ the selected value.
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, options=None, value=None, className=None, clearable=None, disabled=None, multi=None, placeholder=None, searchable=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, options=Component._NO_DEFAULT_ARG, value=Component._NO_DEFAULT_ARG, className=Component._NO_DEFAULT_ARG, clearable=True, disabled=False, multi=False, placeholder=Component._NO_DEFAULT_ARG, searchable=True, setProps=Component._NO_DEFAULT_ARG, dashEvents=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable']
         self._type = 'Dropdown'
         self._namespace = 'dash_core_components'
@@ -45,11 +45,12 @@ Available events: 'change'"""
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Dropdown, self).__init__(**args)

@@ -75,7 +75,7 @@ the selected value.
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, start_date=None, end_date=None, min_date_allowed=None, max_date_allowed=None, initial_visible_month=None, start_date_placeholder_text=None, end_date_placeholder_text=None, day_size=None, calendar_orientation=None, is_RTL=None, reopen_calendar_on_clear=None, number_of_months_shown=None, with_portal=None, with_full_screen_portal=None, first_day_of_week=None, minimum_nights=None, stay_open_on_select=None, show_outside_days=None, month_format=None, display_format=None, disabled=None, clearable=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component._NO_DEFAULT_ARG, start_date=Component._NO_DEFAULT_ARG, end_date=Component._NO_DEFAULT_ARG, min_date_allowed=Component._NO_DEFAULT_ARG, max_date_allowed=Component._NO_DEFAULT_ARG, initial_visible_month=Component._NO_DEFAULT_ARG, start_date_placeholder_text=Component._NO_DEFAULT_ARG, end_date_placeholder_text=Component._NO_DEFAULT_ARG, day_size=39, calendar_orientation=Component._NO_DEFAULT_ARG, is_RTL=False, reopen_calendar_on_clear=False, number_of_months_shown=1, with_portal=False, with_full_screen_portal=False, first_day_of_week=Component._NO_DEFAULT_ARG, minimum_nights=Component._NO_DEFAULT_ARG, stay_open_on_select=False, show_outside_days=Component._NO_DEFAULT_ARG, month_format=Component._NO_DEFAULT_ARG, display_format=Component._NO_DEFAULT_ARG, disabled=False, clearable=False, setProps=Component._NO_DEFAULT_ARG, dashEvents=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['id', 'start_date', 'end_date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'start_date_placeholder_text', 'end_date_placeholder_text', 'day_size', 'calendar_orientation', 'is_RTL', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'minimum_nights', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']
         self._type = 'DatePickerRange'
         self._namespace = 'dash_core_components'
@@ -86,11 +86,12 @@ Available events: 'change'"""
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(DatePickerRange, self).__init__(**args)

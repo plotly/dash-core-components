@@ -24,7 +24,7 @@ Keyword arguments:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=None, language=None, theme=None, customStyle=None, codeTagProps=None, useInlineStyles=None, showLineNumbers=None, startingLineNumber=None, lineNumberContainerStyle=None, lineNumberStyle=None, wrapLines=None, lineStyle=None, **kwargs):
+    def __init__(self, children=None, id=Component._NO_DEFAULT_ARG, language=Component._NO_DEFAULT_ARG, theme=Component._NO_DEFAULT_ARG, customStyle=Component._NO_DEFAULT_ARG, codeTagProps=Component._NO_DEFAULT_ARG, useInlineStyles=Component._NO_DEFAULT_ARG, showLineNumbers=Component._NO_DEFAULT_ARG, startingLineNumber=Component._NO_DEFAULT_ARG, lineNumberContainerStyle=Component._NO_DEFAULT_ARG, lineNumberStyle=Component._NO_DEFAULT_ARG, wrapLines=Component._NO_DEFAULT_ARG, lineStyle=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
         self._type = 'SyntaxHighlighter'
         self._namespace = 'dash_core_components'
@@ -35,11 +35,12 @@ Available events: """
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(SyntaxHighlighter, self).__init__(children=children, **args)

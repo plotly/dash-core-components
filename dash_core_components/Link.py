@@ -17,7 +17,7 @@ Keyword arguments:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, href=None, refresh=None, className=None, style=None, id=None, **kwargs):
+    def __init__(self, children=None, href=Component._NO_DEFAULT_ARG, refresh=False, className=Component._NO_DEFAULT_ARG, style=Component._NO_DEFAULT_ARG, id=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['children', 'href', 'refresh', 'className', 'style', 'id']
         self._type = 'Link'
         self._namespace = 'dash_core_components'
@@ -28,11 +28,12 @@ Available events: """
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Link, self).__init__(children=children, **args)

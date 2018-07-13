@@ -40,7 +40,7 @@ See: https://github.com/react-dropzone/react-dropzone/issues/276
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=None, contents=None, filename=None, last_modified=None, accept=None, disabled=None, disable_click=None, max_size=None, min_size=None, multiple=None, className=None, className_active=None, className_reject=None, className_disabled=None, style=None, style_active=None, style_reject=None, style_disabled=None, setProps=None, **kwargs):
+    def __init__(self, children=None, id=Component._NO_DEFAULT_ARG, contents=Component._NO_DEFAULT_ARG, filename=Component._NO_DEFAULT_ARG, last_modified=Component._NO_DEFAULT_ARG, accept=Component._NO_DEFAULT_ARG, disabled=False, disable_click=False, max_size=-1, min_size=0, multiple=False, className=Component._NO_DEFAULT_ARG, className_active=Component._NO_DEFAULT_ARG, className_reject=Component._NO_DEFAULT_ARG, className_disabled=Component._NO_DEFAULT_ARG, style={}, style_active={'borderStyle': 'solid', 'borderColor': '#6c6', 'backgroundColor': '#eee'}, style_reject={'borderStyle': 'solid', 'borderColor': '#c66', 'backgroundColor': '#eee'}, style_disabled={'opacity': 0.5}, setProps=Component._NO_DEFAULT_ARG, **kwargs):
         self._prop_names = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
         self._type = 'Upload'
         self._namespace = 'dash_core_components'
@@ -51,11 +51,12 @@ Available events: """
 
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in self._prop_names
+                 if k != 'children' and not k.endswith('-*')}
+        args.update(kwargs)  # For wildcard attrs
 
         for k in []:
-            if k not in args:
+            if k not in _explicit_args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Upload, self).__init__(children=children, **args)

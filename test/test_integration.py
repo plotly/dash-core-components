@@ -474,14 +474,14 @@ class Tests(IntegrationTests):
                 '#_dash-app-content').get_attribute('innerHTML'))
             raise e
 
-        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-pathname', '/new/pathname')
         self.wait_for_text_to_equal('#test-search', '')
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a')
 
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-hash').click()
-        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-pathname', '/new/pathname')
         self.wait_for_text_to_equal('#test-search', '')
         self.wait_for_text_to_equal('#test-hash', '#test-hash')
         self.snapshot('link -- /test/pathname/a#test-hash')
@@ -489,7 +489,7 @@ class Tests(IntegrationTests):
         # Check that hash is updated through an a tag click via props
         self.wait_for_element_by_css_selector('#test-a-query').click()
         self.wait_for_element_by_css_selector('#waitfor')
-        self.wait_for_text_to_equal('#test-pathname', '/test/pathname/a')
+        self.wait_for_text_to_equal('#test-pathname', '/new/pathname')
         self.wait_for_text_to_equal('#test-search', '?queryA=valueA')
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
