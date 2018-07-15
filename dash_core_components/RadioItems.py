@@ -25,7 +25,7 @@ Keyword arguments:
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, options=None, value=None, style=None, className=None, inputStyle=None, inputClassName=None, labelStyle=None, labelClassName=None, fireEvent=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self._type = 'RadioItems'
         self._namespace = 'dash_core_components'

@@ -18,7 +18,7 @@ Keyword arguments:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, id=None, pathname=None, search=None, hash=None, href=None, refresh=None, **kwargs):
+    def __init__(self, id=Component.REQUIRED, pathname=Component.UNDEFINED, search=Component.UNDEFINED, hash=Component.UNDEFINED, href=Component.UNDEFINED, refresh=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self._type = 'Location'
         self._namespace = 'dash_core_components'

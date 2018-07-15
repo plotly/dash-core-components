@@ -24,7 +24,7 @@ Keyword arguments:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=None, language=None, theme=None, customStyle=None, codeTagProps=None, useInlineStyles=None, showLineNumbers=None, startingLineNumber=None, lineNumberContainerStyle=None, lineNumberStyle=None, wrapLines=None, lineStyle=None, **kwargs):
+    def __init__(self, children=None, id=Component.UNDEFINED, language=Component.UNDEFINED, theme=Component.UNDEFINED, customStyle=Component.UNDEFINED, codeTagProps=Component.UNDEFINED, useInlineStyles=Component.UNDEFINED, showLineNumbers=Component.UNDEFINED, startingLineNumber=Component.UNDEFINED, lineNumberContainerStyle=Component.UNDEFINED, lineNumberStyle=Component.UNDEFINED, wrapLines=Component.UNDEFINED, lineStyle=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
         self._type = 'SyntaxHighlighter'
         self._namespace = 'dash_core_components'

@@ -25,7 +25,7 @@ Keyword arguments:
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, options=None, values=None, className=None, style=None, inputStyle=None, inputClassName=None, labelStyle=None, labelClassName=None, fireEvent=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, values=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self._type = 'Checklist'
         self._namespace = 'dash_core_components'

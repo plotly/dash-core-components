@@ -50,7 +50,7 @@ Only use `drag` if your updates are fast.
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, marks=None, value=None, allowCross=None, className=None, count=None, disabled=None, dots=None, included=None, min=None, max=None, pushable=None, step=None, vertical=None, updatemode=None, fireEvent=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, allowCross=Component.UNDEFINED, className=Component.UNDEFINED, count=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, pushable=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, updatemode=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']
         self._type = 'RangeSlider'
         self._namespace = 'dash_core_components'

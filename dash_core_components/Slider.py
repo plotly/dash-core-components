@@ -42,7 +42,7 @@ Only use `drag` if your updates are fast.
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, marks=None, value=None, className=None, disabled=None, dots=None, included=None, min=None, max=None, step=None, vertical=None, updatemode=None, fireEvent=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, updatemode=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'step', 'vertical', 'updatemode']
         self._type = 'Slider'
         self._namespace = 'dash_core_components'

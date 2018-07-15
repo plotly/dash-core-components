@@ -17,7 +17,7 @@ Keyword arguments:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, href=None, refresh=None, className=None, style=None, id=None, **kwargs):
+    def __init__(self, children=None, href=Component.UNDEFINED, refresh=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'href', 'refresh', 'className', 'style', 'id']
         self._type = 'Link'
         self._namespace = 'dash_core_components'

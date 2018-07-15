@@ -34,7 +34,7 @@ the selected value.
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=None, options=None, value=None, className=None, clearable=None, disabled=None, multi=None, placeholder=None, searchable=None, setProps=None, dashEvents=None, **kwargs):
+    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable']
         self._type = 'Dropdown'
         self._namespace = 'dash_core_components'

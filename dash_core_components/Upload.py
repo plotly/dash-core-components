@@ -40,7 +40,7 @@ See: https://github.com/react-dropzone/react-dropzone/issues/276
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=None, contents=None, filename=None, last_modified=None, accept=None, disabled=None, disable_click=None, max_size=None, min_size=None, multiple=None, className=None, className_active=None, className_reject=None, className_disabled=None, style=None, style_active=None, style_reject=None, style_disabled=None, setProps=None, **kwargs):
+    def __init__(self, children=None, id=Component.UNDEFINED, contents=Component.UNDEFINED, filename=Component.UNDEFINED, last_modified=Component.UNDEFINED, accept=Component.UNDEFINED, disabled=Component.UNDEFINED, disable_click=Component.UNDEFINED, max_size=Component.UNDEFINED, min_size=Component.UNDEFINED, multiple=Component.UNDEFINED, className=Component.UNDEFINED, className_active=Component.UNDEFINED, className_reject=Component.UNDEFINED, className_disabled=Component.UNDEFINED, style=Component.UNDEFINED, style_active=Component.UNDEFINED, style_reject=Component.UNDEFINED, style_disabled=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
         self._type = 'Upload'
         self._namespace = 'dash_core_components'

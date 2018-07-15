@@ -84,7 +84,7 @@ so that plotly.js won't attempt to authenticate to the public Mapbox server.
 
 Available events: 'click', 'hover', 'selected', 'relayout', 'unhover'"""
     @_explicitize_args
-    def __init__(self, id=None, clickData=None, hoverData=None, clear_on_unhover=None, selectedData=None, relayoutData=None, figure=None, style=None, className=None, animate=None, animation_options=None, config=None, dashEvents=None, setProps=None, fireEvent=None, **kwargs):
+    def __init__(self, id=Component.REQUIRED, clickData=Component.UNDEFINED, hoverData=Component.UNDEFINED, clear_on_unhover=Component.UNDEFINED, selectedData=Component.UNDEFINED, relayoutData=Component.UNDEFINED, figure=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, animate=Component.UNDEFINED, animation_options=Component.UNDEFINED, config=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'clickData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
         self._type = 'Graph'
         self._namespace = 'dash_core_components'

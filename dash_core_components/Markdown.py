@@ -17,7 +17,7 @@ element such as id or style
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=None, className=None, containerProps=None, **kwargs):
+    def __init__(self, children=None, id=Component.UNDEFINED, className=Component.UNDEFINED, containerProps=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'className', 'containerProps']
         self._type = 'Markdown'
         self._namespace = 'dash_core_components'
