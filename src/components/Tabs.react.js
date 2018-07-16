@@ -12,21 +12,36 @@ const EnhancedTab = ({
   selected_style,
   selectHandler,
   value,
+  disabled,
+  disabled_style,
+  disabled_className,
   mobile_breakpoint,
   amountOfTabs,
   colors
 }) => {
+  let tabStyle = style;
+  if(disabled) {
+    tabStyle = { ...tabStyle, ...disabled_style }
+  }
+  if(selected) {
+    tabStyle = { ...tabStyle, ...selected_style}
+  }
+  let tabClassName = `${className || ''} tab`
+  if(disabled) {
+    tabClassName += ` ${disabled_className|| ''} tab--disabled`
+  }
+  if(selected) {
+    tabClassName += ` ${selectedClassName || ''} tab--selected`
+  }
   return (
     <div
-      className={
-        selected
-          ? `${className || ''} ${selectedClassName || ''} tab tab--selected`
-          : `${className || ''} tab`
-      }
+      className={tabClassName}
       id={id}
-      style={selected ? { ...style, ...selected_style } : style}
+      style={tabStyle}
       onClick={() => {
-        selectHandler(index, value);
+        if(!disabled) {
+          selectHandler(index, value);
+        }
       }}
     >
       <span>{label}</span>
@@ -56,6 +71,9 @@ const EnhancedTab = ({
         }
         .tab--selected:hover {
           background-color: white;
+        }
+        .tab--disabled {
+          color: #d6d6d6;
         }
 
         @media screen and (min-width: ${mobile_breakpoint}px) {
@@ -132,6 +150,9 @@ export default class Tabs extends Component {
           selectedClassName={childProps.selected_className}
           selected_style={childProps.selected_style}
           value={childProps.value}
+          disabled={childProps.disabled}
+          disabled_style={childProps.disabled_style}
+          disabled_classname={childProps.disabled_className}
           mobile_breakpoint={this.props.mobile_breakpoint}
           amountOfTabs={amountOfTabs}
           colors={this.props.colors}

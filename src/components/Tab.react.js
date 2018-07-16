@@ -31,6 +31,21 @@ Tab.propTypes = {
   value: PropTypes.string,
 
   /**
+   * Determines if tab is disabled or not - defaults to false
+   */
+  disabled: PropTypes.bool,
+
+  /**
+   * Overrides the default (inline) styles when disabled 
+   */
+  disabled_style: PropTypes.object,
+
+  /**
+   * Appends a class to the Tab component when it is disabled.
+   */
+  disabled_className: PropTypes.string,
+
+  /**
    * Appends a class to the Tab component.
    */
   className: PropTypes.string,
@@ -50,5 +65,12 @@ Tab.propTypes = {
    */
   selected_style: PropTypes.object
 };
+
+Tab.defaultProps = {
+  disabled: false,
+  disabled_style: {
+    color: '#d6d6d6'
+  }
+}
 
 export default Tab;

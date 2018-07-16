@@ -2454,6 +2454,35 @@
         "required": false,
         "description": "Value for determining which Tab is currently selected"
       },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Determines if tab is disabled or not - defaults to false",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "disabled_style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Overrides the default (inline) styles when disabled",
+        "defaultValue": {
+          "value": "{\n  color: '#d6d6d6'\n}",
+          "computed": false
+        }
+      },
+      "disabled_className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Appends a class to the Tab component when it is disabled."
+      },
       "className": {
         "type": {
           "name": "string"
