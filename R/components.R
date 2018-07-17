@@ -75,8 +75,9 @@ structure(component, class = c('dash_component', 'list'))
 #' @param clearable Whether or not the dropdown is "clearable", that is, whether or not a small "x" appears on the right of the dropdown that removes the selected value. 
 #' @param setProps Dash-assigned callback that gets fired when the value changes. 
 #' @param dashEvents Dash-assigned callback that gets fired when the value changes. 
+#' @param updatemode Determines when the component should update its value. If `bothdates`, then the DatePicker  will only trigger its value when the user has finished picking both dates. If `singledate`, then the DatePicker will update its value  as one date is picked. 
 
-coreDatePickerRange <- function(id = NULL, start_date = NULL, end_date = NULL, min_date_allowed = NULL, max_date_allowed = NULL, initial_visible_month = NULL, start_date_placeholder_text = NULL, end_date_placeholder_text = NULL, day_size = 39, calendar_orientation = 'horizontal', is_RTL = FALSE, reopen_calendar_on_clear = FALSE, number_of_months_shown = 1, with_portal = FALSE, with_full_screen_portal = FALSE, first_day_of_week = 0, minimum_nights = NULL, stay_open_on_select = FALSE, show_outside_days = NULL, month_format = NULL, display_format = NULL, disabled = FALSE, clearable = FALSE, setProps = NULL, dashEvents = NULL) {
+coreDatePickerRange <- function(id = NULL, start_date = NULL, end_date = NULL, min_date_allowed = NULL, max_date_allowed = NULL, initial_visible_month = NULL, start_date_placeholder_text = NULL, end_date_placeholder_text = NULL, day_size = 39, calendar_orientation = 'horizontal', is_RTL = FALSE, reopen_calendar_on_clear = FALSE, number_of_months_shown = 1, with_portal = FALSE, with_full_screen_portal = FALSE, first_day_of_week = 0, minimum_nights = NULL, stay_open_on_select = FALSE, show_outside_days = NULL, month_format = NULL, display_format = NULL, disabled = FALSE, clearable = FALSE, setProps = NULL, dashEvents = NULL, updatemode = 'singledate') {
 
 component <- list(
   props = list(
@@ -104,11 +105,12 @@ component <- list(
 				disabled=disabled, 
 				clearable=clearable, 
 				setProps=setProps, 
-				dashEvents=dashEvents
+				dashEvents=dashEvents, 
+				updatemode=updatemode
   ),
   type = 'DatePickerRange',
   namespace = 'dash_core_components',
-  propNames = c('id', 'start_date', 'end_date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'start_date_placeholder_text', 'end_date_placeholder_text', 'day_size', 'calendar_orientation', 'is_RTL', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'minimum_nights', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable', 'setProps', 'dashEvents'),
+  propNames = c('id', 'start_date', 'end_date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'start_date_placeholder_text', 'end_date_placeholder_text', 'day_size', 'calendar_orientation', 'is_RTL', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'minimum_nights', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable', 'setProps', 'dashEvents', 'updatemode'),
   package = 'dashCoreComponents'
 )
 
@@ -374,11 +376,12 @@ structure(component, class = c('dash_component', 'list'))
 #' @param interval This component will fire an event every `interval` milliseconds with the event name `setInterval` 
 #' @param disabled If True, the interval will no longer trigger an event. 
 #' @param n_intervals Number of times the interval has passed 
+#' @param max_intervals Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running. 
 #' @param fireEvent Dash assigned callback 
 #' @param setProps Dash assigned callback 
 #' @param dashEvents  
 
-coreInterval <- function(id = NULL, interval = 1000, disabled = NULL, n_intervals = 0, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
+coreInterval <- function(id = NULL, interval = 1000, disabled = NULL, n_intervals = 0, max_intervals = -1, fireEvent = NULL, setProps = NULL, dashEvents = NULL) {
 
 component <- list(
   props = list(
@@ -386,13 +389,14 @@ component <- list(
 				interval=interval, 
 				disabled=disabled, 
 				n_intervals=n_intervals, 
+				max_intervals=max_intervals, 
 				fireEvent=fireEvent, 
 				setProps=setProps, 
 				dashEvents=dashEvents
   ),
   type = 'Interval',
   namespace = 'dash_core_components',
-  propNames = c('id', 'interval', 'disabled', 'n_intervals', 'fireEvent', 'setProps', 'dashEvents'),
+  propNames = c('id', 'interval', 'disabled', 'n_intervals', 'max_intervals', 'fireEvent', 'setProps', 'dashEvents'),
   package = 'dashCoreComponents'
 )
 

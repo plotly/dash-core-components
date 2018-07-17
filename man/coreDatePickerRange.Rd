@@ -14,7 +14,8 @@ coreDatePickerRange(id = NULL, start_date = NULL, end_date = NULL,
   first_day_of_week = 0, minimum_nights = NULL,
   stay_open_on_select = FALSE, show_outside_days = NULL,
   month_format = NULL, display_format = NULL, disabled = FALSE,
-  clearable = FALSE, setProps = NULL, dashEvents = NULL)
+  clearable = FALSE, setProps = NULL, dashEvents = NULL,
+  updatemode = "singledate")
 }
 \arguments{
 \item{id}{}
@@ -66,6 +67,8 @@ coreDatePickerRange(id = NULL, start_date = NULL, end_date = NULL,
 \item{setProps}{Dash-assigned callback that gets fired when the value changes.}
 
 \item{dashEvents}{Dash-assigned callback that gets fired when the value changes.}
+
+\item{updatemode}{Determines when the component should update its value. If `bothdates`, then the DatePicker  will only trigger its value when the user has finished picking both dates. If `singledate`, then the DatePicker will update its value  as one date is picked.}
 }
 \description{
 DatePickerRange is a tailor made component designed for selecting timespan across multiple days off of a calendar.  The DatePicker integrates well with the Python datetime module with the startDate and endDate being returned in a string format suitable for creating datetime objects.  This component is based off of Airbnb's react-dates react component which can be found here: https://github.com/airbnb/react-dates

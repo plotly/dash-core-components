@@ -5,7 +5,8 @@
 \title{Interval component}
 \usage{
 coreInterval(id = NULL, interval = 1000, disabled = NULL,
-  n_intervals = 0, fireEvent = NULL, setProps = NULL, dashEvents = NULL)
+  n_intervals = 0, max_intervals = -1, fireEvent = NULL,
+  setProps = NULL, dashEvents = NULL)
 }
 \arguments{
 \item{id}{}
@@ -15,6 +16,8 @@ coreInterval(id = NULL, interval = 1000, disabled = NULL,
 \item{disabled}{If True, the interval will no longer trigger an event.}
 
 \item{n_intervals}{Number of times the interval has passed}
+
+\item{max_intervals}{Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.}
 
 \item{fireEvent}{Dash assigned callback}
 
