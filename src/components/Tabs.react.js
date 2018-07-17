@@ -28,10 +28,10 @@ const EnhancedTab = ({
   }
   let tabClassName = `tab ${className || ''}`
   if(disabled) {
-    tabClassName += `tab--disabled ${disabled_className|| ''}`
+    tabClassName += `tab--disabled ${disabled_className || ''}`
   }
   if(selected) {
-    tabClassName += `tab--selected ${selectedClassName || ''}`
+    tabClassName += ` tab--selected ${selectedClassName || ''}`
   }
   return (
     <div
@@ -83,7 +83,7 @@ const EnhancedTab = ({
             width: calc(100% / ${amountOfTabs});
           }
           .tab--selected {
-            border-bottom: none !important;
+            border-bottom: none;
             border-top: 2px solid ${colors['primary']};
           }
         }
