@@ -26,7 +26,7 @@ const EnhancedTab = ({
   if(selected) {
     tabStyle = { ...tabStyle, ...selected_style}
   }
-  let tabClassName = `$tab {className || ''}`
+  let tabClassName = `tab ${className || ''}`
   if(disabled) {
     tabClassName += `tab--disabled ${disabled_className|| ''}`
   }
