@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.25.0]
+### Added
+- `ConfirmDialog` and `ConfirmDialogProvider` components [#211](https://github.com/plotly/dash-core-components/pull/211)
+
 ## [0.23.0] - UNRELEASED
 ### Added
 - Upgraded Plotly.js, the underlying library behind the
