@@ -5,7 +5,6 @@ import io
 import os
 import sys
 import time
-import multiprocessing
 import pandas as pd
 
 import dash
@@ -18,13 +17,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException
 
 from textwrap import dedent
-
 try:
     from urlparse import urlparse
 except ImportError:
     from urllib.parse import urlparse
 
 from .IntegrationTests import IntegrationTests
+
+from multiprocessing import Value
 
 # Download geckodriver: https://github.com/mozilla/geckodriver/releases
 # And add to path:
@@ -495,6 +495,56 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
 
+    def test_link_scroll(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Location(id='test-url', refresh=False),
+
+            html.Div(id='push-to-bottom', children=[], style={
+                'display': 'block',
+                'height': '200vh'
+            }),
+            html.Div(id='page-content'),
+            dcc.Link('Test link', href='/test-link', id='test-link')
+        ])
+
+        call_count = Value('i', 0)
+
+        @app.callback(Output('page-content', 'children'),
+                       [Input('test-url', 'pathname')])
+        def display_page(pathname):
+            call_count.value = call_count.value + 1
+            return 'You are on page {}'.format(pathname)
+
+        self.startServer(app=app)
+
+        #callback is called twice when defined
+        self.assertEqual(
+            call_count.value,
+            2
+        )
+
+        # test if link correctly scrolls back to top of page
+        test_link = self.wait_for_element_by_css_selector('#test-link')
+        test_link.send_keys(Keys.NULL)
+        test_link.click()
+        time.sleep(2)
+
+        # test link still fires update on Location
+        page_content = self.wait_for_element_by_css_selector('#page-content')
+        self.assertNotEqual(page_content.text, 'You are on page /')
+        self.assertEqual(page_content.text, 'You are on page /test-link')
+
+        #test if rendered Link's <a> tag has a href attribute
+        link_href = test_link.get_attribute("href")
+        self.assertEqual(link_href, 'http://localhost:8050/test-link')
+
+        #test if callback is only fired once (offset of 2)
+        self.assertEqual(
+            call_count.value,
+            2 + 1
+        )
+
     def test_candlestick(self):
         app = dash.Dash(__name__)
         app.layout = html.Div([
@@ -530,8 +580,67 @@ class Tests(IntegrationTests):
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
 
+    def test_datepickerrange_updatemodes(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.DatePickerRange(
+                id='date-picker-range',
+                start_date_placeholder_text='Select a start date!',
+                end_date_placeholder_text='Select an end date!',
+                updatemode='bothdates'
+            ),
+            html.Div(id='date-picker-range-output')
+        ])
+
+        @app.callback(
+            dash.dependencies.Output('date-picker-range-output', 'children'),
+            [dash.dependencies.Input('date-picker-range', 'start_date'),
+            dash.dependencies.Input('date-picker-range', 'end_date')])
+        def update_output(start_date, end_date):
+            return '{} - {}'.format(start_date, end_date)
+
+        self.startServer(app=app)
+
+        start_date = self.wait_for_element_by_css_selector('#startDate')
+        start_date.click()
+
+        end_date= self.wait_for_element_by_css_selector('#endDate')
+        end_date.click()
+
+        date_content = self.wait_for_element_by_css_selector('#date-picker-range-output')
+        self.assertEquals(date_content.text, 'None - None')
+
+        # updated only one date, callback shouldn't fire and output should be unchanged
+        start_date.send_keys("1997-05-03")
+        self.assertEquals(date_content.text, 'None - None')
+
+        # updated both dates, callback should now fire and update output
+        end_date.send_keys("1997-05-04")
+        end_date.click()
+
+        self.assertEquals(date_content.text, '1997-05-03 - 1997-05-04')
+    def test_interval(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            html.Div(id='output'),
+            dcc.Interval(id='interval', interval=1, max_intervals=2)
+        ])
+
+        @app.callback(Output('output', 'children'),
+                    [Input('interval', 'n_intervals')])
+        def update_text(n):
+            return "{}".format(n)
+
+        self.startServer(app=app)
+
+        time.sleep(5) # wait for interval to finish
+
+        output = self.wait_for_element_by_css_selector('#output')
+        self.assertEqual(output.text, '2')
+
     def _test_confirm(self, app, test_name):
-        count = multiprocessing.Value('i', 0)
+        count = Value('i', 0)
 
         @app.callback(Output('confirmed', 'children'),
                       [Input('confirm', 'submit_n_clicks'),
