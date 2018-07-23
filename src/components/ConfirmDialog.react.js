@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 
+
 /**
  * ConfirmDialog is used to display the browser's native "confirm" modal,
  * with an optional message and two buttons ("OK" and "Cancel").
@@ -11,28 +12,49 @@ export default class ConfirmDialog extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            displayed: props.displayed
+        };
     }
 
-    componentDidUpdate() {
+    _setStateAndProps(value) {
+        const { setProps } = this.props;
+        this.setState(value);
+        if (setProps) setProps(value);
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({displayed: props.displayed})
+    }
+
+    _update() {
         const {
-            displayed, message, setProps,
+            message,
             cancel_n_clicks, cancel_n_clicks_timestamp,
             submit_n_clicks, submit_n_clicks_timestamp
         } = this.props;
 
+        const displayed = this.state.displayed;
+
         if (displayed) {
-            new Promise(resolve => resolve(window.confirm(message))).then(result => setProps({
-                cancel_n_clicks: !result ?
-                    cancel_n_clicks + 1 : cancel_n_clicks,
-                cancel_n_clicks_timestamp: !result ?
-                    Date.now() :  cancel_n_clicks_timestamp,
-                submit_n_clicks: result ?
-                    submit_n_clicks + 1: submit_n_clicks,
-                submit_n_clicks_timestamp: result ?
-                    Date.now() : submit_n_clicks_timestamp,
-                displayed: false
-            }));
+            new Promise(resolve => resolve(window.confirm(message))).then(result => {
+                this._setStateAndProps({
+                    cancel_n_clicks: !result ?
+                        cancel_n_clicks + 1 : cancel_n_clicks,
+                    cancel_n_clicks_timestamp: !result ?
+                        Date.now() :  cancel_n_clicks_timestamp,
+                    submit_n_clicks: result ?
+                        submit_n_clicks + 1: submit_n_clicks,
+                    submit_n_clicks_timestamp: result ?
+                        Date.now() : submit_n_clicks_timestamp,
+                    displayed: false
+                });
+            });
         }
+    }
+
+    componentDidUpdate() {
+        this._update()
     }
 
     render() {
