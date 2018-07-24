@@ -10,7 +10,7 @@ Refer to the [readme](README.md) for installation and development instructions.
 
 ## Coding Style
 
-Please lint any additions to react components with `npm run lint`. Rules defined in [.eslintrc](.eslintrc) are inherited from [`dash-components-archetype`](https://github.com/plotly/dash-components-archetype)'s [eslintrc-react.json](https://github.com/plotly/dash-components-archetype)
+Please lint any additions to react components with `npm run lint`. Rules defined in [.eslintrc](.eslintrc) are inherited from [`dash-components-archetype`](https://github.com/plotly/dash-components-archetype)'s [eslintrc-react.json][]
 
 ## Pull Request Guidelines
 
@@ -58,9 +58,9 @@ publishing steps into one workflow.
 
 1. Create a pull request and tag the Plotly team (`@plotly/dash`) as well as an appropriate reviewer (frequent [contributors][] are a safe bet).
 2. After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][]. To create a prerelease:
-    * Add `rc1` to `version.py` (`./dash_html_components/version.py`) e.g. `0.13.0rc1`
+    * Add `rc1` to `version.py` (`./dash_core_components/version.py`) e.g. `0.13.0rc1`
     * Add `-rc1` to `package.json` e.g. `0.13.0-rc1`
-    * Update the `unpkg` link in `./dash_html_components/__init__.py`, replacing `__version__` with your release candidate (e.g. `"0.13.0-rc1"`)
+    * Update the `unpkg` link in `./dash_core_components/__init__.py`, replacing `__version__` with your release candidate (e.g. `"0.13.0-rc1"`)
     * Run `npm run publish-all`.
         - If needed, ask @chriddyp to get NPM / PyPi package publishing access.
         - If the `publish-all` script fails on the `twine` command, try running
@@ -76,14 +76,20 @@ publishing steps into one workflow.
     * In the description, link to the PR and any relevant issue(s)
     * Pin the topic so that it appears at the top of the forum for two weeks
     * For a good example, see the [Confirmation Modal announcement][]
+    
+## Financial Contributions
+
+If your company wishes to sponsor development of open source dash components, please [get in touch][].
 
 [Dash Core Components]: https://dash.plot.ly/dash-core-components
 [Dash HTML Components]: https://github.com/plotly/dash-html-components
 [write your own components]: https://dash.plot.ly/plugins
 [Dash Components Archetype]: https://github.com/plotly/dash-components-archetype
 [GitHub flow]: https://guides.github.com/introduction/flow/
-[contributors]: https://github.com/plotly/dash-html-components/graphs/contributors
+[eslintrc-react.json]: https://github.com/plotly/dash-components-archetype/blob/master/config/eslint/eslintrc-react.json
+[contributors]: https://github.com/plotly/dash-core-components/graphs/contributors
 [semantic versioning]: https://semver.org/
 [Dash Community Forum]: https://community.plot.ly/c/dash
 [Confirmation Modal component]: https://github.com/plotly/dash-core-components/pull/211#issue-195280462
 [Confirmation Modal announcement]: https://community.plot.ly/t/announcing-dash-confirmation-modal-feedback-welcome/11627
+[get in touch]: https://plot.ly/products/consulting-and-oem
