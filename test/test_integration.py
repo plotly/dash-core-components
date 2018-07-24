@@ -421,9 +421,9 @@ class Tests(IntegrationTests):
 
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
-            dcc.Tabs(id="tabs", value='tab-1', children=[
-                dcc.Tab(label='Tab one', value='tab-1'),
-                dcc.Tab(label='Tab two', value='tab-2'),
+            dcc.Tabs(id="tabs", value='tab-2', children=[
+                dcc.Tab(label='Tab one', value='tab-1', id='tab-1'),
+                dcc.Tab(label='Tab two', value='tab-2', id='tab-2'),
                 ]),
             html.Div(id='tabs-content')
         ])
@@ -444,12 +444,14 @@ class Tests(IntegrationTests):
 
         self.snapshot('tabs - without children')
 
-        for i in range(1):
-            selected_tab = self.wait_for_element_by_css_selector('#test-tab-{}'.format(i+1))
-            tabs_content = self.wait_for_element_by_css_selector('#tabs-content')
-            selected_tab.click()
-            self.assertEqual(tabs_content.text, 'Test content {}'.format(i+1))
-            self.snapshot('tab {}'.format(i))
+        initial_tab = self.wait_for_element_by_css_selector('#tab-2')
+        tabs_content = self.wait_for_element_by_css_selector('#tabs-content')
+        self.assertEqual(tabs_content.text, 'Test content 2')
+        self.snapshot('initial tab - tab 2')
+
+        selected_tab = self.wait_for_element_by_css_selector('#tab-1')
+        selected_tab.click()
+        self.assertEqual(tabs_content.text, 'Test content 1')
 
 
     def test_location_link(self):
