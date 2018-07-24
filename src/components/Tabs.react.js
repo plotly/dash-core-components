@@ -44,7 +44,6 @@ const EnhancedTab = ({
       }}
     >
       <span>{label}</span>
-      <span>{value}</span>
       <style jsx>{`
         .tab {
           display: inline-block;

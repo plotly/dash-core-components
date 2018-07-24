@@ -18,7 +18,7 @@ Tab.propTypes = {
   /**
    * The tab's label
    */
-  label: PropTypes.string,
+  label: PropTypes.children,
 
   /**
    * The content of the tab - will only be displayed if this tab is selected

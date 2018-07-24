@@ -2435,7 +2435,8 @@
       },
       "label": {
         "type": {
-          "name": "string"
+          "name": "custom",
+          "raw": "PropTypes.children"
         },
         "required": false,
         "description": "The tab's label"
