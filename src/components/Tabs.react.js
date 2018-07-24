@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import R from 'ramda'
 
 const EnhancedTab = ({
   id,
@@ -32,6 +33,14 @@ const EnhancedTab = ({
   if(selected) {
     tabClassName += ` tab--selected ${selectedClassName || ''}`
   }
+  let labelDisplay
+  if(R.is(Array, label)){
+    // label is an array, so it has children that we want to render
+    labelDisplay = label[0].props.children
+  } else {
+    // else it is a string, so we just want to render that
+    labelDisplay = label
+  }
   return (
     <div
       className={tabClassName}
@@ -43,7 +52,7 @@ const EnhancedTab = ({
         }
       }}
     >
-      <span>{label}</span>
+      <span>{labelDisplay}</span>
       <style jsx>{`
         .tab {
           display: inline-block;
