@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const EnhancedTab = ({
-  index,
   id,
   label,
   selected,
@@ -40,11 +39,12 @@ const EnhancedTab = ({
       style={tabStyle}
       onClick={() => {
         if(!disabled) {
-          selectHandler(index, value);
+          selectHandler(value);
         }
       }}
     >
       <span>{label}</span>
+      <span>{value}</span>
       <style jsx>{`
         .tab {
           display: inline-block;
@@ -101,14 +101,14 @@ export default class Tabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: 0
+      selected: this.props.value || ''
     };
 
     this.selectHandler = this.selectHandler.bind(this);
   }
-  selectHandler(index, value) {
+  selectHandler(value) {
     this.setState({
-      selected: index
+      selected: value
     });
     if (this.props.setProps) {
       this.props.setProps({ value: value });
@@ -140,10 +140,9 @@ export default class Tabs extends Component {
       return (
         <EnhancedTab
           key={index}
-          index={index}
           id={childProps.id}
           label={childProps.label}
-          selected={this.state.selected === index}
+          selected={this.state.selected === childProps.value}
           selectHandler={this.selectHandler}
           className={childProps.className}
           style={childProps.style}
@@ -172,6 +171,10 @@ export default class Tabs extends Component {
       ? 'tab-parent tab-parent--vert'
       : 'tab-parent';
 
+    const selectedTab = this.props.children.filter(child => {
+      return child.props.children.props.value === this.state.selected
+    })
+
     return (
       <div
         className={`${tabParentClass} ${this.props.parent_className || ''}`}
@@ -187,7 +190,7 @@ export default class Tabs extends Component {
           className={`${tabContentClass} ${this.props.content_className || ''}`}
           style={this.props.content_style}
         >
-          {this.props.children[this.state.selected].props.children}
+          {selectedTab[0].props.children}
         </div>
         <style jsx>{`
           .tab-parent {

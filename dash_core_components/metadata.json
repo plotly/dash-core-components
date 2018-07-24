@@ -2523,10 +2523,6 @@
         "modifiers": [],
         "params": [
           {
-            "name": "index",
-            "type": null
-          },
-          {
             "name": "value",
             "type": null
           }
