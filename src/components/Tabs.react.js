@@ -82,7 +82,7 @@ const EnhancedTab = ({
             border-right: none;
             width: calc(100% / ${amountOfTabs});
           }
-          .tab--selected {
+          .tab--selected, .tab:last-of-type.tab--selected {
             border-bottom: none;
             border-top: 2px solid ${colors['primary']};
           }
