@@ -53,8 +53,7 @@ DASH_TEST_CHROMEPATH=/bin/google-chrome-beta DASH_TEST_PROCESSES=1 python -m uni
 
 For now, multiple steps are necessary for publishing to NPM and PyPi,
 respectively. TODO:
-[#5](https://github.com/plotly/dash-components-archetype/issues/5) will roll up
-publishing steps into one workflow.
+[#5](https://github.com/plotly/dash-components-archetype/issues/5) will roll up publishing steps into one workflow.
 
 1. Create a pull request and tag the Plotly team (`@plotly/dash`) as well as an appropriate reviewer (frequent [contributors][] are a safe bet).
 2. After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][]. To create a prerelease:
