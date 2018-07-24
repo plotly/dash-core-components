@@ -231,7 +231,7 @@ class Tests(IntegrationTests):
                         html.H1("This is the content in tab 2"),
                         html.P("A graph here would be nice!")
                     ])
-                ], value='1', id='tab-one'),
+                ], id='tab-one'),
                 dcc.Tab(label='Tab three', children=[
                     html.Div([
                         html.H1("This is the content in tab 3"),
