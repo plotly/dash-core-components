@@ -109,7 +109,7 @@ export default class Tabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: this.props.value || ''
+      selected: this.props.value || 'tab-1'
     };
 
     this.selectHandler = this.selectHandler.bind(this);
@@ -145,6 +145,11 @@ export default class Tabs extends Component {
         // else props are coming from React (Demo.react.js)
         childProps = child.props;
       }
+
+      if(!childProps.value) {
+        childProps.value = `tab-${index}`
+      }
+
       return (
         <EnhancedTab
           key={index}
@@ -198,7 +203,7 @@ export default class Tabs extends Component {
           className={`${tabContentClass} ${this.props.content_className || ''}`}
           style={this.props.content_style}
         >
-          {selectedTab[0].props.children}
+          {selectedTab[0].props.children || ''}
         </div>
         <style jsx>{`
           .tab-parent {
