@@ -85,6 +85,7 @@ If your company wishes to sponsor development of open source dash components, pl
 [Dash HTML Components]: https://github.com/plotly/dash-html-components
 [write your own components]: https://dash.plot.ly/plugins
 [Dash Components Archetype]: https://github.com/plotly/dash-components-archetype
+[issues]: https://github.com/plotly/dash-core-components/issues 
 [GitHub flow]: https://guides.github.com/introduction/flow/
 [eslintrc-react.json]: https://github.com/plotly/dash-components-archetype/blob/master/config/eslint/eslintrc-react.json
 [contributors]: https://github.com/plotly/dash-core-components/graphs/contributors
