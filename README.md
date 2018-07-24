@@ -111,7 +111,7 @@ $ npm run uninstall-local
 
 ## Publishing
 
-See the [Publishing New Components/Features](CONTRIBUTING#publishing-new-componentsfeatures) section of the Contributing guide for step-by-step instructions on publishing new components.
+See the [Publishing New Components/Features](CONTRIBUTING.md#publishing-new-componentsfeatures) section of the Contributing guide for step-by-step instructions on publishing new components.
 
 ## Builder / Archetype
 
