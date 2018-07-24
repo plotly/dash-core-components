@@ -1,6 +1,6 @@
 # Contributing to dash-core-components
 
-## Getting Started 
+## Getting Started
 
 Refer to the [readme](README.md) for installation and development instructions.
 
@@ -49,19 +49,19 @@ If you encounter errors about Multi-server + Multi-processing when running under
 DASH_TEST_CHROMEPATH=/bin/google-chrome-beta DASH_TEST_PROCESSES=1 python -m unittest -v test.test_integration.Tests.test_inputs
 ```
 
-## Publishing New Components
+## Publishing New Components/Features
 
 For now, multiple steps are necessary for publishing to NPM and PyPi,
 respectively. TODO:
 [#5](https://github.com/plotly/dash-components-archetype/issues/5) will roll up
-publishing steps into one workflow
+publishing steps into one workflow.
 
 1. Create a pull request and tag the Plotly team (`@plotly/dash`) as well as an appropriate reviewer (frequent [contributors][] are a safe bet).
 2. After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][]. To create a prerelease:
     * Add `rc1` to `version.py` (`./dash_html_components/version.py`) e.g. `0.13.0rc1`
     * Add `-rc1` to `package.json` e.g. `0.13.0-rc1`
     * Update the `unpkg` link in `./dash_html_components/__init__.py`, replacing `__version__` with your release candidate (e.g. `"0.13.0-rc1"`)
-    * Run `npm run publish-all`. 
+    * Run `npm run publish-all`.
         - If needed, ask @chriddyp to get NPM / PyPi package publishing access.
         - If the `publish-all` script fails on the `twine` command, try running
             ```sh
@@ -77,9 +77,9 @@ publishing steps into one workflow
     * Pin the topic so that it appears at the top of the forum for two weeks
     * For a good example, see the [Confirmation Modal announcement][]
 
-[Dash Core Components]: https://dash.plot.ly/dash-core-components 
+[Dash Core Components]: https://dash.plot.ly/dash-core-components
 [Dash HTML Components]: https://github.com/plotly/dash-html-components
-[write your own components]: https://dash.plot.ly/plugins 
+[write your own components]: https://dash.plot.ly/plugins
 [Dash Components Archetype]: https://github.com/plotly/dash-components-archetype
 [GitHub flow]: https://guides.github.com/introduction/flow/
 [contributors]: https://github.com/plotly/dash-html-components/graphs/contributors
