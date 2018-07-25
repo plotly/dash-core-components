@@ -210,6 +210,9 @@ export default class Tabs extends Component {
             display: flex;
             flex-direction: column;
           }
+          .tab-container {
+            display: flex;
+          }
           .tab-container--vert {
             display: inline-flex;
             flex-direction: column;
