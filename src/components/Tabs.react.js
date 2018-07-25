@@ -21,10 +21,10 @@ const EnhancedTab = ({
 }) => {
   let tabStyle = style;
   if(disabled) {
-    tabStyle = { ...tabStyle, ...disabled_style }
+    tabStyle = { tabStyle, ...disabled_style }
   }
   if(selected) {
-    tabStyle = { ...tabStyle, ...selected_style}
+    tabStyle = { tabStyle, ...selected_style}
   }
   let tabClassName = `tab ${className || ''}`
   if(disabled) {
