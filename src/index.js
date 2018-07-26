@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+import ConfirmDialog from './components/ConfirmDialog.react';
+import ConfirmDialogProvider from './components/ConfirmDialogProvider.react'
 import Dropdown from './components/Dropdown.react';
 import Input from './components/Input.react';
 import Graph from './components/Graph.react';
@@ -19,22 +21,24 @@ import Tabs from './components/Tabs.react';
 import Tab from './components/Tab.react';
 
 export {
-  Checklist,
-  Dropdown,
-  Graph,
-  Input,
-  RadioItems,
-  RangeSlider,
-  Slider,
-  SyntaxHighlighter,
-  Interval,
-  Markdown,
-  Location,
-  Link,
-  Textarea,
-  DatePickerSingle,
-  DatePickerRange,
-  Upload,
-  Tabs,
-  Tab
+    Checklist,
+    ConfirmDialog,
+    ConfirmDialogProvider,
+    Dropdown,
+    Graph,
+    Input,
+    RadioItems,
+    RangeSlider,
+    Slider,
+    SyntaxHighlighter,
+    Tabs,
+    Tab,
+    Interval,
+    Markdown,
+    Location,
+    Link,
+    Textarea,
+    DatePickerSingle,
+    DatePickerRange,
+    Upload
 };

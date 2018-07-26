@@ -139,6 +139,171 @@
       }
     }
   },
+  "src/components/ConfirmDialog.react.js": {
+    "description": "ConfirmDialog is used to display the browser's native \"confirm\" modal,\nwith an optional message and two buttons (\"OK\" and \"Cancel\").\nThis ConfirmDialog can be used in conjunction with buttons when the user\nis performing an action that should require an extra step of verification.",
+    "displayName": "ConfirmDialog",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "message": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Message to show in the popup."
+      },
+      "submit_n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the submit button was clicked",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "submit_n_clicks_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time the submit button was clicked.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "cancel_n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the popup was canceled.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "cancel_n_clicks_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time the cancel button was clicked.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "displayed": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Set to true to send the ConfirmDialog."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that gets fired when the value changes."
+      }
+    }
+  },
+  "src/components/ConfirmDialogProvider.react.js": {
+    "description": "A wrapper component that will display a confirmation dialog\nwhen its child component has been clicked on.\n\nFor example:\n```\ndcc.ConfirmDialogProvider(\n    html.Button('click me', id='btn'),\n    message='Danger - Are you sure you want to continue.'\n    id='confirm')\n```",
+    "displayName": "ConfirmDialogProvider",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "message": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Message to show in the popup."
+      },
+      "submit_n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the submit was clicked",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "submit_n_clicks_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time the submit button was clicked.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "cancel_n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the popup was canceled.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "cancel_n_clicks_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time the cancel button was clicked.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "displayed": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Is the modal currently displayed."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that gets fired when the value changes."
+      },
+      "children": {
+        "type": {
+          "name": "any"
+        },
+        "required": false,
+        "description": "The children to hijack clicks from and display the popup."
+      }
+    }
+  },
   "src/components/DatePickerRange.react.js": {
     "description": "DatePickerRange is a tailor made component designed for selecting\ntimespan across multiple days off of a calendar.\n\nThe DatePicker integrates well with the Python datetime module with the\nstartDate and endDate being returned in a string format suitable for\ncreating datetime objects.\n\nThis component is based off of Airbnb's react-dates react component\nwhich can be found here: https://github.com/airbnb/react-dates",
     "displayName": "DatePickerRange",
@@ -445,6 +610,27 @@
         },
         "required": false,
         "description": "Dash-assigned callback that gets fired when the value changes."
+      },
+      "updatemode": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'singledate'",
+              "computed": false
+            },
+            {
+              "value": "'bothdates'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "Determines when the component should update\nits value. If `bothdates`, then the DatePicker \nwill only trigger its value when the user has\nfinished picking both dates. If `singledate`, then\nthe DatePicker will update its value \nas one date is picked.",
+        "defaultValue": {
+          "value": "'singledate'",
+          "computed": false
+        }
       }
     }
   },
@@ -1620,6 +1806,17 @@
           "computed": false
         }
       },
+      "max_intervals": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
       "fireEvent": {
         "type": {
           "name": "func"
@@ -1657,7 +1854,12 @@
         "name": "updateLocation",
         "docblock": null,
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
         "returns": null
       }
     ],
