@@ -14,7 +14,7 @@ Please lint any additions to react components with `npm run lint`. Rules defined
 
 ## Pull Request Guidelines
 
-Using the [GitHub flow][] is encouraged when proposing contributions to this repository (i.e. creating a feature branch and submitting a PR on the master branch).
+Use the [GitHub flow][] when proposing contributions to this repository (i.e. create a feature branch and submit a PR against the master branch).
 
 ## Running the Tests
 
