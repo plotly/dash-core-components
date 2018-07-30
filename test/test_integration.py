@@ -1166,19 +1166,23 @@ class Tests(IntegrationTests):
     def test_storage_component(self):
         app = dash.Dash(__name__)
 
-        getter = 'return window.sessionStorage.getItem("{}");'
-        clicked_getter = getter.format('storage')
-        dummy_getter = getter.format('dummy')
-        dummy_data = 'Hello world'
+        getter = 'return window.{}.getItem("{}");'
+        clicked_getter = getter.format('localStorage', 'storage')
+        dummy_getter = getter.format('sessionStorage', 'dummy')
+        dummy_data = 'Hello dummy'
 
         app.layout = html.Div([
             dcc.Storage(id='storage',
-                        storage_type='session'),
+                        storage_type='local'),
             html.Button('click me', id='btn'),
             html.Button('clear', id='clear-btn'),
             dcc.Storage(id='dummy',
                         storage_type='session',
-                        data=dummy_data)
+                        data=dummy_data),
+            dcc.Storage(id='memory',
+                        storage_type='memory'),
+            html.Div(id='memory-output')
+
         ])
 
         @app.callback(Output('storage', 'data'),
@@ -1197,6 +1201,17 @@ class Tests(IntegrationTests):
                 return
             return True
 
+        @app.callback(Output('memory', 'data'), [Input('storage', 'data')])
+        def on_memory(data):
+            return data
+
+        @app.callback(Output('memory-output', 'children'),
+                      [Input('memory', 'data')])
+        def on_memory2(data):
+            if data is None:
+                return ''
+            return json.dumps(data)
+
         self.startServer(app)
 
         time.sleep(1)
@@ -1206,16 +1221,20 @@ class Tests(IntegrationTests):
 
         click_btn = self.wait_for_element_by_css_selector('#btn')
         clear_btn = self.wait_for_element_by_css_selector('#clear-btn')
+        mem = self.wait_for_element_by_css_selector('#memory-output')
 
-        for i in range(10):
+        for i in range(1, 11):
             click_btn.click()
-            time.sleep(0.5)
+            time.sleep(1)
 
             click_data = json.loads(self.driver.execute_script(clicked_getter))
-            self.assertEqual(i+1, click_data.get('clicked'))
+            self.assertEqual(i, click_data.get('clicked'))
+            self.assertEquals(i, int(json.loads(mem.text).get('clicked')))
 
         clear_btn.click()
-        time.sleep(0.5)
+        time.sleep(1)
 
         cleared_data = self.driver.execute_script(clicked_getter)
         self.assertTrue(cleared_data is None)
+        # Did mem also got cleared ?
+        self.assertFalse(mem.text)
