@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "component-playground": "^2.0.0",
-    "dash-components-archetype-dev": "^0.2.11",
+    "dash-components-archetype-dev": "^0.3.0-rc1",
     "enzyme": "^2.4.1"
   },
   "peerDependencies": {
