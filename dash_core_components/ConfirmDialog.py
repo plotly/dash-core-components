@@ -3,31 +3,31 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
-class Interval(Component):
-    """A Interval component.
-A component that repeatedly fires an event ("interval")
-with a fixed time delay between each event.
-Interval is good for triggering a component on a recurring basis.
-The time delay is set with the property "interval" in milliseconds.
+class ConfirmDialog(Component):
+    """A ConfirmDialog component.
+ConfirmDialog is used to display the browser's native "confirm" modal,
+with an optional message and two buttons ("OK" and "Cancel").
+This ConfirmDialog can be used in conjunction with buttons when the user
+is performing an action that should require an extra step of verification.
 
 Keyword arguments:
 - id (string; optional)
-- interval (number; optional): This component will fire an event every `interval`
-milliseconds with the event name `setInterval`
-- disabled (boolean; optional): If True, the interval will no longer trigger
-an event.
-- n_intervals (number; optional): Number of times the interval has passed
-- max_intervals (number; optional): Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
+- message (string; optional): Message to show in the popup.
+- submit_n_clicks (number; optional): Number of times the submit button was clicked
+- submit_n_clicks_timestamp (number; optional): Last time the submit button was clicked.
+- cancel_n_clicks (number; optional): Number of times the popup was canceled.
+- cancel_n_clicks_timestamp (number; optional): Last time the cancel button was clicked.
+- displayed (boolean; optional): Set to true to send the ConfirmDialog.
 
-Available events: 'interval'"""
+Available events: """
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, max_intervals=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
-        self._type = 'Interval'
+    def __init__(self, id=Component.UNDEFINED, message=Component.UNDEFINED, submit_n_clicks=Component.UNDEFINED, submit_n_clicks_timestamp=Component.UNDEFINED, cancel_n_clicks=Component.UNDEFINED, cancel_n_clicks_timestamp=Component.UNDEFINED, displayed=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed']
+        self._type = 'ConfirmDialog'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['interval']
-        self.available_properties = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
+        self.available_events = []
+        self.available_properties = ['id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
@@ -39,7 +39,7 @@ Available events: 'interval'"""
             if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
-        super(Interval, self).__init__(**args)
+        super(ConfirmDialog, self).__init__(**args)
 
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
@@ -57,9 +57,9 @@ Available events: 'interval'"""
                                       if any([c.startswith(wc_attr)
                                       for wc_attr in
                                       self._valid_wildcard_attributes])])
-            return ('Interval(' + props_string +
+            return ('ConfirmDialog(' + props_string +
                    (', ' + wilds_string if wilds_string != '' else '') + ')')
         else:
             return (
-                'Interval(' +
+                'ConfirmDialog(' +
                 repr(getattr(self, self._prop_names[0], None)) + ')')

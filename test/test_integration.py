@@ -15,7 +15,7 @@ import dash_table_experiments as dt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException
-import time
+
 from textwrap import dedent
 try:
     from urlparse import urlparse
@@ -23,6 +23,8 @@ except ImportError:
     from urllib.parse import urlparse
 
 from .IntegrationTests import IntegrationTests
+
+from multiprocessing import Value
 
 # Download geckodriver: https://github.com/mozilla/geckodriver/releases
 # And add to path:
@@ -220,6 +222,56 @@ class Tests(IntegrationTests):
             html.Div(id='waitfor'),
             html.Label('Upload'),
             dcc.Upload(),
+
+            html.Label('Horizontal Tabs'),
+            dcc.Tabs(id="tabs", children=[
+                dcc.Tab(label='Tab one', className='test', style={'border': '1px solid magenta'}, children=[
+                    html.Div(['Test'])
+                ]),
+                dcc.Tab(label='Tab two', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 2"),
+                        html.P("A graph here would be nice!")
+                    ])
+                ], id='tab-one'),
+                dcc.Tab(label='Tab three', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 3"),
+                    ])
+                ]),
+            ],
+                style={
+                'fontFamily': 'system-ui'
+            },
+                content_style={
+                'border': '1px solid #d6d6d6',
+                'padding': '44px'
+            },
+                parent_style={
+                'maxWidth': '1000px',
+                'margin': '0 auto'
+            }
+            ),
+
+            html.Label('Vertical Tabs'),
+            dcc.Tabs(id="tabs", vertical=True, children=[
+                dcc.Tab(label='Tab one', children=[
+                    html.Div(['Test'])
+                ]),
+                dcc.Tab(label='Tab two', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 2"),
+                        html.P("A graph here would be nice!")
+                    ])
+                ]),
+                dcc.Tab(label='Tab three', children=[
+                    html.Div([
+                        html.H1("This is the content in tab 3"),
+                    ])
+                ]),
+            ]
+            ),
+
             html.Label('Dropdown'),
             dcc.Dropdown(
                 options=[
@@ -366,6 +418,43 @@ class Tests(IntegrationTests):
 
         self.snapshot('gallery - text input')
 
+    def test_tabs_without_children(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.H1('Dash Tabs component demo'),
+            dcc.Tabs(id="tabs", value='tab-2', children=[
+                dcc.Tab(label='Tab one', value='tab-1', id='tab-1'),
+                dcc.Tab(label='Tab two', value='tab-2', id='tab-2'),
+                ]),
+            html.Div(id='tabs-content')
+        ])
+
+        @app.callback(dash.dependencies.Output('tabs-content', 'children'),
+                    [dash.dependencies.Input('tabs', 'value')])
+        def render_content(tab):
+            if(tab == 'tab-1'):
+                return html.Div([
+                    html.H3('Test content 1')
+                ], id='test-tab-1')
+            elif(tab == 'tab-2'):
+                return html.Div([
+                    html.H3('Test content 2')
+                ], id='test-tab-2')
+
+        self.startServer(app=app)
+
+        self.snapshot('tabs - without children')
+
+        initial_tab = self.wait_for_element_by_css_selector('#tab-2')
+        tabs_content = self.wait_for_element_by_css_selector('#tabs-content')
+        self.assertEqual(tabs_content.text, 'Test content 2')
+        self.snapshot('initial tab - tab 2')
+
+        selected_tab = self.wait_for_element_by_css_selector('#tab-1')
+        selected_tab.click()
+        self.assertEqual(tabs_content.text, 'Test content 1')
+
 
     def test_location_link(self):
         app = dash.Dash(__name__)
@@ -494,6 +583,56 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#test-hash', '')
         self.snapshot('link -- /test/pathname/a?queryA=valueA')
 
+    def test_link_scroll(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Location(id='test-url', refresh=False),
+
+            html.Div(id='push-to-bottom', children=[], style={
+                'display': 'block',
+                'height': '200vh'
+            }),
+            html.Div(id='page-content'),
+            dcc.Link('Test link', href='/test-link', id='test-link')
+        ])
+
+        call_count = Value('i', 0)
+
+        @app.callback(Output('page-content', 'children'),
+                       [Input('test-url', 'pathname')])
+        def display_page(pathname):
+            call_count.value = call_count.value + 1
+            return 'You are on page {}'.format(pathname)
+
+        self.startServer(app=app)
+
+        #callback is called twice when defined
+        self.assertEqual(
+            call_count.value,
+            2
+        )
+
+        # test if link correctly scrolls back to top of page
+        test_link = self.wait_for_element_by_css_selector('#test-link')
+        test_link.send_keys(Keys.NULL)
+        test_link.click()
+        time.sleep(2)
+
+        # test link still fires update on Location
+        page_content = self.wait_for_element_by_css_selector('#page-content')
+        self.assertNotEqual(page_content.text, 'You are on page /')
+        self.assertEqual(page_content.text, 'You are on page /test-link')
+
+        #test if rendered Link's <a> tag has a href attribute
+        link_href = test_link.get_attribute("href")
+        self.assertEqual(link_href, 'http://localhost:8050/test-link')
+
+        #test if callback is only fired once (offset of 2)
+        self.assertEqual(
+            call_count.value,
+            2 + 1
+        )
+
     def test_candlestick(self):
         app = dash.Dash(__name__)
         app.layout = html.Div([
@@ -528,3 +667,128 @@ class Tests(IntegrationTests):
         button.click()
         time.sleep(2)
         self.snapshot('candlestick - 2 click')
+
+    def test_datepickerrange_updatemodes(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.DatePickerRange(
+                id='date-picker-range',
+                start_date_placeholder_text='Select a start date!',
+                end_date_placeholder_text='Select an end date!',
+                updatemode='bothdates'
+            ),
+            html.Div(id='date-picker-range-output')
+        ])
+
+        @app.callback(
+            dash.dependencies.Output('date-picker-range-output', 'children'),
+            [dash.dependencies.Input('date-picker-range', 'start_date'),
+            dash.dependencies.Input('date-picker-range', 'end_date')])
+        def update_output(start_date, end_date):
+            return '{} - {}'.format(start_date, end_date)
+
+        self.startServer(app=app)
+
+        start_date = self.wait_for_element_by_css_selector('#startDate')
+        start_date.click()
+
+        end_date= self.wait_for_element_by_css_selector('#endDate')
+        end_date.click()
+
+        date_content = self.wait_for_element_by_css_selector('#date-picker-range-output')
+        self.assertEquals(date_content.text, 'None - None')
+
+        # updated only one date, callback shouldn't fire and output should be unchanged
+        start_date.send_keys("1997-05-03")
+        self.assertEquals(date_content.text, 'None - None')
+
+        # updated both dates, callback should now fire and update output
+        end_date.send_keys("1997-05-04")
+        end_date.click()
+
+        self.assertEquals(date_content.text, '1997-05-03 - 1997-05-04')
+    def test_interval(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            html.Div(id='output'),
+            dcc.Interval(id='interval', interval=1, max_intervals=2)
+        ])
+
+        @app.callback(Output('output', 'children'),
+                    [Input('interval', 'n_intervals')])
+        def update_text(n):
+            return "{}".format(n)
+
+        self.startServer(app=app)
+
+        time.sleep(5) # wait for interval to finish
+
+        output = self.wait_for_element_by_css_selector('#output')
+        self.assertEqual(output.text, '2')
+
+    def _test_confirm(self, app, test_name):
+        count = Value('i', 0)
+
+        @app.callback(Output('confirmed', 'children'),
+                      [Input('confirm', 'submit_n_clicks'),
+                       Input('confirm', 'cancel_n_clicks')],
+                      [State('confirm', 'submit_n_clicks_timestamp'),
+                       State('confirm', 'cancel_n_clicks_timestamp')])
+        def _on_confirmed(submit_n_clicks, cancel_n_clicks,
+                          submit_timestamp, cancel_timestamp):
+            if not submit_n_clicks and not cancel_n_clicks:
+                return ''
+            count.value = submit_n_clicks + cancel_n_clicks
+            if submit_timestamp > cancel_timestamp:
+                return 'confirmed'
+            else:
+                return 'canceled'
+
+        self.startServer(app)
+        self.snapshot(test_name + ' -> initial')
+        button = self.wait_for_element_by_css_selector('#button')
+
+        button.click()
+        time.sleep(1)
+        self.driver.switch_to.alert.accept()
+        self.wait_for_text_to_equal('#confirmed', 'confirmed')
+        self.snapshot(test_name + ' -> confirmed')
+
+        button.click()
+        time.sleep(0.5)
+        self.driver.switch_to.alert.dismiss()
+        time.sleep(0.5)
+        self.wait_for_text_to_equal('#confirmed', 'canceled')
+        self.snapshot(test_name + ' -> canceled')
+
+        self.assertEqual(2, count.value, 'Expected 2 callback but got ' + str(count.value))
+
+    def test_confirm(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Button(id='button', children='Send confirm', n_clicks=0),
+            dcc.ConfirmDialog(id='confirm', message='Please confirm.'),
+            html.Div(id='confirmed')
+        ])
+
+        @app.callback(Output('confirm', 'displayed'),
+                      [Input('button', 'n_clicks')])
+        def on_click_confirm(n_clicks):
+            if n_clicks:
+                return True
+
+        self._test_confirm(app, 'ConfirmDialog')
+
+    def test_confirm_dialog_provider(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.ConfirmDialogProvider(
+                html.Button('click me', id='button'),
+                id='confirm', message='Please confirm.'),
+            html.Div(id='confirmed')
+        ])
+
+        self._test_confirm(app, 'ConfirmDialogProvider')
