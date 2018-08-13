@@ -15,11 +15,12 @@ export default class ConfirmDialog extends Component {
         this.state = {
             displayed: props.displayed
         };
+        this._update();
     }
 
     _setStateAndProps(value) {
         const { setProps } = this.props;
-        this.setState(value);
+        this.setState({displayed: value.displayed});
         if (setProps) setProps(value);
     }
 
@@ -30,25 +31,28 @@ export default class ConfirmDialog extends Component {
     _update() {
         const {
             message,
-            cancel_n_clicks, cancel_n_clicks_timestamp,
-            submit_n_clicks, submit_n_clicks_timestamp
+            cancel_n_clicks,
+            submit_n_clicks
         } = this.props;
 
         const displayed = this.state.displayed;
 
         if (displayed) {
             new Promise(resolve => resolve(window.confirm(message))).then(result => {
-                this._setStateAndProps({
-                    cancel_n_clicks: !result ?
-                        cancel_n_clicks + 1 : cancel_n_clicks,
-                    cancel_n_clicks_timestamp: !result ?
-                        Date.now() :  cancel_n_clicks_timestamp,
-                    submit_n_clicks: result ?
-                        submit_n_clicks + 1: submit_n_clicks,
-                    submit_n_clicks_timestamp: result ?
-                        Date.now() : submit_n_clicks_timestamp,
-                    displayed: false
-                });
+
+                if (result) {
+                    this._setStateAndProps({
+                        submit_n_clicks:  submit_n_clicks + 1,
+                        submit_n_clicks_timestamp: Date.now(),
+                        displayed: false
+                    });
+                } else {
+                    this._setStateAndProps({
+                        cancel_n_clicks: cancel_n_clicks + 1,
+                        cancel_n_clicks_timestamp: Date.now(),
+                        displayed: false
+                    });
+                }
             });
         }
     }
@@ -96,6 +100,7 @@ ConfirmDialog.propTypes = {
      *  Set to true to send the ConfirmDialog.
      */
     displayed: PropTypes.bool,
+    key: PropTypes.string,
 
     /**
      * Dash-assigned callback that gets fired when the value changes.
