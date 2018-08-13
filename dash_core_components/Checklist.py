@@ -5,9 +5,9 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Checklist(Component):
     """A Checklist component.
-Checklist is a component that encapsulates several checkboxes.
-The values and labels of the checklist is specified in the `options`
-property and the checked items are specified with the `values` property.
+Checklist is a component that encapsulates several checkboxes.
+The values and labels of the checklist is specified in the `options`
+property and the checked items are specified with the `values` property.
 Each checkbox is rendered as an input with a surrounding label.
 
 Keyword arguments:
@@ -18,9 +18,9 @@ Keyword arguments:
 - style (dict; optional): The style of the container (div)
 - inputStyle (dict; optional): The style of the <input> checkbox element
 - inputClassName (string; optional): The class of the <input> checkbox element
-- labelStyle (dict; optional): The style of the <label> that wraps the checkbox input
+- labelStyle (dict; optional): The style of the <label> that wraps the checkbox input
  and the option's label
-- labelClassName (string; optional): The class of the <label> that wraps the checkbox input
+- labelClassName (string; optional): The class of the <label> that wraps the checkbox input
  and the option's label
 
 Available events: 'change'"""

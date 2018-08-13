@@ -9,20 +9,20 @@ class Upload(Component):
 
 Keyword arguments:
 - children (a list of or a singular dash component, string or number | string; optional): Contents of the upload component
-- id (string; optional): ID of the component. Used to identify component
+- id (string; optional): ID of the component. Used to identify component
 in Dash callback functions.
 - contents (string | list; optional): The contents of the uploaded file as a binary string
-- filename (string | list; optional): The name of the file(s) that was(were) uploaded.
-Note that this does not include the path of the file
+- filename (string | list; optional): The name of the file(s) that was(were) uploaded.
+Note that this does not include the path of the file
 (for security reasons).
-- last_modified (number | list; optional): The last modified date of the file that was uploaded in unix time
+- last_modified (number | list; optional): The last modified date of the file that was uploaded in unix time
 (seconds since 1970).
-- accept (string; optional): Allow specific types of files.
-See https://github.com/okonet/attr-accept for more information.
-Keep in mind that mime type determination is not reliable across
-platforms. CSV files, for example, are reported as text/plain
-under macOS but as application/vnd.ms-excel under Windows.
-In some cases there might not be a mime type set at all.
+- accept (string; optional): Allow specific types of files.
+See https://github.com/okonet/attr-accept for more information.
+Keep in mind that mime type determination is not reliable across
+platforms. CSV files, for example, are reported as text/plain
+under macOS but as application/vnd.ms-excel under Windows.
+In some cases there might not be a mime type set at all.
 See: https://github.com/react-dropzone/react-dropzone/issues/276
 - disabled (boolean; optional): Enable/disable the upload component entirely
 - disable_click (boolean; optional): Disallow clicking on the component to open the file dialog
