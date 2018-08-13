@@ -8,8 +8,8 @@ class Textarea(Component):
 A basic HTML textarea for entering multiline text.
 
 Keyword arguments:
-- id (string; optional): The ID of this component, used to identify dash components
-in callbacks. The ID needs to be unique across all of the
+- id (string; optional): The ID of this component, used to identify dash components
+in callbacks. The ID needs to be unique across all of the
 components in an app.
 - value (string; optional): The value of the textarea
 - autoFocus (string; optional): The element should be automatically focused after the page loaded.

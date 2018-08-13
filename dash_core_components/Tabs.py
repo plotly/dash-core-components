@@ -5,14 +5,14 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Tabs(Component):
     """A Tabs component.
-A Dash component that lets you render pages with tabs - the Tabs component's children
-can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold
+A Dash component that lets you render pages with tabs - the Tabs component's children
+can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold
 children components that will be that tab's content.
 
 Keyword arguments:
 - children (a list of or a singular dash component, string or number; optional): Array that holds Tab components
-- id (string; optional): The ID of this component, used to identify dash components
-in callbacks. The ID needs to be unique across all of the
+- id (string; optional): The ID of this component, used to identify dash components
+in callbacks. The ID needs to be unique across all of the
 components in an app.
 - value (string; optional): The value of the currently selected Tab
 - className (string; optional): Appends a class to the Tabs container holding the individual Tab components.
@@ -23,11 +23,11 @@ components in an app.
 - content_style (dict; optional): Appends (inline) styles to the tab content container holding the children of the Tab that is selected.
 - vertical (boolean; optional): Renders the tabs vertically (on the side)
 - mobile_breakpoint (number; optional): Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)
-- colors (optional): Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so: 
-colors: {
-   border: '#d6d6d6',
-   primary: '#1975FA',
-   background: '#f9f9f9'
+- colors (optional): Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so: 
+colors: {
+   border: '#d6d6d6',
+   primary: '#1975FA',
+   background: '#f9f9f9'
  }. colors has the following type: dict containing keys 'border', 'primary', 'background'.
 Those keys have the following types: 
   - border (string; optional)
