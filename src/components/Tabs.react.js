@@ -150,7 +150,7 @@ export default class Tabs extends Component {
         }
 
         if(!childProps.value) {
-          childProps.value = `tab-${index}`
+          childProps.value = `tab-${index+1}`
         }
 
         return (
