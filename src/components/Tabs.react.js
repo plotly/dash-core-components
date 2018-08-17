@@ -124,53 +124,62 @@ export default class Tabs extends Component {
   }
   render() {
     let EnhancedTabs;
+    let selectedTab;
+    let selectedTabContent;
 
-    if (!Array.isArray(this.props.children)) {
-      // if dcc.Tabs.children contains just one single element, it gets passed as an object
-      // instead of an array - so we put in in array ourselves!
-      this.props.children = [this.props.children];
+    if(this.props.children) {
+      if (!Array.isArray(this.props.children)) {
+        // if dcc.Tabs.children contains just one single element, it gets passed as an object
+        // instead of an array - so we put in in a array ourselves!
+        this.props.children = [this.props.children];
+      }
+
+      const amountOfTabs = this.props.children.length
+
+      EnhancedTabs = this.props.children.map((child, index) => {
+        // TODO: handle components that are not dcc.Tab components (throw error)
+        // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
+        let childProps;
+
+        if (child.props.children) {
+          // if props appears on .children, props are coming from Dash
+          childProps = child.props.children.props;
+        } else {
+          // else props are coming from React (Demo.react.js)
+          childProps = child.props;
+        }
+
+        if(!childProps.value) {
+          childProps.value = `tab-${index}`
+        }
+
+        return (
+          <EnhancedTab
+            key={index}
+            id={childProps.id}
+            label={childProps.label}
+            selected={this.state.selected === childProps.value}
+            selectHandler={this.selectHandler}
+            className={childProps.className}
+            style={childProps.style}
+            selectedClassName={childProps.selected_className}
+            selected_style={childProps.selected_style}
+            value={childProps.value}
+            disabled={childProps.disabled}
+            disabled_style={childProps.disabled_style}
+            disabled_classname={childProps.disabled_className}
+            mobile_breakpoint={this.props.mobile_breakpoint}
+            amountOfTabs={amountOfTabs}
+            colors={this.props.colors}
+          />
+        );
+      });
+
+      selectedTab = this.props.children.filter(child => {
+        return child.props.children.props.value === this.state.selected
+      })
+      selectedTabContent = selectedTab[0].props.children
     }
-
-    const amountOfTabs = this.props.children.length
-
-    EnhancedTabs = this.props.children.map((child, index) => {
-      // TODO: handle components that are not dcc.Tab components (throw error)
-      // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
-      let childProps;
-
-      if (child.props.children) {
-        // if props appears on .children, props are coming from Dash
-        childProps = child.props.children.props;
-      } else {
-        // else props are coming from React (Demo.react.js)
-        childProps = child.props;
-      }
-
-      if(!childProps.value) {
-        childProps.value = `tab-${index}`
-      }
-
-      return (
-        <EnhancedTab
-          key={index}
-          id={childProps.id}
-          label={childProps.label}
-          selected={this.state.selected === childProps.value}
-          selectHandler={this.selectHandler}
-          className={childProps.className}
-          style={childProps.style}
-          selectedClassName={childProps.selected_className}
-          selected_style={childProps.selected_style}
-          value={childProps.value}
-          disabled={childProps.disabled}
-          disabled_style={childProps.disabled_style}
-          disabled_classname={childProps.disabled_className}
-          mobile_breakpoint={this.props.mobile_breakpoint}
-          amountOfTabs={amountOfTabs}
-          colors={this.props.colors}
-        />
-      );
-    });
 
     const tabContainerClass = this.props.vertical
       ? 'tab-container tab-container--vert'
@@ -183,10 +192,6 @@ export default class Tabs extends Component {
     const tabParentClass = this.props.vertical
       ? 'tab-parent tab-parent--vert'
       : 'tab-parent';
-
-    const selectedTab = this.props.children.filter(child => {
-      return child.props.children.props.value === this.state.selected
-    })
 
     return (
       <div
@@ -203,7 +208,7 @@ export default class Tabs extends Component {
           className={`${tabContentClass} ${this.props.content_className || ''}`}
           style={this.props.content_style}
         >
-          {selectedTab[0].props.children || ''}
+          {selectedTabContent || ''}
         </div>
         <style jsx>{`
           .tab-parent {
