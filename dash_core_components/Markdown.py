@@ -5,14 +5,14 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Markdown(Component):
     """A Markdown component.
-A component that renders Markdown text as specified by the
+A component that renders Markdown text as specified by the
 CommonMark spec.
 
 Keyword arguments:
 - children (string | list; optional): A markdown string (or array of strings) that adhreres to the CommonMark spec
 - id (string; optional)
 - className (string; optional): Class name of the container element
-- containerProps (dict; optional): An object containing custom element props to put on the container
+- containerProps (dict; optional): An object containing custom element props to put on the container
 element such as id or style
 
 Available events: """

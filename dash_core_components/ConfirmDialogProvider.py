@@ -5,15 +5,15 @@ from dash.development.base_component import Component, _explicitize_args
 
 class ConfirmDialogProvider(Component):
     """A ConfirmDialogProvider component.
-A wrapper component that will display a confirmation dialog
-when its child component has been clicked on.
+A wrapper component that will display a confirmation dialog
+when its child component has been clicked on.
 
-For example:
-```
-dcc.ConfirmDialogProvider(
-    html.Button('click me', id='btn'),
-    message='Danger - Are you sure you want to continue.'
-    id='confirm')
+For example:
+```
+dcc.ConfirmDialogProvider(
+    html.Button('click me', id='btn'),
+    message='Danger - Are you sure you want to continue.'
+    id='confirm')
 ```
 
 Keyword arguments:

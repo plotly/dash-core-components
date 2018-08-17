@@ -5,16 +5,16 @@ from dash.development.base_component import Component, _explicitize_args
 
 class RangeSlider(Component):
     """A RangeSlider component.
-A double slider with two handles.
+A double slider with two handles.
 Used for specifying a range of numerical values.
 
 Keyword arguments:
 - id (string; optional)
-- marks (optional): Marks on the slider.
-The key determines the position,
-and the value determines what will show.
-If you want to set the style of a specific mark point,
-the value should be an object which
+- marks (optional): Marks on the slider.
+The key determines the position,
+and the value determines what will show.
+If you want to set the style of a specific mark point,
+the value should be an object which
 contains style and label properties.. marks has the following type: dict containing keys 'number'.
 Those keys have the following types: 
   - number (optional): . number has the following type: string | dict containing keys 'style', 'label'.
@@ -24,28 +24,28 @@ Those keys have the following types:
 - value (list; optional): The value of the input
 - allowCross (boolean; optional): allowCross could be set as true to allow those handles to cross.
 - className (string; optional): Additional CSS class for the root DOM node
-- count (number; optional): Determine how many ranges to render, and multiple handles
+- count (number; optional): Determine how many ranges to render, and multiple handles
 will be rendered (number + 1).
 - disabled (boolean; optional): If true, the handles can't be moved.
-- dots (boolean; optional): When the step value is greater than 1,
-you can set the dots to true if you want to
+- dots (boolean; optional): When the step value is greater than 1,
+you can set the dots to true if you want to
 render the slider with dots.
-- included (boolean; optional): If the value is true, it means a continuous
+- included (boolean; optional): If the value is true, it means a continuous
 value is included. Otherwise, it is an independent value.
 - min (number; optional): Minimum allowed value of the slider
 - max (number; optional): Maximum allowed value of the slider
-- pushable (boolean | number; optional): pushable could be set as true to allow pushing of
-surrounding handles when moving an handle.
-When set to a number, the number will be the
+- pushable (boolean | number; optional): pushable could be set as true to allow pushing of
+surrounding handles when moving an handle.
+When set to a number, the number will be the
 minimum ensured distance between handles.
 - step (number; optional): Value by which increments or decrements are made
 - vertical (boolean; optional): If true, the slider will be vertical
-- updatemode (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
-its value. If `mouseup`, then the slider
-will only trigger its value when the user has
-finished dragging the slider. If `drag`, then
-the slider will update its value continuously
-as it is being dragged.
+- updatemode (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
+its value. If `mouseup`, then the slider
+will only trigger its value when the user has
+finished dragging the slider. If `drag`, then
+the slider will update its value continuously
+as it is being dragged.
 Only use `drag` if your updates are fast.
 
 Available events: 'change'"""

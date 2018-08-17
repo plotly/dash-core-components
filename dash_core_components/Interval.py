@@ -5,16 +5,16 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Interval(Component):
     """A Interval component.
-A component that repeatedly fires an event ("interval")
-with a fixed time delay between each event.
-Interval is good for triggering a component on a recurring basis.
+A component that repeatedly fires an event ("interval")
+with a fixed time delay between each event.
+Interval is good for triggering a component on a recurring basis.
 The time delay is set with the property "interval" in milliseconds.
 
 Keyword arguments:
 - id (string; optional)
-- interval (number; optional): This component will fire an event every `interval`
+- interval (number; optional): This component will fire an event every `interval`
 milliseconds with the event name `setInterval`
-- disabled (boolean; optional): If True, the interval will no longer trigger
+- disabled (boolean; optional): If True, the interval will no longer trigger
 an event.
 - n_intervals (number; optional): Number of times the interval has passed
 - max_intervals (number; optional): Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
