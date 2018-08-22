@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import R from 'ramda'
+import R from 'ramda';
 
 const EnhancedTab = ({
   id,
@@ -20,26 +20,26 @@ const EnhancedTab = ({
   colors
 }) => {
   let tabStyle = style;
-  if(disabled) {
-    tabStyle = { tabStyle, ...disabled_style }
+  if (disabled) {
+    tabStyle = { tabStyle, ...disabled_style };
   }
-  if(selected) {
-    tabStyle = { tabStyle, ...selected_style}
+  if (selected) {
+    tabStyle = { tabStyle, ...selected_style };
   }
-  let tabClassName = `tab ${className || ''}`
-  if(disabled) {
-    tabClassName += `tab--disabled ${disabled_className || ''}`
+  let tabClassName = `tab ${className || ''}`;
+  if (disabled) {
+    tabClassName += `tab--disabled ${disabled_className || ''}`;
   }
-  if(selected) {
-    tabClassName += ` tab--selected ${selectedClassName || ''}`
+  if (selected) {
+    tabClassName += ` tab--selected ${selectedClassName || ''}`;
   }
-  let labelDisplay
-  if(R.is(Array, label)){
+  let labelDisplay;
+  if (R.is(Array, label)) {
     // label is an array, so it has children that we want to render
-    labelDisplay = label[0].props.children
+    labelDisplay = label[0].props.children;
   } else {
     // else it is a string, so we just want to render that
-    labelDisplay = label
+    labelDisplay = label;
   }
   return (
     <div
@@ -47,7 +47,7 @@ const EnhancedTab = ({
       id={id}
       style={tabStyle}
       onClick={() => {
-        if(!disabled) {
+        if (!disabled) {
           selectHandler(value);
         }
       }}
@@ -90,7 +90,8 @@ const EnhancedTab = ({
             border-right: none;
             width: calc(100% / ${amountOfTabs});
           }
-          .tab--selected, .tab:last-of-type.tab--selected {
+          .tab--selected,
+          .tab:last-of-type.tab--selected {
             border-bottom: none;
             border-top: 2px solid ${colors['primary']};
           }
@@ -122,12 +123,19 @@ export default class Tabs extends Component {
       this.props.setProps({ value: value });
     }
   }
+  componentWillReceiveProps(newProps) {
+      console.log(newProps);
+      const value = newProps.value
+      this.setState({
+          selected: value
+      })
+  }
   render() {
     let EnhancedTabs;
     let selectedTab;
     let selectedTabContent;
 
-    if(this.props.children) {
+    if (this.props.children) {
       if (!Array.isArray(this.props.children)) {
         // if dcc.Tabs.children contains just one single element, it gets passed as an object
         // instead of an array - so we put in in a array ourselves!
@@ -149,8 +157,8 @@ export default class Tabs extends Component {
           childProps = child.props;
         }
 
-        if(!childProps.value) {
-          childProps.value = `tab-${index+1}`
+        if (!childProps.value) {
+          childProps.value = `tab-${index + 1}`;
         }
 
         return (
@@ -176,9 +184,9 @@ export default class Tabs extends Component {
       });
 
       selectedTab = this.props.children.filter(child => {
-        return child.props.children.props.value === this.state.selected
-      })
-      selectedTabContent = selectedTab[0].props.children
+        return child.props.children.props.value === this.state.selected;
+      });
+      selectedTabContent = selectedTab[0].props.children;
     }
 
     const tabContainerClass = this.props.vertical
@@ -320,12 +328,16 @@ Tabs.propTypes = {
   children: PropTypes.node,
 
   /**
-   * Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so: 
+   * Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so:
    * colors: {
    *    border: '#d6d6d6',
    *    primary: '#1975FA',
    *    background: '#f9f9f9'
    *  }
    */
-  colors: PropTypes.shape({border: PropTypes.string, primary: PropTypes.string, background: PropTypes.string})
+  colors: PropTypes.shape({
+    border: PropTypes.string,
+    primary: PropTypes.string,
+    background: PropTypes.string
+  })
 };
