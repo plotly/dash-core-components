@@ -47,9 +47,6 @@
     "import/no-duplicates": ["error"],
     "import/no-named-as-default": ["error"],
     "import/no-unresolved": ["off"],
-    "new-cap": ["error", {
-      "capIsNewExceptionPattern": "Immutable\\.*"
-    }],
     "no-alert": [1],
     "no-caller": ["error"],
     "no-case-declarations": ["error"],
