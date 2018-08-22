@@ -19,7 +19,7 @@ jobs:
           command: echo $CIRCLE_JOB > circlejob.txt
 
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "circlejob.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "circlejob.txt" }}
 
       - run:
           name: Install dependencies
@@ -30,7 +30,7 @@ jobs:
               npm install --ignore-scripts
 
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "circlejob.txt" }}
+          key: deps1-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "circlejob.txt" }}
           paths:
               - "venv"
               - "node_modules"
@@ -42,9 +42,12 @@ jobs:
               npm run build:py
 
       - run:
+          name: npm test
+          command: npm test
+
+      - run:
           name: Run tests
           command: |
-              npm run test
               . venv/bin/activate
               python --version
               python -m unittest test.test_integration
