@@ -45,6 +45,7 @@
     "styled-jsx": "^2.2.6"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
     "component-playground": "^2.0.0",
     "dash-components-archetype-dev": "^0.3.0-rc1",
     "enzyme": "^2.4.1",
