@@ -134,7 +134,7 @@ export default class Tabs extends Component {
         this.props.children = [this.props.children];
       }
 
-      const amountOfTabs = this.props.children.length
+      const amountOfTabs = this.props.children.length;
 
       EnhancedTabs = this.props.children.map((child, index) => {
         // TODO: handle components that are not dcc.Tab components (throw error)

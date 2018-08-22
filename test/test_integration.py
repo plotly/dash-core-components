@@ -456,7 +456,6 @@ class Tests(IntegrationTests):
         time.sleep(2)
         self.assertEqual(tabs_content.text, 'Test content 1')
 
-    
     def test_tabs_with_children_undefined(self):
         app = dash.Dash(__name__)
 
@@ -469,7 +468,6 @@ class Tests(IntegrationTests):
         self.startServer(app=app)
 
         self.snapshot('Tabs component with children undefined')
-
 
     def test_location_link(self):
         app = dash.Dash(__name__)
