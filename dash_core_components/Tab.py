@@ -9,8 +9,8 @@ class Tab(Component):
 
 Keyword arguments:
 - children (a list of or a singular dash component, string or number; optional): The content of the tab - will only be displayed if this tab is selected
-- id (string; optional): The ID of this component, used to identify dash components
-in callbacks. The ID needs to be unique across all of the
+- id (string; optional): The ID of this component, used to identify dash components
+in callbacks. The ID needs to be unique across all of the
 components in an app.
 - label (optional): The tab's label
 - value (string; optional): Value for determining which Tab is currently selected

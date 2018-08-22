@@ -5,9 +5,9 @@ from dash.development.base_component import Component, _explicitize_args
 
 class RadioItems(Component):
     """A RadioItems component.
-RadioItems is a component that encapsulates several radio item inputs.
-The values and labels of the RadioItems is specified in the `options`
-property and the seleced item is specified with the `value` property.
+RadioItems is a component that encapsulates several radio item inputs.
+The values and labels of the RadioItems is specified in the `options`
+property and the seleced item is specified with the `value` property.
 Each radio item is rendered as an input with a surrounding label.
 
 Keyword arguments:
@@ -18,9 +18,9 @@ Keyword arguments:
 - className (string; optional): The class of the container (div)
 - inputStyle (dict; optional): The style of the <input> radio element
 - inputClassName (string; optional): The class of the <input> radio element
-- labelStyle (dict; optional): The style of the <label> that wraps the radio input
+- labelStyle (dict; optional): The style of the <label> that wraps the radio input
  and the option's label
-- labelClassName (string; optional): The class of the <label> that wraps the radio input
+- labelClassName (string; optional): The class of the <label> that wraps the radio input
  and the option's label
 
 Available events: 'change'"""
