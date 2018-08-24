@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {contains, intersection, filter, has, isNil, type, pluck} from 'ramda';
+import {contains, intersection, filter, has, isNil, type, pluck, clone} from 'ramda';
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
@@ -88,7 +88,7 @@ export default class PlotlyGraph extends Component {
                 PlotMethod = Plotly.react;
             }
 
-            return PlotMethod(id, figure.data, figure.layout, config).then(
+            return PlotMethod(id, figure.data, clone(figure.layout), config).then(
                 () => {
                     if (!this._hasPlotted) {
                         this.bindEvents();
