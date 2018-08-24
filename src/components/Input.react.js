@@ -25,25 +25,29 @@ export default class Input extends Component {
             setProps,
             type
         } = this.props;
-        const {value} = this.state;
+        //const {value} = this.state;
         return (
             <input
-                onChange={e => {
-                    this.setState({value: e.target.value});
-                    if (setProps) {
-                        if (type === 'number') {
-                            setProps({value: Number(e.target.value)});
+                onBlur={
+                    event => {
+                        this.setState({value: event.target.value});
+                        if (setProps) {
+                            if (type === 'number') {
+                                setProps({value: Number(event.target.value)});
+                            }
+                            else {
+                                setProps({value: event.target.value});
+                            }
                         }
-                        else {
-                            setProps({value: e.target.value});
-                        }
+                        if (fireEvent) fireEvent({event: 'blur'});
                     }
-                    if (fireEvent) fireEvent({event: 'change'});
-                }}
-                onBlur={() => {
-                    if (fireEvent) fireEvent({event: 'blur'});
-                }}
-                value={value}
+                }
+                onChange={
+                    () => {
+                        if (fireEvent) fireEvent({event: 'change'});
+                    }
+                }
+                //value={value}
                 {...omit(['fireEvent', 'setProps', 'value'], this.props)}
             />
         );
@@ -243,6 +247,11 @@ Input.propTypes = {
      * Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
      */
     step: PropTypes.string,
+
+    /**
+     *  Sets the number of important digits. It can be the string any or a positive floating point number. If this attribute is not set to any, the default is zero.
+     */
+    precision: PropTypes.string,
 
     /**
      * Dash-assigned callback that gets fired when the input changes.
