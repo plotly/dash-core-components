@@ -541,6 +541,7 @@ class Tests(IntegrationTests):
         self.snapshot("Tabs 1 rendered ")
 
         button_two.click()
+        time.sleep(1)
 
         self.snapshot("Tabs 2 rendered ")
 
