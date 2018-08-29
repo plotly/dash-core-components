@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.28.1]
+## [0.28.1] - 2018-08-29
+### Changed
+- `candlestick` and `OHLC` charts are now plotted using the `Plotly.react` method instead of the `Plotly.newPlot` method.
 ### Fixed
 - Fix bug where front-end error was thrown when setting `Graph.figure = {}` (fixes [#260]).
 
