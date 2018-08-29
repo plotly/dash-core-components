@@ -859,7 +859,7 @@ class Tests(IntegrationTests):
             dcc.Graph(
                 id='graph',
                 figure={
-                    'data': dict(x=[1, 2, 3], y=[1, 2, 3])
+                    'data': [dict(x=[1, 2, 3], y=[1, 2, 3], type='scatter')]
                 }
             )
         ])
@@ -872,7 +872,7 @@ class Tests(IntegrationTests):
                 return {}
             return prev_graph
 
-        self.startServer(app=app)
+        self.startServer(app)
         button = self.wait_for_element_by_css_selector('#click')
         button.click()
         time.sleep(2)  # Wait for graph to re-render
