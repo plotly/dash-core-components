@@ -12,7 +12,11 @@ import {omit} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: props.value};
+        this.state = {
+            value: props.value,
+            typed: ''
+        };
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -25,29 +29,31 @@ export default class Input extends Component {
             setProps,
             type
         } = this.props;
-        //const {value} = this.state;
+        const {value} = this.state.value;
         return (
             <input
-                onBlur={
-                    event => {
-                        this.setState({value: event.target.value});
+                onBlur={ // Fires when the focus on the component is lost (i.e. click somewhere else or tab)
+                    () => {
+                        this.setState({value: this.state.typed});
                         if (setProps) {
                             if (type === 'number') {
-                                setProps({value: Number(event.target.value)});
+                                setProps({value: Number(this.state.typed)});
                             }
                             else {
-                                setProps({value: event.target.value});
+                                setProps({value: this.state.typed});
                             }
                         }
+
                         if (fireEvent) fireEvent({event: 'blur'});
                     }
                 }
-                onChange={
-                    () => {
+                onChange={ // Fires at every modification inside the input component
+                    e => {
+                        this.setState({typed: e.target.value});
                         if (fireEvent) fireEvent({event: 'change'});
                     }
                 }
-                //value={value}
+                value={value}
                 {...omit(['fireEvent', 'setProps', 'value'], this.props)}
             />
         );
