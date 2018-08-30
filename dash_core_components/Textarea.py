@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'name': {'nullable': True, 'type': 'string'}, 'cols': {'nullable': True, 'type': 'string'}, 'className': {'nullable': True, 'type': 'string'}, 'maxLength': {'nullable': True, 'type': 'string'}, 'draggable': {'nullable': True, 'type': 'string'}, 'contextMenu': {'nullable': True, 'type': 'string'}, 'title': {'nullable': True, 'type': 'string'}, 'style': {'nullable': True, 'type': 'dict'}, 'spellCheck': {'nullable': True, 'type': 'string'}, 'rows': {'nullable': True, 'type': 'string'}, 'wrap': {'nullable': True, 'type': 'string'}, 'fireEvent': {'nullable': True}, 'dashEvents': {'nullable': True, 'allowed': [None, 'click', 'blur', 'change']}, 'value': {'nullable': True, 'type': 'string'}, 'tabIndex': {'nullable': True, 'type': 'string'}, 'placeholder': {'nullable': True, 'type': 'string'}, 'accessKey': {'nullable': True, 'type': 'string'}, 'required': {'nullable': True, 'type': 'string'}, 'autoFocus': {'nullable': True, 'type': 'string'}, 'lang': {'nullable': True, 'type': 'string'}, 'dir': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'readOnly': {'nullable': True, 'type': 'string'}, 'disabled': {'nullable': True, 'type': 'string'}, 'setProps': {'nullable': True}, 'contentEditable': {'nullable': True, 'type': 'string'}, 'minLength': {'nullable': True, 'type': 'string'}, 'form': {'nullable': True, 'type': 'string'}, 'hidden': {'nullable': True, 'type': 'string'}}
+
 class Textarea(Component):
     """A Textarea component.
 A basic HTML textarea for entering multiline text.
@@ -38,6 +41,7 @@ components in an app.
 - title (string; optional): Text to be displayed in a tooltip when hovering over the element.
 
 Available events: 'click', 'blur', 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, autoFocus=Component.UNDEFINED, cols=Component.UNDEFINED, disabled=Component.UNDEFINED, form=Component.UNDEFINED, maxLength=Component.UNDEFINED, minLength=Component.UNDEFINED, name=Component.UNDEFINED, placeholder=Component.UNDEFINED, readOnly=Component.UNDEFINED, required=Component.UNDEFINED, rows=Component.UNDEFINED, wrap=Component.UNDEFINED, accessKey=Component.UNDEFINED, className=Component.UNDEFINED, contentEditable=Component.UNDEFINED, contextMenu=Component.UNDEFINED, dir=Component.UNDEFINED, draggable=Component.UNDEFINED, hidden=Component.UNDEFINED, lang=Component.UNDEFINED, spellCheck=Component.UNDEFINED, style=Component.UNDEFINED, tabIndex=Component.UNDEFINED, title=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title']

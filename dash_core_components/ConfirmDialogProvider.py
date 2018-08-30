@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'submit_n_clicks_timestamp': {'nullable': True, 'type': 'number'}, 'cancel_n_clicks': {'nullable': True, 'type': 'number'}, 'setProps': {'nullable': True}, 'displayed': {'nullable': True, 'type': 'boolean'}, 'children': {'nullable': True, 'type': ('boolean', 'number', 'string', 'dict', 'list')}, 'cancel_n_clicks_timestamp': {'nullable': True, 'type': 'number'}, 'message': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'submit_n_clicks': {'nullable': True, 'type': 'number'}}
+
 class ConfirmDialogProvider(Component):
     """A ConfirmDialogProvider component.
 A wrapper component that will display a confirmation dialog
@@ -27,6 +30,7 @@ Keyword arguments:
 - displayed (boolean; optional): Is the modal currently displayed.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, message=Component.UNDEFINED, submit_n_clicks=Component.UNDEFINED, submit_n_clicks_timestamp=Component.UNDEFINED, cancel_n_clicks=Component.UNDEFINED, cancel_n_clicks_timestamp=Component.UNDEFINED, displayed=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed']

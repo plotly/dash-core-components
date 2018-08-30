@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'className': {'nullable': True, 'type': 'string'}, 'dashEvents': {'nullable': True, 'allowed': [None, 'change']}, 'labelStyle': {'nullable': True, 'type': 'dict'}, 'labelClassName': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'style': {'nullable': True, 'type': 'dict'}, 'setProps': {'nullable': True}, 'inputClassName': {'nullable': True, 'type': 'string'}, 'values': {'schema': {'nullable': True, 'type': 'string'}, 'nullable': True, 'type': 'list', 'allow_unknown': False}, 'fireEvent': {'nullable': True}, 'options': {'schema': {'schema': {'disabled': {'nullable': True, 'type': 'boolean'}, 'label': {'nullable': True, 'type': 'string'}, 'value': {'nullable': True, 'type': 'string'}}, 'allow_unknown': False, 'nullable': True, 'type': 'dict'}, 'nullable': True, 'type': 'list', 'allow_unknown': False}, 'inputStyle': {'nullable': True, 'type': 'dict'}}
+
 class Checklist(Component):
     """A Checklist component.
 Checklist is a component that encapsulates several checkboxes.
@@ -24,6 +27,7 @@ Keyword arguments:
  and the option's label
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, values=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']

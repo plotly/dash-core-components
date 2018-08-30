@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'refresh': {'nullable': True, 'type': 'boolean'}, 'style': {'nullable': True, 'type': 'dict'}, 'href': {'nullable': True, 'type': 'string'}, 'className': {'nullable': True, 'type': 'string'}, 'children': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'schema': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}]}, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'id': {'nullable': True, 'type': 'string'}}
+
 class Link(Component):
     """A Link component.
 
@@ -16,6 +19,7 @@ Keyword arguments:
 - id (string; optional)
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, href=Component.UNDEFINED, refresh=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'href', 'refresh', 'className', 'style', 'id']

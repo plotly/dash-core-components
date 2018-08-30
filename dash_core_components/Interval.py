@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'disabled': {'nullable': True, 'type': 'boolean'}, 'setProps': {'nullable': True}, 'fireEvent': {'nullable': True}, 'dashEvents': {'nullable': True, 'allowed': [None, 'interval']}, 'interval': {'nullable': True, 'type': 'number'}, 'id': {'nullable': True, 'type': 'string'}, 'n_intervals': {'nullable': True, 'type': 'number'}, 'max_intervals': {'nullable': True, 'type': 'number'}}
+
 class Interval(Component):
     """A Interval component.
 A component that repeatedly fires an event ("interval")
@@ -20,6 +23,7 @@ an event.
 - max_intervals (number; optional): Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
 
 Available events: 'interval'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, max_intervals=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']

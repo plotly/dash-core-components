@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'colors': {'schema': {'background': {'nullable': True, 'type': 'string'}, 'border': {'nullable': True, 'type': 'string'}, 'primary': {'nullable': True, 'type': 'string'}}, 'nullable': True, 'type': 'dict', 'allow_unknown': False}, 'className': {'nullable': True, 'type': 'string'}, 'content_className': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'parent_className': {'nullable': True, 'type': 'string'}, 'style': {'nullable': True, 'type': 'dict'}, 'content_style': {'nullable': True, 'type': 'dict'}, 'vertical': {'nullable': True, 'type': 'boolean'}, 'children': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'schema': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}]}, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'mobile_breakpoint': {'nullable': True, 'type': 'number'}, 'parent_style': {'nullable': True, 'type': 'dict'}, 'value': {'nullable': True, 'type': 'string'}}
+
 class Tabs(Component):
     """A Tabs component.
 A Dash component that lets you render pages with tabs - the Tabs component's children
@@ -35,6 +38,7 @@ Those keys have the following types:
   - background (string; optional)
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, content_className=Component.UNDEFINED, parent_className=Component.UNDEFINED, style=Component.UNDEFINED, parent_style=Component.UNDEFINED, content_style=Component.UNDEFINED, vertical=Component.UNDEFINED, mobile_breakpoint=Component.UNDEFINED, colors=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'value', 'className', 'content_className', 'parent_className', 'style', 'parent_style', 'content_style', 'vertical', 'mobile_breakpoint', 'colors']

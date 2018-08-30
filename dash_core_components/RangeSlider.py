@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'updatemode': {'nullable': True, 'allowed': [None, 'mouseup', 'drag']}, 'fireEvent': {'nullable': True}, 'allowCross': {'nullable': True, 'type': 'boolean'}, 'marks': {'schema': {'number': {'anyof': [{'nullable': True, 'type': 'string'}, {'schema': {'style': {'nullable': True, 'type': 'dict'}, 'label': {'nullable': True, 'type': 'string'}}, 'allow_unknown': False, 'nullable': True, 'type': 'dict'}], 'nullable': True}}, 'nullable': True, 'type': 'dict', 'allow_unknown': False}, 'count': {'nullable': True, 'type': 'number'}, 'className': {'nullable': True, 'type': 'string'}, 'dashEvents': {'nullable': True, 'allowed': [None, 'change']}, 'id': {'nullable': True, 'type': 'string'}, 'setProps': {'nullable': True}, 'disabled': {'nullable': True, 'type': 'boolean'}, 'pushable': {'anyof': [{'nullable': True, 'type': 'boolean'}, {'nullable': True, 'type': 'number'}], 'nullable': True}, 'vertical': {'nullable': True, 'type': 'boolean'}, 'dots': {'nullable': True, 'type': 'boolean'}, 'max': {'nullable': True, 'type': 'number'}, 'value': {'schema': {'nullable': True, 'type': 'number'}, 'nullable': True, 'type': 'list', 'allow_unknown': False}, 'min': {'nullable': True, 'type': 'number'}, 'step': {'nullable': True, 'type': 'number'}, 'included': {'nullable': True, 'type': 'boolean'}}
+
 class RangeSlider(Component):
     """A RangeSlider component.
 A double slider with two handles.
@@ -49,6 +52,7 @@ as it is being dragged.
 Only use `drag` if your updates are fast.
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, allowCross=Component.UNDEFINED, className=Component.UNDEFINED, count=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, pushable=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, updatemode=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']

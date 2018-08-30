@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'className': {'nullable': True, 'type': 'string'}, 'containerProps': {'nullable': True, 'type': 'dict'}, 'children': {'anyof': [{'nullable': True, 'type': 'string'}, {'schema': {'nullable': True, 'type': 'string'}, 'allow_unknown': False, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'id': {'nullable': True, 'type': 'string'}}
+
 class Markdown(Component):
     """A Markdown component.
 A component that renders Markdown text as specified by the
@@ -16,6 +19,7 @@ Keyword arguments:
 element such as id or style
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, className=Component.UNDEFINED, containerProps=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'className', 'containerProps']

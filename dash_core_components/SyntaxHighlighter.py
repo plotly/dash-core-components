@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'theme': {'nullable': True, 'allowed': [None, 'light', 'dark']}, 'lineNumberStyle': {'nullable': True, 'type': 'dict'}, 'customStyle': {'nullable': True, 'type': 'dict'}, 'id': {'nullable': True, 'type': 'string'}, 'codeTagProps': {'nullable': True, 'type': 'dict'}, 'showLineNumbers': {'nullable': True, 'type': 'boolean'}, 'useInlineStyles': {'nullable': True, 'type': 'boolean'}, 'lineNumberContainerStyle': {'nullable': True, 'type': 'dict'}, 'startingLineNumber': {'nullable': True, 'type': 'number'}, 'wrapLines': {'nullable': True, 'type': 'boolean'}, 'children': {'anyof': [{'nullable': True, 'type': 'string'}, {'schema': {'nullable': True, 'type': 'string'}, 'allow_unknown': False, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'lineStyle': {'nullable': True, 'type': 'dict'}, 'language': {'nullable': True, 'type': 'string'}}
+
 class SyntaxHighlighter(Component):
     """A SyntaxHighlighter component.
 A component for pretty printing code.
@@ -23,6 +26,7 @@ Keyword arguments:
 - lineStyle (dict; optional): inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, language=Component.UNDEFINED, theme=Component.UNDEFINED, customStyle=Component.UNDEFINED, codeTagProps=Component.UNDEFINED, useInlineStyles=Component.UNDEFINED, showLineNumbers=Component.UNDEFINED, startingLineNumber=Component.UNDEFINED, lineNumberContainerStyle=Component.UNDEFINED, lineNumberStyle=Component.UNDEFINED, wrapLines=Component.UNDEFINED, lineStyle=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']

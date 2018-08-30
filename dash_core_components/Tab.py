@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'style': {'nullable': True, 'type': 'dict'}, 'disabled': {'nullable': True, 'type': 'boolean'}, 'disabled_style': {'nullable': True, 'type': 'dict'}, 'disabled_className': {'nullable': True, 'type': 'string'}, 'label': {'nullable': True}, 'selected_style': {'nullable': True, 'type': 'dict'}, 'className': {'nullable': True, 'type': 'string'}, 'children': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'schema': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}]}, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'selected_className': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'value': {'nullable': True, 'type': 'string'}}
+
 class Tab(Component):
     """A Tab component.
 
@@ -23,6 +26,7 @@ components in an app.
 - selected_style (dict; optional): Overrides the default (inline) styles for the Tab component when it is selected.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, label=Component.UNDEFINED, value=Component.UNDEFINED, disabled=Component.UNDEFINED, disabled_style=Component.UNDEFINED, disabled_className=Component.UNDEFINED, className=Component.UNDEFINED, selected_className=Component.UNDEFINED, style=Component.UNDEFINED, selected_style=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'label', 'value', 'disabled', 'disabled_style', 'disabled_className', 'className', 'selected_className', 'style', 'selected_style']

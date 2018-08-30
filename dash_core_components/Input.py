@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'name': {'nullable': True, 'type': 'string'}, 'selectionDirection': {'nullable': True, 'type': 'string'}, 'className': {'nullable': True, 'type': 'string'}, 'dashEvents': {'nullable': True, 'allowed': [None, 'blur', 'change']}, 'multiple': {'nullable': True, 'type': 'string'}, 'style': {'nullable': True, 'type': 'dict'}, 'inputmode': {'nullable': True, 'allowed': [None, 'verbatim', 'latin', 'latin-name', 'latin-prose', 'full-width-latin', 'kana', 'katakana', 'numeric', 'tel', 'email', 'url']}, 'selectionEnd': {'nullable': True, 'type': 'string'}, 'max': {'nullable': True, 'type': 'string'}, 'type': {'nullable': True, 'allowed': [None, 'text', 'number', 'password', 'email', 'range', 'search', 'tel', 'url', 'hidden']}, 'spellcheck': {'nullable': True, 'type': 'string'}, 'value': {'nullable': True, 'type': 'string'}, 'size': {'nullable': True, 'type': 'string'}, 'placeholder': {'nullable': True, 'type': 'string'}, 'required': {'nullable': True, 'type': 'string'}, 'maxlength': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'selectionStart': {'nullable': True, 'type': 'string'}, 'disabled': {'nullable': True, 'type': 'boolean'}, 'step': {'nullable': True, 'type': 'string'}, 'autofocus': {'nullable': True, 'type': 'string'}, 'list': {'nullable': True, 'type': 'string'}, 'setProps': {'nullable': True}, 'fireEvent': {'nullable': True}, 'autocomplete': {'nullable': True, 'type': 'string'}, 'readonly': {'nullable': True, 'type': 'string'}, 'min': {'nullable': True, 'type': 'string'}, 'pattern': {'nullable': True, 'type': 'string'}, 'minlength': {'nullable': True, 'type': 'string'}}
+
 class Input(Component):
     """A Input component.
 A basic HTML input control for entering text, numbers, or passwords.
@@ -47,6 +50,7 @@ hidden, checkbox, radio, file, or a button type.
 - step (string; optional): Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
 
 Available events: 'blur', 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, type=Component.UNDEFINED, autocomplete=Component.UNDEFINED, autofocus=Component.UNDEFINED, disabled=Component.UNDEFINED, inputmode=Component.UNDEFINED, list=Component.UNDEFINED, max=Component.UNDEFINED, maxlength=Component.UNDEFINED, min=Component.UNDEFINED, minlength=Component.UNDEFINED, multiple=Component.UNDEFINED, name=Component.UNDEFINED, pattern=Component.UNDEFINED, placeholder=Component.UNDEFINED, readonly=Component.UNDEFINED, required=Component.UNDEFINED, selectionDirection=Component.UNDEFINED, selectionEnd=Component.UNDEFINED, selectionStart=Component.UNDEFINED, size=Component.UNDEFINED, spellcheck=Component.UNDEFINED, step=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step']

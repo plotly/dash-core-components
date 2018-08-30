@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'className': {'nullable': True, 'type': 'string'}, 'dashEvents': {'nullable': True, 'allowed': [None, 'change']}, 'labelStyle': {'nullable': True, 'type': 'dict'}, 'labelClassName': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'style': {'nullable': True, 'type': 'dict'}, 'setProps': {'nullable': True}, 'inputClassName': {'nullable': True, 'type': 'string'}, 'fireEvent': {'nullable': True}, 'value': {'nullable': True, 'type': 'string'}, 'options': {'schema': {'schema': {'disabled': {'nullable': True, 'type': 'boolean'}, 'label': {'nullable': True, 'type': 'string'}, 'value': {'nullable': True, 'type': 'string'}}, 'allow_unknown': False, 'nullable': True, 'type': 'dict'}, 'nullable': True, 'type': 'list', 'allow_unknown': False}, 'inputStyle': {'nullable': True, 'type': 'dict'}}
+
 class RadioItems(Component):
     """A RadioItems component.
 RadioItems is a component that encapsulates several radio item inputs.
@@ -24,6 +27,7 @@ Keyword arguments:
  and the option's label
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']

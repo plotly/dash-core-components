@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'setProps': {'nullable': True}, 'disabled': {'nullable': True, 'type': 'boolean'}, 'clearable': {'nullable': True, 'type': 'boolean'}, 'multi': {'nullable': True, 'type': 'boolean'}, 'placeholder': {'nullable': True, 'type': 'string'}, 'className': {'nullable': True, 'type': 'string'}, 'dashEvents': {'nullable': True, 'allowed': [None, 'change']}, 'searchable': {'nullable': True, 'type': 'boolean'}, 'options': {'schema': {'schema': {'disabled': {'nullable': True, 'type': 'boolean'}, 'label': {'nullable': True, 'type': 'string'}, 'value': {'nullable': True, 'type': 'string'}}, 'allow_unknown': False, 'nullable': True, 'type': 'dict'}, 'nullable': True, 'type': 'list', 'allow_unknown': False}, 'id': {'nullable': True, 'type': 'string'}, 'value': {'anyof': [{'nullable': True, 'type': 'string'}, {'schema': {'nullable': True, 'type': 'string'}, 'allow_unknown': False, 'nullable': True, 'type': 'list'}], 'nullable': True}}
+
 class Dropdown(Component):
     """A Dropdown component.
 Dropdown is an interactive dropdown element for selecting one or more
@@ -33,6 +36,7 @@ the selected value.
 - searchable (boolean; optional): Whether to enable the searching feature or not
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable']

@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'show_outside_days': {'nullable': True, 'type': 'boolean'}, 'initial_visible_month': {'nullable': True, 'type': 'string'}, 'month_format': {'nullable': True, 'type': 'string'}, 'dashEvents': {'nullable': True, 'allowed': [None, 'change']}, 'display_format': {'nullable': True, 'type': 'string'}, 'stay_open_on_select': {'nullable': True, 'type': 'boolean'}, 'is_RTL': {'nullable': True, 'type': 'boolean'}, 'reopen_calendar_on_clear': {'nullable': True, 'type': 'boolean'}, 'first_day_of_week': {'nullable': True, 'allowed': [None, '0', '1', '2', '3', '4', '5', '6']}, 'disabled': {'nullable': True, 'type': 'boolean'}, 'day_size': {'nullable': True, 'type': 'number'}, 'min_date_allowed': {'nullable': True, 'type': 'string'}, 'date': {'nullable': True, 'type': 'string'}, 'calendar_orientation': {'nullable': True, 'allowed': [None, 'vertical', 'horizontal']}, 'placeholder': {'nullable': True, 'type': 'string'}, 'with_full_screen_portal': {'nullable': True, 'type': 'boolean'}, 'max_date_allowed': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'setProps': {'nullable': True}, 'clearable': {'nullable': True, 'type': 'boolean'}, 'number_of_months_shown': {'nullable': True, 'type': 'number'}, 'with_portal': {'nullable': True, 'type': 'boolean'}}
+
 class DatePickerSingle(Component):
     """A DatePickerSingle component.
 DatePickerSingle is a tailor made component designed for selecting
@@ -67,6 +70,7 @@ not a small "x" appears on the right of the dropdown that removes
 the selected value.
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, date=Component.UNDEFINED, min_date_allowed=Component.UNDEFINED, max_date_allowed=Component.UNDEFINED, initial_visible_month=Component.UNDEFINED, day_size=Component.UNDEFINED, calendar_orientation=Component.UNDEFINED, is_RTL=Component.UNDEFINED, placeholder=Component.UNDEFINED, reopen_calendar_on_clear=Component.UNDEFINED, number_of_months_shown=Component.UNDEFINED, with_portal=Component.UNDEFINED, with_full_screen_portal=Component.UNDEFINED, first_day_of_week=Component.UNDEFINED, stay_open_on_select=Component.UNDEFINED, show_outside_days=Component.UNDEFINED, month_format=Component.UNDEFINED, display_format=Component.UNDEFINED, disabled=Component.UNDEFINED, clearable=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'day_size', 'calendar_orientation', 'is_RTL', 'placeholder', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']

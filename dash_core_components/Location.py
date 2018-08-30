@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'refresh': {'nullable': True, 'type': 'boolean'}, 'pathname': {'nullable': True, 'type': 'string'}, 'search': {'nullable': True, 'type': 'string'}, 'href': {'nullable': True, 'type': 'string'}, 'hash': {'nullable': True, 'type': 'string'}, 'id': {'required': True, 'nullable': True, 'type': 'string'}}
+
 class Location(Component):
     """A Location component.
 Update and track the current window.location object through the window.history state.
@@ -17,6 +20,7 @@ Keyword arguments:
 - refresh (boolean; optional): Refresh the page when the location is updated?
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.REQUIRED, pathname=Component.UNDEFINED, search=Component.UNDEFINED, hash=Component.UNDEFINED, href=Component.UNDEFINED, refresh=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']

@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'last_modified': {'anyof': [{'nullable': True, 'type': 'number'}, {'schema': {'nullable': True, 'type': 'number'}, 'allow_unknown': False, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'min_size': {'nullable': True, 'type': 'number'}, 'accept': {'nullable': True, 'type': 'string'}, 'className_reject': {'nullable': True, 'type': 'string'}, 'max_size': {'nullable': True, 'type': 'number'}, 'disable_click': {'nullable': True, 'type': 'boolean'}, 'className': {'nullable': True, 'type': 'string'}, 'className_disabled': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'style_disabled': {'nullable': True, 'type': 'dict'}, 'multiple': {'nullable': True, 'type': 'boolean'}, 'contents': {'anyof': [{'nullable': True, 'type': 'string'}, {'schema': {'nullable': True, 'type': 'string'}, 'allow_unknown': False, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'className_active': {'nullable': True, 'type': 'string'}, 'style': {'nullable': True, 'type': 'dict'}, 'disabled': {'nullable': True, 'type': 'boolean'}, 'style_active': {'nullable': True, 'type': 'dict'}, 'filename': {'anyof': [{'nullable': True, 'type': 'string'}, {'schema': {'nullable': True, 'type': 'string'}, 'allow_unknown': False, 'nullable': True, 'type': 'list'}], 'nullable': True}, 'setProps': {'nullable': True}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'schema': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}]}, 'nullable': True, 'type': 'list'}], 'nullable': True}, {'nullable': True, 'type': 'string'}], 'nullable': True}, 'style_reject': {'nullable': True, 'type': 'dict'}}
+
 class Upload(Component):
     """A Upload component.
 
@@ -39,6 +42,7 @@ See: https://github.com/react-dropzone/react-dropzone/issues/276
 - style_disabled (dict; optional): CSS styles if disabled
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, contents=Component.UNDEFINED, filename=Component.UNDEFINED, last_modified=Component.UNDEFINED, accept=Component.UNDEFINED, disabled=Component.UNDEFINED, disable_click=Component.UNDEFINED, max_size=Component.UNDEFINED, min_size=Component.UNDEFINED, multiple=Component.UNDEFINED, className=Component.UNDEFINED, className_active=Component.UNDEFINED, className_reject=Component.UNDEFINED, className_disabled=Component.UNDEFINED, style=Component.UNDEFINED, style_active=Component.UNDEFINED, style_reject=Component.UNDEFINED, style_disabled=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']

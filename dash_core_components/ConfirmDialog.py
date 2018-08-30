@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'submit_n_clicks_timestamp': {'nullable': True, 'type': 'number'}, 'cancel_n_clicks': {'nullable': True, 'type': 'number'}, 'key': {'nullable': True, 'type': 'string'}, 'setProps': {'nullable': True}, 'displayed': {'nullable': True, 'type': 'boolean'}, 'cancel_n_clicks_timestamp': {'nullable': True, 'type': 'number'}, 'message': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'submit_n_clicks': {'nullable': True, 'type': 'number'}}
+
 class ConfirmDialog(Component):
     """A ConfirmDialog component.
 ConfirmDialog is used to display the browser's native "confirm" modal,
@@ -21,6 +24,7 @@ Keyword arguments:
 - key (string; optional)
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, message=Component.UNDEFINED, submit_n_clicks=Component.UNDEFINED, submit_n_clicks_timestamp=Component.UNDEFINED, cancel_n_clicks=Component.UNDEFINED, cancel_n_clicks_timestamp=Component.UNDEFINED, displayed=Component.UNDEFINED, key=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed', 'key']
