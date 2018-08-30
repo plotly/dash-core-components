@@ -15,6 +15,9 @@ import dash_table_experiments as dt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from textwrap import dedent
 try:
@@ -518,15 +521,18 @@ class Tests(IntegrationTests):
         tab_one = self.wait_for_element_by_css_selector('#tab-1')
         tab_two = self.wait_for_element_by_css_selector('#tab-2')
 
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "tab-1")),
+            EC.element_to_be_clickable((By.ID, "tab-2"))
+        )
+
         self.snapshot("Tabs with Graph - initial (graph should not resize)")
 
         tab_two.click()
-        time.sleep(1)
 
         self.snapshot("Tabs with Graph - clicked tab 2 (graph should not resize)")
 
         tab_one.click()
-        time.sleep(1)
 
         self.snapshot("Tabs with Graph - clicked tab 1 (graph should not resize)")
 
