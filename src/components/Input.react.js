@@ -54,7 +54,7 @@ export default class Input extends Component {
                     }
                 }
                 onClick={ // For the stepper increment to update the typed value
-                  e => {
+                  () => {
                     this.setState({value: this.state.typed});
                   }
                 }
