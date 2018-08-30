@@ -522,7 +522,6 @@ class Tests(IntegrationTests):
         tab_two = self.wait_for_element_by_css_selector('#tab-2')
 
         WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "tab-1")),
             EC.element_to_be_clickable((By.ID, "tab-2"))
         )
 
@@ -531,6 +530,10 @@ class Tests(IntegrationTests):
         tab_two.click()
 
         self.snapshot("Tabs with Graph - clicked tab 2 (graph should not resize)")
+
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "tab-1"))
+        )
 
         tab_one.click()
 
