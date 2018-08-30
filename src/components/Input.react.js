@@ -32,7 +32,8 @@ export default class Input extends Component {
         const {value} = this.state.value;
         return (
             <input
-                onBlur={ // Fires when the focus on the component is lost (i.e. click somewhere else or tab)
+                onBlur={ // Fires when the focus on the component is lost
+                         // (i.e. click somewhere else or tab)
                     () => {
                         this.setState({value: this.state.typed});
                         if (setProps) {
@@ -43,15 +44,19 @@ export default class Input extends Component {
                                 setProps({value: this.state.typed});
                             }
                         }
-
                         if (fireEvent) fireEvent({event: 'blur'});
                     }
                 }
-                onChange={ // Fires at every modification inside the input component
+                onChange={
                     e => {
                         this.setState({typed: e.target.value});
                         if (fireEvent) fireEvent({event: 'change'});
                     }
+                }
+                onClick={ // For the stepper increment to update the typed value
+                  e => {
+                    this.setState({value: this.state.typed});
+                  }
                 }
                 value={value}
                 {...omit(['fireEvent', 'setProps', 'value'], this.props)}
