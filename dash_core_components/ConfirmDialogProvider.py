@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'submit_n_clicks_timestamp': {'nullable': True, 'type': 'number'}, 'cancel_n_clicks': {'nullable': True, 'type': 'number'}, 'setProps': {'nullable': True}, 'displayed': {'nullable': True, 'type': 'boolean'}, 'children': {'nullable': True, 'type': ('boolean', 'number', 'string', 'dict', 'list')}, 'cancel_n_clicks_timestamp': {'nullable': True, 'type': 'number'}, 'message': {'nullable': True, 'type': 'string'}, 'id': {'nullable': True, 'type': 'string'}, 'submit_n_clicks': {'nullable': True, 'type': 'number'}}
+schema = {'id': {'type': 'string'}, 'children': {'type': ('boolean', 'number', 'string', 'dict', 'list')}, 'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'submit_n_clicks': {'type': 'number'}, 'displayed': {'type': 'boolean'}, 'message': {'type': 'string'}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'setProps': {}}
 
 class ConfirmDialogProvider(Component):
     """A ConfirmDialogProvider component.

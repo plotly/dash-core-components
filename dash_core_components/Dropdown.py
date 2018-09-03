@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'setProps': {'nullable': True}, 'disabled': {'nullable': True, 'type': 'boolean'}, 'clearable': {'nullable': True, 'type': 'boolean'}, 'multi': {'nullable': True, 'type': 'boolean'}, 'placeholder': {'nullable': True, 'type': 'string'}, 'className': {'nullable': True, 'type': 'string'}, 'dashEvents': {'nullable': True, 'allowed': [None, 'change']}, 'searchable': {'nullable': True, 'type': 'boolean'}, 'options': {'schema': {'schema': {'disabled': {'nullable': True, 'type': 'boolean'}, 'label': {'nullable': True, 'type': 'string'}, 'value': {'nullable': True, 'type': 'string'}}, 'allow_unknown': False, 'nullable': True, 'type': 'dict'}, 'nullable': True, 'type': 'list', 'allow_unknown': False}, 'id': {'nullable': True, 'type': 'string'}, 'value': {'anyof': [{'nullable': True, 'type': 'string'}, {'schema': {'nullable': True, 'type': 'string'}, 'allow_unknown': False, 'nullable': True, 'type': 'list'}], 'nullable': True}}
+schema = {'id': {'type': 'string'}, 'value': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}]}, 'searchable': {'type': 'boolean'}, 'options': {'type': 'list', 'schema': {'type': 'dict', 'nullable': False, 'allow_unknown': False, 'schema': {'label': {'type': 'string'}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}}}}, 'dashEvents': {'type': ('string', 'number'), 'allowed': ['change']}, 'setProps': {}, 'className': {'type': 'string'}, 'placeholder': {'type': 'string'}, 'clearable': {'type': 'boolean'}, 'disabled': {'type': 'boolean'}, 'multi': {'type': 'boolean'}}
 
 class Dropdown(Component):
     """A Dropdown component.
