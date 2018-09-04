@@ -5,7 +5,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Location(Component):
     """A Location component.
-Update and track the current window.location object through the window.history state.
+Update and track the current window.location object through the window.history state.
 Use in conjunction with the `dash_core_components.Link` component to make apps with multiple pages.
 
 Keyword arguments:

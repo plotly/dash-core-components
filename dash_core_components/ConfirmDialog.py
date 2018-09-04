@@ -5,9 +5,9 @@ from dash.development.base_component import Component, _explicitize_args
 
 class ConfirmDialog(Component):
     """A ConfirmDialog component.
-ConfirmDialog is used to display the browser's native "confirm" modal,
-with an optional message and two buttons ("OK" and "Cancel").
-This ConfirmDialog can be used in conjunction with buttons when the user
+ConfirmDialog is used to display the browser's native "confirm" modal,
+with an optional message and two buttons ("OK" and "Cancel").
+This ConfirmDialog can be used in conjunction with buttons when the user
 is performing an action that should require an extra step of verification.
 
 Keyword arguments:
