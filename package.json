@@ -10,7 +10,7 @@
   "scripts": {
     "generate-python-classes": "python -c \"import dash; dash.development.component_loader.generate_classes('dash_core_components', 'dash_core_components/metadata.json');\"",
     "install-local": "npm run copy-lib && python setup.py install",
-    "prepublish": "npm test && npm run build:js && npm run build:py",
+    "prepublish": "npm test && npm run build:js && npm run build:js-dev && npm run build:py",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist && twine upload --sign --skip-existing",
     "start": "webpack-serve ./webpack.serve.config.js --open",
