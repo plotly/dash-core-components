@@ -115,7 +115,7 @@ export default class Tabs extends Component {
             // if no value specified on Tabs component, set it to the first child's (which should be a Tab component) value
             const value = this.props.children[0].props.children.props.value;
             this.state = {
-                selected: value
+                selected: value || 'tab-1'
             };
             if(this.props.setProps) {
                 // updating the prop in Dash is necessary so that callbacks work
@@ -200,16 +200,14 @@ export default class Tabs extends Component {
             });
 
             selectedTab = this.props.children.filter(child => {
-                window.console.log('selected', this.state.selected);
                 return child.props.children.props.value === this.state.selected;
             });
+            window.console.log('selected', this.state.selected);
             window.console.log('selectedTab[0]', selectedTab[0]);
-            if (!selectedTab[0]) {
+            if ('props' in selectedTab[0]) {
                 selectedTabContent = selectedTab[0].props.children;
             }
         }
-
-        window.console.log('selectedTabContent', selectedTabContent);
 
         const tabContainerClass = this.props.vertical
             ? 'tab-container tab-container--vert'
