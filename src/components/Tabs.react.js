@@ -111,7 +111,7 @@ export default class Tabs extends Component {
     constructor(props) {
         super(props);
 
-        if (this.props.value === undefined) {
+        if (!this.props.value) {
             // if no value specified on Tabs component, set it to the first child's (which should be a Tab component) value
             const value = this.props.children[0].props.children.props.value;
             this.state = {
@@ -140,7 +140,7 @@ export default class Tabs extends Component {
     }
     componentWillReceiveProps(newProps) {
         const value = newProps.value;
-        if (value !== undefined) {
+        if (!value) {
             this.setState({
                 selected: value
             });
@@ -204,7 +204,7 @@ export default class Tabs extends Component {
                 return child.props.children.props.value === this.state.selected;
             });
             window.console.log('selectedTab[0]', selectedTab[0]);
-            if (selectedTab[0] !== undefined) {
+            if (!selectedTab[0]) {
                 selectedTabContent = selectedTab[0].props.children;
             }
         }
