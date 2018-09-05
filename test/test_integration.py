@@ -545,6 +545,35 @@ class Tests(IntegrationTests):
 
         self.snapshot("Tabs 2 rendered ")
 
+    def test_tabs_without_value(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.H1('Dash Tabs component demo'),
+            dcc.Tabs(id="tabs-example", children=[
+                dcc.Tab(label='Tab One', value='tab-1-example'),
+                dcc.Tab(label='Tab Two', value='tab-2-example'),
+            ]),
+            html.Div(id='tabs-content-example')
+        ])
+
+
+        @app.callback(Output('tabs-content-example', 'children'),
+                    [Input('tabs-example', 'value')])
+        def render_content(tab):
+            if tab == 'tab-1-example':
+                return html.H3('Default selected Tab content 1')
+            elif tab == 'tab-2-example':
+                return html.H3('Tab content 2')
+
+        self.startServer(app=app)
+
+        default_tab_content = self.wait_for_element_by_css_selector('#tabs-content-example')
+
+        self.assertEqual(default_tab_content.text, 'Default selected Tab content 1')
+
+        self.snapshot('Tab 1 should be selected by default')
+
     def test_location_link(self):
         app = dash.Dash(__name__)
 

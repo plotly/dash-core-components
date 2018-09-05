@@ -109,10 +109,24 @@ const EnhancedTab = ({
 export default class Tabs extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selected: this.props.value || 'tab-1'
-        };
 
+        if (this.props.value === undefined) {
+            // if no value specified on Tabs component, set it to the first child's (which should be a Tab component) value
+            const value = this.props.children[0].props.children.props.value;
+            this.state = {
+                selected: value
+            };
+            if(this.props.setProps) {
+                // updating the prop in Dash is necessary so that callbacks work
+                this.props.setProps({
+                    value: value
+                });
+            }
+        } else {
+            this.state = {
+                selected: this.props.value
+            };
+        }
         this.selectHandler = this.selectHandler.bind(this);
     }
     selectHandler(value) {
@@ -125,9 +139,11 @@ export default class Tabs extends Component {
     }
     componentWillReceiveProps(newProps) {
         const value = newProps.value;
-        this.setState({
-            selected: value
-        });
+        if (value !== undefined) {
+            this.setState({
+                selected: value
+            });
+        }
     }
     render() {
         let EnhancedTabs;
@@ -183,12 +199,16 @@ export default class Tabs extends Component {
             });
 
             selectedTab = this.props.children.filter(child => {
+                window.console.log('selected', this.state.selected);
                 return child.props.children.props.value === this.state.selected;
             });
-            if(selectedTab[0] !== undefined) {
+            window.console.log('selectedTab[0]', selectedTab[0]);
+            if (selectedTab[0] !== undefined) {
                 selectedTabContent = selectedTab[0].props.children;
             }
         }
+
+        window.console.log('selectedTabContent', selectedTabContent);
 
         const tabContainerClass = this.props.vertical
             ? 'tab-container tab-container--vert'
@@ -220,7 +240,7 @@ export default class Tabs extends Component {
                         .content_className || ''}`}
                     style={this.props.content_style}
                 >
-                    {selectedTabContent || ''}
+                    {selectedTabContent || 'just a box'}
                 </div>
                 <style jsx>{`
                     .tab-parent {
