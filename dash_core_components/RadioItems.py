@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'labelClassName': {'type': 'string'}, 'options': {'type': 'list', 'schema': {'type': 'dict', 'nullable': False, 'allow_unknown': False, 'schema': {'label': {'type': 'string'}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}}}}, 'fireEvent': {}, 'labelStyle': {'type': 'dict'}, 'inputClassName': {'type': 'string'}, 'id': {'type': 'string'}, 'value': {'type': 'string'}, 'className': {'type': 'string'}, 'dashEvents': {'type': ('string', 'number'), 'allowed': ['change']}, 'setProps': {}, 'style': {'type': 'dict'}, 'inputStyle': {'type': 'dict'}}
+schema = {'id': {'type': 'string'}, 'options': {'type': 'list', 'schema': {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'label': {'type': 'string'}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}}}}, 'value': {'type': 'string'}, 'style': {'type': 'dict'}, 'className': {'type': 'string'}, 'inputStyle': {'type': 'dict'}, 'inputClassName': {'type': 'string'}, 'labelStyle': {'type': 'dict'}, 'labelClassName': {'type': 'string'}, 'fireEvent': {}, 'setProps': {}, 'dashEvents': {'allowed': ['change'], 'type': ('string', 'number')}}
 
 class RadioItems(Component):
     """A RadioItems component.

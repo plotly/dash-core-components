@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'className': {'type': 'string'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}]}, 'containerProps': {'type': 'dict'}}
+schema = {'id': {'type': 'string'}, 'className': {'type': 'string'}, 'containerProps': {'type': 'dict'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}}
 
 class Markdown(Component):
     """A Markdown component.
@@ -12,7 +12,7 @@ A component that renders Markdown text as specified by the
 CommonMark spec.
 
 Keyword arguments:
-- children (string | list; optional): A markdown string (or array of strings) that adhreres to the CommonMark spec
+- children (string | list | a value equal to: null; optional): A markdown string (or array of strings) that adhreres to the CommonMark spec
 - id (string; optional)
 - className (string; optional): Class name of the container element
 - containerProps (dict; optional): An object containing custom element props to put on the container

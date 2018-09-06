@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'children': {'type': ('boolean', 'number', 'string', 'dict', 'list')}, 'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'submit_n_clicks': {'type': 'number'}, 'displayed': {'type': 'boolean'}, 'message': {'type': 'string'}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'setProps': {}}
+schema = {'id': {'type': 'string'}, 'message': {'type': 'string'}, 'submit_n_clicks': {'type': 'number'}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'displayed': {'type': 'boolean'}, 'setProps': {}, 'children': {'anyof': [{'type': ('boolean', 'number', 'string', 'dict', 'list')}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}}
 
 class ConfirmDialogProvider(Component):
     """A ConfirmDialogProvider component.
@@ -20,7 +20,7 @@ dcc.ConfirmDialogProvider(
 ```
 
 Keyword arguments:
-- children (boolean | number | string | dict | list; optional): The children to hijack clicks from and display the popup.
+- children (boolean | number | string | dict | list | a value equal to: null; optional): The children to hijack clicks from and display the popup.
 - id (string; optional)
 - message (string; optional): Message to show in the popup.
 - submit_n_clicks (number; optional): Number of times the submit was clicked

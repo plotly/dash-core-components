@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'mobile_breakpoint': {'type': 'number'}, 'parent_className': {'type': 'string'}, 'parent_style': {'type': 'dict'}, 'vertical': {'type': 'boolean'}, 'content_style': {'type': 'dict'}, 'colors': {'type': 'dict', 'nullable': False, 'allow_unknown': False, 'schema': {'background': {'type': 'string'}, 'border': {'type': 'string'}, 'primary': {'type': 'string'}}}, 'content_className': {'type': 'string'}, 'id': {'type': 'string'}, 'value': {'type': 'string'}, 'className': {'type': 'string'}, 'children': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, 'style': {'type': 'dict'}}
+schema = {'id': {'type': 'string'}, 'value': {'type': 'string'}, 'className': {'type': 'string'}, 'content_className': {'type': 'string'}, 'parent_className': {'type': 'string'}, 'style': {'type': 'dict'}, 'parent_style': {'type': 'dict'}, 'content_style': {'type': 'dict'}, 'vertical': {'type': 'boolean'}, 'mobile_breakpoint': {'type': 'number'}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'colors': {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'border': {'type': 'string'}, 'primary': {'type': 'string'}, 'background': {'type': 'string'}}}}
 
 class Tabs(Component):
     """A Tabs component.
@@ -13,7 +13,7 @@ can be dcc.Tab components, which can hold a label that will be displayed as a ta
 children components that will be that tab's content.
 
 Keyword arguments:
-- children (a list of or a singular dash component, string or number; optional): Array that holds Tab components
+- children (a list of or a singular dash component, string or number | a value equal to: null; optional): Array that holds Tab components
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.

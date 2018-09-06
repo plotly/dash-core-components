@@ -4,14 +4,14 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'refresh': {'type': 'boolean'}, 'className': {'type': 'string'}, 'href': {'type': 'string'}, 'children': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, 'style': {'type': 'dict'}}
+schema = {'href': {'type': 'string'}, 'refresh': {'type': 'boolean'}, 'className': {'type': 'string'}, 'style': {'type': 'dict'}, 'id': {'type': 'string'}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}}
 
 class Link(Component):
     """A Link component.
 
 
 Keyword arguments:
-- children (a list of or a singular dash component, string or number; optional)
+- children (a list of or a singular dash component, string or number | a value equal to: null; optional)
 - href (string; optional)
 - refresh (boolean; optional)
 - className (string; optional)

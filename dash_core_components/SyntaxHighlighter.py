@@ -4,14 +4,14 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'customStyle': {'type': 'dict'}, 'wrapLines': {'type': 'boolean'}, 'language': {'type': 'string'}, 'lineNumberStyle': {'type': 'dict'}, 'showLineNumbers': {'type': 'boolean'}, 'lineNumberContainerStyle': {'type': 'dict'}, 'lineStyle': {'type': 'dict'}, 'id': {'type': 'string'}, 'codeTagProps': {'type': 'dict'}, 'useInlineStyles': {'type': 'boolean'}, 'theme': {'type': ('string', 'number'), 'allowed': ['light', 'dark']}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}]}, 'startingLineNumber': {'type': 'number'}}
+schema = {'id': {'type': 'string'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'language': {'type': 'string'}, 'theme': {'allowed': ['light', 'dark'], 'type': ('string', 'number')}, 'customStyle': {'type': 'dict'}, 'codeTagProps': {'type': 'dict'}, 'useInlineStyles': {'type': 'boolean'}, 'showLineNumbers': {'type': 'boolean'}, 'startingLineNumber': {'type': 'number'}, 'lineNumberContainerStyle': {'type': 'dict'}, 'lineNumberStyle': {'type': 'dict'}, 'wrapLines': {'type': 'boolean'}, 'lineStyle': {'type': 'dict'}}
 
 class SyntaxHighlighter(Component):
     """A SyntaxHighlighter component.
 A component for pretty printing code.
 
 Keyword arguments:
-- children (string | list; optional): The text to display and highlight
+- children (string | list | a value equal to: null; optional): The text to display and highlight
 - id (string; optional)
 - language (string; optional): the language to highlight code in.
 - theme (a value equal to: 'light', 'dark'; optional): theme: light or dark

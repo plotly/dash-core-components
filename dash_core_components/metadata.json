@@ -324,7 +324,21 @@
       },
       "children": {
         "type": {
-          "name": "any"
+          "name": "union",
+          "value": [
+            {
+              "name": "any"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": "The children to hijack clicks from and display the popup."
@@ -1932,7 +1946,21 @@
       },
       "children": {
         "type": {
-          "name": "node"
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": ""
@@ -2043,6 +2071,15 @@
               "value": {
                 "name": "string"
               }
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },
@@ -2556,6 +2593,15 @@
               "value": {
                 "name": "string"
               }
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },
@@ -2673,7 +2719,21 @@
       },
       "children": {
         "type": {
-          "name": "node"
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": "The content of the tab - will only be displayed if this tab is selected"
@@ -2838,7 +2898,21 @@
       },
       "children": {
         "type": {
-          "name": "node"
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": "Array that holds Tab components"
@@ -3182,6 +3256,15 @@
             },
             {
               "name": "string"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },

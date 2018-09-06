@@ -4,14 +4,14 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'value': {'type': 'string'}, 'selected_className': {'type': 'string'}, 'children': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, 'disabled_className': {'type': 'string'}, 'label': {}, 'selected_style': {'type': 'dict'}, 'className': {'type': 'string'}, 'disabled_style': {'type': 'dict'}, 'style': {'type': 'dict'}, 'disabled': {'type': 'boolean'}}
+schema = {'id': {'type': 'string'}, 'label': {}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}, 'disabled_style': {'type': 'dict'}, 'disabled_className': {'type': 'string'}, 'className': {'type': 'string'}, 'selected_className': {'type': 'string'}, 'style': {'type': 'dict'}, 'selected_style': {'type': 'dict'}}
 
 class Tab(Component):
     """A Tab component.
 
 
 Keyword arguments:
-- children (a list of or a singular dash component, string or number; optional): The content of the tab - will only be displayed if this tab is selected
+- children (a list of or a singular dash component, string or number | a value equal to: null; optional): The content of the tab - will only be displayed if this tab is selected
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.

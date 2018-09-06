@@ -4,14 +4,14 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'min_size': {'type': 'number'}, 'style_reject': {'type': 'dict'}, 'className_reject': {'type': 'string'}, 'accept': {'type': 'string'}, 'multiple': {'type': 'boolean'}, 'style_active': {'type': 'dict'}, 'className_disabled': {'type': 'string'}, 'className_active': {'type': 'string'}, 'max_size': {'type': 'number'}, 'disable_click': {'type': 'boolean'}, 'id': {'type': 'string'}, 'filename': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}]}, 'className': {'type': 'string'}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'type': 'string'}]}, 'last_modified': {'anyof': [{'type': 'number'}, {'type': 'list', 'schema': {'type': 'number', 'nullable': False}}]}, 'setProps': {}, 'contents': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}]}, 'style': {'type': 'dict'}, 'disabled': {'type': 'boolean'}, 'style_disabled': {'type': 'dict'}}
+schema = {'id': {'type': 'string'}, 'contents': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}]}, 'filename': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}]}, 'last_modified': {'anyof': [{'type': 'number'}, {'type': 'list', 'schema': {'type': 'number', 'nullable': False}}]}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'type': 'string'}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'accept': {'type': 'string'}, 'disabled': {'type': 'boolean'}, 'disable_click': {'type': 'boolean'}, 'max_size': {'type': 'number'}, 'min_size': {'type': 'number'}, 'multiple': {'type': 'boolean'}, 'className': {'type': 'string'}, 'className_active': {'type': 'string'}, 'className_reject': {'type': 'string'}, 'className_disabled': {'type': 'string'}, 'style': {'type': 'dict'}, 'style_active': {'type': 'dict'}, 'style_reject': {'type': 'dict'}, 'style_disabled': {'type': 'dict'}, 'setProps': {}}
 
 class Upload(Component):
     """A Upload component.
 
 
 Keyword arguments:
-- children (a list of or a singular dash component, string or number | string; optional): Contents of the upload component
+- children (a list of or a singular dash component, string or number | string | a value equal to: null; optional): Contents of the upload component
 - id (string; optional): ID of the component. Used to identify component
 in Dash callback functions.
 - contents (string | list; optional): The contents of the uploaded file as a binary string

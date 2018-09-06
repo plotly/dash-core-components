@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'fireEvent': {}, 'dashEvents': {'type': ('string', 'number'), 'allowed': ['interval']}, 'n_intervals': {'type': 'number'}, 'setProps': {}, 'max_intervals': {'type': 'number'}, 'disabled': {'type': 'boolean'}, 'interval': {'type': 'number'}}
+schema = {'id': {'type': 'string'}, 'interval': {'type': 'number'}, 'disabled': {'type': 'boolean'}, 'n_intervals': {'type': 'number'}, 'max_intervals': {'type': 'number'}, 'fireEvent': {}, 'setProps': {}, 'dashEvents': {'allowed': ['interval'], 'type': ('string', 'number')}}
 
 class Interval(Component):
     """A Interval component.

@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'labelClassName': {'type': 'string'}, 'options': {'type': 'list', 'schema': {'type': 'dict', 'nullable': False, 'allow_unknown': False, 'schema': {'label': {'type': 'string'}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}}}}, 'fireEvent': {}, 'labelStyle': {'type': 'dict'}, 'values': {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, 'inputClassName': {'type': 'string'}, 'id': {'type': 'string'}, 'className': {'type': 'string'}, 'dashEvents': {'type': ('string', 'number'), 'allowed': ['change']}, 'setProps': {}, 'style': {'type': 'dict'}, 'inputStyle': {'type': 'dict'}}
+schema = {'id': {'type': 'string'}, 'options': {'type': 'list', 'schema': {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'label': {'type': 'string'}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}}}}, 'values': {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, 'className': {'type': 'string'}, 'style': {'type': 'dict'}, 'inputStyle': {'type': 'dict'}, 'inputClassName': {'type': 'string'}, 'labelStyle': {'type': 'dict'}, 'labelClassName': {'type': 'string'}, 'fireEvent': {}, 'setProps': {}, 'dashEvents': {'allowed': ['change'], 'type': ('string', 'number')}}
 
 class Checklist(Component):
     """A Checklist component.
