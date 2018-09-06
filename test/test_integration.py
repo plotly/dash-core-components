@@ -12,7 +12,6 @@ from dash.dependencies import Input, Output, State
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_table_experiments as dt
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException
 
@@ -254,7 +253,7 @@ class Tests(IntegrationTests):
             ),
 
             html.Label('Vertical Tabs'),
-            dcc.Tabs(id="tabs", vertical=True, children=[
+            dcc.Tabs(id="tabs1", vertical=True, children=[
                 dcc.Tab(label='Tab one', children=[
                     html.Div(['Test'])
                 ]),
@@ -619,6 +618,8 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
+        time.sleep(2)
+
         #callback is called twice when defined
         self.assertEqual(
             call_count.value,
@@ -643,7 +644,7 @@ class Tests(IntegrationTests):
         #test if callback is only fired once (offset of 2)
         self.assertEqual(
             call_count.value,
-            2 + 1
+            3
         )
 
     def test_candlestick(self):
@@ -805,7 +806,8 @@ class Tests(IntegrationTests):
                 if not submit_n_clicks and not cancel_n_clicks:
                     return ''
                 count.value += 1
-                if submit_timestamp > cancel_timestamp:
+                if (submit_timestamp and cancel_timestamp is None) or\
+                        (submit_timestamp > cancel_timestamp):
                     return 'confirmed'
                 else:
                     return 'canceled'
@@ -902,3 +904,30 @@ class Tests(IntegrationTests):
         time.sleep(2)
 
         self.driver.switch_to.alert.accept()
+
+    def test_empty_graph(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Button(id='click', children='Click me'),
+            dcc.Graph(
+                id='graph',
+                figure={
+                    'data': [dict(x=[1, 2, 3], y=[1, 2, 3], type='scatter')]
+                }
+            )
+        ])
+
+        @app.callback(dash.dependencies.Output('graph', 'figure'),
+                      [dash.dependencies.Input('click', 'n_clicks')],
+                      [dash.dependencies.State('graph', 'figure')])
+        def render_content(click, prev_graph):
+            if click:
+                return {}
+            return prev_graph
+
+        self.startServer(app)
+        button = self.wait_for_element_by_css_selector('#click')
+        button.click()
+        time.sleep(2)  # Wait for graph to re-render
+        self.snapshot('render-empty-graph')
