@@ -136,7 +136,7 @@ export default class Tabs extends Component {
         }
     }
     parseChildrenToArray() {
-        if (!R.is(Array, this.props.children)) {
+        if (this.props.children && !R.is(Array, this.props.children)) {
             // if dcc.Tabs.children contains just one single element, it gets passed as an object
             // instead of an array - so we put in in a array ourselves!
             this.props.children = [this.props.children];
@@ -163,21 +163,25 @@ export default class Tabs extends Component {
         let selectedTab;
         let selectedTabContent;
 
-        this.parseChildrenToArray();
-
         if (this.props.children) {
+            this.parseChildrenToArray();
+
             const amountOfTabs = this.props.children.length;
 
+            window.console.log('this.props.children', this.props.children);
             EnhancedTabs = this.props.children.map((child, index) => {
                 // TODO: handle components that are not dcc.Tab components (throw error)
                 // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
                 let childProps;
+
+                window.console.log('child', child);
 
                 if (child.props.children) {
                     // if props appears on .children, props are coming from Dash
                     childProps = child.props.children.props;
                 } else {
                     // else props are coming from React (Demo.react.js)
+                    window.console.log('child props', child.props);
                     childProps = child.props;
                 }
 
