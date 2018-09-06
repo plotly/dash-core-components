@@ -2784,6 +2784,13 @@
     "displayName": "Tabs",
     "methods": [
       {
+        "name": "parseChildrenToArray",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
         "name": "selectHandler",
         "docblock": null,
         "modifiers": [],
