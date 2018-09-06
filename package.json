@@ -22,7 +22,7 @@
     "test-debug": "./node_modules/.bin/builder run test-frontend-debug",
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
-    "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && copyfiles package.json dash_core_components && npm run generate-python-classes"
+    "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes"
   },
   "author": "Chris Parmer <chris@plot.ly>",
   "license": "MIT",
