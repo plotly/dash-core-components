@@ -12,6 +12,7 @@ from dash.dependencies import Input, Output, State
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_table_experiments as dt
+from dash.exceptions import PreventUpdate
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException
@@ -257,7 +258,7 @@ class Tests(IntegrationTests):
             ),
 
             html.Label('Vertical Tabs'),
-            dcc.Tabs(id="tabs", vertical=True, children=[
+            dcc.Tabs(id="tabs1", vertical=True, children=[
                 dcc.Tab(label='Tab one', children=[
                     html.Div(['Test'])
                 ]),
@@ -472,9 +473,112 @@ class Tests(IntegrationTests):
 
         self.snapshot('Tabs component with children undefined')
 
-    def test_graph_does_not_resize_in_tabs(self):
+    def test_tabs_render_without_selected(self):
         app = dash.Dash(__name__)
 
+        data = [
+            {'id': 'one', 'value': 1},
+            {'id': 'two', 'value': 2},
+        ]
+
+
+        menu = html.Div([
+            html.Div('one', id='one'),
+            html.Div('two', id='two')
+        ])
+
+        tabs_one = html.Div([
+            dcc.Tabs([
+                dcc.Tab(dcc.Graph(id='graph-one'), label='tab-one-one'),
+            ])
+        ], id='tabs-one', style={'display': 'none'})
+
+        tabs_two = html.Div([
+            dcc.Tabs([
+                dcc.Tab(dcc.Graph(id='graph-two'), label='tab-two-one'),
+            ])
+        ], id='tabs-two', style={'display': 'none'})
+
+
+        app.layout = html.Div([
+            menu,
+            tabs_one,
+            tabs_two
+        ])
+
+        for i in ('one', 'two'):
+
+            @app.callback(Output('tabs-{}'.format(i), 'style'),
+                        [Input(i, 'n_clicks')])
+            def on_click(n_clicks):
+                if n_clicks is None:
+                    raise PreventUpdate
+
+                if n_clicks % 2 == 1:
+                    return {'display': 'block'}
+                return {'display': 'none'}
+
+
+            @app.callback(Output('graph-{}'.format(i), 'figure'),
+                        [Input(i, 'n_clicks')])
+            def on_click(n_clicks):
+                if n_clicks is None:
+                    raise PreventUpdate
+
+                return {
+                    'data': [
+                        {
+                            'x': [1,2,3,4],
+                            'y': [4,3,2,1]
+                        }
+                    ]
+                }
+        
+        self.startServer(app=app)
+
+        button_one = self.wait_for_element_by_css_selector('#one')
+        button_two = self.wait_for_element_by_css_selector('#two')
+
+        button_one.click()
+
+        self.snapshot("Tabs 1 rendered ")
+
+        button_two.click()
+        time.sleep(1)
+
+        self.snapshot("Tabs 2 rendered ")
+
+    def test_tabs_without_value(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.H1('Dash Tabs component demo'),
+            dcc.Tabs(id="tabs-example", children=[
+                dcc.Tab(label='Tab One', value='tab-1-example'),
+                dcc.Tab(label='Tab Two', value='tab-2-example'),
+            ]),
+            html.Div(id='tabs-content-example')
+        ])
+
+
+        @app.callback(Output('tabs-content-example', 'children'),
+                    [Input('tabs-example', 'value')])
+        def render_content(tab):
+            if tab == 'tab-1-example':
+                return html.H3('Default selected Tab content 1')
+            elif tab == 'tab-2-example':
+                return html.H3('Tab content 2')
+
+        self.startServer(app=app)
+
+        default_tab_content = self.wait_for_element_by_css_selector('#tabs-content-example')
+
+        self.assertEqual(default_tab_content.text, 'Default selected Tab content 1')
+
+        self.snapshot('Tab 1 should be selected by default')
+
+    def test_graph_does_not_resize_in_tabs(self):
+        app = dash.Dash(__name__)
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
             dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
@@ -483,7 +587,6 @@ class Tests(IntegrationTests):
             ]),
             html.Div(id='tabs-content-example')
         ])
-
 
         @app.callback(Output('tabs-content-example', 'children'),
                     [Input('tabs-example', 'value')])
@@ -526,7 +629,6 @@ class Tests(IntegrationTests):
         )
 
         self.snapshot("Tabs with Graph - initial (graph should not resize)")
-
         tab_two.click()
 
         self.snapshot("Tabs with Graph - clicked tab 2 (graph should not resize)")
@@ -690,6 +792,8 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
+        time.sleep(2)
+
         #callback is called twice when defined
         self.assertEqual(
             call_count.value,
@@ -714,7 +818,7 @@ class Tests(IntegrationTests):
         #test if callback is only fired once (offset of 2)
         self.assertEqual(
             call_count.value,
-            2 + 1
+            3
         )
 
     def test_candlestick(self):
@@ -825,7 +929,8 @@ class Tests(IntegrationTests):
                 if not submit_n_clicks and not cancel_n_clicks:
                     return ''
                 count.value += 1
-                if submit_timestamp > cancel_timestamp:
+                if (submit_timestamp and cancel_timestamp is None) or\
+                        (submit_timestamp > cancel_timestamp):
                     return 'confirmed'
                 else:
                     return 'canceled'
@@ -922,3 +1027,30 @@ class Tests(IntegrationTests):
         time.sleep(2)
 
         self.driver.switch_to.alert.accept()
+
+    def test_empty_graph(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Button(id='click', children='Click me'),
+            dcc.Graph(
+                id='graph',
+                figure={
+                    'data': [dict(x=[1, 2, 3], y=[1, 2, 3], type='scatter')]
+                }
+            )
+        ])
+
+        @app.callback(dash.dependencies.Output('graph', 'figure'),
+                      [dash.dependencies.Input('click', 'n_clicks')],
+                      [dash.dependencies.State('graph', 'figure')])
+        def render_content(click, prev_graph):
+            if click:
+                return {}
+            return prev_graph
+
+        self.startServer(app)
+        button = self.wait_for_element_by_css_selector('#click')
+        button.click()
+        time.sleep(2)  # Wait for graph to re-render
+        self.snapshot('render-empty-graph')
