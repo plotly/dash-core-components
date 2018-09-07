@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string', 'required': True}, 'pathname': {'type': 'string'}, 'search': {'type': 'string'}, 'hash': {'type': 'string'}, 'href': {'type': 'string'}, 'refresh': {'type': 'boolean'}}
+schema = {'id': {'type': 'string', 'required': True}, 'pathname': {'type': 'string'}, 'search': {'type': 'string'}, 'hash': {'type': 'string'}, 'href': {'type': 'string'}, 'refresh': {'type': 'boolean'}, 'setProps': {}}
 
 class Location(Component):
     """A Location component.
