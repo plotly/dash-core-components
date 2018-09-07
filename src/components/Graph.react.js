@@ -458,7 +458,9 @@ PlotlyGraph.propTypes = {
 }
 
 PlotlyGraph.defaultProps = {
+    /*eslint-disable no-magic-numbers*/
     id: 'graph-' + Math.random().toString(36).substring(2,7),
+    /*eslint-enable no-magic-numbers*/
     clickData: null,
     hoverData: null,
     selectedData: null,
