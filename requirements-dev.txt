@@ -1,6 +1,6 @@
 dash_html_components
 dash_renderer
-dash
+dash==0.27.0-rc4
 percy
 selenium
 mock
