@@ -2,15 +2,121 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.28.2] - 2018-09-07
+### Changed
+- The `Interval` component's `max_interval` prop can now be used to stop/restart the interval. Fixes [#266](https://github.com/plotly/dash-core-components/issues/266)
+### Fixed
+- Fixed bug where Graph would resize randomly when rerendered, for example in a dcc.Tabs component.
+- 
+
+## [0.28.2] - 2018-09-06
+### Fixed
+- Fixed bug in Tabs component where initial tab content wasn't rendering, [#282](https://github.com/plotly/dash-core-components/issues/282)
+- Fixed bug in Tabs component where no default Tab is selected if Tabs.value is empty
+
+## [0.28.1] - 2018-08-29
+### Changed
+- `candlestick` and `OHLC` charts are now plotted using the `Plotly.react` method instead of the `Plotly.newPlot` method.
+### Fixed
+- Fix bug where front-end error was thrown when setting `Graph.figure = {}` (fixes [#260]).
+
+## [0.28.0]
+- Upgraded Plotly.js, the underlying library behind the
+`dash_core_components.Graph` component, to [version 1.40.1](https://github.com/plotly/plotly.js/releases/tag/v1.40.1).
+See https://github.com/plotly/plotly.js/releases/tag/v1.40.1 for the official notes.
+
+As part of plotly.js release:
+### Changed
+- Bump `browserify` to `v16` [#2923]
+- Bump `glslify` to `v6.2.1` [#2923]
+- Use `color-normlize@1.3.0` throughout code base [#2923]
+### Fixed
+- Fix logic for hiding zero lines when they conflict with axis lines [#2936]
+- Fix `exponentformat` values `'e'` and `'E'` on log axes [#2921]
+- Fix dynamic layer ordering of heatmap and carpet traces [#2917]
+- Fix `Plotly.downloadImage` when using graph id or figure object
+as first argument [#2931]
+- Fix regl-based rendering when WebGL buffer dimensions don't match canvas
+dimensions [#2939]
+
+## [0.27.2]
+### Fixed
+- `Tabs.children` can now be undefined, so you can update them dynamically. [#265](https://github.com/plotly/dash-core-components/issues/265)
+- `Tabs` Callback-less version no longer has the 2nd tab selected by default [#262](https://github.com/plotly/dash-core-components/issues/262)
+- Fixes bug with nested `Tabs` [#273](https://github.com/plotly/dash-core-components/issues/273) and [#272](https://github.com/plotly/dash-core-components/issues/272)
+
+## [0.27.1]
+### Fixed
+- `ConfirmDialogProvider` can now be used without a callback. [#241](https://github.com/plotly/dash-core-components/pull/241)
+- `ConfirmDialog`, only fire `submit` when `submit` is clicked. [#242](https://github.com/plotly/dash-core-components/issues/242) fixed in [#241](https://github.com/plotly/dash-core-components/pull/241)
+
+## [0.27.0]
+### Changed
+- `dash_core_components/__init__.py` now imports from python class files rather than generating classes at runtime,
+adding support for IDE autocomplete ect.
+
+## [0.26.0]
+### Added
+- New Tabs and Tab components! [#213](https://github.com/plotly/dash-core-components/pull/213#pullrequestreview-135893345)
+
+## [0.25.1]
+### Fixed
+- `__init__` version formatting for unpkg.
+
+## [0.25.0]
+### Added
+- `ConfirmDialog` and `ConfirmDialogProvider` components [#211](https://github.com/plotly/dash-core-components/pull/211)
+
+## [0.24.1]
+### Fixed
+- Improved DatePickerRange, fixing issues [#209](https://github.com/plotly/dash-core-components/issues/209) and [#152](https://github.com/plotly/dash-core-components/issues/152)
+- Link component now is a proper <a> tag so you can right click on it, and will scroll back to top. Fixes [#99](https://github.com/plotly/dash-core-components/issues/99), implemented in [#215](https://github.com/plotly/dash-core-components/pull/215)
+- Added `max_interval` prop to `Interval` component, fixing issue [#222](https://github.com/plotly/dash-core-components/issues/222)
+
+
+## [0.24.0]
+### Added
+- Upgraded Plotly.js, the underlying library behind the
+`dash_core_components.Graph` component, to [version 1.39.1](https://github.com/plotly/plotly.js/releases/tag/v1.39.1).
+See https://github.com/plotly/plotly.js/releases/tag/v1.39.1 for the official notes.
+
+    Many of these features were funded directly by companies that rely on this library.
+    If your organization or company would like to sponsor particular features or
+    bug fixes in these open source libraries, please reach out: http://plot.ly/products/consulting-and-oem
+
+As part of plotly.js release:
+- Add support for on-graph text in scattergl traces [#2737](https://github.com/plotly/plotly.js/pull/2737), [#2783](https://github.com/plotly/plotly.js/pull/2783)
+- Add gridshape attribute to polar subplots with values 'circular' (the default) and 'linear' (to draw polygon grids) [#2739](https://github.com/plotly/plotly.js/pull/2739)
+- Add support for colorbar linked to marker.color values for splom,
+scatterpolar and scatterpolargl traces [#2681](https://github.com/plotly/plotly.js/pull/2681)
+- Revamp icon settings in custom mode bar buttons, allowing users to specify their own dimensions and SVG transforms [#2762](https://github.com/plotly/plotly.js/pull/2762)
+- Add plotlyServerURL config option [#2760](https://github.com/plotly/plotly.js/pull/2760)
+- Added no-WebGL warnings for graphs with scattergl, scatterpolargl, splom and parcoords traces [#2697](https://github.com/plotly/plotly.js/pull/2697)
+
+### Fixed
+As part of plotly.js release:
+- Fix Plotly.react's handling of changing auto-margins [#2681](https://github.com/plotly/plotly.js/pull/2681)
+- Make plotting/updating WebGL-based traces fail gracefully when WebGL isn't
+supported [#2697](https://github.com/plotly/plotly.js/pull/2697)
+- Fix mapbox layout layer updates [#2734](https://github.com/plotly/plotly.js/pull/2734)
+- Fix mapbox event inconsistencies [#2766](https://github.com/plotly/plotly.js/pull/2766)
+- Correctly emit plotly_relayout at end of scroll on mapbox subplots [#2709](https://github.com/plotly/plotly.js/pull/2709)
+- Fix scatter3d scalar hovertext handling [#2698](https://github.com/plotly/plotly.js/pull/2698)
+- Fix line decimation for segments crossing the viewport [#2705](https://github.com/plotly/plotly.js/pull/2705)
+- Fix surface trace contours when first level has length zero [#2712](https://github.com/plotly/plotly.js/pull/2712)
+- Fix contour(x|y|z).highlight partial settings [#2712](https://github.com/plotly/plotly.js/pull/2712)
+- Fix old date timezone precision in Chrome 67+ [#2747](https://github.com/plotly/plotly.js/pull/2747)
+- Fix x-only zoom moves when xaxis.fixedrange: true[#2776](https://github.com/plotly/plotly.js/pull/2776)
+- Fix colorbar edits for parcoords and histogram traces [#2681](https://github.com/plotly/plotly.js/pull/2681)
+- Fix bandwidth for single-value violins [#2775](https://github.com/plotly/plotly.js/pull/2775)
+- Make Plots.resize work when layout attribute is gone from graph div [#2710](https://github.com/plotly/plotly.js/pull/2710)
+- Fix colorscale attribute descriptions [#2658](https://github.com/plotly/plotly.js/pull/2658)    
+
 ## [0.23.0]
 ### Added
 - Upgraded Plotly.js, the underlying library behind the
 `dash_core_components.Graph` component, to [version 1.38.0](https://github.com/plotly/plotly.js/releases/tag/v1.38.0).
 See https://github.com/plotly/plotly.js/releases/tag/v1.38.0 for the official notes.
-
-    Many of these features were funded directly by companies that rely on this library.
-    If your organization or company would like to sponsor particular features or
-    bug fixes in these open source libraries, please reach out: http://plot.ly/products/consulting-and-oem
 
     - Add 3D `cone` traces to visualize vector fields [#2641](https://github.com/plotly/plotly.js/pull/2641), [#2647](https://github.com/plotly/plotly.js/pull/2647)
     - Add ability to interactively change length and rotate line shapes [#2594](https://github.com/plotly/plotly.js/pull/2594)
