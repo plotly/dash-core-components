@@ -448,8 +448,6 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        self.snapshot('tabs - without children')
-
         initial_tab = self.wait_for_element_by_css_selector('#tab-2')
         tabs_content = self.wait_for_element_by_css_selector('#tabs-content')
         self.assertEqual(tabs_content.text, 'Test content 2')
