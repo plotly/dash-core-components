@@ -1,6 +1,6 @@
 {
   "name": "dash-core-components",
-  "version": "0.28.1",
+  "version": "0.28.2",
   "description": "Core component suite for Dash",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
   "scripts": {
     "build-dev": "builder run clean-lib && builder run extract-metadata && builder run generate-python-classes && webpack -w --config=./config/webpack/webpack.config.dev.js",
     "build-dist": "builder run clean-lib && builder run extract-metadata && builder run generate-python-classes && cross-env NODE_ENV=production webpack --config=./config/webpack/webpack.config.dist.js",
-    "copy-lib": "copyfiles -f lib/* dash_core_components",
+    "copy-lib": "cp -f lib/* dash_core_components",
     "generate-python-classes": "python -c \"import dash; dash.development.component_loader.generate_classes('dash_core_components', 'dash_core_components/metadata.json');\"",
     "install-local": "npm run copy-lib && python setup.py install",
     "prepublish": "npm test && builder run build-dist && npm run copy-lib",
@@ -22,7 +22,7 @@
     "test-debug": "./node_modules/.bin/builder run test-frontend-debug",
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
-    "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && copyfiles package.json dash_core_components && npm run generate-python-classes"
+    "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes"
   },
   "author": "Chris Parmer <chris@plot.ly>",
   "license": "MIT",
