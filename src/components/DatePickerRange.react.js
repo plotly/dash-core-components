@@ -173,28 +173,28 @@ DatePickerRange.propTypes = {
      * Accepts datetime.datetime objects or strings
      * in the format 'YYYY-MM-DD'
      */
-    start_date: PropTypes.string,
+    start_date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 
     /**
      * Specifies the ending date for the component.
      * Accepts datetime.datetime objects or strings
      * in the format 'YYYY-MM-DD'
      */
-    end_date: PropTypes.string,
+    end_date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 
     /**
      * Specifies the lowest selectable date for the component.
      * Accepts datetime.datetime objects or strings
      * in the format 'YYYY-MM-DD'
      */
-    min_date_allowed: PropTypes.string,
+    min_date_allowed: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 
     /**
      * Specifies the highest selectable date for the component.
      * Accepts datetime.datetime objects or strings
      * in the format 'YYYY-MM-DD'
      */
-    max_date_allowed: PropTypes.string,
+    max_date_allowed: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 
     /**
      * Specifies the month that is initially presented when the user
@@ -202,7 +202,7 @@ DatePickerRange.propTypes = {
      * in the format 'YYYY-MM-DD'
      *
      */
-    initial_visible_month: PropTypes.string,
+    initial_visible_month: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 
     /**
      * Text that will be displayed in the first input

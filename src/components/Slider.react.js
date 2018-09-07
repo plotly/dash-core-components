@@ -52,8 +52,8 @@ Slider.propTypes = {
      * the value should be an object which
      * contains style and label properties.
      */
-    marks: PropTypes.shape({
-        number: PropTypes.oneOfType([
+    marks: PropTypes.objectOf(
+      PropTypes.oneOfType([
             /**
              * The label of the mark
              */
@@ -67,7 +67,7 @@ Slider.propTypes = {
                 label: PropTypes.string
             })
         ])
-    }),
+    ),
 
     /**
      * The value of the input

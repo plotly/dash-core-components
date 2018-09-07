@@ -327,7 +327,16 @@
           "name": "union",
           "value": [
             {
-              "name": "any"
+              "name": "string"
+            },
+            {
+              "name": "number"
+            },
+            {
+              "name": "bool"
+            },
+            {
+              "name": "element"
             },
             {
               "name": "enum",
@@ -337,6 +346,35 @@
                   "computed": false
                 }
               ]
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "string"
+                  },
+                  {
+                    "name": "number"
+                  },
+                  {
+                    "name": "bool"
+                  },
+                  {
+                    "name": "element"
+                  },
+                  {
+                    "name": "enum",
+                    "value": [
+                      {
+                        "value": "null",
+                        "computed": false
+                      }
+                    ]
+                  }
+                ]
+              }
             }
           ]
         },
@@ -396,35 +434,80 @@
       },
       "start_date": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the starting date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "end_date": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the ending date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "min_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the lowest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "max_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the highest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "initial_visible_month": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the month that is initially presented when the user\nopens the calendar. Accepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
@@ -726,28 +809,64 @@
       },
       "date": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the starting date for the component, best practice is to pass\nvalue via datetime object"
       },
       "min_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the lowest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "max_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the highest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "initial_visible_month": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the month that is initially presented when the user\nopens the calendar. Accepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
@@ -2427,30 +2546,27 @@
       },
       "marks": {
         "type": {
-          "name": "shape",
+          "name": "objectOf",
           "value": {
-            "number": {
-              "name": "union",
-              "value": [
-                {
-                  "name": "string"
-                },
-                {
-                  "name": "shape",
-                  "value": {
-                    "style": {
-                      "name": "object",
-                      "required": false
-                    },
-                    "label": {
-                      "name": "string",
-                      "required": false
-                    }
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "shape",
+                "value": {
+                  "style": {
+                    "name": "object",
+                    "required": false
+                  },
+                  "label": {
+                    "name": "string",
+                    "required": false
                   }
                 }
-              ],
-              "required": false
-            }
+              }
+            ]
           }
         },
         "required": false,
@@ -2699,7 +2815,6 @@
   },
   "src/components/Tab.react.js": {
     "description": "",
-    "displayName": "Tab",
     "methods": [],
     "props": {
       "id": {

@@ -224,7 +224,7 @@ class Tests(IntegrationTests):
             dcc.Upload(),
 
             html.Label('Horizontal Tabs'),
-            dcc.Tabs(id="tabs", children=[
+            dcc.Tabs(id="horizontal-tabs", children=[
                 dcc.Tab(label='Tab one', className='test', style={'border': '1px solid magenta'}, children=[
                     html.Div(['Test'])
                 ]),
@@ -254,7 +254,7 @@ class Tests(IntegrationTests):
             ),
 
             html.Label('Vertical Tabs'),
-            dcc.Tabs(id="tabs", vertical=True, children=[
+            dcc.Tabs(id="vertical-tabs", vertical=True, children=[
                 dcc.Tab(label='Tab one', children=[
                     html.Div(['Test'])
                 ]),
@@ -754,7 +754,9 @@ class Tests(IntegrationTests):
                 if not submit_n_clicks and not cancel_n_clicks:
                     return ''
                 count.value += 1
-                if submit_timestamp > cancel_timestamp:
+                if (submit_timestamp and not cancel_timestamp
+                    or ((submit_timestamp and cancel_timestamp) and
+                        (submit_timestamp > cancel_timestamp))):
                     return 'confirmed'
                 else:
                     return 'canceled'
