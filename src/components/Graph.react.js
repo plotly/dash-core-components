@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {contains, intersection, filter, has, isNil, type, pluck} from 'ramda';
+import {contains, filter, has, isNil, type} from 'ramda';
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
@@ -31,7 +31,7 @@ const filterEventData = (gd, eventData, event) => {
                 has('pointNumber', fullPoint) &&
                 has('customdata', data[pointData.curveNumber])
             ) {
-                pointData['customdata'] = data[
+                pointData.customdata = data[
                     pointData.curveNumber
                 ].customdata[fullPoint.pointNumber];
             }
@@ -76,29 +76,16 @@ export default class PlotlyGraph extends Component {
 
         if (animate && this._hasPlotted && figure.data.length === gd.data.length) {
             return Plotly.animate(id, figure, animation_options);
-        } else {
-
-            let PlotMethod;
-            if (intersection(
-                pluck('type', figure.data),
-                ['candlestick', 'ohlc']).length
-            ) {
-                PlotMethod = Plotly.newPlot;
-            } else {
-                PlotMethod = Plotly.react;
-            }
-
-            return PlotMethod(id, figure.data, figure.layout, config).then(
-                () => {
-                    if (!this._hasPlotted) {
-                        this.bindEvents();
-                        Plotly.Plots.resize(document.getElementById(id));
-                        this._hasPlotted = true;
-                    }
-                }
-            );
-
         }
+        return Plotly.react(id, figure.data, figure.layout, config).then(
+            () => {
+                if (!this._hasPlotted) {
+                    this.bindEvents();
+                    Plotly.Plots.resize(document.getElementById(id));
+                    this._hasPlotted = true;
+                }
+            }
+        );
     }
 
     bindEvents() {
@@ -109,39 +96,39 @@ export default class PlotlyGraph extends Component {
         gd.on('plotly_click', (eventData) => {
             const clickData = filterEventData(gd, eventData, 'click');
             if (!isNil(clickData)) {
-                if (setProps) setProps({clickData});
-                if (fireEvent) fireEvent({event: 'click'});
+                if (setProps) {setProps({clickData});}
+                if (fireEvent) {fireEvent({event: 'click'});}
             }
         });
         gd.on('plotly_hover', (eventData) => {
             const hoverData = filterEventData(gd, eventData, 'hover');
             if (!isNil(hoverData)) {
-                if (setProps) setProps({hoverData});
-                if (fireEvent) fireEvent({event: 'hover'})
+                if (setProps) {setProps({hoverData});}
+                if (fireEvent) {fireEvent({event: 'hover'})}
             }
         });
         gd.on('plotly_selected', (eventData) => {
             const selectedData = filterEventData(gd, eventData, 'selected');
             if (!isNil(selectedData)) {
-                if (setProps) setProps({selectedData});
-                if (fireEvent) fireEvent({event: 'selected'});
+                if (setProps) {setProps({selectedData});}
+                if (fireEvent) {fireEvent({event: 'selected'});}
             }
         });
         gd.on('plotly_deselect', () => {
-            if (setProps) setProps({selectedData: null});
-            if (fireEvent) fireEvent({event: 'selected'});
+            if (setProps) {setProps({selectedData: null});}
+            if (fireEvent) {fireEvent({event: 'selected'});}
         });
         gd.on('plotly_relayout', (eventData) => {
             const relayoutData = filterEventData(gd, eventData, 'relayout');
             if (!isNil(relayoutData)) {
-                if (setProps) setProps({relayoutData});
-                if (fireEvent) fireEvent({event: 'relayout'});
+                if (setProps) {setProps({relayoutData});}
+                if (fireEvent) {fireEvent({event: 'relayout'});}
             }
         });
         gd.on('plotly_unhover', () => {
             if (clear_on_unhover) {
-                if (setProps) setProps({hoverData: null});
-                if (fireEvent) fireEvent({event: 'unhover'});
+                if (setProps) {setProps({hoverData: null});}
+                if (fireEvent) {fireEvent({event: 'unhover'});}
             }
         });
     }
@@ -206,7 +193,12 @@ export default class PlotlyGraph extends Component {
 }
 
 PlotlyGraph.propTypes = {
-    id: PropTypes.string.isRequired,
+    /**
+     * The ID of this component, used to identify dash components
+     * in callbacks. The ID needs to be unique across all of the
+     * components in an app.
+     */
+    id: PropTypes.string,
     /**
      * Data from latest click event
      */
@@ -466,6 +458,9 @@ PlotlyGraph.propTypes = {
 }
 
 PlotlyGraph.defaultProps = {
+    /* eslint-disable no-magic-numbers */
+    id: 'graph-' + Math.random().toString(36).substring(2,7),
+    /* eslint-enable no-magic-numbers */
     clickData: null,
     hoverData: null,
     selectedData: null,

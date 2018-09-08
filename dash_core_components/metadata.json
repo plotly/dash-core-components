@@ -658,6 +658,13 @@
           "value": "'singledate'",
           "computed": false
         }
+      },
+      "fireEvent": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
       }
     }
   },
@@ -950,6 +957,13 @@
         },
         "required": false,
         "description": "Dash-assigned callback that gets fired when the value changes."
+      },
+      "fireEvent": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
       }
     }
   },
@@ -1075,6 +1089,13 @@
         "required": false,
         "description": "Dash-assigned callback that gets fired when the input changes"
       },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
       "dashEvents": {
         "type": {
           "name": "enum",
@@ -1084,6 +1105,13 @@
               "computed": false
             }
           ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "fireEvent": {
+        "type": {
+          "name": "func"
         },
         "required": false,
         "description": ""
@@ -1119,8 +1147,12 @@
         "type": {
           "name": "string"
         },
-        "required": true,
-        "description": ""
+        "required": false,
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app.",
+        "defaultValue": {
+          "value": "'graph-' + Math.random().toString(36).substring(2,7)",
+          "computed": false
+        }
       },
       "clickData": {
         "type": {
@@ -2002,6 +2034,13 @@
           "value": "true",
           "computed": false
         }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
       }
     }
   },
@@ -2703,7 +2742,7 @@
         "required": false,
         "description": "Overrides the default (inline) styles when disabled",
         "defaultValue": {
-          "value": "{\n    color: '#d6d6d6',\n}",
+          "value": "{\n    color: '#d6d6d6'\n}",
           "computed": false
         }
       },
@@ -2748,6 +2787,13 @@
     "description": "A Dash component that lets you render pages with tabs - the Tabs component's children\ncan be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold\nchildren components that will be that tab's content.",
     "displayName": "Tabs",
     "methods": [
+      {
+        "name": "parseChildrenToArray",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
       {
         "name": "selectHandler",
         "docblock": null,
