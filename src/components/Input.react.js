@@ -4,14 +4,17 @@ import {omit} from 'ramda';
 
 
 /**
- * A function to handle the formating of the `value` prop of the react `input`
+ * A function to handle the formating of the `value` prop of the react `input`.
+ * @param {string} val the `value` prop of the react `input` component.
+ * @param {string} type the `type` prop of the react `input` component.
+ * @returns {string} a value formated as a number if `type` is equal to `number`
  */
 function formatValue(val, type){
-  if (val === ''){return val;} // Avoid filling the input with a 0 in case the prop `type` is `number`
-  else{
+  if (! val === '')
+  {
     if (type === 'number') {return Number(val);}
-    else {return val;}
   }
+  return val;
 }
 
 /**
@@ -39,8 +42,7 @@ function formatValue(val, type){
 		const {value} = this.state;
 		return (
       <input
-        onBlur={// Fires when the focus on the component is lost
-        // (i.e. click somewhere else or tab)
+        onBlur={
           () => {
             const newValue = formatValue(this.state.value, type)
             if (updatemode === 'blur') {
@@ -48,7 +50,7 @@ function formatValue(val, type){
               if (setProps) {
                   setProps({value: newValue});
               }
-              if (fireEvent) fireEvent({event: 'blur'});
+              if (fireEvent) {fireEvent({event: 'blur'});}
             }
           }
         }
@@ -61,7 +63,7 @@ function formatValue(val, type){
                   setProps({value: newValue});
               }
     				}
-    				if (fireEvent) fireEvent({event: 'change'});
+    				if (fireEvent) {fireEvent({event: 'change'});}
   				}
         }
         onClick = {
