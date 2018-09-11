@@ -15,12 +15,35 @@ terminal_types = {
 }
 
 
-def get_possible_values(schema):
-    type_object = schema.get('type', None)
+def get_possible_values(type_object):
     if type_object:
         type_name = type_object.get('name', None)
         if type_name in terminal_types:
             yield terminal_types[type_name]
+        elif type_name == "any":
+            for x in ['bool',
+                      'number',
+                      'integer',
+                      'string',
+                      'object',
+                      'array']:
+                yield terminal_types[x]
+        elif type_name == "objectOf":
+            for x in get_possible_values(type_object['value']):
+                yield {'test_key': x}
+        elif type_name == "arrayOf":
+            for x in get_possible_values(type_object['value']):
+                yield [x, x]
+        elif type_name == "union":
+            for v in type_object['value']:
+                for x in get_possible_values(v):
+                    yield x
+        elif type_name == "enum":
+            for v in type_object['value']:
+                if v['value'] == 'null':
+                    yield None
+                else:
+                    yield v['value'].strip("\"'")
 
 
 class Tests(unittest.TestCase):
@@ -41,10 +64,12 @@ class Tests(unittest.TestCase):
         for component_name, props in self.component_props.items():
             component = getattr(dcc, component_name)
             for prop_name, schema in props.items():
-                for possible_value in get_possible_values(schema):
-                    div_children.append((component,
-                                        {prop_name: possible_value,
-                                         'id': 'hello'}))
+                if prop_name != 'dashEvents':
+                    type_object = schema.get('type', None)
+                    for possible_value in get_possible_values(type_object):
+                        div_children.append((component,
+                                            {prop_name: possible_value,
+                                             'id': 'hello'}))
         errors = 0
         for component, props in div_children:
             try:

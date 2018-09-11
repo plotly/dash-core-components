@@ -1339,9 +1339,6 @@
         }
       },
       "figure": {
-        "type": {
-          "name": "object"
-        },
         "required": false,
         "description": "Plotly `figure` object. See schema:\nhttps://plot.ly/javascript/reference",
         "defaultValue": {
