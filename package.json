@@ -10,11 +10,12 @@
   "scripts": {
     "generate-python-classes": "python -c \"import dash; dash.development.component_loader.generate_classes('dash_core_components', 'dash_core_components/metadata.json');\"",
     "install-local": "npm run copy-lib && python setup.py install",
-    "prepublish": "npm test && npm run build:js && npm run build:py",
+    "prepublish": "npm run lint && npm run build:js && npm run build:py",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist && twine upload --sign --skip-existing",
     "start": "./node_modules/.bin/builder run build-dev",
     "lint": "eslint src",
+    "format": "prettier --config .prettierrc --write src/**/*.js",
     "test-watch": "./node_modules/.bin/builder run test-frontend-watch",
     "test-debug": "./node_modules/.bin/builder run test-frontend-debug",
     "uninstall-local": "pip uninstall dash-core-components -y",
