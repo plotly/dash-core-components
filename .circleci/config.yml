@@ -42,8 +42,8 @@ jobs:
               npm run build:py
 
       - run:
-          name: npm test
-          command: npm test
+          name: npm lint
+          command: npm lint
 
       - run:
           name: Run tests
