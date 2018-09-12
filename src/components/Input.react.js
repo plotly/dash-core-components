@@ -337,3 +337,8 @@ Input.propTypes = {
 
 	dashEvents: PropTypes.oneOf(['blur', 'change'])
 };
+
+Input.defaultProps = {
+    type: 'text',
+    updatemode: 'keypress'
+};
