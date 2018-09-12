@@ -22,18 +22,20 @@ const filterEventData = (gd, eventData, event) => {
          */
         const data = gd.data;
 
-        for(let i=0; i < eventData.points.length; i++) {
+        for (let i = 0; i < eventData.points.length; i++) {
             const fullPoint = eventData.points[i];
             const pointData = filter(function(o) {
-                return !contains(type(o), ['Object', 'Array'])
+                return !contains(type(o), ['Object', 'Array']);
             }, fullPoint);
-            if (has('curveNumber', fullPoint) &&
+            if (
+                has('curveNumber', fullPoint) &&
                 has('pointNumber', fullPoint) &&
                 has('customdata', data[pointData.curveNumber])
             ) {
-                pointData.customdata = data[
-                    pointData.curveNumber
-                ].customdata[fullPoint.pointNumber];
+                pointData.customdata =
+                    data[pointData.curveNumber].customdata[
+                        fullPoint.pointNumber
+                    ];
             }
 
             // specific to histogram. see https://github.com/plotly/plotly.js/pull/2113/
@@ -42,9 +44,8 @@ const filterEventData = (gd, eventData, event) => {
             }
 
             points[i] = pointData;
-
         }
-        filteredEventData = {points}
+        filteredEventData = {points};
     } else if (event === 'relayout') {
         /*
          * relayout shouldn't include any big objects
@@ -74,18 +75,20 @@ export default class PlotlyGraph extends Component {
         const {id, figure, animate, animation_options, config} = props;
         const gd = document.getElementById(id);
 
-        if (animate && this._hasPlotted && figure.data.length === gd.data.length) {
+        if (
+            animate &&
+            this._hasPlotted &&
+            figure.data.length === gd.data.length
+        ) {
             return Plotly.animate(id, figure, animation_options);
         }
-        return Plotly.react(id, figure.data, figure.layout, config).then(
-            () => {
-                if (!this._hasPlotted) {
-                    this.bindEvents();
-                    Plotly.Plots.resize(document.getElementById(id));
-                    this._hasPlotted = true;
-                }
+        return Plotly.react(id, figure.data, figure.layout, config).then(() => {
+            if (!this._hasPlotted) {
+                this.bindEvents();
+                Plotly.Plots.resize(document.getElementById(id));
+                this._hasPlotted = true;
             }
-        );
+        });
     }
 
     bindEvents() {
@@ -93,42 +96,66 @@ export default class PlotlyGraph extends Component {
 
         const gd = document.getElementById(id);
 
-        gd.on('plotly_click', (eventData) => {
+        gd.on('plotly_click', eventData => {
             const clickData = filterEventData(gd, eventData, 'click');
             if (!isNil(clickData)) {
-                if (setProps) {setProps({clickData});}
-                if (fireEvent) {fireEvent({event: 'click'});}
+                if (setProps) {
+                    setProps({clickData});
+                }
+                if (fireEvent) {
+                    fireEvent({event: 'click'});
+                }
             }
         });
-        gd.on('plotly_hover', (eventData) => {
+        gd.on('plotly_hover', eventData => {
             const hoverData = filterEventData(gd, eventData, 'hover');
             if (!isNil(hoverData)) {
-                if (setProps) {setProps({hoverData});}
-                if (fireEvent) {fireEvent({event: 'hover'})}
+                if (setProps) {
+                    setProps({hoverData});
+                }
+                if (fireEvent) {
+                    fireEvent({event: 'hover'});
+                }
             }
         });
-        gd.on('plotly_selected', (eventData) => {
+        gd.on('plotly_selected', eventData => {
             const selectedData = filterEventData(gd, eventData, 'selected');
             if (!isNil(selectedData)) {
-                if (setProps) {setProps({selectedData});}
-                if (fireEvent) {fireEvent({event: 'selected'});}
+                if (setProps) {
+                    setProps({selectedData});
+                }
+                if (fireEvent) {
+                    fireEvent({event: 'selected'});
+                }
             }
         });
         gd.on('plotly_deselect', () => {
-            if (setProps) {setProps({selectedData: null});}
-            if (fireEvent) {fireEvent({event: 'selected'});}
+            if (setProps) {
+                setProps({selectedData: null});
+            }
+            if (fireEvent) {
+                fireEvent({event: 'selected'});
+            }
         });
-        gd.on('plotly_relayout', (eventData) => {
+        gd.on('plotly_relayout', eventData => {
             const relayoutData = filterEventData(gd, eventData, 'relayout');
             if (!isNil(relayoutData)) {
-                if (setProps) {setProps({relayoutData});}
-                if (fireEvent) {fireEvent({event: 'relayout'});}
+                if (setProps) {
+                    setProps({relayoutData});
+                }
+                if (fireEvent) {
+                    fireEvent({event: 'relayout'});
+                }
             }
         });
         gd.on('plotly_unhover', () => {
             if (clear_on_unhover) {
-                if (setProps) {setProps({hoverData: null});}
-                if (fireEvent) {fireEvent({event: 'unhover'});}
+                if (setProps) {
+                    setProps({hoverData: null});
+                }
+                if (fireEvent) {
+                    fireEvent({event: 'unhover'});
+                }
             }
         });
     }
@@ -177,18 +204,10 @@ export default class PlotlyGraph extends Component {
         }
     }
 
-    render(){
+    render() {
         const {className, id, style} = this.props;
 
-        return (
-            <div
-                key={id}
-                id={id}
-                style={style}
-                className={className}
-            />
-        );
-
+        return <div key={id} id={id} style={style} className={className} />;
     }
 }
 
@@ -244,7 +263,6 @@ PlotlyGraph.propTypes = {
      */
     className: PropTypes.string,
 
-
     /**
      * Beta: If true, animate between updates using
      * plotly.js's `animate` function
@@ -268,11 +286,11 @@ PlotlyGraph.propTypes = {
          */
         staticPlot: PropTypes.bool,
 
-         /**
-          * we can edit titles, move annotations, etc - sets all pieces of `edits`
-          * unless a separate `edits` config item overrides individual parts
-          */
-        editable:  PropTypes.bool,
+        /**
+         * we can edit titles, move annotations, etc - sets all pieces of `edits`
+         * unless a separate `edits` config item overrides individual parts
+         */
+        editable: PropTypes.bool,
 
         /**
          * a set of editable properties
@@ -310,7 +328,7 @@ PlotlyGraph.propTypes = {
             /**
              * the global `layout.title`
              */
-            titleText: PropTypes.bool
+            titleText: PropTypes.bool,
         }),
 
         /**
@@ -346,7 +364,7 @@ PlotlyGraph.propTypes = {
             false,
             'reset',
             'autosize',
-            'reset+autosize'
+            'reset+autosize',
         ]),
 
         /**
@@ -383,9 +401,7 @@ PlotlyGraph.propTypes = {
         /**
          * display the mode bar (true, false, or 'hover')
          */
-        displayModeBar: PropTypes.oneOf([
-            true, false, 'hover'
-        ]),
+        displayModeBar: PropTypes.oneOf([true, false, 'hover']),
 
         /**
          * remove mode bar button by name.
@@ -432,7 +448,7 @@ PlotlyGraph.propTypes = {
          * If using an Mapbox Atlas server, set this option to '',
          * so that plotly.js won't attempt to authenticate to the public Mapbox server.
          */
-        mapboxAccessToken: PropTypes.any
+        mapboxAccessToken: PropTypes.any,
     }),
 
     /**
@@ -443,7 +459,7 @@ PlotlyGraph.propTypes = {
         'hover',
         'selected',
         'relayout',
-        'unhover'
+        'unhover',
     ]),
 
     /**
@@ -454,12 +470,16 @@ PlotlyGraph.propTypes = {
     /**
      * Function that fires events
      */
-    fireEvent: PropTypes.func
-}
+    fireEvent: PropTypes.func,
+};
 
 PlotlyGraph.defaultProps = {
     /* eslint-disable no-magic-numbers */
-    id: 'graph-' + Math.random().toString(36).substring(2,7),
+    id:
+        'graph-' +
+        Math.random()
+            .toString(36)
+            .substring(2, 7),
     /* eslint-enable no-magic-numbers */
     clickData: null,
     hoverData: null,
@@ -469,12 +489,12 @@ PlotlyGraph.defaultProps = {
     animate: false,
     animation_options: {
         frame: {
-            redraw: false
+            redraw: false,
         },
         transition: {
             duration: 750,
-            ease: 'cubic-in-out'
-        }
+            ease: 'cubic-in-out',
+        },
     },
     clear_on_unhover: false,
     config: {
@@ -490,7 +510,7 @@ PlotlyGraph.defaultProps = {
             legendPosition: false,
             legendText: false,
             shapePosition: false,
-            titleText: false
+            titleText: false,
         },
         autosizable: false,
         queueLength: 0,
@@ -512,6 +532,6 @@ PlotlyGraph.defaultProps = {
         displaylogo: true,
         plotGlPixelRatio: 2,
         topojsonURL: 'https://cdn.plot.ly/',
-        mapboxAccessToken: null
-    }
+        mapboxAccessToken: null,
+    },
 };
