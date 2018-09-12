@@ -34,16 +34,21 @@ jobs:
           paths:
               - "venv"
               - "node_modules"
+
+      - run:
+          name: npm run format 
+          command: npm run format 
+
+      - run:
+          name: npm run lint
+          command: npm run lint
+
       - run:
           name: Build
           command: |
               . venv/bin/activate
               npm run build:js
               npm run build:py
-
-      - run:
-          name: npm run lint
-          command: npm run lint
 
       - run:
           name: Run tests
