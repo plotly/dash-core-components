@@ -113,21 +113,11 @@ $ npm run uninstall-local
 
 See the [Publishing New Components/Features](CONTRIBUTING.md#publishing-new-componentsfeatures) section of the Contributing guide for step-by-step instructions on publishing new components.
 
-## Builder / Archetype
+## Dash Component Boilerplate
 
-We use [Builder][] to centrally manage build configuration, dependencies, and
-scripts.
+See the [dash-component-boilerplate](https://github.com/plotly/dash-component-boilerplate) repo for more information.
 
-To see all `builder` scripts available:
-
-```sh
-$ builder help
-```
-
-See the [dash-components-archetype][] repo for more information.
-
-[Builder]: https://github.com/FormidableLabs/builder
 [Dash]: https://plot.ly/dash
+[Dash Component Boilerplate]: (https://github.com/plotly/dash-component-boilerplate)
 [NPM package authors]: https://www.npmjs.com/package/dash-core-components/access
 [PyPi]: https://pypi.python.org/pypi
-[dash-components-archetype]: https://github.com/plotly/dash-components-archetype
