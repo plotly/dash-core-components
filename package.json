@@ -23,7 +23,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run format && npm run lint && npm test"
+      "pre-push": "npm run format && npm run lint"
     }
   },
   "author": "Chris Parmer <chris@plot.ly>",
