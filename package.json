@@ -15,7 +15,7 @@
     "publish-pypi": "npm run prepublish && python setup.py sdist && twine upload --sign --skip-existing",
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "lint": "eslint src",
-    "test": "DASH_TEST_PROCESSES=1 python -m unittest -v test.test_integration.Tests",
+    "test": "python -m unittest test.test_integration",
     "format": "prettier --config .prettierrc --write src/**/*.js",
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
