@@ -10,17 +10,21 @@
   "scripts": {
     "generate-python-classes": "python -c \"import dash; dash.development.component_loader.generate_classes('dash_core_components', 'dash_core_components/metadata.json');\"",
     "install-local": "npm run copy-lib && python setup.py install",
-    "prepublish": "npm run lint && npm run build:js && npm run build:py",
+    "prepublish": "npm run format && npm run lint && npm run build:js && npm run build:py",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist && twine upload --sign --skip-existing",
     "start": "./node_modules/.bin/builder run build-dev",
     "lint": "eslint src",
+    "test": "DASH_TEST_PROCESSES=1 python -m unittest -v test.test_integration.Tests",
     "format": "prettier --config .prettierrc --write src/**/*.js",
-    "test-watch": "./node_modules/.bin/builder run test-frontend-watch",
-    "test-debug": "./node_modules/.bin/builder run test-frontend-debug",
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
     "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run format && npm run lint && npm test"
+    }
   },
   "author": "Chris Parmer <chris@plot.ly>",
   "license": "MIT",
@@ -63,7 +67,8 @@
   "devDependencies": {
     "component-playground": "^2.0.0",
     "dash-components-archetype-dev": "^0.3.0-rc1",
-    "enzyme": "^2.4.1"
+    "enzyme": "^2.4.1",
+    "husky": "^1.0.0-rc.14"
   },
   "peerDependencies": {
     "react": "^15.4.0 || ^16.0.0",
