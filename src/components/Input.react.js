@@ -28,7 +28,7 @@ function formatValue(val, type){
 	constructor(props) {
 		super(props);
 		this.state = {
-			value: props.value
+			value: formatValue(props.value, props.type)
 		};
 	}
 
@@ -37,7 +37,12 @@ function formatValue(val, type){
 	}
 
 	render() {
-		const {fireEvent, setProps, type, updatemode} = this.props;
+		const {
+      fireEvent,
+      setProps,
+      type,
+      updatemode
+    } = this.props;
 
 		const {value} = this.state;
 		return (
@@ -65,6 +70,23 @@ function formatValue(val, type){
     				}
     				if (fireEvent) {fireEvent({event: 'change'});}
   				}
+        }
+        onKeyPress={
+          (e) => {
+            if (type === 'number'){
+              const curVal = this.state.value;
+              const keyCode = e.keyCode || e.which;
+              const keyValue = String.fromCharCode(keyCode)
+              const unicodePlus = 43;
+              const unicodeNine = 57;
+            if ((keyCode <= unicodePlus || keyCode > unicodeNine) || (keyValue === '/'))
+              {e.preventDefault();}
+            if (( keyValue === '-') && (curVal.length > 0))
+              {e.preventDefault();}
+            if ((keyValue === '.' || keyValue === ',') && (/[.]|,/.test(curVal.value)))
+              {e.preventDefault();}
+            }
+          }
         }
         onClick = {
           (e) => {
