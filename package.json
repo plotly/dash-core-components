@@ -13,13 +13,16 @@
     "prepublish": "npm run format && npm run lint && npm run build:js && npm run build:py",
     "publish-all": "npm publish && python setup.py sdist upload",
     "publish-pypi": "npm run prepublish && python setup.py sdist && twine upload --sign --skip-existing",
-    "start": "./node_modules/.bin/builder run build-dev",
+    "start": "webpack-serve ./webpack.serve.config.js --open",
     "lint": "eslint src",
     "test": "DASH_TEST_PROCESSES=1 python -m unittest -v test.test_integration.Tests",
     "format": "prettier --config .prettierrc --write src/**/*.js",
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
-    "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes"
+    "build:js-dev": "webpack --mode development",
+    "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes",
+    "build:all": "npm run build:js & npm run build:py",
+    "build:all-dev": "npm run build:js-dev & npm run build:py"
   },
   "husky": {
     "hooks": {
@@ -38,7 +41,6 @@
     "copyfiles": "^2.0.0",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
-    "dash-components-archetype": "^0.3.0-rc1",
     "eslint": "^5.4.0",
     "eslint-plugin-react": "^7.11.1",
     "moment": "^2.20.1",
