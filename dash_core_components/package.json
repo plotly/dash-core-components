@@ -22,7 +22,8 @@
     "build:js-dev": "npm run format && npm run lint && webpack --mode development",
     "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes",
     "build:all": "npm run build:js & npm run build:py",
-    "build:all-dev": "npm run build:js-dev & npm run build:py"
+    "build:all-dev": "npm run build:js-dev & npm run build:py",
+    "build:watch": "watch 'npm run build:all' src"
   },
   "author": "Chris Parmer <chris@plot.ly>",
   "license": "MIT",
@@ -64,7 +65,8 @@
   "devDependencies": {
     "component-playground": "^2.0.0",
     "enzyme": "^2.4.1",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "watch": "^1.0.2"
   },
   "peerDependencies": {
     "react": "^15.4.0 || ^16.0.0",
