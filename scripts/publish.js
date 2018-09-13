@@ -1,30 +1,24 @@
 #! /usr/bin/env node
 
-const shell = require("shelljs");
-const version = require('../package.json').version;
-const name = require('../package.json').name;
+const execSh = require('exec-sh');
+let version = require('../package.json').version;
+let name = require('../package.json').name.replace(/-/g, '_');
 
-try {
-    console.log(`Publishing version ${version} of ${name} to NPM & PyPi\n`);
-
-    shell.exec('npm run prepublish');
-
-    console.log('>', 'python setup.py sdist');
-    shell.exec('python setup.py sdist');
-
-    // Publish to NPM
-    console.log('>', 'npm publish');
-    shell.exec('npm publish');
-
-    // Publish to PyPi
-    console.log('>', `twine upload dist/${name}-${version}.tar.gz`)
-    shell.exec(`twine upload dist/${name}-${version}.tar.gz`);
-
-    console.log('>', `git tag -a 'v${version}' -m 'v${version}'`)
-    shell.exec(`git tag -a 'v${version}' -m 'v${version}'`);
-
-    console.log('>', `git push origin master --follow-tags`)
-    shell.exec(`git push origin master --follow-tags`)
-} catch (error) {
-    throw new Error(error);
+if(version.includes("rc")) {
+    version = version.replace('-', '');
+    console.log("Adjusted version to", version, "for PyPi");
 }
+
+console.log(`Publishing version ${version} of ${name} to NPM & PyPi\n`);
+
+console.log('>', 'python setup.py sdist');
+execSh([
+        'npm publish',
+        `python setup.py sdist`,
+        `twine upload dist/${name}-${version}.tar.gz`,
+        `git tag -a 'v${version}' -m 'v${version}'`,
+        `git push origin master --follow-tags`
+    ]
+    , err => {
+    throw new Error(err);
+});

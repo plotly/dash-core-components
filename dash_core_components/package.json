@@ -9,7 +9,6 @@
   "main": "src/index.js",
   "scripts": {
     "generate-python-classes": "python -c \"import dash; dash.development.component_loader.generate_classes('dash_core_components', 'dash_core_components/metadata.json');\"",
-    "install-local": "npm run copy-lib && python setup.py install",
     "prepublish": "npm run build:js && npm run build:py",
     "publish-all": "node scripts/publish.js",
     "start": "webpack-serve ./webpack.serve.config.js --open",
@@ -65,7 +64,7 @@
     "component-playground": "^2.0.0",
     "enzyme": "^2.4.1",
     "eslint-plugin-import": "^2.14.0",
-    "shelljs": "^0.8.2",
+    "exec-sh": "^0.3.0",
     "watch": "^1.0.2"
   },
   "peerDependencies": {
