@@ -1,9 +1,17 @@
 import os
 import dash
 import unittest
+import uuid
+import pprint
+import dash_html_components as html
 import dash_core_components as dcc
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 from dash.development.component_loader import _get_metadata
+from .IntegrationTests import IntegrationTests
 
 terminal_types = {
     'string': 'hello world',
@@ -13,6 +21,21 @@ terminal_types = {
     'object': {'hello': 'world'},
     'array': [1, 2, 3]
 }
+
+
+def get_components():
+    path = os.path.join('dash_core_components', 'metadata.json')
+    data = _get_metadata(path)
+    components = {}
+    # Iterate over each property name (which is a path to the component)
+    for componentPath in data:
+        componentData = data[componentPath]
+        name = componentPath.split('/').pop().split('.')[0]
+        if name not in ['Checklist', 'ConfirmDialog', 'ConfirmDialogProvider',
+                        'Interval', 'Graph', 'Location', 'Tab', 'Tabs',
+                        'Slider']:
+            components[name] = componentData['props']
+    return components
 
 
 def get_possible_values(type_object):
@@ -46,32 +69,40 @@ def get_possible_values(type_object):
                     yield v['value'].strip("\"'")
 
 
-class Tests(unittest.TestCase):
+def generate_all_components_with_props(component_props):
+    all_props = []
+    for component_name, props in component_props.items():
+        component = getattr(dcc, component_name)
+        for prop_name, schema in props.items():
+            if prop_name != 'dashEvents':
+                type_object = schema.get('type', None)
+                for possible_value in get_possible_values(type_object):
+                    all_props.append(
+                        (
+                            component,
+                            {
+                                prop_name: possible_value,
+                                'id': '{}-{}-{}'.format(
+                                    component_name,
+                                    prop_name,
+                                    uuid.uuid4()
+                                )
+                            }
+                        )
+                    )
+    return all_props
+
+
+class InitializationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        path = os.path.join('dash_core_components', 'metadata.json')
-        data = _get_metadata(path)
-        component_props = {}
-        # Iterate over each property name (which is a path to the component)
-        for componentPath in data:
-            componentData = data[componentPath]
-            name = componentPath.split('/').pop().split('.')[0]
-            component_props[name] = componentData['props']
-        cls.component_props = component_props
+        cls.components = get_components()
 
     def test_initializations(self):
-        div_children = []
-        for component_name, props in self.component_props.items():
-            component = getattr(dcc, component_name)
-            for prop_name, schema in props.items():
-                if prop_name != 'dashEvents':
-                    type_object = schema.get('type', None)
-                    for possible_value in get_possible_values(type_object):
-                        div_children.append((component,
-                                            {prop_name: possible_value,
-                                             'id': 'hello'}))
+        components_with_props =\
+             generate_all_components_with_props(self.components)
         errors = 0
-        for component, props in div_children:
+        for component, props in components_with_props:
             try:
                 component(**props)
             except (TypeError,
@@ -84,3 +115,62 @@ class Tests(unittest.TestCase):
                 errors += 1
         self.assertFalse(errors,
                          "There were {} initialization errors.".format(errors))
+
+
+class CallbackTests(IntegrationTests):
+    @classmethod
+    def setUpClass(cls):
+        super(CallbackTests, cls).setUpClass()
+        cls.components = get_components()
+
+    def test(self):
+        components_with_props =\
+             generate_all_components_with_props(self.components)
+        app = dash.Dash(__name__)
+
+        children = [
+            component(**props) for component, props in components_with_props
+        ]
+        app.layout = html.Div(
+            children=[
+                html.Button(
+                    'Click for next component',
+                    id='next-component'
+                ),
+                html.Div(id='component-container'),
+                html.Div(id='test-details'),
+                dcc.Link()
+            ]
+        )
+
+        @app.callback(
+            dash.dependencies.Output('test-details', 'children'),
+            [dash.dependencies.Input('next-component', 'n_clicks')]
+        )
+        def switch_detauls(n_clicks):
+            if n_clicks is None:
+                n_clicks = 0
+            c, p = components_with_props[n_clicks]
+            return html.Div([
+                html.H1("Component: {}".format(c.__name__)),
+                html.Pre(pprint.pformat(p))
+            ])
+
+        @app.callback(
+            dash.dependencies.Output('component-container', 'children'),
+            [dash.dependencies.Input('next-component', 'n_clicks')]
+        )
+        def switch_component(n_clicks):
+            if n_clicks is None:
+                n_clicks = 0
+            return children[n_clicks]
+
+        self.startServer(app)
+
+        clicks = 0
+        while clicks < len(children) - 1:
+            next_button = WebDriverWait(self.driver, 20).until(
+                EC.presence_of_element_located((By.ID, 'next-component'))
+            )
+            next_button.click()
+            clicks += 1
