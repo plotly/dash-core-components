@@ -422,6 +422,70 @@ class Tests(IntegrationTests):
 
         self.snapshot('gallery - text input')
 
+    def test_num_input_up_increment(self):
+        app = dash.Dash(__name__)
+
+        step_size = 0.5
+
+        app.layout = html.Div([
+            html.Div(id='waitfor'),
+            html.Label('Upload'),
+            dcc.Upload(),
+            html.Label('Number Input'),
+            dcc.Input(
+                value=1,
+                type='number',
+                id='numberinput',
+                min=0.001,
+                step=step_size
+            ),
+        ])
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector('#waitfor')
+
+        num_input = self.driver.find_element_by_id("numberinput")
+
+        num_input.click()  # Focus on the input field
+        val_before = float(num_input.get_attribute("value"))
+        num_input.send_keys(Keys.UP)
+        val_after = float(num_input.get_attribute("value"))
+
+        self.assertEqual(val_before + step_size, val_after)
+
+    def test_num_input_down_increment(self):
+        app = dash.Dash(__name__)
+
+        step_size = 0.5
+
+        app.layout = html.Div([
+            html.Div(id='waitfor'),
+            html.Label('Upload'),
+            dcc.Upload(),
+            html.Label('Number Input'),
+            dcc.Input(
+                value=1,
+                type='number',
+                id='numberinput',
+                min=0.001,
+                step=step_size
+            ),
+        ])
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector('#waitfor')
+
+        num_input = self.driver.find_element_by_id("numberinput")
+
+        num_input.click()  # Focus on the input field
+        val_before = float(num_input.get_attribute("value"))
+        num_input.send_keys(Keys.DOWN)
+        val_after = float(num_input.get_attribute("value"))
+
+        import ipdb
+        ipdb.set_trace()
+        self.assertEqual(val_before - step_size, val_after)
+
     def test_tabs_without_children(self):
         app = dash.Dash(__name__)
 
