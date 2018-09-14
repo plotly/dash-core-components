@@ -482,8 +482,6 @@ class Tests(IntegrationTests):
         num_input.send_keys(Keys.DOWN)
         val_after = float(num_input.get_attribute("value"))
 
-        import ipdb
-        ipdb.set_trace()
         self.assertEqual(val_before - step_size, val_after)
 
     def test_tabs_without_children(self):
