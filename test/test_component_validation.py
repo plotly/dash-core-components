@@ -31,9 +31,18 @@ def get_components():
     for componentPath in data:
         componentData = data[componentPath]
         name = componentPath.split('/').pop().split('.')[0]
-        if name not in ['Checklist', 'ConfirmDialog', 'ConfirmDialogProvider',
-                        'Interval', 'Graph', 'Location', 'Tab', 'Tabs',
-                        'Slider']:
+        if name not in [
+            'Checklist',
+            'ConfirmDialog',
+            'ConfirmDialogProvider',
+            'Interval',
+            'Graph',
+            'Location',
+            'Tab',
+            'Tabs',
+            'RangeSlider',
+            'Slider'
+        ]:
             components[name] = componentData['props']
     return components
 
@@ -127,50 +136,71 @@ class CallbackTests(IntegrationTests):
         components_with_props =\
              generate_all_components_with_props(self.components)
         app = dash.Dash(__name__)
+        app.config['suppress_callback_exceptions'] = True
 
-        children = [
-            component(**props) for component, props in components_with_props
-        ]
-        app.layout = html.Div(
-            children=[
-                html.Button(
-                    'Click for next component',
-                    id='next-component'
-                ),
-                html.Div(id='component-container'),
-                html.Div(id='test-details'),
-                dcc.Link()
-            ]
-        )
+        PAGE_SIZE = 5
+
+        children = []
+        button_ids = []
+        props_to_add = []
+        for c, p in components_with_props:
+            button_id = "{}-button".format(p['id'])
+            children.append(c(**p))
+            children.append(html.Button('Callback {}'.format(p['id']),
+                                        id=button_id))
+            button_ids.append(button_id)
+            p_keys = list(p.keys())
+            p_keys.remove('id')
+            if p_keys:
+                other_key = p_keys[0]
+                props_to_add.append((
+                    p['id'],
+                    button_id,
+                    other_key,
+                    p[other_key]
+                ))
+        app.layout = html.Div(children=[
+            html.Div(id='container'),
+            html.Button(id='next-page', children='next page'),
+            dcc.Link()
+        ])
 
         @app.callback(
-            dash.dependencies.Output('test-details', 'children'),
-            [dash.dependencies.Input('next-component', 'n_clicks')]
+            dash.dependencies.Output('container', 'children'),
+            [dash.dependencies.Input('next-page', 'n_clicks')]
         )
-        def switch_detauls(n_clicks):
+        def next_page(n_clicks):
             if n_clicks is None:
                 n_clicks = 0
-            c, p = components_with_props[n_clicks]
-            return html.Div([
-                html.H1("Component: {}".format(c.__name__)),
-                html.Pre(pprint.pformat(p))
-            ])
+            left_bound = n_clicks * PAGE_SIZE * 2
+            right_bound = (n_clicks + 1) * PAGE_SIZE * 2
+            return children[left_bound: right_bound]
 
-        @app.callback(
-            dash.dependencies.Output('component-container', 'children'),
-            [dash.dependencies.Input('next-component', 'n_clicks')]
-        )
-        def switch_component(n_clicks):
-            if n_clicks is None:
-                n_clicks = 0
-            return children[n_clicks]
+        prop_map = {p[0]: p[3] for p in props_to_add}
+        for id, button_id, prop, _ in props_to_add:
+
+            @app.callback(
+                dash.dependencies.Output(id, prop),
+                [dash.dependencies.Input(button_id, 'n_clicks')],
+                [dash.dependencies.State(id, 'id')]
+            )
+            def update_prop(n_clicks, my_id):
+                if n_clicks:
+                    return prop_map[my_id]
+                return prop_map[my_id]
 
         self.startServer(app)
 
-        clicks = 0
-        while clicks < len(children) - 1:
-            next_button = WebDriverWait(self.driver, 20).until(
-                EC.presence_of_element_located((By.ID, 'next-component'))
+        click_cycle = 0
+        for button_id in button_ids:
+            if click_cycle == PAGE_SIZE:
+                button = WebDriverWait(self.driver, 20).until(
+                    EC.presence_of_element_located((By.ID, 'next-page'))
+                )
+                button.click()
+                click_cycle = 0
+            click_cycle += 1
+            button = WebDriverWait(self.driver, 20).until(
+                EC.presence_of_element_located((By.ID, button_id))
             )
-            next_button.click()
-            clicks += 1
+            button.click()
