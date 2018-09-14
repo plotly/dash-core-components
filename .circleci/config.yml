@@ -36,10 +36,6 @@ jobs:
               - "node_modules"
 
       - run:
-          name: npm run format 
-          command: npm run format 
-
-      - run:
           name: npm run lint
           command: npm run lint
 
