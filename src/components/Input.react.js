@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {omit} from 'ramda';
+import {omit, contains} from 'ramda';
 
 /**
  * A function to handle the formating of the `value` prop of the react `input`.
@@ -44,7 +44,7 @@ export default class Input extends Component {
             <input
                 onBlur={() => {
                     const newValue = formatValue(this.state.value, type);
-                    if (updatemode === 'blur') {
+                    if (updatemode === 'blur' || contains('blur', updatemode)) {
                         this.setState({value: newValue});
                         if (setProps) {
                             setProps({value: newValue});
@@ -57,7 +57,10 @@ export default class Input extends Component {
                 onChange={e => {
                     const newValue = formatValue(e.target.value, type);
                     this.setState({value: newValue});
-                    if (updatemode === 'keypress') {
+                    if (
+                        updatemode === 'keypress' ||
+                        contains('keypress', updatemode)
+                    ) {
                         if (setProps) {
                             setProps({value: newValue});
                         }
@@ -85,7 +88,7 @@ export default class Input extends Component {
                         }
                         if (
                             (keyValue === '.' || keyValue === ',') &&
-                            /[.]|,/.test(curVal.value)
+                            /[.]|,/.test(curVal)
                         ) {
                             e.preventDefault();
                         }
