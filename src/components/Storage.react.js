@@ -1,6 +1,33 @@
+import R from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+function dataCheck(data, old) {
+    // Assuming data and old are of the same type.
+    if (R.isNil(old) || R.isNil(data)) {
+        return true;
+    }
+    if (data.constructor === Array)
+    {
+        if (data.length !== old.length) {
+            return true;
+        }
+        for (let i=0;i < data.length;i++) {
+            if (data[i] !== old[i]) {
+                return true;
+            }
+        }
+    }
+    else if (data instanceof Object)
+    {
+        return R.any(([k,v]) => old[k] !== v)(Object.entries(data));
+    }
+    else if (data instanceof String || data instanceof Number)
+    {
+        return old !== data
+    }
+    return false;
+}
 
 class MemStore  {
     constructor() {
@@ -13,10 +40,22 @@ class MemStore  {
 
     setItem(key, value) {
         this._data[key] = value;
+        this.setModified(key);
     }
 
     removeItem(key) {
         delete this._data[key];
+        this.setModified(key);
+    }
+
+    // noinspection JSUnusedLocalSymbols
+    setModified(_) {
+        this._modified = Date.now();
+    }
+
+    // noinspection JSUnusedLocalSymbols
+    getModified(_) {
+        return this._modified || -1;
     }
 }
 
@@ -30,12 +69,21 @@ class WebStore {
     }
 
     setItem(key, value) {
-        this._storage.setItem(key, typeof value === 'string' ?
-            value : JSON.stringify(value));
+        this._storage.setItem(key, JSON.stringify(value));
+        this.setModified(key);
     }
 
     removeItem(key) {
         this._storage.removeItem(key);
+        this.setModified(key);
+    }
+
+    setModified(key) {
+        this._storage.setItem(`${key}-timestamp`, Date.now())
+    }
+
+    getModified(key) {
+        return this._storage.getItem(`${key}-timestamp`) || -1;
     }
 }
 
@@ -65,8 +113,11 @@ export default class Storage extends React.Component {
 
     onStorageChange(e) {
         const { id, setProps } = this.props;
-        if (e.key === id && setProps  && e.newValue !== e.oldValue) {
-            setProps({data: JSON.parse(e.newValue)});
+        if (e.key === id && setProps && e.newValue !== e.oldValue) {
+            setProps({
+                data: JSON.parse(e.newValue),
+                modified_timestamp: this._backstore.getModified(id)
+            });
         }
     }
 
@@ -78,9 +129,12 @@ export default class Storage extends React.Component {
 
         if (setProps) {
             // Take the data from storage, ignore the prop data on load.
-            const d = this._backstore.getItem(id);
-            if (d !== data) {
-                setProps({data: d});
+            const old = this._backstore.getItem(id);
+            if (dataCheck(old, data)) {
+                setProps({
+                    data: old,
+                    modified_timestamp: this._backstore.getModified(id)
+                });
                 return;
             }
         }
@@ -101,10 +155,24 @@ export default class Storage extends React.Component {
         if (clear_data) {
             this._backstore.removeItem(id);
             if (setProps) {
-                setProps({clear_data: false, data: null})
+                setProps({
+                    clear_data: false,
+                    data: null,
+                    modified_timestamp: this._backstore.getModified(id)
+                })
             }
         } else if (data) {
-            this._backstore.setItem(id, data);
+            const old = this._backstore.getItem(id);
+            // Only set the data if it's not the same data.
+            if (dataCheck(data, old))
+            {
+                this._backstore.setItem(id, data);
+                if (setProps) {
+                    setProps({
+                        modified_timestamp: this._backstore.getModified(id)
+                    })
+                }
+            }
         }
     }
 
@@ -115,7 +183,8 @@ export default class Storage extends React.Component {
 
 Storage.defaultProps = {
     storage_type: 'memory',
-    clear_data: false
+    clear_data: false,
+    modified_timestamp: -1
 };
 
 Storage.propTypes = {
@@ -134,14 +203,24 @@ Storage.propTypes = {
     storage_type: PropTypes.oneOf(['local', 'session', 'memory']),
 
     /**
-     * The stored data for the key.
+     * The stored data for the id.
      */
-    data: PropTypes.object,
+    data: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.array,
+        PropTypes.number,
+        PropTypes.string,
+    ]),
 
     /**
      * Set to true to remove the data contained in `data_key`.
      */
     clear_data: PropTypes.bool,
+
+    /**
+     * The last time the storage was modified.
+     */
+    modified_timestamp: PropTypes.number,
 
     /**
      * Dash-assigned callback that gets fired when the value changes.
