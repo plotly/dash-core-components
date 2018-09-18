@@ -12,13 +12,20 @@ if(version.includes("rc")) {
 console.log(`Publishing version ${version} of ${name} to NPM & PyPi\n`);
 
 console.log('>', 'python setup.py sdist');
-execSh([
-        'npm publish',
-        `python setup.py sdist`,
-        `twine upload dist/${name}-${version}.tar.gz`,
-        `git tag -a 'v${version}' -m 'v${version}'`,
-        `git push origin master --follow-tags`
-    ]
-    , err => {
-    throw new Error(err);
-});
+
+execSh('git diff-index --quiet HEAD --', err => {
+    if(err) {
+        throw new Error('\nIt looks like there are uncommitted changes! Aborting until these changes have been resolved.\n');
+    } else {
+        execSh([
+                'npm publish --otp',
+                `python setup.py sdist`,
+                `twine upload dist/${name}-${version}.tar.gz`,
+                `git tag -a 'v${version}' -m 'v${version}'`,
+                `git push origin v${version}`
+            ]
+            , err => {
+            throw new Error(err);
+        });
+    }
+})
