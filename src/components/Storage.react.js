@@ -32,6 +32,7 @@ function dataCheck(data, old) {
 class MemStore  {
     constructor() {
         this._data = {};
+        this._modified = -1;
     }
 
     getItem(key) {
@@ -55,7 +56,7 @@ class MemStore  {
 
     // noinspection JSUnusedLocalSymbols
     getModified(_) {
-        return this._modified || -1;
+        return this._modified;
     }
 }
 
@@ -83,7 +84,8 @@ class WebStore {
     }
 
     getModified(key) {
-        return this._storage.getItem(`${key}-timestamp`) || -1;
+        return Number.parseInt(
+            this._storage.getItem(`${key}-timestamp`), 10) || -1;
     }
 }
 

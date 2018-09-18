@@ -1176,13 +1176,17 @@ class Tests(IntegrationTests):
                         storage_type='local'),
             html.Button('click me', id='btn'),
             html.Button('clear', id='clear-btn'),
+            html.Button('set-init-storage',
+                        id='set-init-storage'),
             dcc.Storage(id='dummy',
                         storage_type='session',
                         data=dummy_data),
             dcc.Storage(id='memory',
                         storage_type='memory'),
-            html.Div(id='memory-output')
-
+            html.Div(id='memory-output'),
+            dcc.Storage(id='initial-storage',
+                        storage_type='session'),
+            html.Div(id='init-output')
         ])
 
         @app.callback(Output('storage', 'data'),
@@ -1212,6 +1216,20 @@ class Tests(IntegrationTests):
                 return ''
             return json.dumps(data)
 
+        @app.callback(Output('initial-storage', 'data'),
+                      [Input('set-init-storage', 'n_clicks')])
+        def on_init(n_clicks):
+            if n_clicks is None:
+                raise PreventUpdate
+
+            return 'initialized'
+
+        @app.callback(Output('init-output', 'children'),
+                      [Input('initial-storage', 'modified_timestamp')],
+                      [State('initial-storage', 'data')])
+        def init_output(ts, data):
+            return json.dumps({'data': data, 'ts': ts})
+
         self.startServer(app)
 
         time.sleep(1)
@@ -1238,3 +1256,16 @@ class Tests(IntegrationTests):
         self.assertTrue(cleared_data is None)
         # Did mem also got cleared ?
         self.assertFalse(mem.text)
+
+        # Test initial timestamp output
+        init_btn = self.wait_for_element_by_css_selector('#set-init-storage')
+        init_btn.click()
+        ts = int(time.time() * 1000)
+        time.sleep(1)
+        self.driver.refresh()
+        time.sleep(3)
+        init = self.wait_for_element_by_css_selector('#init-output')
+        init = json.loads(init.text)
+        self.assertAlmostEqual(ts, init.get('ts'), delta=1000)
+        self.assertEqual('initialized', init.get('data'))
+
