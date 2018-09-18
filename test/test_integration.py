@@ -1166,7 +1166,7 @@ class Tests(IntegrationTests):
     def test_storage_component(self):
         app = dash.Dash(__name__)
 
-        getter = 'return window.{}.getItem("{}");'
+        getter = 'return JSON.parse(window.{}.getItem("{}"));'
         clicked_getter = getter.format('localStorage', 'storage')
         dummy_getter = getter.format('sessionStorage', 'dummy')
         dummy_data = 'Hello dummy'
@@ -1227,7 +1227,7 @@ class Tests(IntegrationTests):
             click_btn.click()
             time.sleep(1)
 
-            click_data = json.loads(self.driver.execute_script(clicked_getter))
+            click_data = self.driver.execute_script(clicked_getter)
             self.assertEqual(i, click_data.get('clicked'))
             self.assertEquals(i, int(json.loads(mem.text).get('clicked')))
 
