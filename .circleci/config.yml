@@ -36,6 +36,10 @@ jobs:
               - "node_modules"
 
       - run:
+        name: prettier --list-different
+        command: prettier --list-different
+
+      - run:
           name: npm run lint
           command: npm run lint
 
