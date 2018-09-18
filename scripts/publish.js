@@ -25,7 +25,9 @@ execSh('git diff-index --quiet HEAD --', err => {
                 `git push origin v${version}`
             ]
             , err => {
-            throw new Error(err);
+                if(err) {
+                    throw new Error(err);
+                }
         });
     }
 })
