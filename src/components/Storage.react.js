@@ -129,15 +129,18 @@ export default class Storage extends React.Component {
             window.addEventListener('storage', this.onStorageChange);
         }
 
-        if (setProps) {
-            // Take the data from storage, ignore the prop data on load.
-            const old = this._backstore.getItem(id);
-            if (dataCheck(old, data)) {
-                setProps({
-                    data: old,
-                    modified_timestamp: this._backstore.getModified(id)
-                });
-            }
+        const old = this._backstore.getItem(id);
+        if (R.isNil(old) && data) {
+            // Initial data mount
+            this._backstore.setItem(id, data);
+            return;
+        }
+
+        if (setProps && dataCheck(old, data)) {
+            setProps({
+                data: old,
+                modified_timestamp: this._backstore.getModified(id)
+            });
         }
     }
 
