@@ -137,12 +137,7 @@ export default class Storage extends React.Component {
                     data: old,
                     modified_timestamp: this._backstore.getModified(id)
                 });
-                return;
             }
-        }
-
-        if (data) {
-            this._backstore.setItem(id, data);
         }
     }
 
