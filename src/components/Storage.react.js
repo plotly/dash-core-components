@@ -76,7 +76,7 @@ class WebStore {
 
     removeItem(key) {
         this._storage.removeItem(key);
-        this.setModified(key);
+        this._storage.removeItem(`${key}-timestamp`);
     }
 
     setModified(key) {
