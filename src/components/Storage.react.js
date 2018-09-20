@@ -133,6 +133,11 @@ export default class Storage extends React.Component {
         if (R.isNil(old) && data) {
             // Initial data mount
             this._backstore.setItem(id, data);
+            if (setProps) {
+                setProps({
+                    modified_timestamp: this._backstore.getModified(id)
+                })
+            }
             return;
         }
 
