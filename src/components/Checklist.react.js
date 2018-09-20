@@ -97,7 +97,7 @@ Checklist.propTypes = {
     /**
      * The currently selected value
      */
-    values: PropTypes.arrayOf(PropTypes.string),
+    values: PropTypes.arrayOf(PropTypes.string).isRequired,
 
     /**
      * The class of the container (div)

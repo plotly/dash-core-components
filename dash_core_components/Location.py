@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string', 'required': True}, 'pathname': {'type': 'string'}, 'search': {'type': 'string'}, 'hash': {'type': 'string'}, 'href': {'type': 'string'}, 'refresh': {'type': 'boolean'}, 'setProps': {}}
+schema = {'id': {'type': 'string', 'required': True}, 'pathname': {'anyof': [{'type': 'string'}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'search': {'type': 'string'}, 'hash': {'type': 'string'}, 'href': {'type': 'string'}, 'refresh': {'type': 'boolean'}, 'setProps': {}}
 
 class Location(Component):
     """A Location component.
@@ -13,7 +13,7 @@ Use in conjunction with the `dash_core_components.Link` component to make apps w
 
 Keyword arguments:
 - id (string; required)
-- pathname (string; optional): pathname in window.location - e.g., "/my/full/pathname"
+- pathname (string | a value equal to: null; optional): pathname in window.location - e.g., "/my/full/pathname"
 - search (string; optional): search in window.location - e.g., "?myargument=1"
 - hash (string; optional): hash in window.location - e.g., "#myhash"
 - href (string; optional): href in window.location - e.g., "/my/full/pathname?myargument=1#myhash"
@@ -34,12 +34,13 @@ Available events: """
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args}
 
         for k in ['id']:
             if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
+        args.pop('children', None)
         super(Location, self).__init__(**args)
 
     def __repr__(self):

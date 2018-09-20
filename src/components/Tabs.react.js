@@ -214,7 +214,7 @@ export default class Tabs extends Component {
             selectedTab = this.props.children.filter(child => {
                 return child.props.children.props.value === this.state.selected;
             });
-            if ('props' in selectedTab[0]) {
+            if (selectedTab[0] && 'props' in selectedTab[0]) {
                 selectedTabContent = selectedTab[0].props.children;
             }
         }
@@ -359,10 +359,7 @@ Tabs.propTypes = {
     /**
      * Array that holds Tab components
      */
-    children: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.oneOf([null])
-    ]),
+    children: PropTypes.node.isRequired,
 
     /**
      * Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so:

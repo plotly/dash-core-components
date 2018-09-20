@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'value': {'type': 'string'}, 'className': {'type': 'string'}, 'content_className': {'type': 'string'}, 'parent_className': {'type': 'string'}, 'style': {'type': 'dict'}, 'parent_style': {'type': 'dict'}, 'content_style': {'type': 'dict'}, 'vertical': {'type': 'boolean'}, 'mobile_breakpoint': {'type': 'number'}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'colors': {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'border': {'type': 'string'}, 'primary': {'type': 'string'}, 'background': {'type': 'string'}}}}
+schema = {'id': {'type': 'string'}, 'value': {'type': 'string'}, 'className': {'type': 'string'}, 'content_className': {'type': 'string'}, 'parent_className': {'type': 'string'}, 'style': {'type': 'dict'}, 'parent_style': {'type': 'dict'}, 'content_style': {'type': 'dict'}, 'vertical': {'type': 'boolean'}, 'mobile_breakpoint': {'type': 'number'}, 'children': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}], 'required': True}, 'colors': {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'border': {'type': 'string'}, 'primary': {'type': 'string'}, 'background': {'type': 'string'}}}}
 
 class Tabs(Component):
     """A Tabs component.
@@ -13,7 +13,7 @@ can be dcc.Tab components, which can hold a label that will be displayed as a ta
 children components that will be that tab's content.
 
 Keyword arguments:
-- children (a list of or a singular dash component, string or number | a value equal to: null; optional): Array that holds Tab components
+- children (a list of or a singular dash component, string or number; required): Array that holds Tab components
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.
@@ -52,12 +52,13 @@ Available events: """
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args}
 
-        for k in []:
+        for k in ['children']:
             if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
+        args.pop('children', None)
         super(Tabs, self).__init__(children=children, **args)
 
     def __repr__(self):

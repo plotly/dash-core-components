@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'message': {'type': 'string'}, 'submit_n_clicks': {'type': 'number'}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'displayed': {'type': 'boolean'}, 'key': {'type': 'string'}, 'setProps': {}}
+schema = {'id': {'type': 'string'}, 'message': {'type': 'string'}, 'submit_n_clicks': {'type': 'number'}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'displayed': {'anyof': [{'allowed': [None], 'type': ('string', 'number'), 'nullable': True}, {'type': 'boolean'}], 'nullable': True}, 'key': {'type': 'string'}, 'setProps': {}}
 
 class ConfirmDialog(Component):
     """A ConfirmDialog component.
@@ -20,7 +20,7 @@ Keyword arguments:
 - submit_n_clicks_timestamp (number; optional): Last time the submit button was clicked.
 - cancel_n_clicks (number; optional): Number of times the popup was canceled.
 - cancel_n_clicks_timestamp (number; optional): Last time the cancel button was clicked.
-- displayed (boolean; optional): Set to true to send the ConfirmDialog.
+- displayed (a value equal to: null | boolean; optional): Set to true to send the ConfirmDialog.
 - key (string; optional)
 
 Available events: """
@@ -38,12 +38,13 @@ Available events: """
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args}
 
         for k in []:
             if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
+        args.pop('children', None)
         super(ConfirmDialog, self).__init__(**args)
 
     def __repr__(self):

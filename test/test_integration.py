@@ -225,7 +225,7 @@ class Tests(IntegrationTests):
             dcc.Upload(),
 
             html.Label('Horizontal Tabs'),
-            dcc.Tabs(id="horizontal-tabs", children=[
+            dcc.Tabs(id="tabs", children=[
                 dcc.Tab(label='Tab one', className='test', style={'border': '1px solid magenta'}, children=[
                     html.Div(['Test'])
                 ]),
@@ -861,9 +861,8 @@ class Tests(IntegrationTests):
                 if not submit_n_clicks and not cancel_n_clicks:
                     return ''
                 count.value += 1
-                if (submit_timestamp and not cancel_timestamp
-                    or ((submit_timestamp and cancel_timestamp) and
-                        (submit_timestamp > cancel_timestamp))):
+                if (submit_timestamp and cancel_timestamp is None) or\
+                        (submit_timestamp and cancel_timestamp):
                     return 'confirmed'
                 else:
                     return 'canceled'
@@ -871,6 +870,7 @@ class Tests(IntegrationTests):
         self.startServer(app)
         self.snapshot(test_name + ' -> initial')
         button = self.wait_for_element_by_css_selector('#button')
+        print(button)
 
         button.click()
         time.sleep(1)

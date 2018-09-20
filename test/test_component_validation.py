@@ -2,7 +2,6 @@ import os
 import dash
 import unittest
 import uuid
-import pprint
 import dash_html_components as html
 import dash_core_components as dcc
 
@@ -13,34 +12,32 @@ from selenium.webdriver.common.by import By
 from dash.development.component_loader import _get_metadata
 from .IntegrationTests import IntegrationTests
 
+# All types which are just a scalar value
 terminal_types = {
     'string': 'hello world',
-    'number': 42.7,
+    'number': 42,
     'bool': True,
-    'integer': 42,
     'object': {'hello': 'world'},
-    'array': [1, 2, 3]
+    'array': [1, 2, 3],
+    'node': html.Div("Hello World")
 }
 
 
 def get_components():
+    # Load metadata.json
     path = os.path.join('dash_core_components', 'metadata.json')
     data = _get_metadata(path)
+
+    # Holds component names with corresponding props metadata.
     components = {}
     # Iterate over each property name (which is a path to the component)
     for componentPath in data:
         componentData = data[componentPath]
         name = componentPath.split('/').pop().split('.')[0]
         if name not in [
-            'Checklist',
             'ConfirmDialog',
             'ConfirmDialogProvider',
-            'Interval',
-            'Graph',
             'Location',
-            'Tab',
-            'Tabs',
-            'RangeSlider',
             'Slider'
         ]:
             components[name] = componentData['props']
@@ -82,23 +79,28 @@ def generate_all_components_with_props(component_props):
     all_props = []
     for component_name, props in component_props.items():
         component = getattr(dcc, component_name)
+        required_props = {}
         for prop_name, schema in props.items():
-            if prop_name != 'dashEvents':
+            type_object = schema.get('type', None)
+            required = schema.get('required', False)
+            if type_object and required:
+                required_props[prop_name] =\
+                    next(get_possible_values(type_object))
+        for prop_name, schema in props.items():
+            if prop_name not in ['dashEvents', 'fireEvent']:
                 type_object = schema.get('type', None)
+                required = schema.get('required', False)
                 for possible_value in get_possible_values(type_object):
-                    all_props.append(
-                        (
-                            component,
-                            {
-                                prop_name: possible_value,
-                                'id': '{}-{}-{}'.format(
-                                    component_name,
-                                    prop_name,
-                                    uuid.uuid4()
-                                )
-                            }
+                    prop_dict = required_props.copy()
+                    prop_dict.update({
+                        prop_name: possible_value,
+                        'id': '{}-{}-{}'.format(
+                            component_name,
+                            prop_name,
+                            uuid.uuid4()
                         )
-                    )
+                    })
+                    all_props.append((component, prop_dict))
     return all_props
 
 
@@ -143,21 +145,19 @@ class CallbackTests(IntegrationTests):
         children = []
         button_ids = []
         props_to_add = []
-        for c, p in components_with_props:
-            button_id = "{}-button".format(p['id'])
-            children.append(c(**p))
-            children.append(html.Button('Callback {}'.format(p['id']),
+        for component, props in components_with_props:
+            button_id = "{}-button".format(props['id'])
+            children.append(component(**props))
+            children.append(html.Button('Callback {}'.format(props['id']),
                                         id=button_id))
             button_ids.append(button_id)
-            p_keys = list(p.keys())
-            p_keys.remove('id')
-            if p_keys:
-                other_key = p_keys[0]
+            prop_name = props['id'].split('-')[1]
+            if prop_name in props:
                 props_to_add.append((
-                    p['id'],
+                    props['id'],
                     button_id,
-                    other_key,
-                    p[other_key]
+                    prop_name,
+                    props[prop_name]
                 ))
         app.layout = html.Div(children=[
             html.Div(id='container'),
@@ -185,10 +185,10 @@ class CallbackTests(IntegrationTests):
                 [dash.dependencies.State(id, 'id')]
             )
             def update_prop(n_clicks, my_id):
+                print("Updating {} with {}".format(my_id, prop_map[my_id]))
                 if n_clicks:
                     return prop_map[my_id]
                 return prop_map[my_id]
-
         self.startServer(app)
 
         click_cycle = 0

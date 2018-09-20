@@ -49,7 +49,7 @@
             "name": "string"
           }
         },
-        "required": false,
+        "required": true,
         "description": "The currently selected value"
       },
       "className": {
@@ -224,7 +224,21 @@
       },
       "displayed": {
         "type": {
-          "name": "bool"
+          "name": "union",
+          "value": [
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "bool"
+            }
+          ]
         },
         "required": false,
         "description": "Set to true to send the ConfirmDialog."
@@ -1339,6 +1353,9 @@
         }
       },
       "figure": {
+        "type": {
+          "name": "object"
+        },
         "required": false,
         "description": "Plotly `figure` object. See schema:\nhttps://plot.ly/javascript/reference",
         "defaultValue": {
@@ -2138,7 +2155,21 @@
       },
       "pathname": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": "pathname in window.location - e.g., \"/my/full/pathname\""
@@ -3053,23 +3084,9 @@
       },
       "children": {
         "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "node"
-            },
-            {
-              "name": "enum",
-              "value": [
-                {
-                  "value": "null",
-                  "computed": false
-                }
-              ]
-            }
-          ]
+          "name": "node"
         },
-        "required": false,
+        "required": true,
         "description": "Array that holds Tab components"
       },
       "colors": {
