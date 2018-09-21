@@ -1,5 +1,5 @@
 Cerberus
-dash_html_components
+dash_html_components==0.14.0-rc1
 dash_renderer
 dash==0.27.0-rc8
 percy
