@@ -7,7 +7,8 @@ function dataCheck(data, old) {
     if (R.isNil(old) || R.isNil(data)) {
         return true;
     }
-    if (data.constructor === Array)
+    const type = R.type(data);
+    if (type === 'Array')
     {
         if (data.length !== old.length) {
             return true;
@@ -18,13 +19,13 @@ function dataCheck(data, old) {
             }
         }
     }
-    else if (data instanceof Object)
-    {
-        return R.any(([k,v]) => old[k] !== v)(Object.entries(data));
-    }
-    else if (data instanceof String || data instanceof Number)
+    else if (R.contains(type, ['String', 'Number']))
     {
         return old !== data
+    }
+    else if (type === 'Object')
+    {
+        return R.any(([k,v]) => old[k] !== v)(Object.entries(data));
     }
     return false;
 }
