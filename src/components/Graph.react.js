@@ -82,13 +82,15 @@ export default class PlotlyGraph extends Component {
         ) {
             return Plotly.animate(id, figure, animation_options);
         }
-        return Plotly.react(id, figure.data, clone(figure.layout), config).then(() => {
-            if (!this._hasPlotted) {
-                this.bindEvents();
-                Plotly.Plots.resize(document.getElementById(id));
-                this._hasPlotted = true;
+        return Plotly.react(id, figure.data, clone(figure.layout), config).then(
+            () => {
+                if (!this._hasPlotted) {
+                    this.bindEvents();
+                    Plotly.Plots.resize(document.getElementById(id));
+                    this._hasPlotted = true;
+                }
             }
-        });
+        );
     }
 
     bindEvents() {
