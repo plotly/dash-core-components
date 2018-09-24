@@ -30,13 +30,14 @@ class IntegrationTests(unittest.TestCase):
             os.path.join(
                 os.path.dirname(__file__),
                 '..',
+                'assets',
                 'dash_core_components'
             )
         )
         print('root_static_dir: {}'.format(root_static_dir))
         loader = percy.ResourceLoader(
             webdriver=cls.driver,
-            base_url='/_dash-component-suites/dash_core_components/',
+            base_url='/assets/dash_core_components',
             root_dir=root_static_dir
         )
         cls.percy_runner = percy.Runner(loader=loader)
