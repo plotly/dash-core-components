@@ -25,7 +25,19 @@ class IntegrationTests(unittest.TestCase):
             options.binary_location = os.environ['DASH_TEST_CHROMEPATH']
 
         cls.driver = webdriver.Chrome(chrome_options=options)
-        loader = percy.ResourceLoader(webdriver=cls.driver)
+
+        root_static_dir = os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__),
+                '..',
+                'dash_core_components'
+            )
+        )
+        loader = percy.ResourceLoader(
+            webdriver=cls.driver,
+            base_url='/_dash-component-suites/dash_core_components',
+            root_dir=root_static_dir
+        )
         cls.percy_runner = percy.Runner(loader=loader)
         cls.percy_runner.initialize_build()
 
