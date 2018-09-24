@@ -1,7 +1,7 @@
 dash_html_components==0.12.0rc3
 dash_renderer
 dash==0.27.0
-percy
+percy==1.0.11
 selenium
 mock
 tox
