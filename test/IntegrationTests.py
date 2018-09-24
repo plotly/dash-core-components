@@ -33,9 +33,10 @@ class IntegrationTests(unittest.TestCase):
                 'dash_core_components'
             )
         )
+
         loader = percy.ResourceLoader(
             webdriver=cls.driver,
-            base_url='/_dash-component-suites/dash_core_components/',
+            base_url='/_dash-component-suites/',
             root_dir=root_static_dir
         )
         cls.percy_runner = percy.Runner(loader=loader)
