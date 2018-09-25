@@ -5,17 +5,17 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Store(Component):
     """A Store component.
-Easily keep data on the client side with this component.
-The data is not inserted in the DOM.
-Data can be in memory, localStorage or sessionStorage.
+Easily keep data on the client side with this component.
+The data is not inserted in the DOM.
+Data can be in memory, localStorage or sessionStorage.
 The data will be kept with the id as key.
 
 Keyword arguments:
 - id (string; required): The key of the storage.
-- storage_type (a value equal to: 'local', 'session', 'memory'; optional): The type of the web storage.
+- storage_type (a value equal to: 'local', 'session', 'memory'; optional): The type of the web storage.
 
-memory: only kept in memory, reset on page refresh.
-local: window.localStorage, data is kept after the browser quit.
+memory: only kept in memory, reset on page refresh.
+local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.
 - data (dict | list | number | string; optional): The stored data for the id.
 - clear_data (boolean; optional): Set to true to remove the data contained in `data_key`.

@@ -3,6 +3,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 
+const NoChildrenError = {
+    name: 'NoChildrenError',
+    message: 'Tabs did not have any children Tab components!',
+};
+
 const EnhancedTab = ({
     id,
     label,
@@ -114,12 +119,22 @@ export default class Tabs extends Component {
         this.selectHandler = this.selectHandler.bind(this);
         this.parseChildrenToArray = this.parseChildrenToArray.bind(this);
 
-        this.parseChildrenToArray();
+        // this.parseChildrenToArray();
+
+        if (!this.props.children) {
+            throw NoChildrenError;
+        }
 
         if (!this.props.value) {
             // if no value specified on Tabs component, set it to the first child's (which should be a Tab component) value
-            const value =
-                this.props.children[0].props.children.props.value || 'tab-1';
+
+            const children = this.parseChildrenToArray();
+            let value;
+            if (children[0].props.children) {
+                value = children[0].props.children.props.value || 'tab-1';
+            } else {
+                value = 'tab-1';
+            }
             this.state = {
                 selected: value,
             };
@@ -139,8 +154,9 @@ export default class Tabs extends Component {
         if (this.props.children && !R.is(Array, this.props.children)) {
             // if dcc.Tabs.children contains just one single element, it gets passed as an object
             // instead of an array - so we put in in a array ourselves!
-            this.props.children = [this.props.children];
+            return [this.props.children];
         }
+        return this.props.children;
     }
     selectHandler(value) {
         this.setState({
@@ -164,11 +180,11 @@ export default class Tabs extends Component {
         let selectedTabContent;
 
         if (this.props.children) {
-            this.parseChildrenToArray();
+            const children = this.parseChildrenToArray();
 
-            const amountOfTabs = this.props.children.length;
+            const amountOfTabs = children.length;
 
-            EnhancedTabs = this.props.children.map((child, index) => {
+            EnhancedTabs = children.map((child, index) => {
                 // TODO: handle components that are not dcc.Tab components (throw error)
                 // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
                 let childProps;
@@ -182,9 +198,17 @@ export default class Tabs extends Component {
                 }
 
                 if (!childProps.value) {
-                    childProps.value = `tab-${index + 1}`;
+                    childProps = {...childProps, value: `tab-${index + 1}`};
                 }
 
+                // selectedTab = this.props.children.filter(child => {
+                //     return childProps.value === this.state.selected;
+                // });
+
+                // check if this child/Tab is currently selected
+                if (childProps.value === this.state.selected) {
+                    selectedTab = child;
+                }
                 return (
                     <EnhancedTab
                         key={index}
@@ -206,13 +230,11 @@ export default class Tabs extends Component {
                     />
                 );
             });
-
-            selectedTab = this.props.children.filter(child => {
-                return child.props.children.props.value === this.state.selected;
-            });
-            if ('props' in selectedTab[0]) {
-                selectedTabContent = selectedTab[0].props.children;
-            }
+        } else {
+            throw NoChildrenError;
+        }
+        if (selectedTab.length > 0 && 'props' in selectedTab[0]) {
+            selectedTabContent = selectedTab[0].props.children;
         }
 
         const tabContainerClass = this.props.vertical
@@ -232,11 +254,13 @@ export default class Tabs extends Component {
                 className={`${tabParentClass} ${this.props.parent_className ||
                     ''}`}
                 style={this.props.parent_style}
+                id={`${this.props.id}-parent`}
             >
                 <div
                     className={`${tabContainerClass} ${this.props.className ||
                         ''}`}
                     style={this.props.style}
+                    id={this.props.id}
                 >
                     {EnhancedTabs}
                 </div>
