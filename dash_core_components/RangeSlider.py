@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'marks': {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'number': {'anyof': [{'type': 'string'}, {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'style': {'type': 'dict'}, 'label': {'type': 'string'}}}]}}}, 'value': {'type': 'list', 'schema': {'type': 'number', 'nullable': False}}, 'allowCross': {'type': 'boolean'}, 'className': {'type': 'string'}, 'count': {'type': 'number'}, 'disabled': {'type': 'boolean'}, 'dots': {'type': 'boolean'}, 'included': {'type': 'boolean'}, 'min': {'type': 'number'}, 'max': {'type': 'number'}, 'pushable': {'anyof': [{'type': 'boolean'}, {'type': 'number'}]}, 'step': {'type': 'number'}, 'vertical': {'type': 'boolean'}, 'updatemode': {'allowed': ['mouseup', 'drag'], 'type': ('string', 'number')}, 'fireEvent': {}, 'setProps': {}, 'dashEvents': {'allowed': ['change'], 'type': ('string', 'number')}}
+schema = {'id': {'type': 'string'}, 'marks': {'type': 'dict', 'nullable': False, 'valueschema': {'anyof': [{'type': 'string'}, {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'style': {'type': 'dict'}, 'label': {'type': 'string'}}}]}}, 'value': {'type': 'list', 'schema': {'type': 'number', 'nullable': False}}, 'allowCross': {'type': 'boolean'}, 'className': {'type': 'string'}, 'count': {'type': 'number'}, 'disabled': {'type': 'boolean'}, 'dots': {'type': 'boolean'}, 'included': {'type': 'boolean'}, 'min': {'type': 'number'}, 'max': {'type': 'number'}, 'pushable': {'anyof': [{'type': 'boolean'}, {'type': 'number'}]}, 'step': {'type': 'number'}, 'vertical': {'type': 'boolean'}, 'updatemode': {'allowed': ['mouseup', 'drag'], 'type': ('string', 'number')}, 'fireEvent': {}, 'setProps': {}, 'dashEvents': {'allowed': ['change'], 'type': ('string', 'number')}}
 
 class RangeSlider(Component):
     """A RangeSlider component.
@@ -18,9 +18,7 @@ The key determines the position,
 and the value determines what will show.
 If you want to set the style of a specific mark point,
 the value should be an object which
-contains style and label properties.. marks has the following type: dict containing keys 'number'.
-Those keys have the following types: 
-  - number (optional): . number has the following type: string | dict containing keys 'style', 'label'.
+contains style and label properties.. marks has the following type: dict with strings as keys and values of type string | dict containing keys 'style', 'label'.
 Those keys have the following types: 
   - style (dict; optional)
   - label (string; optional)

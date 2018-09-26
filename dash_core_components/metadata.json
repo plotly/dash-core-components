@@ -1460,7 +1460,7 @@
                   "required": false
                 },
                 "titleText": {
-                  "name": "bool",
+                  "name": "string",
                   "description": "the global `layout.title`",
                   "required": false
                 }
@@ -2425,30 +2425,27 @@
       },
       "marks": {
         "type": {
-          "name": "shape",
+          "name": "objectOf",
           "value": {
-            "number": {
-              "name": "union",
-              "value": [
-                {
-                  "name": "string"
-                },
-                {
-                  "name": "shape",
-                  "value": {
-                    "style": {
-                      "name": "object",
-                      "required": false
-                    },
-                    "label": {
-                      "name": "string",
-                      "required": false
-                    }
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "shape",
+                "value": {
+                  "style": {
+                    "name": "object",
+                    "required": false
+                  },
+                  "label": {
+                    "name": "string",
+                    "required": false
                   }
                 }
-              ],
-              "required": false
-            }
+              }
+            ]
           }
         },
         "required": false,
@@ -2882,7 +2879,6 @@
   },
   "src/components/Tab.react.js": {
     "description": "",
-    "displayName": "Tab",
     "methods": [],
     "props": {
       "id": {
