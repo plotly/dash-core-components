@@ -18,7 +18,7 @@ Tab.propTypes = {
     /**
      * The tab's label
      */
-    label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    label: PropTypes.string,
 
     /**
      * The content of the tab - will only be displayed if this tab is selected

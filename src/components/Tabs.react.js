@@ -177,7 +177,6 @@ export default class Tabs extends Component {
     render() {
         let EnhancedTabs;
         let selectedTab;
-        let selectedTabContent;
 
         if (this.props.children) {
             const children = this.parseChildrenToArray();
@@ -188,22 +187,11 @@ export default class Tabs extends Component {
                 // TODO: handle components that are not dcc.Tab components (throw error)
                 // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
                 let childProps;
-
-                if (child.props.children) {
-                    // if props appears on .children, props are coming from Dash
-                    childProps = child.props.children.props;
-                } else {
-                    // else props are coming from React (Demo.react.js)
-                    childProps = child.props;
-                }
+                childProps = child.props;
 
                 if (!childProps.value) {
                     childProps = {...childProps, value: `tab-${index + 1}`};
                 }
-
-                // selectedTab = this.props.children.filter(child => {
-                //     return childProps.value === this.state.selected;
-                // });
 
                 // check if this child/Tab is currently selected
                 if (childProps.value === this.state.selected) {
@@ -233,9 +221,13 @@ export default class Tabs extends Component {
         } else {
             throw NoChildrenError;
         }
-        if (selectedTab.length > 0 && 'props' in selectedTab[0]) {
-            selectedTabContent = selectedTab[0].props.children;
+        if (!selectedTab) {
+            throw new Error(
+                "Couldn't find Tab with the value " + this.state.selected
+            );
         }
+
+        const selectedTabContent = selectedTab.props.children;
 
         const tabContainerClass = this.props.vertical
             ? 'tab-container tab-container--vert'
