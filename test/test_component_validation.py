@@ -15,7 +15,8 @@ from .IntegrationTests import IntegrationTests
 # All types which are just a scalar value
 terminal_types = {
     'string': 'hello world',
-    'number': 42,
+    'number': 42,  # Some things say 'number' but they will break on an integer
+    'integer': 7,
     'bool': True,
     'object': {'hello': 'world'},
     'array': [1, 2, 3],
