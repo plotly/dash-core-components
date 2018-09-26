@@ -3,11 +3,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 
-const NoChildrenError = {
-    name: 'NoChildrenError',
-    message: 'Tabs did not have any children Tab components!',
-};
-
+// EnhancedTab is defined here instead of in Tab.react.js because if exported there,
+// it will mess up the Python imports and metadata.json
 const EnhancedTab = ({
     id,
     label,
@@ -119,10 +116,13 @@ export default class Tabs extends Component {
         this.selectHandler = this.selectHandler.bind(this);
         this.parseChildrenToArray = this.parseChildrenToArray.bind(this);
 
-        // this.parseChildrenToArray();
+        this.NoChildrenError = {
+            name: 'NoChildrenError',
+            message: 'Tabs did not have any children Tab components!',
+        };
 
         if (!this.props.children) {
-            throw NoChildrenError;
+            throw this.NoChildrenError;
         }
 
         if (!this.props.value) {
@@ -219,7 +219,7 @@ export default class Tabs extends Component {
                 );
             });
         } else {
-            throw NoChildrenError;
+            throw this.NoChildrenError;
         }
         if (!selectedTab) {
             throw new Error(
