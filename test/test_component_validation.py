@@ -38,7 +38,8 @@ def get_components():
             'ConfirmDialog',
             'ConfirmDialogProvider',
             'Location',
-            'Slider'
+            'Slider',
+            'RangeSlider'
         ]:
             components[name] = componentData['props']
     return components
