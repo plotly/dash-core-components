@@ -74,6 +74,10 @@ def get_possible_values(type_object):
                     yield None
                 else:
                     yield v['value'].strip("\"'")
+        elif type_name == "shape":
+            for key, value_type in type_object['value'].items():
+                for x in get_possible_values(value_type):
+                    yield {key: x}
 
 
 def generate_all_components_with_props(component_props):
