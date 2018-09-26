@@ -2,6 +2,7 @@ import os
 import dash
 import unittest
 import uuid
+import time
 import dash_html_components as html
 import dash_core_components as dcc
 
@@ -149,25 +150,30 @@ class CallbackTests(IntegrationTests):
         PAGE_SIZE = 5
 
         children = []
-        button_ids = []
         props_to_add = []
         for component, props in components_with_props:
-            button_id = "{}-button".format(props['id'])
-            children.append(component(**props))
-            children.append(html.Button('Callback {}'.format(props['id']),
-                                        id=button_id))
-            button_ids.append(button_id)
+            trigger_id = "{}-trigger".format(props['id'])
+            children.append(
+                html.Div(children=[
+                    component(**props),
+                    html.Pre(str({
+                        k: v for k, v in props.items()
+                        if k != 'id'
+                    }))]
+                )
+            )
+            children.append(html.Hr(id=trigger_id))
             prop_name = props['id'].split('-')[1]
             if prop_name in props:
                 props_to_add.append((
                     props['id'],
-                    button_id,
+                    trigger_id,
                     prop_name,
                     props[prop_name]
                 ))
         app.layout = html.Div(children=[
-            html.Div(id='container'),
             html.Button(id='next-page', children='next page'),
+            html.Div(id='container'),
             dcc.Link()
         ])
 
@@ -183,11 +189,11 @@ class CallbackTests(IntegrationTests):
             return children[left_bound: right_bound]
 
         prop_map = {p[0]: p[3] for p in props_to_add}
-        for id, button_id, prop, _ in props_to_add:
+        for id, trigger_id, prop, _ in props_to_add:
 
             @app.callback(
                 dash.dependencies.Output(id, prop),
-                [dash.dependencies.Input(button_id, 'n_clicks')],
+                [dash.dependencies.Input(trigger_id, 'n_clicks')],
                 [dash.dependencies.State(id, 'id')]
             )
             def update_prop(n_clicks, my_id):
@@ -197,16 +203,10 @@ class CallbackTests(IntegrationTests):
                 return prop_map[my_id]
         self.startServer(app)
 
-        click_cycle = 0
-        for button_id in button_ids:
-            if click_cycle == PAGE_SIZE:
-                button = WebDriverWait(self.driver, 20).until(
-                    EC.presence_of_element_located((By.ID, 'next-page'))
-                )
-                button.click()
-                click_cycle = 0
-            click_cycle += 1
+        for _ in range(0, len(props_to_add), PAGE_SIZE):
             button = WebDriverWait(self.driver, 20).until(
-                EC.presence_of_element_located((By.ID, button_id))
+                EC.presence_of_element_located((By.ID, 'next-page'))
             )
+            print('Clicking next page button')
             button.click()
+            time.sleep(1)
