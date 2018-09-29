@@ -384,8 +384,9 @@ PlotlyGraph.propTypes = {
         /**
          * display the mode bar (true, false, or 'hover')
          */
-        displayModeBar: PropTypes.oneOf([
-            true, false, 'hover'
+        displayModeBar: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.oneOf(['hover'])
         ]),
 
         /**
