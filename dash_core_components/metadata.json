@@ -1460,7 +1460,7 @@
                   "required": false
                 },
                 "titleText": {
-                  "name": "string",
+                  "name": "bool",
                   "description": "the global `layout.title`",
                   "required": false
                 }
@@ -1547,19 +1547,19 @@
               "required": false
             },
             "displayModeBar": {
-              "name": "enum",
+              "name": "union",
               "value": [
                 {
-                  "value": "true",
-                  "computed": false
+                  "name": "bool"
                 },
                 {
-                  "value": "false",
-                  "computed": false
-                },
-                {
-                  "value": "'hover'",
-                  "computed": false
+                  "name": "enum",
+                  "value": [
+                    {
+                      "value": "'hover'",
+                      "computed": false
+                    }
+                  ]
                 }
               ],
               "description": "display the mode bar (true, false, or 'hover')",
@@ -2879,6 +2879,7 @@
   },
   "src/components/Tab.react.js": {
     "description": "",
+    "displayName": "Tab",
     "methods": [],
     "props": {
       "id": {
