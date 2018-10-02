@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import ConfirmDialog from './components/ConfirmDialog.react';
-import ConfirmDialogProvider from './components/ConfirmDialogProvider.react'
+import ConfirmDialogProvider from './components/ConfirmDialogProvider.react';
 import Dropdown from './components/Dropdown.react';
 import Input from './components/Input.react';
 import Graph from './components/Graph.react';
@@ -42,5 +42,5 @@ export {
     DatePickerSingle,
     DatePickerRange,
     Upload,
-    Store
+    Store,
 };

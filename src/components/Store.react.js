@@ -8,29 +8,24 @@ function dataCheck(data, old) {
         return true;
     }
     const type = R.type(data);
-    if (type === 'Array')
-    {
+    if (type === 'Array') {
         if (data.length !== old.length) {
             return true;
         }
-        for (let i=0;i < data.length;i++) {
+        for (let i = 0; i < data.length; i++) {
             if (data[i] !== old[i]) {
                 return true;
             }
         }
-    }
-    else if (R.contains(type, ['String', 'Number']))
-    {
-        return old !== data
-    }
-    else if (type === 'Object')
-    {
-        return R.any(([k,v]) => old[k] !== v)(Object.entries(data));
+    } else if (R.contains(type, ['String', 'Number'])) {
+        return old !== data;
+    } else if (type === 'Object') {
+        return R.any(([k, v]) => old[k] !== v)(Object.entries(data));
     }
     return false;
 }
 
-class MemStore  {
+class MemStore {
     constructor() {
         this._data = {};
         this._modified = -1;
@@ -81,12 +76,13 @@ class WebStore {
     }
 
     setModified(key) {
-        this._storage.setItem(`${key}-timestamp`, Date.now())
+        this._storage.setItem(`${key}-timestamp`, Date.now());
     }
 
     getModified(key) {
-        return Number.parseInt(
-            this._storage.getItem(`${key}-timestamp`), 10) || -1;
+        return (
+            Number.parseInt(this._storage.getItem(`${key}-timestamp`), 10) || -1
+        );
     }
 }
 
@@ -115,17 +111,17 @@ export default class Store extends React.Component {
     }
 
     onStorageChange(e) {
-        const { id, setProps } = this.props;
+        const {id, setProps} = this.props;
         if (e.key === id && setProps && e.newValue !== e.oldValue) {
             setProps({
                 data: JSON.parse(e.newValue),
-                modified_timestamp: this._backstore.getModified(id)
+                modified_timestamp: this._backstore.getModified(id),
             });
         }
     }
 
     componentWillMount() {
-        const { setProps, id, data, storage_type } = this.props;
+        const {setProps, id, data, storage_type} = this.props;
         if (storage_type !== 'memory') {
             window.addEventListener('storage', this.onStorageChange);
         }
@@ -136,8 +132,8 @@ export default class Store extends React.Component {
             this._backstore.setItem(id, data);
             if (setProps) {
                 setProps({
-                    modified_timestamp: this._backstore.getModified(id)
-                })
+                    modified_timestamp: this._backstore.getModified(id),
+                });
             }
             return;
         }
@@ -145,7 +141,7 @@ export default class Store extends React.Component {
         if (setProps && dataCheck(old, data)) {
             setProps({
                 data: old,
-                modified_timestamp: this._backstore.getModified(id)
+                modified_timestamp: this._backstore.getModified(id),
             });
         }
     }
@@ -157,26 +153,25 @@ export default class Store extends React.Component {
     }
 
     componentDidUpdate() {
-        const { data, id, clear_data, setProps } = this.props;
+        const {data, id, clear_data, setProps} = this.props;
         if (clear_data) {
             this._backstore.removeItem(id);
             if (setProps) {
                 setProps({
                     clear_data: false,
                     data: null,
-                    modified_timestamp: this._backstore.getModified(id)
-                })
+                    modified_timestamp: this._backstore.getModified(id),
+                });
             }
         } else if (data) {
             const old = this._backstore.getItem(id);
             // Only set the data if it's not the same data.
-            if (dataCheck(data, old))
-            {
+            if (dataCheck(data, old)) {
                 this._backstore.setItem(id, data);
                 if (setProps) {
                     setProps({
-                        modified_timestamp: this._backstore.getModified(id)
-                    })
+                        modified_timestamp: this._backstore.getModified(id),
+                    });
                 }
             }
         }
@@ -190,7 +185,7 @@ export default class Store extends React.Component {
 Store.defaultProps = {
     storage_type: 'memory',
     clear_data: false,
-    modified_timestamp: -1
+    modified_timestamp: -1,
 };
 
 Store.propTypes = {
@@ -231,5 +226,5 @@ Store.propTypes = {
     /**
      * Dash-assigned callback that gets fired when the value changes.
      */
-    setProps: PropTypes.func
+    setProps: PropTypes.func,
 };
