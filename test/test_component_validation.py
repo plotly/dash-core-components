@@ -122,7 +122,7 @@ class InitializationTests(unittest.TestCase):
         errors = 0
         for component, props in components_with_props:
             try:
-                component(**props)
+                component(**props).validate()
             except (TypeError,
                     dash.exceptions.InitialLayoutValidationError) as e:
                 print(
@@ -131,8 +131,10 @@ class InitializationTests(unittest.TestCase):
                     e
                 )
                 errors += 1
-        self.assertFalse(errors,
-                         "There were {} initialization errors.".format(errors))
+        self.assertFalse(
+            errors,
+            "There were {} initialization errors.".format(errors)
+        )
 
 
 class CallbackTests(IntegrationTests):
@@ -141,7 +143,7 @@ class CallbackTests(IntegrationTests):
         super(CallbackTests, cls).setUpClass()
         cls.components = get_components()
 
-    def test(self):
+    def test_callbacks(self):
         components_with_props =\
              generate_all_components_with_props(self.components)
         app = dash.Dash(__name__)
