@@ -1,25 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const promiseWrap = (func, options={rejectNull: false}) => new Promise((resolve, reject) => {
-    const { rejectNull } = options;
-    let result;
-    try {
-        result = func();
-    } catch(e) {
-        reject(e);
-    }
-    if (rejectNull && !result) {reject('Expected promise result is null');}
-    else {resolve(result);}
-});
-
-const selectElement = (selector) => promiseWrap(() => document.querySelector(selector));
-
-const buildToc = (contentSelector, options={headings: ['h1', 'h2', 'h3', 'h4', 'h5']}) => selectElement(contentSelector).then(element => {
+const buildToc = (contentSelector, options={headings: ['h1', 'h2', 'h3', 'h4', 'h5']}) => {
     const { headings } = options;
     let currentNode;
     // noinspection JSCheckFunctionSignatures
-    const nodeIterator = document.createNodeIterator(element, NodeFilter.SHOW_ELEMENT,
+    const nodeIterator = document.createNodeIterator(
+        document.querySelector(contentSelector), NodeFilter.SHOW_ELEMENT,
         (node) => headings.map(h => node.nodeName.toLowerCase().match(h)).reduce((a, e) => a || e) ?
             NodeFilter.FILTER_ACCEPT :
             NodeFilter.FILTER_REJECT);
@@ -58,23 +45,20 @@ export default class TableOfContents extends React.Component {
 
     buildToc() {
         const { content_selector, headings, setProps } = this.props;
-        buildToc(content_selector, {headings})
-            .then(table_of_contents =>{
-                this.setState({table_of_contents});
-                if (setProps) {
-                    setProps({table_of_contents})
-                }
-            });
+        const table_of_contents = buildToc(content_selector, {headings});
+
+        this.setState({table_of_contents});
+        if (setProps) {
+            setProps({table_of_contents})
+        }
     }
 
     componentDidMount() {
         const { content_selector } = this.props;
         if (content_selector) {
-            selectElement(content_selector).then(element => {
-                const mutant = new MutationObserver(this.buildToc);
-                mutant.observe(element, {childList: true});
-                this._observer = mutant;
-            });
+            const content = document.querySelector(content_selector);
+            this._observer = new MutationObserver(this.buildToc);
+            this._observer.observe(content, {childList: true});
             this.buildToc();
         }
     }
