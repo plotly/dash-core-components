@@ -52,7 +52,8 @@ export default class TableOfContent extends React.Component {
     }
 
     buildToc() {
-        buildToc(this.props.content_selector)
+        const { content_selector, headings } = this.props;
+        buildToc(content_selector, {headings})
             .then(children => this.setState({children}));
     }
 
@@ -80,7 +81,9 @@ export default class TableOfContent extends React.Component {
     }
 };
 
-TableOfContent.defaultProps = {};
+TableOfContent.defaultProps = {
+    headings: ['h1', 'h2', 'h3', 'h4', 'h5']
+};
 
 TableOfContent.propTypes = {
     id: PropTypes.string,
@@ -88,4 +91,9 @@ TableOfContent.propTypes = {
      * Selector to search for building the toc.
      */
     content_selector: PropTypes.string,
+
+    /**
+     * Headings tag name to search.
+     */
+    headings: PropTypes.arrayOf(PropTypes.string)
 };
