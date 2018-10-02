@@ -1172,19 +1172,19 @@ class Tests(IntegrationTests):
         dummy_data = 'Hello dummy'
 
         app.layout = html.Div([
-            dcc.Storage(id='storage',
+            dcc.Store(id='storage',
                         storage_type='local'),
             html.Button('click me', id='btn'),
             html.Button('clear', id='clear-btn'),
             html.Button('set-init-storage',
                         id='set-init-storage'),
-            dcc.Storage(id='dummy',
+            dcc.Store(id='dummy',
                         storage_type='session',
                         data=dummy_data),
-            dcc.Storage(id='memory',
+            dcc.Store(id='memory',
                         storage_type='memory'),
             html.Div(id='memory-output'),
-            dcc.Storage(id='initial-storage',
+            dcc.Store(id='initial-storage',
                         storage_type='session'),
             html.Div(id='init-output')
         ])

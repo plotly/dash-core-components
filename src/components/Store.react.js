@@ -99,7 +99,7 @@ const _sessionStore = new WebStore(window.sessionStorage);
  * Data can be in memory, localStorage or sessionStorage.
  * The data will be kept with the id as key.
  */
-export default class Storage extends React.Component {
+export default class Store extends React.Component {
     constructor(props) {
         super(props);
 
@@ -187,13 +187,13 @@ export default class Storage extends React.Component {
     }
 }
 
-Storage.defaultProps = {
+Store.defaultProps = {
     storage_type: 'memory',
     clear_data: false,
     modified_timestamp: -1
 };
 
-Storage.propTypes = {
+Store.propTypes = {
     /**
      * The key of the storage.
      */

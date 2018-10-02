@@ -19,7 +19,7 @@ import DatePickerRange from './components/DatePickerRange.react';
 import Upload from './components/Upload.react';
 import Tabs from './components/Tabs.react';
 import Tab from './components/Tab.react';
-import Storage from './components/Storage.react';
+import Store from './components/Store.react';
 
 export {
     Checklist,
@@ -42,5 +42,5 @@ export {
     DatePickerSingle,
     DatePickerRange,
     Upload,
-    Storage
+    Store
 };
