@@ -40,7 +40,9 @@ const buildToc = (contentSelector, options={headings: ['h1', 'h2', 'h3', 'h4', '
     return children;
 });
 
-
+/**
+ * Build a table of contents list with links to the headers tag.
+ */
 export default class TableOfContents extends React.Component {
     constructor(){
         super();
@@ -95,5 +97,7 @@ TableOfContents.propTypes = {
     /**
      * Headings tag name to search.
      */
-    headings: PropTypes.arrayOf(PropTypes.string)
+    headings: PropTypes.arrayOf(PropTypes.string),
+
+    setProps: PropTypes.any
 };
