@@ -30,12 +30,15 @@ const buildToc = (contentSelector, options={headings: ['h1', 'h2', 'h3', 'h4', '
         const nodeId = 'toc-' + lastNodeId++;
         const nodeRefId = nodeId + '-ref';
         const currentLevel = headings.indexOf(currentNode.nodeName.toLowerCase());
-        const nodeClass = 'toc-level-'+currentLevel;
         const nodeContent = currentNode.textContent;
         const idAttr = document.createAttribute('id');
         idAttr.value = nodeRefId;
         currentNode.attributes.setNamedItem(idAttr);
-        children.push(<li><a href={`#${nodeRefId}`} className={nodeClass}>{nodeContent}</a></li>);
+        children.push({
+            content: nodeContent,
+            level: currentLevel,
+            refId: nodeRefId,
+        });
     }
     return children;
 });
@@ -47,16 +50,21 @@ export default class TableOfContents extends React.Component {
     constructor(){
         super();
         this.state = {
-            children: null
+            table_of_contents: null
         };
         this._observer = null;
         this.buildToc = this.buildToc.bind(this);
     }
 
     buildToc() {
-        const { content_selector, headings } = this.props;
+        const { content_selector, headings, setProps } = this.props;
         buildToc(content_selector, {headings})
-            .then(children => this.setState({children}));
+            .then(table_of_contents =>{
+                this.setState({table_of_contents});
+                if (setProps) {
+                    setProps({table_of_contents})
+                }
+            });
     }
 
     componentDidMount() {
@@ -74,10 +82,18 @@ export default class TableOfContents extends React.Component {
     }
 
     render() {
-        const {children} = this.state;
+        const {table_of_contents} = this.state;
         return (
             <ul>
-                {children}
+                {table_of_contents && table_of_contents.map(
+                    ({content, refId, level}) => <li>
+                        <a
+                            href={`#${refId}`}
+                            className={`toc-level-${level}`}>
+                            {content}
+                        </a>
+                    </li>
+                )}
             </ul>
         );
     }
@@ -98,6 +114,8 @@ TableOfContents.propTypes = {
      * Headings tag name to search.
      */
     headings: PropTypes.arrayOf(PropTypes.string),
+
+    table_of_contents: PropTypes.array,
 
     setProps: PropTypes.any
 };
