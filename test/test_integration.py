@@ -1319,6 +1319,20 @@ class Tests(IntegrationTests):
                 
                 content
                 
+                ### level 2-1
+                
+                content
+                
+                ### level 2-2
+                
+                content
+                
+                ### level 2-3
+                
+                content
+                
+                ## level two-two
+                
                 ### level three
                 
                 content
@@ -1330,7 +1344,6 @@ class Tests(IntegrationTests):
                 ##### level five
                 
                 content
-                
             ''')), id='content'),
             html.Div(id='output')
         ])
@@ -1346,3 +1359,9 @@ class Tests(IntegrationTests):
 
         time.sleep(2)
         self.snapshot('table-of-contents')
+
+        toc_elem = self.driver.find_element_by_id('toc')
+
+        elems = toc_elem.find_elements_by_xpath('//a[contains(@href, "toc")]')
+
+        self.assertEqual(9, len(elems))
