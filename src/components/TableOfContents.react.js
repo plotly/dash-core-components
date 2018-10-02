@@ -41,7 +41,7 @@ const buildToc = (contentSelector, options={headings: ['h1', 'h2', 'h3', 'h4', '
 });
 
 
-export default class TableOfContent extends React.Component {
+export default class TableOfContents extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -81,11 +81,11 @@ export default class TableOfContent extends React.Component {
     }
 };
 
-TableOfContent.defaultProps = {
+TableOfContents.defaultProps = {
     headings: ['h1', 'h2', 'h3', 'h4', 'h5']
 };
 
-TableOfContent.propTypes = {
+TableOfContents.propTypes = {
     id: PropTypes.string,
     /**
      * Selector to search for building the toc.
