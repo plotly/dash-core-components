@@ -1304,3 +1304,45 @@ class Tests(IntegrationTests):
         list_btn.click()
         time.sleep(3)
         self.wait_for_text_to_equal('#output', json.dumps(nested_list))
+
+    def test_table_of_contents(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.TableOfContents(content_selector='#content', id='toc'),
+            html.Div(dcc.Markdown(dedent('''
+                # level one
+                
+                content
+                
+                ## level two
+                
+                content
+                
+                ### level three
+                
+                content
+                
+                #### level four
+                
+                content
+                
+                ##### level five
+                
+                content
+                
+            ''')), id='content'),
+            html.Div(id='output')
+        ])
+
+        @app.callback(Output('output', 'children'),
+                      [Input('toc', 'table_of_contents')])
+        def on_toc(toc):
+            if toc is None:
+                raise PreventUpdate
+            return json.dumps(toc)
+
+        self.startServer(app)
+
+        time.sleep(2)
+        self.snapshot('table-of-contents')

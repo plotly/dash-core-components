@@ -41,7 +41,7 @@ const buildToc = (contentSelector, options={headings: ['h1', 'h2', 'h3', 'h4', '
         });
     }
     return children;
-});
+};
 
 /**
  * Build a table of contents list with links to the headers tag.
@@ -90,9 +90,11 @@ export default class TableOfContents extends React.Component {
     }
 
     render() {
-        const {table_of_contents} = this.state;
+        const { id, className } = this.props;
+        const { table_of_contents } = this.state;
+
         return (
-            <ul>
+            <ul id={id} className={className}>
                 {table_of_contents && table_of_contents.map(
                     ({content, refId, level}) => <li>
                         <a
@@ -113,6 +115,11 @@ TableOfContents.defaultProps = {
 
 TableOfContents.propTypes = {
     id: PropTypes.string,
+
+    /**
+     * className for the top ul component.
+     */
+    className: PropTypes.string,
     /**
      * Selector to search for building the toc.
      */
