@@ -47,10 +47,10 @@ const buildToc = (contentSelector, options={headings: ['h1', 'h2', 'h3', 'h4', '
  * Build a table of contents list with links to the headers tag.
  */
 export default class TableOfContents extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            table_of_contents: null
+            table_of_contents: props.table_of_contents
         };
         this._observer = null;
         this.buildToc = this.buildToc.bind(this);
@@ -69,16 +69,24 @@ export default class TableOfContents extends React.Component {
 
     componentDidMount() {
         const { content_selector } = this.props;
-        selectElement(content_selector).then(element => {
-            const mutant = new MutationObserver(this.buildToc);
-            mutant.observe(element, {childList: true});
-            this._observer = mutant;
-        });
-        this.buildToc();
+        if (content_selector) {
+            selectElement(content_selector).then(element => {
+                const mutant = new MutationObserver(this.buildToc);
+                mutant.observe(element, {childList: true});
+                this._observer = mutant;
+            });
+            this.buildToc();
+        }
     }
 
     componentWillUnmount() {
-        this._observer.disconnect();
+        if (this._observer) {
+            this._observer.disconnect();
+        }
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({table_of_contents: props.table_of_contents});
     }
 
     render() {
@@ -115,7 +123,23 @@ TableOfContents.propTypes = {
      */
     headings: PropTypes.arrayOf(PropTypes.string),
 
-    table_of_contents: PropTypes.array,
+    /**
+     * The table of content in object form.
+     */
+    table_of_contents: PropTypes.arrayOf(PropTypes.shape({
+        /**
+         * The content of the heading.
+         */
+        content: PropTypes.string,
+        /**
+         * The level of the heading.
+         */
+        level: PropTypes.number,
+        /**
+         * The id to reference on the page. (scroll to)
+         */
+        refId: PropTypes.string,
+    })),
 
     setProps: PropTypes.any
 };
