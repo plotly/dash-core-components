@@ -141,7 +141,7 @@ export default class TableOfContents extends React.Component {
     }
 
     render() {
-        const {id, className} = this.props;
+        const {id, className, style} = this.props;
         const {table_of_contents} = this.state;
 
         if (!table_of_contents) {
@@ -151,7 +151,7 @@ export default class TableOfContents extends React.Component {
         const toc = renderToc(table_of_contents);
 
         return (
-            <ul id={id} className={className}>
+            <ul id={id} className={className} style={style}>
                 {toc}
             </ul>
         );
@@ -200,6 +200,11 @@ TableOfContents.propTypes = {
             refId: PropTypes.string,
         })
     ),
+
+    /**
+     * Style of the parent <ul>
+     */
+    style: PropTypes.object,
 
     setProps: PropTypes.any,
 };
