@@ -26,7 +26,7 @@ const buildToc = (
                 ? NodeFilter.FILTER_ACCEPT
                 : NodeFilter.FILTER_REJECT
     );
-    let lastNodeId = 1;
+    let lastNodeId = 0;
     const children = [];
     // eslint-disable-next-line no-cond-assign
     while ((currentNode = nodeIterator.nextNode())) {
@@ -35,12 +35,14 @@ const buildToc = (
         const currentLevel = headings.indexOf(
             currentNode.nodeName.toLowerCase()
         );
-        const nodeContent = currentNode.textContent;
+
+        // Add an id to refer to.
         const idAttr = document.createAttribute('id');
         idAttr.value = nodeRefId;
         currentNode.attributes.setNamedItem(idAttr);
+
         const node = {
-            content: nodeContent,
+            content: currentNode.textContent,
             level: currentLevel,
             refId: nodeRefId,
             children: [],
@@ -48,6 +50,11 @@ const buildToc = (
 
         if (currentLevel > 0) {
             const lastLevel = last(levels[currentLevel - 1]);
+            if (!lastLevel) {
+                throw new Error(
+                    `Invalid leveling, no parent: ${headings[currentLevel]}`
+                );
+            }
             lastLevel.children.push(node);
         } else {
             children.push(node);
@@ -64,7 +71,7 @@ const renderToc = toc => {
         const t = toc[i];
         let node;
         const a = (
-            <a href={t.refId} className={`toc-level-${t.level}`}>
+            <a href={`#${t.refId}`} className={`toc-level-${t.level}`}>
                 {t.content}
             </a>
         );
@@ -169,6 +176,8 @@ TableOfContents.propTypes = {
 
     /**
      * Headings tag name to search.
+     * The table of contents will be leveled according to the order of
+     * the headings prop.
      */
     headings: PropTypes.arrayOf(PropTypes.string),
 
