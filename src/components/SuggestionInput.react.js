@@ -2,6 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {MentionsInput, Mention} from 'react-mentions';
 
+/**
+ * Wrapper around react-mentions. Suggest options when a character trigger is
+ * typed.
+ *
+ * Example:
+ *
+ * ```python
+ * dcc.SuggestionInput(search_data=[{
+ *     'trigger': '$',
+ *     'options': [
+ *         {
+ *             'id': 'bob',
+ *             'display': 'bob',
+ *         },
+ *         {
+ *             'id': 'bill',
+ *             'display': 'bill'
+ *         }
+ *     ],
+ * }])
+ * ```
+ */
 export default class SuggestionInput extends React.Component {
     constructor(props) {
         super(props);
