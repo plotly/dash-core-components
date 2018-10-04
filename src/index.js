@@ -20,7 +20,7 @@ import Upload from './components/Upload.react';
 import Tabs from './components/Tabs.react';
 import Tab from './components/Tab.react';
 import Store from './components/Store.react';
-import SearchInput from './components/SearchInput.react'
+import SearchInput from './components/SearchInput.react';
 
 export {
     Checklist,
