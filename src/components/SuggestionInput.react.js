@@ -130,7 +130,7 @@ SuggestionInput.propTypes = {
             /**
              * ClassName for a suggestion.
              */
-            className: PropTypes.string
+            className: PropTypes.string,
         })
     ),
 
