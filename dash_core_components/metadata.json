@@ -2673,6 +2673,160 @@
       }
     }
   },
+  "src/components/SuggestionInput.react.js": {
+    "description": "",
+    "displayName": "SuggestionInput",
+    "methods": [
+      {
+        "name": "onChange",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Class name for the top div container."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Style for the top div container."
+      },
+      "search_data": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "trigger": {
+                "name": "string",
+                "description": "The symbol to open the suggestions.",
+                "required": false
+              },
+              "options": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "id": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "display": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                },
+                "description": "Options to suggest when the symbol is typed.",
+                "required": false
+              },
+              "style": {
+                "name": "object",
+                "description": "Style of the suggestions for this trigger.",
+                "required": false
+              },
+              "className": {
+                "name": "string",
+                "description": "ClassName for a suggestion.",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "Options for mentions."
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The current value of the input.",
+        "defaultValue": {
+          "value": "''",
+          "computed": false
+        }
+      },
+      "single_line": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Render <input> instead of <textarea>",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "allow_space_in_query": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Suggestions stays open even if the user separate words with spaces.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "suggestion_portal_host_id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Id of a component to render the suggestions into."
+      },
+      "markup": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Template to use when rendering the options\r\ndefault: @[__display__](__id__)"
+      },
+      "mentions_style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Global style to give to the wrapped <Mention/>'s"
+      },
+      "mentions_className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Global css class to give to every <Mention/> component."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
   "src/components/SyntaxHighlighter.react.js": {
     "description": "A component for pretty printing code.",
     "displayName": "SyntaxHighlighter",
