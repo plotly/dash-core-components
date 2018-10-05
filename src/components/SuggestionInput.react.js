@@ -9,7 +9,7 @@ import {MentionsInput, Mention} from 'react-mentions';
  * Example:
  *
  * ```python
- * dcc.SuggestionInput(search_data=[{
+ * dcc.SuggestionInput(suggestions=[{
  *     'trigger': '$',
  *     'options': [
  *         {
@@ -47,7 +47,7 @@ export default class SuggestionInput extends React.Component {
             id,
             className,
             style,
-            search_data,
+            suggestions,
             single_line,
             allow_space_in_query,
             markup,
@@ -73,7 +73,7 @@ export default class SuggestionInput extends React.Component {
                     suggestionsPortalHost={sug}
                     allowSpaceInQuery={allow_space_in_query}
                 >
-                    {search_data.map(e => (
+                    {suggestions.map(e => (
                         <Mention
                             trigger={e.trigger}
                             data={e.options}
@@ -108,7 +108,7 @@ SuggestionInput.propTypes = {
     /**
      * Options for mentions.
      */
-    search_data: PropTypes.arrayOf(
+    suggestions: PropTypes.arrayOf(
         PropTypes.shape({
             /**
              * The symbol to open the suggestions.
