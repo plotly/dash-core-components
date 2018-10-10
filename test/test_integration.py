@@ -1269,3 +1269,43 @@ class Tests(IntegrationTests):
         self.assertAlmostEqual(ts, init.get('ts'), delta=1000)
         self.assertEqual('initialized', init.get('data'))
 
+    def test_suggestion_input(self):
+        app = dash.Dash(__name__)
+        app.scripts.config.serve_locally = True
+
+        app.layout = html.Div([
+            dcc.SuggestionInput(
+                suggestions=[{
+                    'trigger': '@',
+                    'options': [
+                        {
+                            'id': 'gary',
+                            'display': 'gary',
+                        },
+                        {
+                            'id': 'bill',
+                            'display': 'bill'
+                        }
+                    ],
+                }],
+                id='suggestions',
+                markup='@__id__'
+            ),
+
+            html.Div(id='output')
+        ])
+        @app.callback(Output('output', 'children'),
+                      [Input('suggestions', 'value')])
+        def on_output(value):
+            if value is None:
+                raise PreventUpdate
+
+            return value
+
+        self.startServer(app)
+
+        suggestion = self.wait_for_element_by_css_selector('#suggestions')
+
+        suggestion.send_keys('@\t')
+
+        self.wait_for_text_to_equal('#output', '@gary')
