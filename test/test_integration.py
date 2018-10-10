@@ -1289,11 +1289,19 @@ class Tests(IntegrationTests):
                     ],
                 }],
                 id='suggestions',
-                markup='@__id__'
+                markup='@__id__',
+                style={
+                    'suggestions': {
+                        'backgroundColor': '#dcdcdc',
+                        'border': 'solid black 1px',
+                        'padding': '0.125rem',
+                    }
+                }
             ),
 
             html.Div(id='output')
         ])
+
         @app.callback(Output('output', 'children'),
                       [Input('suggestions', 'value')])
         def on_output(value):
@@ -1306,6 +1314,8 @@ class Tests(IntegrationTests):
 
         suggestion = self.wait_for_element_by_css_selector('#suggestions')
 
-        suggestion.send_keys('@\t')
-
+        suggestion.send_keys('@')
+        self.snapshot('SuggestionInput->open')
+        suggestion.send_keys('\t')
         self.wait_for_text_to_equal('#output', '@gary')
+        self.snapshot('SuggestionInput->output')
