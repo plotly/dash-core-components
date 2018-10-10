@@ -51,38 +51,30 @@ export default class SuggestionInput extends React.Component {
             single_line,
             allow_space_in_query,
             markup,
-            suggestion_portal_host_id,
             mentions_style,
             mentions_className,
         } = this.props;
 
-        let sug = null;
-        if (suggestion_portal_host_id) {
-            sug = document.getElementById(suggestion_portal_host_id);
-        }
-
         return (
-            <div id={id}>
-                <MentionsInput
-                    value={this.state.value}
-                    onChange={this.onChange}
-                    singleLine={single_line}
-                    className={className}
-                    style={style}
-                    markup={markup}
-                    suggestionsPortalHost={sug}
-                    allowSpaceInQuery={allow_space_in_query}
-                >
-                    {suggestions.map(e => (
-                        <Mention
-                            trigger={e.trigger}
-                            data={e.options}
-                            style={e.style || mentions_style}
-                            className={e.className || mentions_className}
-                        />
-                    ))}
-                </MentionsInput>
-            </div>
+            <MentionsInput
+                value={this.state.value}
+                onChange={this.onChange}
+                singleLine={single_line}
+                className={className}
+                style={style}
+                markup={markup}
+                allowSpaceInQuery={allow_space_in_query}
+                id={id}
+            >
+                {suggestions.map(e => (
+                    <Mention
+                        trigger={e.trigger}
+                        data={e.options}
+                        style={e.style || mentions_style}
+                        className={e.className || mentions_className}
+                    />
+                ))}
+            </MentionsInput>
         );
     }
 }
@@ -147,11 +139,6 @@ SuggestionInput.propTypes = {
      * Suggestions stays open even if the user separate words with spaces.
      */
     allow_space_in_query: PropTypes.bool,
-
-    /**
-     * Id of a component to render the suggestions into.
-     */
-    suggestion_portal_host_id: PropTypes.string,
 
     /**
      * Template to use when rendering the options
