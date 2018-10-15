@@ -15,12 +15,11 @@ const defaultSelectedSuggestionStyle = merge(defaultSuggestionStyle, {
 
 // Style for the suggestion container.
 const defaultSuggestionsStyle = {
-    padding: '0.25rem',
     position: 'absolute',
-    top: 16,
     zIndex: 1,
     display: 'block',
     backgroundColor: 'white',
+    border: '1px solid #dcdcdc'
 };
 
 const defaultSuggestionInputStyle = {
@@ -213,13 +212,12 @@ export default class SuggestionsInput extends React.Component {
     }
 
     onSuggestion(suggestion) {
-        const {value, captured} = this.state;
+        const {value, captured, currentTrigger} = this.state;
 
         const payload = {
-            value: `${value.substring(
-                0,
-                value.indexOf(captured) - 1
-            )}${suggestion}`,
+            value: `${value.substring(0, value.indexOf(captured) - 1)}${
+                this.props.include_trigger ? currentTrigger : ''
+            }${suggestion}`,
         };
 
         this.setState(payload);
@@ -253,7 +251,7 @@ export default class SuggestionsInput extends React.Component {
 
     render() {
         const {id, multi_line} = this.props;
-        const {value, currentTrigger, index, filteredOptions} = this.state;
+        const {value, currentTrigger, index, filteredOptions, style} = this.state;
         const inputProps = {
             id,
             value: value,
@@ -271,7 +269,7 @@ export default class SuggestionsInput extends React.Component {
         );
 
         return (
-            <div style={defaultSuggestionInputStyle}>
+            <div style={merge(defaultSuggestionInputStyle, style)}>
                 {input}
                 {currentTrigger && (
                     <Suggestions
@@ -302,10 +300,10 @@ export default class SuggestionsInput extends React.Component {
                 )}
                 <div
                     ref={r => (this._hiddenValue = r)}
-                    style={{
+                    style={merge(style, {
                         display: 'inline-block',
                         visibility: 'hidden',
-                    }}
+                    })}
                 >
                     {this.state.value}
                 </div>
@@ -363,6 +361,11 @@ SuggestionsInput.propTypes = {
      * the suggestion menu is open.
      */
     allow_space_in_suggestions: PropTypes.bool,
+
+    /**
+     * Include the trigger in the rendered value.
+     */
+    include_trigger: PropTypes.bool,
 
     suggestions_className: PropTypes.string,
     suggestions_style: PropTypes.object,
