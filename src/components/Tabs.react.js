@@ -116,15 +116,6 @@ export default class Tabs extends Component {
         this.selectHandler = this.selectHandler.bind(this);
         this.parseChildrenToArray = this.parseChildrenToArray.bind(this);
 
-        this.NoChildrenError = {
-            name: 'NoChildrenError',
-            message: 'Tabs did not have any children Tab components!',
-        };
-
-        if (!this.props.children) {
-            throw this.NoChildrenError;
-        }
-
         if (!this.props.value) {
             // if no value specified on Tabs component, set it to the first child's (which should be a Tab component) value
 
@@ -230,8 +221,6 @@ export default class Tabs extends Component {
                     />
                 );
             });
-        } else {
-            throw this.NoChildrenError;
         }
         if (!selectedTab) {
             throw new Error(
@@ -383,7 +372,10 @@ Tabs.propTypes = {
     /**
      * Array that holds Tab components
      */
-    children: PropTypes.node,
+    children: React.PropTypes.oneOfType([
+        React.PropTypes.arrayOf(React.PropTypes.node),
+        React.PropTypes.node
+      ]),
 
     /**
      * Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so:

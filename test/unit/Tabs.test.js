@@ -3,12 +3,6 @@ import Tab from '../../src/components/Tab.react.js';
 import React from 'react';
 import {mount, render} from 'enzyme';
 
-test('Tabs are defined', () => {
-    const tabs = <Tabs />;
-
-    expect(tabs).toBeDefined();
-});
-
 test('Tabs render', () => {
     const tabs = render(
         <Tabs>

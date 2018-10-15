@@ -2985,7 +2985,18 @@
       },
       "children": {
         "type": {
-          "name": "node"
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "node"
+              }
+            },
+            {
+              "name": "node"
+            }
+          ]
         },
         "required": false,
         "description": "Array that holds Tab components"
