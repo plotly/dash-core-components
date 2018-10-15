@@ -149,10 +149,27 @@ export default class SuggestionsInput extends React.Component {
             !currentTrigger &&
             contains(e.key, Object.keys(this.state.triggers))
         ) {
-            this.setState({
-                currentTrigger: e.key,
-                filteredOptions: triggers[e.key].options,
-            });
+            const trigger = triggers[e.key];
+            if (trigger.suggestion_route) {
+                fetch(trigger.suggestion_route, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    mode: 'cors',
+                    body: JSON.stringify({captured: captured + e.key}),
+                })
+                    .then(r => r.json())
+                    .then(o =>
+                        this.setState({
+                            filteredOptions: o,
+                            currentTrigger: trigger.trigger,
+                        })
+                    );
+            } else {
+                this.setState({
+                    currentTrigger: e.key,
+                    filteredOptions: trigger.options,
+                });
+            }
         } else if (currentTrigger) {
             const options = triggers[currentTrigger].options;
             switch (e.key) {
@@ -244,6 +261,14 @@ export default class SuggestionsInput extends React.Component {
             index: 0,
             captured: '',
         });
+    }
+
+    onSuggestionsResponse(response) {
+        response.json().then(j =>
+            this.setState({
+                filteredOptions: j,
+            })
+        );
     }
 
     componentWillReceiveProps(e) {
