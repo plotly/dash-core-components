@@ -226,13 +226,10 @@ export default class Tabs extends Component {
                 );
             });
         }
-        // if (!selectedTab) {
-        //     throw new Error(
-        //         "Couldn't find Tab with the value " + this.state.selected
-        //     );
-        // }
 
-        const selectedTabContent = selectedTab.props.children;
+        const selectedTabContent = !R.isNil(selectedTab)
+            ? selectedTab.props.children
+            : '';
 
         const tabContainerClass = this.props.vertical
             ? 'tab-container tab-container--vert'
