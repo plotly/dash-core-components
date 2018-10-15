@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {contains, merge, omit, mergeAll} from 'ramda';
+import {contains, merge, omit, mergeAll, memoize} from 'ramda';
 
 // Style for single suggestion
 const defaultSuggestionStyle = {
@@ -19,7 +19,7 @@ const defaultSuggestionsStyle = {
     zIndex: 1,
     display: 'block',
     backgroundColor: 'white',
-    border: '1px solid #dcdcdc'
+    border: '1px solid #dcdcdc',
 };
 
 const defaultSuggestionInputStyle = {
@@ -38,9 +38,10 @@ const Suggestion = props => (
             props.selected
                 ? defaultSelectedSuggestionStyle
                 : defaultSuggestionStyle,
-            props.suggestion_style || {}
+            props.selected ? props.selected_style || {} : props.style || {}
         )}
         title={props.description}
+        className={props.selected ? props.selected_className : props.className}
     >
         {props.trigger}
         {props.display || props.value}
@@ -54,7 +55,10 @@ Suggestion.propTypes = {
     selected: PropTypes.bool,
     trigger: PropTypes.string,
     display: PropTypes.string,
-    suggestion_style: PropTypes.object,
+    style: PropTypes.object,
+    className: PropTypes.string,
+    selected_style: PropTypes.object,
+    selected_className: PropTypes.string,
     description: PropTypes.string,
 };
 
@@ -68,6 +72,9 @@ class Suggestions extends React.Component {
             index,
             style,
             suggestion_style,
+            suggestion_className,
+            selected_style,
+            selected_className,
             onSuggestion,
             leftOffset,
         } = this.props;
@@ -88,7 +95,10 @@ class Suggestions extends React.Component {
                         selected={index === i}
                         onSuggestion={onSuggestion}
                         trigger={trigger}
-                        suggestion_style={suggestion_style}
+                        style={suggestion_style}
+                        className={suggestion_className}
+                        selected_style={selected_style}
+                        selected_className={selected_className}
                         {...e}
                     />
                 ))}
@@ -103,8 +113,9 @@ const mapSuggestions = suggestions =>
         return a;
     }, {});
 
-const filterSuggestions = (captured, options) =>
-    options.filter(e => e.value.match(captured));
+const filterSuggestions = memoize((captured, options) =>
+    options.filter(e => e.value.match(captured))
+);
 
 export default class SuggestionsInput extends React.Component {
     constructor(props) {
@@ -250,8 +261,23 @@ export default class SuggestionsInput extends React.Component {
     }
 
     render() {
-        const {id, multi_line} = this.props;
-        const {value, currentTrigger, index, filteredOptions, style} = this.state;
+        const {
+            id,
+            multi_line,
+            suggestions_style,
+            suggestions_className,
+            suggestion_style,
+            suggestion_className,
+            suggestion_selected_className,
+            suggestion_selected_style,
+        } = this.props;
+        const {
+            value,
+            currentTrigger,
+            index,
+            filteredOptions,
+            style,
+        } = this.state;
         const inputProps = {
             id,
             value: value,
@@ -296,6 +322,12 @@ export default class SuggestionsInput extends React.Component {
                                 : 0
                         }
                         onSuggestion={this.onSuggestion}
+                        style={suggestions_style}
+                        className={suggestions_className}
+                        suggestion_style={suggestion_style}
+                        suggestion_className={suggestion_className}
+                        selected_style={suggestion_selected_style}
+                        selected_className={suggestion_selected_className}
                     />
                 )}
                 <div
@@ -367,8 +399,29 @@ SuggestionsInput.propTypes = {
      */
     include_trigger: PropTypes.bool,
 
+    /**
+     * Given to the suggestions modal.
+     */
     suggestions_className: PropTypes.string,
+    /**
+     * Given and merged with the default style to the suggestions modal.
+     */
     suggestions_style: PropTypes.object,
+
+    /**
+     * Style of the suggestion elements (single suggestion).
+     */
+    suggestion_style: PropTypes.object,
+    /**
+     * CSS class for a single suggestion element.
+     */
+    suggestion_className: PropTypes.string,
+    /**
+     * Style of a suggestion while it is selected.
+     */
     suggestion_selected_style: PropTypes.object,
+    /**
+     * CSS class for a suggestion while it is selected.
+     */
     suggestion_selected_className: PropTypes.string,
 };
