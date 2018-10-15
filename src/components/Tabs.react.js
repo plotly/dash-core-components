@@ -179,10 +179,15 @@ export default class Tabs extends Component {
                 // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
                 let childProps;
 
+                window.console.log(child.props)
+
                 // TODO: fix issue in dash-renderer https://github.com/plotly/dash-renderer/issues/84
                 if (
-                    !child.props.label &&
-                    !child.props.id &&
+                    // Tab.children is a defaultProp (so it's always set)
+                    // meaning that if it's not set on child.props, the actual
+                    // props we want are lying a bit deeper - which means they
+                    // are coming from Dash
+                    R.isNil(child.props.disabled) &&
                     child.props.children &&
                     child.props.children.props
                 ) {
@@ -223,11 +228,11 @@ export default class Tabs extends Component {
                 );
             });
         }
-        if (!selectedTab) {
-            throw new Error(
-                "Couldn't find Tab with the value " + this.state.selected
-            );
-        }
+        // if (!selectedTab) {
+        //     throw new Error(
+        //         "Couldn't find Tab with the value " + this.state.selected
+        //     );
+        // }
 
         const selectedTabContent = selectedTab.props.children;
 
