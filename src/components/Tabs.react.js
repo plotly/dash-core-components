@@ -374,8 +374,8 @@ Tabs.propTypes = {
      */
     children: React.PropTypes.oneOfType([
         React.PropTypes.arrayOf(React.PropTypes.node),
-        React.PropTypes.node
-      ]),
+        React.PropTypes.node,
+    ]),
 
     /**
      * Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so:
