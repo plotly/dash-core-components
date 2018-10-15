@@ -2717,6 +2717,207 @@
       }
     }
   },
+  "src/components/SuggestionsInput.react.js": {
+    "description": "",
+    "displayName": "SuggestionsInput",
+    "methods": [
+      {
+        "name": "onKeyUp",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "filterSuggestions",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "captured",
+            "type": null
+          },
+          {
+            "name": "options",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "onChange",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "preventTabNavigation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "onSuggestion",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "suggestion",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "resetSuggestions",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "multi_line": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "true -> <textarea>\r\nfalse -> <input>",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Current value of the input/textarea",
+        "defaultValue": {
+          "value": "''",
+          "computed": false
+        }
+      },
+      "suggestions": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "trigger": {
+                "name": "string",
+                "required": false
+              },
+              "suggestion_route": {
+                "name": "string",
+                "description": "Call this route to retrieve the options\r\nIt needs to return a json array of options shape.",
+                "required": false
+              },
+              "options": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "value": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "display": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "description": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                },
+                "description": "The options this suggestion trigger will display.",
+                "required": false
+              },
+              "className": {
+                "name": "string",
+                "required": false
+              },
+              "style": {
+                "name": "object",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": true,
+        "description": ""
+      },
+      "suggestions_className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "suggestions_style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "suggestion_selected_style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "suggestion_selected_className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
   "src/components/SyntaxHighlighter.react.js": {
     "description": "A component for pretty printing code.",
     "displayName": "SyntaxHighlighter",

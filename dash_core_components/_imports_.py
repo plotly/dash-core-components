@@ -14,6 +14,7 @@ from .RadioItems import RadioItems
 from .RangeSlider import RangeSlider
 from .Slider import Slider
 from .Store import Store
+from .SuggestionsInput import SuggestionsInput
 from .SyntaxHighlighter import SyntaxHighlighter
 from .Tab import Tab
 from .Tabs import Tabs
@@ -38,6 +39,7 @@ __all__ = [
     "RangeSlider",
     "Slider",
     "Store",
+    "SuggestionsInput",
     "SyntaxHighlighter",
     "Tab",
     "Tabs",
