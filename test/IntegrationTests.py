@@ -26,18 +26,14 @@ class IntegrationTests(unittest.TestCase):
 
         cls.driver = webdriver.Chrome(chrome_options=options)
 
-        root_static_dir = os.path.abspath(
-            os.path.join(
-                os.path.dirname(__file__),
-                'assets'
-            )
-        )
-        print('root_static_dir: {}'.format(root_static_dir))
+        root_static_dir = os.path.join(os.path.dirname(__file__), '../', 'dash_core_components')
+
         loader = percy.ResourceLoader(
-            webdriver=cls.driver,
-            base_url='/assets/',
-            root_dir=root_static_dir
+            root_dir=root_static_dir,
+            base_url='/dash_core_components/',
+            webdriver=cls.driver
         )
+
         cls.percy_runner = percy.Runner(loader=loader)
         cls.percy_runner.initialize_build()
 
