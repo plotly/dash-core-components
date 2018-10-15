@@ -179,8 +179,6 @@ export default class Tabs extends Component {
                 // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
                 let childProps;
 
-                window.console.log(child.props)
-
                 // TODO: fix issue in dash-renderer https://github.com/plotly/dash-renderer/issues/84
                 if (
                     // Tab.children is a defaultProp (so it's always set)
