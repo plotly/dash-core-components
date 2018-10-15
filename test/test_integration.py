@@ -562,8 +562,8 @@ class Tests(IntegrationTests):
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
             dcc.Tabs(id="tabs-without-value", children=[
-                dcc.Tab(label='Tab One', value='tab-1', children=[html.Div('hi')]),
-                dcc.Tab(label='Tab Two', value='tab-2', children=[html.Div('hi')]),
+                dcc.Tab(label='Tab One', value='tab-1'),
+                dcc.Tab(label='Tab Two', value='tab-2'),
             ]),
             html.Div(id='tabs-content')
         ])
