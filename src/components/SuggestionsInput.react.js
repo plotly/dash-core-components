@@ -15,7 +15,7 @@ const defaultSelectedSuggestionStyle = merge(defaultSuggestionStyle, {
 
 // Style for the suggestion container.
 const defaultSuggestionsStyle = {
-    padding: '0.25rem;',
+    padding: '0.25rem',
     position: 'absolute',
     top: 16,
     zIndex: 1,
@@ -219,7 +219,7 @@ export default class SuggestionsInput extends React.Component {
             value: `${value.substring(
                 0,
                 value.indexOf(captured) - 1
-            )}${suggestion}`
+            )}${suggestion}`,
         };
 
         this.setState(payload);

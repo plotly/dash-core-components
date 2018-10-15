@@ -1304,3 +1304,44 @@ class Tests(IntegrationTests):
         list_btn.click()
         time.sleep(3)
         self.wait_for_text_to_equal('#output', json.dumps(nested_list))
+    def test_suggestion_input(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.SuggestionsInput(
+                suggestions=[{
+                    'trigger': '@',
+                    'options': [
+                        {
+                            'value': 'gary',
+                        },
+                        {
+                            'value': 'bill'
+                        }
+                    ],
+                }],
+                id='suggestions',
+                suggestions_style={
+                    'backgroundColor': '#dcdcdc',
+                    'border': 'solid black 1px',
+                    'padding': '0.125rem',
+                }
+            ),
+            html.Div(id='output')
+        ])
+
+        @app.callback(Output('output', 'children'),
+                      [Input('suggestions', 'value')])
+        def on_output(value):
+            if value is None:
+                raise PreventUpdate
+            return value
+
+        self.startServer(app)
+        suggestion = self.wait_for_element_by_css_selector('#suggestions')
+        suggestion.send_keys('@')
+
+        self.snapshot('SuggestionInput->open')
+        suggestion.send_keys('\t')
+        self.wait_for_text_to_equal('#output', 'gary')
+        self.snapshot('SuggestionInput->output')
