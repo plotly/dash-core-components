@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {contains, merge, omit} from 'ramda';
+import {contains, merge, omit, mergeAll} from 'ramda';
 
 // Style for single suggestion
 const defaultSuggestionStyle = {
@@ -18,7 +18,6 @@ const defaultSuggestionsStyle = {
     padding: '0.25rem;',
     position: 'absolute',
     top: 16,
-    left: 0,
     zIndex: 1,
     display: 'block',
     backgroundColor: 'white',
@@ -28,6 +27,9 @@ const defaultSuggestionInputStyle = {
     position: 'relative',
     display: 'inline-block',
 };
+
+const getComputedNumStyleAttr = (elem, propName) =>
+    parseFloat(window.getComputedStyle(elem, null).getPropertyValue(propName));
 
 const Suggestion = props => (
     <div
@@ -39,6 +41,7 @@ const Suggestion = props => (
                 : defaultSuggestionStyle,
             props.suggestion_style || {}
         )}
+        title={props.description}
     >
         {props.trigger}
         {props.display || props.value}
@@ -53,6 +56,7 @@ Suggestion.propTypes = {
     trigger: PropTypes.string,
     display: PropTypes.string,
     suggestion_style: PropTypes.object,
+    description: PropTypes.string,
 };
 
 class Suggestions extends React.Component {
@@ -66,13 +70,18 @@ class Suggestions extends React.Component {
             style,
             suggestion_style,
             onSuggestion,
+            leftOffset,
         } = this.props;
 
         return (
             <div
                 id={id}
                 className={className}
-                style={merge(defaultSuggestionsStyle, style)}
+                style={mergeAll([
+                    defaultSuggestionsStyle,
+                    style,
+                    {left: leftOffset},
+                ])}
             >
                 {options.map((e, i) => (
                     <Suggestion
@@ -257,9 +266,34 @@ export default class SuggestionsInput extends React.Component {
                         )}
                         options={filteredOptions}
                         index={index}
+                        topOffset={
+                            this._input
+                                ? `${getComputedNumStyleAttr(
+                                      this._input,
+                                      'height'
+                                  )}px`
+                                : '16px'
+                        }
+                        leftOffset={
+                            this._hiddenValue
+                                ? `${getComputedNumStyleAttr(
+                                      this._hiddenValue,
+                                      'width'
+                                  )}`
+                                : 0
+                        }
                         onSuggestion={this.onSuggestion}
                     />
                 )}
+                <div
+                    ref={r => (this._hiddenValue = r)}
+                    style={{
+                        display: 'inline-block',
+                        visibility: 'hidden',
+                    }}
+                >
+                    {this.state.value}
+                </div>
             </div>
         );
     }
@@ -298,7 +332,7 @@ SuggestionsInput.propTypes = {
              */
             options: PropTypes.arrayOf(
                 PropTypes.shape({
-                    value: PropTypes.string,
+                    value: PropTypes.string.isRequired,
                     display: PropTypes.string,
                     description: PropTypes.string,
                 })
