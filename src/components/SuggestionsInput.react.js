@@ -215,12 +215,17 @@ export default class SuggestionsInput extends React.Component {
     onSuggestion(suggestion) {
         const {value, captured} = this.state;
 
-        this.setState({
+        const payload = {
             value: `${value.substring(
                 0,
                 value.indexOf(captured) - 1
-            )}${suggestion}`,
-        });
+            )}${suggestion}`
+        };
+
+        this.setState(payload);
+        if (this.props.setProps) {
+            this.props.setProps(payload);
+        }
         this.resetSuggestions();
     }
 
