@@ -144,10 +144,15 @@ export default class SuggestionsInput extends React.Component {
                 filteredOptions: triggers[e.key].options,
             });
         } else if (currentTrigger) {
+            const options = triggers[currentTrigger].options;
             switch (e.key) {
                 case 'Enter':
                 case 'Tab':
-                    this.onSuggestion(filteredOptions[index].value);
+                    if (filteredOptions.length > 0) {
+                        this.onSuggestion(filteredOptions[index].value);
+                    } else {
+                        this.resetSuggestions();
+                    }
                     break;
                 case 'ArrowUp':
                     if (index > 0) {
@@ -160,20 +165,25 @@ export default class SuggestionsInput extends React.Component {
                     }
                     break;
                 case 'Backspace':
-                    if (this.state.captured.length - 1 === 0) {
+                    if (this.state.captured.length - 1 <= 0) {
                         this.resetSuggestions();
                     } else {
-                        this.setState({
-                            captured: captured.slice(0, captured.length - 1),
-                        });
+                        this.filterSuggestions(
+                            captured.slice(0, captured.length - 1),
+                            options
+                        );
+                    }
+                    break;
+                case ' ':
+                    if (!this.props.allow_space_in_suggestions) {
+                        this.resetSuggestions();
+                    } else {
+                        this.filterSuggestions(captured + e.key, options);
                     }
                     break;
                 default:
                     if (e.key.length === 1) {
-                        this.filterSuggestions(
-                            captured + e.key,
-                            triggers[currentTrigger].options
-                        );
+                        this.filterSuggestions(captured + e.key, options);
                     }
             }
         }
@@ -302,6 +312,7 @@ export default class SuggestionsInput extends React.Component {
 SuggestionsInput.defaultProps = {
     multi_line: true,
     value: '',
+    allow_space_in_suggestions: false,
 };
 
 SuggestionsInput.propTypes = {
@@ -341,6 +352,12 @@ SuggestionsInput.propTypes = {
             style: PropTypes.object,
         })
     ).isRequired,
+
+    /**
+     * Continue capturing the input when a space is entered while
+     * the suggestion menu is open.
+     */
+    allow_space_in_suggestions: PropTypes.bool,
 
     suggestions_className: PropTypes.string,
     suggestions_style: PropTypes.object,
