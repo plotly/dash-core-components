@@ -179,16 +179,19 @@ export default class Tabs extends Component {
                 // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
                 let childProps;
 
+                window.console.log('child.props', child.props);
+
                 // TODO: fix issue in dash-renderer https://github.com/plotly/dash-renderer/issues/84
                 if (
+                    (!child.props.label && !child.props.id) &&
                     child.props.children &&
-                    child.props.children.props &&
-                    child.props.children.props.id
+                    child.props.children.props
                 ) {
                     // if props appears on .children, props are coming from Dash
                     childProps = child.props.children.props;
                 } else {
                     // else props are coming from React (Demo.react.js)
+                    window.console.log('YES')
                     childProps = child.props;
                 }
 
