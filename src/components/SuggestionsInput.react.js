@@ -45,6 +45,16 @@ const Suggestion = props => (
     </div>
 );
 
+Suggestion.propTypes = {
+    id: PropTypes.string,
+    onSuggestion: PropTypes.func,
+    value: PropTypes.string,
+    selected: PropTypes.bool,
+    trigger: PropTypes.string,
+    display: PropTypes.string,
+    suggestion_style: PropTypes.object,
+};
+
 class Suggestions extends React.Component {
     render() {
         const {
