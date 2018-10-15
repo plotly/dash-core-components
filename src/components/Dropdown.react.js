@@ -123,7 +123,7 @@ Dropdown.propTypes = {
             value: PropTypes.string,
 
             /**
-             * If true, this dropdown is disabled and items can't be seleted.
+             * If true, this dropdown is disabled and items can't be selected.
              */
             disabled: PropTypes.bool,
         })
