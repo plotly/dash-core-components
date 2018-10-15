@@ -183,7 +183,8 @@ export default class Tabs extends Component {
 
                 // TODO: fix issue in dash-renderer https://github.com/plotly/dash-renderer/issues/84
                 if (
-                    (!child.props.label && !child.props.id) &&
+                    !child.props.label &&
+                    !child.props.id &&
                     child.props.children &&
                     child.props.children.props
                 ) {
@@ -191,7 +192,7 @@ export default class Tabs extends Component {
                     childProps = child.props.children.props;
                 } else {
                     // else props are coming from React (Demo.react.js)
-                    window.console.log('YES')
+                    window.console.log('YES');
                     childProps = child.props;
                 }
 
