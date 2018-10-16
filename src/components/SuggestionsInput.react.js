@@ -167,6 +167,15 @@ export default class SuggestionsInput extends React.Component {
         }
     }
 
+    updateSuggestions({captured, options, suggestion_route}) {
+        this.setState({captured});
+        if (suggestion_route) {
+            this.requestSuggestions(suggestion_route, captured);
+        } else {
+            this.filterSuggestions(captured, options);
+        }
+    }
+
     onKeyUp(e) {
         const {
             currentTrigger,
@@ -215,48 +224,31 @@ export default class SuggestionsInput extends React.Component {
                     if (this.state.captured.length - 1 <= 0) {
                         this.resetSuggestions();
                     } else {
-                        if (trigger.suggestion_route) {
-                            this.setState({
-                                captured: captured.slice(
-                                    0,
-                                    captured.length - 1
-                                ),
-                            });
-                            this.requestSuggestions(
-                                trigger.suggestion_route,
-                                captured.slice(0, captured.length - 1)
-                            );
-                        } else {
-                            this.filterSuggestions(
-                                captured.slice(0, captured.length - 1),
-                                options
-                            );
-                        }
+                        this.updateSuggestions({
+                            captured: captured.slice(0, captured.length - 1),
+                            suggestion_route: trigger.suggestion_route,
+                            options,
+                        });
                     }
                     break;
                 case ' ':
                     if (!this.props.allow_space_in_suggestions) {
                         this.resetSuggestions();
                     } else {
-                        if (trigger.suggestion_route) {
-                            this.setState({captured: captured + e.key});
-                            this.requestSuggestions(captured + e.key, options);
-                        } else {
-                            this.filterSuggestions(captured + e.key, options);
-                        }
+                        this.updateSuggestions({
+                            captured: captured + e.key,
+                            options,
+                            suggestion_route: trigger.suggestion_route,
+                        });
                     }
                     break;
                 default:
                     if (e.key.length === 1) {
-                        if (trigger.suggestion_route) {
-                            this.setState({captured: captured + e.key});
-                            this.requestSuggestions(
-                                trigger.suggestion_route,
-                                captured + e.key
-                            );
-                        } else {
-                            this.filterSuggestions(captured + e.key, options);
-                        }
+                        this.updateSuggestions({
+                            captured: captured + e.key,
+                            suggestion_route: trigger.suggestion_route,
+                            options,
+                        });
                     }
             }
         }
@@ -264,7 +256,7 @@ export default class SuggestionsInput extends React.Component {
 
     filterSuggestions(captured, options) {
         const filteredOptions = filterSuggestions(captured, options);
-        this.setState({captured, filteredOptions});
+        this.setState({filteredOptions});
     }
 
     onChange(e) {
@@ -307,14 +299,6 @@ export default class SuggestionsInput extends React.Component {
             index: 0,
             captured: '',
         });
-    }
-
-    onSuggestionsResponse(response) {
-        response.json().then(j =>
-            this.setState({
-                filteredOptions: j,
-            })
-        );
     }
 
     componentWillReceiveProps(e) {
