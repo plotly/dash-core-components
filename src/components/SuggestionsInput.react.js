@@ -117,6 +117,10 @@ const filterSuggestions = memoize((captured, options) =>
     options.filter(e => e.value.match(captured))
 );
 
+/**
+ * An `<input>`/<textarea> with associated triggers that will display a menu
+ * with suggestions.
+ */
 export default class SuggestionsInput extends React.Component {
     constructor(props) {
         super(props);
@@ -331,6 +335,8 @@ export default class SuggestionsInput extends React.Component {
         const {
             id,
             multi_line,
+            style,
+            className,
             suggestions_style,
             suggestions_className,
             suggestion_style,
@@ -338,13 +344,9 @@ export default class SuggestionsInput extends React.Component {
             suggestion_selected_className,
             suggestion_selected_style,
         } = this.props;
-        const {
-            value,
-            currentTrigger,
-            index,
-            filteredOptions,
-            style,
-        } = this.state;
+
+        const {value, currentTrigger, index, filteredOptions} = this.state;
+
         const inputProps = {
             id,
             value: value,
@@ -362,7 +364,10 @@ export default class SuggestionsInput extends React.Component {
         );
 
         return (
-            <div style={merge(defaultSuggestionInputStyle, style)}>
+            <div
+                style={merge(defaultSuggestionInputStyle, style)}
+                className={className}
+            >
                 {input}
                 {currentTrigger && (
                     <Suggestions
@@ -412,14 +417,20 @@ export default class SuggestionsInput extends React.Component {
 }
 
 SuggestionsInput.defaultProps = {
-    multi_line: true,
+    multi_line: false,
     value: '',
     allow_space_in_suggestions: false,
 };
 
 SuggestionsInput.propTypes = {
     id: PropTypes.string,
+    /**
+     * Css class for the container of the input and suggestions modal.
+     */
     className: PropTypes.string,
+    /**
+     * Style object given to the topmost container.
+     */
     style: PropTypes.object,
 
     /**
@@ -432,8 +443,16 @@ SuggestionsInput.propTypes = {
      */
     value: PropTypes.string,
 
+    /**
+     * Suggestions array containing the options to show
+     * when a trigger is activated.
+     */
     suggestions: PropTypes.arrayOf(
         PropTypes.shape({
+            /**
+             * Activate these suggestions when the trigger is entered in the
+             * input value.
+             */
             trigger: PropTypes.string,
             /**
              * Call this route to retrieve the options
@@ -450,8 +469,6 @@ SuggestionsInput.propTypes = {
                     description: PropTypes.string,
                 })
             ),
-            className: PropTypes.string,
-            style: PropTypes.object,
         })
     ).isRequired,
 
