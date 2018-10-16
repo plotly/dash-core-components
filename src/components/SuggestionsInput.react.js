@@ -492,4 +492,6 @@ SuggestionsInput.propTypes = {
      * CSS class for a suggestion while it is selected.
      */
     suggestion_selected_className: PropTypes.string,
+    
+    setProps: PropTypes.any,
 };
