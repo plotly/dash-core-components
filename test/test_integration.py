@@ -1289,7 +1289,8 @@ class Tests(IntegrationTests):
             if obj_ts is None and list_ts is None:
                 raise PreventUpdate
 
-            if obj_ts > list_ts:
+            # python 3 got the default props bug. plotly/dash#396
+            if (obj_ts and not list_ts) or obj_ts > list_ts:
                 return nested
             else:
                 return nested_list
