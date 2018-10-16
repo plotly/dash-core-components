@@ -135,6 +135,32 @@ export default class SuggestionsInput extends React.Component {
         this.onSuggestion = this.onSuggestion.bind(this);
         this.resetSuggestions = this.resetSuggestions.bind(this);
         this.preventTabNavigation = this.preventTabNavigation.bind(this);
+        this._suggestionsRequest = null;
+    }
+
+    requestSuggestions(route, captured) {
+        const url = captured
+            ? `${route}?captured=${encodeURIComponent(captured)}`
+            : route;
+
+        if (!this._suggestionsRequest) {
+            this._suggestionsRequest = fetch(url, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                mode: 'cors',
+            })
+                .then(r => r.json())
+                .then(o => {
+                    this.setState({
+                        filteredOptions: o,
+                    });
+                    this._suggestionsRequest = null;
+                });
+        } else {
+            this._suggestionsRequest.then(() =>
+                this.requestSuggestions(route, captured)
+            );
+        }
     }
 
     onKeyUp(e) {
@@ -145,33 +171,23 @@ export default class SuggestionsInput extends React.Component {
             captured,
             filteredOptions,
         } = this.state;
+
         if (
             !currentTrigger &&
             contains(e.key, Object.keys(this.state.triggers))
         ) {
             const trigger = triggers[e.key];
+            this.setState({currentTrigger: e.key});
             if (trigger.suggestion_route) {
-                fetch(trigger.suggestion_route, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    mode: 'cors',
-                    body: JSON.stringify({captured: captured + e.key}),
-                })
-                    .then(r => r.json())
-                    .then(o =>
-                        this.setState({
-                            filteredOptions: o,
-                            currentTrigger: trigger.trigger,
-                        })
-                    );
+                this.requestSuggestions(trigger.suggestion_route, '');
             } else {
                 this.setState({
-                    currentTrigger: e.key,
                     filteredOptions: trigger.options,
                 });
             }
         } else if (currentTrigger) {
-            const options = triggers[currentTrigger].options;
+            const trigger = triggers[currentTrigger];
+            const options = trigger.options;
             switch (e.key) {
                 case 'Enter':
                 case 'Tab':
@@ -195,22 +211,48 @@ export default class SuggestionsInput extends React.Component {
                     if (this.state.captured.length - 1 <= 0) {
                         this.resetSuggestions();
                     } else {
-                        this.filterSuggestions(
-                            captured.slice(0, captured.length - 1),
-                            options
-                        );
+                        if (trigger.suggestion_route) {
+                            this.setState({
+                                captured: captured.slice(
+                                    0,
+                                    captured.length - 1
+                                ),
+                            });
+                            this.requestSuggestions(
+                                trigger.suggestion_route,
+                                captured.slice(0, captured.length - 1)
+                            );
+                        } else {
+                            this.filterSuggestions(
+                                captured.slice(0, captured.length - 1),
+                                options
+                            );
+                        }
                     }
                     break;
                 case ' ':
                     if (!this.props.allow_space_in_suggestions) {
                         this.resetSuggestions();
                     } else {
-                        this.filterSuggestions(captured + e.key, options);
+                        if (trigger.suggestion_route) {
+                            this.setState({captured: captured + e.key});
+                            this.requestSuggestions(captured + e.key, options);
+                        } else {
+                            this.filterSuggestions(captured + e.key, options);
+                        }
                     }
                     break;
                 default:
                     if (e.key.length === 1) {
-                        this.filterSuggestions(captured + e.key, options);
+                        if (trigger.suggestion_route) {
+                            this.setState({captured: captured + e.key});
+                            this.requestSuggestions(
+                                trigger.suggestion_route,
+                                captured + e.key
+                            );
+                        } else {
+                            this.filterSuggestions(captured + e.key, options);
+                        }
                     }
             }
         }
