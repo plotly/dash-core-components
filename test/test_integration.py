@@ -73,7 +73,7 @@ class Tests(IntegrationTests):
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
             python_version = sys.version.split(' ')[0]
             print('Percy Snapshot {}'.format(python_version))
-            self.percy_runner.snapshot(name=name)
+            self.percy_runner.snapshot(name=name, enable_javascript=True)
 
     def create_upload_component_content_types_test(self, filename):
         app = dash.Dash(__name__)
