@@ -182,7 +182,7 @@ export default class Tabs extends Component {
 
                 // TODO: fix issue in dash-renderer https://github.com/plotly/dash-renderer/issues/84
                 if (
-                    // Tab.children is a defaultProp (so it's always set)
+                    // disabled is a defaultProp (so it's always set)
                     // meaning that if it's not set on child.props, the actual
                     // props we want are lying a bit deeper - which means they
                     // are coming from Dash
@@ -190,10 +190,10 @@ export default class Tabs extends Component {
                     child.props.children &&
                     child.props.children.props
                 ) {
-                    // if props appears on .children, props are coming from Dash
+                    // props are coming from Dash
                     childProps = child.props.children.props;
                 } else {
-                    // else props are coming from React (Demo.react.js)
+                    // else props are coming from React (Demo.react.js, or Tabs.test.js)
                     childProps = child.props;
                 }
 
