@@ -10,6 +10,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed bug with default Tabs value not being set to children's Tab value (if it's set)
 - Fixed bug where Tabs.children.props wheren't being selected properly, related to [#84](https://github.com/plotly/dash-renderer/issues/84)
 
+## [0.33.1] -- 2018-10-17
+### Fixed
+- Fix Store component nested data [#333](https://github.com/plotly/dash-core-components/pull/333)
+
 ## [0.33.0] -- 2018-10-04
 ### Added
 
