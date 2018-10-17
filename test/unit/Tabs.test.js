@@ -195,3 +195,49 @@ describe('Tabs handle Tab selection logic', () => {
         expect(renderedContent).toEqual('<div>Tab 2 child</div>');
     });
 });
+describe('Tabs can be used 2 ways', () => {
+    test('With Dash callbacks, using setProps()', () => {
+        const mockSetProps = jest.fn(value => value);
+        const tabs = mount(
+            <Tabs id="tabs" setProps={mockSetProps}>
+                <Tab value='custom-tab-1' id="tab-1" label="Tab 1">
+                    <div>Tab 1 child</div>
+                </Tab>
+                <Tab value='custom-tab-2' id="tab-2" label="Tab 2">
+                    <div>Tab 2 child</div>
+                </Tab>
+            </Tabs>
+        );
+
+        expect(mockSetProps).toBeCalledTimes(1);
+        tabs.find('#tab-2').simulate('click');
+        expect(mockSetProps).toBeCalledTimes(2);
+        expect(mockSetProps.mock.results[1].value.value).toEqual('custom-tab-2');
+        // expect state to not be updated (default is tab-1)
+        expect(tabs.state().selected).toEqual('tab-1');
+
+        tabs.find('#tab-1').simulate('click');
+        expect(mockSetProps).toBeCalledTimes(3);
+        expect(mockSetProps.mock.results[2].value.value).toEqual('custom-tab-1');
+        // expect state to not be updated (default is tab-1)
+        expect(tabs.state().selected).toEqual('tab-1');
+    });
+    test('Without Dash callbacks, using internal state', () => {
+        const tabs = mount(
+            <Tabs id="tabs">
+                <Tab value='custom-tab-1' id="tab-1" label="Tab 1">
+                    <div>Tab 1 child</div>
+                </Tab>
+                <Tab value='custom-tab-2' id="tab-2" label="Tab 2">
+                    <div>Tab 2 child</div>
+                </Tab>
+            </Tabs>
+        );
+
+        tabs.find('#tab-2').simulate('click');
+        expect(tabs.state().selected).toEqual('custom-tab-2');
+
+        tabs.find('#tab-1').simulate('click');
+        expect(tabs.state().selected).toEqual('custom-tab-1');
+    });
+});

@@ -150,16 +150,17 @@ export default class Tabs extends Component {
         return this.props.children;
     }
     selectHandler(value) {
-        this.setState({
-            selected: value,
-        });
         if (this.props.setProps) {
             this.props.setProps({value: value});
+        } else {
+            this.setState({
+                selected: value,
+            });
         }
     }
     componentWillReceiveProps(newProps) {
         const value = newProps.value;
-        if (typeof value !== 'undefined') {
+        if (typeof value !== 'undefined' && this.props.value !== value) {
             this.setState({
                 selected: value,
             });
