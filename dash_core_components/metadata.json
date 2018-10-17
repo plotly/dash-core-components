@@ -2049,6 +2049,52 @@
       }
     }
   },
+  "src/components/Loading.react.js": {
+    "description": "A slider component with a single handle.",
+    "displayName": "Loading",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "node"
+              }
+            },
+            {
+              "name": "node"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Array that holds components to render"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Additional CSS class for the root DOM node"
+      },
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
   "src/components/Location.react.js": {
     "description": "Update and track the current window.location object through the window.history state.\nUse in conjunction with the `dash_core_components.Link` component to make apps with multiple pages.",
     "displayName": "Location",

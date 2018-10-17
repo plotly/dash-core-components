@@ -8,6 +8,7 @@ from .Graph import Graph
 from .Input import Input
 from .Interval import Interval
 from .Link import Link
+from .Loading import Loading
 from .Location import Location
 from .Markdown import Markdown
 from .RadioItems import RadioItems
@@ -32,6 +33,7 @@ __all__ = [
     "Input",
     "Interval",
     "Link",
+    "Loading",
     "Location",
     "Markdown",
     "RadioItems",
