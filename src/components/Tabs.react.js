@@ -376,13 +376,10 @@ Tabs.propTypes = {
      */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(
-            PropTypes.oneOfType([
-                PropTypes.oneOf([null]),
-                PropTypes.node
-            ])
+            PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.node])
         ),
         PropTypes.node,
-        PropTypes.oneOf([null])
+        PropTypes.oneOf([null]),
     ]),
 
     /**
