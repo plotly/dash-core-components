@@ -60,10 +60,7 @@ Input.propTypes = {
     /**
      * The value of the input
      */
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The input's inline styles
@@ -176,34 +173,22 @@ Input.propTypes = {
     /**
      * The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value.
      */
-    max: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
      */
-    maxlength: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    maxlength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
      */
-    min: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
      */
-    minlength: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    minlength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
@@ -243,26 +228,17 @@ Input.propTypes = {
     /**
      * The offset into the element's text content of the last selected character. If there's no selection, this value indicates the offset to the character following the current text input cursor position (that is, the position the next character typed would occupy).
      */
-    selectionEnd: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    selectionEnd: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The offset into the element's text content of the first selected character. If there's no selection, this value indicates the offset to the character following the current text input cursor position (that is, the position the next character typed would occupy).
      */
-    selectionStart: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    selectionStart: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The initial size of the control. This value is in pixels unless the value of the type attribute is text or password, in which case it is an integer number of characters. Starting in, this attribute applies only when the type attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be greater than zero. If you do not specify a size, a default value of 20 is used.' simply states "the user agent should ensure that at least that many characters are visible", but different characters can have different widths in certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is defined to at least x.
      */
-    size: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Setting the value of this attribute to true indicates that the element needs to have its spelling and grammar checked. The value default indicates that the element is to act according to a default behavior, possibly based on the parent element's own spellcheck value. The value false indicates that the element should not be checked.
@@ -272,10 +248,7 @@ Input.propTypes = {
     /**
      * Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
      */
-    step: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Dash-assigned callback that gets fired when the input changes.

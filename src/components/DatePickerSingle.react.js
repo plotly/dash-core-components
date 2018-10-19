@@ -146,14 +146,20 @@ DatePickerSingle.propTypes = {
      * Accepts datetime.datetime objects or strings
      * in the format 'YYYY-MM-DD'
      */
-    min_date_allowed: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    min_date_allowed: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date),
+    ]),
 
     /**
      * Specifies the highest selectable date for the component.
      * Accepts datetime.datetime objects or strings
      * in the format 'YYYY-MM-DD'
      */
-    max_date_allowed: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    max_date_allowed: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date),
+    ]),
 
     /**
      * Specifies the month that is initially presented when the user
@@ -161,7 +167,10 @@ DatePickerSingle.propTypes = {
      * in the format 'YYYY-MM-DD'
      *
      */
-    initial_visible_month: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    initial_visible_month: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date),
+    ]),
 
     /**
      * Size of rendered calendar days, higher number

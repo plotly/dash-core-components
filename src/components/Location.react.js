@@ -119,10 +119,7 @@ Location.propTypes = {
     id: PropTypes.string.isRequired,
 
     /** pathname in window.location - e.g., "/my/full/pathname" */
-    pathname: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.oneOf([null])
-    ]),
+    pathname: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
     /** search in window.location - e.g., "?myargument=1" */
     search: PropTypes.string,
     /** hash in window.location - e.g., "#myhash" */

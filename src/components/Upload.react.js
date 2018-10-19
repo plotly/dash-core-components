@@ -148,7 +148,7 @@ Upload.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.node,
         PropTypes.string,
-        PropTypes.oneOf([null])
+        PropTypes.oneOf([null]),
     ]),
 
     /**

@@ -64,7 +64,7 @@ Slider.propTypes = {
      * contains style and label properties.
      */
     marks: PropTypes.objectOf(
-      PropTypes.oneOfType([
+        PropTypes.oneOfType([
             /**
              * The label of the mark
              */
@@ -75,8 +75,8 @@ Slider.propTypes = {
              */
             PropTypes.shape({
                 style: PropTypes.object,
-                label: PropTypes.string
-            })
+                label: PropTypes.string,
+            }),
         ])
     ),
 

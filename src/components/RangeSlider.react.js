@@ -64,7 +64,7 @@ RangeSlider.propTypes = {
      * the value should be an object which
      * contains style and label properties.
      */
-      marks: PropTypes.objectOf(
+    marks: PropTypes.objectOf(
         PropTypes.oneOfType([
             /**
              * The label of the mark
@@ -76,8 +76,8 @@ RangeSlider.propTypes = {
              */
             PropTypes.shape({
                 style: PropTypes.object,
-                label: PropTypes.string
-            })
+                label: PropTypes.string,
+            }),
         ])
     ),
 

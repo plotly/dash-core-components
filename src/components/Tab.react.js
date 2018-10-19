@@ -23,10 +23,7 @@ Tab.propTypes = {
     /**
      * The content of the tab - will only be displayed if this tab is selected
      */
-    children: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.oneOf([null])
-    ]),
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.oneOf([null])]),
 
     /**
      * Value for determining which Tab is currently selected
