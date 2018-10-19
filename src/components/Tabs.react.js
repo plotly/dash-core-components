@@ -20,7 +20,7 @@ const EnhancedTab = ({
     disabled_className,
     mobile_breakpoint,
     amountOfTabs,
-    colors
+    colors,
 }) => {
     let tabStyle = style;
     if (disabled) {
@@ -314,8 +314,8 @@ Tabs.defaultProps = {
     colors: {
         border: '#d6d6d6',
         primary: '#1975FA',
-        background: '#f9f9f9'
-    }
+        background: '#f9f9f9',
+    },
 };
 
 Tabs.propTypes = {
@@ -374,7 +374,10 @@ Tabs.propTypes = {
     /**
      * Array that holds Tab components
      */
-    children: PropTypes.node.isRequired,
+    children: React.PropTypes.oneOfType([
+        React.PropTypes.arrayOf(React.PropTypes.node),
+        React.PropTypes.node,
+    ]),
 
     /**
      * Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so:
@@ -387,6 +390,6 @@ Tabs.propTypes = {
     colors: PropTypes.shape({
         border: PropTypes.string,
         primary: PropTypes.string,
-        background: PropTypes.string
-    })
+        background: PropTypes.string,
+    }),
 };

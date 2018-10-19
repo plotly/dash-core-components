@@ -3,6 +3,9 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+
+schema = {'id': {'type': 'string', 'required': True}, 'storage_type': {'allowed': ['local', 'session', 'memory'], 'type': ('string', 'number')}, 'data': {'anyof': [{'type': 'dict'}, {'type': 'list'}, {'type': 'number'}, {'type': 'string'}]}, 'clear_data': {'type': 'boolean'}, 'modified_timestamp': {'type': 'number'}, 'setProps': {}}
+
 class Store(Component):
     """A Store component.
 Easily keep data on the client side with this component.
@@ -22,6 +25,7 @@ session: window.sessionStorage, data is cleared once the browser quit.
 - modified_timestamp (number; optional): The last time the storage was modified.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.REQUIRED, storage_type=Component.UNDEFINED, data=Component.UNDEFINED, clear_data=Component.UNDEFINED, modified_timestamp=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'storage_type', 'data', 'clear_data', 'modified_timestamp']
@@ -35,12 +39,13 @@ Available events: """
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
+        args = {k: _locals[k] for k in _explicit_args}
 
         for k in ['id']:
             if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
+        args.pop('children', None)
         super(Store, self).__init__(**args)
 
     def __repr__(self):

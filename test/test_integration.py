@@ -578,6 +578,8 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
+        time.sleep(1)
+
         default_tab_content = self.wait_for_element_by_css_selector('#tabs-content')
 
         self.assertEqual(default_tab_content.text, 'Default selected Tab content 1')

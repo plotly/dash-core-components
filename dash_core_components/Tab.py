@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'label': {}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}, 'disabled_style': {'type': 'dict'}, 'disabled_className': {'type': 'string'}, 'className': {'type': 'string'}, 'selected_className': {'type': 'string'}, 'style': {'type': 'dict'}, 'selected_style': {'type': 'dict'}}
+schema = {'id': {'type': 'string'}, 'label': {'type': 'string'}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'value': {'type': 'string'}, 'disabled': {'type': 'boolean'}, 'disabled_style': {'type': 'dict'}, 'disabled_className': {'type': 'string'}, 'className': {'type': 'string'}, 'selected_className': {'type': 'string'}, 'style': {'type': 'dict'}, 'selected_style': {'type': 'dict'}}
 
 class Tab(Component):
     """A Tab component.

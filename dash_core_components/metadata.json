@@ -1547,19 +1547,19 @@
               "required": false
             },
             "displayModeBar": {
-              "name": "union",
+              "name": "enum",
               "value": [
                 {
-                  "name": "bool"
+                  "value": "true",
+                  "computed": false
                 },
                 {
-                  "name": "enum",
-                  "value": [
-                    {
-                      "value": "'hover'",
-                      "computed": false
-                    }
-                  ]
+                  "value": "false",
+                  "computed": false
+                },
+                {
+                  "value": "'hover'",
+                  "computed": false
                 }
               ],
               "description": "display the mode bar (true, false, or 'hover')",
@@ -1671,8 +1671,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1826,8 +1826,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1841,8 +1841,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1856,8 +1856,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1871,8 +1871,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1935,8 +1935,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1950,8 +1950,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1965,8 +1965,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -1987,8 +1987,8 @@
           "name": "union",
           "value": [
             {
-          "name": "string"
-        },
+              "name": "string"
+            },
             {
               "name": "number"
             }
@@ -3258,18 +3258,7 @@
       },
       "children": {
         "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "arrayOf",
-              "value": {
-                "name": "node"
-              }
-            },
-            {
-              "name": "node"
-            }
-          ]
+          "name": "node"
         },
         "required": true,
         "description": "Array that holds Tab components"
