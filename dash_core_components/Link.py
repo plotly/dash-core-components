@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'href': {'type': 'string'}, 'refresh': {'type': 'boolean'}, 'className': {'type': 'string'}, 'style': {'type': 'dict'}, 'id': {'type': 'string'}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}}
+schema = {'style': {'type': 'dict'}, 'refresh': {'type': 'boolean'}, 'children': {'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'className': {'type': 'string'}, 'href': {'type': 'string'}, 'id': {'type': 'string'}}
 
 class Link(Component):
     """A Link component.

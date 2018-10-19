@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'className': {'type': 'string'}, 'containerProps': {'type': 'dict'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}}
+schema = {'className': {'type': 'string'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'id': {'type': 'string'}, 'containerProps': {'type': 'dict'}}
 
 class Markdown(Component):
     """A Markdown component.

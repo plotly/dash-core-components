@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string', 'required': True}, 'storage_type': {'allowed': ['local', 'session', 'memory'], 'type': ('string', 'number')}, 'data': {'anyof': [{'type': 'dict'}, {'type': 'list'}, {'type': 'number'}, {'type': 'string'}]}, 'clear_data': {'type': 'boolean'}, 'modified_timestamp': {'type': 'number'}, 'setProps': {}}
+schema = {'modified_timestamp': {'type': 'number'}, 'storage_type': {'type': ('string', 'number'), 'allowed': ['local', 'session', 'memory']}, 'clear_data': {'type': 'boolean'}, 'setProps': {}, 'data': {'anyof': [{'type': 'dict'}, {'type': 'list'}, {'type': 'number'}, {'type': 'string'}]}, 'id': {'required': True, 'type': 'string'}}
 
 class Store(Component):
     """A Store component.

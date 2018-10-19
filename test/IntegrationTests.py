@@ -67,6 +67,7 @@ class IntegrationTests(unittest.TestCase):
                 debug=False,
                 processes=processes,
                 threaded=False,
+                dev_tools_serve_dev_bundles=True
             )
 
         def run_windows():

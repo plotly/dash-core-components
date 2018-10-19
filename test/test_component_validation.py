@@ -124,7 +124,7 @@ class InitializationTests(unittest.TestCase):
             try:
                 component(**props).validate()
             except (TypeError,
-                    dash.exceptions.InitialLayoutValidationError) as e:
+                    dash.exceptions.ComponentInitializationValidationError) as e:
                 print(
                     "Error in component",
                     component.__name__, ":",

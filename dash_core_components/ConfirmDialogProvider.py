@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'message': {'type': 'string'}, 'submit_n_clicks': {'type': 'number'}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'displayed': {'type': 'boolean'}, 'setProps': {}, 'children': {'anyof': [{'type': 'string'}, {'type': 'number'}, {'type': 'boolean'}, {'type': 'component'}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}, {'type': 'list', 'schema': {'anyof': [{'type': 'string'}, {'type': 'number'}, {'type': 'boolean'}, {'type': 'component'}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}}], 'nullable': True}}
+schema = {'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'submit_n_clicks': {'type': 'number'}, 'setProps': {}, 'displayed': {'type': 'boolean'}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'number'}, {'type': 'boolean'}, {'type': 'component'}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}, {'type': 'list', 'schema': {'anyof': [{'type': 'string'}, {'type': 'number'}, {'type': 'boolean'}, {'type': 'component'}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}}], 'nullable': True}, 'message': {'type': 'string'}, 'id': {'type': 'string'}}
 
 class ConfirmDialogProvider(Component):
     """A ConfirmDialogProvider component.

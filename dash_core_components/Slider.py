@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'marks': {'type': 'dict', 'nullable': False, 'valueschema': {'anyof': [{'type': 'string'}, {'type': 'dict', 'allow_unknown': False, 'nullable': False, 'schema': {'style': {'type': 'dict'}, 'label': {'type': 'string'}}}]}}, 'value': {'type': 'number'}, 'className': {'type': 'string'}, 'disabled': {'type': 'boolean'}, 'dots': {'type': 'boolean'}, 'included': {'type': 'boolean'}, 'min': {'type': 'number'}, 'max': {'type': 'number'}, 'step': {'type': 'number'}, 'vertical': {'type': 'boolean'}, 'updatemode': {'allowed': ['mouseup', 'drag'], 'type': ('string', 'number')}, 'fireEvent': {}, 'setProps': {}, 'dashEvents': {'allowed': ['change'], 'type': ('string', 'number')}}
+schema = {'dots': {'type': 'boolean'}, 'disabled': {'type': 'boolean'}, 'updatemode': {'type': ('string', 'number'), 'allowed': ['mouseup', 'drag']}, 'vertical': {'type': 'boolean'}, 'min': {'type': 'number'}, 'max': {'type': 'number'}, 'dashEvents': {'type': ('string', 'number'), 'allowed': ['change']}, 'value': {'type': 'number'}, 'fireEvent': {}, 'className': {'type': 'string'}, 'step': {'type': 'number'}, 'marks': {'type': 'dict', 'valueschema': {'anyof': [{'type': 'string'}, {'schema': {'style': {'type': 'dict'}, 'label': {'type': 'string'}}, 'type': 'dict', 'allow_unknown': False, 'nullable': False}]}, 'nullable': False}, 'included': {'type': 'boolean'}, 'setProps': {}, 'id': {'type': 'string'}}
 
 class Slider(Component):
     """A Slider component.

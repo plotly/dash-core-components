@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'id': {'type': 'string'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'allowed': [None], 'type': ('string', 'number'), 'nullable': True}], 'nullable': True}, 'language': {'type': 'string'}, 'theme': {'allowed': ['light', 'dark'], 'type': ('string', 'number')}, 'customStyle': {'type': 'dict'}, 'codeTagProps': {'type': 'dict'}, 'useInlineStyles': {'type': 'boolean'}, 'showLineNumbers': {'type': 'boolean'}, 'startingLineNumber': {'type': 'number'}, 'lineNumberContainerStyle': {'type': 'dict'}, 'lineNumberStyle': {'type': 'dict'}, 'wrapLines': {'type': 'boolean'}, 'lineStyle': {'type': 'dict'}}
+schema = {'language': {'type': 'string'}, 'lineStyle': {'type': 'dict'}, 'children': {'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'codeTagProps': {'type': 'dict'}, 'theme': {'type': ('string', 'number'), 'allowed': ['light', 'dark']}, 'useInlineStyles': {'type': 'boolean'}, 'lineNumberContainerStyle': {'type': 'dict'}, 'lineNumberStyle': {'type': 'dict'}, 'startingLineNumber': {'type': 'number'}, 'wrapLines': {'type': 'boolean'}, 'id': {'type': 'string'}, 'showLineNumbers': {'type': 'boolean'}, 'customStyle': {'type': 'dict'}}
 
 class SyntaxHighlighter(Component):
     """A SyntaxHighlighter component.
