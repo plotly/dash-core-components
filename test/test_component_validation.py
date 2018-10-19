@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 import dash
 import unittest
@@ -74,6 +76,10 @@ def get_possible_values(type_object):
             for v in type_object['value']:
                 if v['value'] == 'null':
                     yield None
+                elif v['value'] == 'false':
+                    yield False
+                elif v['value'] == 'true':
+                    yield True
                 else:
                     yield v['value'].strip("\"'")
         elif type_name == "shape":

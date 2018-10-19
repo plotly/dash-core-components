@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'style': {'type': 'dict'}, 'vertical': {'type': 'boolean'}, 'parent_style': {'type': 'dict'}, 'parent_className': {'type': 'string'}, 'content_className': {'type': 'string'}, 'mobile_breakpoint': {'type': 'number'}, 'className': {'type': 'string'}, 'children': {'anyof': [{'type': 'list', 'schema': {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}], 'nullable': False}}, {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}]}, 'colors': {'nullable': False, 'type': 'dict', 'allow_unknown': False, 'schema': {'border': {'type': 'string'}, 'primary': {'type': 'string'}, 'background': {'type': 'string'}}}, 'value': {'type': 'string'}, 'content_style': {'type': 'dict'}, 'id': {'type': 'string'}}
+schema = {'style': {'type': 'dict'}, 'vertical': {'type': 'boolean'}, 'parent_style': {'type': 'dict'}, 'parent_className': {'type': 'string'}, 'content_className': {'type': 'string'}, 'mobile_breakpoint': {'type': 'number'}, 'className': {'type': 'string'}, 'children': {'anyof': [{'type': 'list', 'schema': {'anyof': [{'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}, {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}], 'nullable': True}}, {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'colors': {'nullable': False, 'type': 'dict', 'allow_unknown': False, 'schema': {'border': {'type': 'string'}, 'primary': {'type': 'string'}, 'background': {'type': 'string'}}}, 'value': {'type': 'string'}, 'content_style': {'type': 'dict'}, 'id': {'type': 'string'}}
 
 class Tabs(Component):
     """A Tabs component.
@@ -13,7 +13,7 @@ can be dcc.Tab components, which can hold a label that will be displayed as a ta
 children components that will be that tab's content.
 
 Keyword arguments:
-- children (list | a list of or a singular dash component, string or number; optional): Array that holds Tab components
+- children (list | a list of or a singular dash component, string or number | a value equal to: null; optional): Array that holds Tab components
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.

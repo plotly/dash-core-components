@@ -3263,11 +3263,34 @@
             {
               "name": "arrayOf",
               "value": {
-                "name": "node"
+                "name": "union",
+                "value": [
+                  {
+                    "name": "enum",
+                    "value": [
+                      {
+                        "value": "null",
+                        "computed": false
+                      }
+                    ]
+                  },
+                  {
+                    "name": "node"
+                  }
+                ]
               }
             },
             {
               "name": "node"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },
