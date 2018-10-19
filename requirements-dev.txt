@@ -1,7 +1,7 @@
 Cerberus
-dash_html_components==0.14.0-rc2
+dash_html_components
 dash_renderer
-dash==0.27.0-rc8
+dash==0.29.0rc7
 percy
 selenium
 mock
