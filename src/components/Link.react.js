@@ -14,10 +14,15 @@ function CustomEvent(event, params) {
         bubbles: false,
         cancelable: false,
         // eslint-disable-next-line no-undefined
-        detail: undefined
+        detail: undefined,
     };
     const evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    evt.initCustomEvent(
+        event,
+        params.bubbles,
+        params.cancelable,
+        params.detail
+    );
     return evt;
 }
 CustomEvent.prototype = window.Event.prototype;
@@ -31,7 +36,7 @@ export default class Link extends Component {
     updateLocation(e) {
         // prevent anchor from updating location
         e.preventDefault();
-        const { href, refresh } = this.props;
+        const {href, refresh} = this.props;
         if (refresh) {
             window.location.pathname = href;
         } else {
@@ -43,7 +48,7 @@ export default class Link extends Component {
     }
 
     render() {
-        const { className, style, id, href } = this.props;
+        const {className, style, id, href} = this.props;
         /*
             * ideally, we would use cloneElement however
             * that doesn't work with dash's recursive
@@ -76,5 +81,5 @@ Link.propTypes = {
 };
 
 Link.defaultProps = {
-    refresh: false
+    refresh: false,
 };

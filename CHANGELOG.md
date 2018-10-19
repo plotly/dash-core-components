@@ -1,6 +1,55 @@
 # Change Log for dash-core-components
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+## [0.34.0] - 2018-10-17
+### Added
+- `npm run test-unit` will run new Jest+Enzyme unit tests
+- Unit tests for Tabs component
+### Fixed
+- Fixed bug in Tabs component where value was resetting if using callback-less mode [#331](https://github.com/plotly/dash-core-components/issues/331)
+- Fixed bug with default Tabs value not being set to children's Tab value (if it's set)
+- Fixed bug where Tabs.children.props wheren't being selected properly, related to [#84](https://github.com/plotly/dash-renderer/issues/84)
+
+## [0.33.1] -- 2018-10-17
+### Fixed
+- Fix Store component nested data [#333](https://github.com/plotly/dash-core-components/pull/333)
+
+## [0.33.0] -- 2018-10-04
+### Added
+
+- Upgraded Plotly.js, the underlying library behind the dash_core_components.Graph component, to version 1.41.3. See https://github.com/plotly/plotly.js/releases/tag/v1.41.3 for the official notes. 
+Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plot.ly/products/consulting-and-oem
+
+### Fixed
+As part of plotly.js release:
+
+- Fix handling of hover `text` in `barpolar` traces [#3040]
+- Fix `scatterpolar[gl]` `text` placement in hover label [#3040]
+- Fix `pie` trace support for individual stroke width values [#3030]
+- Fix handling of CSS `max-width` and `max-height` in auto-size routine [#3033]
+- Rotate hover labels when `hovermode: 'y'` and a single trace produces multiple
+  labels [#3043]
+- Rotate hover labels when `hovermode: 'closest'` and multiple labels are
+  generated including one from an horizontal trace [#3043]
+- Fix hover label coloring on white bgcolor [#3048]
+- Do not coerce nor validate `polar?.bar*` attributes on
+  subplots w/o visible `barpolar` traces [#3023]
+- Fix legacy polar attribute descriptions [#3023]
+
+## [0.32.0] - 2018-10-2
+### Added
+- Added Store component [#248](https://github.com/plotly/dash-core-components/pull/248)
+
+
+## [0.31.0] - 2018-09-21
+### Changed
+- Updated NPM scripts:
+  - `test` now runs Selenium integration tests
+  - `format` runs Prettier formatter
+  - There are new `build` scripts, most notably `build:watch` runs a watcher and rebuilds upon changes
+  - There's a new `publish-all` script that publishes to NPM and PyPi
+### Fixed
+- The `start` script will now run the `Demo` application
 
 ## [0.30.2] - 2018-09-21
 ### Fixed
