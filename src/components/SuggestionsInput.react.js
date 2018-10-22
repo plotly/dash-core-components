@@ -26,6 +26,16 @@ const defaultSuggestionInputStyle = {
     display: 'inline-block',
 };
 
+const mapSuggestions = suggestions =>
+    suggestions.reduce((a, e) => {
+        a[e.trigger] = e;
+        return a;
+    }, {});
+
+const filterSuggestions = memoize((captured, options) =>
+    options.filter(e => e.value.match(captured))
+);
+
 const getComputedNumStyleAttr = (elem, propName) =>
     parseFloat(window.getComputedStyle(elem, null).getPropertyValue(propName));
 
@@ -107,16 +117,6 @@ class Suggestions extends React.Component {
         );
     }
 }
-
-const mapSuggestions = suggestions =>
-    suggestions.reduce((a, e) => {
-        a[e.trigger] = e;
-        return a;
-    }, {});
-
-const filterSuggestions = memoize((captured, options) =>
-    options.filter(e => e.value.match(captured))
-);
 
 /**
  * An `<input>`/<textarea> with associated triggers that will display a menu
@@ -340,6 +340,7 @@ export default class SuggestionsInput extends React.Component {
         };
         if (
             e.value &&
+            e.value !== this.props.value &&
             e.value !== this._initialValue &&
             e.value !== this.state.value
         ) {
