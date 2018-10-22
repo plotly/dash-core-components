@@ -37,7 +37,9 @@ const Suggestion = props => (
             props.selected
                 ? defaultSelectedSuggestionStyle
                 : defaultSuggestionStyle,
-            props.selected ? props.selected_style || {} : props.style || {}
+            props.selected
+                ? merge(props.style || {}, props.selected_style || {})
+                : props.style || {}
         )}
         title={props.description}
         className={props.selected ? props.selected_className : props.className}
