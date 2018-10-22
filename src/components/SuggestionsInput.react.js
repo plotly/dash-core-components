@@ -18,8 +18,7 @@ const defaultSuggestionsStyle = {
     position: 'absolute',
     zIndex: 1,
     display: 'block',
-    backgroundColor: 'white',
-    border: '1px solid #dcdcdc',
+    backgroundColor: 'inherit',
 };
 
 const defaultSuggestionInputStyle = {
@@ -202,6 +201,7 @@ export default class SuggestionsInput extends React.Component {
             !currentTrigger &&
             contains(e.key, Object.keys(this.state.triggers))
         ) {
+            // A trigger activated.
             const trigger = triggers[e.key];
             this.setState({currentTrigger: e.key});
             if (this.props.setProps) {
@@ -259,7 +259,11 @@ export default class SuggestionsInput extends React.Component {
                         });
                     }
                     break;
+                case 'Escape':
+                    this.resetSuggestions();
+                    break;
                 default:
+                    // TODO better key filter.
                     if (e.key.length === 1) {
                         this.updateSuggestions({
                             captured: captured + e.key,
