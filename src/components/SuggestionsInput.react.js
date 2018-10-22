@@ -88,6 +88,7 @@ class Suggestions extends React.Component {
             selected_className,
             onSuggestion,
             leftOffset,
+            topOffset,
         } = this.props;
 
         return (
@@ -97,7 +98,7 @@ class Suggestions extends React.Component {
                 style={mergeAll([
                     defaultSuggestionsStyle,
                     style,
-                    {left: leftOffset},
+                    {left: leftOffset, top: topOffset},
                 ])}
             >
                 {options.map((e, i) => (
@@ -573,8 +574,6 @@ SuggestionsInput.propTypes = {
      * Send suggestions for every keystroke.
      */
     triggerless: PropTypes.bool,
-
-    captured_index: PropTypes.number,
 
     setProps: PropTypes.any,
 };
