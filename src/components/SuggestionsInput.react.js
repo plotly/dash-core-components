@@ -132,7 +132,7 @@ export default class SuggestionsInput extends React.Component {
             triggers: mapSuggestions(props.suggestions),
             captured: '',
             filteredOptions: [],
-            captured_index: 0
+            captured_index: 0,
         };
         this._input = null;
         this._initialValue = props.value;
@@ -198,7 +198,7 @@ export default class SuggestionsInput extends React.Component {
             triggers,
             captured,
             filteredOptions,
-            value
+            value,
         } = this.state;
 
         if (
@@ -207,7 +207,10 @@ export default class SuggestionsInput extends React.Component {
         ) {
             // A trigger activated.
             const trigger = triggers[e.key];
-            this.setState({currentTrigger: e.key, captured_index: value.length - 1});
+            this.setState({
+                currentTrigger: e.key,
+                captured_index: value.length - 1,
+            });
             if (this.props.setProps) {
                 this.props.setProps({
                     current_trigger: trigger.trigger,
@@ -404,7 +407,7 @@ export default class SuggestionsInput extends React.Component {
                 className={className}
             >
                 {input}
-                {(currentTrigger || triggerless)  && (
+                {(currentTrigger || triggerless) && (
                     <Suggestions
                         {...omit(
                             ['options'],
