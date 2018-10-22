@@ -132,6 +132,7 @@ export default class SuggestionsInput extends React.Component {
             triggers: mapSuggestions(props.suggestions),
             captured: '',
             filteredOptions: [],
+            captured_index: 0
         };
         this._input = null;
         this._initialValue = props.value;
@@ -197,6 +198,7 @@ export default class SuggestionsInput extends React.Component {
             triggers,
             captured,
             filteredOptions,
+            value
         } = this.state;
 
         if (
@@ -205,7 +207,7 @@ export default class SuggestionsInput extends React.Component {
         ) {
             // A trigger activated.
             const trigger = triggers[e.key];
-            this.setState({currentTrigger: e.key});
+            this.setState({currentTrigger: e.key, captured_index: value.length - 1});
             if (this.props.setProps) {
                 this.props.setProps({
                     current_trigger: trigger.trigger,
@@ -303,10 +305,10 @@ export default class SuggestionsInput extends React.Component {
     }
 
     onSuggestion(suggestion) {
-        const {value, captured, currentTrigger} = this.state;
+        const {value, currentTrigger, captured_index} = this.state;
 
         const payload = {
-            value: `${value.substring(0, value.indexOf(captured) - 1)}${
+            value: `${value.substring(0, captured_index)}${
                 this.props.include_trigger ? currentTrigger : ''
             }${suggestion}`,
         };
@@ -567,6 +569,8 @@ SuggestionsInput.propTypes = {
      * Send suggestions for every keystroke.
      */
     triggerless: PropTypes.bool,
+
+    captured_index: PropTypes.number,
 
     setProps: PropTypes.any,
 };
