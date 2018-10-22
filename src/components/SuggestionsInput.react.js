@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {contains, merge, omit, mergeAll, memoize} from 'ramda';
+import {contains, merge, omit, mergeAll, memoize, any} from 'ramda';
 
 // Style for single suggestion
 const defaultSuggestionStyle = {
@@ -155,9 +155,7 @@ export default class SuggestionsInput extends React.Component {
             })
                 .then(r => r.json())
                 .then(o => {
-                    this.setState({
-                        filteredOptions: o,
-                    });
+                    this.setFilteredOptions(o);
                     this._suggestionsRequest = null;
                 });
         } else {
@@ -167,8 +165,24 @@ export default class SuggestionsInput extends React.Component {
         }
     }
 
+    setFilteredOptions(options) {
+        this.setState({
+            filteredOptions: options,
+        });
+        if (this.props.setProps) {
+            this.props.setProps({
+                filtered_options: options,
+            });
+        }
+    }
+
     updateSuggestions({captured, options, suggestion_route}) {
         this.setState({captured});
+        if (this.props.setProps) {
+            this.props.setProps({
+                captured: captured,
+            });
+        }
         if (suggestion_route) {
             this.requestSuggestions(suggestion_route, captured);
         } else {
@@ -191,12 +205,16 @@ export default class SuggestionsInput extends React.Component {
         ) {
             const trigger = triggers[e.key];
             this.setState({currentTrigger: e.key});
+            if (this.props.setProps) {
+                this.props.setProps({
+                    current_trigger: trigger.trigger,
+                    captured: '',
+                });
+            }
             if (trigger.suggestion_route) {
                 this.requestSuggestions(trigger.suggestion_route, '');
             } else {
-                this.setState({
-                    filteredOptions: trigger.options,
-                });
+                this.setFilteredOptions(trigger.options);
             }
         } else if (currentTrigger) {
             const trigger = triggers[currentTrigger];
@@ -256,7 +274,7 @@ export default class SuggestionsInput extends React.Component {
 
     filterSuggestions(captured, options) {
         const filteredOptions = filterSuggestions(captured, options);
-        this.setState({filteredOptions});
+        this.setFilteredOptions(filteredOptions);
     }
 
     onChange(e) {
@@ -298,7 +316,15 @@ export default class SuggestionsInput extends React.Component {
             currentTrigger: null,
             index: 0,
             captured: '',
+            filteredOptions: [],
         });
+        if (this.props.setProps) {
+            this.props.setProps({
+                current_trigger: null,
+                captured: '',
+                filtered_options: [],
+            });
+        }
     }
 
     componentWillReceiveProps(e) {
@@ -312,6 +338,19 @@ export default class SuggestionsInput extends React.Component {
         ) {
             payload.value = e.value;
         }
+
+        if (
+            e.filtered_options &&
+            (this.state.filteredOptions.length !== e.filtered_options.length ||
+                any(i => !contains(i, this.state.filteredOptions))(
+                    e.filtered_options
+                ))
+        ) {
+            this.setState({
+                filteredOptions: e.filtered_options,
+            });
+        }
+
         this.setState(payload);
     }
 
@@ -406,6 +445,12 @@ SuggestionsInput.defaultProps = {
     allow_space_in_suggestions: false,
 };
 
+const OptionsShape = PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    display: PropTypes.string,
+    description: PropTypes.string,
+});
+
 SuggestionsInput.propTypes = {
     id: PropTypes.string,
     /**
@@ -446,13 +491,7 @@ SuggestionsInput.propTypes = {
             /**
              * The options this suggestion trigger will display.
              */
-            options: PropTypes.arrayOf(
-                PropTypes.shape({
-                    value: PropTypes.string.isRequired,
-                    display: PropTypes.string,
-                    description: PropTypes.string,
-                })
-            ),
+            options: PropTypes.arrayOf(OptionsShape),
         })
     ).isRequired,
 
@@ -492,6 +531,27 @@ SuggestionsInput.propTypes = {
      * CSS class for a suggestion while it is selected.
      */
     suggestion_selected_className: PropTypes.string,
+    /**
+     * Readonly prop containing the typed string since the last trigger. (READONLY)
+     */
+    captured: PropTypes.string,
+
+    /**
+     * Currently displayed suggestions. Update in a callback to set the currently displayed suggestions.
+     *
+     * @example
+     * ```
+     * app.callback(Output('suggestions', 'filtered_options'),
+     *              [Input('suggestions', 'captured')],
+     *              [State('suggestions', 'current_trigger')]
+     * ```
+     */
+    filtered_options: PropTypes.arrayOf(OptionsShape),
+
+    /**
+     * The current trigger. (READONLY)
+     */
+    current_trigger: PropTypes.string,
 
     setProps: PropTypes.any,
 };
