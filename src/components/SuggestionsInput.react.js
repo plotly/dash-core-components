@@ -328,6 +328,7 @@ export default class SuggestionsInput extends React.Component {
             index: 0,
             captured: '',
             filteredOptions: [],
+            captured_index: this.state.value.length,
         });
         if (this.props.setProps) {
             this.props.setProps({
