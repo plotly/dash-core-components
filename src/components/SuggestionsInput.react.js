@@ -137,7 +137,6 @@ export default class SuggestionsInput extends React.Component {
         this.onKeyUp = this.onKeyUp.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSuggestion = this.onSuggestion.bind(this);
-        this.resetSuggestions = this.resetSuggestions.bind(this);
         this.preventTabNavigation = this.preventTabNavigation.bind(this);
         this._suggestionsRequest = null;
     }
