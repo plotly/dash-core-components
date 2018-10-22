@@ -309,9 +309,11 @@ export default class SuggestionsInput extends React.Component {
             }${suggestion}`,
         };
 
-        this.setState(payload);
         if (this.props.setProps) {
+            // setProps will also setState in componentWillReceiveProps.
             this.props.setProps(payload);
+        } else {
+            this.setState(payload);
         }
         this.resetSuggestions();
     }
@@ -351,9 +353,7 @@ export default class SuggestionsInput extends React.Component {
                     e.filtered_options
                 ))
         ) {
-            this.setState({
-                filteredOptions: e.filtered_options,
-            });
+            payload.filteredOptions = e.filtered_options;
         }
 
         this.setState(payload);
