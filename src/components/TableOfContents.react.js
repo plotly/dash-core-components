@@ -109,9 +109,10 @@ export default class TableOfContents extends React.Component {
         const {content_selector, headings, setProps} = this.props;
         const table_of_contents = buildToc(content_selector, {headings});
 
-        this.setState({table_of_contents});
         if (setProps) {
             setProps({table_of_contents});
+        } else {
+            this.setState({table_of_contents});
         }
     }
 
@@ -135,7 +136,10 @@ export default class TableOfContents extends React.Component {
         // The renderer also re-render the inputs after a callback.
         // Check if falsy to not lose the toc.
         // Means you can't mix callback controlled and state controlled easily.
-        if (props.table_of_contents) {
+        if (
+            props.table_of_contents &&
+            props.table_of_contents !== this.props.table_of_contents
+        ) {
             this.setState({table_of_contents: props.table_of_contents});
         }
     }
