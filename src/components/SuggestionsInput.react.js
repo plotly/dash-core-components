@@ -102,7 +102,7 @@ class Suggestions extends React.Component {
             >
                 {options.map((e, i) => (
                     <Suggestion
-                        key={`${trigger}-${i}`}
+                        key={`${trigger}-${e.value}`}
                         selected={index === i}
                         onSuggestion={onSuggestion}
                         trigger={trigger}
