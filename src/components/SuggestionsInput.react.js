@@ -426,10 +426,29 @@ export default class SuggestionsInput extends React.Component {
                         }
                         leftOffset={
                             this._hiddenValue
-                                ? `${getComputedNumStyleAttr(
-                                      this._hiddenValue,
-                                      'width'
-                                  )}`
+                                ? `${(() => {
+                                      const hiddenWidth = getComputedNumStyleAttr(
+                                          this._hiddenValue,
+                                          'width'
+                                      );
+                                      const cursorPos = this._input
+                                          .selectionStart;
+                                      // TODO consider textarea lines
+                                      const r =
+                                          (hiddenWidth / value.length) *
+                                          cursorPos;
+
+                                      const maxWidth = getComputedNumStyleAttr(
+                                          this._input,
+                                          'width'
+                                      );
+
+                                      if (r > maxWidth) {
+                                          return maxWidth;
+                                      }
+
+                                      return r;
+                                  })()}`
                                 : 0
                         }
                         onSuggestion={this.onSuggestion}
