@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.36.0] - 2018-10-31
+### Updated
+- Updated plotly.js to 1.42.1 [#354](https://github.com/plotly/dash-core-components/pull/354)
+  - https://github.com/plotly/plotly.js/releases/tag/v1.42.0
+  - https://github.com/plotly/plotly.js/releases/tag/v1.42.1
+
 ## [0.35.2] - 2018-10-30
 ### Fixed
 - Fix Input not used in callbacks resetting the value on updates. [#350](https://github.com/plotly/dash-core-components/pull/350)
