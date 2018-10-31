@@ -74,32 +74,49 @@ describe('Props can be set properly', () => {
     });
 });
 
-test('Input does not change state if it rerenders', () => {
-    const input = mount(<Input value="initial value" />);
-    expect(input.find('input').getNode().value).toEqual('initial value');
+describe('Input without setProps() defined', () => {
+    let input;
+    beforeEach(() => {
+        input = mount(<Input value="initial value" />);
+    });
+    test('Input updates value', () => {
+        expect(input.find('input').getNode().value).toEqual('initial value');
 
-    input.find('input').simulate('change', {target: {value: 'new value'}});
+        input.find('input').simulate('change', {target: {value: 'new value'}});
 
-    expect(input.find('input').getNode().value).toEqual('new value');
+        expect(input.find('input').getNode().value).toEqual('new value');
+    });
+    test('Input does not change state if it rerenders', () => {
+        // dash-renderer could rerender a component with it's original
+        // props, if dash-renderer is not aware of prop changes (that happen with setState
+        // instead of setProps)
+        input.setProps({value: 'new value'});
 
-    // dash-renderer could rerender a component with it's original
-    // props, if dash-renderer is not informed of prop updates
-    input.setProps({value: 'initial value'});
-
-    expect(input.find('input').getNode().value).toEqual('new value');
+        // expect value prop to not be updated on state, and on the node itself
+        expect(input.state().value).toEqual('initial value');
+        expect(input.find('input').getNode().value).toEqual('initial value');
+    });
 });
 
-test('Input will call setProps with value updates if provided', () => {
-    const mockSetProps = jest.fn();
+describe('Input with setProps() defined', () => {
+    let mockSetProps, input;
+    beforeEach(() => {
+        mockSetProps = jest.fn();
 
-    const input = mount(
-        <Input value="initial value" setProps={mockSetProps} />
-    );
+        input = mount(<Input value="initial value" setProps={mockSetProps} />);
+    });
 
-    expect(mockSetProps.mock.calls.length).toEqual(0);
+    test('Input will call setProps with value updates if provided', () => {
+        input.find('input').simulate('change', {target: {value: 'new value'}});
 
-    input.find('input').simulate('change', {target: {value: 'new value'}});
+        expect(mockSetProps.mock.calls.length).toEqual(1);
+        expect(mockSetProps.mock.calls[0][0]).toEqual({value: 'new value'});
+    });
 
-    expect(mockSetProps.mock.calls.length).toEqual(1);
-    expect(mockSetProps.mock.calls[0][0]).toEqual({value: 'new value'});
+    test("Input updates it's value on recieving new props", () => {
+        input.setProps({value: 'new value'});
+
+        // expect value prop to not be updated on state, and on the node itself
+        expect(input.find('input').getNode().value).toEqual('new value');
+    });
 });
