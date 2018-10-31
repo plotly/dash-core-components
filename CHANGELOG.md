@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.35.3] - 2018-10-31
+### Fixed
+- Some Input props weren't being picked up by React. Changed:
+    - `autocomplete` to `autoComplete`
+    - `autofocus` to `autoFocus`
+    - `inputmode` to `inputMode`
+    - `maxlength` to `maxLength`
+    - `minlength` to `minLength`
+### Added
+- Unit tests for `Input` component.
+
 ## [0.35.2] - 2018-10-30
 ### Fixed
 - Fix Input not used in callbacks resetting the value on updates. [#350](https://github.com/plotly/dash-core-components/pull/350)

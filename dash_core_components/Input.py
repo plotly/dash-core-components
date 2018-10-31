@@ -19,10 +19,10 @@ components in an app.
 - style (dict; optional): The input's inline styles
 - className (string; optional): The class of the input element
 - type (a value equal to: "text", 'number', 'password', 'email', 'range', 'search', 'tel', 'url', 'hidden'; optional): The type of control to render.
-- autocomplete (string; optional): This attribute indicates whether the value of the control can be automatically completed by the browser.
-- autofocus (string; optional): The element should be automatically focused after the page loaded.
+- autoComplete (string; optional): This attribute indicates whether the value of the control can be automatically completed by the browser.
+- autoFocus (string; optional): The element should be automatically focused after the page loaded.
 - disabled (boolean; optional): If true, the input is disabled and can't be clicked on.
-- inputmode (a value equal to: "verbatim", "latin", "latin-name", "latin-prose", "full-width-latin", "kana", "katakana", "numeric", "tel", "email", "url"; optional)
+- inputMode (a value equal to: "verbatim", "latin", "latin-name", "latin-prose", "full-width-latin", "kana", "katakana", "numeric", "tel", "email", "url"; optional)
 - list (string; optional): Identifies a list of pre-defined options to suggest to the user.
 The value must be the id of a <datalist> element in the same document.
 The browser displays only options that are valid values for this
@@ -30,9 +30,9 @@ input element.
 This attribute is ignored when the type attribute's value is
 hidden, checkbox, radio, file, or a button type.
 - max (string; optional): The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value.
-- maxlength (string; optional): If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
+- maxLength (string; optional): If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
 - min (string; optional): The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
-- minlength (string; optional): If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
+- minLength (string; optional): If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
 - multiple (string; optional): This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
 - name (string; optional): The name of the control, which is submitted with the form data.
 - pattern (string; optional): A regular expression that the control's value is checked against. The pattern must match the entire value, not just some subset. Use the title attribute to describe the pattern to help the user. This attribute applies when the value of the type attribute is text, search, tel, url, email, or password, otherwise it is ignored. The regular expression language is the same as JavaScript RegExp algorithm, with the 'u' parameter that makes it treat the pattern as a sequence of unicode code points. The pattern is not surrounded by forward slashes.
@@ -52,13 +52,13 @@ hidden, checkbox, radio, file, or a button type.
 
 Available events: 'blur', 'change'"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, type=Component.UNDEFINED, autocomplete=Component.UNDEFINED, autofocus=Component.UNDEFINED, disabled=Component.UNDEFINED, inputmode=Component.UNDEFINED, list=Component.UNDEFINED, max=Component.UNDEFINED, maxlength=Component.UNDEFINED, min=Component.UNDEFINED, minlength=Component.UNDEFINED, multiple=Component.UNDEFINED, name=Component.UNDEFINED, pattern=Component.UNDEFINED, placeholder=Component.UNDEFINED, readOnly=Component.UNDEFINED, required=Component.UNDEFINED, selectionDirection=Component.UNDEFINED, selectionEnd=Component.UNDEFINED, selectionStart=Component.UNDEFINED, size=Component.UNDEFINED, spellcheck=Component.UNDEFINED, step=Component.UNDEFINED, n_submit=Component.UNDEFINED, n_submit_timestamp=Component.UNDEFINED, n_blur=Component.UNDEFINED, n_blur_timestamp=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
+    def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, type=Component.UNDEFINED, autoComplete=Component.UNDEFINED, autoFocus=Component.UNDEFINED, disabled=Component.UNDEFINED, inputMode=Component.UNDEFINED, list=Component.UNDEFINED, max=Component.UNDEFINED, maxLength=Component.UNDEFINED, min=Component.UNDEFINED, minLength=Component.UNDEFINED, multiple=Component.UNDEFINED, name=Component.UNDEFINED, pattern=Component.UNDEFINED, placeholder=Component.UNDEFINED, readOnly=Component.UNDEFINED, required=Component.UNDEFINED, selectionDirection=Component.UNDEFINED, selectionEnd=Component.UNDEFINED, selectionStart=Component.UNDEFINED, size=Component.UNDEFINED, spellcheck=Component.UNDEFINED, step=Component.UNDEFINED, n_submit=Component.UNDEFINED, n_submit_timestamp=Component.UNDEFINED, n_blur=Component.UNDEFINED, n_blur_timestamp=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'value', 'style', 'className', 'type', 'autoComplete', 'autoFocus', 'disabled', 'inputMode', 'list', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
         self._type = 'Input'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['blur', 'change']
-        self.available_properties = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
+        self.available_properties = ['id', 'value', 'style', 'className', 'type', 'autoComplete', 'autoFocus', 'disabled', 'inputMode', 'list', 'max', 'maxLength', 'min', 'minLength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellcheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
