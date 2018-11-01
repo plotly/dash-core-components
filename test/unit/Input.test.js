@@ -24,6 +24,18 @@ describe('Props can be set properly', () => {
         maxLength: '2',
         min: '1',
         minLength: '1',
+        multiple: true,
+        name: 'input one',
+        pattern: '/([A-Z])w+/g',
+        placeholder: 'enter text',
+        readOnly: 'readonly',
+        required: 'required',
+        selectionDirection: 'forward',
+        selectionEnd: '1',
+        selectionStart: '1',
+        size: '10',
+        spellCheck: 'true',
+        step: '2',
         n_blur: 0,
         n_blur_timestamp: -1,
         n_submit: 0,
@@ -37,40 +49,64 @@ describe('Props can be set properly', () => {
     });
 
     test('props.id is set as the <input> id', () => {
-        expect(input.props().id).toBeDefined();
-        expect(input.props().id).toEqual(defaultProps.id);
-
         // test if id is in the actual HTML string
-        expect(
-            input
-                .render()
-                .children()
-                .attr('id')
-        ).toEqual(defaultProps.id);
+        const inputTag = input.render().children();
+        expect(inputTag.attr('id')).toEqual(defaultProps.id);
     });
     test('props.value is set as the <input> value', () => {
-        expect(input.props().value).toBeDefined();
-        expect(input.props().value).toEqual(defaultProps.value);
-
-        // test if id is in the actual HTML string
-        expect(
-            input
-                .render()
-                .children()
-                .attr('value')
-        ).toEqual(defaultProps.value);
+        // test if value is in the actual HTML string
+        const inputTag = input.render().children();
+        expect(inputTag.attr('value')).toEqual(defaultProps.value);
     });
     test('props.className is set as the <input> CSS class', () => {
-        expect(input.props().className).toBeDefined();
-        expect(input.props().className).toEqual(defaultProps.className);
-
         // test if className is actually set on HTML output
-        expect(
-            input
-                .render()
-                .children()
-                .attr('class')
-        ).toEqual(defaultProps.className);
+        const inputTag = input.render().children();
+        expect(inputTag.attr('class')).toEqual(defaultProps.className);
+    });
+    test('props.multiple is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('multiple')).toBeDefined();
+        expect(inputTag.attr('multiple')).toEqual('multiple');
+    });
+    test('props.name is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('name')).toBeDefined();
+        expect(inputTag.attr('name')).toEqual(defaultProps.name);
+    });
+    test('props.pattern is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('pattern')).toBeDefined();
+        expect(inputTag.attr('pattern')).toEqual(defaultProps.pattern);
+    });
+    test('props.placeholder is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('placeholder')).toBeDefined();
+        expect(inputTag.attr('placeholder')).toEqual(defaultProps.placeholder);
+    });
+    test('props.readOnly is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('readonly')).toBeDefined();
+        expect(inputTag.attr('readonly')).toEqual(defaultProps.readOnly);
+    });
+    test('props.required is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('required')).toBeDefined();
+        expect(inputTag.attr('required')).toEqual(defaultProps.required);
+    });
+    test('props.size is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('size')).toBeDefined();
+        expect(inputTag.attr('size')).toEqual(defaultProps.size);
+    });
+    test('props.spellCheck is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('spellcheck')).toBeDefined();
+        expect(inputTag.attr('spellcheck')).toEqual(defaultProps.spellCheck);
+    });
+    test('props.step is set as an attribute on the input', () => {
+        const inputTag = input.render().children();
+        expect(inputTag.attr('step')).toBeDefined();
+        expect(inputTag.attr('step')).toEqual(defaultProps.step);
     });
 });
 
@@ -104,6 +140,9 @@ describe('Input with setProps() defined', () => {
         mockSetProps = jest.fn();
 
         input = mount(<Input value="initial value" setProps={mockSetProps} />);
+    });
+    test('Input does not use state if setProps is defined', () => {
+        expect(input.state()).toBeFalsy();
     });
 
     test('Input will call setProps with value updates if provided', () => {
