@@ -12,7 +12,7 @@ import {omit} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
-        if(!props.setProps) {
+        if (!props.setProps) {
             this.state = {value: props.value};
         }
     }
@@ -24,19 +24,23 @@ export default class Input extends Component {
     }
 
     render() {
-        const {fireEvent, setProps, type} = this.props;
+        const {fireEvent, setProps, type, min, max} = this.props;
         const {value} = setProps ? this.props : this.state;
         return (
             <input
                 onChange={e => {
+                    const newValue = e.target.value;
+                    if (((min || max) && newValue < min) || newValue > max) {
+                        return;
+                    }
                     if (setProps) {
                         if (type === 'number') {
-                            setProps({value: Number(e.target.value)});
+                            setProps({value: Number(newValue)});
                         } else {
-                            setProps({value: e.target.value});
+                            setProps({value: newValue});
                         }
                     } else {
-                        this.setState({value: e.target.value});
+                        this.setState({value: newValue});
                     }
                     if (fireEvent) {
                         fireEvent({event: 'change'});
@@ -62,7 +66,21 @@ export default class Input extends Component {
                     }
                 }}
                 value={value}
-                {...omit(['fireEvent', 'setProps', 'value'], this.props)}
+                {...omit(
+                    [
+                        'fireEvent',
+                        'setProps',
+                        'value',
+                        'n_blur',
+                        'n_blur_timestamp',
+                        'n_submit',
+                        'n_submit_timestamp',
+                        'selectionDirection',
+                        'selectionEnd',
+                        'selectionStart',
+                    ],
+                    this.props
+                )}
             />
         );
     }
@@ -86,7 +104,7 @@ Input.propTypes = {
     /**
      * The value of the input
      */
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The input's inline styles
@@ -199,7 +217,7 @@ Input.propTypes = {
     /**
      * The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value.
      */
-    max: PropTypes.string,
+    max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
@@ -209,7 +227,7 @@ Input.propTypes = {
     /**
      * The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
      */
-    min: PropTypes.string,
+    min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.

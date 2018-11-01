@@ -159,3 +159,102 @@ describe('Input with setProps() defined', () => {
         expect(input.find('input').getNode().value).toEqual('new value');
     });
 });
+
+describe('Input with type=number', () => {
+    describe('Without setProps(), using this.state', () => {
+        describe('with min and max props', () => {
+            let input;
+            const props = {
+                value: 0,
+                min: 0,
+                max: 2,
+            };
+            beforeEach(() => {
+                input = mount(<Input type="number" {...props} />);
+            });
+            test('Input can not be updated lower than props.min', () => {
+                input
+                    .find('input')
+                    .simulate('change', {target: {value: props.min - 1}});
+                expect(Number(input.find('input').getNode().value)).toEqual(
+                    props.value
+                );
+            });
+            test('Input can not be updated higher than props.max', () => {
+                input
+                    .find('input')
+                    .simulate('change', {target: {value: props.max + 1}});
+                expect(Number(input.find('input').getNode().value)).toEqual(
+                    props.value
+                );
+            });
+        });
+        describe('without min and max props', () => {
+            let input;
+            beforeEach(() => {
+                input = mount(<Input type="number" value={0} />);
+            });
+            test('Input can be updated', () => {
+                input.find('input').simulate('change', {target: {value: -1}});
+                expect(Number(input.find('input').getNode().value)).toEqual(-1);
+                input.find('input').simulate('change', {target: {value: 100}});
+                expect(Number(input.find('input').getNode().value)).toEqual(
+                    100
+                );
+            });
+        });
+    });
+    describe('With setProps', () => {
+        describe('with min and max props', () => {
+            let mockSetProps, input;
+            const props = {
+                value: 0,
+                min: 0,
+                max: 2,
+            };
+            beforeEach(() => {
+                mockSetProps = jest.fn();
+                input = mount(
+                    <Input type="number" {...props} setProps={mockSetProps} />
+                );
+            });
+            test('Input can not be updated lower than props.min', () => {
+                input
+                    .find('input')
+                    .simulate('change', {target: {value: props.min - 1}});
+                    
+                // if the target value is lower than min, don't even call setProps
+                expect(mockSetProps.mock.calls.length).toEqual(0);
+                // input's value should remain the same
+                expect(Number(input.find('input').getNode().value)).toEqual(
+                    0
+                );
+            });
+            test('Input can not be updated higher than props.max', () => {
+                input
+                    .find('input')
+                    .simulate('change', {target: {value: props.max + 1}});
+                // if the target value is higher than max, don't even call setProps
+                expect(mockSetProps.mock.calls.length).toEqual(0);
+                // input's value should remain the same
+                expect(Number(input.find('input').getNode().value)).toEqual(
+                    0
+                );
+            });
+        });
+        describe('without min and max props', () => {
+            let mockSetProps, input;
+            beforeEach(() => {
+                mockSetProps = jest.fn();
+                input = mount(
+                    <Input type="number" value={0} setProps={mockSetProps} />
+                );
+            });
+            test('Input can updated normally', () => {
+                input.find('input').simulate('change', {target: {value: 100}});
+                expect(mockSetProps.mock.calls.length).toEqual(1);
+                expect(mockSetProps.mock.calls[0][0]).toEqual({value: 100});
+            });
+        });
+    });
+});

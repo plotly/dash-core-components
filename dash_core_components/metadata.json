@@ -1521,7 +1521,15 @@
       },
       "value": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "The value of the input"
@@ -1668,7 +1676,15 @@
       },
       "max": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value."
@@ -1682,7 +1698,15 @@
       },
       "min": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value."

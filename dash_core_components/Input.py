@@ -15,7 +15,7 @@ Keyword arguments:
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.
-- value (string; optional): The value of the input
+- value (string | number; optional): The value of the input
 - style (dict; optional): The input's inline styles
 - className (string; optional): The class of the input element
 - type (a value equal to: "text", 'number', 'password', 'email', 'range', 'search', 'tel', 'url', 'hidden'; optional): The type of control to render.
@@ -29,9 +29,9 @@ The browser displays only options that are valid values for this
 input element.
 This attribute is ignored when the type attribute's value is
 hidden, checkbox, radio, file, or a button type.
-- max (string; optional): The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value.
+- max (string | number; optional): The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value.
 - maxlength (string; optional): If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
-- min (string; optional): The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
+- min (string | number; optional): The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
 - minlength (string; optional): If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
 - multiple (boolean; optional): This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
 - name (string; optional): The name of the control, which is submitted with the form data.
