@@ -12,32 +12,31 @@ import {omit} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: props.value};
+        if(!props.setProps) {
+            this.state = {value: props.value};
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.setProps) {
-            // Only setState from props if the component is driven by props.
-            // If the component prop is not used in a callback,
-            // it will receive the same initial props every time
-            // the layout is updated.
-            this.setState({value: nextProps.value});
+            this.props = nextProps;
         }
     }
 
     render() {
         const {fireEvent, setProps, type} = this.props;
-        const {value} = this.state;
+        const {value} = setProps ? this.props : this.state;
         return (
             <input
                 onChange={e => {
-                    this.setState({value: e.target.value});
                     if (setProps) {
                         if (type === 'number') {
                             setProps({value: Number(e.target.value)});
                         } else {
                             setProps({value: e.target.value});
                         }
+                    } else {
+                        this.setState({value: e.target.value});
                     }
                     if (fireEvent) {
                         fireEvent({event: 'change'});
@@ -118,19 +117,19 @@ Input.propTypes = {
     /**
      * This attribute indicates whether the value of the control can be automatically completed by the browser.
      */
-    autoComplete: PropTypes.string,
+    autocomplete: PropTypes.string,
 
     /**
      * The element should be automatically focused after the page loaded.
      */
-    autoFocus: PropTypes.string,
+    autofocus: PropTypes.string,
 
     /**
      * If true, the input is disabled and can't be clicked on.
      */
     disabled: PropTypes.bool,
 
-    inputMode: PropTypes.oneOf([
+    inputmode: PropTypes.oneOf([
         /**
          * Alphanumeric, non-prose content such as usernames and passwords.
          */
@@ -205,7 +204,7 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
      */
-    maxLength: PropTypes.string,
+    maxlength: PropTypes.string,
 
     /**
      * The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
@@ -215,12 +214,12 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
      */
-    minLength: PropTypes.string,
+    minlength: PropTypes.string,
 
     /**
      * This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
      */
-    multiple: PropTypes.string,
+    multiple: PropTypes.bool,
 
     /**
      * The name of the control, which is submitted with the form data.
@@ -270,7 +269,7 @@ Input.propTypes = {
     /**
      * Setting the value of this attribute to true indicates that the element needs to have its spelling and grammar checked. The value default indicates that the element is to act according to a default behavior, possibly based on the parent element's own spellcheck value. The value false indicates that the element should not be checked.
      */
-    spellcheck: PropTypes.string,
+    spellCheck: PropTypes.string,
 
     /**
      * Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.

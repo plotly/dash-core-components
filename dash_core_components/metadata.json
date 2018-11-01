@@ -1585,14 +1585,14 @@
         "required": false,
         "description": "The type of control to render."
       },
-      "autoComplete": {
+      "autocomplete": {
         "type": {
           "name": "string"
         },
         "required": false,
         "description": "This attribute indicates whether the value of the control can be automatically completed by the browser."
       },
-      "autoFocus": {
+      "autofocus": {
         "type": {
           "name": "string"
         },
@@ -1606,7 +1606,7 @@
         "required": false,
         "description": "If true, the input is disabled and can't be clicked on."
       },
-      "inputMode": {
+      "inputmode": {
         "type": {
           "name": "enum",
           "value": [
@@ -1673,7 +1673,7 @@
         "required": false,
         "description": "The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value."
       },
-      "maxLength": {
+      "maxlength": {
         "type": {
           "name": "string"
         },
@@ -1687,7 +1687,7 @@
         "required": false,
         "description": "The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value."
       },
-      "minLength": {
+      "minlength": {
         "type": {
           "name": "string"
         },
@@ -1696,7 +1696,7 @@
       },
       "multiple": {
         "type": {
-          "name": "string"
+          "name": "bool"
         },
         "required": false,
         "description": "This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored."
@@ -1764,7 +1764,7 @@
         "required": false,
         "description": "The initial size of the control. This value is in pixels unless the value of the type attribute is text or password, in which case it is an integer number of characters. Starting in, this attribute applies only when the type attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be greater than zero. If you do not specify a size, a default value of 20 is used.' simply states \"the user agent should ensure that at least that many characters are visible\", but different characters can have different widths in certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is defined to at least x."
       },
-      "spellcheck": {
+      "spellCheck": {
         "type": {
           "name": "string"
         },
