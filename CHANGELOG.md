@@ -7,8 +7,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Updated plotly.js to 1.42.1 [#354](https://github.com/plotly/dash-core-components/pull/354)
   - https://github.com/plotly/plotly.js/releases/tag/v1.42.0
   - https://github.com/plotly/plotly.js/releases/tag/v1.42.1
-  
-### [plotly.js 1.42.1](https://github.com/plotly/plotly.js/releases/tag/v1.42.1)
+  - https://github.com/plotly/plotly.js/releases/tag/v1.42.2
+
+### Fixed
+- Fix runaway loops for `scattergl` lines and fill traces
+  (bug introduced in 1.42.0) [#3199]
+- Fix size and alignment in vertical modebars [#3193]
+- Fix legend item rendering for traces with typed array marker
+  settings [#3192]
+
+
+### As part of [plotly.js 1.42.1](https://github.com/plotly/plotly.js/releases/tag/v1.42.1)
 
 #### Fixed
 - Fix IE regression introduced in 1.42.0 [#3187]
@@ -18,7 +27,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - No longer list and coerce unused hoverlabel attribute in parcoods [#3158]
 - No longer list and coerce transforms attributes in traces that don't support them [#3158]
 
-### [plotly.js 1.42.0](https://github.com/plotly/plotly.js/releases/tag/v1.42.0)
+### As part of [plotly.js 1.42.0](https://github.com/plotly/plotly.js/releases/tag/v1.42.0)
 
 ### Added
 - Add `parcats` (aka parallel categories) trace type [#2963, #3072]
@@ -39,7 +48,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Implement trace, node and link hoverinfo for `sankey` traces [#3096, #3150]
 - Implement per-sector textfont settings in `pie` traces [#3130]
 
-## Changed
+### Changed
 - Use new Plotly logo in "Produced with Plotly" modebar button [#3068]
 - Improve `histogram` autobin algorithm: allow partial bin specification,
   deprecate `autobin(x|y)` attributes, force stacked/grouped histograms to match size
