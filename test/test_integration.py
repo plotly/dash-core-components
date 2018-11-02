@@ -1304,3 +1304,40 @@ class Tests(IntegrationTests):
         list_btn.click()
         time.sleep(3)
         self.wait_for_text_to_equal('#output', json.dumps(nested_list))
+
+    def test_lose_focus_input(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Input(
+                id='input',
+                value='initial value'
+            ),
+            dcc.Input(id='input-2'),
+            html.Div(
+                html.Div([
+                    1.5,
+                    None,
+                    'string',
+                    html.Div(id='output-1')
+                ])
+            )
+        ])
+
+        @app.callback(Output('output-1', 'children'), [Input('input', 'value')])
+        def update_output(value):
+            return value
+
+        self.startServer(app)
+
+        self.wait_for_text_to_equal('#output-1', 'initial value')
+
+        input1 = self.wait_for_element_by_css_selector('#input')
+        input1.clear()
+        clicker = self.wait_for_element_by_css_selector('#input-2')
+        clicker.send_keys('bad')
+
+        input1.send_keys('hello world')
+        time.sleep(1)
+
+        self.assertEqual('hello world', input1.get_attribute('value'))
+
