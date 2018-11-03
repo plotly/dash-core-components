@@ -18,6 +18,8 @@ components in an app.
 - value (string | number; optional): The value of the input
 - style (dict; optional): The input's inline styles
 - className (string; optional): The class of the input element
+- debounce (boolean; optional): If true, changes to input will be sent back to the Dash server only on enter or when losing focus.
+If it's false, it will sent the value back on every change.
 - type (a value equal to: "text", 'number', 'password', 'email', 'range', 'search', 'tel', 'url', 'hidden'; optional): The type of control to render.
 - autocomplete (string; optional): This attribute indicates whether the value of the control can be automatically completed by the browser.
 - autofocus (string; optional): The element should be automatically focused after the page loaded.
@@ -52,13 +54,13 @@ hidden, checkbox, radio, file, or a button type.
 
 Available events: 'blur', 'change'"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, type=Component.UNDEFINED, autocomplete=Component.UNDEFINED, autofocus=Component.UNDEFINED, disabled=Component.UNDEFINED, inputmode=Component.UNDEFINED, list=Component.UNDEFINED, max=Component.UNDEFINED, maxlength=Component.UNDEFINED, min=Component.UNDEFINED, minlength=Component.UNDEFINED, multiple=Component.UNDEFINED, name=Component.UNDEFINED, pattern=Component.UNDEFINED, placeholder=Component.UNDEFINED, readOnly=Component.UNDEFINED, required=Component.UNDEFINED, selectionDirection=Component.UNDEFINED, selectionEnd=Component.UNDEFINED, selectionStart=Component.UNDEFINED, size=Component.UNDEFINED, spellCheck=Component.UNDEFINED, step=Component.UNDEFINED, n_submit=Component.UNDEFINED, n_submit_timestamp=Component.UNDEFINED, n_blur=Component.UNDEFINED, n_blur_timestamp=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellCheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
+    def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, debounce=Component.UNDEFINED, type=Component.UNDEFINED, autocomplete=Component.UNDEFINED, autofocus=Component.UNDEFINED, disabled=Component.UNDEFINED, inputmode=Component.UNDEFINED, list=Component.UNDEFINED, max=Component.UNDEFINED, maxlength=Component.UNDEFINED, min=Component.UNDEFINED, minlength=Component.UNDEFINED, multiple=Component.UNDEFINED, name=Component.UNDEFINED, pattern=Component.UNDEFINED, placeholder=Component.UNDEFINED, readOnly=Component.UNDEFINED, required=Component.UNDEFINED, selectionDirection=Component.UNDEFINED, selectionEnd=Component.UNDEFINED, selectionStart=Component.UNDEFINED, size=Component.UNDEFINED, spellCheck=Component.UNDEFINED, step=Component.UNDEFINED, n_submit=Component.UNDEFINED, n_submit_timestamp=Component.UNDEFINED, n_blur=Component.UNDEFINED, n_blur_timestamp=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'value', 'style', 'className', 'debounce', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellCheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
         self._type = 'Input'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['blur', 'change']
-        self.available_properties = ['id', 'value', 'style', 'className', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellCheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
+        self.available_properties = ['id', 'value', 'style', 'className', 'debounce', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellCheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

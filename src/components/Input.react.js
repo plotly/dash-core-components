@@ -12,7 +12,7 @@ import {omit} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
-        if (!props.setProps) {
+        if (!props.setProps || props.debounce) {
             this.state = {value: props.value};
         }
     }
@@ -20,12 +20,21 @@ export default class Input extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.setProps) {
             this.props = nextProps;
+            if (this.props.debounce) {
+                this.setState({
+                    value: nextProps.value,
+                });
+            }
         }
     }
 
     render() {
-        const {fireEvent, setProps, type, min, max} = this.props;
-        const {value} = setProps ? this.props : this.state;
+        const {fireEvent, setProps, type, min, max, debounce} = this.props;
+        const {value} = setProps
+            ? debounce
+                ? this.state
+                : this.props
+            : this.state;
         return (
             <input
                 onChange={e => {
@@ -33,17 +42,17 @@ export default class Input extends Component {
                     if (((min || max) && newValue < min) || newValue > max) {
                         return;
                     }
-                    if (setProps) {
-                        if (type === 'number') {
-                            setProps({value: Number(newValue)});
-                        } else {
-                            setProps({value: newValue});
-                        }
-                    } else {
-                        this.setState({value: newValue});
-                    }
                     if (fireEvent) {
                         fireEvent({event: 'change'});
+                    }
+                    if (!debounce && setProps) {
+                        const castValue =
+                            type === 'number' ? Number(newValue) : newValue;
+                        setProps({
+                            value: castValue,
+                        });
+                    } else {
+                        this.setState({value: newValue});
                     }
                 }}
                 onBlur={() => {
@@ -51,17 +60,23 @@ export default class Input extends Component {
                         fireEvent({event: 'blur'});
                     }
                     if (setProps) {
+                        const castValue =
+                            type === 'number' ? Number(value) : value;
                         setProps({
                             n_blur: this.props.n_blur + 1,
                             n_blur_timestamp: new Date(),
+                            value: castValue,
                         });
                     }
                 }}
-                onKeyUp={e => {
+                onKeyPress={e => {
                     if (setProps && e.key === 'Enter') {
+                        const castValue =
+                            type === 'number' ? Number(value) : value;
                         setProps({
                             n_submit: this.props.n_submit + 1,
                             n_submit_timestamp: new Date(),
+                            value: castValue,
                         });
                     }
                 }}
@@ -91,6 +106,7 @@ Input.defaultProps = {
     n_blur_timestamp: -1,
     n_submit: 0,
     n_submit_timestamp: -1,
+    debounce: false,
 };
 
 Input.propTypes = {
@@ -115,6 +131,12 @@ Input.propTypes = {
      * The class of the input element
      */
     className: PropTypes.string,
+
+    /**
+     * If true, changes to input will be sent back to the Dash server only on enter or when losing focus.
+     * If it's false, it will sent the value back on every change.
+     */
+    debounce: PropTypes.bool,
 
     /**
      * The type of control to render.

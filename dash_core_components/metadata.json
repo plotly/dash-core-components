@@ -1548,6 +1548,17 @@
         "required": false,
         "description": "The class of the input element"
       },
+      "debounce": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, changes to input will be sent back to the Dash server only on enter or when losing focus.\nIf it's false, it will sent the value back on every change.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
       "type": {
         "type": {
           "name": "enum",
