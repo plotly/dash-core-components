@@ -188,7 +188,7 @@ describe('Input with type=number', () => {
             test('Input can not be updated lower than props.min', () => {
                 input
                     .find('input')
-                    .simulate('change', {target: {value: props.min - 1}});
+                    .simulate('change', {target: {value: `${props.min - 1}`}});
                 expect(Number(input.find('input').getNode().value)).toEqual(
                     props.value
                 );
@@ -196,7 +196,7 @@ describe('Input with type=number', () => {
             test('Input can not be updated higher than props.max', () => {
                 input
                     .find('input')
-                    .simulate('change', {target: {value: props.max + 1}});
+                    .simulate('change', {target: {value: `${props.max + 1}`}});
                 expect(Number(input.find('input').getNode().value)).toEqual(
                     props.value
                 );
@@ -269,7 +269,7 @@ describe('Input with type=number', () => {
                 );
             });
             test('Input can update normally', () => {
-                input.find('input').simulate('change', {target: {value: 100}});
+                input.find('input').simulate('change', {target: {value: '100'}});
                 expect(mockSetProps.mock.calls.length).toEqual(1);
                 expect(mockSetProps.mock.calls[0][0].value).toEqual(100);
             });
@@ -294,7 +294,7 @@ describe('Input with type=number', () => {
                 // 0.0 to be truncated to 0, making it impossible to input
                 // 0.001 etc
                 // eslint-disable-next-line no-magic-numbers
-                const inputValues = [0, 0.0, 0.0, 0.001];
+                const inputValues = ['0', '0.0', '0.0', '0.001'];
 
                 for (let i = 0; i < inputValues.length; i++) {
                     input
@@ -306,7 +306,7 @@ describe('Input with type=number', () => {
 
                 expect(mockSetProps.mock.calls.length).toEqual(1);
                 expect(mockSetProps.mock.calls[0][0].value).toEqual(
-                    inputValues[inputValues.length - 1]
+                    Number(inputValues[inputValues.length - 1])
                 );
             });
         });
