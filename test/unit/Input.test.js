@@ -208,9 +208,9 @@ describe('Input with type=number', () => {
                 input = mount(<Input type="number" value={0} />);
             });
             test('Input can be updated', () => {
-                input.find('input').simulate('change', {target: {value: -1}});
+                input.find('input').simulate('change', {target: {value: '-1'}});
                 expect(Number(input.find('input').getNode().value)).toEqual(-1);
-                input.find('input').simulate('change', {target: {value: 100}});
+                input.find('input').simulate('change', {target: {value: '100'}});
                 expect(Number(input.find('input').getNode().value)).toEqual(
                     100
                 );
