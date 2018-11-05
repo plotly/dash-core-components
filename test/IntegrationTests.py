@@ -95,11 +95,10 @@ class IntegrationTests(unittest.TestCase):
         else:
             self.server_process = multiprocessing.Process(target=run)
             self.server_process.start()
-        time.sleep(5)
+        time.sleep(3)
 
         # Visit the dash page
         self.driver.get('http://localhost:8050')
-        self.driver.implicitly_wait(2)
 
         # Inject an error and warning logger
         logger = '''
