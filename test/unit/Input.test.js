@@ -111,31 +111,37 @@ describe('Props can be set properly', () => {
     });
 });
 
-describe('Input without setProps() defined', () => {
-    let input;
-    beforeEach(() => {
-        input = mount(<Input value="initial value" />);
-    });
-    test('Input updates value', () => {
-        expect(input.find('input').getNode().value).toEqual('initial value');
-
-        input.find('input').simulate('change', {target: {value: 'new value'}});
-
-        expect(input.find('input').getNode().value).toEqual('new value');
-    });
-    test('Input does not change state if it rerenders', () => {
-        // dash-renderer could rerender a component with it's original
-        // props, if dash-renderer is not aware of prop changes (that happen with setState
-        // instead of setProps)
-        input.setProps({value: 'new value'});
-
-        // expect value prop to not be updated on state, and on the node itself
-        expect(input.state().value).toEqual('initial value');
-        expect(input.find('input').getNode().value).toEqual('initial value');
-    });
-});
-
 describe('Input with (default) type=text', () => {
+    describe('Input without setProps() defined', () => {
+        let input;
+        beforeEach(() => {
+            input = mount(<Input value="initial value" />);
+        });
+        test('Input updates value', () => {
+            expect(input.find('input').getNode().value).toEqual(
+                'initial value'
+            );
+
+            input
+                .find('input')
+                .simulate('change', {target: {value: 'new value'}});
+
+            expect(input.find('input').getNode().value).toEqual('new value');
+        });
+        test('Input does not change state if it rerenders', () => {
+            // dash-renderer could rerender a component with it's original
+            // props, if dash-renderer is not aware of prop changes (that happen with setState
+            // instead of setProps)
+            input.setProps({value: 'new value'});
+
+            // expect value prop to not be updated on state, and on the node itself
+            expect(input.state().value).toEqual('initial value');
+            expect(input.find('input').getNode().value).toEqual(
+                'initial value'
+            );
+        });
+    });
+
     describe('Input with setProps() defined', () => {
         let mockSetProps, input;
         beforeEach(() => {
@@ -279,7 +285,7 @@ describe('Input with type=number', () => {
                 // 0.0 to be truncated to 0, making it impossible to input
                 // 0.001 etc
                 // eslint-disable-next-line no-magic-numbers
-                const inputValues = [0, 0.0, 0.00, 0.001];
+                const inputValues = [0, 0.0, 0.0, 0.001];
 
                 for (let i = 0; i < inputValues.length; i++) {
                     input
@@ -290,7 +296,9 @@ describe('Input with type=number', () => {
                 input.find('input').simulate('keypress', {key: 'Enter'});
 
                 expect(mockSetProps.mock.calls.length).toEqual(1);
-                expect(mockSetProps.mock.calls[0][0].value).toEqual(inputValues[inputValues.length-1]);
+                expect(mockSetProps.mock.calls[0][0].value).toEqual(
+                    inputValues[inputValues.length - 1]
+                );
             });
         });
     });
