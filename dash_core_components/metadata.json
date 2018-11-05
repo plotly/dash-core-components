@@ -2079,6 +2079,13 @@
         "required": false,
         "description": "Array that holds components to render"
       },
+      "loadingProp": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
       "className": {
         "type": {
           "name": "string"
@@ -2088,7 +2095,17 @@
       },
       "loading": {
         "type": {
-          "name": "bool"
+          "name": "shape",
+          "value": {
+            "loading": {
+              "name": "bool",
+              "required": false
+            },
+            "prop": {
+              "name": "string",
+              "required": false
+            }
+          }
         },
         "required": false,
         "description": ""

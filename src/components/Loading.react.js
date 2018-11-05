@@ -10,7 +10,11 @@ export default class Loading extends Component {
     }
 
     render() {
-        if (this.props.loading) {
+        const {loading} = this.props.loading;
+
+        window.console.log('loading prop:', this.props.loading.prop);
+
+        if (loading) {
             return (
                 <div>
                     <div className="spinner-verts">
@@ -95,10 +99,15 @@ Loading.propTypes = {
         React.PropTypes.node,
     ]),
 
+    /*
+    * String that determines which prop to listen to when loading
+    */
+    loadingProp: PropTypes.string,
+
     /**
      * Additional CSS class for the root DOM node
      */
     className: PropTypes.string,
 
-    loading: PropTypes.bool,
+    loading: PropTypes.shape({loading: PropTypes.bool, prop: PropTypes.string}),
 };

@@ -10,18 +10,22 @@ A slider component with a single handle.
 Keyword arguments:
 - children (list | a list of or a singular dash component, string or number; optional): Array that holds components to render
 - id (string; optional)
+- loadingProp (string; optional)
 - className (string; optional): Additional CSS class for the root DOM node
-- loading (boolean; optional)
+- loading (optional): . loading has the following type: dict containing keys 'loading', 'prop'.
+Those keys have the following types: 
+  - loading (boolean; optional)
+  - prop (string; optional)
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, className=Component.UNDEFINED, loading=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'className', 'loading']
+    def __init__(self, children=None, id=Component.UNDEFINED, loadingProp=Component.UNDEFINED, className=Component.UNDEFINED, loading=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'loadingProp', 'className', 'loading']
         self._type = 'Loading'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['children', 'id', 'className', 'loading']
+        self.available_properties = ['children', 'id', 'loadingProp', 'className', 'loading']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
