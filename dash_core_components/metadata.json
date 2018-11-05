@@ -2084,7 +2084,7 @@
           "name": "string"
         },
         "required": false,
-        "description": ""
+        "description": "String that determines which prop to listen to when loading"
       },
       "className": {
         "type": {
@@ -2108,7 +2108,7 @@
           }
         },
         "required": false,
-        "description": ""
+        "description": "Object that holds the loading prop, a bool that determines if the component is loading, and the actual\nprop that's causing the load as a String."
       }
     }
   },

@@ -10,9 +10,10 @@ A slider component with a single handle.
 Keyword arguments:
 - children (list | a list of or a singular dash component, string or number; optional): Array that holds components to render
 - id (string; optional)
-- loadingProp (string; optional)
+- loadingProp (string; optional): String that determines which prop to listen to when loading
 - className (string; optional): Additional CSS class for the root DOM node
-- loading (optional): . loading has the following type: dict containing keys 'loading', 'prop'.
+- loading (optional): Object that holds the loading prop, a bool that determines if the component is loading, and the actual
+prop that's causing the load as a String.. loading has the following type: dict containing keys 'loading', 'prop'.
 Those keys have the following types: 
   - loading (boolean; optional)
   - prop (string; optional)

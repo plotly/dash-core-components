@@ -99,7 +99,7 @@ Loading.propTypes = {
         React.PropTypes.node,
     ]),
 
-    /*
+    /**
     * String that determines which prop to listen to when loading
     */
     loadingProp: PropTypes.string,
@@ -109,5 +109,9 @@ Loading.propTypes = {
      */
     className: PropTypes.string,
 
+    /**
+     * Object that holds the loading prop, a bool that determines if the component is loading, and the actual
+     * prop that's causing the load as a String.
+    */
     loading: PropTypes.shape({loading: PropTypes.bool, prop: PropTypes.string}),
 };
