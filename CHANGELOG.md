@@ -18,7 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `step` prop can now be a `number` and is therefor set correctly on the corresponding `<input/>` tag. Fixes [#292](https://github.com/plotly/dash-core-components/issues/292)
 
 ## [0.36.0] - 2018-11-01
-### Fixe
+### Fixed
 - The `npm start` command now runs the Demo app again [#346](https://github.com/plotly/dash-core-components/issues/346) 
 
 ## [0.36.0] - 2018-10-31
