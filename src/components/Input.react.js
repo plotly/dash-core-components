@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {omit} from 'ramda';
+import {omit, isEmpty} from 'ramda';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -39,7 +39,10 @@ export default class Input extends Component {
             <input
                 onChange={e => {
                     const newValue = e.target.value;
-                    if (((min || max) && newValue < min) || newValue > max) {
+                    if (
+                        (!isEmpty(min) && Number(newValue) < min) ||
+                        (!isEmpty(max) && Number(newValue) > max)
+                    ) {
                         return;
                     }
                     if (fireEvent) {
