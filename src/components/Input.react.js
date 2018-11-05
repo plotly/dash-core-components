@@ -83,8 +83,8 @@ export default class Input extends Component {
                 value={value}
                 {...omit(
                     [
+                        'debounce',
                         'fireEvent',
-                        'setProps',
                         'value',
                         'n_blur',
                         'n_blur_timestamp',
@@ -93,6 +93,7 @@ export default class Input extends Component {
                         'selectionDirection',
                         'selectionEnd',
                         'selectionStart',
+                        'setProps',
                     ],
                     this.props
                 )}
@@ -314,7 +315,7 @@ Input.propTypes = {
     /**
      * Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
      */
-    step: PropTypes.string,
+    step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Number of times the `Enter` key was pressed while the input had focus.

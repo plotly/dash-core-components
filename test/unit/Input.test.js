@@ -290,7 +290,7 @@ describe('Input with type=number', () => {
                 input.find('input').simulate('keypress', {key: 'Enter'});
 
                 expect(mockSetProps.mock.calls.length).toEqual(1);
-                // expect(mockSetProps.mock.calls[0][0].value).toEqual(inputValues[inputValues.length-1]);
+                expect(mockSetProps.mock.calls[0][0].value).toEqual(inputValues[inputValues.length-1]);
             });
         });
     });
