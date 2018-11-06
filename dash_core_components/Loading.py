@@ -12,21 +12,21 @@ Keyword arguments:
 - id (string; optional)
 - loadingProp (string; optional): String that determines which prop to listen to when loading
 - className (string; optional): Additional CSS class for the root DOM node
-- loading (optional): Object that holds the loading prop, a bool that determines if the component is loading, and the actual
-prop that's causing the load as a String.. loading has the following type: dict containing keys 'loading', 'prop'.
+- status (optional): Object that holds the status object coming from dash-renderer. status has the following type: dict containing keys 'isLoading', 'propName', 'componentName'.
 Those keys have the following types: 
-  - loading (boolean; optional)
-  - prop (string; optional)
+  - isLoading (boolean; optional): Determines if the component is loading or not
+  - propName (string; optional): Holds which property is loading
+  - componentName (string; optional): Holds the name of the component that is loading
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, loadingProp=Component.UNDEFINED, className=Component.UNDEFINED, loading=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'loadingProp', 'className', 'loading']
+    def __init__(self, children=None, id=Component.UNDEFINED, loadingProp=Component.UNDEFINED, className=Component.UNDEFINED, status=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'loadingProp', 'className', 'status']
         self._type = 'Loading'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['children', 'id', 'loadingProp', 'className', 'loading']
+        self.available_properties = ['children', 'id', 'loadingProp', 'className', 'status']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

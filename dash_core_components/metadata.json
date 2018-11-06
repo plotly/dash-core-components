@@ -2093,22 +2093,29 @@
         "required": false,
         "description": "Additional CSS class for the root DOM node"
       },
-      "loading": {
+      "status": {
         "type": {
           "name": "shape",
           "value": {
-            "loading": {
+            "isLoading": {
               "name": "bool",
+              "description": "Determines if the component is loading or not",
               "required": false
             },
-            "prop": {
+            "propName": {
               "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "componentName": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
               "required": false
             }
           }
         },
         "required": false,
-        "description": "Object that holds the loading prop, a bool that determines if the component is loading, and the actual\nprop that's causing the load as a String."
+        "description": "Object that holds the status object coming from dash-renderer"
       }
     }
   },

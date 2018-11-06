@@ -10,14 +10,12 @@ export default class Loading extends Component {
     }
 
     render() {
-        const {loading} = this.props.loading;
-
-        window.console.log('loading prop:', this.props.loading.prop);
-
-        if (loading) {
+        const status = this.props.status;
+        if (status && status.isLoading) {
             return (
                 <div>
                     <div className="spinner-verts">
+                        <h3 className='dash-loading-title'>Loading {status.componentName}'s {status.propName}</h3>
                         <div className="rect1" />
                         <div className="rect2" />
                         <div className="rect3" />
@@ -84,7 +82,7 @@ export default class Loading extends Component {
                 </div>
             );
         }
-        return this.props.children;
+        return this.props.children || null;
     }
 }
 
@@ -94,14 +92,14 @@ Loading.propTypes = {
     /**
      * Array that holds components to render
      */
-    children: React.PropTypes.oneOfType([
-        React.PropTypes.arrayOf(React.PropTypes.node),
-        React.PropTypes.node,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
     ]),
 
     /**
-    * String that determines which prop to listen to when loading
-    */
+     * String that determines which prop to listen to when loading
+     */
     loadingProp: PropTypes.string,
 
     /**
@@ -110,8 +108,20 @@ Loading.propTypes = {
     className: PropTypes.string,
 
     /**
-     * Object that holds the loading prop, a bool that determines if the component is loading, and the actual
-     * prop that's causing the load as a String.
+     * Object that holds the status object coming from dash-renderer
     */
-    loading: PropTypes.shape({loading: PropTypes.bool, prop: PropTypes.string}),
+    status: PropTypes.shape({
+        /**
+         * Determines if the component is loading or not
+         */
+        isLoading: PropTypes.bool, 
+        /**
+         * Holds which property is loading
+         */
+        propName: PropTypes.string,
+        /**
+         * Holds the name of the component that is loading
+         */
+        componentName: PropTypes.string
+    }),
 };

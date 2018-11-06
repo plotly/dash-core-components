@@ -22,6 +22,7 @@
     "build:js-dev": "webpack --mode development",
     "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes",
     "build:all": "npm run build:js && npm run build:js-dev && npm run build:py",
+    "build:all-dev": "npm run build:js-dev && npm run build:py",
     "build:watch": "watch 'npm run build:all' src"
   },
   "author": "Chris Parmer <chris@plot.ly>",
