@@ -531,6 +531,7 @@ class Tests(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-one .main-svg"))
         )
 
+        time.sleep(1)
         self.snapshot("Tabs 1 rendered ")
 
         button_two.click()
@@ -540,6 +541,7 @@ class Tests(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-two .main-svg"))
         )
 
+        time.sleep(1)
         self.snapshot("Tabs 2 rendered ")
 
     def test_tabs_without_value(self):
