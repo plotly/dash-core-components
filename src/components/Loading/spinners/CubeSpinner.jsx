@@ -33,7 +33,9 @@ const CubeSpinner = ({status}) => {
                         transition: all 0.5s;
                       }
                       .dash-cube-container {
-                        display: inline-block;
+                        display: block;
+                        width: 80px;
+                        margin: 8rem auto;
                       }
                       
                       .dash-cube-side {
