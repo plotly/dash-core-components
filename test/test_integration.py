@@ -5,6 +5,7 @@ import io
 import os
 import sys
 import time
+import json
 import pandas as pd
 
 import dash
@@ -38,35 +39,23 @@ from multiprocessing import Value
 # export PERCY_PROJECT=plotly/dash-integration-tests
 # export PERCY_TOKEN=...
 
+TIMEOUT = 20
+
 
 class Tests(IntegrationTests):
     def setUp(self):
         pass
 
     def wait_for_element_by_css_selector(self, selector):
-        start_time = time.time()
-        error = None
-        while time.time() < start_time + 20:
-            try:
-                return self.driver.find_element_by_css_selector(selector)
-            except Exception as e:
-                error = e
-                pass
-            time.sleep(0.25)
-        raise error
+        return WebDriverWait(self.driver, TIMEOUT).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+        )
 
     def wait_for_text_to_equal(self, selector, assertion_text):
-        start_time = time.time()
-        error = None
-        while time.time() < start_time + 20:
-            el = self.wait_for_element_by_css_selector(selector)
-            try:
-                return self.assertEqual(el.text, assertion_text)
-            except Exception as e:
-                error = e
-                pass
-            time.sleep(0.25)
-        raise error
+        return WebDriverWait(self.driver, TIMEOUT).until(
+            EC.text_to_be_present_in_element((By.CSS_SELECTOR, selector),
+                                             assertion_text)
+        )
 
     def snapshot(self, name):
         if 'PERCY_PROJECT' in os.environ and 'PERCY_TOKEN' in os.environ:
@@ -448,15 +437,13 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        initial_tab = self.wait_for_element_by_css_selector('#tab-2')
-        tabs_content = self.wait_for_element_by_css_selector('#tabs-content')
-        self.assertEqual(tabs_content.text, 'Test content 2')
+        self.wait_for_text_to_equal('#tabs-content', 'Test content 2')
         self.snapshot('initial tab - tab 2')
 
         selected_tab = self.wait_for_element_by_css_selector('#tab-1')
         selected_tab.click()
-        time.sleep(2)
-        self.assertEqual(tabs_content.text, 'Test content 1')
+        time.sleep(1)
+        self.wait_for_text_to_equal('#tabs-content', 'Test content 1')
 
     def test_tabs_with_children_undefined(self):
         app = dash.Dash(__name__)
@@ -531,7 +518,7 @@ class Tests(IntegrationTests):
                         }
                     ]
                 }
-        
+
         self.startServer(app=app)
 
         button_one = self.wait_for_element_by_css_selector('#one')
@@ -544,6 +531,7 @@ class Tests(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-one .main-svg"))
         )
 
+        time.sleep(1)
         self.snapshot("Tabs 1 rendered ")
 
         button_two.click()
@@ -553,6 +541,7 @@ class Tests(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-two .main-svg"))
         )
 
+        time.sleep(1)
         self.snapshot("Tabs 2 rendered ")
 
     def test_tabs_without_value(self):
@@ -560,27 +549,25 @@ class Tests(IntegrationTests):
 
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
-            dcc.Tabs(id="tabs-example", children=[
-                dcc.Tab(label='Tab One', value='tab-1-example'),
-                dcc.Tab(label='Tab Two', value='tab-2-example'),
+            dcc.Tabs(id="tabs-without-value", children=[
+                dcc.Tab(label='Tab One', value='tab-1'),
+                dcc.Tab(label='Tab Two', value='tab-2'),
             ]),
-            html.Div(id='tabs-content-example')
+            html.Div(id='tabs-content')
         ])
 
 
-        @app.callback(Output('tabs-content-example', 'children'),
-                    [Input('tabs-example', 'value')])
+        @app.callback(Output('tabs-content', 'children'),
+                    [Input('tabs-without-value', 'value')])
         def render_content(tab):
-            if tab == 'tab-1-example':
+            if tab == 'tab-1':
                 return html.H3('Default selected Tab content 1')
-            elif tab == 'tab-2-example':
+            elif tab == 'tab-2':
                 return html.H3('Tab content 2')
 
         self.startServer(app=app)
 
-        default_tab_content = self.wait_for_element_by_css_selector('#tabs-content-example')
-
-        self.assertEqual(default_tab_content.text, 'Default selected Tab content 1')
+        self.wait_for_text_to_equal('#tabs-content', 'Default selected Tab content 1')
 
         self.snapshot('Tab 1 should be selected by default')
 
@@ -826,7 +813,9 @@ class Tests(IntegrationTests):
         # test link still fires update on Location
         page_content = self.wait_for_element_by_css_selector('#page-content')
         self.assertNotEqual(page_content.text, 'You are on page /')
-        self.assertEqual(page_content.text, 'You are on page /test-link')
+
+        self.wait_for_text_to_equal(
+            '#page-content', 'You are on page /test-link')
 
         #test if rendered Link's <a> tag has a href attribute
         link_href = test_link.get_attribute("href")
@@ -866,11 +855,11 @@ class Tests(IntegrationTests):
         button = self.wait_for_element_by_css_selector('#button')
         self.snapshot('candlestick - initial')
         button.click()
-        time.sleep(2)
+        time.sleep(1)
         self.snapshot('candlestick - 1 click')
 
         button.click()
-        time.sleep(2)
+        time.sleep(1)
         self.snapshot('candlestick - 2 click')
 
     def test_graphs_with_different_figures(self):
@@ -936,21 +925,21 @@ class Tests(IntegrationTests):
         start_date = self.wait_for_element_by_css_selector('#startDate')
         start_date.click()
 
-        end_date= self.wait_for_element_by_css_selector('#endDate')
+        end_date = self.wait_for_element_by_css_selector('#endDate')
         end_date.click()
 
-        date_content = self.wait_for_element_by_css_selector('#date-picker-range-output')
-        self.assertEquals(date_content.text, 'None - None')
+        self.wait_for_text_to_equal('#date-picker-range-output', 'None - None')
 
         # updated only one date, callback shouldn't fire and output should be unchanged
         start_date.send_keys("1997-05-03")
-        self.assertEquals(date_content.text, 'None - None')
+        self.wait_for_text_to_equal('#date-picker-range-output', 'None - None')
 
         # updated both dates, callback should now fire and update output
         end_date.send_keys("1997-05-04")
         end_date.click()
+        self.wait_for_text_to_equal(
+            '#date-picker-range-output', '1997-05-03 - 1997-05-04')
 
-        self.assertEquals(date_content.text, '1997-05-03 - 1997-05-04')
     def test_interval(self):
         app = dash.Dash(__name__)
         app.layout = html.Div([
@@ -965,10 +954,10 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        time.sleep(5) # wait for interval to finish
+        # wait for interval to finish
+        time.sleep(5)
 
-        output = self.wait_for_element_by_css_selector('#output')
-        self.assertEqual(output.text, '2')
+        self.wait_for_text_to_equal('#output', '2')
 
     def test_if_interval_can_be_restarted(self):
         app = dash.Dash(__name__)
@@ -987,7 +976,6 @@ class Tests(IntegrationTests):
 
         ])
 
-
         @app.callback(
             Output('interval', 'max_intervals'),
             [Input('start', 'n_clicks_timestamp'),
@@ -998,7 +986,6 @@ class Tests(IntegrationTests):
             else:
                 return -1
 
-
         @app.callback(Output('output', 'children'), [Input('interval', 'n_intervals')])
         def display_data(n_intervals):
             return 'Updated {}'.format(n_intervals)
@@ -1008,7 +995,8 @@ class Tests(IntegrationTests):
         start_button = self.wait_for_element_by_css_selector('#start')
         stop_button = self.wait_for_element_by_css_selector('#stop')
 
-        time.sleep(1) # interval will start itself, we wait a second before pressing 'stop'
+        # interval will start itself, we wait a second before pressing 'stop'
+        time.sleep(1)
 
         # get the output after running it for a bit
         output = self.wait_for_element_by_css_selector('#output')
@@ -1019,6 +1007,10 @@ class Tests(IntegrationTests):
         # get the output after it's stopped, it shouldn't be higher than before
         output_stopped = self.wait_for_element_by_css_selector('#output')
 
+        self.wait_for_text_to_equal("#output", output_stopped.text)
+
+        # This test logic is bad
+        # same element check for same text will always be true.
         self.assertEqual(output.text, output_stopped.text)
 
     def _test_confirm(self, app, test_name, add_callback=True):
@@ -1160,3 +1152,157 @@ class Tests(IntegrationTests):
         button.click()
         time.sleep(2)  # Wait for graph to re-render
         self.snapshot('render-empty-graph')
+
+    def test_storage_component(self):
+        app = dash.Dash(__name__)
+
+        getter = 'return JSON.parse(window.{}.getItem("{}"));'
+        clicked_getter = getter.format('localStorage', 'storage')
+        dummy_getter = getter.format('sessionStorage', 'dummy')
+        dummy_data = 'Hello dummy'
+
+        app.layout = html.Div([
+            dcc.Store(id='storage',
+                      storage_type='local'),
+            html.Button('click me', id='btn'),
+            html.Button('clear', id='clear-btn'),
+            html.Button('set-init-storage',
+                        id='set-init-storage'),
+            dcc.Store(id='dummy',
+                      storage_type='session',
+                      data=dummy_data),
+            dcc.Store(id='memory',
+                      storage_type='memory'),
+            html.Div(id='memory-output'),
+            dcc.Store(id='initial-storage',
+                      storage_type='session'),
+            html.Div(id='init-output')
+        ])
+
+        @app.callback(Output('storage', 'data'),
+                      [Input('btn', 'n_clicks')],
+                      [State('storage', 'data')])
+        def on_click(n_clicks, storage):
+            if n_clicks is None:
+                return
+            storage = storage or {}
+            return {'clicked': storage.get('clicked', 0) + 1}
+
+        @app.callback(Output('storage', 'clear_data'),
+                      [Input('clear-btn', 'n_clicks')])
+        def on_clear(n_clicks):
+            if n_clicks is None:
+                return
+            return True
+
+        @app.callback(Output('memory', 'data'), [Input('storage', 'data')])
+        def on_memory(data):
+            return data
+
+        @app.callback(Output('memory-output', 'children'),
+                      [Input('memory', 'data')])
+        def on_memory2(data):
+            if data is None:
+                return ''
+            return json.dumps(data)
+
+        @app.callback(Output('initial-storage', 'data'),
+                      [Input('set-init-storage', 'n_clicks')])
+        def on_init(n_clicks):
+            if n_clicks is None:
+                raise PreventUpdate
+
+            return 'initialized'
+
+        @app.callback(Output('init-output', 'children'),
+                      [Input('initial-storage', 'modified_timestamp')],
+                      [State('initial-storage', 'data')])
+        def init_output(ts, data):
+            return json.dumps({'data': data, 'ts': ts})
+
+        self.startServer(app)
+
+        time.sleep(1)
+
+        dummy = self.driver.execute_script(dummy_getter)
+        self.assertEqual(dummy_data, dummy)
+
+        click_btn = self.wait_for_element_by_css_selector('#btn')
+        clear_btn = self.wait_for_element_by_css_selector('#clear-btn')
+        mem = self.wait_for_element_by_css_selector('#memory-output')
+
+        for i in range(1, 11):
+            click_btn.click()
+            time.sleep(1)
+
+            click_data = self.driver.execute_script(clicked_getter)
+            self.assertEqual(i, click_data.get('clicked'))
+            self.assertEqual(i, int(json.loads(mem.text).get('clicked')))
+
+        clear_btn.click()
+        time.sleep(1)
+
+        cleared_data = self.driver.execute_script(clicked_getter)
+        self.assertTrue(cleared_data is None)
+        # Did mem also got cleared ?
+        self.assertFalse(mem.text)
+
+        # Test initial timestamp output
+        init_btn = self.wait_for_element_by_css_selector('#set-init-storage')
+        init_btn.click()
+        ts = int(time.time() * 1000)
+        time.sleep(1)
+        self.driver.refresh()
+        time.sleep(2)
+        init = self.wait_for_element_by_css_selector('#init-output')
+        init = json.loads(init.text)
+        self.assertAlmostEqual(ts, init.get('ts'), delta=1000)
+        self.assertEqual('initialized', init.get('data'))
+
+    def test_store_nested_data(self):
+        app = dash.Dash(__name__)
+
+        nested = {'nested': {'nest': 'much'}}
+        nested_list = dict(my_list=[1, 2, 3])
+
+        app.layout = html.Div([
+            dcc.Store(id='store', storage_type='local'),
+            html.Button('set object as key', id='obj-btn'),
+            html.Button('set list as key', id='list-btn'),
+            html.Output(id='output')
+        ])
+
+        @app.callback(Output('store', 'data'),
+                      [Input('obj-btn', 'n_clicks_timestamp'),
+                       Input('list-btn', 'n_clicks_timestamp')])
+        def on_obj_click(obj_ts, list_ts):
+            if obj_ts is None and list_ts is None:
+                raise PreventUpdate
+
+            # python 3 got the default props bug. plotly/dash#396
+            if (obj_ts and not list_ts) or obj_ts > list_ts:
+                return nested
+            else:
+                return nested_list
+
+        @app.callback(Output('output', 'children'),
+                      [Input('store', 'modified_timestamp')],
+                      [State('store', 'data')])
+        def on_ts(ts, data):
+            if ts is None:
+                raise PreventUpdate
+            return json.dumps(data)
+
+        self.startServer(app)
+
+        obj_btn = self.wait_for_element_by_css_selector('#obj-btn')
+        list_btn = self.wait_for_element_by_css_selector('#list-btn')
+
+        obj_btn.click()
+        time.sleep(1)
+        self.wait_for_text_to_equal('#output', json.dumps(nested))
+        # it would of crashed the app before adding the recursive check.
+
+        list_btn.click()
+        time.sleep(1)
+        self.wait_for_text_to_equal('#output', json.dumps(nested_list))

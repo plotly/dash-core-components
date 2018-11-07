@@ -2,6 +2,175 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.37.1] - 2018-11-07
+### Added
+- Added `clickannotation` event to `dcc.Graph`.
+See https://github.com/plotly/dash-core-components/pull/182.
+
+## [0.37.0] - 2018-11-04
+### Fixed
+- Some Input props weren't being picked up by React. Changed:
+    - `autocomplete` to `autoComplete`
+    - `autofocus` to `autoFocus`
+    - `inputmode` to `inputMode`
+    - `maxlength` to `maxLength`
+    - `minlength` to `minLength`
+### Added
+- Unit tests for `Input` component.
+- New `debounce` prop for `Input` component that determines if the input should update to a Dash server immediately, or on 'Enter' key. Fixes [#169](https://github.com/plotly/dash-core-components/issues/169)
+### Changed
+- `min` and `max` prop now won't update the input when values are lower than or greater than `min` and `max` respectively. Fixes[#173](https://github.com/plotly/dash-core-components/issues/173)
+- `step` prop can now be a `number` and is therefor set correctly on the corresponding `<input/>` tag. Fixes [#292](https://github.com/plotly/dash-core-components/issues/292)
+
+## [0.36.0] - 2018-11-01
+### Fixed
+- The `npm start` command now runs the Demo app again [#346](https://github.com/plotly/dash-core-components/issues/346) 
+
+## [0.36.0] - 2018-10-31
+### Updated
+- Updated plotly.js to 1.42.1 [#354](https://github.com/plotly/dash-core-components/pull/354)
+  - https://github.com/plotly/plotly.js/releases/tag/v1.42.0
+  - https://github.com/plotly/plotly.js/releases/tag/v1.42.1
+  - https://github.com/plotly/plotly.js/releases/tag/v1.42.2
+
+### Fixed
+- Fix runaway loops for `scattergl` lines and fill traces
+  (bug introduced in 1.42.0) [#3199]
+- Fix size and alignment in vertical modebars [#3193]
+- Fix legend item rendering for traces with typed array marker
+  settings [#3192]
+
+
+### As part of [plotly.js 1.42.1](https://github.com/plotly/plotly.js/releases/tag/v1.42.1)
+
+#### Fixed
+- Fix IE regression introduced in 1.42.0 [#3187]
+- Fix parcats text-shadowing on dark plot_bgcolor [#3191]
+- Fix scatter3d text alignment [#3180]
+- Fix hoverinfo flags in attribute descriptions [#3158]
+- No longer list and coerce unused hoverlabel attribute in parcoods [#3158]
+- No longer list and coerce transforms attributes in traces that don't support them [#3158]
+
+### As part of [plotly.js 1.42.0](https://github.com/plotly/plotly.js/releases/tag/v1.42.0)
+
+### Added
+- Add `parcats` (aka parallel categories) trace type [#2963, #3072]
+- Add new gl3d tick and title auto-rotation algorithm that limits text
+  overlaps [#3084, #3104, #3131]
+- Add support for reversed-range axes on gl3d subplots [#3141]
+- Add modebar layout style attributes: `orientation`, `bgcolor`, `color`
+  and `activecolor` [#3068, #3091]
+- Add `title`, `titleposition` and `titlefont` attributes to `pie` traces [#2987]
+- Add `hoverlabel.split` attribute to `ohlc` and `candlestick` traces to split
+  hover labels into multiple pieces [#2959]
+- Add support for `line.shape` values 'hv', 'vh', 'hvh' and 'vhv'
+  in `scattergl` traces [#3087]
+- Add handler for `PlotlyConfig.MathJaxConfig: 'local'` to override our default
+  MathJax behavior which modifies the global MathJax config on load [#2994]
+- Add support for graph div as first argument for `Plotly.makeTemplate`
+  and `Plotly.validateTemplate` [#3111, #3118]
+- Implement trace, node and link hoverinfo for `sankey` traces [#3096, #3150]
+- Implement per-sector textfont settings in `pie` traces [#3130]
+
+### Changed
+- Use new Plotly logo in "Produced with Plotly" modebar button [#3068]
+- Improve `histogram` autobin algorithm: allow partial bin specification,
+  deprecate `autobin(x|y)` attributes, force stacked/grouped histograms to match size
+  and have compatible `start` value [#3044]
+- Count distinct values for category and date axis auto-type, which
+  improves the detection of "NaN" string values in numerical data [#3070]
+- Improve bar and pie textfont color inheritance [#3130]
+- Improve `splom` first-render, axis range relayout and marker restyle
+  performance [#3057, #3161]
+- Make `splom` `xaxes` and `yaxes` list always have same length as the trace
+  `dimensions` regardless of their partial visiblities [#3057]
+- Improve axis `overlaying` documentation [#3082]
+
+### Fixed
+- Fix `gl3d` subplots on tablets [#3088]
+- Fix responsive behavior under flexbox and grid CSS [#3056, #3090, #3122]
+- Fix relayout calls turning back `autosize` on [#3120]
+- Fix MathJax rendering (for recent versions of MathJax) [#2994]
+- Fix `scattergl` update on graphs with fractional computed dimensions [#3132]
+- Fix `scattergl` symbols in MS Edge [#2750]
+- Fix `scattergl` selections on overlaying axes [#3067]
+- Fix `scattergl` `tozero` fills with bad values [#3087, #3168]
+- Fix `scattergl` fill layer ordering [#3087]
+- Fix `scattergl` lines on reversed-range axes [#3078]
+- Fix axis auto-type routine for boolean data [#3070]
+- Fix `splom` axis placement when the diagonal is missing [#3057]
+- Fix line `restyle` calls on `parcoords` traces [#3178]
+- Fix `parcoods` rendering after `hovermode` relayout calls [#3123]
+- Fix WebGL warnings for `scatter3d` traces with blank text items [#3171, #3177]
+- Fix WebGL warnings for `scatter3d` trace with empty lines [#3174]
+- Fix rendering of `scatter3d` lines for certain scene angles [#3163]
+- Fix handling of large pad values in `sankey` traces [#3143]
+- Fix `scatterpolargl`  to `scatterpolar` toggling [#3098]
+- Fix `scatterpolargl` axis-autorange padding [#3098]
+- Fix `bar` text position for traces with set `base` [#3156]
+- Fix `bar` support for typed arrays for `width` and `offset` attributes [#3169]
+- Fix aggregate transforms with bad group values [#3093]
+- Fix transforms operating on auto-invisible traces [#3139]
+- Fix templating for polar and carpet axes [#3092, #3095]
+- Ignore invalid trace indices in restyle and update [#3114]
+- Fix grid style `relayout` calls on graph with large `splom` traces [#3067]
+- Fix logging on some old browsers [#3137]
+- Remove erroneous warning `WARN: unrecognized full object value` when
+  relayouting array containers [#3053]
+
+## [0.35.2] - 2018-10-30
+### Fixed
+- Fix Input not used in callbacks resetting the value on updates. [#350](https://github.com/plotly/dash-core-components/pull/350)
+
+## [0.35.1] - 2018-10-29
+### Fixed
+- Fix Dropdown options prop docstring typo [#328](https://github.com/plotly/dash-core-components/pull/328/files)
+- Fix Input readonly prop -> readOnly [#348](https://github.com/plotly/dash-core-components/pull/348)
+
+## [0.35.0] - 2018-10-22
+### Added
+- n_blur/n_submit and timestamps props added to the Input component. [#326](https://github.com/plotly/dash-core-components/pull/326)
+
+## [0.34.0] - 2018-10-17
+### Added
+- `npm run test-unit` will run new Jest+Enzyme unit tests
+- Unit tests for Tabs component
+### Fixed
+- Fixed bug in Tabs component where value was resetting if using callback-less mode [#331](https://github.com/plotly/dash-core-components/issues/331)
+- Fixed bug with default Tabs value not being set to children's Tab value (if it's set)
+- Fixed bug where Tabs.children.props wheren't being selected properly, related to [#84](https://github.com/plotly/dash-renderer/issues/84)
+
+## [0.33.1] -- 2018-10-17
+### Fixed
+- Fix Store component nested data [#333](https://github.com/plotly/dash-core-components/pull/333)
+
+## [0.33.0] -- 2018-10-04
+### Added
+
+- Upgraded Plotly.js, the underlying library behind the dash_core_components.Graph component, to version 1.41.3. See https://github.com/plotly/plotly.js/releases/tag/v1.41.3 for the official notes. 
+Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plot.ly/products/consulting-and-oem
+
+### Fixed
+As part of plotly.js release:
+
+- Fix handling of hover `text` in `barpolar` traces [#3040]
+- Fix `scatterpolar[gl]` `text` placement in hover label [#3040]
+- Fix `pie` trace support for individual stroke width values [#3030]
+- Fix handling of CSS `max-width` and `max-height` in auto-size routine [#3033]
+- Rotate hover labels when `hovermode: 'y'` and a single trace produces multiple
+  labels [#3043]
+- Rotate hover labels when `hovermode: 'closest'` and multiple labels are
+  generated including one from an horizontal trace [#3043]
+- Fix hover label coloring on white bgcolor [#3048]
+- Do not coerce nor validate `polar?.bar*` attributes on
+  subplots w/o visible `barpolar` traces [#3023]
+- Fix legacy polar attribute descriptions [#3023]
+
+## [0.32.0] - 2018-10-2
+### Added
+- Added Store component [#248](https://github.com/plotly/dash-core-components/pull/248)
+
+
 ## [0.31.0] - 2018-09-21
 ### Changed
 - Updated NPM scripts:
@@ -226,7 +395,6 @@ As part of the plotly.js upgrade:
 - Broken sourcemaps for debugging.
 ### Added
 - Testing configuration for CHROMEPATH and SERVER_PROCESSES
-
 ## [0.22.1] - 2018-04-09
 ### Fixed
 - Various bugs with the `ohlc` and `candlestick` chart type in the `dcc.Graph`
