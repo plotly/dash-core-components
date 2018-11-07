@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DefaultSpinner from './spinners/DefaultSpinner.jsx';
+import CubeSpinner from './spinners/CubeSpinner.jsx';
 
 /**
  * A Loading component that wraps any other component and displays a spinner until the wrapped component has rendered.
@@ -9,10 +10,21 @@ export default class Loading extends Component {
     render() {
         const status = this.props.status;
         if (status && status.isLoading) {
-            return <DefaultSpinner status={status} />
+          switch(this.props.type) {
+            case 'graph':
+              return <DefaultSpinner status={status} />
+            case 'cube':
+              return <CubeSpinner status={status} />
+            default:
+              return <DefaultSpinner status={status} />
+          }
         }
         return this.props.children || null;
     }
+}
+
+Loading.defaultProps = {
+  type: 'default'
 }
 
 Loading.propTypes = {
@@ -25,6 +37,8 @@ Loading.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
     ]),
+
+    type: PropTypes.oneOf(['graph', 'cube', 'default']),
 
     /**
      * String that determines which prop to listen to when loading

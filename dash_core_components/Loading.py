@@ -10,6 +10,7 @@ A Loading component that wraps any other component and displays a spinner until 
 Keyword arguments:
 - children (list | a list of or a singular dash component, string or number; optional): Array that holds components to render
 - id (string; optional)
+- type (a value equal to: 'graph', 'cube', 'default'; optional)
 - loadingProp (string; optional): String that determines which prop to listen to when loading
 - className (string; optional): Additional CSS class for the root DOM node
 - status (optional): Object that holds the status object coming from dash-renderer. status has the following type: dict containing keys 'isLoading', 'propName', 'componentName'.
@@ -20,13 +21,13 @@ Those keys have the following types:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, loadingProp=Component.UNDEFINED, className=Component.UNDEFINED, status=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'loadingProp', 'className', 'status']
+    def __init__(self, children=None, id=Component.UNDEFINED, type=Component.UNDEFINED, loadingProp=Component.UNDEFINED, className=Component.UNDEFINED, status=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'type', 'loadingProp', 'className', 'status']
         self._type = 'Loading'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['children', 'id', 'loadingProp', 'className', 'status']
+        self.available_properties = ['children', 'id', 'type', 'loadingProp', 'className', 'status']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

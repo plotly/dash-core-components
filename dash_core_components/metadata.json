@@ -2079,6 +2079,31 @@
         "required": false,
         "description": "Array that holds components to render"
       },
+      "type": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'graph'",
+              "computed": false
+            },
+            {
+              "value": "'cube'",
+              "computed": false
+            },
+            {
+              "value": "'default'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "'default'",
+          "computed": false
+        }
+      },
       "loadingProp": {
         "type": {
           "name": "string"
