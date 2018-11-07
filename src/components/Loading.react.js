@@ -14,69 +14,209 @@ export default class Loading extends Component {
         if (status && status.isLoading) {
             return (
                 <div>
-                    <div className="spinner-verts">
-                        <h3 className='dash-loading-title'>Loading {status.componentName}'s {status.propName}</h3>
-                        <div className="rect1" />
-                        <div className="rect2" />
-                        <div className="rect3" />
-                        <div className="rect4" />
-                        <div className="rect5" />
+                    <h3 className="dash-loading-title">
+                        Loading {status.componentName}
+                        's {status.propName}
+                    </h3>
+                    <div className="dash-spinner">
+                        <div className="dash-spinner__bottom">
+                            <div className="dash-bar dash-bar__one" />
+                            <div className="dash-bar dash-bar__two" />
+                            <div className="dash-bar dash-bar__three" />
+                        </div>
+                        <div className="dash-spinner__background">
+                            <div className="dash-spinner__bottom">
+                                <div className="dash-vert dash-vert__one" />
+                                <div className="dash-vert dash-vert__two" />
+                                <div className="dash-vert dash-vert__three" />
+                                <div className="dash-vert dash-vert__four" />
+                            </div>
+                        </div>
                     </div>
                     <style>
                         {`
-                            .spinner-verts {
-                                margin: 100px auto;
-                                width: 50px;
-                                height: 40px;
-                                text-align: center;
-                                font-size: 10px;
+                        .dash-loading-title {
+                            text-align: center;
+                        }
+                        .container {
+                            width: 100%;
+                            height: 100%;
+                            display: block;
+                            padding: 2rem;
+                          }
+                          .dash-spinner {
+                            display: flex;
+                            margin: 0 auto;
+                            width: 200px;
+                            height: 200px;
+                            overflow: hidden;
+                            position: relative;
+                            z-index: -2;
+                            opacity: 0.8;
+                            border-radius: 4px;
+                          }
+                          .dash-spinner__bottom {
+                            display: flex;
+                            margin-top: auto;
+                            flex-direction: column;
+                            height: 12px;
+                            width: 100%;
+                          }
+                          .dash-spinner__background {
+                            width: 100%;
+                            height: 100%;
+                            display: block;
+                            position: absolute;
+                            z-index: -1;
+                            display: flex;
+                          }
+                          .dash-bar {
+                            height: 40px;
+                            background-color: #119DFF;
+                            animation: bar-one 2s infinite;
+                            transform-origin: 0% 0%;
+                            display: inline-flex;
+                            border-radius: 8px;
+                          }
+                          .dash-bar__one {
+                            transform: rotate(-45deg);
+                            bottom: -10px;
+                            position: relative;
+                          }
+                          .dash-bar__two {
+                            transform: rotate(45deg);
+                            animation: bar-two 2s infinite;
+                            left: 72px;
+                            bottom: 64px;
+                            position: relative;
+                            animation-delay: 2s infinite;
+                          }
+                          .dash-bar__three {
+                            transform: rotate(-45deg);
+                            animation: bar-three 2s infinite;
+                            left: 110px;
+                            bottom: 27px;
+                            position: relative;
+                            animation-delay: 2s infinite;
+                          }
+                          .dash-vert {
+                            display: inline-block;
+                            transform-origin: 0% 0%;
+                            position: absolute;
+                            bottom: 0px;
+                            width: 40px;
+                          }
+                          .dash-vert__one {
+                            animation: vert-one 2s infinite;
+                            background-color: #e763fa;
+                          }
+                          .dash-vert__two {
+                            animation: vert-two 2s infinite;
+                            left: 50px;
+                            background-color: #636efa;
+                          }
+                          .dash-vert__three {
+                            animation: vert-three 2s infinite;
+                            left: 100px;
+                            background-color: #00cc96;
+                          }
+                          .dash-vert__four {
+                            animation: vert-four 2s infinite;
+                            left: 150px;
+                            background-color: #EF553B;
+                          }
+                          @keyframes vert-one {
+                            0% {
+                              height: 0px;
                             }
-                            
-                            .spinner-verts > div {
-                                background-color: #1975FA;
-                                height: 100%;
-                                width: 6px;
-                                display: inline-block;
-                                margin-right: 4px;
-                                
-                                -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-                                animation: sk-stretchdelay 1.2s infinite ease-in-out;
+                            100% {
+                              height: 80px;
                             }
-                            
-                            .spinner-verts .rect2 {
-                                -webkit-animation-delay: -1.1s;
-                                animation-delay: -1.1s;
+                          }
+                          @keyframes vert-two {
+                            0% {
+                              height: 0px;
                             }
-                            
-                            .spinner-verts .rect3 {
-                                -webkit-animation-delay: -1.0s;
-                                animation-delay: -1.0s;
+                            30% {
+                              height: 0px;
                             }
-                            
-                            .spinner-verts .rect4 {
-                                -webkit-animation-delay: -0.9s;
-                                animation-delay: -0.9s;
+                            100% {
+                              height: 120px;
                             }
-                            
-                            .spinner-verts .rect5 {
-                                -webkit-animation-delay: -0.8s;
-                                animation-delay: -0.8s;
+                          }
+                          @keyframes vert-three {
+                            0% {
+                              height: 0px;
                             }
-                            
-                            @-webkit-keyframes sk-stretchdelay {
-                                0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-                                20% { -webkit-transform: scaleY(1.0) }
+                            30% {
+                              height: 0px;
                             }
-                            
-                            @keyframes sk-stretchdelay {
-                                0%, 40%, 100% { 
-                                transform: scaleY(0.4);
-                                -webkit-transform: scaleY(0.4);
-                                }  20% { 
-                                transform: scaleY(1.0);
-                                -webkit-transform: scaleY(1.0);
-                                }
+                            50% {
+                              height: 0px;
                             }
+                            100% {
+                              height: 100px;
+                            }
+                          }
+                          @keyframes vert-four {
+                            0% {
+                              height: 0px;
+                            }
+                            30% {
+                              height: 0px;
+                            }
+                            50% {
+                              height: 0px;
+                            }
+                            60% {
+                              height: 0px;
+                            }
+                            100% {
+                              height: 60px;
+                            }
+                          }
+                          @keyframes bar-one {
+                            0% {
+                              width: 0%;
+                            }
+                            30% {
+                              width: 50%;
+                            }
+                            60% {
+                              width: 50%;
+                            }
+                            100% {
+                              width: 50%;
+                            }
+                          }
+                          @keyframes bar-two {
+                            0% {
+                              width: 0%;
+                            }
+                            30% {
+                              width: 0%;
+                            }
+                            60% {
+                              width: 30%;
+                            }
+                            100% {
+                              width: 30%;
+                            }
+                          }
+                          @keyframes bar-three {
+                            0% {
+                              width: 0%;
+                            }
+                            30% {
+                              width: 0%;
+                            }
+                            60% {
+                              width: 0%;
+                            }
+                            100% {
+                              width: 70%;
+                            }
+                          }
                     `}
                     </style>
                 </div>
@@ -109,12 +249,12 @@ Loading.propTypes = {
 
     /**
      * Object that holds the status object coming from dash-renderer
-    */
+     */
     status: PropTypes.shape({
         /**
          * Determines if the component is loading or not
          */
-        isLoading: PropTypes.bool, 
+        isLoading: PropTypes.bool,
         /**
          * Holds which property is loading
          */
@@ -122,6 +262,6 @@ Loading.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        componentName: PropTypes.string
+        componentName: PropTypes.string,
     }),
 };
