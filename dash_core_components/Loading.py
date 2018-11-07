@@ -5,7 +5,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 class Loading(Component):
     """A Loading component.
-A slider component with a single handle.
+A Loading component that wraps any other component and displays a spinner until the wrapped component has rendered.
 
 Keyword arguments:
 - children (list | a list of or a singular dash component, string or number; optional): Array that holds components to render

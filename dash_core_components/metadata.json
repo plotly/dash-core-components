@@ -2049,8 +2049,8 @@
       }
     }
   },
-  "src/components/Loading.react.js": {
-    "description": "A slider component with a single handle.",
+  "src/components/Loading/Loading.react.js": {
+    "description": "A Loading component that wraps any other component and displays a spinner until the wrapped component has rendered.",
     "displayName": "Loading",
     "methods": [],
     "props": {

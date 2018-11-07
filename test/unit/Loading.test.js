@@ -1,4 +1,4 @@
-import Loading from '../../src/components/Loading.react.js';
+import Loading from '../../src/components/Loading/Loading.react.js';
 import React from 'react';
 import {render} from 'enzyme';
 
