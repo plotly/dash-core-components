@@ -1,3 +1,4 @@
+import 'react-dates/initialize';
 import {DateRangePicker} from 'react-dates';
 import moment from 'moment';
 import PropTypes from 'prop-types';
