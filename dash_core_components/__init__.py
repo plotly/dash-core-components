@@ -5,7 +5,7 @@ from __future__ import print_function as _
 import os as _os
 import sys as _sys
 import dash as _dash
-
+from .version import __version__ 
 NPM_VERSION = '0.39.0-rc2'
 
 
@@ -37,7 +37,7 @@ _this_module = _sys.modules[__name__]
 _js_dist = [
     {
         'external_url': 'https://17875-45646037-gh.circle-artifacts.com/0/plotly.min.js',
-        'relative_package_path': 'plotly-17875-45646037.min.js',
+        'relative_package_path': 'plotly-17875-45646037.js',
         'namespace': 'dash_core_components'
     },
     {
