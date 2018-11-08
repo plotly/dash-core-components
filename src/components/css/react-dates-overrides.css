@@ -1,0 +1,32 @@
+/*
+* From the react-dates docs:
+* "Note: This component assumes box-sizing: border-box is set globally in your page's CSS."
+* If box-sizing: border box isn't set globally, the picker appears a bit broken.
+*/
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.DateInput_input {
+  font: 400 16px system-ui;
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+  background: #70d1ff;
+  border: #70d1ff;
+}
+.CalendarDay__selected_span {
+  background: #abe2fb;
+  border: #abe2fb;
+}
+
+.DateInput_input__focused {
+  border-bottom: 2px solid #70d1ff;
+}
+
+.DayPickerKeyboardShortcuts_show__bottomRight{
+  border-right: 33px solid #70d1ff;
+}
