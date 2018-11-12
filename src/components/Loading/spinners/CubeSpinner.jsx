@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CubeSpinner = ({status}) => {
-    return (
-        <div>
+const CubeSpinner = ({status, fullscreen, debug}) => {
+    let debugTitle;
+    if (debug) {
+        debugTitle = (
             <h3 className="dash-loading-title">
                 Loading {status.componentName}
                 's {status.propName}
             </h3>
+        );
+    }
+    return (
+        <div className={fullscreen ? 'dash-spinner-container' : ''}>
+            {debugTitle}
             <div className="dash-cube-container">
                 <div className="dash-cube">
                     <div className="dash-cube-side dash-cube-side--front" />
@@ -20,6 +26,18 @@ const CubeSpinner = ({status}) => {
             </div>
             <style>
                 {`
+                    .dash-spinner-container {
+                        position: fixed;
+                        width: 100vw;
+                        height: 100vh;
+                        top: 0;
+                        left: 0;
+                        background-color: white;
+                        z-index: 99;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
                       .dash-loading-title {
                           text-align: center;
                       }
@@ -35,7 +53,7 @@ const CubeSpinner = ({status}) => {
                       .dash-cube-container {
                         display: block;
                         width: 80px;
-                        margin: 8rem auto;
+                        margin: 7rem auto;
                       }
                       
                       .dash-cube-side {
@@ -88,7 +106,7 @@ const CubeSpinner = ({status}) => {
                             transform: rotateX(320deg) rotateY(320deg);
                         }
                           100% {
-                            transform: rotateX(350deg) rotateY(350deg);
+                            transform: rotateX(360deg) rotateY(360deg);
                         }
                       }
                       
@@ -99,7 +117,7 @@ const CubeSpinner = ({status}) => {
                         30% {
                           transform: rotateX(-90deg) translateZ(120px);
                         }
-                        80% {
+                        60% {
                           transform: rotateX(-90deg) translateZ(120px);
                         }
                       }
@@ -110,7 +128,7 @@ const CubeSpinner = ({status}) => {
                         30% {
                           transform: rotateY(0deg) translateZ(120px);
                         }
-                        80% {
+                        60% {
                           transform: rotateY(0deg) translateZ(120px);
                         }
                       }
@@ -121,7 +139,7 @@ const CubeSpinner = ({status}) => {
                         30% {
                         transform: rotateX(90deg) translateZ(120px);
                         }
-                        80% {
+                        60% {
                         transform: rotateX(90deg) translateZ(120px);
                         }
                       }
@@ -132,7 +150,7 @@ const CubeSpinner = ({status}) => {
                         30% {
                         transform: rotateX(180deg) translateZ(120px);
                         }
-                        80% {
+                        60% {
                         transform: rotateX(180deg) translateZ(120px);
                         }
                       }
@@ -143,7 +161,7 @@ const CubeSpinner = ({status}) => {
                         30% {
                         transform: rotateY(90deg) translateZ(120px);
                         }
-                        80% {
+                        60% {
                         transform: rotateY(90deg) translateZ(120px);
                         }
                       }
@@ -154,7 +172,7 @@ const CubeSpinner = ({status}) => {
                         30% {
                         transform: rotateY(-90deg) translateZ(120px);
                         }
-                        80% {
+                        60% {
                         transform: rotateY(-90deg) translateZ(120px);
                         }
                       }
@@ -166,6 +184,8 @@ const CubeSpinner = ({status}) => {
 
 CubeSpinner.propTypes = {
     status: PropTypes.object,
+    fullscreen: PropTypes.bool,
+    debug: PropTypes.bool,
 };
 
 export default CubeSpinner;

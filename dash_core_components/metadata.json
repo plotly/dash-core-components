@@ -2092,6 +2092,14 @@
               "computed": false
             },
             {
+              "value": "'circle'",
+              "computed": false
+            },
+            {
+              "value": "'dot'",
+              "computed": false
+            },
+            {
               "value": "'default'",
               "computed": false
             }
@@ -2110,6 +2118,20 @@
         },
         "required": false,
         "description": "String that determines which prop to listen to when loading"
+      },
+      "fullscreen": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean that determines if the loading spinner will be displayed full-screen or not"
+      },
+      "debug": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Boolean that determines if the loading spinner will display the status.propName and componentName"
       },
       "className": {
         "type": {
