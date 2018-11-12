@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Demo from './Demo.react';
+// import Demo from './Demo.react';
+import LoadingDemo from './LoadingDemo.react';
 
 ReactDOM.render(
-    <Demo/>,
+    <LoadingDemo/>,
     document.getElementById('react-demo-entry-point')
 );
