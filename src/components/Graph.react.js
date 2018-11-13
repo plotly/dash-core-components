@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 import {contains, filter, clone, has, isNil, type, omit} from 'ramda';
 /* global Plotly:true */
 
+const generateId = () => {
+    const charAmount = 36;
+    const length = 7;
+    return (
+        'graph-' +
+        Math.random()
+            .toString(charAmount)
+            .substring(2, length)
+    );
+};
+
 const filterEventData = (gd, eventData, event) => {
     let filteredEventData;
     if (contains(event, ['click', 'hover', 'selected'])) {
@@ -494,13 +505,7 @@ PlotlyGraph.propTypes = {
 };
 
 PlotlyGraph.defaultProps = {
-    /* eslint-disable no-magic-numbers */
-    id:
-        'graph-' +
-        Math.random()
-            .toString(36)
-            .substring(2, 7),
-    /* eslint-enable no-magic-numbers */
+    id: generateId(),
     clickData: null,
     clickAnnotationData: null,
     hoverData: null,
