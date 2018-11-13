@@ -2112,13 +2112,6 @@
           "computed": false
         }
       },
-      "loadingProp": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "String that determines which prop to listen to when loading"
-      },
       "fullscreen": {
         "type": {
           "name": "bool"
@@ -2131,7 +2124,7 @@
           "name": "bool"
         },
         "required": false,
-        "description": "Boolean that determines if the loading spinner will display the status.propName and componentName"
+        "description": "Boolean that determines if the loading spinner will display the status.prop_name and component_name"
       },
       "className": {
         "type": {
@@ -2144,17 +2137,17 @@
         "type": {
           "name": "shape",
           "value": {
-            "isLoading": {
+            "is_loading": {
               "name": "bool",
               "description": "Determines if the component is loading or not",
               "required": false
             },
-            "propName": {
+            "prop_name": {
               "name": "string",
               "description": "Holds which property is loading",
               "required": false
             },
-            "componentName": {
+            "component_name": {
               "name": "string",
               "description": "Holds the name of the component that is loading",
               "required": false

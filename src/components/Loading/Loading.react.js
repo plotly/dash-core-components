@@ -12,7 +12,7 @@ import DotSpinner from './spinners/DotSpinner.jsx';
 export default class Loading extends Component {
     render() {
         const { status, fullscreen, debug } = this.props;
-        if (status && status.isLoading) {
+        if (status && status.is_loading) {
             switch (this.props.type) {
                 case 'graph':
                     return <GraphSpinner status={status} debug={debug} fullscreen={fullscreen}/>;
@@ -48,17 +48,12 @@ Loading.propTypes = {
     type: PropTypes.oneOf(['graph', 'cube', 'circle', 'dot', 'default']),
 
     /**
-     * String that determines which prop to listen to when loading
-     */
-    loadingProp: PropTypes.string,
-
-    /**
      * Boolean that determines if the loading spinner will be displayed full-screen or not 
      */
     fullscreen: PropTypes.bool,
 
     /**
-     * Boolean that determines if the loading spinner will display the status.propName and componentName 
+     * Boolean that determines if the loading spinner will display the status.prop_name and component_name 
      */
     debug: PropTypes.bool,
 
@@ -74,14 +69,14 @@ Loading.propTypes = {
         /**
          * Determines if the component is loading or not
          */
-        isLoading: PropTypes.bool,
+        is_loading: PropTypes.bool,
         /**
          * Holds which property is loading
          */
-        propName: PropTypes.string,
+        prop_name: PropTypes.string,
         /**
          * Holds the name of the component that is loading
          */
-        componentName: PropTypes.string,
+        component_name: PropTypes.string,
     }),
 };

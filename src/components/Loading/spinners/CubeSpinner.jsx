@@ -6,8 +6,8 @@ const CubeSpinner = ({status, fullscreen, debug}) => {
     if (debug) {
         debugTitle = (
             <h3 className="dash-loading-title">
-                Loading {status.componentName}
-                's {status.propName}
+                Loading {status.component_name}
+                's {status.prop_name}
             </h3>
         );
     }
