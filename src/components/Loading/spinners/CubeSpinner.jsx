@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import changeColor from 'color';
 
-const CubeSpinner = ({status, fullscreen, debug}) => {
+const CubeSpinner = ({status, color, fullscreen, debug}) => {
     let debugTitle;
     if (debug) {
         debugTitle = (
@@ -11,6 +12,7 @@ const CubeSpinner = ({status, fullscreen, debug}) => {
             </h3>
         );
     }
+    /* eslint-disable no-magic-numbers */
     return (
         <div className={fullscreen ? 'dash-spinner-container' : ''}>
             {debugTitle}
@@ -64,36 +66,36 @@ const CubeSpinner = ({status, fullscreen, debug}) => {
                       }
                       
                       .dash-cube-side--front {
-                        background-color: #119DFF;  
+                        background-color: ${color};  
                         animation: blowout-front 4s infinite;
                         transform: rotateY(0deg) translateZ(40px);
                       }
                       .dash-cube-side--back {
-                        background-color: #0D76BF;
+                        background-color: ${changeColor(color).darken(0.2)};
                         transform: rotateX(180deg) translateZ(40px);
                         animation: blowout-back 4s infinite;
                       }
                       
                       .dash-cube-side--left {
-                        background-color: #0D76BF;
+                        background-color: ${changeColor(color).darken(0.2)};
                         transform: rotateY(-90deg) translateZ(40px);
                         animation: blowout-left 4s infinite;
                       }
                       
                       .dash-cube-side--right {
-                        background-color: #506784;
+                        background-color: ${changeColor(color).darken(0.4)};
                         transform: rotateY(90deg) translateZ(40px);
                         animation: blowout-right 4s infinite;
                       }
                       
                       .dash-cube-side--top {
-                        background-color: #0D76BF;
+                        background-color: ${changeColor(color).darken(0.2)};
                         transform: rotateX(90deg) translateZ(40px);
                         animation: blowout-top 4s infinite;
                       }
                       
                       .dash-cube-side--bottom {
-                        background-color: #119DFF;
+                        background-color: ${changeColor(color).darken(0.4)};
                         transform: rotateX(-90deg) translateZ(40px);
                         animation: blowout-bottom 4s infinite;
                       }
@@ -184,6 +186,7 @@ const CubeSpinner = ({status, fullscreen, debug}) => {
 
 CubeSpinner.propTypes = {
     status: PropTypes.object,
+    color: PropTypes.string,
     fullscreen: PropTypes.bool,
     debug: PropTypes.bool,
 };

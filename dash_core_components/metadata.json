@@ -2133,6 +2133,17 @@
         "required": false,
         "description": "Additional CSS class for the root DOM node"
       },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Primary colour used for the loading spinners",
+        "defaultValue": {
+          "value": "'#119DFF'",
+          "computed": false
+        }
+      },
       "status": {
         "type": {
           "name": "shape",

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CircleSpinner = ({status, fullscreen, debug}) => {
+const CircleSpinner = ({status, color, fullscreen, debug}) => {
     let debugTitle;
     if (debug) {
         debugTitle = (
@@ -64,7 +64,7 @@ const CircleSpinner = ({status, fullscreen, debug}) => {
                         margin: 0 auto;
                         width: 15%;
                         height: 15%;
-                        background-color: #119DFF;
+                        background-color: ${color};
                         border-radius: 100%;
                         -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
                                 animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
@@ -174,6 +174,7 @@ const CircleSpinner = ({status, fullscreen, debug}) => {
 
 CircleSpinner.propTypes = {
     status: PropTypes.object,
+    color: PropTypes.string,
     fullscreen: PropTypes.bool,
     debug: PropTypes.bool,
 };

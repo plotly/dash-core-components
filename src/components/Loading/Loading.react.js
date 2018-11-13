@@ -11,19 +11,19 @@ import DotSpinner from './spinners/DotSpinner.jsx';
  */
 export default class Loading extends Component {
     render() {
-        const { status, fullscreen, debug } = this.props;
+        const { status, color, fullscreen, debug } = this.props;
         if (status && status.is_loading) {
             switch (this.props.type) {
                 case 'graph':
-                    return <GraphSpinner status={status} debug={debug} fullscreen={fullscreen}/>;
+                    return <GraphSpinner status={status} color={color} debug={debug} fullscreen={fullscreen}/>;
                 case 'cube':
-                    return <CubeSpinner status={status} debug={debug} fullscreen={fullscreen} />;
+                    return <CubeSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
                 case 'circle':
-                    return <CircleSpinner status={status} debug={debug} fullscreen={fullscreen} />;
+                    return <CircleSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
                 case 'dot':
-                    return <DotSpinner status={status} debug={debug} fullscreen={fullscreen} />;
+                    return <DotSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
                 default:
-                    return <DefaultSpinner status={status} debug={debug} fullscreen={fullscreen} />;
+                    return <DefaultSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
             }
         }
         return this.props.children || null;
@@ -32,6 +32,7 @@ export default class Loading extends Component {
 
 Loading.defaultProps = {
     type: 'default',
+    color: '#119DFF'
 };
 
 Loading.propTypes = {
@@ -61,6 +62,11 @@ Loading.propTypes = {
      * Additional CSS class for the root DOM node
      */
     className: PropTypes.string,
+
+    /**
+     * Primary colour used for the loading spinners 
+     */
+    color: PropTypes.string,
 
     /**
      * Object that holds the status object coming from dash-renderer

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DefaultSpinner = ({status, fullscreen, debug}) => {
+const DefaultSpinner = ({status, color, fullscreen, debug}) => {
     let debugTitle;
-    window.console.log('debug?', debug)
     if (debug) {
         debugTitle = (
             <h3 className="dash-loading-title">
@@ -48,7 +47,7 @@ const DefaultSpinner = ({status, fullscreen, debug}) => {
                     }
                     
                     .spinner-verts > div {
-                        background-color: #119DFF;
+                        background-color: ${color};
                         height: 100%;
                         width: 6px;
                         display: inline-block;
@@ -100,6 +99,7 @@ const DefaultSpinner = ({status, fullscreen, debug}) => {
 
 DefaultSpinner.propTypes = {
     status: PropTypes.object,
+    color: PropTypes.string,
     fullscreen: PropTypes.bool,
     debug: PropTypes.bool,
 };

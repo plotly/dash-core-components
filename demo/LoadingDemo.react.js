@@ -4,18 +4,18 @@ import {Loading, Tabs, Tab} from '../src';
 
 const LoadingDemo = () => {
     const status = {
-        isLoading: true,
-        propName: 'layout',
-        componentName: 'Demo',
+        is_loading: true,
+        prop_name: 'layout',
+        component_name: 'Demo',
     };
     return (
         <Tabs>
-            <Tab value='tab-1' label='All Spinners (no fullscreen)'>
+            <Tab value='tab-1' label='All Spinners (custom colors, no fullscreen)'>
                 <div>
-                    <Loading status={status} type="default" />
-                    <Loading status={status} type="circle" />
-                    <Loading status={status} type="dot" />
-                    <Loading status={status} type="cube" />
+                    <Loading status={status} type="default" color="gold" />
+                    <Loading status={status} type="circle" color="cyan"/>
+                    <Loading status={status} type="dot" color="hotpink"/>
+                    <Loading status={status} type="cube" color="greenyellow"/>
                     <Loading status={status} type="graph" />
                 </div>
             </Tab>

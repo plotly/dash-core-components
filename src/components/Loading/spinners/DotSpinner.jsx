@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DotSpinner = ({status, fullscreen, debug}) => {
+const DotSpinner = ({status, color, fullscreen, debug}) => {
     let debugTitle;
     if (debug) {
         debugTitle = (
@@ -45,7 +45,7 @@ const DotSpinner = ({status, fullscreen, debug}) => {
                 .dash-dot-spinner > div {
                     width: 18px;
                     height: 18px;
-                    background-color: #119DFF;
+                    background-color: ${color};
                 
                     border-radius: 100%;
                     display: inline-block;
@@ -85,6 +85,7 @@ const DotSpinner = ({status, fullscreen, debug}) => {
 
 DotSpinner.propTypes = {
     status: PropTypes.object,
+    color: PropTypes.string,
     fullscreen: PropTypes.bool,
     debug: PropTypes.bool,
 };
