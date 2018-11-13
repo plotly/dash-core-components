@@ -10,22 +10,22 @@ const LoadingDemo = () => {
     };
     return (
         <Tabs>
-            <Tab value='tab-1' label='All Spinners (no fullscreen, debug)'>
-                <div>
-                    <Loading status={status} debug={true} type="default" />
-                    <Loading status={status} debug={true} type="circle" />
-                    <Loading status={status} debug={true} type="dot" />
-                    <Loading status={status} debug={true} type="cube" />
-                    <Loading status={status} debug={true} type="graph" />
-                </div>
-            </Tab>
-            <Tab value='tab-2' label='All Spinners (no fullscreen)'>
+            <Tab value='tab-1' label='All Spinners (no fullscreen)'>
                 <div>
                     <Loading status={status} type="default" />
                     <Loading status={status} type="circle" />
                     <Loading status={status} type="dot" />
                     <Loading status={status} type="cube" />
                     <Loading status={status} type="graph" />
+                </div>
+            </Tab>
+            <Tab value='tab-2' label='All Spinners (no fullscreen, debug)'>
+                <div>
+                    <Loading status={status} debug={true} type="default" />
+                    <Loading status={status} debug={true} type="circle" />
+                    <Loading status={status} debug={true} type="dot" />
+                    <Loading status={status} debug={true} type="cube" />
+                    <Loading status={status} debug={true} type="graph" />
                 </div>
             </Tab>
             <Tab value='tab-3' label='Fullscreen Default spinner'>
@@ -40,7 +40,7 @@ const LoadingDemo = () => {
             <Tab value='tab-6' label='Fullscreen Graph spinner'>
                 <Loading status={status} type="graph" fullscreen={true} />
             </Tab>
-            <Tab value='tab-6' label='Fullscreen Cube spinner'>
+            <Tab value='tab-7' label='Fullscreen Cube spinner'>
                 <Loading status={status} type="cube" fullscreen={true} />
             </Tab>
         </Tabs>
