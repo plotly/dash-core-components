@@ -1468,3 +1468,39 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#content', 'Logged out')
 
         self.assertFalse(self.driver.get_cookie('logout-cookie'))
+
+    def test_lose_focus_input(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Input(
+                id='input',
+                value='initial value'
+            ),
+            dcc.Input(id='input-2'),
+            html.Div(
+                html.Div([
+                    1.5,
+                    None,
+                    'string',
+                    html.Div(id='output-1')
+                ])
+            )
+        ])
+
+        @app.callback(Output('output-1', 'children'), [Input('input', 'value')])
+        def update_output(value):
+            return value
+
+        self.startServer(app)
+
+        self.wait_for_text_to_equal('#output-1', 'initial value')
+
+        input1 = self.wait_for_element_by_css_selector('#input')
+        input1.clear()
+        input2 = self.wait_for_element_by_css_selector('#input-2')
+        input2.send_keys('bad')
+
+        input1.send_keys('hello world')
+        time.sleep(1)
+
+        self.assertEqual('hello world', input1.get_attribute('value'))
