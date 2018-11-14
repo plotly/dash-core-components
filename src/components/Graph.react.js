@@ -69,11 +69,6 @@ export default class PlotlyGraph extends Component {
         super(props);
         this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
-
-        this.state = {
-            id: this.props.id ? this.props.id : this.generateId(),
-        };
-        window.console.log('constructor', this.props.id, this.state.id);
     }
 
     generateId() {
@@ -88,8 +83,7 @@ export default class PlotlyGraph extends Component {
     }
 
     plot(props) {
-        const {figure, animate, animation_options, config} = props;
-        const {id} = this.state;
+        const {figure, id, animate, animation_options, config} = props;
         const gd = document.getElementById(id);
 
         if (
@@ -111,8 +105,7 @@ export default class PlotlyGraph extends Component {
     }
 
     bindEvents() {
-        const {fireEvent, setProps, clear_on_unhover} = this.props;
-        const {id} = this.state;
+        const {fireEvent, id, setProps, clear_on_unhover} = this.props;
 
         const gd = document.getElementById(id);
 
@@ -195,7 +188,7 @@ export default class PlotlyGraph extends Component {
     componentDidMount() {
         this.plot(this.props).then(() => {
             window.addEventListener('resize', () => {
-                Plotly.Plots.resize(document.getElementById(this.state.id));
+                Plotly.Plots.resize(document.getElementById(this.props.id));
             });
         });
     }
@@ -208,46 +201,44 @@ export default class PlotlyGraph extends Component {
 
     shouldComponentUpdate(nextProps) {
         return (
-            this.state.id !== nextProps.id ||
+            this.props.id !== nextProps.id ||
             JSON.stringify(this.props.style) !== JSON.stringify(nextProps.style)
         );
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState(
-            {
-                id: nextProps.id,
-            },
-            () => {
-                const idChanged = this.state.id !== nextProps.id;
-                if (idChanged) {
-                    /*
+        const idChanged = this.props.id !== nextProps.id;
+        if (idChanged) {
+            /*
              * then the dom needs to get re-rendered with a new ID.
              * the graph will get updated in componentDidUpdate
              */
-                    return;
-                }
+            return;
+        }
 
-                const figureChanged = this.props.figure !== nextProps.figure;
+        const figureChanged = this.props.figure !== nextProps.figure;
 
-                if (figureChanged) {
-                    this.plot(nextProps);
-                }
-            }
-        );
+        if (figureChanged) {
+            this.plot(nextProps);
+        }
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.id !== this.state.id) {
+        if (prevProps.id !== this.props.id) {
             this.plot(this.props);
         }
     }
 
     render() {
-        const {className, style} = this.props;
-        const {id} = this.state;
+        const {className, id, style} = this.props;
+        let newId = id;
+        if (!id) {
+            newId = this.generateId();
+        }
 
-        return <div key={id} id={id} style={style} className={className} />;
+        return (
+            <div key={newId} id={newId} style={style} className={className} />
+        );
     }
 }
 
