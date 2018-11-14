@@ -70,7 +70,9 @@ export default class PlotlyGraph extends Component {
         this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
 
-        this.props.id = this.props.id ? this.props.id : this.generateId();
+        this.state = {
+            id: this.props.id ? this.props.id : this.generateId()
+        }
     }
 
     generateId() {
@@ -85,7 +87,8 @@ export default class PlotlyGraph extends Component {
     }
 
     plot(props) {
-        const {id, figure, animate, animation_options, config} = props;
+        const {figure, animate, animation_options, config} = props;
+        const {id} = this.state;
         const gd = document.getElementById(id);
 
         if (
@@ -107,7 +110,8 @@ export default class PlotlyGraph extends Component {
     }
 
     bindEvents() {
-        const {id, fireEvent, setProps, clear_on_unhover} = this.props;
+        const {fireEvent, setProps, clear_on_unhover} = this.props;
+        const {id} = this.state;
 
         const gd = document.getElementById(id);
 
@@ -190,7 +194,7 @@ export default class PlotlyGraph extends Component {
     componentDidMount() {
         this.plot(this.props).then(() => {
             window.addEventListener('resize', () => {
-                Plotly.Plots.resize(document.getElementById(this.props.id));
+                Plotly.Plots.resize(document.getElementById(this.state.id));
             });
         });
     }
@@ -203,13 +207,13 @@ export default class PlotlyGraph extends Component {
 
     shouldComponentUpdate(nextProps) {
         return (
-            this.props.id !== nextProps.id ||
+            this.state.id !== nextProps.id ||
             JSON.stringify(this.props.style) !== JSON.stringify(nextProps.style)
         );
     }
 
     componentWillReceiveProps(nextProps) {
-        const idChanged = this.props.id !== nextProps.id;
+        const idChanged = this.state.id !== nextProps.id;
         if (idChanged) {
             /*
              * then the dom needs to get re-rendered with a new ID.
@@ -226,13 +230,14 @@ export default class PlotlyGraph extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.id !== this.props.id) {
+        if (prevProps.id !== this.state.id) {
             this.plot(this.props);
         }
     }
 
     render() {
-        const {className, id, style} = this.props;
+        const {className, style} = this.props;
+        const {id} = this.state;
 
         return <div key={id} id={id} style={style} className={className} />;
     }
