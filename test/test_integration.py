@@ -30,6 +30,7 @@ except ImportError:
     from urllib.parse import urlparse
 
 from .IntegrationTests import IntegrationTests
+from .utils import wait_for
 
 from multiprocessing import Value
 
@@ -1508,3 +1509,102 @@ class Tests(IntegrationTests):
         time.sleep(1)
 
         self.assertEqual('hello world', input1.get_attribute('value'))
+
+    def test_chained_dependencies_direct_lineage(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Input(id='input-1', value='input 1'),
+            dcc.Input(id='input-2'),
+            html.Div('test', id='output')
+        ])
+        input1 = lambda: self.driver.find_element_by_id('input-1')
+        input2 = lambda: self.driver.find_element_by_id('input-2')
+        output = lambda: self.driver.find_element_by_id('output')
+
+        call_counts = {
+            'output': Value('i', 0),
+            'input-2': Value('i', 0)
+        }
+
+        @app.callback(Output('input-2', 'value'), [Input('input-1', 'value')])
+        def update_input(input1):
+            call_counts['input-2'].value += 1
+            return '<<{}>>'.format(input1)
+
+        @app.callback(Output('output', 'children'), [
+            Input('input-1', 'value'),
+            Input('input-2', 'value')
+        ])
+        def update_output(input1, input2):
+            call_counts['output'].value += 1
+            return '{} + {}'.format(input1, input2)
+
+        self.startServer(app)
+
+        wait_for(lambda: call_counts['output'].value == 1)
+        wait_for(lambda: call_counts['input-2'].value == 1)
+        self.assertEqual(input1().get_attribute('value'), 'input 1')
+        self.assertEqual(input2().get_attribute('value'), '<<input 1>>')
+        self.assertEqual(output().text, 'input 1 + <<input 1>>')
+
+        input1().send_keys('x')
+        wait_for(lambda: call_counts['output'].value == 2)
+        wait_for(lambda: call_counts['input-2'].value == 2)
+        self.assertEqual(input1().get_attribute('value'), 'input 1x')
+        self.assertEqual(input2().get_attribute('value'), '<<input 1x>>')
+        self.assertEqual(output().text, 'input 1x + <<input 1x>>')
+
+        input2().send_keys('y')
+        wait_for(lambda: call_counts['output'].value == 3)
+        wait_for(lambda: call_counts['input-2'].value == 2)
+        self.assertEqual(input1().get_attribute('value'), 'input 1x')
+        self.assertEqual(input2().get_attribute('value'), '<<input 1x>>y')
+        self.assertEqual(output().text, 'input 1x + <<input 1x>>y')
+
+    def test_state_and_inputs(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Input(value='Initial Input', id='input'),
+            dcc.Input(value='Initial State', id='state'),
+            html.Div(id='output')
+        ])
+
+        call_count = Value('i', 0)
+
+        @app.callback(Output('output', 'children'),
+                      inputs=[Input('input', 'value')],
+                      state=[State('state', 'value')])
+        def update_output(input, state):
+            call_count.value += 1
+            return 'input="{}", state="{}"'.format(input, state)
+
+        self.startServer(app)
+        output = lambda: self.driver.find_element_by_id('output')
+        input = lambda: self.driver.find_element_by_id('input')
+        state = lambda: self.driver.find_element_by_id('state')
+
+        # callback gets called with initial input
+        self.assertEqual(call_count.value, 1)
+        self.assertEqual(
+            output().text,
+            'input="Initial Input", state="Initial State"'
+        )
+
+        input().send_keys('x')
+        wait_for(lambda: call_count.value == 2)
+        self.assertEqual(
+            output().text,
+            'input="Initial Inputx", state="Initial State"')
+
+        state().send_keys('x')
+        time.sleep(0.75)
+        self.assertEqual(call_count.value, 2)
+        self.assertEqual(
+            output().text,
+            'input="Initial Inputx", state="Initial State"')
+
+        input().send_keys('y')
+        wait_for(lambda: call_count.value == 3)
+        self.assertEqual(
+            output().text,
+            'input="Initial Inputxy", state="Initial Statex"')
