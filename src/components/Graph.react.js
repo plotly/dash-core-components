@@ -71,8 +71,8 @@ export default class PlotlyGraph extends Component {
         this._hasPlotted = false;
 
         this.state = {
-            id: this.props.id ? this.props.id : this.generateId()
-        }
+            id: this.props.id ? this.props.id : this.generateId(),
+        };
     }
 
     generateId() {
