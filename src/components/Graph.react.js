@@ -64,22 +64,27 @@ const filterEventData = (gd, eventData, event) => {
     return filteredEventData;
 };
 
-export default class PlotlyGraph extends Component {
+function generateId() {
+    const charAmount = 36;
+    const length = 7;
+    return (
+        'graph-' +
+        Math.random()
+            .toString(charAmount)
+            .substring(2, length)
+    );
+}
+
+const GraphWithDefaults = props => {
+    const id = props.id ? props.id : generateId();
+    return <PlotlyGraph {...props} id={id} />;
+};
+
+class PlotlyGraph extends Component {
     constructor(props) {
         super(props);
         this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
-    }
-
-    generateId() {
-        const charAmount = 36;
-        const length = 7;
-        return (
-            'graph-' +
-            Math.random()
-                .toString(charAmount)
-                .substring(2, length)
-        );
     }
 
     plot(props) {
@@ -231,18 +236,12 @@ export default class PlotlyGraph extends Component {
 
     render() {
         const {className, id, style} = this.props;
-        let newId = id;
-        if (!id) {
-            newId = this.generateId();
-        }
 
-        return (
-            <div key={newId} id={newId} style={style} className={className} />
-        );
+        return <div key={id} id={id} style={style} className={className} />;
     }
 }
 
-PlotlyGraph.propTypes = {
+const graphPropTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -510,7 +509,8 @@ PlotlyGraph.propTypes = {
     fireEvent: PropTypes.func,
 };
 
-PlotlyGraph.defaultProps = {
+const graphDefaultProps = {
+    id: generateId(),
     clickData: null,
     clickAnnotationData: null,
     hoverData: null,
@@ -566,3 +566,11 @@ PlotlyGraph.defaultProps = {
         mapboxAccessToken: null,
     },
 };
+
+GraphWithDefaults.propTypes = graphPropTypes;
+PlotlyGraph.propTypes = graphPropTypes;
+
+GraphWithDefaults.defaultProps = graphDefaultProps;
+PlotlyGraph.defaultProps = graphDefaultProps;
+
+export default GraphWithDefaults;
