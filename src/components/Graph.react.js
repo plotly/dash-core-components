@@ -70,7 +70,7 @@ export default class PlotlyGraph extends Component {
         this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
 
-        this.props.id = this.props.id? this.props.id : this.generateId()
+        this.props.id = this.props.id ? this.props.id : this.generateId();
     }
 
     generateId() {
@@ -82,7 +82,7 @@ export default class PlotlyGraph extends Component {
                 .toString(charAmount)
                 .substring(2, length)
         );
-    };
+    }
 
     plot(props) {
         const {id, figure, animate, animation_options, config} = props;
