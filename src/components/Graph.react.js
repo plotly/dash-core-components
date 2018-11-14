@@ -3,17 +3,6 @@ import PropTypes from 'prop-types';
 import {contains, filter, clone, has, isNil, type, omit} from 'ramda';
 /* global Plotly:true */
 
-const generateId = () => {
-    const charAmount = 36;
-    const length = 7;
-    return (
-        'graph-' +
-        Math.random()
-            .toString(charAmount)
-            .substring(2, length)
-    );
-};
-
 const filterEventData = (gd, eventData, event) => {
     let filteredEventData;
     if (contains(event, ['click', 'hover', 'selected'])) {
@@ -80,7 +69,20 @@ export default class PlotlyGraph extends Component {
         super(props);
         this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
+
+        this.props.id = this.props.id? this.props.id : this.generateId()
     }
+
+    generateId() {
+        const charAmount = 36;
+        const length = 7;
+        return (
+            'graph-' +
+            Math.random()
+                .toString(charAmount)
+                .substring(2, length)
+        );
+    };
 
     plot(props) {
         const {id, figure, animate, animation_options, config} = props;
@@ -505,7 +507,6 @@ PlotlyGraph.propTypes = {
 };
 
 PlotlyGraph.defaultProps = {
-    id: generateId(),
     clickData: null,
     clickAnnotationData: null,
     hoverData: null,

@@ -1123,6 +1123,13 @@
     "displayName": "PlotlyGraph",
     "methods": [
       {
+        "name": "generateId",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
         "name": "plot",
         "docblock": null,
         "modifiers": [],
@@ -1148,11 +1155,7 @@
           "name": "string"
         },
         "required": false,
-        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app.",
-        "defaultValue": {
-          "value": "generateId()",
-          "computed": true
-        }
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
       },
       "clickData": {
         "type": {
