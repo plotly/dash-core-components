@@ -2,13 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.37.2] - 2018-11-14
+## [0.38.1] - 2018-11-14
 ### :bug: Fixed
 - The issue [#115](https://github.com/plotly/dash-core-components/issues/115)
 with datepicker, which didn't appear when the date value is `None` was fixed.
 By default, current month would appear in such cases for
 `DatePickerRange` and `DatePickerSingle` components.
 See pull request https://github.com/plotly/dash-core-components/pull/201.
+## [0.38.0] - 2018-11-07
+### Fixed
+- Changed the way the default CSS files for some components are loaded to being loaded with webpack instead of as dependencies.
+
+## [0.37.2] - 2018-11-07
+### Changed
+- Updated `react-select` to version `2.1.0`
 
 ## [0.37.1] - 2018-11-07
 ### Added
@@ -403,6 +410,7 @@ As part of the plotly.js upgrade:
 - Broken sourcemaps for debugging.
 ### Added
 - Testing configuration for CHROMEPATH and SERVER_PROCESSES
+
 ## [0.22.1] - 2018-04-09
 ### Fixed
 - Various bugs with the `ohlc` and `candlestick` chart type in the `dcc.Graph`
