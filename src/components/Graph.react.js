@@ -73,6 +73,7 @@ export default class PlotlyGraph extends Component {
         this.state = {
             id: this.props.id ? this.props.id : this.generateId(),
         };
+        window.console.log('constructor', this.props.id, this.state.id);
     }
 
     generateId() {
@@ -213,20 +214,27 @@ export default class PlotlyGraph extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const idChanged = this.state.id !== nextProps.id;
-        if (idChanged) {
-            /*
+        this.setState(
+            {
+                id: nextProps.id,
+            },
+            () => {
+                const idChanged = this.state.id !== nextProps.id;
+                if (idChanged) {
+                    /*
              * then the dom needs to get re-rendered with a new ID.
              * the graph will get updated in componentDidUpdate
              */
-            return;
-        }
+                    return;
+                }
 
-        const figureChanged = this.props.figure !== nextProps.figure;
+                const figureChanged = this.props.figure !== nextProps.figure;
 
-        if (figureChanged) {
-            this.plot(nextProps);
-        }
+                if (figureChanged) {
+                    this.plot(nextProps);
+                }
+            }
+        );
     }
 
     componentDidUpdate(prevProps) {
