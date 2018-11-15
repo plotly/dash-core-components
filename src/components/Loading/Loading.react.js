@@ -11,19 +11,19 @@ import DotSpinner from './spinners/DotSpinner.jsx';
  */
 export default class Loading extends Component {
     render() {
-        const { status, color, fullscreen, debug } = this.props;
-        if (status && status.is_loading) {
+        const { loading_state, color, fullscreen, debug } = this.props;
+        if (loading_state&& loading_state.is_loading) {
             switch (this.props.type) {
                 case 'graph':
-                    return <GraphSpinner status={status} color={color} debug={debug} fullscreen={fullscreen}/>;
+                    return <GraphSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen}/>;
                 case 'cube':
-                    return <CubeSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return <CubeSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
                 case 'circle':
-                    return <CircleSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return <CircleSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
                 case 'dot':
-                    return <DotSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return <DotSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
                 default:
-                    return <DefaultSpinner status={status} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return <DefaultSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
             }
         }
         return this.props.children || null;
@@ -69,9 +69,9 @@ Loading.propTypes = {
     color: PropTypes.string,
 
     /**
-     * Object that holds the status object coming from dash-renderer
+     * Object that holds the loading state object coming from dash-renderer
      */
-    status: PropTypes.shape({
+    loading_state: PropTypes.shape({
         /**
          * Determines if the component is loading or not
          */

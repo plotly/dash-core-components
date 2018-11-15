@@ -15,7 +15,7 @@ Keyword arguments:
 - debug (boolean; optional): Boolean that determines if the loading spinner will display the status.prop_name and component_name
 - className (string; optional): Additional CSS class for the root DOM node
 - color (string; optional): Primary colour used for the loading spinners
-- status (optional): Object that holds the status object coming from dash-renderer. status has the following type: dict containing keys 'is_loading', 'prop_name', 'component_name'.
+- loading_state (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: dict containing keys 'is_loading', 'prop_name', 'component_name'.
 Those keys have the following types: 
   - is_loading (boolean; optional): Determines if the component is loading or not
   - prop_name (string; optional): Holds which property is loading
@@ -23,13 +23,13 @@ Those keys have the following types:
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, type=Component.UNDEFINED, fullscreen=Component.UNDEFINED, debug=Component.UNDEFINED, className=Component.UNDEFINED, color=Component.UNDEFINED, status=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'type', 'fullscreen', 'debug', 'className', 'color', 'status']
+    def __init__(self, children=None, id=Component.UNDEFINED, type=Component.UNDEFINED, fullscreen=Component.UNDEFINED, debug=Component.UNDEFINED, className=Component.UNDEFINED, color=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'type', 'fullscreen', 'debug', 'className', 'color', 'loading_state']
         self._type = 'Loading'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['children', 'id', 'type', 'fullscreen', 'debug', 'className', 'color', 'status']
+        self.available_properties = ['children', 'id', 'type', 'fullscreen', 'debug', 'className', 'color', 'loading_state']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

@@ -2144,7 +2144,7 @@
           "computed": false
         }
       },
-      "status": {
+      "loading_state": {
         "type": {
           "name": "shape",
           "value": {
@@ -2166,7 +2166,7 @@
           }
         },
         "required": false,
-        "description": "Object that holds the status object coming from dash-renderer"
+        "description": "Object that holds the loading state object coming from dash-renderer"
       }
     }
   },
