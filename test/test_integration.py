@@ -1306,3 +1306,13 @@ class Tests(IntegrationTests):
         list_btn.click()
         time.sleep(1)
         self.wait_for_text_to_equal('#output', json.dumps(nested_list))
+
+    def test_user_supplied_css(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div(className="test-input-css", children=[dcc.Input()])
+
+        self.startServer(app)
+
+        styled_input = self.wait_for_element_by_css_selector('.test-input-css')
+        self.snapshot('styled input - width should be 100%, border-color should be hotpink')
