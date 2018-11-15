@@ -1315,4 +1315,5 @@ class Tests(IntegrationTests):
         self.startServer(app)
 
         styled_input = self.wait_for_element_by_css_selector('.test-input-css')
+        time.sleep(10)
         self.snapshot('styled input - width should be 100%, border-color should be hotpink')
