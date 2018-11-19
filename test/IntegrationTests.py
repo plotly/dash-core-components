@@ -26,12 +26,12 @@ class IntegrationTests(unittest.TestCase):
 
         cls.driver = webdriver.Chrome(chrome_options=options)
         # Build a ResourceLoader that knows how to collect assets for this application.
-        root_static_dir = os.path.join(os.path.dirname(__file__), 'test')
+        root_static_dir = os.path.join(os.path.dirname(__file__), 'test/assets')
         loader = percy.ResourceLoader(
             root_dir=root_static_dir,
             # Prepend `/assets` to all of the files in the static directory, to match production assets.
             # This is only needed if your static assets are served from a nested directory.
-            # base_url='/assets',
+            base_url='/assets',
             webdriver=cls.driver,
         )
         cls.percy_runner = percy.Runner(loader=loader)
