@@ -510,7 +510,6 @@ const graphPropTypes = {
 };
 
 const graphDefaultProps = {
-    id: generateId(),
     clickData: null,
     clickAnnotationData: null,
     hoverData: null,
