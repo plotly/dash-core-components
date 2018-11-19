@@ -1308,7 +1308,7 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#output', json.dumps(nested_list))
 
     def test_user_supplied_css(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, assets_folder='test/assets')
 
         app.layout = html.Div(className="test-input-css", children=[dcc.Input()])
 
