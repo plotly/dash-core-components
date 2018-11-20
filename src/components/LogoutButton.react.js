@@ -1,25 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './css/logout.css';
+
 export default class LogoutButton extends React.Component {
     render() {
         const {id, logout_url, label, className, style} = this.props;
         return (
-            <form method='post' action={logout_url}>
+            <form
+                action={logout_url}
+                method="post"
+                className="dash-logout-frame"
+            >
                 <button
-                    className={className}
+                    className={`dash-logout-btn ${className}`}
                     style={style}
                     id={id}
-                    type='submit'>
+                    type="submit"
+                >
                     {label}
                 </button>
             </form>
         );
     }
-};
+}
 
 LogoutButton.defaultProps = {
-    label: 'Logout'
+    label: 'Logout',
 };
 
 LogoutButton.propTypes = {
