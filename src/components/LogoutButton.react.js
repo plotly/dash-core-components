@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import './css/logout.css';
 
+/**
+ * Logout button to submit a form post request to the `logout_url` prop.
+ */
 export default class LogoutButton extends React.Component {
     render() {
         const {id, logout_url, label, className, style} = this.props;
