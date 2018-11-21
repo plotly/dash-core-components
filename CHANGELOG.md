@@ -10,6 +10,7 @@ By default, current month would appear in such cases for
 `DatePickerRange` and `DatePickerSingle` components.
 See pull request https://github.com/plotly/dash-core-components/pull/201.
 - Refactored the way the Graph component would generate an unique id if none provided.
+- Default CSS imported via `style-loader` is now placed at top, so that user supplied CSS can overwrite it, fixes [#380](https://github.com/plotly/dash-core-components/issues/380)
 
 ## [0.38.0] - 2018-11-07
 ### Fixed
