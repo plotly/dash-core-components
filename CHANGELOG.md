@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.38.1] - 2018-11-21
+### Fixed
+- Refactored the way the Graph component would generate an unique id if none provided.
+- Default CSS imported via `style-loader` is now placed at top, so that user supplied CSS can overwrite it, fixes [#380](https://github.com/plotly/dash-core-components/issues/380)
+
 ## [0.38.0] - 2018-11-07
 ### Fixed
 - Changed the way the default CSS files for some components are loaded to being loaded with webpack instead of as dependencies.
