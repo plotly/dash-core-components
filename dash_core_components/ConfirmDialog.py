@@ -4,7 +4,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 
 
-schema = {'cancel_n_clicks': {'type': 'number'}, 'cancel_n_clicks_timestamp': {'type': 'number'}, 'submit_n_clicks': {'type': 'number'}, 'setProps': {}, 'displayed': {'anyof': [{'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}, {'type': 'boolean'}], 'nullable': True}, 'submit_n_clicks_timestamp': {'type': 'number'}, 'key': {'type': 'string'}, 'message': {'type': 'string'}, 'id': {'type': 'string'}}
+schema = {'cancel_n_clicks': {'required': False, 'type': 'number', 'nullable': False}, 'cancel_n_clicks_timestamp': {'required': False, 'type': 'number', 'nullable': False}, 'submit_n_clicks': {'required': False, 'type': 'number', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'displayed': {'required': False, 'anyof': [{'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}, {'type': 'boolean'}], 'nullable': True}, 'submit_n_clicks_timestamp': {'required': False, 'type': 'number', 'nullable': False}, 'key': {'required': False, 'type': 'string', 'nullable': False}, 'message': {'required': False, 'type': 'string', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}}
 
 class ConfirmDialog(Component):
     """A ConfirmDialog component.
