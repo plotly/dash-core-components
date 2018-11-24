@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {contains, filter, clone, has, isNil, type} from 'ramda';
+import {contains, filter, clone, has, isNil, type, omit} from 'ramda';
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
@@ -64,7 +64,23 @@ const filterEventData = (gd, eventData, event) => {
     return filteredEventData;
 };
 
-export default class PlotlyGraph extends Component {
+function generateId() {
+    const charAmount = 36;
+    const length = 7;
+    return (
+        'graph-' +
+        Math.random()
+            .toString(charAmount)
+            .substring(2, length)
+    );
+}
+
+const GraphWithDefaults = props => {
+    const id = props.id ? props.id : generateId();
+    return <PlotlyGraph {...props} id={id} />;
+};
+
+class PlotlyGraph extends Component {
     constructor(props) {
         super(props);
         this.bindEvents = this.bindEvents.bind(this);
@@ -72,7 +88,7 @@ export default class PlotlyGraph extends Component {
     }
 
     plot(props) {
-        const {id, figure, animate, animation_options, config} = props;
+        const {figure, id, animate, animation_options, config} = props;
         const gd = document.getElementById(id);
 
         if (
@@ -98,7 +114,7 @@ export default class PlotlyGraph extends Component {
     }
 
     bindEvents() {
-        const {id, fireEvent, setProps, clear_on_unhover} = this.props;
+        const {fireEvent, id, setProps, clear_on_unhover} = this.props;
 
         const gd = document.getElementById(id);
 
@@ -111,6 +127,18 @@ export default class PlotlyGraph extends Component {
                 if (fireEvent) {
                     fireEvent({event: 'click'});
                 }
+            }
+        });
+        gd.on('plotly_clickannotation', eventData => {
+            const clickAnnotationData = omit(
+                ['event', 'fullAnnotation'],
+                eventData
+            );
+            if (setProps) {
+                setProps({clickAnnotationData});
+            }
+            if (fireEvent) {
+                fireEvent({event: 'clickannotation'});
             }
         });
         gd.on('plotly_hover', eventData => {
@@ -217,7 +245,7 @@ export default class PlotlyGraph extends Component {
     }
 }
 
-PlotlyGraph.propTypes = {
+const graphPropTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -228,6 +256,11 @@ PlotlyGraph.propTypes = {
      * Data from latest click event
      */
     clickData: PropTypes.object,
+
+    /**
+     * Data from latest click annotation event
+     */
+    clickAnnotationData: PropTypes.object,
 
     /**
      * Data from latest hover event
@@ -462,6 +495,7 @@ PlotlyGraph.propTypes = {
      */
     dashEvents: PropTypes.oneOf([
         'click',
+        'clickannotation',
         'hover',
         'selected',
         'relayout',
@@ -479,15 +513,9 @@ PlotlyGraph.propTypes = {
     fireEvent: PropTypes.func,
 };
 
-PlotlyGraph.defaultProps = {
-    /* eslint-disable no-magic-numbers */
-    id:
-        'graph-' +
-        Math.random()
-            .toString(36)
-            .substring(2, 7),
-    /* eslint-enable no-magic-numbers */
+const graphDefaultProps = {
     clickData: null,
+    clickAnnotationData: null,
     hoverData: null,
     selectedData: null,
     relayoutData: null,
@@ -541,3 +569,11 @@ PlotlyGraph.defaultProps = {
         mapboxAccessToken: null,
     },
 };
+
+GraphWithDefaults.propTypes = graphPropTypes;
+PlotlyGraph.propTypes = graphPropTypes;
+
+GraphWithDefaults.defaultProps = graphDefaultProps;
+PlotlyGraph.defaultProps = graphDefaultProps;
+
+export default GraphWithDefaults;

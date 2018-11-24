@@ -25,7 +25,11 @@ class IntegrationTests(unittest.TestCase):
             options.binary_location = os.environ['DASH_TEST_CHROMEPATH']
 
         cls.driver = webdriver.Chrome(chrome_options=options)
-        loader = percy.ResourceLoader(webdriver=cls.driver)
+        loader = percy.ResourceLoader(
+            webdriver=cls.driver,
+            base_url='/assets',
+            root_dir='test/assets'
+        )
         cls.percy_runner = percy.Runner(loader=loader)
         cls.percy_runner.initialize_build()
 
@@ -39,13 +43,12 @@ class IntegrationTests(unittest.TestCase):
         pass
 
     def tearDown(self):
-        time.sleep(3)
         if platform.system() == 'Windows':
             requests.get('http://localhost:8050/stop')
         else:
             self.server_process.terminate()
         self.driver.back()
-        time.sleep(3)
+        time.sleep(1)
 
     def startServer(self, app):
         """
@@ -96,11 +99,10 @@ class IntegrationTests(unittest.TestCase):
         else:
             self.server_process = multiprocessing.Process(target=run)
             self.server_process.start()
-        time.sleep(5)
+        time.sleep(2)
 
         # Visit the dash page
         self.driver.get('http://localhost:8050')
-        self.driver.implicitly_wait(2)
 
         # # Inject an error and warning logger
         # logger = '''

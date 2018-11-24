@@ -3,6 +3,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 import React, {Component} from 'react';
+import './css/react-dates@12.3.0.css';
 
 /**
  * DatePickerRange is a tailor made component designed for selecting
@@ -144,9 +145,10 @@ export default class DatePickerRange extends Component {
                 initialVisibleMonth={() => {
                     if (initial_visible_month) {
                         return initial_visible_month;
-                    }
-                    if (focusedInput === 'endDate') {
+                    } else if (end_date && focusedInput === 'endDate') {
                         return end_date;
+                    } else if (start_date && focusedInput === 'startDate') {
+                        return start_date;
                     }
                     return start_date;
                 }}

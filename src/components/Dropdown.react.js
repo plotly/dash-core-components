@@ -3,6 +3,8 @@ import R, {omit} from 'ramda';
 import React, {Component} from 'react';
 import ReactDropdown from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
+import './css/react-virtualized-select@3.1.0.css';
+import './css/react-virtualized@9.9.0.css';
 
 // Custom tokenizer, see https://github.com/bvaughn/js-search/issues/43
 // Split on spaces
@@ -111,19 +113,19 @@ Dropdown.propTypes = {
     options: PropTypes.arrayOf(
         PropTypes.shape({
             /**
-             * The checkbox's label
+             * The dropdown's label
              */
             label: PropTypes.string,
 
             /**
-             * The value of the checkbox. This value
+             * The value of the dropdown. This value
              * corresponds to the items specified in the
              * `values` property.
              */
             value: PropTypes.string,
 
             /**
-             * If true, this checkbox is disabled and can't be clicked on.
+             * If true, this dropdown is disabled and items can't be selected.
              */
             disabled: PropTypes.bool,
         })

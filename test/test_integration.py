@@ -341,18 +341,51 @@ class Tests(IntegrationTests):
                 }
             ),
 
-            html.Label('DatePickerSingle'),
-            dcc.DatePickerSingle(
-                id='date-picker-single',
-                date=datetime(1997, 5, 10)
-            ),
+            html.Div([
+                html.Label('DatePickerSingle'),
+                dcc.DatePickerSingle(
+                    id='date-picker-single',
+                    date=datetime(1997, 5, 10)
+                ),
+                html.Div([
+                    html.Label('DatePickerSingle - empty input'),
+                    dcc.DatePickerSingle(),
+                ], id='dt-single-no-date-value'
+                ),
+                html.Div([
+                    html.Label('DatePickerSingle - initial visible month (May 97)'),
+                    dcc.DatePickerSingle(
+                        initial_visible_month=datetime(1997, 5, 10)
+                    ),
+                ], id='dt-single-no-date-value-init-month'
+                ),
+            ]),
 
-            html.Label('DatePickerRange'),
-            dcc.DatePickerRange(
-                id='date-picker-range',
-                start_date=datetime(1997, 5, 3),
-                end_date_placeholder_text='Select a date!'
-            ),
+            html.Div([
+                html.Label('DatePickerRange'),
+                dcc.DatePickerRange(
+                    id='date-picker-range',
+                    start_date=datetime(1997, 5, 3),
+                    end_date_placeholder_text='Select a date!'
+                ),
+                html.Div([
+                    html.Label('DatePickerRange - empty input'),
+                    dcc.DatePickerRange(
+                        start_date_placeholder_text='Start date',
+                        end_date_placeholder_text='End date'
+                    ),
+                ], id='dt-range-no-date-values'
+                ),
+                html.Div([
+                    html.Label('DatePickerRange - initial visible month (May 97)'),
+                    dcc.DatePickerRange(
+                        start_date_placeholder_text='Start date',
+                        end_date_placeholder_text='End date',
+                        initial_visible_month=datetime(1997, 5, 10)
+                    ),
+                ], id='dt-range-no-date-values-init-month'
+                ),
+            ]),
 
             html.Label('TextArea'),
             dcc.Textarea(
@@ -411,6 +444,42 @@ class Tests(IntegrationTests):
 
         self.snapshot('gallery - text input')
 
+        # DatePickerSingle and DatePickerRange test
+        # for issue with datepicker when date value is `None`
+        dt_input_1 = self.driver.find_element_by_css_selector(
+            '#dt-single-no-date-value #date'
+        )
+        dt_input_1.click()
+        self.snapshot('gallery - DatePickerSingle\'s datepicker '
+                      'when no date value and no initial month specified')
+        dt_input_1.send_keys("1997-05-03")
+
+        dt_input_2 = self.driver.find_element_by_css_selector(
+            '#dt-single-no-date-value-init-month #date'
+        )
+        dt_input_2.click()
+        self.snapshot('gallery - DatePickerSingle\'s datepicker '
+                      'when no date value, but initial month is specified')
+        dt_input_2.send_keys("1997-05-03")
+
+        dt_input_3 = self.driver.find_element_by_css_selector(
+            '#dt-range-no-date-values #endDate'
+        )
+        dt_input_3.click()
+        self.snapshot('gallery - DatePickerRange\'s datepicker '
+                      'when neither start date nor end date '
+                      'nor initial month is specified')
+        dt_input_3.send_keys("1997-05-03")
+
+        dt_input_4 = self.driver.find_element_by_css_selector(
+            '#dt-range-no-date-values-init-month #endDate'
+        )
+        dt_input_4.click()
+        self.snapshot('gallery - DatePickerRange\'s datepicker '
+                      'when neither start date nor end date is specified, '
+                      'but initial month is')
+        dt_input_4.send_keys("1997-05-03")
+
     def test_tabs_without_children(self):
         app = dash.Dash(__name__)
 
@@ -442,7 +511,7 @@ class Tests(IntegrationTests):
 
         selected_tab = self.wait_for_element_by_css_selector('#tab-1')
         selected_tab.click()
-        time.sleep(2)
+        time.sleep(1)
         self.wait_for_text_to_equal('#tabs-content', 'Test content 1')
 
     def test_tabs_with_children_undefined(self):
@@ -531,6 +600,7 @@ class Tests(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-one .main-svg"))
         )
 
+        time.sleep(1)
         self.snapshot("Tabs 1 rendered ")
 
         button_two.click()
@@ -540,6 +610,7 @@ class Tests(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-two .main-svg"))
         )
 
+        time.sleep(1)
         self.snapshot("Tabs 2 rendered ")
 
     def test_tabs_without_value(self):
@@ -853,11 +924,11 @@ class Tests(IntegrationTests):
         button = self.wait_for_element_by_css_selector('#button')
         self.snapshot('candlestick - initial')
         button.click()
-        time.sleep(2)
+        time.sleep(1)
         self.snapshot('candlestick - 1 click')
 
         button.click()
-        time.sleep(2)
+        time.sleep(1)
         self.snapshot('candlestick - 2 click')
 
     def test_graphs_with_different_figures(self):
@@ -897,6 +968,20 @@ class Tests(IntegrationTests):
         self.startServer(app=app)
 
         self.snapshot('2 graphs with different figures')
+
+    def test_graphs_without_ids(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Graph(className='graph-no-id-1'),
+            dcc.Graph(className='graph-no-id-2'),
+        ])
+
+        self.startServer(app=app)
+
+        graph_1 = self.wait_for_element_by_css_selector('.graph-no-id-1')
+        graph_2 = self.wait_for_element_by_css_selector('.graph-no-id-2')
+
+        self.assertNotEqual(graph_1.get_attribute('id'), graph_2.get_attribute('id'))
 
     def test_datepickerrange_updatemodes(self):
         app = dash.Dash(__name__)
@@ -1251,7 +1336,7 @@ class Tests(IntegrationTests):
         ts = int(time.time() * 1000)
         time.sleep(1)
         self.driver.refresh()
-        time.sleep(3)
+        time.sleep(2)
         init = self.wait_for_element_by_css_selector('#init-output')
         init = json.loads(init.text)
         self.assertAlmostEqual(ts, init.get('ts'), delta=1000)
@@ -1297,10 +1382,20 @@ class Tests(IntegrationTests):
         list_btn = self.wait_for_element_by_css_selector('#list-btn')
 
         obj_btn.click()
-        time.sleep(3)
+        time.sleep(1)
         self.wait_for_text_to_equal('#output', json.dumps(nested))
         # it would of crashed the app before adding the recursive check.
 
         list_btn.click()
-        time.sleep(3)
+        time.sleep(1)
         self.wait_for_text_to_equal('#output', json.dumps(nested_list))
+
+    def test_user_supplied_css(self):
+        app = dash.Dash(assets_folder='test/assets')
+
+        app.layout = html.Div(className="test-input-css", children=[dcc.Input()])
+
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector('.test-input-css')
+        self.snapshot('styled input - width: 100%, border-color: hotpink')

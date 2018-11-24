@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {omit} from 'ramda';
+import {omit, isEmpty} from 'ramda';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -12,42 +12,106 @@ import {omit} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: props.value};
+        if (!props.setProps || props.debounce) {
+            this.state = {value: props.value};
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({value: nextProps.value});
+        if (this.props.setProps) {
+            this.props = nextProps;
+            if (this.props.debounce) {
+                this.setState({
+                    value: nextProps.value,
+                });
+            }
+        }
     }
 
     render() {
-        const {fireEvent, setProps, type} = this.props;
-        const {value} = this.state;
+        const {fireEvent, setProps, type, min, max, debounce} = this.props;
+        const {value} = setProps
+            ? debounce
+                ? this.state
+                : this.props
+            : this.state;
         return (
             <input
                 onChange={e => {
-                    this.setState({value: e.target.value});
-                    if (setProps) {
-                        if (type === 'number') {
-                            setProps({value: Number(e.target.value)});
-                        } else {
-                            setProps({value: e.target.value});
-                        }
+                    const newValue = e.target.value;
+                    if (
+                        (!isEmpty(min) && Number(newValue) < min) ||
+                        (!isEmpty(max) && Number(newValue) > max)
+                    ) {
+                        return;
                     }
                     if (fireEvent) {
                         fireEvent({event: 'change'});
+                    }
+                    if (!debounce && setProps) {
+                        const castValue =
+                            type === 'number' ? Number(newValue) : newValue;
+                        setProps({
+                            value: castValue,
+                        });
+                    } else {
+                        this.setState({value: newValue});
                     }
                 }}
                 onBlur={() => {
                     if (fireEvent) {
                         fireEvent({event: 'blur'});
                     }
+                    if (setProps) {
+                        const castValue =
+                            type === 'number' ? Number(value) : value;
+                        setProps({
+                            n_blur: this.props.n_blur + 1,
+                            n_blur_timestamp: new Date(),
+                            value: castValue,
+                        });
+                    }
+                }}
+                onKeyPress={e => {
+                    if (setProps && e.key === 'Enter') {
+                        const castValue =
+                            type === 'number' ? Number(value) : value;
+                        setProps({
+                            n_submit: this.props.n_submit + 1,
+                            n_submit_timestamp: new Date(),
+                            value: castValue,
+                        });
+                    }
                 }}
                 value={value}
-                {...omit(['fireEvent', 'setProps', 'value'], this.props)}
+                {...omit(
+                    [
+                        'debounce',
+                        'fireEvent',
+                        'value',
+                        'n_blur',
+                        'n_blur_timestamp',
+                        'n_submit',
+                        'n_submit_timestamp',
+                        'selectionDirection',
+                        'selectionEnd',
+                        'selectionStart',
+                        'setProps',
+                    ],
+                    this.props
+                )}
             />
         );
     }
 }
+
+Input.defaultProps = {
+    n_blur: 0,
+    n_blur_timestamp: -1,
+    n_submit: 0,
+    n_submit_timestamp: -1,
+    debounce: false,
+};
 
 Input.propTypes = {
     /**
@@ -73,10 +137,16 @@ Input.propTypes = {
     className: PropTypes.string,
 
     /**
+     * If true, changes to input will be sent back to the Dash server only on enter or when losing focus.
+     * If it's false, it will sent the value back on every change.
+     */
+    debounce: PropTypes.bool,
+
+    /**
      * The type of control to render.
      */
     type: PropTypes.oneOf([
-        // Only allowing the input types with wide browser compatability
+        // Only allowing the input types with wide browser compatibility
         'text',
         'number',
         'password',
@@ -193,7 +263,7 @@ Input.propTypes = {
     /**
      * This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
      */
-    multiple: PropTypes.string,
+    multiple: PropTypes.bool,
 
     /**
      * The name of the control, which is submitted with the form data.
@@ -213,7 +283,7 @@ Input.propTypes = {
     /**
      * This attribute indicates that the user cannot modify the value of the control. The value of the attribute is irrelevant. If you need read-write access to the input value, do not add the "readonly" attribute. It is ignored if the value of the type attribute is hidden, range, color, checkbox, radio, file, or a button type (such as button or submit).
      */
-    readonly: PropTypes.string,
+    readOnly: PropTypes.string,
 
     /**
      * This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS pseudo-classes will be applied to the field as appropriate.
@@ -243,12 +313,30 @@ Input.propTypes = {
     /**
      * Setting the value of this attribute to true indicates that the element needs to have its spelling and grammar checked. The value default indicates that the element is to act according to a default behavior, possibly based on the parent element's own spellcheck value. The value false indicates that the element should not be checked.
      */
-    spellcheck: PropTypes.string,
+    spellCheck: PropTypes.string,
 
     /**
      * Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
      */
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     * Number of times the `Enter` key was pressed while the input had focus.
+     */
+    n_submit: PropTypes.number,
+    /**
+     * Last time that `Enter` was pressed.
+     */
+    n_submit_timestamp: PropTypes.number,
+
+    /**
+     * Number of times the input lost focus.
+     */
+    n_blur: PropTypes.number,
+    /**
+     * Last time the input lost focus.
+     */
+    n_blur_timestamp: PropTypes.number,
 
     /**
      * Dash-assigned callback that gets fired when the input changes.

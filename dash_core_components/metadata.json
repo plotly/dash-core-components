@@ -1134,17 +1134,17 @@
             "value": {
               "label": {
                 "name": "string",
-                "description": "The checkbox's label",
+                "description": "The dropdown's label",
                 "required": false
               },
               "value": {
                 "name": "string",
-                "description": "The value of the checkbox. This value\ncorresponds to the items specified in the\n`values` property.",
+                "description": "The value of the dropdown. This value\ncorresponds to the items specified in the\n`values` property.",
                 "required": false
               },
               "disabled": {
                 "name": "bool",
-                "description": "If true, this checkbox is disabled and can't be clicked on.",
+                "description": "If true, this dropdown is disabled and items can't be selected.",
                 "required": false
               }
             }
@@ -1267,39 +1267,15 @@
   },
   "src/components/Graph.react.js": {
     "description": "",
-    "displayName": "PlotlyGraph",
-    "methods": [
-      {
-        "name": "plot",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "props",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "bindEvents",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
+    "displayName": "GraphWithDefaults",
+    "methods": [],
     "props": {
       "id": {
         "type": {
           "name": "string"
         },
         "required": false,
-        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app.",
-        "defaultValue": {
-          "value": "'graph-' +\nMath.random()\n    .toString(36)\n    .substring(2, 7)",
-          "computed": false
-        }
+        "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
       },
       "clickData": {
         "type": {
@@ -1307,6 +1283,17 @@
         },
         "required": false,
         "description": "Data from latest click event",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "clickAnnotationData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Data from latest click annotation event",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1618,6 +1605,10 @@
               "computed": false
             },
             {
+              "value": "'clickannotation'",
+              "computed": false
+            },
+            {
               "value": "'hover'",
               "computed": false
             },
@@ -1694,6 +1685,17 @@
         },
         "required": false,
         "description": "The class of the input element"
+      },
+      "debounce": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, changes to input will be sent back to the Dash server only on enter or when losing focus.\nIf it's false, it will sent the value back on every change.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       },
       "type": {
         "type": {
@@ -1883,7 +1885,7 @@
       },
       "multiple": {
         "type": {
-          "name": "string"
+          "name": "bool"
         },
         "required": false,
         "description": "This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored."
@@ -1909,7 +1911,7 @@
         "required": false,
         "description": "A hint to the user of what can be entered in the control . The placeholder text must not contain carriage returns or line-feeds. Note: Do not use the placeholder attribute instead of a <label> element, their purposes are different. The <label> attribute describes the role of the form element (i.e. it indicates what kind of information is expected), and the placeholder attribute is a hint about the format that the content should take. There are cases in which the placeholder attribute is never displayed to the user, so the form must be understandable without it."
       },
-      "readonly": {
+      "readOnly": {
         "type": {
           "name": "string"
         },
@@ -1975,7 +1977,7 @@
         "required": false,
         "description": "The initial size of the control. This value is in pixels unless the value of the type attribute is text or password, in which case it is an integer number of characters. Starting in, this attribute applies only when the type attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be greater than zero. If you do not specify a size, a default value of 20 is used.' simply states \"the user agent should ensure that at least that many characters are visible\", but different characters can have different widths in certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is defined to at least x."
       },
-      "spellcheck": {
+      "spellCheck": {
         "type": {
           "name": "string"
         },
@@ -1996,6 +1998,50 @@
         },
         "required": false,
         "description": "Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum."
+      },
+      "n_submit": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the `Enter` key was pressed while the input had focus.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_submit_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time that `Enter` was pressed.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
+      },
+      "n_blur": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Number of times the input lost focus.",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "n_blur_timestamp": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Last time the input lost focus.",
+        "defaultValue": {
+          "value": "-1",
+          "computed": false
+        }
       },
       "fireEvent": {
         "type": {
