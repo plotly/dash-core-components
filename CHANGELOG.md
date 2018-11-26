@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.38.2] - 2018-11-26
+### Fixed
+- Fixed issue [#390](https://github.com/plotly/dash-core-components/issues/390) by providing better styles for vertical Tabs.
+
 ## [0.38.1] - 2018-11-14
 ### Fixed
 - The issue [#115](https://github.com/plotly/dash-core-components/issues/115)
