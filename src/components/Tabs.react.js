@@ -92,7 +92,9 @@ const EnhancedTab = ({
                     .tab {
                         border: 1px solid ${colors.border};
                         border-right: none;
-                        width: calc(100% / ${amountOfTabs});
+                        ${vertical
+                            ? ''
+                            : `width: calc(100% / ${amountOfTabs});`};
                     }
                     .tab--selected,
                     .tab:last-of-type.tab--selected {
@@ -301,14 +303,12 @@ export default class Tabs extends Component {
                             border-left: 2px solid ${this.props.colors.primary};
                             border-right: none;
                         }
-
                         .tab-container {
                             flex-direction: row;
                         }
                         .tab-container--vert {
                             flex-direction: column;
                         }
-
                         .tab-parent--vert {
                             display: inline-flex;
                             flex-direction: row;
