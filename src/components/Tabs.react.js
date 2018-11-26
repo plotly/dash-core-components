@@ -100,7 +100,7 @@ const EnhancedTab = ({
                     .tab:last-of-type.tab--selected {
                         border-bottom: none;
                         ${vertical
-                            ? ''
+                            ? `border-left: 2px solid ${colors.primary};`
                             : `border-top: 2px solid ${colors.primary};`};
                     }
                 }
