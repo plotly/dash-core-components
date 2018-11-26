@@ -21,6 +21,7 @@ const EnhancedTab = ({
     mobile_breakpoint,
     amountOfTabs,
     colors,
+    vertical,
 }) => {
     let tabStyle = style;
     if (disabled) {
@@ -96,7 +97,9 @@ const EnhancedTab = ({
                     .tab--selected,
                     .tab:last-of-type.tab--selected {
                         border-bottom: none;
-                        border-top: 2px solid ${colors.primary};
+                        ${vertical
+                            ? ''
+                            : `border-top: 2px solid ${colors.primary};`};
                     }
                 }
             `}</style>
@@ -221,6 +224,7 @@ export default class Tabs extends Component {
                         disabled_style={childProps.disabled_style}
                         disabled_classname={childProps.disabled_className}
                         mobile_breakpoint={this.props.mobile_breakpoint}
+                        vertical={this.props.vertical}
                         amountOfTabs={amountOfTabs}
                         colors={this.props.colors}
                     />
@@ -273,10 +277,10 @@ export default class Tabs extends Component {
                     }
                     .tab-container {
                         display: flex;
+                        flex-direction: column;
                     }
                     .tab-container--vert {
                         display: inline-flex;
-                        flex-direction: column;
                     }
                     .tab-content--vert {
                         display: inline-flex;
@@ -293,9 +297,16 @@ export default class Tabs extends Component {
                             border-bottom: 1px solid ${this.props.colors.border} !important;
                         }
                         :global(.tab-container--vert .tab--selected) {
-                            border: 1px solid ${this.props.colors.border};
+                            border-top: 1px solid ${this.props.colors.border};
                             border-left: 2px solid ${this.props.colors.primary};
                             border-right: none;
+                        }
+
+                        .tab-container {
+                            flex-direction: row;
+                        }
+                        .tab-container--vert {
+                            flex-direction: column;
                         }
 
                         .tab-parent--vert {
@@ -316,6 +327,7 @@ Tabs.defaultProps = {
         primary: '#1975FA',
         background: '#f9f9f9',
     },
+    vertical: false,
 };
 
 Tabs.propTypes = {

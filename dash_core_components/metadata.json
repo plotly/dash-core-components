@@ -3048,7 +3048,11 @@
           "name": "bool"
         },
         "required": false,
-        "description": "Renders the tabs vertically (on the side)"
+        "description": "Renders the tabs vertically (on the side)",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       },
       "mobile_breakpoint": {
         "type": {
