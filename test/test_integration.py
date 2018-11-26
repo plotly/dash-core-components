@@ -488,7 +488,7 @@ class Tests(IntegrationTests):
                 dcc.Tab(label='Tab one', value='tab-1', id='tab-1'),
                 dcc.Tab(label='Tab two', value='tab-2', id='tab-2'),
                 dcc.Tab(label='Tab three', value='tab-3', id='tab-3'),
-                ]),
+                ], vertical=True),
             html.Div(id='tabs-content')
         ])
 
