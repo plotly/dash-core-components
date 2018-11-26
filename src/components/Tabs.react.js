@@ -293,7 +293,7 @@ export default class Tabs extends Component {
                         :global(.tab-container--vert .tab) {
                             width: auto;
                             border-right: none !important;
-                            border-bottom: none;
+                            border-bottom: none !important;
                         }
                         :global(.tab-container--vert .tab:last-of-type) {
                             border-bottom: 1px solid ${this.props.colors.border} !important;
