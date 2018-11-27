@@ -13,7 +13,7 @@ function DashMarkdown(props) {
         props.children = props.children.join('\n');
     }
 
-    return <Markdown source={props.children} escapeHtml={true} {...props} />;
+    return <Markdown source={props.children} {...props} />;
 }
 
 DashMarkdown.propTypes = {
@@ -28,6 +28,11 @@ DashMarkdown.propTypes = {
      * element such as id or style
      */
     containerProps: PropTypes.object,
+
+    /**
+     * A boolean to control raw HTML escaping
+     */
+    escapeHtml: PropTypes.bool,
 
     /**
      * A markdown string (or array of strings) that adhreres to the CommonMark spec
