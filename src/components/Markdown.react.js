@@ -30,9 +30,12 @@ DashMarkdown.propTypes = {
     containerProps: PropTypes.object,
 
     /**
-     * A boolean to control raw HTML escaping
+     * A boolean to control raw HTML escaping.
+     * Setting HTML from code is risky because it's easy to 
+     * inadvertently expose your users to a cross-site scripting (XSS)
+     * (https://en.wikipedia.org/wiki/Cross-site_scripting) attack.
      */
-    escapeHtml: PropTypes.bool,
+    dangerouslyEscapeHtml: PropTypes.bool,
 
     /**
      * A markdown string (or array of strings) that adhreres to the CommonMark spec
