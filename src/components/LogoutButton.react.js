@@ -8,11 +8,23 @@ import './css/logout.css';
  */
 export default class LogoutButton extends React.Component {
     render() {
-        const {id, logout_url, label, className, style} = this.props;
+        const {id, logout_url, label, className, style, method} = this.props;
+
+        let url, submitMethod;
+        if (!logout_url) {
+            url =
+                logout_url ||
+                'https://dash.plot.ly/dash-core-components/logout_button';
+            submitMethod = 'get';
+        } else {
+            url = logout_url;
+            submitMethod = method;
+        }
+
         return (
             <form
-                action={logout_url}
-                method="post"
+                action={url}
+                method={submitMethod}
                 className="dash-logout-frame"
             >
                 <button
@@ -30,6 +42,7 @@ export default class LogoutButton extends React.Component {
 
 LogoutButton.defaultProps = {
     label: 'Logout',
+    method: 'post',
 };
 
 LogoutButton.propTypes = {
@@ -50,6 +63,10 @@ LogoutButton.propTypes = {
      * Style of the button
      */
     style: PropTypes.object,
+    /**
+     * Http method to submit the logout form.
+     */
+    method: PropTypes.string,
     /**
      * CSS class for the button.
      */
