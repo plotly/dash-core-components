@@ -2159,6 +2159,17 @@
         "required": false,
         "description": "Style of the button"
       },
+      "method": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Http method to submit the logout form.",
+        "defaultValue": {
+          "value": "'post'",
+          "computed": false
+        }
+      },
       "className": {
         "type": {
           "name": "string"
