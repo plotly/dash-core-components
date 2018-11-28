@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Updated `react-virtualized-select` to `^3.1.3`
 - Upgraded `babel` and dependencies to `7.1.5`
 - Upgraded `enzyme` and dependencies to `3.7.0`
+- Removed `react-select` because it's unused - we're using `react-virtualized-select` instead.
 
 ## [0.38.1] - 2018-11-14
 ### Fixed
