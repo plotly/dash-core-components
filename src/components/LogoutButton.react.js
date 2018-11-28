@@ -16,7 +16,7 @@ export default class LogoutButton extends React.Component {
                 className="dash-logout-frame"
             >
                 <button
-                    className={`dash-logout-btn ${className}`}
+                    className={`dash-logout-btn ${className || ''}`}
                     style={style}
                     id={id}
                     type="submit"
