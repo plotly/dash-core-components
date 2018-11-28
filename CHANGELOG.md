@@ -5,14 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.39.0] - 2018-11-12
 ### Changed
 - Updated `react` and `react-dom` to version `^16.6.1`
-- Updated `react-dates` to `^18.2.2`
 - Updated `react-docgen` to `^2.21.0`
-- Updated `react-dropzone` to `^7.0.1`
-- Updated `react-markdown` to `^4.0.2`
 - Updated `react-select-fast-filter-options` to `^0.2.3`
-- Updated `react-syntax-highlighter` to ^10.0.0`
 - Updated `react-virtualized-select` to `^3.1.3`
-- Updated `react-with-direction` to `^1.3.0`
 - Upgraded `babel` and dependencies to `7.1.5`
 - Upgraded `enzyme` and dependencies to `3.7.0`
 
