@@ -2123,7 +2123,7 @@
     }
   },
   "src/components/LogoutButton.react.js": {
-    "description": "Logout button to submit a form post request to the `logout_url` prop.",
+    "description": "Logout button to submit a form post request to the `logout_url` prop.\r\nUsage is intended for dash-deployment-server authentication.\r\n\nDDS usage:\r\n\n`dcc.LogoutButton(logout_url=os.getenv('DASH_LOGOUT_URL'))`\r\n\nCustom usage:\r\n\n- Implement a login mechanism.\r\n- Create a flask route with a post method handler.\r\n`@app.server.route('/logout', methods=['POST'])`\r\n  - The logout route should perform what's necessary for the user to logout.\r\n  - If you store the session in a cookie, clear the cookie:\r\n  `rep = flask.Response(); rep.set_cookie('session', '', expires=0)`\r\n\n- Create a logout button component and assign it the logout_url\r\n`dcc.LogoutButton(logout_url='/logout')`\r\n\nSee https://dash.plot.ly/dash-core-components/logout_button\r\nfor more documentation and examples.",
     "displayName": "LogoutButton",
     "methods": [],
     "props": {
