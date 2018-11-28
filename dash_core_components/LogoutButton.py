@@ -5,7 +5,7 @@ from dash.development.base_component import Component, _explicitize_args
 
 class LogoutButton(Component):
     """A LogoutButton component.
-
+Logout button to submit a form post request to the `logout_url` prop.
 
 Keyword arguments:
 - id (string; optional): Id of the button.
