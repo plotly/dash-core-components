@@ -17,21 +17,19 @@ const CircleSpinner = ({status, color, fullscreen, debug}) => {
     return (
         <div className={fullscreen ? 'dash-spinner-container' : ''}>
             {debugTitle}
-            <div className="dash-circle-spinner">
-                <div className="sk-circle">
-                    <div className="sk-circle1 sk-child" />
-                    <div className="sk-circle2 sk-child" />
-                    <div className="sk-circle3 sk-child" />
-                    <div className="sk-circle4 sk-child" />
-                    <div className="sk-circle5 sk-child" />
-                    <div className="sk-circle6 sk-child" />
-                    <div className="sk-circle7 sk-child" />
-                    <div className="sk-circle8 sk-child" />
-                    <div className="sk-circle9 sk-child" />
-                    <div className="sk-circle10 sk-child" />
-                    <div className="sk-circle11 sk-child" />
-                    <div className="sk-circle12 sk-child" />
-                </div>
+            <div className="dash-sk-circle">
+                <div className="dash-sk-circle1 dash-sk-child"></div>
+                <div className="dash-sk-circle2 dash-sk-child"></div>
+                <div className="dash-sk-circle3 dash-sk-child"></div>
+                <div className="dash-sk-circle4 dash-sk-child"></div>
+                <div className="dash-sk-circle5 dash-sk-child"></div>
+                <div className="dash-sk-circle6 dash-sk-child"></div>
+                <div className="dash-sk-circle7 dash-sk-child"></div>
+                <div className="dash-sk-circle8 dash-sk-child"></div>
+                <div className="dash-sk-circle9 dash-sk-child"></div>
+                <div className="dash-sk-circle10 dash-sk-child"></div>
+                <div className="dash-sk-circle11 dash-sk-child"></div>
+                <div className="dash-sk-circle12 dash-sk-child"></div>
             </div>
             <style>
                 {`
@@ -50,20 +48,20 @@ const CircleSpinner = ({status, color, fullscreen, debug}) => {
                     .dash-loading-title {
                         text-align: center;
                     }
-                    .dash-circle-spinner > .sk-circle {
+                    .dash-sk-circle {
                         margin: 1rem auto;
                         width: 40px;
                         height: 40px;
                         position: relative;
                     }
-                    .dash-circle-spinner > .sk-circle .sk-child {
+                    .dash-sk-circle .dash-sk-child {
                         width: 100%;
                         height: 100%;
                         position: absolute;
                         left: 0;
                         top: 0;
                     }
-                    .dash-circle-spinner > .sk-circle .sk-child:before {
+                    .dash-sk-circle .dash-sk-child:before {
                         content: '';
                         display: block;
                         margin: 0 auto;
@@ -71,78 +69,78 @@ const CircleSpinner = ({status, color, fullscreen, debug}) => {
                         height: 15%;
                         background-color: ${color};
                         border-radius: 100%;
-                        -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
-                                animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+                        -webkit-animation: dash-sk-circleBounceDelay 1.2s infinite ease-in-out both;
+                                animation: dash-sk-circleBounceDelay 1.2s infinite ease-in-out both;
                     }
-                    .dash-circle-spinner > .sk-circle .sk-circle2 {
+                    .dash-sk-circle .dash-sk-circle2 {
                         -webkit-transform: rotate(30deg);
                             -ms-transform: rotate(30deg);
                                 transform: rotate(30deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle3 {
+                    .dash-sk-circle .dash-sk-circle3 {
                         -webkit-transform: rotate(60deg);
                             -ms-transform: rotate(60deg);
                                 transform: rotate(60deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle4 {
+                    .dash-sk-circle .dash-sk-circle4 {
                         -webkit-transform: rotate(90deg);
                             -ms-transform: rotate(90deg);
                                 transform: rotate(90deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle5 {
+                    .dash-sk-circle .dash-sk-circle5 {
                         -webkit-transform: rotate(120deg);
                             -ms-transform: rotate(120deg);
                                 transform: rotate(120deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle6 {
+                    .dash-sk-circle .dash-sk-circle6 {
                         -webkit-transform: rotate(150deg);
                             -ms-transform: rotate(150deg);
                                 transform: rotate(150deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle7 {
+                    .dash-sk-circle .dash-sk-circle7 {
                         -webkit-transform: rotate(180deg);
                             -ms-transform: rotate(180deg);
                                 transform: rotate(180deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle8 {
+                    .dash-sk-circle .dash-sk-circle8 {
                         -webkit-transform: rotate(210deg);
                             -ms-transform: rotate(210deg);
                                 transform: rotate(210deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle9 {
+                    .dash-sk-circle .dash-sk-circle9 {
                         -webkit-transform: rotate(240deg);
                             -ms-transform: rotate(240deg);
                                 transform: rotate(240deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle10 {
+                    .dash-sk-circle .dash-sk-circle10 {
                         -webkit-transform: rotate(270deg);
                             -ms-transform: rotate(270deg);
                                 transform: rotate(270deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle11 {
+                    .dash-sk-circle .dash-sk-circle11 {
                         -webkit-transform: rotate(300deg);
                             -ms-transform: rotate(300deg);
                                 transform: rotate(300deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle12 {
+                    .dash-sk-circle .dash-sk-circle12 {
                         -webkit-transform: rotate(330deg);
                             -ms-transform: rotate(330deg);
                                 transform: rotate(330deg); }
-                    .dash-circle-spinner > .sk-circle .sk-circle2:before {
+                    .dash-sk-circle .dash-sk-circle2:before {
                         -webkit-animation-delay: -1.1s;
                                 animation-delay: -1.1s; }
-                    .dash-circle-spinner > .sk-circle .sk-circle3:before {
+                    .dash-sk-circle .dash-sk-circle3:before {
                         -webkit-animation-delay: -1s;
                                 animation-delay: -1s; }
-                    .dash-circle-spinner > .sk-circle .sk-circle4:before {
+                    .dash-sk-circle .dash-sk-circle4:before {
                         -webkit-animation-delay: -0.9s;
                                 animation-delay: -0.9s; }
-                    .dash-circle-spinner > .sk-circle .sk-circle5:before {
+                    .dash-sk-circle .dash-sk-circle5:before {
                         -webkit-animation-delay: -0.8s;
                                 animation-delay: -0.8s; }
-                    .dash-circle-spinner > .sk-circle .sk-circle6:before {
+                    .dash-sk-circle .dash-sk-circle6:before {
                         -webkit-animation-delay: -0.7s;
                                 animation-delay: -0.7s; }
-                    .dash-spinner > .sk-circle .sk-circle7:before {
+                    .dash-sk-circle .dash-sk-circle7:before {
                         -webkit-animation-delay: -0.6s;
                                 animation-delay: -0.6s; }
-                    .dash-spinner > .sk-circle .sk-circle8:before {
+                    .dash-sk-circle .dash-sk-circle8:before {
                         -webkit-animation-delay: -0.5s;
                                 animation-delay: -0.5s; }
-                    .dash-spinner > .sk-circle .sk-circle9:before {
+                    .dash-sk-circle .dash-sk-circle9:before {
                         -webkit-animation-delay: -0.4s;
                                 animation-delay: -0.4s; }
-                    .dash-spinner > .sk-circle .sk-circle10:before {
+                    .dash-sk-circle .dash-sk-circle10:before {
                         -webkit-animation-delay: -0.3s;
                                 animation-delay: -0.3s; }
                     .dash-spinner-container > .sk-circle .sk-circle11:before {
@@ -152,7 +150,7 @@ const CircleSpinner = ({status, color, fullscreen, debug}) => {
                         -webkit-animation-delay: -0.1s;
                                 animation-delay: -0.1s; }
                     
-                    @-webkit-keyframes sk-circleBounceDelay {
+                    @-webkit-keyframes dash-sk-circleBounceDelay {
                         0%, 80%, 100% {
                         -webkit-transform: scale(0);
                                 transform: scale(0);
@@ -162,7 +160,7 @@ const CircleSpinner = ({status, color, fullscreen, debug}) => {
                         }
                     }
                     
-                    @keyframes sk-circleBounceDelay {
+                    @keyframes dash-sk-circleBounceDelay {
                         0%, 80%, 100% {
                         -webkit-transform: scale(0);
                                 transform: scale(0);
