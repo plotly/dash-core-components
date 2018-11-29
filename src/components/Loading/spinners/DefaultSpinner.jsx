@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Spinner created by Tobias Ahlin, https://github.com/tobiasahlin/SpinKit
+ */
 const DefaultSpinner = ({status, color, fullscreen, debug}) => {
     let debugTitle;
     if (debug) {

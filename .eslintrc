@@ -105,7 +105,7 @@
     "react/no-unknown-property": ["error"],
     "react/prefer-es6-class": ["error", "always"],
     "react/prop-types": "error",
-    "valid-jsdoc": ["error"],
+    "valid-jsdoc": ["off"],
     "yoda": ["error"],
     "spaced-comment": ["error", "always", {
       "block": {
