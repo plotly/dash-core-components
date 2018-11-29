@@ -11,19 +11,54 @@ import DotSpinner from './spinners/DotSpinner.jsx';
  */
 export default class Loading extends Component {
     render() {
-        const { loading_state, color, fullscreen, debug } = this.props;
-        if (loading_state&& loading_state.is_loading) {
+        const {loading_state, color, fullscreen, debug} = this.props;
+        if (loading_state && loading_state.is_loading) {
             switch (this.props.type) {
                 case 'graph':
-                    return <GraphSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen}/>;
+                    return (
+                        <GraphSpinner
+                            status={loading_state}
+                            color={color}
+                            debug={debug}
+                            fullscreen={fullscreen}
+                        />
+                    );
                 case 'cube':
-                    return <CubeSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return (
+                        <CubeSpinner
+                            status={loading_state}
+                            color={color}
+                            debug={debug}
+                            fullscreen={fullscreen}
+                        />
+                    );
                 case 'circle':
-                    return <CircleSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return (
+                        <CircleSpinner
+                            status={loading_state}
+                            color={color}
+                            debug={debug}
+                            fullscreen={fullscreen}
+                        />
+                    );
                 case 'dot':
-                    return <DotSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return (
+                        <DotSpinner
+                            status={loading_state}
+                            color={color}
+                            debug={debug}
+                            fullscreen={fullscreen}
+                        />
+                    );
                 default:
-                    return <DefaultSpinner status={loading_state} color={color} debug={debug} fullscreen={fullscreen} />;
+                    return (
+                        <DefaultSpinner
+                            status={loading_state}
+                            color={color}
+                            debug={debug}
+                            fullscreen={fullscreen}
+                        />
+                    );
             }
         }
         return this.props.children || null;
@@ -32,7 +67,7 @@ export default class Loading extends Component {
 
 Loading.defaultProps = {
     type: 'default',
-    color: '#119DFF'
+    color: '#119DFF',
 };
 
 Loading.propTypes = {
@@ -46,15 +81,18 @@ Loading.propTypes = {
         PropTypes.node,
     ]),
 
+    /**
+     * Property that determines which spinner to show - one of 'graph', 'cube', 'circle', 'dot', or 'default'.
+     */
     type: PropTypes.oneOf(['graph', 'cube', 'circle', 'dot', 'default']),
 
     /**
-     * Boolean that determines if the loading spinner will be displayed full-screen or not 
+     * Boolean that determines if the loading spinner will be displayed full-screen or not
      */
     fullscreen: PropTypes.bool,
 
     /**
-     * Boolean that determines if the loading spinner will display the status.prop_name and component_name 
+     * Boolean that determines if the loading spinner will display the status.prop_name and component_name
      */
     debug: PropTypes.bool,
 
@@ -64,7 +102,7 @@ Loading.propTypes = {
     className: PropTypes.string,
 
     /**
-     * Primary colour used for the loading spinners 
+     * Primary colour used for the loading spinners
      */
     color: PropTypes.string,
 

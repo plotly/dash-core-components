@@ -2106,7 +2106,7 @@
           ]
         },
         "required": false,
-        "description": "",
+        "description": "Property that determines which spinner to show - one of 'graph', 'cube', 'circle', 'dot', or 'default'.",
         "defaultValue": {
           "value": "'default'",
           "computed": false

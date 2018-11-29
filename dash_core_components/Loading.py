@@ -10,7 +10,7 @@ A Loading component that wraps any other component and displays a spinner until 
 Keyword arguments:
 - children (list | a list of or a singular dash component, string or number; optional): Array that holds components to render
 - id (string; optional)
-- type (a value equal to: 'graph', 'cube', 'circle', 'dot', 'default'; optional)
+- type (a value equal to: 'graph', 'cube', 'circle', 'dot', 'default'; optional): Property that determines which spinner to show - one of 'graph', 'cube', 'circle', 'dot', or 'default'.
 - fullscreen (boolean; optional): Boolean that determines if the loading spinner will be displayed full-screen or not
 - debug (boolean; optional): Boolean that determines if the loading spinner will display the status.prop_name and component_name
 - className (string; optional): Additional CSS class for the root DOM node
