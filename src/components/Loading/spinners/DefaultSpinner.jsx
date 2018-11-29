@@ -17,12 +17,12 @@ const DefaultSpinner = ({status, color, fullscreen, debug}) => {
     return (
         <div className={fullscreen ? 'dash-spinner-container' : ''}>
             {debugTitle}
-            <div className="spinner-verts">
-                <div className="rect1" />
-                <div className="rect2" />
-                <div className="rect3" />
-                <div className="rect4" />
-                <div className="rect5" />
+            <div className="dash-default-spinner">
+                <div className="dash-default-spinner-rect1" />
+                <div className="dash-default-spinner-rect2" />
+                <div className="dash-default-spinner-rect3" />
+                <div className="dash-default-spinner-rect4" />
+                <div className="dash-default-spinner-rect5" />
             </div>
             <style>
                 {`
@@ -41,7 +41,7 @@ const DefaultSpinner = ({status, color, fullscreen, debug}) => {
                     .dash-loading-title {
                         text-align: center;
                     }
-                    .spinner-verts {
+                    .dash-default-spinner{
                         margin: 1rem auto;
                         width: 50px;
                         height: 40px;
@@ -49,7 +49,7 @@ const DefaultSpinner = ({status, color, fullscreen, debug}) => {
                         font-size: 10px;
                     }
                     
-                    .spinner-verts > div {
+                    .dash-default-spinner > div {
                         background-color: ${color};
                         height: 100%;
                         width: 6px;
@@ -60,22 +60,22 @@ const DefaultSpinner = ({status, color, fullscreen, debug}) => {
                         animation: sk-stretchdelay 1.2s infinite ease-in-out;
                     }
                     
-                    .spinner-verts .rect2 {
+                    .dash-default-spinner-rect2 {
                         -webkit-animation-delay: -1.1s;
                         animation-delay: -1.1s;
                     }
                     
-                    .spinner-verts .rect3 {
+                    .dash-default-spinner-rect3 {
                         -webkit-animation-delay: -1.0s;
                         animation-delay: -1.0s;
                     }
                     
-                    .spinner-verts .rect4 {
+                    .dash-default-spinner-rect4 {
                         -webkit-animation-delay: -0.9s;
                         animation-delay: -0.9s;
                     }
                     
-                    .spinner-verts .rect5 {
+                    .dash-default-spinner-rect5 {
                         -webkit-animation-delay: -0.8s;
                         animation-delay: -0.8s;
                     }
