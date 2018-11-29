@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { omit, isEmpty } from 'ramda';
+import {omit, isEmpty} from 'ramda';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -13,7 +13,7 @@ export default class Input extends Component {
     constructor(props) {
         super(props);
         if (!props.setProps || props.debounce) {
-            this.state = { value: props.value };
+            this.state = {value: props.value};
         }
     }
 
@@ -29,8 +29,8 @@ export default class Input extends Component {
     }
 
     render() {
-        const { fireEvent, setProps, type, min, max, debounce } = this.props;
-        const { value } = setProps
+        const {fireEvent, setProps, type, min, max, debounce} = this.props;
+        const {value} = setProps
             ? debounce
                 ? this.state
                 : this.props
@@ -46,7 +46,7 @@ export default class Input extends Component {
                         return;
                     }
                     if (fireEvent) {
-                        fireEvent({ event: 'change' });
+                        fireEvent({event: 'change'});
                     }
                     if (!debounce && setProps) {
                         const castValue =
@@ -55,12 +55,12 @@ export default class Input extends Component {
                             value: castValue,
                         });
                     } else {
-                        this.setState({ value: newValue });
+                        this.setState({value: newValue});
                     }
                 }}
                 onBlur={() => {
                     if (fireEvent) {
-                        fireEvent({ event: 'blur' });
+                        fireEvent({event: 'blur'});
                     }
                     if (setProps) {
                         const castValue =
