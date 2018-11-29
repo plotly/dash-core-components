@@ -6,60 +6,36 @@ import CubeSpinner from './spinners/CubeSpinner.jsx';
 import CircleSpinner from './spinners/CircleSpinner.jsx';
 import DotSpinner from './spinners/DotSpinner.jsx';
 
+function getSpinner(type) {
+    switch (type) {
+        case 'graph':
+            return GraphSpinner;
+        case 'cube':
+            return CubeSpinner;
+        case 'circle':
+            return CircleSpinner;
+        case 'dot':
+            return DotSpinner;
+        default:
+            return DefaultSpinner;
+    }
+}
 /**
  * A Loading component that wraps any other component and displays a spinner until the wrapped component has rendered.
  */
 export default class Loading extends Component {
     render() {
-        const {loading_state, color, fullscreen, debug} = this.props;
+        const {loading_state, color, fullscreen, debug, type} = this.props;
         if (loading_state && loading_state.is_loading) {
-            switch (this.props.type) {
-                case 'graph':
-                    return (
-                        <GraphSpinner
-                            status={loading_state}
-                            color={color}
-                            debug={debug}
-                            fullscreen={fullscreen}
-                        />
-                    );
-                case 'cube':
-                    return (
-                        <CubeSpinner
-                            status={loading_state}
-                            color={color}
-                            debug={debug}
-                            fullscreen={fullscreen}
-                        />
-                    );
-                case 'circle':
-                    return (
-                        <CircleSpinner
-                            status={loading_state}
-                            color={color}
-                            debug={debug}
-                            fullscreen={fullscreen}
-                        />
-                    );
-                case 'dot':
-                    return (
-                        <DotSpinner
-                            status={loading_state}
-                            color={color}
-                            debug={debug}
-                            fullscreen={fullscreen}
-                        />
-                    );
-                default:
-                    return (
-                        <DefaultSpinner
-                            status={loading_state}
-                            color={color}
-                            debug={debug}
-                            fullscreen={fullscreen}
-                        />
-                    );
-            }
+            const Spinner = getSpinner(type);
+            return (
+                <Spinner
+                    status={loading_state}
+                    color={color}
+                    debug={debug}
+                    fullscreen={fullscreen}
+                />
+            );
         }
         return this.props.children || null;
     }
