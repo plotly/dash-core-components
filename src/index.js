@@ -21,6 +21,7 @@ import Upload from './components/Upload.react';
 import Tabs from './components/Tabs.react';
 import Tab from './components/Tab.react';
 import Store from './components/Store.react';
+import LogoutButton from './components/LogoutButton.react';
 
 export {
     Checklist,
@@ -45,4 +46,5 @@ export {
     DatePickerRange,
     Upload,
     Store,
+    LogoutButton
 };

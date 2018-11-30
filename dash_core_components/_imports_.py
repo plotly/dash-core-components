@@ -10,6 +10,7 @@ from .Interval import Interval
 from .Link import Link
 from .Loading import Loading
 from .Location import Location
+from .LogoutButton import LogoutButton
 from .Markdown import Markdown
 from .RadioItems import RadioItems
 from .RangeSlider import RangeSlider
@@ -21,9 +22,8 @@ from .Tabs import Tabs
 from .Textarea import Textarea
 from .Upload import Upload
 
-
-__all__ = [
-    "Checklist",
+            __all__ = [
+                "Checklist",
     "ConfirmDialog",
     "ConfirmDialogProvider",
     "DatePickerRange",
@@ -35,6 +35,7 @@ __all__ = [
     "Link",
     "Loading",
     "Location",
+    "LogoutButton",
     "Markdown",
     "RadioItems",
     "RangeSlider",
@@ -44,5 +45,5 @@ __all__ = [
     "Tab",
     "Tabs",
     "Textarea",
-    "Upload",
-]
+    "Upload"
+            ]
