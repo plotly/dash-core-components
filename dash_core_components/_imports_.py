@@ -22,8 +22,8 @@ from .Tabs import Tabs
 from .Textarea import Textarea
 from .Upload import Upload
 
-            __all__ = [
-                "Checklist",
+__all__ = [
+    "Checklist",
     "ConfirmDialog",
     "ConfirmDialogProvider",
     "DatePickerRange",
@@ -46,4 +46,4 @@ from .Upload import Upload
     "Tabs",
     "Textarea",
     "Upload"
-            ]
+]
