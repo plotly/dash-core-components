@@ -1502,10 +1502,10 @@ class Tests(IntegrationTests):
 
         input1 = self.wait_for_element_by_css_selector('#input')
         input1.clear()
+        input1.send_keys('hello world')
+        self.wait_for_text_to_equal('#output-1', 'hello world')
         input2 = self.wait_for_element_by_css_selector('#input-2')
         input2.send_keys('bad')
-
-        input1.send_keys('hello world')
         time.sleep(1)
 
         self.assertEqual('hello world', input1.get_attribute('value'))
@@ -1598,7 +1598,7 @@ class Tests(IntegrationTests):
 
         state().send_keys('x')
         time.sleep(0.75)
-        self.assertEqual(call_count.value, 2)
+        self.assertEqual(call_count.value, 3)
         self.assertEqual(
             output().text,
             'input="Initial Inputx", state="Initial State"')
