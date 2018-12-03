@@ -22,6 +22,7 @@ from selenium.common.exceptions import InvalidElementStateException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
 from textwrap import dedent
 try:
@@ -1501,7 +1502,7 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#output-1', 'initial value')
 
         input1 = self.wait_for_element_by_css_selector('#input')
-        input1.clear()
+        input1.send_keys(Keys.BACKSPACE * len(input1.get_attribute('value')))
         input1.send_keys('hello world')
         self.wait_for_text_to_equal('#output-1', 'hello world')
         input2 = self.wait_for_element_by_css_selector('#input-2')
