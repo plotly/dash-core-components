@@ -5,6 +5,7 @@ import DefaultSpinner from './spinners/DefaultSpinner.jsx';
 import CubeSpinner from './spinners/CubeSpinner.jsx';
 import CircleSpinner from './spinners/CircleSpinner.jsx';
 import DotSpinner from './spinners/DotSpinner.jsx';
+import R from 'ramda';
 
 function getSpinner(type) {
     switch (type) {
@@ -37,7 +38,13 @@ export default class Loading extends Component {
                 />
             );
         }
-        return this.props.children || null;
+        if (
+            R.type(this.props.children) !== 'Object' ||
+            R.type(this.props.children) !== 'Function'
+        ) {
+            return <div>{this.props.children}</div>;
+        }
+        return this.props.children;
     }
 }
 
