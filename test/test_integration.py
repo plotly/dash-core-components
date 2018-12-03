@@ -1558,3 +1558,51 @@ class Tests(IntegrationTests):
         self.assertEqual(
             output().text,
             'input="Initial Inputxy", state="Initial Statex"')
+
+    def test_simple_callback(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.Input(
+                id='input',
+                value='initial value'
+            ),
+            html.Div(
+                html.Div([
+                    1.5,
+                    None,
+                    'string',
+                    html.Div(id='output-1')
+                ])
+            )
+        ])
+
+        call_count = Value('i', 0)
+
+        @app.callback(Output('output-1', 'children'), [Input('input', 'value')])
+        def update_output(value):
+            call_count.value = call_count.value + 1
+            return value
+
+        self.startServer(app)
+
+        output1 = self.wait_for_element_by_css_selector('#output-1')
+        wait_for(lambda: output1.text == 'initial value')
+        self.snapshot(name='simple-callback-1')
+
+        input1 = self.wait_for_element_by_css_selector('#input')
+        input1.clear()
+
+        input1.send_keys('hello world')
+
+        self.wait_for_text_to_equal('#output-1', 'hello world')
+        output1.click()  # Lose focus
+        self.snapshot(name='simple-callback-2')
+
+        self.assertEqual(
+            call_count.value,
+            # an initial call to retrieve the first value
+            1 +
+            # one for each hello world character
+            len('hello world')
+        )
+
