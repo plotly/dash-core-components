@@ -1555,8 +1555,8 @@ class Tests(IntegrationTests):
         self.assertEqual(output().text, 'input 1x + <<input 1x>>')
 
         input2().send_keys('y')
-        wait_for(lambda: call_counts['output'].value == 3)
-        wait_for(lambda: call_counts['input-2'].value == 2)
+        wait_for(lambda: call_counts['output'].value == 2)
+        wait_for(lambda: call_counts['input-2'].value == 3)
         self.assertEqual(input1().get_attribute('value'), 'input 1x')
         self.assertEqual(input2().get_attribute('value'), '<<input 1x>>y')
         self.assertEqual(output().text, 'input 1x + <<input 1x>>y')
@@ -1584,7 +1584,7 @@ class Tests(IntegrationTests):
         state = lambda: self.driver.find_element_by_id('state')
 
         # callback gets called with initial input
-        self.assertEqual(call_count.value, 1)
+        wait_for(lambda: call_count.value == 1)
         self.assertEqual(
             output().text,
             'input="Initial Input", state="Initial State"'
@@ -1604,7 +1604,7 @@ class Tests(IntegrationTests):
             'input="Initial Inputx", state="Initial State"')
 
         input().send_keys('y')
-        wait_for(lambda: call_count.value == 3)
+        wait_for(lambda: call_count.value == 4)
         self.assertEqual(
             output().text,
             'input="Initial Inputxy", state="Initial Statex"')
