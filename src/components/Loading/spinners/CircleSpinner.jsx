@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 /**
  * Spinner created by Tobias Ahlin, https://github.com/tobiasahlin/SpinKit
  */
-const CircleSpinner = ({status, color, fullscreen, debug}) => {
+const CircleSpinner = ({
+    status,
+    color,
+    fullscreen,
+    debug,
+    className,
+    style,
+}) => {
     let debugTitle;
     if (debug) {
         debugTitle = (
@@ -14,22 +21,26 @@ const CircleSpinner = ({status, color, fullscreen, debug}) => {
             </h3>
         );
     }
+    let spinnerClass = fullscreen ? 'dash-spinner-container' : '';
+    if (className) {
+        spinnerClass += ` ${className}`;
+    }
     return (
-        <div className={fullscreen ? 'dash-spinner-container' : ''}>
+        <div style={style ? style : {}} className={spinnerClass}>
             {debugTitle}
             <div className="dash-sk-circle">
-                <div className="dash-sk-circle1 dash-sk-child"></div>
-                <div className="dash-sk-circle2 dash-sk-child"></div>
-                <div className="dash-sk-circle3 dash-sk-child"></div>
-                <div className="dash-sk-circle4 dash-sk-child"></div>
-                <div className="dash-sk-circle5 dash-sk-child"></div>
-                <div className="dash-sk-circle6 dash-sk-child"></div>
-                <div className="dash-sk-circle7 dash-sk-child"></div>
-                <div className="dash-sk-circle8 dash-sk-child"></div>
-                <div className="dash-sk-circle9 dash-sk-child"></div>
-                <div className="dash-sk-circle10 dash-sk-child"></div>
-                <div className="dash-sk-circle11 dash-sk-child"></div>
-                <div className="dash-sk-circle12 dash-sk-child"></div>
+                <div className="dash-sk-circle1 dash-sk-child" />
+                <div className="dash-sk-circle2 dash-sk-child" />
+                <div className="dash-sk-circle3 dash-sk-child" />
+                <div className="dash-sk-circle4 dash-sk-child" />
+                <div className="dash-sk-circle5 dash-sk-child" />
+                <div className="dash-sk-circle6 dash-sk-child" />
+                <div className="dash-sk-circle7 dash-sk-child" />
+                <div className="dash-sk-circle8 dash-sk-child" />
+                <div className="dash-sk-circle9 dash-sk-child" />
+                <div className="dash-sk-circle10 dash-sk-child" />
+                <div className="dash-sk-circle11 dash-sk-child" />
+                <div className="dash-sk-circle12 dash-sk-child" />
             </div>
             <style>
                 {`
@@ -178,7 +189,9 @@ const CircleSpinner = ({status, color, fullscreen, debug}) => {
 CircleSpinner.propTypes = {
     status: PropTypes.object,
     color: PropTypes.string,
+    className: PropTypes.string,
     fullscreen: PropTypes.bool,
+    style: PropTypes.bool,
     debug: PropTypes.bool,
 };
 

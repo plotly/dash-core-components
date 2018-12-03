@@ -2133,6 +2133,13 @@
         "required": false,
         "description": "Additional CSS class for the root DOM node"
       },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Additional CSS styling for the root DOM node"
+      },
       "color": {
         "type": {
           "name": "string"

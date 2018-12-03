@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GraphSpinner = ({status, fullscreen, debug}) => {
+const GraphSpinner = ({status, fullscreen, debug, className, style}) => {
     let debugTitle;
     if (debug) {
         debugTitle = (
@@ -11,8 +11,12 @@ const GraphSpinner = ({status, fullscreen, debug}) => {
             </h3>
         );
     }
+    let spinnerClass = fullscreen ? 'dash-spinner-container' : '';
+    if (className) {
+        spinnerClass += ` ${className}`;
+    }
     return (
-        <div className={fullscreen ? 'dash-spinner-container' : ''}>
+        <div style={style ? style : {}} className={spinnerClass}>
             <div>
                 {debugTitle}
                 <div className="dash-spinner">
@@ -325,7 +329,10 @@ const GraphSpinner = ({status, fullscreen, debug}) => {
 
 GraphSpinner.propTypes = {
     status: PropTypes.object,
+    color: PropTypes.string,
+    className: PropTypes.string,
     fullscreen: PropTypes.bool,
+    style: PropTypes.bool,
     debug: PropTypes.bool,
 };
 

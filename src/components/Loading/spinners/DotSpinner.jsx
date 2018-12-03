@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 /**
  * Spinner created by Tobias Ahlin, https://github.com/tobiasahlin/SpinKit
  */
-const DotSpinner = ({status, color, fullscreen, debug}) => {
+const DotSpinner = ({status, color, fullscreen, debug, className, style}) => {
     let debugTitle;
     if (debug) {
         debugTitle = (
@@ -14,8 +14,12 @@ const DotSpinner = ({status, color, fullscreen, debug}) => {
             </h3>
         );
     }
+    let spinnerClass = fullscreen ? 'dash-spinner-container' : '';
+    if (className) {
+        spinnerClass += ` ${className}`;
+    }
     return (
-        <div className={fullscreen ? 'dash-spinner-container' : ''}>
+        <div style={style ? style : {}} className={spinnerClass}>
             {debugTitle}
             <div className="dash-dot-spinner">
                 <div className="dash-dot-spinner-bounce1"></div>
@@ -89,7 +93,9 @@ const DotSpinner = ({status, color, fullscreen, debug}) => {
 DotSpinner.propTypes = {
     status: PropTypes.object,
     color: PropTypes.string,
+    className: PropTypes.string,
     fullscreen: PropTypes.bool,
+    style: PropTypes.bool,
     debug: PropTypes.bool,
 };
 

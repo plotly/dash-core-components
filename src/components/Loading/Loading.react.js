@@ -26,11 +26,13 @@ function getSpinner(type) {
  */
 export default class Loading extends Component {
     render() {
-        const {loading_state, color, fullscreen, debug, type} = this.props;
+        const {loading_state, color, className, style, fullscreen, debug, type} = this.props;
         if (loading_state && loading_state.is_loading) {
             const Spinner = getSpinner(type);
             return (
                 <Spinner
+                    className={className}
+                    style={style}
                     status={loading_state}
                     color={color}
                     debug={debug}
@@ -83,6 +85,11 @@ Loading.propTypes = {
      * Additional CSS class for the root DOM node
      */
     className: PropTypes.string,
+
+    /**
+     * Additional CSS styling for the root DOM node
+     */
+    style: PropTypes.object,
 
     /**
      * Primary colour used for the loading spinners
