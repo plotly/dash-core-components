@@ -1511,57 +1511,6 @@ class Tests(IntegrationTests):
 
         self.assertEqual('hello world', input1.get_attribute('value'))
 
-    def test_chained_dependencies_direct_lineage(self):
-        app = dash.Dash(__name__)
-        app.layout = html.Div([
-            dcc.Input(id='input-1', value='input 1'),
-            dcc.Input(id='input-2'),
-            html.Div('test', id='output')
-        ])
-        input1 = lambda: self.driver.find_element_by_id('input-1')
-        input2 = lambda: self.driver.find_element_by_id('input-2')
-        output = lambda: self.driver.find_element_by_id('output')
-
-        call_counts = {
-            'output': Value('i', 0),
-            'input-2': Value('i', 0)
-        }
-
-        @app.callback(Output('input-2', 'value'), [Input('input-1', 'value')])
-        def update_input(input1):
-            call_counts['input-2'].value += 1
-            return '<<{}>>'.format(input1)
-
-        @app.callback(Output('output', 'children'), [
-            Input('input-1', 'value'),
-            Input('input-2', 'value')
-        ])
-        def update_output(input1, input2):
-            call_counts['output'].value += 1
-            return '{} + {}'.format(input1, input2)
-
-        self.startServer(app)
-
-        wait_for(lambda: call_counts['output'].value == 1)
-        wait_for(lambda: call_counts['input-2'].value == 1)
-        self.assertEqual(input1().get_attribute('value'), 'input 1')
-        self.assertEqual(input2().get_attribute('value'), '<<input 1>>')
-        self.assertEqual(output().text, 'input 1 + <<input 1>>')
-
-        input1().send_keys('x')
-        wait_for(lambda: call_counts['output'].value == 2)
-        wait_for(lambda: call_counts['input-2'].value == 2)
-        self.assertEqual(input1().get_attribute('value'), 'input 1x')
-        self.assertEqual(input2().get_attribute('value'), '<<input 1x>>')
-        self.assertEqual(output().text, 'input 1x + <<input 1x>>')
-
-        input2().send_keys('y')
-        wait_for(lambda: call_counts['output'].value == 4)
-        wait_for(lambda: call_counts['input-2'].value == 3)
-        self.assertEqual(input1().get_attribute('value'), 'input 1x')
-        self.assertEqual(input2().get_attribute('value'), '<<input 1x>>y')
-        self.wait_for_text_to_equal('#output', 'input 1x + <<input 1x>>y')
-
     def test_state_and_inputs(self):
         app = dash.Dash(__name__)
         app.layout = html.Div([
