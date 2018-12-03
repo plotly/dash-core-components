@@ -1556,11 +1556,11 @@ class Tests(IntegrationTests):
         self.assertEqual(output().text, 'input 1x + <<input 1x>>')
 
         input2().send_keys('y')
-        wait_for(lambda: call_counts['output'].value == 2)
+        wait_for(lambda: call_counts['output'].value == 4)
         wait_for(lambda: call_counts['input-2'].value == 3)
         self.assertEqual(input1().get_attribute('value'), 'input 1x')
         self.assertEqual(input2().get_attribute('value'), '<<input 1x>>y')
-        self.assertEqual(output().text, 'input 1x + <<input 1x>>y')
+        self.wait_for_text_to_equal('#output', 'input 1x + <<input 1x>>y')
 
     def test_state_and_inputs(self):
         app = dash.Dash(__name__)
