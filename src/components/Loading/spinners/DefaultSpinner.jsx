@@ -8,7 +8,7 @@ const DefaultSpinner = ({status, color, fullscreen, debug}) => {
     let debugTitle;
     if (debug) {
         debugTitle = (
-            <h3 className="dash-loading-title">
+            <h3 className="dash-default-spinner .dash-loading-title">
                 Loading {status.component_name}
                 's {status.prop_name}
             </h3>
@@ -60,22 +60,22 @@ const DefaultSpinner = ({status, color, fullscreen, debug}) => {
                         animation: sk-stretchdelay 1.2s infinite ease-in-out;
                     }
                     
-                    .dash-default-spinner-rect2 {
+                    .dash-default-spinner .dash-default-spinner-rect2 {
                         -webkit-animation-delay: -1.1s;
                         animation-delay: -1.1s;
                     }
                     
-                    .dash-default-spinner-rect3 {
+                    .dash-default-spinner .dash-default-spinner-rect3 {
                         -webkit-animation-delay: -1.0s;
                         animation-delay: -1.0s;
                     }
                     
-                    .dash-default-spinner-rect4 {
+                    .dash-default-spinner .dash-default-spinner-rect4 {
                         -webkit-animation-delay: -0.9s;
                         animation-delay: -0.9s;
                     }
                     
-                    .dash-default-spinner-rect5 {
+                    .dash-default-spinner .dash-default-spinner-rect5 {
                         -webkit-animation-delay: -0.8s;
                         animation-delay: -0.8s;
                     }
