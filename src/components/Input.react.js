@@ -63,14 +63,13 @@ export default class Input extends Component {
                         fireEvent({event: 'blur'});
                     }
                     if (setProps) {
-                        const castValue =
-                            type === 'number' ? Number(value) : value;
                         const payload = {
                             n_blur: this.props.n_blur + 1,
                             n_blur_timestamp: new Date(),
                         };
                         if (debounce) {
-                            payload.value = castValue;
+                            payload.value =
+                                type === 'number' ? Number(value) : value;
                         }
                         setProps(payload);
                     }
