@@ -2122,6 +2122,70 @@
       }
     }
   },
+  "src/components/LogoutButton.react.js": {
+    "description": "Logout button to submit a form post request to the `logout_url` prop.\nUsage is intended for dash-deployment-server authentication.\n\nDDS usage:\n\n`dcc.LogoutButton(logout_url=os.getenv('DASH_LOGOUT_URL'))`\n\nCustom usage:\n\n- Implement a login mechanism.\n- Create a flask route with a post method handler.\n`@app.server.route('/logout', methods=['POST'])`\n  - The logout route should perform what's necessary for the user to logout.\n  - If you store the session in a cookie, clear the cookie:\n  `rep = flask.Response(); rep.set_cookie('session', '', expires=0)`\n\n- Create a logout button component and assign it the logout_url\n`dcc.LogoutButton(logout_url='/logout')`\n\nSee https://dash.plot.ly/dash-core-components/logout_button\nfor more documentation and examples.",
+    "displayName": "LogoutButton",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Id of the button."
+      },
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Text of the button",
+        "defaultValue": {
+          "value": "'Logout'",
+          "computed": false
+        }
+      },
+      "logout_url": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Url to submit a post logout request."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Style of the button"
+      },
+      "method": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Http method to submit the logout form.",
+        "defaultValue": {
+          "value": "'post'",
+          "computed": false
+        }
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "CSS class for the button."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    }
+  },
   "src/components/Markdown.react.js": {
     "description": "A component that renders Markdown text as specified by the\nCommonMark spec.",
     "displayName": "DashMarkdown",
