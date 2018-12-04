@@ -1548,13 +1548,13 @@ class Tests(IntegrationTests):
 
         state().send_keys('x')
         time.sleep(0.75)
-        self.assertEqual(call_count.value, 3)
+        self.assertEqual(call_count.value, 2)
         self.assertEqual(
             output().text,
             'input="Initial Inputx", state="Initial State"')
 
         input().send_keys('y')
-        wait_for(lambda: call_count.value == 4)
+        wait_for(lambda: call_count.value == 3)
         self.assertEqual(
             output().text,
             'input="Initial Inputxy", state="Initial Statex"')
@@ -1591,11 +1591,9 @@ class Tests(IntegrationTests):
 
         input1 = self.wait_for_element_by_css_selector('#input')
         input1.clear()
-
         input1.send_keys('hello world')
 
         self.wait_for_text_to_equal('#output-1', 'hello world')
-        output1.click()  # Lose focus
         self.snapshot(name='simple-callback-2')
 
         self.assertEqual(
