@@ -1564,7 +1564,6 @@ class Tests(IntegrationTests):
         app.layout = html.Div([
             dcc.Input(
                 id='input',
-                value='initial value'
             ),
             html.Div(
                 html.Div([
@@ -1585,17 +1584,11 @@ class Tests(IntegrationTests):
 
         self.startServer(app)
 
-        output1 = self.wait_for_element_by_css_selector('#output-1')
-        wait_for(lambda: output1.text == 'initial value')
-        self.snapshot(name='simple-callback-1')
-
         input1 = self.wait_for_element_by_css_selector('#input')
-        input1.clear()
-        time.sleep(1)
         input1.send_keys('hello world')
-
+        output1 = self.wait_for_element_by_css_selector('#output-1')
         self.wait_for_text_to_equal('#output-1', 'hello world')
-        self.snapshot(name='simple-callback-2')
+        output1.click()  # Lose focus, no callback sent for value.
 
         self.assertEqual(
             call_count.value,
