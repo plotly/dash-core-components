@@ -1591,6 +1591,7 @@ class Tests(IntegrationTests):
 
         input1 = self.wait_for_element_by_css_selector('#input')
         input1.clear()
+        time.sleep(1)
         input1.send_keys('hello world')
 
         self.wait_for_text_to_equal('#output-1', 'hello world')
