@@ -485,9 +485,15 @@ class Tests(IntegrationTests):
 
         app.layout = html.Div([
             dcc.Tabs(id="tabs", value='tab-3', children=[
-                dcc.Tab(label='Tab one', value='tab-1', id='tab-1'),
-                dcc.Tab(label='Tab two', value='tab-2', id='tab-2'),
-                dcc.Tab(label='Tab three', value='tab-3', id='tab-3'),
+                dcc.Tab(label='Tab one', value='tab-1', id='tab-1', children=[
+                    html.Div('Tab One Content')
+                ]),
+                dcc.Tab(label='Tab two', value='tab-2', id='tab-2', children=[
+                    html.Div('Tab Two Content')
+                ]),
+                dcc.Tab(label='Tab three', value='tab-3', id='tab-3', children=[
+                    html.Div('Tab Three Content')
+                ]),
                 ], vertical=True),
             html.Div(id='tabs-content')
         ])
