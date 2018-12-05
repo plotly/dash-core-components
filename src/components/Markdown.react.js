@@ -35,7 +35,7 @@ DashMarkdown.propTypes = {
      * inadvertently expose your users to a cross-site scripting (XSS)
      * (https://en.wikipedia.org/wiki/Cross-site_scripting) attack.
      */
-    dangerouslyEscapeHtml: PropTypes.bool,
+    escapeHtml: PropTypes.bool,
 
     /**
      * A markdown string (or array of strings) that adhreres to the CommonMark spec
@@ -44,6 +44,10 @@ DashMarkdown.propTypes = {
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
     ]),
+};
+
+DashMarkdown.defaultProps = {
+    escapeHtml: true,
 };
 
 export default DashMarkdown;
