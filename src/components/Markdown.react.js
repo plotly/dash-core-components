@@ -13,7 +13,7 @@ function DashMarkdown(props) {
         props.children = props.children.join('\n');
     }
 
-    return <Markdown source={props.children} {...props} />;
+    return <Markdown source={props.children} escapeHtml={!props.dangerously_allow_html} {...props} />;
 }
 
 DashMarkdown.propTypes = {
@@ -35,7 +35,7 @@ DashMarkdown.propTypes = {
      * inadvertently expose your users to a cross-site scripting (XSS)
      * (https://en.wikipedia.org/wiki/Cross-site_scripting) attack.
      */
-    escapeHtml: PropTypes.bool,
+    dangerously_allow_html: PropTypes.bool,
 
     /**
      * A markdown string (or array of strings) that adhreres to the CommonMark spec
@@ -47,7 +47,7 @@ DashMarkdown.propTypes = {
 };
 
 DashMarkdown.defaultProps = {
-    escapeHtml: true,
+    dangerously_allow_html: false,
 };
 
 export default DashMarkdown;
