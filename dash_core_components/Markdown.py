@@ -10,20 +10,20 @@ CommonMark spec.
 
 Keyword arguments:
 - children (string | list; optional): A markdown string (or array of strings) that adhreres to the CommonMark spec
-- id (string; optional)
 - className (string; optional): Class name of the container element
 - containerProps (dict; optional): An object containing custom element props to put on the container
 element such as id or style
+- id (string; optional)
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, className=Component.UNDEFINED, containerProps=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'className', 'containerProps']
+    def __init__(self, children=None, className=Component.UNDEFINED, id=Component.UNDEFINED, containerProps=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'className', 'containerProps', 'id']
         self._type = 'Markdown'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['children', 'id', 'className', 'containerProps']
+        self.available_properties = ['children', 'className', 'containerProps', 'id']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

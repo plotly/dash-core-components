@@ -7,7 +7,12 @@
     "url": "git://github.com/plotly/dash-core-components.git"
   },
   "main": "src/index.js",
+  "bugs": {
+    "url": "https://github.com/plotly/dash-core-components/issues"
+  },
+  "homepage": "https://github.com/plotly/dash-core-components",
   "scripts": {
+    "generate-r-classes": "python -c \"import dash; dash.development.component_loader.generate_classes_r('dash_core_components', 'dash_core_components/metadata.json', 'package.json');\"",
     "generate-python-classes": "python -c \"import dash; dash.development.component_loader.generate_classes('dash_core_components', 'dash_core_components/metadata.json');\"",
     "prepublish": "npm run build:js && npm run build:js-dev && npm run build:py",
     "publish-all": "node scripts/publish.js",
@@ -20,6 +25,7 @@
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
     "build:js-dev": "webpack --mode development",
+    "build:r": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes && npm run generate-r-classes",
     "build:py": "node ./extract-meta src/components > dash_core_components/metadata.json && cp package.json dash_core_components && npm run generate-python-classes",
     "build:all": "npm run build:js && npm run build:js-dev && npm run build:py",
     "build:watch": "watch 'npm run build:all' src"
@@ -32,8 +38,8 @@
     "prop-types": "^15.6.0",
     "ramda": "^0.24.1",
     "rc-slider": "^8.3.1",
-    "react-dates": "^12.3.0",
     "react-addons-shallow-compare": "^15.6.0",
+    "react-dates": "^12.3.0",
     "react-docgen": "^2.21.0",
     "react-dropzone": "^4.1.2",
     "react-markdown": "^2.4.5",

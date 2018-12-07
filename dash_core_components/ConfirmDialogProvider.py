@@ -18,23 +18,23 @@ dcc.ConfirmDialogProvider(
 
 Keyword arguments:
 - children (boolean | number | string | dict | list; optional): The children to hijack clicks from and display the popup.
-- id (string; optional)
-- message (string; optional): Message to show in the popup.
-- submit_n_clicks (number; optional): Number of times the submit was clicked
-- submit_n_clicks_timestamp (number; optional): Last time the submit button was clicked.
 - cancel_n_clicks (number; optional): Number of times the popup was canceled.
 - cancel_n_clicks_timestamp (number; optional): Last time the cancel button was clicked.
+- submit_n_clicks (number; optional): Number of times the submit was clicked
+- message (string; optional): Message to show in the popup.
 - displayed (boolean; optional): Is the modal currently displayed.
+- submit_n_clicks_timestamp (number; optional): Last time the submit button was clicked.
+- id (string; optional)
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, message=Component.UNDEFINED, submit_n_clicks=Component.UNDEFINED, submit_n_clicks_timestamp=Component.UNDEFINED, cancel_n_clicks=Component.UNDEFINED, cancel_n_clicks_timestamp=Component.UNDEFINED, displayed=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed']
+    def __init__(self, children=None, cancel_n_clicks=Component.UNDEFINED, cancel_n_clicks_timestamp=Component.UNDEFINED, submit_n_clicks=Component.UNDEFINED, displayed=Component.UNDEFINED, submit_n_clicks_timestamp=Component.UNDEFINED, message=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'submit_n_clicks', 'message', 'displayed', 'submit_n_clicks_timestamp', 'id']
         self._type = 'ConfirmDialogProvider'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['children', 'id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed']
+        self.available_properties = ['children', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'submit_n_clicks', 'message', 'displayed', 'submit_n_clicks_timestamp', 'id']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
