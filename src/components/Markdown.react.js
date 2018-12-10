@@ -13,7 +13,13 @@ function DashMarkdown(props) {
         props.children = props.children.join('\n');
     }
 
-    return <Markdown source={props.children} escapeHtml={!props.dangerously_allow_html} {...props} />;
+    return (
+        <Markdown
+            source={props.children}
+            escapeHtml={!props.dangerously_allow_html}
+            {...props}
+        />
+    );
 }
 
 DashMarkdown.propTypes = {
@@ -31,7 +37,7 @@ DashMarkdown.propTypes = {
 
     /**
      * A boolean to control raw HTML escaping.
-     * Setting HTML from code is risky because it's easy to 
+     * Setting HTML from code is risky because it's easy to
      * inadvertently expose your users to a cross-site scripting (XSS)
      * (https://en.wikipedia.org/wiki/Cross-site_scripting) attack.
      */
