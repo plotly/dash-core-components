@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0a1] - 2018-12-17
+### Changed
+- Initial Dash 1.0 alpha release [#6](https://github.com/plotly/dash-core/issues/6)
+
 ## [0.41.0] - 2018-12-11
 ### Added
 - `dangerously_allow_html` prop for Markdown component for allowing HTML.
