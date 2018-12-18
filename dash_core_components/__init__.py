@@ -5,6 +5,7 @@ from __future__ import print_function as _
 import os as _os
 import sys as _sys
 import dash as _dash
+import json
 
 from .version import __version__
 
@@ -29,9 +30,16 @@ from ._imports_ import __all__
 
 _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
-
 _this_module = _sys.modules[__name__]
 
+_basepath = _os.path.dirname(__file__)
+_filepath = _os.path.abspath(_os.path.join(_basepath, 'package.json'))
+with open(_filepath) as f:
+    package = json.load(f)
+
+js_package_name = package['name']
+py_package_name = __name__
+js_version = package['version']
 
 _js_dist = [
     {
@@ -40,22 +48,20 @@ _js_dist = [
         'namespace': 'dash_core_components'
     },
     {
-        'relative_package_path': '{}.min.js'.format(__name__),
-        'dev_package_path': '{}.dev.js'.format(__name__),
+        'relative_package_path': '{}.min.js'.format(py_package_name),
+        'dev_package_path': '{}.dev.js'.format(py_package_name),
         'external_url': (
-            'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/dash_core_components.min.js'
-        ).format(__version__),
-        'namespace': 'dash_core_components'
+            'https://unpkg.com/{}@{}/{}/{}.min.js'
+        ).format(js_package_name, js_version, py_package_name, py_package_name),
+        'namespace': py_package_name
     },
     {
-        'relative_package_path': '{}.min.js.map'.format(__name__),
-        'dev_package_path': '{}.dev.js.map'.format(__name__),
+        'relative_package_path': '{}.min.js.map'.format(py_package_name),
+        'dev_package_path': '{}.dev.js.map'.format(py_package_name),
         'external_url': (
-            'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/dash_core_components.min.js.map'
-        ).format(__version__),
-        'namespace': 'dash_core_components',
+            'https://unpkg.com/{}@{}/{}/{}.min.js.map'
+        ).format(js_package_name, js_version, py_package_name, py_package_name),
+        'namespace': py_package_name,
         'dynamic': True
     }
 ]
