@@ -103,29 +103,3 @@ class IntegrationTests(unittest.TestCase):
 
         # Visit the dash page
         self.driver.get('http://localhost:8050')
-
-        # # Inject an error and warning logger
-        # logger = '''
-        # window.tests = {};
-        # window.tests.console = {error: [], warn: [], log: []};
-        # 
-        # var _log = console.log;
-        # var _warn = console.warn;
-        # var _error = console.error;
-        # 
-        # console.log = function() {
-        #     window.tests.console.log.push({method: 'log', arguments: arguments});
-        #     return _log.apply(console, arguments);
-        # };
-        # 
-        # console.warn = function() {
-        #     window.tests.console.warn.push({method: 'warn', arguments: arguments});
-        #     return _warn.apply(console, arguments);
-        # };
-        # 
-        # console.error = function() {
-        #     window.tests.console.error.push({method: 'error', arguments: arguments});
-        #     return _error.apply(console, arguments);
-        # };
-        # '''
-        # self.driver.execute_script(logger)

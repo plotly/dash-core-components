@@ -125,7 +125,7 @@ class InitializationTests(unittest.TestCase):
 
     def test_initializations(self):
         components_with_props =\
-             generate_all_components_with_props(self.components)
+            generate_all_components_with_props(self.components)
         errors = 0
         for component, props in components_with_props:
             try:
@@ -152,7 +152,7 @@ class CallbackTests(IntegrationTests):
 
     def test_callbacks(self):
         components_with_props =\
-             generate_all_components_with_props(self.components)
+            generate_all_components_with_props(self.components)
         app = dash.Dash(__name__)
         app.config['suppress_callback_exceptions'] = True
 
