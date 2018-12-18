@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'cancel_n_clicks': {'required': False, 'type': 'number', 'nullable': False}, 'cancel_n_clicks_timestamp': {'required': False, 'type': 'number', 'nullable': False}, 'submit_n_clicks': {'required': False, 'type': 'number', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'displayed': {'required': False, 'anyof': [{'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}, {'type': 'boolean'}], 'nullable': True}, 'submit_n_clicks_timestamp': {'required': False, 'type': 'number', 'nullable': False}, 'key': {'required': False, 'type': 'string', 'nullable': False}, 'message': {'required': False, 'type': 'string', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}}
+
 class ConfirmDialog(Component):
     """A ConfirmDialog component.
 ConfirmDialog is used to display the browser's native "confirm" modal,
@@ -17,10 +19,11 @@ Keyword arguments:
 - submit_n_clicks_timestamp (number; optional): Last time the submit button was clicked.
 - cancel_n_clicks (number; optional): Number of times the popup was canceled.
 - cancel_n_clicks_timestamp (number; optional): Last time the cancel button was clicked.
-- displayed (boolean; optional): Set to true to send the ConfirmDialog.
+- displayed (a value equal to: null | boolean; optional): Set to true to send the ConfirmDialog.
 - key (string; optional)
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, message=Component.UNDEFINED, submit_n_clicks=Component.UNDEFINED, submit_n_clicks_timestamp=Component.UNDEFINED, cancel_n_clicks=Component.UNDEFINED, cancel_n_clicks_timestamp=Component.UNDEFINED, displayed=Component.UNDEFINED, key=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed', 'key']
@@ -30,18 +33,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed', 'key']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(ConfirmDialog, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

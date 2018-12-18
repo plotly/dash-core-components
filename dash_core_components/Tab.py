@@ -3,12 +3,14 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'className': {'required': False, 'type': 'string', 'nullable': False}, 'style': {'required': False, 'type': 'dict', 'nullable': False}, 'disabled_className': {'required': False, 'type': 'string', 'nullable': False}, 'value': {'required': False, 'type': 'string', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'disabled': {'required': False, 'type': 'boolean', 'nullable': False}, 'selected_className': {'required': False, 'type': 'string', 'nullable': False}, 'selected_style': {'required': False, 'type': 'dict', 'nullable': False}, 'label': {'required': False, 'type': 'string', 'nullable': False}, 'disabled_style': {'required': False, 'type': 'dict', 'nullable': False}, 'children': {'required': False, 'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}}
+
 class Tab(Component):
     """A Tab component.
 
 
 Keyword arguments:
-- children (a list of or a singular dash component, string or number; optional): The content of the tab - will only be displayed if this tab is selected
+- children (a list of or a singular dash component, string or number | a value equal to: null; optional): The content of the tab - will only be displayed if this tab is selected
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.
@@ -23,6 +25,7 @@ components in an app.
 - selected_style (dict; optional): Overrides the default (inline) styles for the Tab component when it is selected.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, label=Component.UNDEFINED, value=Component.UNDEFINED, disabled=Component.UNDEFINED, disabled_style=Component.UNDEFINED, disabled_className=Component.UNDEFINED, className=Component.UNDEFINED, selected_className=Component.UNDEFINED, style=Component.UNDEFINED, selected_style=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'label', 'value', 'disabled', 'disabled_style', 'disabled_className', 'className', 'selected_className', 'style', 'selected_style']
@@ -32,18 +35,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['children', 'id', 'label', 'value', 'disabled', 'disabled_style', 'disabled_className', 'className', 'selected_className', 'style', 'selected_style']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Tab, self).__init__(children=children, **args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

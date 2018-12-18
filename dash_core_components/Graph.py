@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'style': {'required': False, 'type': 'dict', 'nullable': False}, 'figure': {'required': False, 'type': 'dict', 'validator': 'plotly_figure', 'nullable': False}, 'animation_options': {'required': False, 'type': 'dict', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'dashEvents': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['click', 'clickannotation', 'hover', 'selected', 'relayout', 'unhover']}, 'fireEvent': {'required': False, 'nullable': False}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'clear_on_unhover': {'required': False, 'type': 'boolean', 'nullable': False}, 'relayoutData': {'required': False, 'type': 'dict', 'nullable': False}, 'config': {'required': False, 'nullable': False, 'type': 'dict', 'allow_unknown': False, 'schema': {'topojsonURL': {'type': 'string'}, 'fillFrame': {'type': 'boolean'}, 'displayModeBar': {'type': ('string', 'number'), 'allowed': [True, False, 'hover']}, 'autosizable': {'type': 'boolean'}, 'doubleClick': {'type': ('string', 'number'), 'allowed': [False, 'reset', 'autosize', 'reset+autosize']}, 'sendData': {'type': 'boolean'}, 'queueLength': {'type': 'number'}, 'displaylogo': {'type': 'boolean'}, 'edits': {'schema': {'colorbarPosition': {'type': 'boolean'}, 'annotationPosition': {'type': 'boolean'}, 'shapePosition': {'type': 'boolean'}, 'annotationText': {'type': 'boolean'}, 'titleText': {'type': 'boolean'}, 'legendPosition': {'type': 'boolean'}, 'legendText': {'type': 'boolean'}, 'annotationTail': {'type': 'boolean'}, 'colorbarTitleText': {'type': 'boolean'}, 'axisTitleText': {'type': 'boolean'}}, 'type': 'dict', 'allow_unknown': False, 'nullable': False}, 'showLink': {'type': 'boolean'}, 'showAxisDragHandles': {'type': 'boolean'}, 'modeBarButtons': {}, 'scrollZoom': {'type': 'boolean'}, 'editable': {'type': 'boolean'}, 'linkText': {'type': 'string'}, 'staticPlot': {'type': 'boolean'}, 'showTips': {'type': 'boolean'}, 'mapboxAccessToken': {}, 'frameMargins': {'type': 'number'}, 'plotGlPixelRatio': {'type': 'number'}, 'modeBarButtonsToRemove': {'type': 'list'}, 'modeBarButtonsToAdd': {'type': 'list'}, 'showAxisRangeEntryBoxes': {'type': 'boolean'}}}, 'clickData': {'required': False, 'type': 'dict', 'nullable': False}, 'animate': {'required': False, 'type': 'boolean', 'nullable': False}, 'hoverData': {'required': False, 'type': 'dict', 'nullable': False}, 'clickAnnotationData': {'required': False, 'type': 'dict', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'selectedData': {'required': False, 'type': 'dict', 'nullable': False}}
+
 class Graph(Component):
     """A Graph component.
 
@@ -86,6 +88,7 @@ If using an Mapbox Atlas server, set this option to '',
 so that plotly.js won't attempt to authenticate to the public Mapbox server.
 
 Available events: 'click', 'clickannotation', 'hover', 'selected', 'relayout', 'unhover'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, clickData=Component.UNDEFINED, clickAnnotationData=Component.UNDEFINED, hoverData=Component.UNDEFINED, clear_on_unhover=Component.UNDEFINED, selectedData=Component.UNDEFINED, relayoutData=Component.UNDEFINED, figure=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, animate=Component.UNDEFINED, animation_options=Component.UNDEFINED, config=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'clickData', 'clickAnnotationData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
@@ -95,18 +98,12 @@ Available events: 'click', 'clickannotation', 'hover', 'selected', 'relayout', '
         self.available_events = ['click', 'clickannotation', 'hover', 'selected', 'relayout', 'unhover']
         self.available_properties = ['id', 'clickData', 'clickAnnotationData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Graph, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

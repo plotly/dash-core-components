@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'style': {'required': False, 'type': 'dict', 'nullable': False}, 'logout_url': {'required': False, 'type': 'string', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'label': {'required': False, 'type': 'string', 'nullable': False}, 'method': {'required': False, 'type': 'string', 'nullable': False}}
+
 class LogoutButton(Component):
     """A LogoutButton component.
 Logout button to submit a form post request to the `logout_url` prop.
@@ -36,6 +38,7 @@ Keyword arguments:
 - className (string; optional): CSS class for the button.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, label=Component.UNDEFINED, logout_url=Component.UNDEFINED, style=Component.UNDEFINED, method=Component.UNDEFINED, className=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'label', 'logout_url', 'style', 'method', 'className']
@@ -45,18 +48,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['id', 'label', 'logout_url', 'style', 'method', 'className']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(LogoutButton, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

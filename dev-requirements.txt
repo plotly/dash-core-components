@@ -1,8 +1,10 @@
 dash_html_components
-dash>=0.31.0
+dash==0.31.0rc1
+dash-renderer==0.15.0rc1
 percy
 selenium
 pandas
 dash_table_experiments
 xlrd
 flake8
+Cerberus

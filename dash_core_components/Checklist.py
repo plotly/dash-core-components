@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'labelClassName': {'required': False, 'type': 'string', 'nullable': False}, 'style': {'required': False, 'type': 'dict', 'nullable': False}, 'inputClassName': {'required': False, 'type': 'string', 'nullable': False}, 'inputStyle': {'required': False, 'type': 'dict', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'labelStyle': {'required': False, 'type': 'dict', 'nullable': False}, 'dashEvents': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['change']}, 'options': {'required': False, 'nullable': False, 'type': 'list', 'schema': {'nullable': False, 'type': 'dict', 'allow_unknown': False, 'schema': {'disabled': {'type': 'boolean'}, 'value': {'type': 'string'}, 'label': {'type': 'string'}}}}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'values': {'required': True, 'nullable': False, 'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, 'fireEvent': {'required': False, 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}}
+
 class Checklist(Component):
     """A Checklist component.
 Checklist is a component that encapsulates several checkboxes.
@@ -13,7 +15,7 @@ Each checkbox is rendered as an input with a surrounding label.
 Keyword arguments:
 - id (string; optional)
 - options (list; optional): An array of options
-- values (list; optional): The currently selected value
+- values (list; required): The currently selected value
 - className (string; optional): The class of the container (div)
 - style (dict; optional): The style of the container (div)
 - inputStyle (dict; optional): The style of the <input> checkbox element
@@ -24,8 +26,9 @@ Keyword arguments:
  and the option's label
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, values=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
+    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, values=Component.REQUIRED, className=Component.UNDEFINED, style=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self._type = 'Checklist'
         self._namespace = 'dash_core_components'
@@ -33,18 +36,12 @@ Available events: 'change'"""
         self.available_events = ['change']
         self.available_properties = ['id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Checklist, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

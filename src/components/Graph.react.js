@@ -8,7 +8,7 @@ const filterEventData = (gd, eventData, event) => {
     if (contains(event, ['click', 'hover', 'selected'])) {
         const points = [];
 
-        if (isNil(eventData)) {
+        if (isNil(eventData) || isNil(eventData.points)) {
             return null;
         }
 
@@ -94,6 +94,10 @@ class PlotlyGraph extends Component {
         if (
             animate &&
             this._hasPlotted &&
+            !isNil(figure) &&
+            !isNil(gd) &&
+            !isNil(figure.data) &&
+            !isNil(gd.data) &&
             figure.data.length === gd.data.length
         ) {
             return Plotly.animate(id, figure, animation_options);

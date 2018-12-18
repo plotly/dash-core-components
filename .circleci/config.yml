@@ -62,6 +62,7 @@ jobs:
                       . venv/bin/activate
                       python --version
                       npm run test-unit
+                      python -m unittest test.test_component_validation
                       python -m unittest test.test_integration
                       python -m unittest test.test_dash_import
 

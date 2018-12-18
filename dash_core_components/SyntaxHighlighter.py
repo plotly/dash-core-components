@@ -3,12 +3,14 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'language': {'required': False, 'type': 'string', 'nullable': False}, 'lineStyle': {'required': False, 'type': 'dict', 'nullable': False}, 'children': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'codeTagProps': {'required': False, 'type': 'dict', 'nullable': False}, 'theme': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['light', 'dark']}, 'useInlineStyles': {'required': False, 'type': 'boolean', 'nullable': False}, 'lineNumberContainerStyle': {'required': False, 'type': 'dict', 'nullable': False}, 'lineNumberStyle': {'required': False, 'type': 'dict', 'nullable': False}, 'startingLineNumber': {'required': False, 'type': 'number', 'nullable': False}, 'wrapLines': {'required': False, 'type': 'boolean', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'showLineNumbers': {'required': False, 'type': 'boolean', 'nullable': False}, 'customStyle': {'required': False, 'type': 'dict', 'nullable': False}}
+
 class SyntaxHighlighter(Component):
     """A SyntaxHighlighter component.
 A component for pretty printing code.
 
 Keyword arguments:
-- children (string | list; optional): The text to display and highlight
+- children (string | list | a value equal to: null; optional): The text to display and highlight
 - id (string; optional)
 - language (string; optional): the language to highlight code in.
 - theme (a value equal to: 'light', 'dark'; optional): theme: light or dark
@@ -23,6 +25,7 @@ Keyword arguments:
 - lineStyle (dict; optional): inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, language=Component.UNDEFINED, theme=Component.UNDEFINED, customStyle=Component.UNDEFINED, codeTagProps=Component.UNDEFINED, useInlineStyles=Component.UNDEFINED, showLineNumbers=Component.UNDEFINED, startingLineNumber=Component.UNDEFINED, lineNumberContainerStyle=Component.UNDEFINED, lineNumberStyle=Component.UNDEFINED, wrapLines=Component.UNDEFINED, lineStyle=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
@@ -32,18 +35,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(SyntaxHighlighter, self).__init__(children=children, **args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

@@ -3,13 +3,15 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'className': {'required': False, 'type': 'string', 'nullable': False}, 'dangerously_allow_html': {'required': False, 'type': 'boolean', 'nullable': False}, 'children': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'containerProps': {'required': False, 'type': 'dict', 'nullable': False}}
+
 class Markdown(Component):
     """A Markdown component.
 A component that renders Markdown text as specified by the
 CommonMark spec.
 
 Keyword arguments:
-- children (string | list; optional): A markdown string (or array of strings) that adhreres to the CommonMark spec
+- children (string | list | a value equal to: null; optional): A markdown string (or array of strings) that adhreres to the CommonMark spec
 - id (string; optional)
 - className (string; optional): Class name of the container element
 - containerProps (dict; optional): An object containing custom element props to put on the container
@@ -20,6 +22,7 @@ inadvertently expose your users to a cross-site scripting (XSS)
 (https://en.wikipedia.org/wiki/Cross-site_scripting) attack.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, className=Component.UNDEFINED, containerProps=Component.UNDEFINED, dangerously_allow_html=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'className', 'containerProps', 'dangerously_allow_html']
@@ -29,18 +32,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['children', 'id', 'className', 'containerProps', 'dangerously_allow_html']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Markdown, self).__init__(children=children, **args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

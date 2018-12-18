@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'initial_visible_month': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'datetime'}], 'nullable': False}, 'reopen_calendar_on_clear': {'required': False, 'type': 'boolean', 'nullable': False}, 'disabled': {'required': False, 'type': 'boolean', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'number_of_months_shown': {'required': False, 'type': 'number', 'nullable': False}, 'min_date_allowed': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'datetime'}], 'nullable': False}, 'max_date_allowed': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'datetime'}], 'nullable': False}, 'dashEvents': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['change']}, 'first_day_of_week': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['0', 0, 0.0, '1', 1, 1.0, '2', 2, 2.0, '3', 3, 3.0, '4', 4, 4.0, '5', 5, 5.0, '6', 6, 6.0]}, 'clearable': {'required': False, 'type': 'boolean', 'nullable': False}, 'display_format': {'required': False, 'type': 'string', 'nullable': False}, 'stay_open_on_select': {'required': False, 'type': 'boolean', 'nullable': False}, 'month_format': {'required': False, 'type': 'string', 'nullable': False}, 'is_RTL': {'required': False, 'type': 'boolean', 'nullable': False}, 'show_outside_days': {'required': False, 'type': 'boolean', 'nullable': False}, 'calendar_orientation': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['vertical', 'horizontal']}, 'date': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'datetime'}], 'nullable': False}, 'with_full_screen_portal': {'required': False, 'type': 'boolean', 'nullable': False}, 'placeholder': {'required': False, 'type': 'string', 'nullable': False}, 'fireEvent': {'required': False, 'nullable': False}, 'with_portal': {'required': False, 'type': 'boolean', 'nullable': False}, 'day_size': {'required': False, 'type': 'number', 'nullable': False}}
+
 class DatePickerSingle(Component):
     """A DatePickerSingle component.
 DatePickerSingle is a tailor made component designed for selecting
@@ -67,6 +69,7 @@ not a small "x" appears on the right of the dropdown that removes
 the selected value.
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, date=Component.UNDEFINED, min_date_allowed=Component.UNDEFINED, max_date_allowed=Component.UNDEFINED, initial_visible_month=Component.UNDEFINED, day_size=Component.UNDEFINED, calendar_orientation=Component.UNDEFINED, is_RTL=Component.UNDEFINED, placeholder=Component.UNDEFINED, reopen_calendar_on_clear=Component.UNDEFINED, number_of_months_shown=Component.UNDEFINED, with_portal=Component.UNDEFINED, with_full_screen_portal=Component.UNDEFINED, first_day_of_week=Component.UNDEFINED, stay_open_on_select=Component.UNDEFINED, show_outside_days=Component.UNDEFINED, month_format=Component.UNDEFINED, display_format=Component.UNDEFINED, disabled=Component.UNDEFINED, clearable=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'day_size', 'calendar_orientation', 'is_RTL', 'placeholder', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']
@@ -76,18 +79,12 @@ Available events: 'change'"""
         self.available_events = ['change']
         self.available_properties = ['id', 'date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'day_size', 'calendar_orientation', 'is_RTL', 'placeholder', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(DatePickerSingle, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

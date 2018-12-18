@@ -96,7 +96,7 @@ ConfirmDialog.propTypes = {
     /**
      *  Set to true to send the ConfirmDialog.
      */
-    displayed: PropTypes.bool,
+    displayed: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.bool]),
     key: PropTypes.string,
 
     /**

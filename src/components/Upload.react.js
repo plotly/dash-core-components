@@ -145,7 +145,11 @@ Upload.propTypes = {
     /**
      * Contents of the upload component
      */
-    children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+    children: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.string,
+        PropTypes.oneOf([null]),
+    ]),
 
     /**
      * Allow specific types of files.

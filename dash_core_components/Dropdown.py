@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'disabled': {'required': False, 'type': 'boolean', 'nullable': False}, 'multi': {'required': False, 'type': 'boolean', 'nullable': False}, 'dashEvents': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['change']}, 'searchable': {'required': False, 'type': 'boolean', 'nullable': False}, 'fireEvent': {'required': False, 'nullable': False}, 'style': {'required': False, 'type': 'dict', 'nullable': False}, 'value': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}], 'nullable': False}, 'options': {'required': False, 'nullable': False, 'type': 'list', 'schema': {'nullable': False, 'type': 'dict', 'allow_unknown': False, 'schema': {'disabled': {'type': 'boolean'}, 'value': {'type': 'string'}, 'label': {'type': 'string'}}}}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'clearable': {'required': False, 'type': 'boolean', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'placeholder': {'required': False, 'type': 'string', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}}
+
 class Dropdown(Component):
     """A Dropdown component.
 Dropdown is an interactive dropdown element for selecting one or more
@@ -34,6 +36,7 @@ the selected value.
 - style (dict; optional)
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
@@ -43,18 +46,12 @@ Available events: 'change'"""
         self.available_events = ['change']
         self.available_properties = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Dropdown, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

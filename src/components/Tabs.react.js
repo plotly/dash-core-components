@@ -387,8 +387,11 @@ Tabs.propTypes = {
      * Array that holds Tab components
      */
     children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.arrayOf(
+            PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.node])
+        ),
         PropTypes.node,
+        PropTypes.oneOf([null]),
     ]),
 
     /**

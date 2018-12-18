@@ -99,5 +99,20 @@ ConfirmDialogProvider.propTypes = {
     /**
      * The children to hijack clicks from and display the popup.
      */
-    children: PropTypes.any,
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.element,
+        PropTypes.oneOf([null]),
+        PropTypes.arrayOf(
+            PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+                PropTypes.element,
+                PropTypes.oneOf([null]),
+            ])
+        ),
+    ]),
 };

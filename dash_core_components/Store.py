@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'modified_timestamp': {'required': False, 'type': 'number', 'nullable': False}, 'storage_type': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['local', 'session', 'memory']}, 'clear_data': {'required': False, 'type': 'boolean', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'data': {'required': False, 'anyof': [{'type': 'dict'}, {'type': 'list'}, {'type': 'number'}, {'type': 'string'}], 'nullable': False}, 'id': {'required': True, 'type': 'string', 'nullable': False}}
+
 class Store(Component):
     """A Store component.
 Easily keep data on the client side with this component.
@@ -22,6 +24,7 @@ session: window.sessionStorage, data is cleared once the browser quit.
 - modified_timestamp (number; optional): The last time the storage was modified.
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.REQUIRED, storage_type=Component.UNDEFINED, data=Component.UNDEFINED, clear_data=Component.UNDEFINED, modified_timestamp=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'storage_type', 'data', 'clear_data', 'modified_timestamp']
@@ -31,18 +34,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['id', 'storage_type', 'data', 'clear_data', 'modified_timestamp']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in ['id']:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Store, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

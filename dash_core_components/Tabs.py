@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'style': {'required': False, 'type': 'dict', 'nullable': False}, 'vertical': {'required': False, 'type': 'boolean', 'nullable': False}, 'parent_style': {'required': False, 'type': 'dict', 'nullable': False}, 'parent_className': {'required': False, 'type': 'string', 'nullable': False}, 'content_className': {'required': False, 'type': 'string', 'nullable': False}, 'mobile_breakpoint': {'required': False, 'type': 'number', 'nullable': False}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'children': {'required': False, 'anyof': [{'type': 'list', 'schema': {'anyof': [{'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}, {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}], 'nullable': True}}, {'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'colors': {'required': False, 'nullable': False, 'type': 'dict', 'allow_unknown': False, 'schema': {'border': {'type': 'string'}, 'primary': {'type': 'string'}, 'background': {'type': 'string'}}}, 'value': {'required': False, 'type': 'string', 'nullable': False}, 'content_style': {'required': False, 'type': 'dict', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}}
+
 class Tabs(Component):
     """A Tabs component.
 A Dash component that lets you render pages with tabs - the Tabs component's children
@@ -10,7 +12,7 @@ can be dcc.Tab components, which can hold a label that will be displayed as a ta
 children components that will be that tab's content.
 
 Keyword arguments:
-- children (list | a list of or a singular dash component, string or number; optional): Array that holds Tab components
+- children (list | a list of or a singular dash component, string or number | a value equal to: null; optional): Array that holds Tab components
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.
@@ -35,6 +37,7 @@ Those keys have the following types:
   - background (string; optional)
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, content_className=Component.UNDEFINED, parent_className=Component.UNDEFINED, style=Component.UNDEFINED, parent_style=Component.UNDEFINED, content_style=Component.UNDEFINED, vertical=Component.UNDEFINED, mobile_breakpoint=Component.UNDEFINED, colors=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'value', 'className', 'content_className', 'parent_className', 'style', 'parent_style', 'content_style', 'vertical', 'mobile_breakpoint', 'colors']
@@ -44,18 +47,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['children', 'id', 'value', 'className', 'content_className', 'parent_className', 'style', 'parent_style', 'content_style', 'vertical', 'mobile_breakpoint', 'colors']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Tabs, self).__init__(children=children, **args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

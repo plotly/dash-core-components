@@ -35,6 +35,7 @@ SyntaxHighlighter.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
+        PropTypes.oneOf([null]),
     ]),
 
     /**

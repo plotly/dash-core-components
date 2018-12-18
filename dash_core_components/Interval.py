@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'max_intervals': {'required': False, 'type': 'number', 'nullable': False}, 'interval': {'required': False, 'type': 'number', 'nullable': False}, 'dashEvents': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['interval']}, 'fireEvent': {'required': False, 'nullable': False}, 'disabled': {'required': False, 'type': 'boolean', 'nullable': False}, 'n_intervals': {'required': False, 'type': 'number', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}}
+
 class Interval(Component):
     """A Interval component.
 A component that repeatedly fires an event ("interval")
@@ -20,6 +22,7 @@ an event.
 - max_intervals (number; optional): Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
 
 Available events: 'interval'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, max_intervals=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
@@ -29,18 +32,12 @@ Available events: 'interval'"""
         self.available_events = ['interval']
         self.available_properties = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Interval, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

@@ -49,7 +49,7 @@
             "name": "string"
           }
         },
-        "required": false,
+        "required": true,
         "description": "The currently selected value"
       },
       "className": {
@@ -224,7 +224,21 @@
       },
       "displayed": {
         "type": {
-          "name": "bool"
+          "name": "union",
+          "value": [
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "bool"
+            }
+          ]
         },
         "required": false,
         "description": "Set to true to send the ConfirmDialog."
@@ -324,7 +338,59 @@
       },
       "children": {
         "type": {
-          "name": "any"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            },
+            {
+              "name": "bool"
+            },
+            {
+              "name": "element"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "string"
+                  },
+                  {
+                    "name": "number"
+                  },
+                  {
+                    "name": "bool"
+                  },
+                  {
+                    "name": "element"
+                  },
+                  {
+                    "name": "enum",
+                    "value": [
+                      {
+                        "value": "null",
+                        "computed": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
         },
         "required": false,
         "description": "The children to hijack clicks from and display the popup."
@@ -382,35 +448,80 @@
       },
       "start_date": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the starting date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "end_date": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the ending date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "min_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the lowest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "max_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the highest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "initial_visible_month": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the month that is initially presented when the user\nopens the calendar. Accepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
@@ -719,28 +830,64 @@
       },
       "date": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the starting date for the component, best practice is to pass\nvalue via datetime object"
       },
       "min_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the lowest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "max_date_allowed": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the highest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
       },
       "initial_visible_month": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "instanceOf",
+              "value": "Date"
+            }
+          ]
         },
         "required": false,
         "description": "Specifies the month that is initially presented when the user\nopens the calendar. Accepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
@@ -1693,7 +1840,15 @@
       },
       "maxlength": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed."
@@ -1715,7 +1870,15 @@
       },
       "minlength": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored."
@@ -1771,21 +1934,45 @@
       },
       "selectionEnd": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "The offset into the element's text content of the last selected character. If there's no selection, this value indicates the offset to the character following the current text input cursor position (that is, the position the next character typed would occupy)."
       },
       "selectionStart": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "The offset into the element's text content of the first selected character. If there's no selection, this value indicates the offset to the character following the current text input cursor position (that is, the position the next character typed would occupy)."
       },
       "size": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
         },
         "required": false,
         "description": "The initial size of the control. This value is in pixels unless the value of the type attribute is text or password, in which case it is an integer number of characters. Starting in, this attribute applies only when the type attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be greater than zero. If you do not specify a size, a default value of 20 is used.' simply states \"the user agent should ensure that at least that many characters are visible\", but different characters can have different widths in certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is defined to at least x."
@@ -2042,7 +2229,21 @@
       },
       "children": {
         "type": {
-          "name": "node"
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": ""
@@ -2076,7 +2277,21 @@
       },
       "pathname": {
         "type": {
-          "name": "string"
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": "pathname in window.location - e.g., \"/my/full/pathname\""
@@ -2235,6 +2450,15 @@
               "value": {
                 "name": "string"
               }
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },
@@ -2394,30 +2618,27 @@
       },
       "marks": {
         "type": {
-          "name": "shape",
+          "name": "objectOf",
           "value": {
-            "number": {
-              "name": "union",
-              "value": [
-                {
-                  "name": "string"
-                },
-                {
-                  "name": "shape",
-                  "value": {
-                    "style": {
-                      "name": "object",
-                      "required": false
-                    },
-                    "label": {
-                      "name": "string",
-                      "required": false
-                    }
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "shape",
+                "value": {
+                  "style": {
+                    "name": "object",
+                    "required": false
+                  },
+                  "label": {
+                    "name": "string",
+                    "required": false
                   }
                 }
-              ],
-              "required": false
-            }
+              }
+            ]
           }
         },
         "required": false,
@@ -2582,30 +2803,27 @@
       },
       "marks": {
         "type": {
-          "name": "shape",
+          "name": "objectOf",
           "value": {
-            "number": {
-              "name": "union",
-              "value": [
-                {
-                  "name": "string"
-                },
-                {
-                  "name": "shape",
-                  "value": {
-                    "style": {
-                      "name": "object",
-                      "required": false
-                    },
-                    "label": {
-                      "name": "string",
-                      "required": false
-                    }
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "shape",
+                "value": {
+                  "style": {
+                    "name": "object",
+                    "required": false
+                  },
+                  "label": {
+                    "name": "string",
+                    "required": false
                   }
                 }
-              ],
-              "required": false
-            }
+              }
+            ]
           }
         },
         "required": false,
@@ -2850,6 +3068,15 @@
               "value": {
                 "name": "string"
               }
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },
@@ -2966,7 +3193,21 @@
       },
       "children": {
         "type": {
-          "name": "node"
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
+            }
+          ]
         },
         "required": false,
         "description": "The content of the tab - will only be displayed if this tab is selected"
@@ -3147,11 +3388,34 @@
             {
               "name": "arrayOf",
               "value": {
-                "name": "node"
+                "name": "union",
+                "value": [
+                  {
+                    "name": "enum",
+                    "value": [
+                      {
+                        "value": "null",
+                        "computed": false
+                      }
+                    ]
+                  },
+                  {
+                    "name": "node"
+                  }
+                ]
               }
             },
             {
               "name": "node"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },
@@ -3497,6 +3761,15 @@
             },
             {
               "name": "string"
+            },
+            {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "null",
+                  "computed": false
+                }
+              ]
             }
           ]
         },

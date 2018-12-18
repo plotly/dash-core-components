@@ -74,7 +74,7 @@ Link.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     id: PropTypes.string,
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.oneOf([null])]),
 };
 
 Link.defaultProps = {

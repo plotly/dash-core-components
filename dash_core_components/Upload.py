@@ -3,12 +3,14 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'style_reject': {'required': False, 'type': 'dict', 'nullable': False}, 'min_size': {'required': False, 'type': 'number', 'nullable': False}, 'style': {'required': False, 'type': 'dict', 'nullable': False}, 'multiple': {'required': False, 'type': 'boolean', 'nullable': False}, 'style_disabled': {'required': False, 'type': 'dict', 'nullable': False}, 'className_reject': {'required': False, 'type': 'string', 'nullable': False}, 'className_disabled': {'required': False, 'type': 'string', 'nullable': False}, 'accept': {'required': False, 'type': 'string', 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'disabled': {'required': False, 'type': 'boolean', 'nullable': False}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'last_modified': {'required': False, 'anyof': [{'type': 'number'}, {'type': 'list', 'schema': {'type': 'number', 'nullable': False}}], 'nullable': False}, 'style_active': {'required': False, 'type': 'dict', 'nullable': False}, 'max_size': {'required': False, 'type': 'number', 'nullable': False}, 'className_active': {'required': False, 'type': 'string', 'nullable': False}, 'filename': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}], 'nullable': False}, 'disable_click': {'required': False, 'type': 'boolean', 'nullable': False}, 'children': {'required': False, 'anyof': [{'anyof': [{'type': 'component'}, {'type': 'boolean'}, {'type': 'number'}, {'type': 'string'}, {'type': 'list', 'schema': {'type': ('component', 'boolean', 'number', 'string')}}]}, {'type': 'string'}, {'nullable': True, 'type': ('string', 'number'), 'allowed': [None]}], 'nullable': True}, 'contents': {'required': False, 'anyof': [{'type': 'string'}, {'type': 'list', 'schema': {'type': 'string', 'nullable': False}}], 'nullable': False}, 'setProps': {'required': False, 'nullable': False}}
+
 class Upload(Component):
     """A Upload component.
 
 
 Keyword arguments:
-- children (a list of or a singular dash component, string or number | string; optional): Contents of the upload component
+- children (a list of or a singular dash component, string or number | string | a value equal to: null; optional): Contents of the upload component
 - id (string; optional): ID of the component. Used to identify component
 in Dash callback functions.
 - contents (string | list; optional): The contents of the uploaded file as a binary string
@@ -39,6 +41,7 @@ See: https://github.com/react-dropzone/react-dropzone/issues/276
 - style_disabled (dict; optional): CSS styles if disabled
 
 Available events: """
+    _schema = schema
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, contents=Component.UNDEFINED, filename=Component.UNDEFINED, last_modified=Component.UNDEFINED, accept=Component.UNDEFINED, disabled=Component.UNDEFINED, disable_click=Component.UNDEFINED, max_size=Component.UNDEFINED, min_size=Component.UNDEFINED, multiple=Component.UNDEFINED, className=Component.UNDEFINED, className_active=Component.UNDEFINED, className_reject=Component.UNDEFINED, className_disabled=Component.UNDEFINED, style=Component.UNDEFINED, style_active=Component.UNDEFINED, style_reject=Component.UNDEFINED, style_disabled=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
@@ -48,18 +51,12 @@ Available events: """
         self.available_events = []
         self.available_properties = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Upload, self).__init__(children=children, **args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'count': {'required': False, 'type': 'number', 'nullable': False}, 'disabled': {'required': False, 'type': 'boolean', 'nullable': False}, 'updatemode': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['mouseup', 'drag']}, 'dashEvents': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['change']}, 'vertical': {'required': False, 'type': 'boolean', 'nullable': False}, 'min': {'required': False, 'type': 'number', 'nullable': False}, 'max': {'required': False, 'type': 'number', 'nullable': False}, 'step': {'required': False, 'type': 'number', 'nullable': False}, 'value': {'required': False, 'nullable': False, 'type': 'list', 'schema': {'type': 'number', 'nullable': False}}, 'fireEvent': {'required': False, 'nullable': False}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'dots': {'required': False, 'type': 'boolean', 'nullable': False}, 'marks': {'required': False, 'type': 'dict', 'valueschema': {'anyof': [{'type': 'string'}, {'schema': {'style': {'type': 'dict'}, 'label': {'type': 'string'}}, 'type': 'dict', 'allow_unknown': False, 'nullable': False}]}, 'nullable': False}, 'included': {'required': False, 'type': 'boolean', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'pushable': {'required': False, 'anyof': [{'type': 'boolean'}, {'type': 'number'}], 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'allowCross': {'required': False, 'type': 'boolean', 'nullable': False}}
+
 class RangeSlider(Component):
     """A RangeSlider component.
 A double slider with two handles.
@@ -15,9 +17,7 @@ The key determines the position,
 and the value determines what will show.
 If you want to set the style of a specific mark point,
 the value should be an object which
-contains style and label properties.. marks has the following type: dict containing keys 'number'.
-Those keys have the following types: 
-  - number (optional): . number has the following type: string | dict containing keys 'style', 'label'.
+contains style and label properties.. marks has the following type: dict with strings as keys and values of type string | dict containing keys 'style', 'label'.
 Those keys have the following types: 
   - style (dict; optional)
   - label (string; optional)
@@ -49,6 +49,7 @@ as it is being dragged.
 Only use `drag` if your updates are fast.
 
 Available events: 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, allowCross=Component.UNDEFINED, className=Component.UNDEFINED, count=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, pushable=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, updatemode=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']
@@ -58,18 +59,12 @@ Available events: 'change'"""
         self.available_events = ['change']
         self.available_properties = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(RangeSlider, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names

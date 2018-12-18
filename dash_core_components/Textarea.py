@@ -3,6 +3,8 @@
 from dash.development.base_component import Component, _explicitize_args
 
 
+schema = {'contentEditable': {'required': False, 'type': 'string', 'nullable': False}, 'cols': {'required': False, 'type': 'string', 'nullable': False}, 'disabled': {'required': False, 'type': 'string', 'nullable': False}, 'wrap': {'required': False, 'type': 'string', 'nullable': False}, 'setProps': {'required': False, 'nullable': False}, 'id': {'required': False, 'type': 'string', 'nullable': False}, 'tabIndex': {'required': False, 'type': 'string', 'nullable': False}, 'draggable': {'required': False, 'type': 'string', 'nullable': False}, 'style': {'required': False, 'type': 'dict', 'nullable': False}, 'rows': {'required': False, 'type': 'string', 'nullable': False}, 'title': {'required': False, 'type': 'string', 'nullable': False}, 'accessKey': {'required': False, 'type': 'string', 'nullable': False}, 'dashEvents': {'required': False, 'nullable': False, 'type': ('string', 'number'), 'allowed': ['click', 'blur', 'change']}, 'hidden': {'required': False, 'type': 'string', 'nullable': False}, 'spellCheck': {'required': False, 'type': 'string', 'nullable': False}, 'form': {'required': False, 'type': 'string', 'nullable': False}, 'contextMenu': {'required': False, 'type': 'string', 'nullable': False}, 'minLength': {'required': False, 'type': 'string', 'nullable': False}, 'readOnly': {'required': False, 'type': 'string', 'nullable': False}, 'maxLength': {'required': False, 'type': 'string', 'nullable': False}, 'autoFocus': {'required': False, 'type': 'string', 'nullable': False}, 'placeholder': {'required': False, 'type': 'string', 'nullable': False}, 'fireEvent': {'required': False, 'nullable': False}, 'lang': {'required': False, 'type': 'string', 'nullable': False}, 'name': {'required': False, 'type': 'string', 'nullable': False}, 'required': {'required': False, 'type': 'string', 'nullable': False}, 'value': {'required': False, 'type': 'string', 'nullable': False}, 'className': {'required': False, 'type': 'string', 'nullable': False}, 'dir': {'required': False, 'type': 'string', 'nullable': False}}
+
 class Textarea(Component):
     """A Textarea component.
 A basic HTML textarea for entering multiline text.
@@ -38,6 +40,7 @@ components in an app.
 - title (string; optional): Text to be displayed in a tooltip when hovering over the element.
 
 Available events: 'click', 'blur', 'change'"""
+    _schema = schema
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, autoFocus=Component.UNDEFINED, cols=Component.UNDEFINED, disabled=Component.UNDEFINED, form=Component.UNDEFINED, maxLength=Component.UNDEFINED, minLength=Component.UNDEFINED, name=Component.UNDEFINED, placeholder=Component.UNDEFINED, readOnly=Component.UNDEFINED, required=Component.UNDEFINED, rows=Component.UNDEFINED, wrap=Component.UNDEFINED, accessKey=Component.UNDEFINED, className=Component.UNDEFINED, contentEditable=Component.UNDEFINED, contextMenu=Component.UNDEFINED, dir=Component.UNDEFINED, draggable=Component.UNDEFINED, hidden=Component.UNDEFINED, lang=Component.UNDEFINED, spellCheck=Component.UNDEFINED, style=Component.UNDEFINED, tabIndex=Component.UNDEFINED, title=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title']
@@ -47,18 +50,12 @@ Available events: 'click', 'blur', 'change'"""
         self.available_events = ['click', 'blur', 'change']
         self.available_properties = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title']
         self.available_wildcard_properties =            []
-
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
         _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != 'children'}
-
-        for k in []:
-            if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+        args = {k: _locals[k] for k in _explicit_args}
+        args.pop('children', None)
         super(Textarea, self).__init__(**args)
-
     def __repr__(self):
         if(any(getattr(self, c, None) is not None
                for c in self._prop_names
