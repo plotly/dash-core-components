@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### As part of [plotly.js 1.43.1](https://github.com/plotly/plotly.js/releases/tag/v1.43.1)
 
+### Fixed
 - Fix z-axis auto-type for cartesian + gl3d graphs (bug introduced in 1.43.0) [#3360]
 - Fix multicategory axis coordinate sorting [#3362]
 - Fix multicategory y-axes clearance [#3354]
@@ -77,21 +78,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix `restyle` with `impliedEdits` on trace with `groupby` transforms [#3236]
 - Fix `editable: true` drag on `marker` colorbars [#3236]
 
-
 ### As part of [plotly.js 1.42.5](https://github.com/plotly/plotly.js/releases/tag/v1.42.5)
-
--Fix scattergl / scatterpolargl with mode: lines and more than 1e5 pts (bug introduced in 1.42.0) [#3228]
+- Fix scattergl / scatterpolargl with mode: lines and more than 1e5 pts (bug introduced in 1.42.0) [#3228]
 
 ### As part of [plotly.js 1.42.4](https://github.com/plotly/plotly.js/releases/tag/v1.42.4)
 
 ### Fixed
-
 - Remove rendering artifacts from table orca PDF exports [#3220]
 
 ### As part of [plotly.js 1.42.3](https://github.com/plotly/plotly.js/releases/tag/v1.42.3)
 
 ### Fixed
-
 - Fix histogram binning for typed array inputs (bug introduced in 1.42.0) [#3211]
 - Fix textfont color restyle calls for pie traces [#3214]
 - Fix textfont color editType for bar traces [#3214]
