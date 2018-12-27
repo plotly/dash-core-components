@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix `dcc.Store` null values in list causing an infinite loop [#424](https://github.com/plotly/dash-core-components/pull/424)
 
 ### Updated
-- Updated plotly.js to 1.43.0 [#423](https://github.com/plotly/dash-core-components/pull/423)
+- Updated plotly.js to 1.43.1 [#423](https://github.com/plotly/dash-core-components/pull/423)
 
 ### As part of [plotly.js 1.43.1](https://github.com/plotly/plotly.js/releases/tag/v1.43.1)
 
