@@ -6,8 +6,8 @@ function dataCheck(data, old) {
     // Assuming data and old are of the same type.
     const oldNull = R.isNil(old);
     const newNull = R.isNil(data);
-    if ((oldNull || newNull) && !(oldNull && newNull)) {
-        return true;
+    if (oldNull || newNull) {
+        return oldNull !== newNull;
     }
     const type = R.type(data);
     if (type === 'Array') {
