@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
+import itertools
 from datetime import datetime
 import io
 import os
@@ -18,7 +19,7 @@ import dash_table_experiments as dt
 from dash.exceptions import PreventUpdate
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import InvalidElementStateException
+from selenium.common.exceptions import InvalidElementStateException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -1580,3 +1581,57 @@ class Tests(IntegrationTests):
 
         # Gets error loading dependencies.
         self.wait_for_element_by_css_selector('#output')
+
+    def test_store_type_updates(self):
+        app = dash.Dash(__name__)
+
+        types = [
+            ('str', 'hello'),
+            ('number', 1),
+            ('dict', {'data': [1, 2, 3]}),
+            ('list', [1, 2, 3]),
+            ('null', None)
+        ]
+        types_changes = list(
+            itertools.chain(*itertools.combinations(types, 2))
+        )
+
+        app.layout = html.Div([
+            html.Div(id='output'),
+            html.Button('click', id='click'),
+            dcc.Store(id='store')
+        ])
+
+        @app.callback(Output('output', 'children'),
+                      [Input('store', 'modified_timestamp')],
+                      [State('store', 'data')])
+        def on_data(ts, data):
+            if ts is None:
+                raise PreventUpdate
+
+            return json.dumps(data)
+
+        @app.callback(Output('store', 'data'), [Input('click', 'n_clicks')])
+        def on_click(n_clicks):
+            if n_clicks is None:
+                raise PreventUpdate
+
+            return types_changes[n_clicks - 1][1]
+
+        self.startServer(app)
+
+        button = self.wait_for_element_by_css_selector('#click')
+
+        for i, type_change in enumerate(types_changes):
+            button.click()
+            try:
+                self.wait_for_text_to_equal(
+                    '#output', json.dumps(type_change[1]),
+                )
+            except TimeoutException:
+                raise Exception(
+                    'Output type did not change from {} to {}'.format(
+                        types_changes[i - 1][0],
+                        type_change[0]
+                    )
+                )
