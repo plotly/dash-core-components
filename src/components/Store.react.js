@@ -2,7 +2,7 @@ import R from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function dataCheck(data, old) {
+function dataChanged(data, old) {
     // Assuming data and old are of the same type.
     const oldNull = R.isNil(old);
     const newNull = R.isNil(data);
@@ -15,14 +15,14 @@ function dataCheck(data, old) {
             return true;
         }
         for (let i = 0; i < data.length; i++) {
-            if (dataCheck(data[i], old[i])) {
+            if (dataChanged(data[i], old[i])) {
                 return true;
             }
         }
     } else if (R.contains(type, ['String', 'Number'])) {
         return old !== data;
     } else if (type === 'Object') {
-        return R.any(([k, v]) => dataCheck(v, old[k]))(Object.entries(data));
+        return R.any(([k, v]) => dataChanged(v, old[k]))(Object.entries(data));
     }
     return false;
 }
@@ -140,7 +140,7 @@ export default class Store extends React.Component {
             return;
         }
 
-        if (setProps && dataCheck(old, data)) {
+        if (setProps && dataChanged(old, data)) {
             setProps({
                 data: old,
                 modified_timestamp: this._backstore.getModified(id),
@@ -168,7 +168,7 @@ export default class Store extends React.Component {
         } else if (data) {
             const old = this._backstore.getItem(id);
             // Only set the data if it's not the same data.
-            if (dataCheck(data, old)) {
+            if (dataChanged(data, old)) {
                 this._backstore.setItem(id, data);
                 if (setProps) {
                     setProps({
