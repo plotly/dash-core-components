@@ -2,27 +2,27 @@ import R from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function dataChanged(data, old) {
+function dataChanged(newData, oldData) {
     // Assuming data and old are of the same type.
-    const oldNull = R.isNil(old);
-    const newNull = R.isNil(data);
+    const oldNull = R.isNil(oldData);
+    const newNull = R.isNil(newData);
     if (oldNull || newNull) {
         return oldNull !== newNull;
     }
-    const type = R.type(data);
+    const type = R.type(newData);
     if (type === 'Array') {
-        if (data.length !== old.length) {
+        if (newData.length !== oldData.length) {
             return true;
         }
-        for (let i = 0; i < data.length; i++) {
-            if (dataChanged(data[i], old[i])) {
+        for (let i = 0; i < newData.length; i++) {
+            if (dataChanged(newData[i], oldData[i])) {
                 return true;
             }
         }
     } else if (R.contains(type, ['String', 'Number'])) {
-        return old !== data;
+        return oldData !== newData;
     } else if (type === 'Object') {
-        return R.any(([k, v]) => dataChanged(v, old[k]))(Object.entries(data));
+        return R.any(([k, v]) => dataChanged(v, oldData[k]))(Object.entries(newData));
     }
     return false;
 }
