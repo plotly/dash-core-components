@@ -174,16 +174,16 @@ export default class Store extends React.Component {
                     modified_timestamp: this._backstore.getModified(id),
                 });
             }
-        } else if (data) {
-            const old = this._backstore.getItem(id);
-            // Only set the data if it's not the same data.
-            if (dataChanged(data, old)) {
-                this._backstore.setItem(id, data);
-                if (setProps) {
-                    setProps({
-                        modified_timestamp: this._backstore.getModified(id),
-                    });
-                }
+            return;
+        }
+        const old = this._backstore.getItem(id);
+        // Only set the data if it's not the same data.
+        if (dataChanged(data, old)) {
+            this._backstore.setItem(id, data);
+            if (setProps) {
+                setProps({
+                    modified_timestamp: this._backstore.getModified(id),
+                });
             }
         }
     }
