@@ -29,7 +29,9 @@ function dataChanged(newData, oldData) {
     } else if (R.contains(type, ['String', 'Number'])) {
         return oldData !== newData;
     } else if (type === 'Object') {
-        return R.any(([k, v]) => dataChanged(v, oldData[k]))(Object.entries(newData));
+        return R.any(([k, v]) => dataChanged(v, oldData[k]))(
+            Object.entries(newData)
+        );
     }
     return false;
 }
