@@ -26,7 +26,7 @@ function dataChanged(newData, oldData) {
                 return true;
             }
         }
-    } else if (R.contains(type, ['String', 'Number'])) {
+    } else if (R.contains(type, ['String', 'Number', 'Boolean'])) {
         return oldData !== newData;
     } else if (type === 'Object') {
         return R.any(([k, v]) => dataChanged(v, oldData[k]))(
@@ -222,6 +222,7 @@ Store.propTypes = {
         PropTypes.array,
         PropTypes.number,
         PropTypes.string,
+        PropTypes.bool,
     ]),
 
     /**
