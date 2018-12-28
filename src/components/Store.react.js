@@ -17,6 +17,9 @@ function dataChanged(newData, oldData) {
         return oldNull !== newNull;
     }
     const type = R.type(newData);
+    if (type !== R.type(oldData)) {
+        return true;
+    }
     if (type === 'Array') {
         if (newData.length !== oldData.length) {
             return true;
