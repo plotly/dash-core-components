@@ -39,6 +39,11 @@ function dataChanged(newData, oldData) {
     return false;
 }
 
+/**
+ * Abstraction for the memory storage_type to work the same way as local/session
+ *
+ * Each memory Store component get it's own MemStore.
+ */
 class MemStore {
     constructor() {
         this._data = {};
@@ -70,6 +75,11 @@ class MemStore {
     }
 }
 
+/**
+ * Abstraction for local/session storage_type.
+ *
+ * Single instances for localStorage, sessionStorage
+ */
 class WebStore {
     constructor(storage) {
         this._storage = storage;
