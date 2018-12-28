@@ -134,8 +134,8 @@ See https://github.com/plotly/dash-core-components/pull/182.
 - Fix Store component nested data [#333](https://github.com/plotly/dash-core-components/pull/333)
 
 ## [0.33.0] -- 2018-10-04
-### Updated
-- Upgraded plotly.js version 1.41.3 [#320](https://github.com/plotly/dash-core-components/pull/320). This includes patch releases [1.41.3](https://github.com/plotly/plotly.js/releases/tag/v1.41.3), [1.41.2](https://github.com/plotly/plotly.js/releases/tag/v1.41.2), and [1.41.1](https://github.com/plotly/plotly.js/releases/tag/v1.41.1) containing numerous bug fixes.
+### Fixed
+- Patched plotly.js version 1.41.3 [#320](https://github.com/plotly/dash-core-components/pull/320). This includes patch releases [1.41.3](https://github.com/plotly/plotly.js/releases/tag/v1.41.3), [1.41.2](https://github.com/plotly/plotly.js/releases/tag/v1.41.2), and [1.41.1](https://github.com/plotly/plotly.js/releases/tag/v1.41.1) containing numerous bug fixes.
 
 ## [0.32.0] - 2018-10-2
 ### Added
