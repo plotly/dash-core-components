@@ -1,26 +1,26 @@
-import R from 'ramda';
+import {isNil, type, contains, any} from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
  * Deep equality check to know if the data has changed.
  *
- * @param {any} newData - New data to compare
- * @param {any} oldData - The old data to compare
+ * @param {*} newData - New data to compare
+ * @param {*} oldData - The old data to compare
  * @returns {boolean} The data has changed.
  */
 function dataChanged(newData, oldData) {
     // Assuming data and old are of the same type.
-    const oldNull = R.isNil(oldData);
-    const newNull = R.isNil(newData);
+    const oldNull = isNil(oldData);
+    const newNull = isNil(newData);
     if (oldNull || newNull) {
         return oldNull !== newNull;
     }
-    const type = R.type(newData);
-    if (type !== R.type(oldData)) {
+    const newType = type(newData);
+    if (newType !== type(oldData)) {
         return true;
     }
-    if (type === 'Array') {
+    if (newType === 'Array') {
         if (newData.length !== oldData.length) {
             return true;
         }
@@ -29,10 +29,10 @@ function dataChanged(newData, oldData) {
                 return true;
             }
         }
-    } else if (R.contains(type, ['String', 'Number', 'Boolean'])) {
+    } else if (contains(newType, ['String', 'Number', 'Boolean'])) {
         return oldData !== newData;
-    } else if (type === 'Object') {
-        return R.any(([k, v]) => dataChanged(v, oldData[k]))(
+    } else if (newType === 'Object') {
+        return any(([k, v]) => dataChanged(v, oldData[k]))(
             Object.entries(newData)
         );
     }
@@ -141,7 +141,7 @@ export default class Store extends React.Component {
         }
 
         const old = this._backstore.getItem(id);
-        if (R.isNil(old) && data) {
+        if (isNil(old) && data) {
             // Initial data mount
             this._backstore.setItem(id, data);
             if (setProps) {
