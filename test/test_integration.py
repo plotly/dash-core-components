@@ -1590,7 +1590,9 @@ class Tests(IntegrationTests):
             ('number', 1),
             ('dict', {'data': [1, 2, 3]}),
             ('list', [1, 2, 3]),
-            ('null', None)
+            ('null', None),
+            ('bool', True),
+            ('bool', False)
         ]
         types_changes = list(
             itertools.chain(*itertools.combinations(types, 2))
