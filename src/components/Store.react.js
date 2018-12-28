@@ -2,6 +2,13 @@ import R from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Deep equality check to know if the data has changed.
+ *
+ * @param {any} newData - New data to compare
+ * @param {any} oldData - The old data to compare
+ * @returns {boolean} The data has changed.
+ */
 function dataChanged(newData, oldData) {
     // Assuming data and old are of the same type.
     const oldNull = R.isNil(oldData);
