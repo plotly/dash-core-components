@@ -57,13 +57,13 @@ class Tests(IntegrationTests):
         )
 
     def wait_for_text_to_equal(self, selector, assertion_text):
+
+        def text_equal(driver):
+            text = driver.find_element_by_css_selector(selector).text
+            return text == assertion_text
+
         WebDriverWait(self.driver, TIMEOUT).until(
-            EC.text_to_be_present_in_element((By.CSS_SELECTOR, selector),
-                                             assertion_text)
-        )
-        self.assertEqual(
-            assertion_text,
-            self.driver.find_element_by_css_selector(selector).text
+            text_equal
         )
 
     def snapshot(self, name):
