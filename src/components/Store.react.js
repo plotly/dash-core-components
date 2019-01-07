@@ -31,8 +31,13 @@ function dataChanged(newData, oldData) {
     } else if (contains(newType, ['String', 'Number', 'Boolean'])) {
         return oldData !== newData;
     } else if (newType === 'Object') {
+        const oldEntries = Object.entries(oldData);
+        const newEntries = Object.entries(newData);
+        if (oldEntries.length !== newEntries.length) {
+            return true;
+        }
         return any(([k, v]) => dataChanged(v, oldData[k]))(
-            Object.entries(newData)
+            newEntries
         );
     }
     return false;
