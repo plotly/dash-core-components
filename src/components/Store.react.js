@@ -36,9 +36,7 @@ function dataChanged(newData, oldData) {
         if (oldEntries.length !== newEntries.length) {
             return true;
         }
-        return any(([k, v]) => dataChanged(v, oldData[k]))(
-            newEntries
-        );
+        return any(([k, v]) => dataChanged(v, oldData[k]))(newEntries);
     }
     return false;
 }
