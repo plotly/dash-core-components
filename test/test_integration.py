@@ -1592,7 +1592,10 @@ class Tests(IntegrationTests):
             ('list', [5, 6, 7]),
             ('null', None),
             ('bool', True),
-            ('bool', False)
+            ('bool', False),
+            ('empty-dict', {}),
+            ('list-dict-1', [1, 2, {'data': [55, 66, 77], 'dummy': 'dum'}]),
+            ('list-dict-1', [1, 2, {'data': [111, 99, 88]}]),
         ]
         types_changes = list(
             itertools.chain(*itertools.combinations(types, 2))
@@ -1633,7 +1636,7 @@ class Tests(IntegrationTests):
             except TimeoutException:
                 raise Exception(
                     'Output type did not change from {} to {}'.format(
-                        types_changes[i - 1][0],
-                        type_change[0]
+                        types_changes[i - 1],
+                        type_change
                     )
                 )
