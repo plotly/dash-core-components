@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
  * @returns {boolean} The data has changed.
  */
 function dataChanged(newData, oldData) {
-    // Assuming data and old are of the same type.
     const oldNull = isNil(oldData);
     const newNull = isNil(newData);
     if (oldNull || newNull) {
