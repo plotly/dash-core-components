@@ -1599,7 +1599,10 @@ class Tests(IntegrationTests):
         ]
         types_changes = list(
             itertools.chain(*itertools.combinations(types, 2))
-        )
+        ) + [  # No combinations as it add much test time.
+            ('dict-3', {'a': 1, 'c': 1}),
+            ('dict-2', {'a': 1, 'b': None}),
+        ]
 
         app.layout = html.Div([
             html.Div(id='output'),
