@@ -4,75 +4,79 @@ import {render} from 'enzyme';
 
 test('Loading renders', () => {
     const statusMock = {
-        isLoading: true,
-        propName: 'children',
-        componentName: 'div'
+        is_loading: true,
+        prop_name: 'children',
+        component_name: 'div'
     }
     const loading = render(
-        <Loading status={statusMock}>
+        <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toBeDefined();
+    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
 });
-test('Loading renders without status', () => {
+test('Loading renders without loading_state', () => {
     const loading = render(
         <Loading>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toBeDefined();
+    expect(loading.html()).toEqual("<div>Loading is done!</div>");
 });
-test('Loading renders without status.isLoading', () => {
+test('Loading renders without loading_state.is_loading', () => {
     const statusMock = {
-        propName: 'children',
-        componentName: 'div'
+        prop_name: 'children',
+        component_name: 'div'
     }
     const loading = render(
-        <Loading status={statusMock}>
+        <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toBeDefined();
+    expect(loading.html()).toEqual("<div>Loading is done!</div>");
 });
-test('Loading renders without status.propName', () => {
+test('Loading renders without prop_name', () => {
     const statusMock = {
-        isLoading: true,
-        componentName: 'div'
+        is_loading: true,
+        component_name: 'div'
     }
     const loading = render(
-        <Loading status={statusMock}>
+        <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toBeDefined();
+    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
 });
-test('Loading renders without status.componentName', () => {
+test('Loading renders without loading_state.component_name', () => {
     const statusMock = {
-        isLoading: true,
-        propName: 'children'
+        is_loading: true,
+        prop_name: 'children'
     }
     const loading = render(
-        <Loading status={statusMock}>
+        <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toBeDefined();
+    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
 });
-test('Loading renders without children', () => {
+test('Loading renders with multiple children', () => {
     const statusMock = {
-        isLoading: false,
-        propName: 'children',
-        componentName: 'div'
+        is_loading: true,
+        prop_name: 'children',
+        component_name: 'div'
     }
     const loading = render(
-        <Loading status={statusMock} />
+        <Loading loading_state={statusMock}>
+            <div>Child 1</div>
+            <div>Child 2</div>
+            <div>Child 3</div>
+        </Loading>
     );
 
-    expect(loading.html()).toBeDefined();
+    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
 });
