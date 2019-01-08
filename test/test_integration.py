@@ -1566,7 +1566,7 @@ class Tests(IntegrationTests):
         types = [
             ('str', 'hello'),
             ('number', 1),
-            ('dict', {'data': [2, 3, 4]}),
+            ('dict', {'data': [2, 3, None]}),
             ('list', [5, 6, 7]),
             ('null', None),
             ('bool', True),
