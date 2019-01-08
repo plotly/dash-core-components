@@ -13,7 +13,7 @@ function dataChanged(newData, oldData) {
     const oldNull = isNil(oldData);
     const newNull = isNil(newData);
     if (oldNull || newNull) {
-        return oldNull !== newNull;
+        return newData !== oldData;
     }
     const newType = type(newData);
     if (newType !== type(oldData)) {
