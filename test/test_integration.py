@@ -1594,12 +1594,12 @@ class Tests(IntegrationTests):
             ('bool', True),
             ('bool', False),
             ('empty-dict', {}),
-            ('list-dict-1', [1, 2, {'data': [55, 66, 77], 'dummy': 'dum'}]),
-            ('list-dict-1', [1, 2, {'data': [111, 99, 88]}]),
         ]
         types_changes = list(
             itertools.chain(*itertools.combinations(types, 2))
         ) + [  # No combinations as it add much test time.
+            ('list-dict-1', [1, 2, {'data': [55, 66, 77], 'dummy': 'dum'}]),
+            ('list-dict-2', [1, 2, {'data': [111, 99, 88]}]),
             ('dict-3', {'a': 1, 'c': 1}),
             ('dict-2', {'a': 1, 'b': None}),
         ]
