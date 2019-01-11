@@ -6,9 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Clear date in DatePickerSingle and DatePickerRange [#434](https://github.com/plotly/dash-core-components/issues/434)
 
-## [0.42.1] - 2019-01-07	## [Unreleased]
-### Fixed	### Fixed
-- Fix `dcc.Store` type changes [#427](https://github.com/plotly/dash-core-components/pull/427)	- Clear date in DatePickerSingle and DatePickerRange [#434](https://github.com/plotly/dash-core-components/issues/434)
+## [0.42.1] - 2019-01-07
+### Fixed
+- Fix `dcc.Store` type changes [#427](https://github.com/plotly/dash-core-components/pull/427)
 
 ## [0.42.0] - 2018-12-27
 ### Fixed
