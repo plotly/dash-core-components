@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+<<<<<<< Updated upstream
 ## [0.42.1] - 2019-01-07
 ### Fixed
 - Fix `dcc.Store` type changes [#427](https://github.com/plotly/dash-core-components/pull/427)
@@ -19,6 +20,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - Alignment options for titles and legend items
     - And many other features and bug fixes
   - Patch releases [1.43.1](https://github.com/plotly/plotly.js/releases/tag/v1.43.1), [1.42.5](https://github.com/plotly/plotly.js/releases/tag/v1.42.5), [1.42.4](https://github.com/plotly/plotly.js/releases/tag/v1.42.4), and [1.42.3](https://github.com/plotly/plotly.js/releases/tag/v1.42.3) containing numerous bug fixes
+=======
+## [Unreleased]
+### Fixed
+- Clear date in DatePickerSingle and DatePickerRange [#434](https://github.com/plotly/dash-core-components/issues/434)
+>>>>>>> Stashed changes
 
 ## [0.41.0] - 2018-12-11
 ### Added

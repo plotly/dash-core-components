@@ -2,7 +2,9 @@ import {SingleDatePicker} from 'react-dates';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import R from 'ramda';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+
+import convertToMoment from '../utils/convertToMoment';
 
 /**
  * DatePickerSingle is a tailor made component designed for selecting
@@ -15,6 +17,7 @@ import React, {Component} from 'react';
  * This component is based off of Airbnb's react-dates react component
  * which can be found here: https://github.com/airbnb/react-dates
  */
+
 export default class DatePickerSingle extends Component {
     constructor() {
         super();
@@ -25,25 +28,18 @@ export default class DatePickerSingle extends Component {
 
     propsToState(newProps) {
         /*
-         * state includes:
-         * - user modifiable attributes
-         * - moment converted attributes
-         */
-        const newState = {};
-        const momentProps = [
+        * state includes:
+        * - user modifiable attributes
+        * - moment converted attributes
+        */
+
+        const newState = convertToMoment(newProps, [
             'date',
             'initial_visible_month',
             'max_date_allowed',
             'min_date_allowed',
-        ];
-        momentProps.forEach(prop => {
-            if (R.type(newProps[prop]) !== 'Undefined') {
-                newState[prop] = moment(newProps[prop]);
-            }
-            if (prop === 'max_date_allowed' && R.has(prop, newState)) {
-                newState[prop].add(1, 'days');
-            }
-        });
+        ]);
+
         this.setState(newState);
     }
 
