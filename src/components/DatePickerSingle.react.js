@@ -2,7 +2,7 @@ import {SingleDatePicker} from 'react-dates';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import R from 'ramda';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import convertToMoment from '../utils/convertToMoment';
 
@@ -28,10 +28,10 @@ export default class DatePickerSingle extends Component {
 
     propsToState(newProps) {
         /*
-        * state includes:
-        * - user modifiable attributes
-        * - moment converted attributes
-        */
+         * state includes:
+         * - user modifiable attributes
+         * - moment converted attributes
+         */
 
         const newState = convertToMoment(newProps, [
             'date',
