@@ -6,7 +6,7 @@
 Logout button to submit a form post request to the `logout_url` prop. Usage is intended for dash-deployment-server authentication.  DDS usage:  `dcc.LogoutButton(logout_url=os.getenv('DASH_LOGOUT_URL'))`  Custom usage:  - Implement a login mechanism. - Create a flask route with a post method handler. `@app.server.route('/logout', methods=['POST'])`   - The logout route should perform what's necessary for the user to logout.   - If you store the session in a cookie, clear the cookie:   `rep = flask.Response(); rep.set_cookie('session', '', expires=0)`  - Create a logout button component and assign it the logout_url `dcc.LogoutButton(logout_url='/logout')`  See https://dash.plot.ly/dash-core-components/logout_button for more documentation and examples.
 }
 \usage{
-coreLogoutButton(..., style=NULL, logout_url=NULL, id=NULL, className=NULL, label='Logout', method='post')
+coreLogoutButton(style=NULL, logout_url=NULL, id=NULL, className=NULL, label=NULL, method=NULL, ...)
 }
 \arguments{
 \item{style}{Style of the button}
@@ -20,5 +20,5 @@ coreLogoutButton(..., style=NULL, logout_url=NULL, id=NULL, className=NULL, labe
 \item{label}{Text of the button}
 
 \item{method}{Http method to submit the logout form.}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

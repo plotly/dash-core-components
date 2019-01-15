@@ -13,7 +13,7 @@ The data will be kept with the id as key.
 Keyword arguments:
 - clear_data (boolean; optional): Set to true to remove the data contained in `data_key`.
 - modified_timestamp (number; optional): The last time the storage was modified.
-- data (dict | list | number | string; optional): The stored data for the id.
+- data (dict | list | number | string | boolean; optional): The stored data for the id.
 - storage_type (a value equal to: 'local', 'session', 'memory'; optional): The type of the web storage.
 
 memory: only kept in memory, reset on page refresh.

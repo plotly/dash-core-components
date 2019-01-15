@@ -6,7 +6,7 @@
 ConfirmDialog is used to display the browser's native "confirm" modal, with an optional message and two buttons ("OK" and "Cancel"). This ConfirmDialog can be used in conjunction with buttons when the user is performing an action that should require an extra step of verification.
 }
 \usage{
-coreConfirmDialog(..., cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, submit_n_clicks=NULL, displayed=NULL, submit_n_clicks_timestamp=NULL, key=NULL, message=NULL, id=NULL)
+coreConfirmDialog(cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, submit_n_clicks=NULL, displayed=NULL, submit_n_clicks_timestamp=NULL, key=NULL, message=NULL, id=NULL, ...)
 }
 \arguments{
 \item{cancel_n_clicks}{Number of times the popup was canceled.}
@@ -24,5 +24,5 @@ coreConfirmDialog(..., cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, sub
 \item{message}{Message to show in the popup.}
 
 \item{id}{}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

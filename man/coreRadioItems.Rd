@@ -6,7 +6,7 @@
 RadioItems is a component that encapsulates several radio item inputs. The values and labels of the RadioItems is specified in the `options` property and the seleced item is specified with the `value` property. Each radio item is rendered as an input with a surrounding label.
 }
 \usage{
-coreRadioItems(..., labelClassName='', style=NULL, inputClassName='', inputStyle=list(), labelStyle=list(), value=NULL, options=list(), className=NULL, id=NULL)
+coreRadioItems(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, value=NULL, options=NULL, className=NULL, id=NULL, ...)
 }
 \arguments{
 \item{labelClassName}{The class of the <label> that wraps the radio input
@@ -28,5 +28,5 @@ coreRadioItems(..., labelClassName='', style=NULL, inputClassName='', inputStyle
 \item{className}{The class of the container (div)}
 
 \item{id}{}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

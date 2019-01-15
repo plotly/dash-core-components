@@ -6,7 +6,7 @@
 A basic HTML textarea for entering multiline text.
 }
 \usage{
-coreTextarea(..., contentEditable=NULL, cols=NULL, disabled=NULL, wrap=NULL, id=NULL, tabIndex=NULL, draggable=NULL, style=NULL, rows=NULL, title=NULL, accessKey=NULL, hidden=NULL, spellCheck=NULL, form=NULL, contextMenu=NULL, minLength=NULL, readOnly=NULL, maxLength=NULL, autoFocus=NULL, placeholder=NULL, lang=NULL, name=NULL, required=NULL, value=NULL, className=NULL, dir=NULL)
+coreTextarea(contentEditable=NULL, cols=NULL, disabled=NULL, wrap=NULL, id=NULL, tabIndex=NULL, draggable=NULL, style=NULL, rows=NULL, title=NULL, accessKey=NULL, hidden=NULL, spellCheck=NULL, form=NULL, contextMenu=NULL, minLength=NULL, readOnly=NULL, maxLength=NULL, autoFocus=NULL, placeholder=NULL, lang=NULL, name=NULL, required=NULL, value=NULL, className=NULL, dir=NULL, ...)
 }
 \arguments{
 \item{contentEditable}{Indicates whether the element's content is editable.}
@@ -62,5 +62,5 @@ components in an app.}
 \item{className}{Often used with CSS to style elements with common properties.}
 
 \item{dir}{Defines the text direction. Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left)}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

@@ -6,7 +6,7 @@
 A slider component with a single handle.
 }
 \usage{
-coreSlider(..., dots=NULL, disabled=NULL, updatemode=NULL, vertical=NULL, min=NULL, max=NULL, value=NULL, className=NULL, step=NULL, marks=NULL, included=NULL, id=NULL)
+coreSlider(dots=NULL, disabled=NULL, updatemode=NULL, vertical=NULL, min=NULL, max=NULL, value=NULL, className=NULL, step=NULL, marks=NULL, included=NULL, id=NULL, ...)
 }
 \arguments{
 \item{dots}{When the step value is greater than 1,
@@ -46,5 +46,5 @@ contains style and label properties.}
 value is included. Otherwise, it is an independent value.}
 
 \item{id}{}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

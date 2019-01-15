@@ -6,7 +6,7 @@
 A basic HTML input control for entering text, numbers, or passwords.  Note that checkbox and radio types are supported through the Checklist and RadioItems component. Dates, times, and file uploads are also supported through separate components.
 }
 \usage{
-coreInput(..., disabled=NULL, selectionStart=NULL, selectionEnd=NULL, spellCheck=NULL, id=NULL, size=NULL, className=NULL, style=NULL, min=NULL, minlength=NULL, n_blur=NULL, pattern=NULL, autofocus=NULL, type=NULL, multiple=NULL, max=NULL, n_blur_timestamp=NULL, readOnly=NULL, selectionDirection=NULL, placeholder=NULL, n_submit=NULL, name=NULL, debounce=NULL, n_submit_timestamp=NULL, required=NULL, list=NULL, step=NULL, value=NULL, autocomplete=NULL, inputmode=NULL, maxlength=NULL)
+coreInput(disabled=NULL, selectionStart=NULL, selectionEnd=NULL, spellCheck=NULL, id=NULL, size=NULL, className=NULL, style=NULL, min=NULL, minlength=NULL, n_blur=NULL, pattern=NULL, autofocus=NULL, type=NULL, multiple=NULL, max=NULL, n_blur_timestamp=NULL, readOnly=NULL, selectionDirection=NULL, placeholder=NULL, n_submit=NULL, name=NULL, debounce=NULL, n_submit_timestamp=NULL, required=NULL, list=NULL, step=NULL, value=NULL, autocomplete=NULL, inputmode=NULL, maxlength=NULL, ...)
 }
 \arguments{
 \item{disabled}{If true, the input is disabled and can't be clicked on.}
@@ -78,5 +78,5 @@ hidden, checkbox, radio, file, or a button type.}
 \item{inputmode}{}
 
 \item{maxlength}{If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

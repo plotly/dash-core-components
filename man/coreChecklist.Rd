@@ -6,7 +6,7 @@
 Checklist is a component that encapsulates several checkboxes. The values and labels of the checklist is specified in the `options` property and the checked items are specified with the `values` property. Each checkbox is rendered as an input with a surrounding label.
 }
 \usage{
-coreChecklist(..., labelClassName='', style=NULL, inputClassName='', inputStyle=list(), labelStyle=list(), options=list(), className=NULL, values=NULL, id=NULL)
+coreChecklist(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, options=NULL, className=NULL, values=NULL, id=NULL, ...)
 }
 \arguments{
 \item{labelClassName}{The class of the <label> that wraps the checkbox input
@@ -28,5 +28,5 @@ coreChecklist(..., labelClassName='', style=NULL, inputClassName='', inputStyle=
 \item{values}{The currently selected value}
 
 \item{id}{}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

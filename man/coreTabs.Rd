@@ -6,7 +6,7 @@
 A Dash component that lets you render pages with tabs - the Tabs component's children can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold children components that will be that tab's content.
 }
 \usage{
-coreTabs(..., style=NULL, vertical=NULL, parent_style=NULL, parent_className=NULL, content_className=NULL, mobile_breakpoint=NULL, className=NULL, children=NULL, colors=NULL, value=NULL, content_style=NULL, id=NULL)
+coreTabs(style=NULL, vertical=NULL, parent_style=NULL, parent_className=NULL, content_className=NULL, mobile_breakpoint=NULL, className=NULL, colors=NULL, value=NULL, content_style=NULL, id=NULL, ...)
 }
 \arguments{
 \item{style}{Appends (inline) styles to the Tabs container holding the individual Tab components.}
@@ -23,8 +23,6 @@ coreTabs(..., style=NULL, vertical=NULL, parent_style=NULL, parent_className=NUL
 
 \item{className}{Appends a class to the Tabs container holding the individual Tab components.}
 
-\item{children}{Array that holds Tab components}
-
 \item{colors}{Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so:
 colors: {
    border: '#d6d6d6',
@@ -39,5 +37,5 @@ colors: {
 \item{id}{The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

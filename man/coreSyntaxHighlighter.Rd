@@ -6,14 +6,12 @@
 A component for pretty printing code.
 }
 \usage{
-coreSyntaxHighlighter(..., language=NULL, lineStyle=NULL, children=NULL, codeTagProps=NULL, theme=NULL, useInlineStyles=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, startingLineNumber=NULL, wrapLines=NULL, id=NULL, showLineNumbers=NULL, customStyle=NULL)
+coreSyntaxHighlighter(language=NULL, lineStyle=NULL, codeTagProps=NULL, theme=NULL, useInlineStyles=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, startingLineNumber=NULL, wrapLines=NULL, id=NULL, showLineNumbers=NULL, customStyle=NULL, ...)
 }
 \arguments{
 \item{language}{the language to highlight code in.}
 
 \item{lineStyle}{inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object.}
-
-\item{children}{The text to display and highlight}
 
 \item{codeTagProps}{props that will be spread into the <code> tag that is the direct parent of the highlighted code elements. Useful for styling/assigning classNames.}
 
@@ -34,5 +32,5 @@ coreSyntaxHighlighter(..., language=NULL, lineStyle=NULL, children=NULL, codeTag
 \item{showLineNumbers}{if this is enabled line numbers will be shown next to the code block.}
 
 \item{customStyle}{prop that will be combined with the top level style on the pre tag, styles here will overwrite earlier styles.}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

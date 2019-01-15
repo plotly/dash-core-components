@@ -1,8 +1,10 @@
 Package: dashCoreComponents
 Title: Core component suite for Dash
-Version: 0.40.2
+Version: 0.42.1
 Authors @R: as.person(c(Chris Parmer <chris@plot.ly>))
 Description: Core component suite for Dash
+Depends: R (>= 3.5.0)
+Imports: dashR, fiery, routr
 Suggests: testthat, roxygen2
 License: MIT + file LICENSE
 URL: https://github.com/plotly/dash-core-components

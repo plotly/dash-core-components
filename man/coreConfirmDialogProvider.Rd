@@ -6,7 +6,7 @@
 A wrapper component that will display a confirmation dialog when its child component has been clicked on.  For example: ``` dcc.ConfirmDialogProvider(     html.Button('click me', id='btn'),     message='Danger - Are you sure you want to continue.'     id='confirm') ```
 }
 \usage{
-coreConfirmDialogProvider(..., cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, submit_n_clicks=NULL, displayed=NULL, submit_n_clicks_timestamp=NULL, children=NULL, message=NULL, id=NULL)
+coreConfirmDialogProvider(cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, submit_n_clicks=NULL, displayed=NULL, submit_n_clicks_timestamp=NULL, message=NULL, id=NULL, ...)
 }
 \arguments{
 \item{cancel_n_clicks}{Number of times the popup was canceled.}
@@ -19,10 +19,8 @@ coreConfirmDialogProvider(..., cancel_n_clicks=NULL, cancel_n_clicks_timestamp=N
 
 \item{submit_n_clicks_timestamp}{Last time the submit button was clicked.}
 
-\item{children}{The children to hijack clicks from and display the popup.}
-
 \item{message}{Message to show in the popup.}
 
 \item{id}{}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

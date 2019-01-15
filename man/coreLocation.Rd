@@ -6,7 +6,7 @@
 Update and track the current window.location object through the window.history state. Use in conjunction with the `dash_core_components.Link` component to make apps with multiple pages.
 }
 \usage{
-coreLocation(..., search=NULL, hash=NULL, refresh=NULL, href=NULL, pathname=NULL, id=NULL)
+coreLocation(search=NULL, hash=NULL, refresh=NULL, href=NULL, pathname=NULL, id=NULL, ...)
 }
 \arguments{
 \item{search}{search in window.location - e.g., "?myargument=1"}
@@ -20,5 +20,5 @@ coreLocation(..., search=NULL, hash=NULL, refresh=NULL, href=NULL, pathname=NULL
 \item{pathname}{pathname in window.location - e.g., "/my/full/pathname"}
 
 \item{id}{}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

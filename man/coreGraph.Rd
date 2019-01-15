@@ -6,7 +6,7 @@
 
 }
 \usage{
-coreGraph(..., style=NULL, figure=list(), animation_options=list(), className=NULL, clear_on_unhover=NULL, relayoutData=list(), config=NULL, clickData=list(), animate=NULL, hoverData=list(), clickAnnotationData=list(), id=NULL, selectedData=list())
+coreGraph(style=NULL, figure=NULL, animation_options=NULL, dashEvents=NULL, className=NULL, clear_on_unhover=NULL, relayoutData=NULL, config=NULL, clickData=NULL, animate=NULL, hoverData=NULL, clickAnnotationData=NULL, id=NULL, selectedData=NULL, ...)
 }
 \arguments{
 \item{style}{Generic style overrides on the plot div}
@@ -16,6 +16,8 @@ https://plot.ly/javascript/reference}
 
 \item{animation_options}{Beta: Object containing animation settings.
 Only applies if `animate` is `true`}
+
+\item{dashEvents}{}
 
 \item{className}{className of the parent div}
 
@@ -45,5 +47,5 @@ in callbacks. The ID needs to be unique across all of the
 components in an app.}
 
 \item{selectedData}{Data from latest select event}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

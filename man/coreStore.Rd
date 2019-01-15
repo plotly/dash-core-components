@@ -6,7 +6,7 @@
 Easily keep data on the client side with this component. The data is not inserted in the DOM. Data can be in memory, localStorage or sessionStorage. The data will be kept with the id as key.
 }
 \usage{
-coreStore(..., modified_timestamp=NULL, storage_type=NULL, clear_data=NULL, data=NULL, id=NULL)
+coreStore(modified_timestamp=NULL, storage_type=NULL, clear_data=NULL, data=NULL, id=NULL, ...)
 }
 \arguments{
 \item{modified_timestamp}{The last time the storage was modified.}
@@ -22,5 +22,5 @@ session: window.sessionStorage, data is cleared once the browser quit.}
 \item{data}{The stored data for the id.}
 
 \item{id}{The key of the storage.}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    

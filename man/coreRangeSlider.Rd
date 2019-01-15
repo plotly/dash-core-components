@@ -6,7 +6,7 @@
 A double slider with two handles. Used for specifying a range of numerical values.
 }
 \usage{
-coreRangeSlider(..., count=NULL, disabled=NULL, updatemode=NULL, vertical=NULL, min=NULL, max=NULL, step=NULL, value=NULL, className=NULL, dots=NULL, marks=NULL, included=NULL, pushable=NULL, id=NULL, allowCross=NULL)
+coreRangeSlider(count=NULL, disabled=NULL, updatemode=NULL, vertical=NULL, min=NULL, max=NULL, step=NULL, value=NULL, className=NULL, dots=NULL, marks=NULL, included=NULL, pushable=NULL, id=NULL, allowCross=NULL, ...)
 }
 \arguments{
 \item{count}{Determine how many ranges to render, and multiple handles
@@ -56,5 +56,5 @@ minimum ensured distance between handles.}
 \item{id}{}
 
 \item{allowCross}{allowCross could be set as true to allow those handles to cross.}
+\item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
-    
