@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreGraph}
+
 \alias{coreGraph}
+
 \title{Graph component}
+
 \description{
 
 }
+
 \usage{
 coreGraph(style=NULL, figure=NULL, animation_options=NULL, dashEvents=NULL, className=NULL, clear_on_unhover=NULL, relayoutData=NULL, config=NULL, clickData=NULL, animate=NULL, hoverData=NULL, clickAnnotationData=NULL, id=NULL, selectedData=NULL, ...)
 }
+
 \arguments{
 \item{style}{Generic style overrides on the plot div}
 
@@ -47,5 +52,6 @@ in callbacks. The ID needs to be unique across all of the
 components in an app.}
 
 \item{selectedData}{Data from latest select event}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

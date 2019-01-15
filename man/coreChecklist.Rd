@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreChecklist}
+
 \alias{coreChecklist}
+
 \title{Checklist component}
+
 \description{
 Checklist is a component that encapsulates several checkboxes. The values and labels of the checklist is specified in the `options` property and the checked items are specified with the `values` property. Each checkbox is rendered as an input with a surrounding label.
 }
+
 \usage{
 coreChecklist(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, options=NULL, className=NULL, values=NULL, id=NULL, ...)
 }
+
 \arguments{
 \item{labelClassName}{The class of the <label> that wraps the checkbox input
  and the option's label}
@@ -28,5 +33,6 @@ coreChecklist(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=N
 \item{values}{The currently selected value}
 
 \item{id}{}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

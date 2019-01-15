@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreSyntaxHighlighter}
+
 \alias{coreSyntaxHighlighter}
+
 \title{SyntaxHighlighter component}
+
 \description{
 A component for pretty printing code.
 }
+
 \usage{
 coreSyntaxHighlighter(language=NULL, lineStyle=NULL, codeTagProps=NULL, theme=NULL, useInlineStyles=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, startingLineNumber=NULL, wrapLines=NULL, id=NULL, showLineNumbers=NULL, customStyle=NULL, ...)
 }
+
 \arguments{
 \item{language}{the language to highlight code in.}
 
@@ -32,5 +37,6 @@ coreSyntaxHighlighter(language=NULL, lineStyle=NULL, codeTagProps=NULL, theme=NU
 \item{showLineNumbers}{if this is enabled line numbers will be shown next to the code block.}
 
 \item{customStyle}{prop that will be combined with the top level style on the pre tag, styles here will overwrite earlier styles.}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

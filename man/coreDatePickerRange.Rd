@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreDatePickerRange}
+
 \alias{coreDatePickerRange}
+
 \title{DatePickerRange component}
+
 \description{
 DatePickerRange is a tailor made component designed for selecting timespan across multiple days off of a calendar.  The DatePicker integrates well with the Python datetime module with the startDate and endDate being returned in a string format suitable for creating datetime objects.  This component is based off of Airbnb's react-dates react component which can be found here: https://github.com/airbnb/react-dates
 }
+
 \usage{
 coreDatePickerRange(initial_visible_month=NULL, reopen_calendar_on_clear=NULL, disabled=NULL, id=NULL, updatemode=NULL, number_of_months_shown=NULL, min_date_allowed=NULL, max_date_allowed=NULL, first_day_of_week=NULL, clearable=NULL, display_format=NULL, start_date=NULL, stay_open_on_select=NULL, end_date=NULL, month_format=NULL, is_RTL=NULL, show_outside_days=NULL, calendar_orientation=NULL, with_full_screen_portal=NULL, with_portal=NULL, minimum_nights=NULL, day_size=NULL, start_date_placeholder_text=NULL, end_date_placeholder_text=NULL, ...)
 }
+
 \arguments{
 \item{initial_visible_month}{Specifies the month that is initially presented when the user
 opens the calendar. Accepts datetime.datetime objects or strings
@@ -94,5 +99,6 @@ box of the date picker when no date is selected. Default value is 'Start Date'}
 
 \item{end_date_placeholder_text}{Text that will be displayed in the second input
 box of the date picker when no date is selected. Default value is 'End Date'}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

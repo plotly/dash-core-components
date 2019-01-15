@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreDatePickerSingle}
+
 \alias{coreDatePickerSingle}
+
 \title{DatePickerSingle component}
+
 \description{
 DatePickerSingle is a tailor made component designed for selecting a single day off of a calendar.  The DatePicker integrates well with the Python datetime module with the startDate and endDate being returned in a string format suitable for creating datetime objects.  This component is based off of Airbnb's react-dates react component which can be found here: https://github.com/airbnb/react-dates
 }
+
 \usage{
 coreDatePickerSingle(initial_visible_month=NULL, reopen_calendar_on_clear=NULL, disabled=NULL, id=NULL, number_of_months_shown=NULL, min_date_allowed=NULL, max_date_allowed=NULL, first_day_of_week=NULL, clearable=NULL, display_format=NULL, stay_open_on_select=NULL, month_format=NULL, is_RTL=NULL, show_outside_days=NULL, calendar_orientation=NULL, date=NULL, with_full_screen_portal=NULL, placeholder=NULL, with_portal=NULL, day_size=NULL, ...)
 }
+
 \arguments{
 \item{initial_visible_month}{Specifies the month that is initially presented when the user
 opens the calendar. Accepts datetime.datetime objects or strings
@@ -77,5 +82,6 @@ not supported on vertical calendar}
 
 \item{day_size}{Size of rendered calendar days, higher number
 means bigger day size and larger calendar overall}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

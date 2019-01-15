@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreTabs}
+
 \alias{coreTabs}
+
 \title{Tabs component}
+
 \description{
 A Dash component that lets you render pages with tabs - the Tabs component's children can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold children components that will be that tab's content.
 }
+
 \usage{
 coreTabs(style=NULL, vertical=NULL, parent_style=NULL, parent_className=NULL, content_className=NULL, mobile_breakpoint=NULL, className=NULL, colors=NULL, value=NULL, content_style=NULL, id=NULL, ...)
 }
+
 \arguments{
 \item{style}{Appends (inline) styles to the Tabs container holding the individual Tab components.}
 
@@ -37,5 +42,6 @@ colors: {
 \item{id}{The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

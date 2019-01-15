@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreTab}
+
 \alias{coreTab}
+
 \title{Tab component}
+
 \description{
 
 }
+
 \usage{
 coreTab(className=NULL, style=NULL, disabled_className=NULL, value=NULL, id=NULL, disabled=NULL, selected_className=NULL, selected_style=NULL, label=NULL, disabled_style=NULL, ...)
 }
+
 \arguments{
 \item{className}{Appends a class to the Tab component.}
 
@@ -30,5 +35,6 @@ components in an app.}
 \item{label}{The tab's label}
 
 \item{disabled_style}{Overrides the default (inline) styles when disabled}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

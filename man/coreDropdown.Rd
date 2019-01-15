@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreDropdown}
+
 \alias{coreDropdown}
+
 \title{Dropdown component}
+
 \description{
 Dropdown is an interactive dropdown element for selecting one or more items. The values and labels of the dropdown items are specified in the `options` property and the selected item(s) are specified with the `value` property.  Use a dropdown when you have many options (more than 5) or when you are constrained for space. Otherwise, you can use RadioItems or a Checklist, which have the benefit of showing the users all of the items at once.
 }
+
 \usage{
 coreDropdown(disabled=NULL, multi=NULL, searchable=NULL, style=NULL, value=NULL, options=NULL, className=NULL, clearable=NULL, placeholder=NULL, id=NULL, ...)
 }
+
 \arguments{
 \item{disabled}{If true, the option is disabled}
 
@@ -35,5 +40,6 @@ the selected value.}
 \item{placeholder}{The grey, default text shown when no option is selected}
 
 \item{id}{}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

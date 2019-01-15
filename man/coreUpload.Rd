@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreUpload}
+
 \alias{coreUpload}
+
 \title{Upload component}
+
 \description{
 
 }
+
 \usage{
 coreUpload(style_reject=NULL, min_size=NULL, style=NULL, multiple=NULL, style_disabled=NULL, className_reject=NULL, className_disabled=NULL, accept=NULL, id=NULL, disabled=NULL, className=NULL, last_modified=NULL, style_active=NULL, max_size=NULL, className_active=NULL, filename=NULL, disable_click=NULL, contents=NULL, ...)
 }
+
 \arguments{
 \item{style_reject}{CSS styles if rejected}
 
@@ -54,5 +59,6 @@ Note that this does not include the path of the file
 \item{disable_click}{Disallow clicking on the component to open the file dialog}
 
 \item{contents}{The contents of the uploaded file as a binary string}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

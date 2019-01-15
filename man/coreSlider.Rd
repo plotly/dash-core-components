@@ -1,13 +1,18 @@
 % Auto-generated: do not edit by hand
 \name{coreSlider}
+
 \alias{coreSlider}
+
 \title{Slider component}
+
 \description{
 A slider component with a single handle.
 }
+
 \usage{
 coreSlider(dots=NULL, disabled=NULL, updatemode=NULL, vertical=NULL, min=NULL, max=NULL, value=NULL, className=NULL, step=NULL, marks=NULL, included=NULL, id=NULL, ...)
 }
+
 \arguments{
 \item{dots}{When the step value is greater than 1,
 you can set the dots to true if you want to
@@ -46,5 +51,6 @@ contains style and label properties.}
 value is included. Otherwise, it is an independent value.}
 
 \item{id}{}
+
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
