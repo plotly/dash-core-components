@@ -35,8 +35,8 @@ _this_module = _sys.modules[__name__]
 
 _js_dist = [
     {
-        'external_url': 'https://cdn.plot.ly/plotly-1.42.2.min.js',
-        'relative_package_path': 'plotly-1.42.2.min.js',
+        'external_url': 'https://cdn.plot.ly/plotly-1.43.1.min.js',
+        'relative_package_path': 'plotly-1.43.1.min.js',
         'namespace': 'dash_core_components'
     },
     {
@@ -47,6 +47,16 @@ _js_dist = [
             '/dash_core_components/dash_core_components.min.js'
         ).format(__version__),
         'namespace': 'dash_core_components'
+    },
+    {
+        'relative_package_path': '{}.min.js.map'.format(__name__),
+        'dev_package_path': '{}.dev.js.map'.format(__name__),
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/dash_core_components.min.js.map'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        'dynamic': True
     }
 ]
 

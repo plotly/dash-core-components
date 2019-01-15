@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
+import itertools
 from datetime import datetime
 import io
 import os
@@ -18,7 +19,7 @@ import dash_table_experiments as dt
 from dash.exceptions import PreventUpdate
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import InvalidElementStateException
+from selenium.common.exceptions import InvalidElementStateException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -56,13 +57,13 @@ class Tests(IntegrationTests):
         )
 
     def wait_for_text_to_equal(self, selector, assertion_text):
+
+        def text_equal(driver):
+            text = driver.find_element_by_css_selector(selector).text
+            return text == assertion_text
+
         WebDriverWait(self.driver, TIMEOUT).until(
-            EC.text_to_be_present_in_element((By.CSS_SELECTOR, selector),
-                                             assertion_text)
-        )
-        self.assertEqual(
-            assertion_text,
-            self.driver.find_element_by_css_selector(selector).text
+            text_equal
         )
 
     def snapshot(self, name):
@@ -502,7 +503,7 @@ class Tests(IntegrationTests):
                 dcc.Tab(label='Tab three', value='tab-3', id='tab-3', children=[
                     html.Div('Tab Three Content')
                 ]),
-                ], vertical=True),
+            ], vertical=True),
             html.Div(id='tabs-content')
         ])
 
@@ -510,6 +511,7 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#tab-3', 'Tab three')
 
         self.snapshot('Tabs - vertical mode')
+
     def test_tabs_without_children(self):
         app = dash.Dash(__name__)
 
@@ -518,18 +520,18 @@ class Tests(IntegrationTests):
             dcc.Tabs(id="tabs", value='tab-2', children=[
                 dcc.Tab(label='Tab one', value='tab-1', id='tab-1'),
                 dcc.Tab(label='Tab two', value='tab-2', id='tab-2'),
-                ]),
+            ]),
             html.Div(id='tabs-content')
         ])
 
         @app.callback(dash.dependencies.Output('tabs-content', 'children'),
-                    [dash.dependencies.Input('tabs', 'value')])
+                      [dash.dependencies.Input('tabs', 'value')])
         def render_content(tab):
-            if(tab == 'tab-1'):
+            if tab == 'tab-1':
                 return html.Div([
                     html.H3('Test content 1')
                 ], id='test-tab-1')
-            elif(tab == 'tab-2'):
+            elif tab == 'tab-2':
                 return html.Div([
                     html.H3('Test content 2')
                 ], id='test-tab-2')
@@ -565,7 +567,6 @@ class Tests(IntegrationTests):
             {'id': 'two', 'value': 2},
         ]
 
-
         menu = html.Div([
             html.Div('one', id='one'),
             html.Div('two', id='two')
@@ -583,7 +584,6 @@ class Tests(IntegrationTests):
             ])
         ], id='tabs-two', style={'display': 'none'})
 
-
         app.layout = html.Div([
             menu,
             tabs_one,
@@ -593,7 +593,7 @@ class Tests(IntegrationTests):
         for i in ('one', 'two'):
 
             @app.callback(Output('tabs-{}'.format(i), 'style'),
-                        [Input(i, 'n_clicks')])
+                          [Input(i, 'n_clicks')])
             def on_click(n_clicks):
                 if n_clicks is None:
                     raise PreventUpdate
@@ -602,9 +602,8 @@ class Tests(IntegrationTests):
                     return {'display': 'block'}
                 return {'display': 'none'}
 
-
             @app.callback(Output('graph-{}'.format(i), 'figure'),
-                        [Input(i, 'n_clicks')])
+                          [Input(i, 'n_clicks')])
             def on_click(n_clicks):
                 if n_clicks is None:
                     raise PreventUpdate
@@ -612,8 +611,8 @@ class Tests(IntegrationTests):
                 return {
                     'data': [
                         {
-                            'x': [1,2,3,4],
-                            'y': [4,3,2,1]
+                            'x': [1, 2, 3, 4],
+                            'y': [4, 3, 2, 1]
                         }
                     ]
                 }
@@ -655,9 +654,8 @@ class Tests(IntegrationTests):
             html.Div(id='tabs-content')
         ])
 
-
         @app.callback(Output('tabs-content', 'children'),
-                    [Input('tabs-without-value', 'value')])
+                      [Input('tabs-without-value', 'value')])
         def render_content(tab):
             if tab == 'tab-1':
                 return html.H3('Default selected Tab content 1')
@@ -682,7 +680,7 @@ class Tests(IntegrationTests):
         ])
 
         @app.callback(Output('tabs-content-example', 'children'),
-                    [Input('tabs-example', 'value')])
+                      [Input('tabs-example', 'value')])
         def render_content(tab):
             if tab == 'tab-1-example':
                 return html.Div([
@@ -743,7 +741,6 @@ class Tests(IntegrationTests):
         )
 
         self.snapshot("Tabs with Graph - clicked tab 1 (graph should not resize)")
-
 
     def test_location_link(self):
         app = dash.Dash(__name__)
@@ -816,6 +813,7 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
+        time.sleep(1)
         self.snapshot('link -- location')
 
         # Check that link updates pathname
@@ -888,7 +886,7 @@ class Tests(IntegrationTests):
         call_count = Value('i', 0)
 
         @app.callback(Output('page-content', 'children'),
-                       [Input('test-url', 'pathname')])
+                      [Input('test-url', 'pathname')])
         def display_page(pathname):
             call_count.value = call_count.value + 1
             return 'You are on page {}'.format(pathname)
@@ -897,7 +895,7 @@ class Tests(IntegrationTests):
 
         time.sleep(2)
 
-        #callback is called twice when defined
+        # callback is called twice when defined
         self.assertEqual(
             call_count.value,
             2
@@ -916,11 +914,11 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal(
             '#page-content', 'You are on page /test-link')
 
-        #test if rendered Link's <a> tag has a href attribute
+        # test if rendered Link's <a> tag has a href attribute
         link_href = test_link.get_attribute("href")
         self.assertEqual(link_href, 'http://localhost:8050/test-link')
 
-        #test if callback is only fired once (offset of 2)
+        # test if callback is only fired once (offset of 2)
         self.assertEqual(
             call_count.value,
             3
@@ -1029,7 +1027,7 @@ class Tests(IntegrationTests):
         @app.callback(
             dash.dependencies.Output('date-picker-range-output', 'children'),
             [dash.dependencies.Input('date-picker-range', 'start_date'),
-            dash.dependencies.Input('date-picker-range', 'end_date')])
+             dash.dependencies.Input('date-picker-range', 'end_date')])
         def update_output(start_date, end_date):
             return '{} - {}'.format(start_date, end_date)
 
@@ -1061,7 +1059,7 @@ class Tests(IntegrationTests):
         ])
 
         @app.callback(Output('output', 'children'),
-                    [Input('interval', 'n_intervals')])
+                      [Input('interval', 'n_intervals')])
         def update_text(n):
             return "{}".format(n)
 
@@ -1092,7 +1090,7 @@ class Tests(IntegrationTests):
         @app.callback(
             Output('interval', 'max_intervals'),
             [Input('start', 'n_clicks_timestamp'),
-            Input('stop', 'n_clicks_timestamp')])
+             Input('stop', 'n_clicks_timestamp')])
         def start_stop(start, stop):
             if start < stop:
                 return 0
@@ -1493,9 +1491,9 @@ class Tests(IntegrationTests):
             return 'input="{}", state="{}"'.format(input, state)
 
         self.startServer(app)
-        output = lambda: self.driver.find_element_by_id('output')
-        input = lambda: self.driver.find_element_by_id('input')
-        state = lambda: self.driver.find_element_by_id('state')
+        output = lambda: self.driver.find_element_by_id('output')  # noqa: E731
+        input = lambda: self.driver.find_element_by_id('input')  # noqa: E731
+        state = lambda: self.driver.find_element_by_id('state')  # noqa: E731
 
         # callback gets called with initial input
         wait_for(lambda: call_count.value == 1)
@@ -1558,7 +1556,68 @@ class Tests(IntegrationTests):
             call_count.value,
             # an initial call to retrieve the first value
             1 +
-            # one for each hello world character
+            # one for each hello world character  # noqa: W504
             len('hello world')
         )
 
+    def test_store_type_updates(self):
+        app = dash.Dash(__name__)
+
+        types = [
+            ('str', 'hello'),
+            ('number', 1),
+            ('dict', {'data': [2, 3, None]}),
+            ('list', [5, 6, 7]),
+            ('null', None),
+            ('bool', True),
+            ('bool', False),
+            ('empty-dict', {}),
+        ]
+        types_changes = list(
+            itertools.chain(*itertools.combinations(types, 2))
+        ) + [  # No combinations as it add much test time.
+            ('list-dict-1', [1, 2, {'data': [55, 66, 77], 'dummy': 'dum'}]),
+            ('list-dict-2', [1, 2, {'data': [111, 99, 88]}]),
+            ('dict-3', {'a': 1, 'c': 1}),
+            ('dict-2', {'a': 1, 'b': None}),
+        ]
+
+        app.layout = html.Div([
+            html.Div(id='output'),
+            html.Button('click', id='click'),
+            dcc.Store(id='store')
+        ])
+
+        @app.callback(Output('output', 'children'),
+                      [Input('store', 'modified_timestamp')],
+                      [State('store', 'data')])
+        def on_data(ts, data):
+            if ts is None:
+                raise PreventUpdate
+
+            return json.dumps(data)
+
+        @app.callback(Output('store', 'data'), [Input('click', 'n_clicks')])
+        def on_click(n_clicks):
+            if n_clicks is None:
+                raise PreventUpdate
+
+            return types_changes[n_clicks - 1][1]
+
+        self.startServer(app)
+
+        button = self.wait_for_element_by_css_selector('#click')
+
+        for i, type_change in enumerate(types_changes):
+            button.click()
+            try:
+                self.wait_for_text_to_equal(
+                    '#output', json.dumps(type_change[1]),
+                )
+            except TimeoutException:
+                raise Exception(
+                    'Output type did not change from {} to {}'.format(
+                        types_changes[i - 1],
+                        type_change
+                    )
+                )
