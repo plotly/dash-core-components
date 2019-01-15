@@ -43,9 +43,9 @@ class IntervalWrapper extends Component {
     }
 }
 
-describe('Basic interval usage', () => {
-    const intervalLength = 50;
+const intervalLength = 50;
 
+describe('Basic interval usage', () => {
     const makeSut = () => {
         const results = {
             fireEventCalls: 0,
@@ -64,6 +64,11 @@ describe('Basic interval usage', () => {
             }
         };
 
+        const defaultProps = {
+            id: 'test-interval',
+            interval: intervalLength,
+        };
+
         const wrapper = mount(
             <IntervalWrapper fireEvent={fireEvent} setProps={setProps}>
                 <Interval {...defaultProps} />
@@ -72,11 +77,6 @@ describe('Basic interval usage', () => {
         const interval = wrapper.childAt(0);
 
         return { interval, results };
-    };
-
-    const defaultProps = {
-        id: 'test-interval',
-        interval: intervalLength,
     };
 
     test('props.id =>', () => {
@@ -135,8 +135,6 @@ describe('Delayed setProps provisioning', () => {
         }
     }
 
-    const intervalLength = 50;
-
     const makeSut = () => {
         const results = {
             fireEventCalls: 0,
@@ -155,21 +153,21 @@ describe('Delayed setProps provisioning', () => {
             }
         };
 
+        const defaultProps = {
+            id: 'test-interval',
+            interval: intervalLength,
+        };
+
         const wrapper = mount(
-            <DelayedSetPropsWrapper>
-                <IntervalWrapper fireEvent={fireEvent} setProps={setProps}>
+            <DelayedSetPropsWrapper fireEvent={fireEvent} setProps={setProps}>
+                <IntervalWrapper>
                     <Interval {...defaultProps} />
                 </IntervalWrapper>
             </DelayedSetPropsWrapper>
         );
-        const interval = wrapper.childAt(0);
+        const interval = wrapper.childAt(0).childAt(0);
 
         return { interval, results };
-    };
-
-    const defaultProps = {
-        id: 'test-interval',
-        interval: intervalLength,
     };
 
     test('props.id =>', () => {
@@ -231,8 +229,6 @@ describe('Usage of disabled = true', () => {
         }
     }
 
-    const intervalLength = 100;
-
     const makeSut = (handleInterval) => {
         const results = {
             fireEventCalls: 0,
@@ -251,6 +247,11 @@ describe('Usage of disabled = true', () => {
             }
         };
 
+        const defaultProps = {
+            id: 'test-interval',
+            interval: intervalLength,
+        };
+
         const wrapper = mount(
             <DisabledTestingIntervalWrapper
                 handleInterval={handleInterval}
@@ -265,11 +266,6 @@ describe('Usage of disabled = true', () => {
         const interval = wrapper.childAt(0).childAt(0);
 
         return { interval, results };
-    };
-
-    const defaultProps = {
-        id: 'test-interval',
-        interval: intervalLength,
     };
 
     describe('disabling permanently after one interval', () => {
@@ -322,18 +318,20 @@ describe('Usage of disabled = true', () => {
 
     describe('disabling temporarily for one interval', () => {
         const handleInterval = (intervalsElapsed, setState) => {
-            // disable after one interval
+            // disable after one interval, just before the next
             if (intervalsElapsed === 1) {
-                setState({
-                    disabled: true,
-                }, () => {
-                    // re-enable one interval later
-                    setTimeout(() => {
-                        setState({
-                            disabled: false,
-                        });
-                    }, intervalLength);
-                });
+                setTimeout(() => {
+                    setState({
+                        disabled: true,
+                    }, () => {
+                        // re-enable one interval later
+                        setTimeout(() => {
+                            setState({
+                                disabled: false,
+                            });
+                        }, intervalLength);
+                    });
+                }, intervalLength * 0.95);
             }
         };
 
