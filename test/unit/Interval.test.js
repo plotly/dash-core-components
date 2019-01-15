@@ -45,6 +45,11 @@ class IntervalWrapper extends Component {
 
 const intervalLength = 50;
 
+// The following number should be large enough for any
+// outstanding timeout events to have settled, but still
+// small enough to be unnoticeable by our implementation.
+const intervalNegligibleMargin = intervalLength * 0.2;
+
 describe('Basic interval usage', () => {
     const makeSut = () => {
         const results = {
@@ -97,7 +102,7 @@ describe('Basic interval usage', () => {
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(1);
                 done();
-            }, intervalLength * 1.5);
+            }, intervalLength * 1 + intervalNegligibleMargin);
         });
     });
 
@@ -107,7 +112,7 @@ describe('Basic interval usage', () => {
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(2);
                 done();
-            }, intervalLength * 2.5);
+            }, intervalLength * 2 + intervalNegligibleMargin);
         });
     });
 });
@@ -188,7 +193,7 @@ describe('Delayed setProps provisioning', () => {
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(1);
                 done();
-            }, intervalLength * 1.5);
+            }, intervalLength * 1 + intervalNegligibleMargin);
         });
     });
 
@@ -198,7 +203,7 @@ describe('Delayed setProps provisioning', () => {
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(2);
                 done();
-            }, intervalLength * 2.5);
+            }, intervalLength * 2 + intervalNegligibleMargin);
         });
     });
 });
@@ -291,7 +296,7 @@ describe('Usage of disabled = true', () => {
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
-                }, intervalLength * 1.5);
+                }, intervalLength * 1 + intervalNegligibleMargin);
             });
         });
 
@@ -301,7 +306,7 @@ describe('Usage of disabled = true', () => {
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
-                }, intervalLength * 2.5);
+                }, intervalLength * 2 + intervalNegligibleMargin);
             });
         });
 
@@ -311,7 +316,7 @@ describe('Usage of disabled = true', () => {
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
-                }, intervalLength * 3.5);
+                }, intervalLength * 3 + intervalNegligibleMargin);
             });
         });
     });
@@ -331,7 +336,7 @@ describe('Usage of disabled = true', () => {
                             });
                         }, intervalLength);
                     });
-                }, intervalLength * 0.95);
+                }, intervalLength - intervalNegligibleMargin);
             }
         };
 
@@ -348,7 +353,7 @@ describe('Usage of disabled = true', () => {
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
-                }, intervalLength * 1.5);
+                }, intervalLength * 1 + intervalNegligibleMargin);
             });
         });
 
@@ -358,7 +363,7 @@ describe('Usage of disabled = true', () => {
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
-                }, intervalLength * 2.5);
+                }, intervalLength * 2 + intervalNegligibleMargin);
             });
         });
 
@@ -368,7 +373,7 @@ describe('Usage of disabled = true', () => {
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(2);
                     done();
-                }, intervalLength * 3.5);
+                }, intervalLength * 3 + intervalNegligibleMargin);
             });
         });
     });
