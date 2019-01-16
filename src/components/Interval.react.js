@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react'; // eslint-disable-line no-unused-vars
 
 /**
- * A component that repeatedly fires an event ("interval")
- * with a fixed time delay between each event.
+ * A component that repeatedly increments a counter `n_intervals`
+ * with a fixed time delay between each increment.
  * Interval is good for triggering a component on a recurring basis.
  * The time delay is set with the property "interval" in milliseconds.
  */
@@ -38,7 +38,6 @@ export default class Interval extends Component {
     handleInterval() {
         const {
             disabled,
-            fireEvent,
             max_intervals,
             n_intervals,
             setProps,
@@ -47,9 +46,6 @@ export default class Interval extends Component {
             max_intervals === -1 || n_intervals < max_intervals;
         if (disabled || !withinMaximum) {
             return;
-        }
-        if (fireEvent) {
-            fireEvent({event: 'interval'});
         }
         if (setProps) {
             setProps({n_intervals: n_intervals + 1});
@@ -63,7 +59,7 @@ export default class Interval extends Component {
     }
 
     canStartTimer(props) {
-        return props.fireEvent || props.setProps;
+        return props.setProps;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -87,14 +83,13 @@ export default class Interval extends Component {
 Interval.propTypes = {
     id: PropTypes.string,
     /**
-     * This component will fire an event every `interval`
-     * milliseconds with the event name `setInterval`
+     * This component will increment the counter `n_intervals` every
+     * `interval` milliseconds
      */
     interval: PropTypes.number,
 
     /**
-     * If True, the interval will no longer trigger
-     * an event.
+     * If True, the counter will no longer update
      */
     disabled: PropTypes.bool,
 
@@ -104,21 +99,16 @@ Interval.propTypes = {
     n_intervals: PropTypes.number,
 
     /**
-     * Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
+     * Number of times the interval will be fired.
+     * If -1, then the interval has no limit (the default)
+     * and if 0 then the interval stops running.
      */
     max_intervals: PropTypes.number,
 
     /**
      * Dash assigned callback
      */
-    fireEvent: PropTypes.func,
-
-    /**
-     * Dash assigned callback
-     */
     setProps: PropTypes.func,
-
-    dashEvents: PropTypes.oneOf(['interval']),
 };
 
 Interval.defaultProps = {
