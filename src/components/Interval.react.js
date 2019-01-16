@@ -16,8 +16,7 @@ export default class Interval extends Component {
 
     startTimer(props) {
         if (this.intervalId) {
-            console.warn('startTimer() called but timer already running');
-            return;
+            throw new Error('startTimer() invoked when timer already started');
         }
 
         this.intervalId = window.setInterval(
