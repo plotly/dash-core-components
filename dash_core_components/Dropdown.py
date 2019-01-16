@@ -17,6 +17,8 @@ which have the benefit of showing the users all of the items at once.
 Keyword arguments:
 - id (string; optional)
 - options (list; optional): An array of options
+- derived_input_value (string; optional): The value of the input text as typed in by the user.
+This value is read-only and derived from internal events.
 - value (string | list; optional): The value of the input. If `multi` is false (the default)
 then value is just a string that corresponds to the values
 provided in the `options` property. If `multi` is true, then
@@ -35,13 +37,13 @@ the selected value.
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
+    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, derived_input_value=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'options', 'derived_input_value', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
         self._type = 'Dropdown'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['change']
-        self.available_properties = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
+        self.available_properties = ['id', 'options', 'derived_input_value', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

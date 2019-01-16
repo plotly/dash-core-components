@@ -69,6 +69,7 @@ export default class Dropdown extends Component {
                     filterOptions={filterOptions}
                     options={options}
                     value={selectedValue}
+                    onInputChange={derived_input_value => setProps({ derived_input_value })}
                     onChange={selectedOption => {
                         if (multi) {
                             let value;
@@ -97,7 +98,7 @@ export default class Dropdown extends Component {
                             fireEvent('change');
                         }
                     }}
-                    {...omit(['fireEvent', 'setProps', 'value'], this.props)}
+                    {...omit(['derived_input_value', 'fireEvent', 'setProps', 'value'], this.props)}
                 />
             </div>
         );
@@ -130,6 +131,12 @@ Dropdown.propTypes = {
             disabled: PropTypes.bool,
         })
     ),
+
+    /**
+     * The value of the input text as typed in by the user.
+     * This value is read-only and derived from internal events.
+     */
+    derived_input_value: PropTypes.string,
 
     /**
      * The value of the input. If `multi` is false (the default)

@@ -1006,6 +1006,13 @@
         "required": false,
         "description": "An array of options"
       },
+      "derived_input_value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The value of the input text as typed in by the user.\nThis value is read-only and derived from internal events."
+      },
       "value": {
         "type": {
           "name": "union",
@@ -2789,6 +2796,9 @@
             },
             {
               "name": "string"
+            },
+            {
+              "name": "bool"
             }
           ]
         },
