@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.42.2rc1] - 2019-01-16
+### Added
+- `derived_input_value` prop to dcc.Dropdown to provide feedback when user is typing/searching [#542](https://github.com/plotly/dash/issues/542)
+
 ## [0.42.1] - 2019-01-07
 ### Fixed
 - Fix `dcc.Store` type changes [#427](https://github.com/plotly/dash-core-components/pull/427)
