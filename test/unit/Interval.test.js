@@ -1,12 +1,10 @@
 import Interval from '../../src/components/Interval.react.js';
-import React, { cloneElement, Component } from 'react';
+import React, {cloneElement, Component} from 'react';
 import omit from 'lodash/omit';
 import {mount, shallow, render} from 'enzyme';
 
 test('Interval render', () => {
-    const interval = render(
-        <Interval />
-    );
+    const interval = render(<Interval />);
 
     expect(interval.html()).toBeNull();
 });
@@ -20,18 +18,21 @@ class IntervalWrapper extends Component {
         this.setProps = this.setProps.bind(this);
     }
 
-    setProps({ n_intervals }) {
-        this.setState({
-            n_intervals,
-        }, () => {
-            if (this.props.setProps) {
-                this.props.setProps({ n_intervals });
+    setProps({n_intervals}) {
+        this.setState(
+            {
+                n_intervals,
+            },
+            () => {
+                if (this.props.setProps) {
+                    this.props.setProps({n_intervals});
+                }
             }
-        });
+        );
     }
 
-    fireEvent({ event }) {
-        this.props.fireEvent({ event });
+    fireEvent({event}) {
+        this.props.fireEvent({event});
     }
 
     render() {
@@ -57,13 +58,13 @@ describe('Basic interval usage', () => {
             nIntervals: 0,
         };
 
-        const fireEvent = ({ event }) => {
+        const fireEvent = ({event}) => {
             if (event === 'interval') {
                 results.fireEventCalls += 1;
             }
         };
 
-        const setProps = (props) => {
+        const setProps = props => {
             if ('n_intervals' in props) {
                 results.nIntervals = props.n_intervals;
             }
@@ -81,24 +82,24 @@ describe('Basic interval usage', () => {
         );
         const interval = wrapper.childAt(0);
 
-        return { interval, results };
+        return {interval, results};
     };
 
     test('props.id =>', () => {
-        const { interval } = makeSut();
+        const {interval} = makeSut();
         expect(interval.props().id).toEqual('test-interval');
     });
 
     describe('t = 0', () => {
         test('n_intervals = 0', () => {
-            const { results } = makeSut();
+            const {results} = makeSut();
             expect(results.nIntervals).toEqual(0);
         });
     });
 
     describe('After 1 interval elapsed', () => {
         test('n_intervals = 1', done => {
-            const { results } = makeSut();
+            const {results} = makeSut();
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(1);
                 done();
@@ -108,7 +109,7 @@ describe('Basic interval usage', () => {
 
     describe('After 2 intervals elapsed', () => {
         test('n_intervals = 2', done => {
-            const { results } = makeSut();
+            const {results} = makeSut();
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(2);
                 done();
@@ -135,7 +136,9 @@ describe('Delayed setProps provisioning', () => {
         render() {
             return cloneElement(this.props.children, {
                 ...omit(this.props, ['children']),
-                setProps: this.state.setPropsProvided ? this.props.setProps : undefined,
+                setProps: this.state.setPropsProvided
+                    ? this.props.setProps
+                    : undefined,
             });
         }
     }
@@ -146,13 +149,13 @@ describe('Delayed setProps provisioning', () => {
             nIntervals: 0,
         };
 
-        const fireEvent = ({ event }) => {
+        const fireEvent = ({event}) => {
             if (event === 'interval') {
                 results.fireEventCalls += 1;
             }
         };
 
-        const setProps = (props) => {
+        const setProps = props => {
             if ('n_intervals' in props) {
                 results.nIntervals = props.n_intervals;
             }
@@ -172,24 +175,24 @@ describe('Delayed setProps provisioning', () => {
         );
         const interval = wrapper.childAt(0).childAt(0);
 
-        return { interval, results };
+        return {interval, results};
     };
 
     test('props.id =>', () => {
-        const { interval } = makeSut();
+        const {interval} = makeSut();
         expect(interval.props().id).toEqual('test-interval');
     });
 
     describe('t = 0', () => {
         test('n_intervals = 0', () => {
-            const { results } = makeSut();
+            const {results} = makeSut();
             expect(results.nIntervals).toEqual(0);
         });
     });
 
     describe('After 1 interval elapsed', () => {
         test('n_intervals = 1', done => {
-            const { results } = makeSut();
+            const {results} = makeSut();
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(1);
                 done();
@@ -199,7 +202,7 @@ describe('Delayed setProps provisioning', () => {
 
     describe('After 2 intervals elapsed', () => {
         test('n_intervals = 2', done => {
-            const { results } = makeSut();
+            const {results} = makeSut();
             setTimeout(() => {
                 expect(results.nIntervals).toEqual(2);
                 done();
@@ -218,10 +221,13 @@ describe('Usage of disabled = true', () => {
             this.setProps = this.setProps.bind(this);
         }
 
-        setProps({ n_intervals }) {
-            this.props.setProps({ n_intervals });
+        setProps({n_intervals}) {
+            this.props.setProps({n_intervals});
             if (this.props.handleInterval) {
-                this.props.handleInterval(n_intervals, this.setState.bind(this));
+                this.props.handleInterval(
+                    n_intervals,
+                    this.setState.bind(this)
+                );
             }
         }
 
@@ -234,19 +240,19 @@ describe('Usage of disabled = true', () => {
         }
     }
 
-    const makeSut = (handleInterval) => {
+    const makeSut = handleInterval => {
         const results = {
             fireEventCalls: 0,
             nIntervals: 0,
         };
 
-        const fireEvent = ({ event }) => {
+        const fireEvent = ({event}) => {
             if (event === 'interval') {
                 results.fireEventCalls += 1;
             }
         };
 
-        const setProps = (props) => {
+        const setProps = props => {
             if ('n_intervals' in props) {
                 results.nIntervals = props.n_intervals;
             }
@@ -270,7 +276,7 @@ describe('Usage of disabled = true', () => {
         );
         const interval = wrapper.childAt(0).childAt(0);
 
-        return { interval, results };
+        return {interval, results};
     };
 
     describe('disabling permanently after one interval', () => {
@@ -285,14 +291,14 @@ describe('Usage of disabled = true', () => {
 
         describe('t = 0', () => {
             test('n_intervals = 0', () => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 expect(results.nIntervals).toEqual(0);
             });
         });
 
         describe('After 1 interval elapsed', () => {
             test('n_intervals = 1', done => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
@@ -302,7 +308,7 @@ describe('Usage of disabled = true', () => {
 
         describe('After 2 intervals elapsed', () => {
             test('n_intervals = 1', done => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
@@ -312,7 +318,7 @@ describe('Usage of disabled = true', () => {
 
         describe('After 3 intervals elapsed', () => {
             test('n_intervals = 1', done => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
@@ -326,30 +332,33 @@ describe('Usage of disabled = true', () => {
             // disable after one interval, just before the next
             if (intervalsElapsed === 1) {
                 setTimeout(() => {
-                    setState({
-                        disabled: true,
-                    }, () => {
-                        // re-enable one interval later
-                        setTimeout(() => {
-                            setState({
-                                disabled: false,
-                            });
-                        }, intervalLength);
-                    });
+                    setState(
+                        {
+                            disabled: true,
+                        },
+                        () => {
+                            // re-enable one interval later
+                            setTimeout(() => {
+                                setState({
+                                    disabled: false,
+                                });
+                            }, intervalLength);
+                        }
+                    );
                 }, intervalLength - intervalNegligibleMargin);
             }
         };
 
         describe('t = 0', () => {
             test('n_intervals = 0', () => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 expect(results.nIntervals).toEqual(0);
             });
         });
 
         describe('After 1 interval elapsed', () => {
             test('n_intervals = 1', done => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
@@ -359,7 +368,7 @@ describe('Usage of disabled = true', () => {
 
         describe('After 2 intervals elapsed', () => {
             test('n_intervals = 1', done => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(1);
                     done();
@@ -369,7 +378,7 @@ describe('Usage of disabled = true', () => {
 
         describe('After 3 intervals elapsed', () => {
             test('n_intervals = 2', done => {
-                const { results } = makeSut(handleInterval);
+                const {results} = makeSut(handleInterval);
                 setTimeout(() => {
                     expect(results.nIntervals).toEqual(2);
                     done();
