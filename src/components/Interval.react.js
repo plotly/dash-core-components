@@ -20,7 +20,10 @@ export default class Interval extends Component {
             return;
         }
 
-        this.intervalId = window.setInterval(this.handleInterval, props.interval);
+        this.intervalId = window.setInterval(
+            this.handleInterval,
+            props.interval
+        );
     }
 
     resetTimer(props) {
@@ -34,8 +37,15 @@ export default class Interval extends Component {
     }
 
     handleInterval() {
-        const { disabled, fireEvent, max_intervals, n_intervals, setProps } = this.props;
-        const withinMaximum = max_intervals === -1 || n_intervals < max_intervals;
+        const {
+            disabled,
+            fireEvent,
+            max_intervals,
+            n_intervals,
+            setProps,
+        } = this.props;
+        const withinMaximum =
+            max_intervals === -1 || n_intervals < max_intervals;
         if (disabled || !withinMaximum) {
             return;
         }
@@ -61,8 +71,7 @@ export default class Interval extends Component {
         // If we couldn't start the timer before, and we can now, start it.
         if (!this.canStartTimer(this.props) && this.canStartTimer(nextProps)) {
             this.startTimer(nextProps);
-        }
-        else if (this.props.interval !== nextProps.interval) {
+        } else if (this.props.interval !== nextProps.interval) {
             this.resetTimer(nextProps);
         }
     }
