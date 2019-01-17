@@ -1,7 +1,6 @@
 dash
 build/
 dist/
-lib/
 lib/bundle.js*
 coverage/
 node_modules/
