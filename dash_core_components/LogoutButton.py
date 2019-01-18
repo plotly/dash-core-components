@@ -28,22 +28,22 @@ See https://dash.plot.ly/dash-core-components/logout_button
 for more documentation and examples.
 
 Keyword arguments:
-- style (dict; optional): Style of the button
+- id (string; optional): Id of the button.
+- label (string; optional): Text of the button
 - logout_url (string; optional): Url to submit a post logout request.
+- style (dict; optional): Style of the button
 - method (string; optional): Http method to submit the logout form.
 - className (string; optional): CSS class for the button.
-- label (string; optional): Text of the button
-- id (string; optional): Id of the button.
 
 Available events: """
     @_explicitize_args
-    def __init__(self, style=Component.UNDEFINED, logout_url=Component.UNDEFINED, id=Component.UNDEFINED, className=Component.UNDEFINED, label=Component.UNDEFINED, method=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['style', 'logout_url', 'label', 'className', 'method', 'id']
+    def __init__(self, id=Component.UNDEFINED, label=Component.UNDEFINED, logout_url=Component.UNDEFINED, style=Component.UNDEFINED, method=Component.UNDEFINED, className=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'label', 'logout_url', 'style', 'method', 'className']
         self._type = 'LogoutButton'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['style', 'logout_url', 'label', 'className', 'method', 'id']
+        self.available_properties = ['id', 'label', 'logout_url', 'style', 'method', 'className']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

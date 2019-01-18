@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreDatePickerSingle <- function(initial_visible_month=NULL, reopen_calendar_on_clear=NULL, disabled=NULL, id=NULL, number_of_months_shown=NULL, min_date_allowed=NULL, max_date_allowed=NULL, first_day_of_week=NULL, clearable=NULL, display_format=NULL, stay_open_on_select=NULL, month_format=NULL, is_RTL=NULL, show_outside_days=NULL, calendar_orientation=NULL, date=NULL, with_full_screen_portal=NULL, placeholder=NULL, with_portal=NULL, day_size=NULL, ...) {
+coreDatePickerSingle <- function(id=NULL, date=NULL, min_date_allowed=NULL, max_date_allowed=NULL, initial_visible_month=NULL, day_size=NULL, calendar_orientation=NULL, is_RTL=NULL, placeholder=NULL, reopen_calendar_on_clear=NULL, number_of_months_shown=NULL, with_portal=NULL, with_full_screen_portal=NULL, first_day_of_week=NULL, stay_open_on_select=NULL, show_outside_days=NULL, month_format=NULL, display_format=NULL, disabled=NULL, clearable=NULL, dashEvents=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(initial_visible_month=initial_visible_month, reopen_calendar_on_clear=reopen_calendar_on_clear, disabled=disabled, id=id, number_of_months_shown=number_of_months_shown, min_date_allowed=min_date_allowed, max_date_allowed=max_date_allowed, first_day_of_week=first_day_of_week, clearable=clearable, display_format=display_format, stay_open_on_select=stay_open_on_select, month_format=month_format, is_RTL=is_RTL, show_outside_days=show_outside_days, calendar_orientation=calendar_orientation, date=date, with_full_screen_portal=with_full_screen_portal, placeholder=placeholder, with_portal=with_portal, day_size=day_size, ...),
+        props = list(id=id, date=date, min_date_allowed=min_date_allowed, max_date_allowed=max_date_allowed, initial_visible_month=initial_visible_month, day_size=day_size, calendar_orientation=calendar_orientation, is_RTL=is_RTL, placeholder=placeholder, reopen_calendar_on_clear=reopen_calendar_on_clear, number_of_months_shown=number_of_months_shown, with_portal=with_portal, with_full_screen_portal=with_full_screen_portal, first_day_of_week=first_day_of_week, stay_open_on_select=stay_open_on_select, show_outside_days=show_outside_days, month_format=month_format, display_format=display_format, disabled=disabled, clearable=clearable, dashEvents=dashEvents, ...),
         type = 'DatePickerSingle',
         namespace = 'dash_core_components',
-        propNames = c('initial_visible_month', 'reopen_calendar_on_clear', 'disabled', 'id', 'number_of_months_shown', 'min_date_allowed', 'max_date_allowed', 'first_day_of_week', 'clearable', 'display_format', 'stay_open_on_select', 'month_format', 'is_RTL', 'show_outside_days', 'calendar_orientation', 'date', 'with_full_screen_portal', 'placeholder', 'with_portal', 'day_size', wildcard_names),
+        propNames = c('id', 'date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'day_size', 'calendar_orientation', 'is_RTL', 'placeholder', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable', wildcard_names),
         package = 'dashCoreComponents'
         )
 

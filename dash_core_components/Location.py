@@ -9,22 +9,22 @@ Update and track the current window.location object through the window.history s
 Use in conjunction with the `dash_core_components.Link` component to make apps with multiple pages.
 
 Keyword arguments:
+- id (string; required)
+- pathname (string; optional): pathname in window.location - e.g., "/my/full/pathname"
 - search (string; optional): search in window.location - e.g., "?myargument=1"
 - hash (string; optional): hash in window.location - e.g., "#myhash"
-- refresh (boolean; optional): Refresh the page when the location is updated?
 - href (string; optional): href in window.location - e.g., "/my/full/pathname?myargument=1#myhash"
-- pathname (string; optional): pathname in window.location - e.g., "/my/full/pathname"
-- id (string; required)
+- refresh (boolean; optional): Refresh the page when the location is updated?
 
 Available events: """
     @_explicitize_args
-    def __init__(self, search=Component.UNDEFINED, hash=Component.UNDEFINED, refresh=Component.UNDEFINED, href=Component.UNDEFINED, pathname=Component.UNDEFINED, id=Component.REQUIRED, **kwargs):
-        self._prop_names = ['search', 'hash', 'refresh', 'href', 'pathname', 'id']
+    def __init__(self, id=Component.REQUIRED, pathname=Component.UNDEFINED, search=Component.UNDEFINED, hash=Component.UNDEFINED, href=Component.UNDEFINED, refresh=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self._type = 'Location'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['search', 'hash', 'refresh', 'href', 'pathname', 'id']
+        self.available_properties = ['id', 'pathname', 'search', 'hash', 'href', 'refresh']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

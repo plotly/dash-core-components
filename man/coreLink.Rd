@@ -10,17 +10,17 @@
 }
 
 \usage{
-coreLink(style=NULL, refresh=NULL, className=NULL, href=NULL, id=NULL, ...)
+coreLink(href=NULL, refresh=NULL, className=NULL, style=NULL, id=NULL, ...)
 }
 
 \arguments{
-\item{style}{}
+\item{href}{}
 
 \item{refresh}{}
 
 \item{className}{}
 
-\item{href}{}
+\item{style}{}
 
 \item{id}{}
 

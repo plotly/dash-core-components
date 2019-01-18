@@ -11,23 +11,23 @@ Interval is good for triggering a component on a recurring basis.
 The time delay is set with the property "interval" in milliseconds.
 
 Keyword arguments:
-- disabled (boolean; optional): If True, the interval will no longer trigger
-an event.
+- id (string; optional)
 - interval (number; optional): This component will fire an event every `interval`
 milliseconds with the event name `setInterval`
-- max_intervals (number; optional): Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
-- id (string; optional)
+- disabled (boolean; optional): If True, the interval will no longer trigger
+an event.
 - n_intervals (number; optional): Number of times the interval has passed
+- max_intervals (number; optional): Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
 
 Available events: 'interval'"""
     @_explicitize_args
-    def __init__(self, max_intervals=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['max_intervals', 'interval', 'id', 'disabled', 'n_intervals']
+    def __init__(self, id=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, max_intervals=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
         self._type = 'Interval'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['interval']
-        self.available_properties = ['max_intervals', 'interval', 'id', 'disabled', 'n_intervals']
+        self.available_properties = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

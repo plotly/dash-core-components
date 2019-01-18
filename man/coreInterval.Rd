@@ -10,23 +10,23 @@ A component that repeatedly fires an event ("interval") with a fixed time delay 
 }
 
 \usage{
-coreInterval(max_intervals=NULL, interval=NULL, fireEvent=NULL, disabled=NULL, n_intervals=NULL, id=NULL, ...)
+coreInterval(id=NULL, interval=NULL, disabled=NULL, n_intervals=NULL, max_intervals=NULL, setProps=NULL, ...)
 }
 
 \arguments{
-\item{max_intervals}{Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.}
+\item{id}{}
 
 \item{interval}{This component will fire an event every `interval`
 milliseconds with the event name `setInterval`}
-
-\item{fireEvent}{Dash assigned callback}
 
 \item{disabled}{If True, the interval will no longer trigger
 an event.}
 
 \item{n_intervals}{Number of times the interval has passed}
 
-\item{id}{}
+\item{max_intervals}{Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.}
+
+\item{setProps}{Dash assigned callback}
 
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

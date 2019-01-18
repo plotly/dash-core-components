@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreRadioItems <- function(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, value=NULL, options=NULL, className=NULL, id=NULL, ...) {
+coreRadioItems <- function(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, setProps=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(labelClassName=labelClassName, style=style, inputClassName=inputClassName, inputStyle=inputStyle, labelStyle=labelStyle, value=value, options=options, className=className, id=id, ...),
+        props = list(id=id, options=options, value=value, style=style, className=className, inputStyle=inputStyle, inputClassName=inputClassName, labelStyle=labelStyle, labelClassName=labelClassName, setProps=setProps, ...),
         type = 'RadioItems',
         namespace = 'dash_core_components',
-        propNames = c('labelClassName', 'style', 'inputClassName', 'inputStyle', 'labelStyle', 'value', 'options', 'className', 'id', wildcard_names),
+        propNames = c('id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName', wildcard_names),
         package = 'dashCoreComponents'
         )
 

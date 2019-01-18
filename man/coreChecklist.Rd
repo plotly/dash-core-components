@@ -10,29 +10,31 @@ Checklist is a component that encapsulates several checkboxes. The values and la
 }
 
 \usage{
-coreChecklist(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, options=NULL, className=NULL, values=NULL, id=NULL, ...)
+coreChecklist(id=NULL, options=NULL, values=NULL, className=NULL, style=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, setProps=NULL, ...)
 }
 
 \arguments{
-\item{labelClassName}{The class of the <label> that wraps the checkbox input
- and the option's label}
+\item{id}{}
+
+\item{options}{An array of options}
+
+\item{values}{The currently selected value}
+
+\item{className}{The class of the container (div)}
 
 \item{style}{The style of the container (div)}
 
-\item{inputClassName}{The class of the <input> checkbox element}
-
 \item{inputStyle}{The style of the <input> checkbox element}
+
+\item{inputClassName}{The class of the <input> checkbox element}
 
 \item{labelStyle}{The style of the <label> that wraps the checkbox input
  and the option's label}
 
-\item{options}{An array of options}
+\item{labelClassName}{The class of the <label> that wraps the checkbox input
+ and the option's label}
 
-\item{className}{The class of the container (div)}
-
-\item{values}{The currently selected value}
-
-\item{id}{}
+\item{setProps}{Dash-assigned callback that gets fired when the value changes.}
 
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

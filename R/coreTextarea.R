@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreTextarea <- function(contentEditable=NULL, cols=NULL, disabled=NULL, wrap=NULL, id=NULL, tabIndex=NULL, draggable=NULL, style=NULL, rows=NULL, title=NULL, accessKey=NULL, hidden=NULL, spellCheck=NULL, form=NULL, contextMenu=NULL, minLength=NULL, readOnly=NULL, maxLength=NULL, autoFocus=NULL, placeholder=NULL, lang=NULL, name=NULL, required=NULL, value=NULL, className=NULL, dir=NULL, ...) {
+coreTextarea <- function(id=NULL, value=NULL, autoFocus=NULL, cols=NULL, disabled=NULL, form=NULL, maxLength=NULL, minLength=NULL, name=NULL, placeholder=NULL, readOnly=NULL, required=NULL, rows=NULL, wrap=NULL, accessKey=NULL, className=NULL, contentEditable=NULL, contextMenu=NULL, dir=NULL, draggable=NULL, hidden=NULL, lang=NULL, spellCheck=NULL, style=NULL, tabIndex=NULL, title=NULL, fireEvent=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(contentEditable=contentEditable, cols=cols, disabled=disabled, wrap=wrap, id=id, tabIndex=tabIndex, draggable=draggable, style=style, rows=rows, title=title, accessKey=accessKey, hidden=hidden, spellCheck=spellCheck, form=form, contextMenu=contextMenu, minLength=minLength, readOnly=readOnly, maxLength=maxLength, autoFocus=autoFocus, placeholder=placeholder, lang=lang, name=name, required=required, value=value, className=className, dir=dir, ...),
+        props = list(id=id, value=value, autoFocus=autoFocus, cols=cols, disabled=disabled, form=form, maxLength=maxLength, minLength=minLength, name=name, placeholder=placeholder, readOnly=readOnly, required=required, rows=rows, wrap=wrap, accessKey=accessKey, className=className, contentEditable=contentEditable, contextMenu=contextMenu, dir=dir, draggable=draggable, hidden=hidden, lang=lang, spellCheck=spellCheck, style=style, tabIndex=tabIndex, title=title, fireEvent=fireEvent, ...),
         type = 'Textarea',
         namespace = 'dash_core_components',
-        propNames = c('contentEditable', 'cols', 'disabled', 'wrap', 'id', 'tabIndex', 'draggable', 'style', 'rows', 'title', 'accessKey', 'hidden', 'spellCheck', 'form', 'contextMenu', 'minLength', 'readOnly', 'maxLength', 'autoFocus', 'placeholder', 'lang', 'name', 'required', 'value', 'className', 'dir', wildcard_names),
+        propNames = c('id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title', wildcard_names),
         package = 'dashCoreComponents'
         )
 

@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreInterval <- function(max_intervals=NULL, interval=NULL, fireEvent=NULL, disabled=NULL, n_intervals=NULL, id=NULL, ...) {
+coreInterval <- function(id=NULL, interval=NULL, disabled=NULL, n_intervals=NULL, max_intervals=NULL, setProps=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(max_intervals=max_intervals, interval=interval, fireEvent=fireEvent, disabled=disabled, n_intervals=n_intervals, id=id, ...),
+        props = list(id=id, interval=interval, disabled=disabled, n_intervals=n_intervals, max_intervals=max_intervals, setProps=setProps, ...),
         type = 'Interval',
         namespace = 'dash_core_components',
-        propNames = c('max_intervals', 'interval', 'disabled', 'n_intervals', 'id', wildcard_names),
+        propNames = c('id', 'interval', 'disabled', 'n_intervals', 'max_intervals', wildcard_names),
         package = 'dashCoreComponents'
         )
 

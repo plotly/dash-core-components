@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreSyntaxHighlighter <- function(children=NULL, language=NULL, lineStyle=NULL, codeTagProps=NULL, theme=NULL, useInlineStyles=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, startingLineNumber=NULL, wrapLines=NULL, id=NULL, showLineNumbers=NULL, customStyle=NULL, ...) {
+coreSyntaxHighlighter <- function(children=NULL, id=NULL, language=NULL, theme=NULL, customStyle=NULL, codeTagProps=NULL, useInlineStyles=NULL, showLineNumbers=NULL, startingLineNumber=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, wrapLines=NULL, lineStyle=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(children=children, language=language, lineStyle=lineStyle, codeTagProps=codeTagProps, theme=theme, useInlineStyles=useInlineStyles, lineNumberContainerStyle=lineNumberContainerStyle, lineNumberStyle=lineNumberStyle, startingLineNumber=startingLineNumber, wrapLines=wrapLines, id=id, showLineNumbers=showLineNumbers, customStyle=customStyle, ...),
+        props = list(children=children, id=id, language=language, theme=theme, customStyle=customStyle, codeTagProps=codeTagProps, useInlineStyles=useInlineStyles, showLineNumbers=showLineNumbers, startingLineNumber=startingLineNumber, lineNumberContainerStyle=lineNumberContainerStyle, lineNumberStyle=lineNumberStyle, wrapLines=wrapLines, lineStyle=lineStyle, ...),
         type = 'SyntaxHighlighter',
         namespace = 'dash_core_components',
-        propNames = c('children', 'language', 'lineStyle', 'codeTagProps', 'theme', 'useInlineStyles', 'lineNumberContainerStyle', 'lineNumberStyle', 'startingLineNumber', 'wrapLines', 'id', 'showLineNumbers', 'customStyle', wildcard_names),
+        propNames = c('children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle', wildcard_names),
         package = 'dashCoreComponents'
         )
 

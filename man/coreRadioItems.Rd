@@ -10,29 +10,31 @@ RadioItems is a component that encapsulates several radio item inputs. The value
 }
 
 \usage{
-coreRadioItems(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, value=NULL, options=NULL, className=NULL, id=NULL, ...)
+coreRadioItems(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, setProps=NULL, ...)
 }
 
 \arguments{
-\item{labelClassName}{The class of the <label> that wraps the radio input
- and the option's label}
+\item{id}{}
+
+\item{options}{An array of options}
+
+\item{value}{The currently selected value}
 
 \item{style}{The style of the container (div)}
 
-\item{inputClassName}{The class of the <input> radio element}
+\item{className}{The class of the container (div)}
 
 \item{inputStyle}{The style of the <input> radio element}
+
+\item{inputClassName}{The class of the <input> radio element}
 
 \item{labelStyle}{The style of the <label> that wraps the radio input
  and the option's label}
 
-\item{value}{The currently selected value}
+\item{labelClassName}{The class of the <label> that wraps the radio input
+ and the option's label}
 
-\item{options}{An array of options}
-
-\item{className}{The class of the container (div)}
-
-\item{id}{}
+\item{setProps}{Dash-assigned callback that gets fired when the value changes.}
 
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
