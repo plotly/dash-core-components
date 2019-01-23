@@ -38,10 +38,7 @@ export default class Slider extends Component {
                     }
                 }}
                 value={value}
-                {...omit(
-                    ['setProps', 'updatemode', 'value'],
-                    this.props
-                )}
+                {...omit(['setProps', 'updatemode', 'value'], this.props)}
             />
         );
     }

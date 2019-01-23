@@ -36,12 +36,7 @@ export default class Interval extends Component {
     }
 
     handleInterval() {
-        const {
-            disabled,
-            max_intervals,
-            n_intervals,
-            setProps,
-        } = this.props;
+        const {disabled, max_intervals, n_intervals, setProps} = this.props;
         const withinMaximum =
             max_intervals === -1 || n_intervals < max_intervals;
         if (disabled || !withinMaximum) {

@@ -38,10 +38,7 @@ export default class RangeSlider extends Component {
                     }
                 }}
                 value={value}
-                {...omit(
-                    ['value', 'setProps', 'updatemode'],
-                    this.props
-                )}
+                {...omit(['value', 'setProps', 'updatemode'], this.props)}
             />
         );
     }
