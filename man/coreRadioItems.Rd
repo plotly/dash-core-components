@@ -10,31 +10,33 @@ RadioItems is a component that encapsulates several radio item inputs. The value
 }
 
 \usage{
-coreRadioItems(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, setProps=NULL, ...)
+coreRadioItems(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, dashEvents=NULL, value=NULL, options=NULL, className=NULL, fireEvent=NULL, id=NULL, ...)
 }
 
 \arguments{
-\item{id}{}
-
-\item{options}{An array of options}
-
-\item{value}{The currently selected value}
+\item{labelClassName}{The class of the <label> that wraps the radio input
+ and the option's label}
 
 \item{style}{The style of the container (div)}
 
-\item{className}{The class of the container (div)}
+\item{inputClassName}{The class of the <input> radio element}
 
 \item{inputStyle}{The style of the <input> radio element}
-
-\item{inputClassName}{The class of the <input> radio element}
 
 \item{labelStyle}{The style of the <label> that wraps the radio input
  and the option's label}
 
-\item{labelClassName}{The class of the <label> that wraps the radio input
- and the option's label}
+\item{dashEvents}{}
 
-\item{setProps}{Dash-assigned callback that gets fired when the value changes.}
+\item{value}{The currently selected value}
+
+\item{options}{An array of options}
+
+\item{className}{The class of the container (div)}
+
+\item{fireEvent}{Dash-assigned callback that gets fired when the radio item gets selected.}
+
+\item{id}{}
 
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

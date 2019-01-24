@@ -8,7 +8,23 @@ class Slider(Component):
 A slider component with a single handle.
 
 Keyword arguments:
-- id (string; optional)
+- dots (boolean; optional): When the step value is greater than 1,
+you can set the dots to true if you want to
+render the slider with dots.
+- updatemode (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
+its value. If `mouseup`, then the slider
+will only trigger its value when the user has
+finished dragging the slider. If `drag`, then
+the slider will update its value continuously
+as it is being dragged.
+Only use `drag` if your updates are fast.
+- vertical (boolean; optional): If true, the slider will be vertical
+- min (number; optional): Minimum allowed value of the slider
+- max (number; optional): Maximum allowed value of the slider
+- value (number; optional): The value of the input
+- disabled (boolean; optional): If true, the handles can't be moved.
+- className (string; optional): Additional CSS class for the root DOM node
+- step (number; optional): Value by which increments or decrements are made
 - marks (optional): Marks on the slider.
 The key determines the position,
 and the value determines what will show.
@@ -20,35 +36,19 @@ Those keys have the following types:
 Those keys have the following types: 
   - style (dict; optional)
   - label (string; optional)
-- value (number; optional): The value of the input
-- className (string; optional): Additional CSS class for the root DOM node
-- disabled (boolean; optional): If true, the handles can't be moved.
-- dots (boolean; optional): When the step value is greater than 1,
-you can set the dots to true if you want to
-render the slider with dots.
 - included (boolean; optional): If the value is true, it means a continuous
 value is included. Otherwise, it is an independent value.
-- min (number; optional): Minimum allowed value of the slider
-- max (number; optional): Maximum allowed value of the slider
-- step (number; optional): Value by which increments or decrements are made
-- vertical (boolean; optional): If true, the slider will be vertical
-- updatemode (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
-its value. If `mouseup`, then the slider
-will only trigger its value when the user has
-finished dragging the slider. If `drag`, then
-the slider will update its value continuously
-as it is being dragged.
-Only use `drag` if your updates are fast.
+- id (string; optional)
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, updatemode=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'step', 'vertical', 'updatemode']
+    def __init__(self, dots=Component.UNDEFINED, disabled=Component.UNDEFINED, updatemode=Component.UNDEFINED, vertical=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, step=Component.UNDEFINED, marks=Component.UNDEFINED, included=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['dots', 'updatemode', 'vertical', 'min', 'max', 'value', 'id', 'disabled', 'className', 'step', 'marks', 'included']
         self._type = 'Slider'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['change']
-        self.available_properties = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'step', 'vertical', 'updatemode']
+        self.available_properties = ['dots', 'updatemode', 'vertical', 'min', 'max', 'value', 'id', 'disabled', 'className', 'step', 'marks', 'included']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

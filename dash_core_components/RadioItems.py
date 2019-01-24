@@ -11,27 +11,27 @@ property and the seleced item is specified with the `value` property.
 Each radio item is rendered as an input with a surrounding label.
 
 Keyword arguments:
-- id (string; optional)
-- options (list; optional): An array of options
-- value (string; optional): The currently selected value
-- style (dict; optional): The style of the container (div)
-- className (string; optional): The class of the container (div)
-- inputStyle (dict; optional): The style of the <input> radio element
-- inputClassName (string; optional): The class of the <input> radio element
-- labelStyle (dict; optional): The style of the <label> that wraps the radio input
- and the option's label
 - labelClassName (string; optional): The class of the <label> that wraps the radio input
  and the option's label
+- style (dict; optional): The style of the container (div)
+- inputClassName (string; optional): The class of the <input> radio element
+- inputStyle (dict; optional): The style of the <input> radio element
+- labelStyle (dict; optional): The style of the <label> that wraps the radio input
+ and the option's label
+- value (string; optional): The currently selected value
+- options (list; optional): An array of options
+- className (string; optional): The class of the container (div)
+- id (string; optional)
 
 Available events: 'change'"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
+    def __init__(self, labelClassName=Component.UNDEFINED, style=Component.UNDEFINED, inputClassName=Component.UNDEFINED, inputStyle=Component.UNDEFINED, labelStyle=Component.UNDEFINED, value=Component.UNDEFINED, options=Component.UNDEFINED, className=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['labelClassName', 'style', 'inputClassName', 'inputStyle', 'labelStyle', 'value', 'className', 'id', 'options']
         self._type = 'RadioItems'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = ['change']
-        self.available_properties = ['id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
+        self.available_properties = ['labelClassName', 'style', 'inputClassName', 'inputStyle', 'labelStyle', 'value', 'className', 'id', 'options']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreLogoutButton <- function(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL, ...) {
+coreLogoutButton <- function(style=NULL, logout_url=NULL, id=NULL, className=NULL, label=NULL, method=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(id=id, label=label, logout_url=logout_url, style=style, method=method, className=className, ...),
+        props = list(style=style, logout_url=logout_url, id=id, className=className, label=label, method=method, ...),
         type = 'LogoutButton',
         namespace = 'dash_core_components',
-        propNames = c('id', 'label', 'logout_url', 'style', 'method', 'className', wildcard_names),
+        propNames = c('style', 'logout_url', 'id', 'className', 'label', 'method', wildcard_names),
         package = 'dashCoreComponents'
         )
 

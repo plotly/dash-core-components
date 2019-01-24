@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreUpload <- function(children=NULL, id=NULL, contents=NULL, filename=NULL, last_modified=NULL, accept=NULL, disabled=NULL, disable_click=NULL, max_size=NULL, min_size=NULL, multiple=NULL, className=NULL, className_active=NULL, className_reject=NULL, className_disabled=NULL, style=NULL, style_active=NULL, style_reject=NULL, style_disabled=NULL, ...) {
+coreUpload <- function(children=NULL, style_reject=NULL, min_size=NULL, style=NULL, multiple=NULL, style_disabled=NULL, className_reject=NULL, className_disabled=NULL, accept=NULL, id=NULL, disabled=NULL, className=NULL, last_modified=NULL, style_active=NULL, max_size=NULL, className_active=NULL, filename=NULL, disable_click=NULL, contents=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(children=children, id=id, contents=contents, filename=filename, last_modified=last_modified, accept=accept, disabled=disabled, disable_click=disable_click, max_size=max_size, min_size=min_size, multiple=multiple, className=className, className_active=className_active, className_reject=className_reject, className_disabled=className_disabled, style=style, style_active=style_active, style_reject=style_reject, style_disabled=style_disabled, ...),
+        props = list(children=children, style_reject=style_reject, min_size=min_size, style=style, multiple=multiple, style_disabled=style_disabled, className_reject=className_reject, className_disabled=className_disabled, accept=accept, id=id, disabled=disabled, className=className, last_modified=last_modified, style_active=style_active, max_size=max_size, className_active=className_active, filename=filename, disable_click=disable_click, contents=contents, ...),
         type = 'Upload',
         namespace = 'dash_core_components',
-        propNames = c('children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled', wildcard_names),
+        propNames = c('children', 'style_reject', 'min_size', 'style', 'multiple', 'style_disabled', 'className_reject', 'className_disabled', 'accept', 'id', 'disabled', 'className', 'last_modified', 'style_active', 'max_size', 'className_active', 'filename', 'disable_click', 'contents', wildcard_names),
         package = 'dashCoreComponents'
         )
 

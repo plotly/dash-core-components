@@ -11,25 +11,25 @@ Data can be in memory, localStorage or sessionStorage.
 The data will be kept with the id as key.
 
 Keyword arguments:
-- id (string; required): The key of the storage.
+- clear_data (boolean; optional): Set to true to remove the data contained in `data_key`.
+- modified_timestamp (number; optional): The last time the storage was modified.
+- data (dict | list | number | string | boolean; optional): The stored data for the id.
 - storage_type (a value equal to: 'local', 'session', 'memory'; optional): The type of the web storage.
 
 memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.
-- data (dict | list | number | string | boolean; optional): The stored data for the id.
-- clear_data (boolean; optional): Set to true to remove the data contained in `data_key`.
-- modified_timestamp (number; optional): The last time the storage was modified.
+- id (string; required): The key of the storage.
 
 Available events: """
     @_explicitize_args
-    def __init__(self, id=Component.REQUIRED, storage_type=Component.UNDEFINED, data=Component.UNDEFINED, clear_data=Component.UNDEFINED, modified_timestamp=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'storage_type', 'data', 'clear_data', 'modified_timestamp']
+    def __init__(self, modified_timestamp=Component.UNDEFINED, storage_type=Component.UNDEFINED, clear_data=Component.UNDEFINED, data=Component.UNDEFINED, id=Component.REQUIRED, **kwargs):
+        self._prop_names = ['modified_timestamp', 'storage_type', 'clear_data', 'data', 'id']
         self._type = 'Store'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['id', 'storage_type', 'data', 'clear_data', 'modified_timestamp']
+        self.available_properties = ['modified_timestamp', 'storage_type', 'clear_data', 'data', 'id']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
@@ -37,7 +37,7 @@ Available events: """
         _locals.update(kwargs)  # For wildcard attrs
         args = {k: _locals[k] for k in _explicit_args if k != 'children'}
 
-        for k in [u'id']:
+        for k in ['id']:
             if k not in args:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')

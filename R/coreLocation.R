@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreLocation <- function(id=NULL, pathname=NULL, search=NULL, hash=NULL, href=NULL, refresh=NULL, ...) {
+coreLocation <- function(search=NULL, hash=NULL, refresh=NULL, href=NULL, pathname=NULL, id=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(id=id, pathname=pathname, search=search, hash=hash, href=href, refresh=refresh, ...),
+        props = list(search=search, hash=hash, refresh=refresh, href=href, pathname=pathname, id=id, ...),
         type = 'Location',
         namespace = 'dash_core_components',
-        propNames = c('id', 'pathname', 'search', 'hash', 'href', 'refresh', wildcard_names),
+        propNames = c('search', 'hash', 'refresh', 'href', 'pathname', 'id', wildcard_names),
         package = 'dashCoreComponents'
         )
 

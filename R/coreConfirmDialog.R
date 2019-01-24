@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreConfirmDialog <- function(id=NULL, message=NULL, submit_n_clicks=NULL, submit_n_clicks_timestamp=NULL, cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, displayed=NULL, key=NULL, ...) {
+coreConfirmDialog <- function(cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, submit_n_clicks=NULL, displayed=NULL, submit_n_clicks_timestamp=NULL, key=NULL, message=NULL, id=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(id=id, message=message, submit_n_clicks=submit_n_clicks, submit_n_clicks_timestamp=submit_n_clicks_timestamp, cancel_n_clicks=cancel_n_clicks, cancel_n_clicks_timestamp=cancel_n_clicks_timestamp, displayed=displayed, key=key, ...),
+        props = list(cancel_n_clicks=cancel_n_clicks, cancel_n_clicks_timestamp=cancel_n_clicks_timestamp, submit_n_clicks=submit_n_clicks, displayed=displayed, submit_n_clicks_timestamp=submit_n_clicks_timestamp, key=key, message=message, id=id, ...),
         type = 'ConfirmDialog',
         namespace = 'dash_core_components',
-        propNames = c('id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed', 'key', wildcard_names),
+        propNames = c('cancel_n_clicks', 'cancel_n_clicks_timestamp', 'submit_n_clicks', 'displayed', 'submit_n_clicks_timestamp', 'key', 'message', 'id', wildcard_names),
         package = 'dashCoreComponents'
         )
 

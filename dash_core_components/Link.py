@@ -9,21 +9,21 @@ class Link(Component):
 
 Keyword arguments:
 - children (a list of or a singular dash component, string or number; optional)
-- href (string; optional)
-- refresh (boolean; optional)
-- className (string; optional)
 - style (dict; optional)
+- refresh (boolean; optional)
 - id (string; optional)
+- className (string; optional)
+- href (string; optional)
 
 Available events: """
     @_explicitize_args
-    def __init__(self, children=None, href=Component.UNDEFINED, refresh=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'href', 'refresh', 'className', 'style', 'id']
+    def __init__(self, children=None, style=Component.UNDEFINED, refresh=Component.UNDEFINED, className=Component.UNDEFINED, href=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'style', 'refresh', 'id', 'className', 'href']
         self._type = 'Link'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
         self.available_events = []
-        self.available_properties = ['children', 'href', 'refresh', 'className', 'style', 'id']
+        self.available_properties = ['children', 'style', 'refresh', 'id', 'className', 'href']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

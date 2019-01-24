@@ -10,21 +10,21 @@ Logout button to submit a form post request to the `logout_url` prop. Usage is i
 }
 
 \usage{
-coreLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL, ...)
+coreLogoutButton(style=NULL, logout_url=NULL, id=NULL, className=NULL, label=NULL, method=NULL, ...)
 }
 
 \arguments{
-\item{id}{Id of the button.}
-
-\item{label}{Text of the button}
+\item{style}{Style of the button}
 
 \item{logout_url}{Url to submit a post logout request.}
 
-\item{style}{Style of the button}
-
-\item{method}{Http method to submit the logout form.}
+\item{id}{Id of the button.}
 
 \item{className}{CSS class for the button.}
+
+\item{label}{Text of the button}
+
+\item{method}{Http method to submit the logout form.}
 
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

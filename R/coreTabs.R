@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreTabs <- function(children=NULL, id=NULL, value=NULL, className=NULL, content_className=NULL, parent_className=NULL, style=NULL, parent_style=NULL, content_style=NULL, vertical=NULL, mobile_breakpoint=NULL, colors=NULL, ...) {
+coreTabs <- function(children=NULL, style=NULL, vertical=NULL, parent_style=NULL, parent_className=NULL, content_className=NULL, mobile_breakpoint=NULL, className=NULL, colors=NULL, value=NULL, content_style=NULL, id=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(children=children, id=id, value=value, className=className, content_className=content_className, parent_className=parent_className, style=style, parent_style=parent_style, content_style=content_style, vertical=vertical, mobile_breakpoint=mobile_breakpoint, colors=colors, ...),
+        props = list(children=children, style=style, vertical=vertical, parent_style=parent_style, parent_className=parent_className, content_className=content_className, mobile_breakpoint=mobile_breakpoint, className=className, colors=colors, value=value, content_style=content_style, id=id, ...),
         type = 'Tabs',
         namespace = 'dash_core_components',
-        propNames = c('children', 'id', 'value', 'className', 'content_className', 'parent_className', 'style', 'parent_style', 'content_style', 'vertical', 'mobile_breakpoint', 'colors', wildcard_names),
+        propNames = c('children', 'style', 'vertical', 'parent_style', 'parent_className', 'content_className', 'mobile_breakpoint', 'className', 'colors', 'value', 'content_style', 'id', wildcard_names),
         package = 'dashCoreComponents'
         )
 

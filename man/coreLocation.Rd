@@ -10,21 +10,21 @@ Update and track the current window.location object through the window.history s
 }
 
 \usage{
-coreLocation(id=NULL, pathname=NULL, search=NULL, hash=NULL, href=NULL, refresh=NULL, ...)
+coreLocation(search=NULL, hash=NULL, refresh=NULL, href=NULL, pathname=NULL, id=NULL, ...)
 }
 
 \arguments{
-\item{id}{}
-
-\item{pathname}{pathname in window.location - e.g., "/my/full/pathname"}
-
 \item{search}{search in window.location - e.g., "?myargument=1"}
 
 \item{hash}{hash in window.location - e.g., "#myhash"}
 
+\item{refresh}{Refresh the page when the location is updated?}
+
 \item{href}{href in window.location - e.g., "/my/full/pathname?myargument=1#myhash"}
 
-\item{refresh}{Refresh the page when the location is updated?}
+\item{pathname}{pathname in window.location - e.g., "/my/full/pathname"}
+
+\item{id}{}
 
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }

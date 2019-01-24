@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreTab <- function(children=NULL, id=NULL, label=NULL, value=NULL, disabled=NULL, disabled_style=NULL, disabled_className=NULL, className=NULL, selected_className=NULL, style=NULL, selected_style=NULL, ...) {
+coreTab <- function(children=NULL, className=NULL, style=NULL, disabled_className=NULL, value=NULL, id=NULL, disabled=NULL, selected_className=NULL, selected_style=NULL, label=NULL, disabled_style=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(children=children, id=id, label=label, value=value, disabled=disabled, disabled_style=disabled_style, disabled_className=disabled_className, className=className, selected_className=selected_className, style=style, selected_style=selected_style, ...),
+        props = list(children=children, className=className, style=style, disabled_className=disabled_className, value=value, id=id, disabled=disabled, selected_className=selected_className, selected_style=selected_style, label=label, disabled_style=disabled_style, ...),
         type = 'Tab',
         namespace = 'dash_core_components',
-        propNames = c('children', 'id', 'label', 'value', 'disabled', 'disabled_style', 'disabled_className', 'className', 'selected_className', 'style', 'selected_style', wildcard_names),
+        propNames = c('children', 'className', 'style', 'disabled_className', 'value', 'id', 'disabled', 'selected_className', 'selected_style', 'label', 'disabled_style', wildcard_names),
         package = 'dashCoreComponents'
         )
 

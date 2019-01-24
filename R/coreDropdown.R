@@ -1,14 +1,14 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreDropdown <- function(id=NULL, options=NULL, value=NULL, className=NULL, clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL, style=NULL, dashEvents=NULL, fireEvent=NULL, ...) {
+coreDropdown <- function(disabled=NULL, multi=NULL, dashEvents=NULL, searchable=NULL, fireEvent=NULL, style=NULL, value=NULL, options=NULL, className=NULL, clearable=NULL, placeholder=NULL, id=NULL, ...) {
 
     wildcard_names = names(list(...))
     
     component <- list(
-        props = list(id=id, options=options, value=value, className=className, clearable=clearable, disabled=disabled, multi=multi, placeholder=placeholder, searchable=searchable, style=style, dashEvents=dashEvents, fireEvent=fireEvent, ...),
+        props = list(disabled=disabled, multi=multi, dashEvents=dashEvents, searchable=searchable, fireEvent=fireEvent, style=style, value=value, options=options, className=className, clearable=clearable, placeholder=placeholder, id=id, ...),
         type = 'Dropdown',
         namespace = 'dash_core_components',
-        propNames = c('id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style', wildcard_names),
+        propNames = c('disabled', 'multi', 'dashEvents', 'searchable', 'fireEvent', 'style', 'value', 'options', 'className', 'clearable', 'placeholder', 'id', wildcard_names),
         package = 'dashCoreComponents'
         )
 

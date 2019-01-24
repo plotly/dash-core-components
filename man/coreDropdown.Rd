@@ -10,13 +10,21 @@ Dropdown is an interactive dropdown element for selecting one or more items. The
 }
 
 \usage{
-coreDropdown(id=NULL, options=NULL, value=NULL, className=NULL, clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL, style=NULL, fireEvent=NULL, ...)
+coreDropdown(disabled=NULL, multi=NULL, dashEvents=NULL, searchable=NULL, fireEvent=NULL, style=NULL, value=NULL, options=NULL, className=NULL, clearable=NULL, placeholder=NULL, id=NULL, ...)
 }
 
 \arguments{
-\item{id}{}
+\item{disabled}{If true, the option is disabled}
 
-\item{options}{An array of options}
+\item{multi}{If true, the user can select multiple values}
+
+\item{dashEvents}{}
+
+\item{searchable}{Whether to enable the searching feature or not}
+
+\item{fireEvent}{}
+
+\item{style}{}
 
 \item{value}{The value of the input. If `multi` is false (the default)
 then value is just a string that corresponds to the values
@@ -25,23 +33,17 @@ multiple values can be selected at once, and `value` is an
 array of items with values corresponding to those in the
 `options` prop.}
 
+\item{options}{An array of options}
+
 \item{className}{className of the dropdown element}
 
 \item{clearable}{Whether or not the dropdown is "clearable", that is, whether or
 not a small "x" appears on the right of the dropdown that removes
 the selected value.}
 
-\item{disabled}{If true, the option is disabled}
-
-\item{multi}{If true, the user can select multiple values}
-
 \item{placeholder}{The grey, default text shown when no option is selected}
 
-\item{searchable}{Whether to enable the searching feature or not}
-
-\item{style}{}
-
-\item{fireEvent}{}
+\item{id}{}
 
 \item{...}{wildcards of the form: `data-*` or `aria-*`}
 }
