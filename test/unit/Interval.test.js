@@ -1,5 +1,6 @@
 import Interval from '../../src/components/Interval.react.js';
 import React, {cloneElement, Component} from 'react';
+import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import {mount, render} from 'enzyme';
 
@@ -39,6 +40,11 @@ class IntervalWrapper extends Component {
         });
     }
 }
+
+IntervalWrapper.propTypes = {
+    children: PropTypes.node,
+    setProps: PropTypes.func
+};
 
 const intervalLength = 50;
 
@@ -127,10 +133,15 @@ describe('Delayed setProps provisioning', () => {
                 ...omit(this.props, ['children']),
                 setProps: this.state.setPropsProvided
                     ? this.props.setProps
-                    : undefined,
+                    : null,
             });
         }
     }
+
+    DelayedSetPropsWrapper.propTypes = {
+        children: PropTypes.node,
+        setProps: PropTypes.func
+    };
 
     const makeSut = () => {
         const results = {
@@ -221,6 +232,12 @@ describe('Usage of disabled = true', () => {
             });
         }
     }
+
+    DisabledTestingIntervalWrapper.propTypes = {
+        children: PropTypes.node,
+        setProps: PropTypes.func,
+        handleInterval: PropTypes.func
+    };
 
     const makeSut = handleInterval => {
         const results = {
