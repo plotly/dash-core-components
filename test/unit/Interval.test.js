@@ -43,7 +43,7 @@ class IntervalWrapper extends Component {
 
 IntervalWrapper.propTypes = {
     children: PropTypes.node,
-    setProps: PropTypes.func
+    setProps: PropTypes.func,
 };
 
 const intervalLength = 50;
@@ -140,7 +140,7 @@ describe('Delayed setProps provisioning', () => {
 
     DelayedSetPropsWrapper.propTypes = {
         children: PropTypes.node,
-        setProps: PropTypes.func
+        setProps: PropTypes.func,
     };
 
     const makeSut = () => {
@@ -236,7 +236,7 @@ describe('Usage of disabled = true', () => {
     DisabledTestingIntervalWrapper.propTypes = {
         children: PropTypes.node,
         setProps: PropTypes.func,
-        handleInterval: PropTypes.func
+        handleInterval: PropTypes.func,
     };
 
     const makeSut = handleInterval => {
