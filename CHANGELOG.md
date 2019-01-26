@@ -2,9 +2,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [0.43.0] - 2019-01-25
+### Added
+- Added event props `n_blur` and `n_clicks` - along with `n_blur_timestamp` and `n_clicks_timestamp` - in `Textarea` components, to maintain the functionality lost by removing the `click` and `blur` events. All other events were already covered by existing props. [#444](https://github.com/plotly/dash-core-components/pull/444)
+
 ### Fixed
 - Fix dynamically disabling and enabling `Interval` components [#436](https://github.com/plotly/dash-core-components/pull/436)
+- Clear date in DatePickerSingle and DatePickerRange [#434](https://github.com/plotly/dash-core-components/issues/434)
+
+### Removed
+- Removed `Event` system - see https://github.com/plotly/dash/issues/531 for details. [#444](https://github.com/plotly/dash-core-components/pull/444)
+
+### Updated
+- Upgraded plotly.js to 1.44.1 [#445](https://github.com/plotly/dash-core-components/pull/445)
+  - [Feature release 1.44.0](https://github.com/plotly/plotly.js/releases/tag/v1.44.0) which contains:
+    - A new `isosurface` gl3d trace type
+    - Animated transitions via `Plotly.react` using `layout.transitions`
+    - `hovertemplate` support in many more trace types
+    - And many other features and bug fixes
+  - Patch releases [1.44.1](https://github.com/plotly/plotly.js/releases/tag/v1.44.1) and [1.43.2](https://github.com/plotly/plotly.js/releases/tag/v1.43.2) containing numerous bug fixes
 
 ## [0.42.1] - 2019-01-07
 ### Fixed

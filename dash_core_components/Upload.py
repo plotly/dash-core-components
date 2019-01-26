@@ -37,16 +37,17 @@ Note that this does not include the path of the file
 - style_disabled (dict; optional): CSS styles if disabled
 - className_reject (string; optional): HTML class name of the component if rejected
 - className_disabled (string; optional): HTML class name of the component if disabled
-
-Available events: """
+- style (dict; optional): CSS styles to apply
+- style_active (dict; optional): CSS styles to apply while active
+- style_reject (dict; optional): CSS styles if rejected
+- style_disabled (dict; optional): CSS styles if disabled"""
     @_explicitize_args
     def __init__(self, children=None, style_reject=Component.UNDEFINED, min_size=Component.UNDEFINED, style=Component.UNDEFINED, multiple=Component.UNDEFINED, style_disabled=Component.UNDEFINED, className_reject=Component.UNDEFINED, className_disabled=Component.UNDEFINED, accept=Component.UNDEFINED, id=Component.UNDEFINED, disabled=Component.UNDEFINED, className=Component.UNDEFINED, last_modified=Component.UNDEFINED, style_active=Component.UNDEFINED, max_size=Component.UNDEFINED, className_active=Component.UNDEFINED, filename=Component.UNDEFINED, disable_click=Component.UNDEFINED, contents=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'disabled', 'style', 'multiple', 'contents', 'disable_click', 'accept', 'id', 'min_size', 'className', 'style_reject', 'style_active', 'max_size', 'last_modified', 'className_active', 'filename', 'style_disabled', 'className_reject', 'className_disabled']
         self._type = 'Upload'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
-        self.available_properties = ['children', 'disabled', 'style', 'multiple', 'contents', 'disable_click', 'accept', 'id', 'min_size', 'className', 'style_reject', 'style_active', 'max_size', 'last_modified', 'className_active', 'filename', 'style_disabled', 'className_reject', 'className_disabled']
+        self.available_properties = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

@@ -59,35 +59,29 @@ valid formats are variations of "MM YY". For example:
 "MM YY" renders as '05 97' for May 1997
 "MMMM, YYYY" renders as 'May, 1997' for May 1997
 "MMM, YY" renders as 'Sep, 97' for September 1997
-- is_RTL (boolean; optional): Determines whether the calendar and days operate
-from left to right or from right to left
-- show_outside_days (boolean; optional): If True the calendar will display days that rollover into
-the next month
-- calendar_orientation (a value equal to: 'vertical', 'horizontal'; optional): Orientation of calendar, either vertical or horizontal.
-Valid options are 'vertical' or 'horizontal'.
-- with_full_screen_portal (boolean; optional): If True, calendar will open in a full screen overlay portal, will
-take precedent over 'withPortal' if both are set to true,
-not supported on vertical calendar
-- with_portal (boolean; optional): If True, calendar will open in a screen overlay portal,
-not supported on vertical calendar
-- minimum_nights (number; optional): Specifies a minimum number of nights that must be selected between
-the startDate and the endDate
-- day_size (number; optional): Size of rendered calendar days, higher number
-means bigger day size and larger calendar overall
-- start_date_placeholder_text (string; optional): Text that will be displayed in the first input
-box of the date picker when no date is selected. Default value is 'Start Date'
-- end_date_placeholder_text (string; optional): Text that will be displayed in the second input
-box of the date picker when no date is selected. Default value is 'End Date'
-
-Available events: 'change'"""
+- display_format (string; optional): Specifies the format that the selected dates will be displayed
+valid formats are variations of "MM YY DD". For example:
+"MM YY DD" renders as '05 10 97' for May 10th 1997
+"MMMM, YY" renders as 'May, 1997' for May 10th 1997
+"M, D, YYYY" renders as '07, 10, 1997' for September 10th 1997
+"MMMM" renders as 'May' for May 10 1997
+- disabled (boolean; optional): If True, no dates can be selected.
+- clearable (boolean; optional): Whether or not the dropdown is "clearable", that is, whether or
+not a small "x" appears on the right of the dropdown that removes
+the selected value.
+- updatemode (a value equal to: 'singledate', 'bothdates'; optional): Determines when the component should update
+its value. If `bothdates`, then the DatePicker
+will only trigger its value when the user has
+finished picking both dates. If `singledate`, then
+the DatePicker will update its value
+as one date is picked."""
     @_explicitize_args
     def __init__(self, initial_visible_month=Component.UNDEFINED, reopen_calendar_on_clear=Component.UNDEFINED, disabled=Component.UNDEFINED, id=Component.UNDEFINED, updatemode=Component.UNDEFINED, number_of_months_shown=Component.UNDEFINED, min_date_allowed=Component.UNDEFINED, max_date_allowed=Component.UNDEFINED, first_day_of_week=Component.UNDEFINED, clearable=Component.UNDEFINED, display_format=Component.UNDEFINED, start_date=Component.UNDEFINED, stay_open_on_select=Component.UNDEFINED, end_date=Component.UNDEFINED, month_format=Component.UNDEFINED, is_RTL=Component.UNDEFINED, show_outside_days=Component.UNDEFINED, calendar_orientation=Component.UNDEFINED, with_full_screen_portal=Component.UNDEFINED, with_portal=Component.UNDEFINED, minimum_nights=Component.UNDEFINED, day_size=Component.UNDEFINED, start_date_placeholder_text=Component.UNDEFINED, end_date_placeholder_text=Component.UNDEFINED, **kwargs):
         self._prop_names = ['initial_visible_month', 'reopen_calendar_on_clear', 'disabled', 'id', 'updatemode', 'number_of_months_shown', 'min_date_allowed', 'max_date_allowed', 'first_day_of_week', 'clearable', 'display_format', 'start_date', 'stay_open_on_select', 'end_date', 'month_format', 'is_RTL', 'show_outside_days', 'calendar_orientation', 'with_full_screen_portal', 'with_portal', 'minimum_nights', 'day_size', 'start_date_placeholder_text', 'end_date_placeholder_text']
         self._type = 'DatePickerRange'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['change']
-        self.available_properties = ['initial_visible_month', 'reopen_calendar_on_clear', 'disabled', 'id', 'updatemode', 'number_of_months_shown', 'min_date_allowed', 'max_date_allowed', 'first_day_of_week', 'clearable', 'display_format', 'start_date', 'stay_open_on_select', 'end_date', 'month_format', 'is_RTL', 'show_outside_days', 'calendar_orientation', 'with_full_screen_portal', 'with_portal', 'minimum_nights', 'day_size', 'start_date_placeholder_text', 'end_date_placeholder_text']
+        self.available_properties = ['id', 'start_date', 'end_date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'start_date_placeholder_text', 'end_date_placeholder_text', 'day_size', 'calendar_orientation', 'is_RTL', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'minimum_nights', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable', 'updatemode']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

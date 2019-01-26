@@ -17,20 +17,15 @@ Keyword arguments:
 - useInlineStyles (boolean; optional): if this prop is passed in as false, react syntax highlighter will not add style objects to elements, and will instead append classNames. You can then style the code block by using one of the CSS files provided by highlight.js.
 - lineNumberContainerStyle (dict; optional): the line numbers container default to appearing to the left with 10px of right padding. You can use this to override those styles.
 - lineNumberStyle (dict; optional): inline style to be passed to the span wrapping each number. Can be either an object or a function that recieves current line number as argument and returns style object.
-- startingLineNumber (number; optional): if showLineNumbers is enabled the line numbering will start from here.
-- lineStyle (dict; optional): inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object.
-- showLineNumbers (boolean; optional): if this is enabled line numbers will be shown next to the code block.
-- customStyle (dict; optional): prop that will be combined with the top level style on the pre tag, styles here will overwrite earlier styles.
-
-Available events: """
+- wrapLines (boolean; optional): a boolean value that determines whether or not each line of code should be wrapped in a parent element. defaults to false, when false one can not take action on an element on the line level. You can see an example of what this enables here
+- lineStyle (dict; optional): inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object."""
     @_explicitize_args
     def __init__(self, children=None, language=Component.UNDEFINED, lineStyle=Component.UNDEFINED, codeTagProps=Component.UNDEFINED, theme=Component.UNDEFINED, useInlineStyles=Component.UNDEFINED, lineNumberContainerStyle=Component.UNDEFINED, lineNumberStyle=Component.UNDEFINED, startingLineNumber=Component.UNDEFINED, wrapLines=Component.UNDEFINED, id=Component.UNDEFINED, showLineNumbers=Component.UNDEFINED, customStyle=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'language', 'wrapLines', 'id', 'codeTagProps', 'theme', 'useInlineStyles', 'lineNumberContainerStyle', 'lineNumberStyle', 'startingLineNumber', 'lineStyle', 'showLineNumbers', 'customStyle']
         self._type = 'SyntaxHighlighter'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
-        self.available_properties = ['children', 'language', 'wrapLines', 'id', 'codeTagProps', 'theme', 'useInlineStyles', 'lineNumberContainerStyle', 'lineNumberStyle', 'startingLineNumber', 'lineStyle', 'showLineNumbers', 'customStyle']
+        self.available_properties = ['children', 'id', 'language', 'theme', 'customStyle', 'codeTagProps', 'useInlineStyles', 'showLineNumbers', 'startingLineNumber', 'lineNumberContainerStyle', 'lineNumberStyle', 'wrapLines', 'lineStyle']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

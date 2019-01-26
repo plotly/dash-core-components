@@ -15,20 +15,14 @@ Keyword arguments:
 - cancel_n_clicks_timestamp (number; optional): Last time the cancel button was clicked.
 - submit_n_clicks (number; optional): Number of times the submit button was clicked
 - displayed (boolean; optional): Set to true to send the ConfirmDialog.
-- submit_n_clicks_timestamp (number; optional): Last time the submit button was clicked.
-- key (string; optional)
-- message (string; optional): Message to show in the popup.
-- id (string; optional)
-
-Available events: """
+- key (string; optional)"""
     @_explicitize_args
     def __init__(self, cancel_n_clicks=Component.UNDEFINED, cancel_n_clicks_timestamp=Component.UNDEFINED, submit_n_clicks=Component.UNDEFINED, displayed=Component.UNDEFINED, submit_n_clicks_timestamp=Component.UNDEFINED, key=Component.UNDEFINED, message=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
         self._prop_names = ['cancel_n_clicks', 'cancel_n_clicks_timestamp', 'submit_n_clicks', 'displayed', 'submit_n_clicks_timestamp', 'id', 'key', 'message']
         self._type = 'ConfirmDialog'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
-        self.available_properties = ['cancel_n_clicks', 'cancel_n_clicks_timestamp', 'submit_n_clicks', 'displayed', 'submit_n_clicks_timestamp', 'id', 'key', 'message']
+        self.available_properties = ['id', 'message', 'submit_n_clicks', 'submit_n_clicks_timestamp', 'cancel_n_clicks', 'cancel_n_clicks_timestamp', 'displayed', 'key']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

@@ -23,26 +23,17 @@ colors: {
    primary: '#1975FA',
    background: '#f9f9f9'
  }. colors has the following type: dict containing keys 'border', 'primary', 'background'.
-Those keys have the following types: 
+Those keys have the following types:
   - border (string; optional)
   - primary (string; optional)
-  - background (string; optional)
-- value (string; optional): The value of the currently selected Tab
-- id (string; optional): The ID of this component, used to identify dash components
-in callbacks. The ID needs to be unique across all of the
-components in an app.
-- content_style (dict; optional): Appends (inline) styles to the tab content container holding the children of the Tab that is selected.
-- mobile_breakpoint (number; optional): Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)
-
-Available events: """
+  - background (string; optional)"""
     @_explicitize_args
     def __init__(self, children=None, style=Component.UNDEFINED, vertical=Component.UNDEFINED, parent_style=Component.UNDEFINED, parent_className=Component.UNDEFINED, content_className=Component.UNDEFINED, mobile_breakpoint=Component.UNDEFINED, className=Component.UNDEFINED, colors=Component.UNDEFINED, value=Component.UNDEFINED, content_style=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'style', 'vertical', 'parent_style', 'parent_className', 'content_className', 'className', 'colors', 'value', 'id', 'content_style', 'mobile_breakpoint']
         self._type = 'Tabs'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
-        self.available_properties = ['children', 'style', 'vertical', 'parent_style', 'parent_className', 'content_className', 'className', 'colors', 'value', 'id', 'content_style', 'mobile_breakpoint']
+        self.available_properties = ['children', 'id', 'value', 'className', 'content_className', 'parent_className', 'style', 'parent_style', 'content_style', 'vertical', 'mobile_breakpoint', 'colors']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

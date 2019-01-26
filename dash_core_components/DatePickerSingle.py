@@ -53,28 +53,17 @@ valid formats are variations of "MM YY DD". For example:
 "MMMM, YY" renders as 'May, 1997' for May 10th 1997
 "M, D, YYYY" renders as '07, 10, 1997' for September 10th 1997
 "MMMM" renders as 'May' for May 10 1997
-- with_full_screen_portal (boolean; optional): If True, calendar will open in a full screen overlay portal, will
-take precedent over 'withPortal' if both are set to True,
-not supported on vertical calendar
-- placeholder (string; optional): Text that will be displayed in the input
-box of the date picker when no date is selected.
-Default value is 'Start Date'
-- id (string; optional)
-- stay_open_on_select (boolean; optional): If True the calendar will not close when the user has selected a value
-and will wait until the user clicks off the calendar
-- initial_visible_month (string; optional): Specifies the month that is initially presented when the user
-opens the calendar. Accepts datetime.datetime objects or strings
-in the format 'YYYY-MM-DD'
-
-Available events: 'change'"""
+- disabled (boolean; optional): If True, no dates can be selected.
+- clearable (boolean; optional): Whether or not the dropdown is "clearable", that is, whether or
+not a small "x" appears on the right of the dropdown that removes
+the selected value."""
     @_explicitize_args
     def __init__(self, initial_visible_month=Component.UNDEFINED, reopen_calendar_on_clear=Component.UNDEFINED, disabled=Component.UNDEFINED, id=Component.UNDEFINED, number_of_months_shown=Component.UNDEFINED, min_date_allowed=Component.UNDEFINED, max_date_allowed=Component.UNDEFINED, first_day_of_week=Component.UNDEFINED, clearable=Component.UNDEFINED, display_format=Component.UNDEFINED, stay_open_on_select=Component.UNDEFINED, month_format=Component.UNDEFINED, is_RTL=Component.UNDEFINED, show_outside_days=Component.UNDEFINED, calendar_orientation=Component.UNDEFINED, date=Component.UNDEFINED, with_full_screen_portal=Component.UNDEFINED, placeholder=Component.UNDEFINED, with_portal=Component.UNDEFINED, day_size=Component.UNDEFINED, **kwargs):
         self._prop_names = ['initial_visible_month', 'reopen_calendar_on_clear', 'disabled', 'id', 'number_of_months_shown', 'min_date_allowed', 'max_date_allowed', 'first_day_of_week', 'clearable', 'display_format', 'stay_open_on_select', 'month_format', 'is_RTL', 'show_outside_days', 'calendar_orientation', 'date', 'with_full_screen_portal', 'placeholder', 'with_portal', 'day_size']
         self._type = 'DatePickerSingle'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['change']
-        self.available_properties = ['initial_visible_month', 'reopen_calendar_on_clear', 'disabled', 'id', 'number_of_months_shown', 'min_date_allowed', 'max_date_allowed', 'first_day_of_week', 'clearable', 'display_format', 'stay_open_on_select', 'month_format', 'is_RTL', 'show_outside_days', 'calendar_orientation', 'date', 'with_full_screen_portal', 'placeholder', 'with_portal', 'day_size']
+        self.available_properties = ['id', 'date', 'min_date_allowed', 'max_date_allowed', 'initial_visible_month', 'day_size', 'calendar_orientation', 'is_RTL', 'placeholder', 'reopen_calendar_on_clear', 'number_of_months_shown', 'with_portal', 'with_full_screen_portal', 'first_day_of_week', 'stay_open_on_select', 'show_outside_days', 'month_format', 'display_format', 'disabled', 'clearable']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

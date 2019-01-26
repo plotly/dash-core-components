@@ -14,20 +14,14 @@ Keyword arguments:
 - dangerously_allow_html (boolean; optional): A boolean to control raw HTML escaping.
 Setting HTML from code is risky because it's easy to
 inadvertently expose your users to a cross-site scripting (XSS)
-(https://en.wikipedia.org/wiki/Cross-site_scripting) attack.
-- containerProps (dict; optional): An object containing custom element props to put on the container
-element such as id or style
-- id (string; optional)
-
-Available events: """
+(https://en.wikipedia.org/wiki/Cross-site_scripting) attack."""
     @_explicitize_args
     def __init__(self, children=None, className=Component.UNDEFINED, dangerously_allow_html=Component.UNDEFINED, id=Component.UNDEFINED, containerProps=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'className', 'dangerously_allow_html', 'containerProps', 'id']
         self._type = 'Markdown'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
-        self.available_properties = ['children', 'className', 'dangerously_allow_html', 'containerProps', 'id']
+        self.available_properties = ['children', 'id', 'className', 'containerProps', 'dangerously_allow_html']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

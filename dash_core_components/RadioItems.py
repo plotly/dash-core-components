@@ -18,20 +18,15 @@ Keyword arguments:
 - inputStyle (dict; optional): The style of the <input> radio element
 - labelStyle (dict; optional): The style of the <label> that wraps the radio input
  and the option's label
-- value (string; optional): The currently selected value
-- options (list; optional): An array of options
-- className (string; optional): The class of the container (div)
-- id (string; optional)
-
-Available events: 'change'"""
+- labelClassName (string; optional): The class of the <label> that wraps the radio input
+ and the option's label"""
     @_explicitize_args
     def __init__(self, labelClassName=Component.UNDEFINED, style=Component.UNDEFINED, inputClassName=Component.UNDEFINED, inputStyle=Component.UNDEFINED, labelStyle=Component.UNDEFINED, value=Component.UNDEFINED, options=Component.UNDEFINED, className=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
         self._prop_names = ['labelClassName', 'style', 'inputClassName', 'inputStyle', 'labelStyle', 'value', 'className', 'id', 'options']
         self._type = 'RadioItems'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['change']
-        self.available_properties = ['labelClassName', 'style', 'inputClassName', 'inputStyle', 'labelStyle', 'value', 'className', 'id', 'options']
+        self.available_properties = ['id', 'options', 'value', 'style', 'className', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

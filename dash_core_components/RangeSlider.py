@@ -34,9 +34,9 @@ and the value determines what will show.
 If you want to set the style of a specific mark point,
 the value should be an object which
 contains style and label properties.. marks has the following type: dict containing keys 'number'.
-Those keys have the following types: 
+Those keys have the following types:
   - number (optional): . number has the following type: string | dict containing keys 'style', 'label'.
-Those keys have the following types: 
+Those keys have the following types:
   - style (dict; optional)
   - label (string; optional)
 - included (boolean; optional): If the value is true, it means a continuous
@@ -45,18 +45,22 @@ value is included. Otherwise, it is an independent value.
 surrounding handles when moving an handle.
 When set to a number, the number will be the
 minimum ensured distance between handles.
-- id (string; optional)
-- allowCross (boolean; optional): allowCross could be set as true to allow those handles to cross.
-
-Available events: 'change'"""
+- step (number; optional): Value by which increments or decrements are made
+- vertical (boolean; optional): If true, the slider will be vertical
+- updatemode (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
+its value. If `mouseup`, then the slider
+will only trigger its value when the user has
+finished dragging the slider. If `drag`, then
+the slider will update its value continuously
+as it is being dragged.
+Only use `drag` if your updates are fast."""
     @_explicitize_args
     def __init__(self, count=Component.UNDEFINED, disabled=Component.UNDEFINED, updatemode=Component.UNDEFINED, vertical=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, step=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, dots=Component.UNDEFINED, marks=Component.UNDEFINED, included=Component.UNDEFINED, pushable=Component.UNDEFINED, id=Component.UNDEFINED, allowCross=Component.UNDEFINED, **kwargs):
         self._prop_names = ['count', 'updatemode', 'vertical', 'min', 'max', 'dots', 'value', 'id', 'disabled', 'className', 'step', 'marks', 'included', 'pushable', 'allowCross']
         self._type = 'RangeSlider'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['change']
-        self.available_properties = ['count', 'updatemode', 'vertical', 'min', 'max', 'dots', 'value', 'id', 'disabled', 'className', 'step', 'marks', 'included', 'pushable', 'allowCross']
+        self.available_properties = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

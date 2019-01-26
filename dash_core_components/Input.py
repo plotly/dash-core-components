@@ -47,20 +47,17 @@ input element.
 This attribute is ignored when the type attribute's value is
 hidden, checkbox, radio, file, or a button type.
 - step (string | number; optional): Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
-- value (string | number; optional): The value of the input
-- autocomplete (string; optional): This attribute indicates whether the value of the control can be automatically completed by the browser.
-- inputmode (a value equal to: "verbatim", "latin", "latin-name", "latin-prose", "full-width-latin", "kana", "katakana", "numeric", "tel", "email", "url"; optional)
-- maxlength (string; optional): If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
-
-Available events: 'blur', 'change'"""
+- n_submit (number; optional): Number of times the `Enter` key was pressed while the input had focus.
+- n_submit_timestamp (number; optional): Last time that `Enter` was pressed.
+- n_blur (number; optional): Number of times the input lost focus.
+- n_blur_timestamp (number; optional): Last time the input lost focus."""
     @_explicitize_args
     def __init__(self, disabled=Component.UNDEFINED, selectionStart=Component.UNDEFINED, selectionEnd=Component.UNDEFINED, spellCheck=Component.UNDEFINED, id=Component.UNDEFINED, size=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, min=Component.UNDEFINED, minlength=Component.UNDEFINED, n_blur=Component.UNDEFINED, pattern=Component.UNDEFINED, autofocus=Component.UNDEFINED, type=Component.UNDEFINED, multiple=Component.UNDEFINED, max=Component.UNDEFINED, n_blur_timestamp=Component.UNDEFINED, readOnly=Component.UNDEFINED, selectionDirection=Component.UNDEFINED, placeholder=Component.UNDEFINED, n_submit=Component.UNDEFINED, name=Component.UNDEFINED, debounce=Component.UNDEFINED, n_submit_timestamp=Component.UNDEFINED, required=Component.UNDEFINED, list=Component.UNDEFINED, step=Component.UNDEFINED, value=Component.UNDEFINED, autocomplete=Component.UNDEFINED, inputmode=Component.UNDEFINED, maxlength=Component.UNDEFINED, **kwargs):
         self._prop_names = ['disabled', 'selectionStart', 'selectionEnd', 'multiple', 'id', 'size', 'autocomplete', 'style', 'min', 'minlength', 'n_blur', 'autofocus', 'type', 'spellCheck', 'max', 'maxlength', 'n_blur_timestamp', 'readOnly', 'selectionDirection', 'placeholder', 'name', 'n_submit', 'debounce', 'n_submit_timestamp', 'required', 'list', 'step', 'value', 'className', 'inputmode', 'pattern']
         self._type = 'Input'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['blur', 'change']
-        self.available_properties = ['disabled', 'selectionStart', 'selectionEnd', 'multiple', 'id', 'size', 'autocomplete', 'style', 'min', 'minlength', 'n_blur', 'autofocus', 'type', 'spellCheck', 'max', 'maxlength', 'n_blur_timestamp', 'readOnly', 'selectionDirection', 'placeholder', 'name', 'n_submit', 'debounce', 'n_submit_timestamp', 'required', 'list', 'step', 'value', 'className', 'inputmode', 'pattern']
+        self.available_properties = ['id', 'value', 'style', 'className', 'debounce', 'type', 'autocomplete', 'autofocus', 'disabled', 'inputmode', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readOnly', 'required', 'selectionDirection', 'selectionEnd', 'selectionStart', 'size', 'spellCheck', 'step', 'n_submit', 'n_submit_timestamp', 'n_blur', 'n_blur_timestamp']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

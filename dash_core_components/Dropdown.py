@@ -31,17 +31,15 @@ array of items with values corresponding to those in the
 not a small "x" appears on the right of the dropdown that removes
 the selected value.
 - placeholder (string; optional): The grey, default text shown when no option is selected
-- options (list; optional): An array of options
-
-Available events: 'change'"""
+- searchable (boolean; optional): Whether to enable the searching feature or not
+- style (dict; optional)"""
     @_explicitize_args
     def __init__(self, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, searchable=Component.UNDEFINED, style=Component.UNDEFINED, value=Component.UNDEFINED, options=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, placeholder=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
         self._prop_names = ['className', 'multi', 'searchable', 'style', 'value', 'disabled', 'options', 'clearable', 'id', 'placeholder']
         self._type = 'Dropdown'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['change']
-        self.available_properties = ['className', 'multi', 'searchable', 'style', 'value', 'disabled', 'options', 'clearable', 'id', 'placeholder']
+        self.available_properties = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

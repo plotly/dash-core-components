@@ -36,16 +36,24 @@ components in an app.
 - value (string; optional): The value of the textarea
 - className (string; optional): Often used with CSS to style elements with common properties.
 - dir (string; optional): Defines the text direction. Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left)
-
-Available events: 'click', 'blur', 'change'"""
+- draggable (string; optional): Defines whether the element can be dragged.
+- hidden (string; optional): Prevents rendering of given element, while keeping child elements, e.g. script elements, active.
+- lang (string; optional): Defines the language used in the element.
+- spellCheck (string; optional): Indicates whether spell checking is allowed for the element.
+- style (dict; optional): Defines CSS styles which will override styles previously set.
+- tabIndex (string; optional): Overrides the browser's default tab order and follows the one specified instead.
+- title (string; optional): Text to be displayed in a tooltip when hovering over the element.
+- n_blur (number; optional): Number of times the textarea lost focus.
+- n_blur_timestamp (number; optional): Last time the textarea lost focus.
+- n_clicks (number; optional): Number of times the textarea has been clicked.
+- n_clicks_timestamp (number; optional): Last time the textarea was clicked."""
     @_explicitize_args
-    def __init__(self, contentEditable=Component.UNDEFINED, cols=Component.UNDEFINED, disabled=Component.UNDEFINED, wrap=Component.UNDEFINED, id=Component.UNDEFINED, tabIndex=Component.UNDEFINED, draggable=Component.UNDEFINED, style=Component.UNDEFINED, rows=Component.UNDEFINED, title=Component.UNDEFINED, accessKey=Component.UNDEFINED, hidden=Component.UNDEFINED, spellCheck=Component.UNDEFINED, form=Component.UNDEFINED, contextMenu=Component.UNDEFINED, minLength=Component.UNDEFINED, readOnly=Component.UNDEFINED, maxLength=Component.UNDEFINED, autoFocus=Component.UNDEFINED, placeholder=Component.UNDEFINED, lang=Component.UNDEFINED, name=Component.UNDEFINED, required=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, dir=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['contentEditable', 'cols', 'disabled', 'wrap', 'id', 'tabIndex', 'className', 'style', 'rows', 'title', 'accessKey', 'hidden', 'spellCheck', 'form', 'contextMenu', 'minLength', 'readOnly', 'maxLength', 'autoFocus', 'placeholder', 'lang', 'name', 'required', 'value', 'draggable', 'dir']
+    def __init__(self, id=Component.UNDEFINED, value=Component.UNDEFINED, autoFocus=Component.UNDEFINED, cols=Component.UNDEFINED, disabled=Component.UNDEFINED, form=Component.UNDEFINED, maxLength=Component.UNDEFINED, minLength=Component.UNDEFINED, name=Component.UNDEFINED, placeholder=Component.UNDEFINED, readOnly=Component.UNDEFINED, required=Component.UNDEFINED, rows=Component.UNDEFINED, wrap=Component.UNDEFINED, accessKey=Component.UNDEFINED, className=Component.UNDEFINED, contentEditable=Component.UNDEFINED, contextMenu=Component.UNDEFINED, dir=Component.UNDEFINED, draggable=Component.UNDEFINED, hidden=Component.UNDEFINED, lang=Component.UNDEFINED, spellCheck=Component.UNDEFINED, style=Component.UNDEFINED, tabIndex=Component.UNDEFINED, title=Component.UNDEFINED, n_blur=Component.UNDEFINED, n_blur_timestamp=Component.UNDEFINED, n_clicks=Component.UNDEFINED, n_clicks_timestamp=Component.UNDEFINED, debounce=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title', 'n_blur', 'n_blur_timestamp', 'n_clicks', 'n_clicks_timestamp']
         self._type = 'Textarea'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['click', 'blur', 'change']
-        self.available_properties = ['contentEditable', 'cols', 'disabled', 'wrap', 'id', 'tabIndex', 'className', 'style', 'rows', 'title', 'accessKey', 'hidden', 'spellCheck', 'form', 'contextMenu', 'minLength', 'readOnly', 'maxLength', 'autoFocus', 'placeholder', 'lang', 'name', 'required', 'value', 'draggable', 'dir']
+        self.available_properties = ['id', 'value', 'autoFocus', 'cols', 'disabled', 'form', 'maxLength', 'minLength', 'name', 'placeholder', 'readOnly', 'required', 'rows', 'wrap', 'accessKey', 'className', 'contentEditable', 'contextMenu', 'dir', 'draggable', 'hidden', 'lang', 'spellCheck', 'style', 'tabIndex', 'title', 'n_blur', 'n_blur_timestamp', 'n_clicks', 'n_clicks_timestamp']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

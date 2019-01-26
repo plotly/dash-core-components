@@ -31,24 +31,31 @@ and the value determines what will show.
 If you want to set the style of a specific mark point,
 the value should be an object which
 contains style and label properties.. marks has the following type: dict containing keys 'number'.
-Those keys have the following types: 
+Those keys have the following types:
   - number (optional): . number has the following type: string | dict containing keys 'style', 'label'.
-Those keys have the following types: 
+Those keys have the following types:
   - style (dict; optional)
   - label (string; optional)
 - included (boolean; optional): If the value is true, it means a continuous
 value is included. Otherwise, it is an independent value.
-- id (string; optional)
-
-Available events: 'change'"""
+- min (number; optional): Minimum allowed value of the slider
+- max (number; optional): Maximum allowed value of the slider
+- step (number; optional): Value by which increments or decrements are made
+- vertical (boolean; optional): If true, the slider will be vertical
+- updatemode (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
+its value. If `mouseup`, then the slider
+will only trigger its value when the user has
+finished dragging the slider. If `drag`, then
+the slider will update its value continuously
+as it is being dragged.
+Only use `drag` if your updates are fast."""
     @_explicitize_args
     def __init__(self, dots=Component.UNDEFINED, disabled=Component.UNDEFINED, updatemode=Component.UNDEFINED, vertical=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, step=Component.UNDEFINED, marks=Component.UNDEFINED, included=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
         self._prop_names = ['dots', 'updatemode', 'vertical', 'min', 'max', 'value', 'id', 'disabled', 'className', 'step', 'marks', 'included']
         self._type = 'Slider'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['change']
-        self.available_properties = ['dots', 'updatemode', 'vertical', 'min', 'max', 'value', 'id', 'disabled', 'className', 'step', 'marks', 'included']
+        self.available_properties = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'step', 'vertical', 'updatemode']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
