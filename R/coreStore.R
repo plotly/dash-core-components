@@ -1,14 +1,12 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreStore <- function(modified_timestamp=NULL, storage_type=NULL, clear_data=NULL, data=NULL, id=NULL, ...) {
-
-    wildcard_names = names(list(...))
+coreStore <- function(id=NULL, storage_type=NULL, data=NULL, clear_data=NULL, modified_timestamp=NULL) {
     
     component <- list(
-        props = list(modified_timestamp=modified_timestamp, storage_type=storage_type, clear_data=clear_data, data=data, id=id, ...),
+        props = list(id=id, storage_type=storage_type, data=data, clear_data=clear_data, modified_timestamp=modified_timestamp),
         type = 'Store',
         namespace = 'dash_core_components',
-        propNames = c('modified_timestamp', 'storage_type', 'clear_data', 'data', 'id', wildcard_names),
+        propNames = c('id', 'storage_type', 'data', 'clear_data', 'modified_timestamp'),
         package = 'dashCoreComponents'
         )
 

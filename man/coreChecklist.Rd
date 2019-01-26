@@ -10,33 +10,27 @@ Checklist is a component that encapsulates several checkboxes. The values and la
 }
 
 \usage{
-coreChecklist(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, dashEvents=NULL, options=NULL, className=NULL, values=NULL, fireEvent=NULL, id=NULL, ...)
+coreChecklist(id=NULL, options=NULL, values=NULL, className=NULL, style=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, ...)
 }
 
 \arguments{
-\item{labelClassName}{The class of the <label> that wraps the checkbox input
- and the option's label}
+\item{id}{}
+
+\item{options}{An array of options}
+
+\item{values}{The currently selected value}
+
+\item{className}{The class of the container (div)}
 
 \item{style}{The style of the container (div)}
 
-\item{inputClassName}{The class of the <input> checkbox element}
-
 \item{inputStyle}{The style of the <input> checkbox element}
+
+\item{inputClassName}{The class of the <input> checkbox element}
 
 \item{labelStyle}{The style of the <label> that wraps the checkbox input
  and the option's label}
 
-\item{dashEvents}{}
-
-\item{options}{An array of options}
-
-\item{className}{The class of the container (div)}
-
-\item{values}{The currently selected value}
-
-\item{fireEvent}{Dash-assigned callback that gets fired when the checkbox item gets selected.}
-
-\item{id}{}
-
-\item{...}{wildcards of the form: `data-*` or `aria-*`}
+\item{labelClassName}{The class of the <label> that wraps the checkbox input
+ and the option's label}
 }

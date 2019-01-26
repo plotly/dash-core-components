@@ -1,14 +1,12 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreChecklist <- function(labelClassName=NULL, style=NULL, inputClassName=NULL, inputStyle=NULL, labelStyle=NULL, dashEvents=NULL, options=NULL, className=NULL, values=NULL, fireEvent=NULL, id=NULL, ...) {
-
-    wildcard_names = names(list(...))
+coreChecklist <- function(id=NULL, options=NULL, values=NULL, className=NULL, style=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL) {
     
     component <- list(
-        props = list(labelClassName=labelClassName, style=style, inputClassName=inputClassName, inputStyle=inputStyle, labelStyle=labelStyle, dashEvents=dashEvents, options=options, className=className, values=values, fireEvent=fireEvent, id=id, ...),
+        props = list(id=id, options=options, values=values, className=className, style=style, inputStyle=inputStyle, inputClassName=inputClassName, labelStyle=labelStyle, labelClassName=labelClassName),
         type = 'Checklist',
         namespace = 'dash_core_components',
-        propNames = c('labelClassName', 'style', 'inputClassName', 'inputStyle', 'labelStyle', 'dashEvents', 'options', 'className', 'values', 'fireEvent', 'id', wildcard_names),
+        propNames = c('id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName'),
         package = 'dashCoreComponents'
         )
 
