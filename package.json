@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git://github.com/plotly/dash-core-components.git"
   },
+  "bugs": {
+    "url": "https://github.com/plotly/dash-core-components/issues"
+  },
+  "homepage": "https://github.com/plotly/dash-core-components",
   "main": "src/index.js",
   "scripts": {
     "prepare": "npm run build:all",
