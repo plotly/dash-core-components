@@ -1,7 +1,7 @@
 import Interval from '../../src/components/Interval.react.js';
 import React, {cloneElement, Component} from 'react';
 import PropTypes from 'prop-types';
-import { omit } from 'ramda';
+import {omit} from 'ramda';
 import {mount, render} from 'enzyme';
 
 test('Interval render', () => {
