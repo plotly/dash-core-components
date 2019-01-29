@@ -9,11 +9,14 @@ class Link(Component):
 
 Keyword arguments:
 - children (a list of or a singular dash component, string or number; optional)
+- href (string; optional)
+- refresh (boolean; optional)
+- className (string; optional)
 - style (dict; optional)
 - id (string; optional)"""
     @_explicitize_args
-    def __init__(self, children=None, style=Component.UNDEFINED, refresh=Component.UNDEFINED, className=Component.UNDEFINED, href=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'style', 'refresh', 'id', 'className', 'href']
+    def __init__(self, children=None, href=Component.UNDEFINED, refresh=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'href', 'refresh', 'className', 'style', 'id']
         self._type = 'Link'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []

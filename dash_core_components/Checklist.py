@@ -11,18 +11,20 @@ property and the checked items are specified with the `values` property.
 Each checkbox is rendered as an input with a surrounding label.
 
 Keyword arguments:
-- labelClassName (string; optional): The class of the <label> that wraps the checkbox input
- and the option's label
+- id (string; optional)
+- options (list; optional): An array of options
+- values (list; optional): The currently selected value
+- className (string; optional): The class of the container (div)
 - style (dict; optional): The style of the container (div)
-- inputClassName (string; optional): The class of the <input> checkbox element
 - inputStyle (dict; optional): The style of the <input> checkbox element
+- inputClassName (string; optional): The class of the <input> checkbox element
 - labelStyle (dict; optional): The style of the <label> that wraps the checkbox input
  and the option's label
 - labelClassName (string; optional): The class of the <label> that wraps the checkbox input
  and the option's label"""
     @_explicitize_args
-    def __init__(self, labelClassName=Component.UNDEFINED, style=Component.UNDEFINED, inputClassName=Component.UNDEFINED, inputStyle=Component.UNDEFINED, labelStyle=Component.UNDEFINED, options=Component.UNDEFINED, className=Component.UNDEFINED, values=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['labelClassName', 'style', 'inputClassName', 'inputStyle', 'labelStyle', 'className', 'values', 'id', 'options']
+    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, values=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, inputStyle=Component.UNDEFINED, inputClassName=Component.UNDEFINED, labelStyle=Component.UNDEFINED, labelClassName=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'options', 'values', 'className', 'style', 'inputStyle', 'inputClassName', 'labelStyle', 'labelClassName']
         self._type = 'Checklist'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []

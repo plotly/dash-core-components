@@ -20,8 +20,8 @@ Keyword arguments:
 If -1, then the interval has no limit (the default)
 and if 0 then the interval stops running."""
     @_explicitize_args
-    def __init__(self, max_intervals=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['max_intervals', 'interval', 'id', 'disabled', 'n_intervals']
+    def __init__(self, id=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, max_intervals=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
         self._type = 'Interval'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []

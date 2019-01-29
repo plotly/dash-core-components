@@ -11,12 +11,18 @@ children components that will be that tab's content.
 
 Keyword arguments:
 - children (list | a list of or a singular dash component, string or number; optional): Array that holds Tab components
-- style (dict; optional): Appends (inline) styles to the Tabs container holding the individual Tab components.
-- vertical (boolean; optional): Renders the tabs vertically (on the side)
-- parent_style (dict; optional): Appends (inline) styles to the top-level parent container holding both the Tabs container and the content container.
-- parent_className (string; optional): Appends a class to the top-level parent container holding both the Tabs container and the content container.
-- content_className (string; optional): Appends a class to the Tab content container holding the children of the Tab that is selected.
+- id (string; optional): The ID of this component, used to identify dash components
+in callbacks. The ID needs to be unique across all of the
+components in an app.
+- value (string; optional): The value of the currently selected Tab
 - className (string; optional): Appends a class to the Tabs container holding the individual Tab components.
+- content_className (string; optional): Appends a class to the Tab content container holding the children of the Tab that is selected.
+- parent_className (string; optional): Appends a class to the top-level parent container holding both the Tabs container and the content container.
+- style (dict; optional): Appends (inline) styles to the Tabs container holding the individual Tab components.
+- parent_style (dict; optional): Appends (inline) styles to the top-level parent container holding both the Tabs container and the content container.
+- content_style (dict; optional): Appends (inline) styles to the tab content container holding the children of the Tab that is selected.
+- vertical (boolean; optional): Renders the tabs vertically (on the side)
+- mobile_breakpoint (number; optional): Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)
 - colors (optional): Holds the colors used by the Tabs and Tab components. If you set these, you should specify colors for all properties, so:
 colors: {
    border: '#d6d6d6',
@@ -28,8 +34,8 @@ Those keys have the following types:
   - primary (string; optional)
   - background (string; optional)"""
     @_explicitize_args
-    def __init__(self, children=None, style=Component.UNDEFINED, vertical=Component.UNDEFINED, parent_style=Component.UNDEFINED, parent_className=Component.UNDEFINED, content_className=Component.UNDEFINED, mobile_breakpoint=Component.UNDEFINED, className=Component.UNDEFINED, colors=Component.UNDEFINED, value=Component.UNDEFINED, content_style=Component.UNDEFINED, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'style', 'vertical', 'parent_style', 'parent_className', 'content_className', 'className', 'colors', 'value', 'id', 'content_style', 'mobile_breakpoint']
+    def __init__(self, children=None, id=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, content_className=Component.UNDEFINED, parent_className=Component.UNDEFINED, style=Component.UNDEFINED, parent_style=Component.UNDEFINED, content_style=Component.UNDEFINED, vertical=Component.UNDEFINED, mobile_breakpoint=Component.UNDEFINED, colors=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'value', 'className', 'content_className', 'parent_className', 'style', 'parent_style', 'content_style', 'vertical', 'mobile_breakpoint', 'colors']
         self._type = 'Tabs'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []

@@ -9,25 +9,7 @@ A double slider with two handles.
 Used for specifying a range of numerical values.
 
 Keyword arguments:
-- count (number; optional): Determine how many ranges to render, and multiple handles
-will be rendered (number + 1).
-- updatemode (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
-its value. If `mouseup`, then the slider
-will only trigger its value when the user has
-finished dragging the slider. If `drag`, then
-the slider will update its value continuously
-as it is being dragged.
-Only use `drag` if your updates are fast.
-- vertical (boolean; optional): If true, the slider will be vertical
-- min (number; optional): Minimum allowed value of the slider
-- max (number; optional): Maximum allowed value of the slider
-- value (list; optional): The value of the input
-- dots (boolean; optional): When the step value is greater than 1,
-you can set the dots to true if you want to
-render the slider with dots.
-- className (string; optional): Additional CSS class for the root DOM node
-- step (number; optional): Value by which increments or decrements are made
-- disabled (boolean; optional): If true, the handles can't be moved.
+- id (string; optional)
 - marks (optional): Marks on the slider.
 The key determines the position,
 and the value determines what will show.
@@ -39,8 +21,19 @@ Those keys have the following types:
 Those keys have the following types:
   - style (dict; optional)
   - label (string; optional)
+- value (list; optional): The value of the input
+- allowCross (boolean; optional): allowCross could be set as true to allow those handles to cross.
+- className (string; optional): Additional CSS class for the root DOM node
+- count (number; optional): Determine how many ranges to render, and multiple handles
+will be rendered (number + 1).
+- disabled (boolean; optional): If true, the handles can't be moved.
+- dots (boolean; optional): When the step value is greater than 1,
+you can set the dots to true if you want to
+render the slider with dots.
 - included (boolean; optional): If the value is true, it means a continuous
 value is included. Otherwise, it is an independent value.
+- min (number; optional): Minimum allowed value of the slider
+- max (number; optional): Maximum allowed value of the slider
 - pushable (boolean | number; optional): pushable could be set as true to allow pushing of
 surrounding handles when moving an handle.
 When set to a number, the number will be the
@@ -55,8 +48,8 @@ the slider will update its value continuously
 as it is being dragged.
 Only use `drag` if your updates are fast."""
     @_explicitize_args
-    def __init__(self, count=Component.UNDEFINED, disabled=Component.UNDEFINED, updatemode=Component.UNDEFINED, vertical=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, step=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, dots=Component.UNDEFINED, marks=Component.UNDEFINED, included=Component.UNDEFINED, pushable=Component.UNDEFINED, id=Component.UNDEFINED, allowCross=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['count', 'updatemode', 'vertical', 'min', 'max', 'dots', 'value', 'id', 'disabled', 'className', 'step', 'marks', 'included', 'pushable', 'allowCross']
+    def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, allowCross=Component.UNDEFINED, className=Component.UNDEFINED, count=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, pushable=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, updatemode=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'marks', 'value', 'allowCross', 'className', 'count', 'disabled', 'dots', 'included', 'min', 'max', 'pushable', 'step', 'vertical', 'updatemode']
         self._type = 'RangeSlider'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
