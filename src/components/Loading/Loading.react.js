@@ -21,13 +21,46 @@ function getSpinner(type) {
             return DefaultSpinner;
     }
 }
+
 /**
  * A Loading component that wraps any other component and displays a spinner until the wrapped component has rendered.
  */
 export default class Loading extends Component {
     render() {
-        const {loading_state, color, className, style, fullscreen, debug, type} = this.props;
-        if (loading_state && loading_state.is_loading) {
+        const {
+            loading_state,
+            color,
+            className,
+            style,
+            fullscreen,
+            debug,
+            type,
+        } = this.props;
+        // is_loading could be true on the <Loading /> component itself
+        let isLoading = loading_state ? loading_state.is_loading : false;
+
+        let children = this.props.children;
+        if (!Array.isArray(this.props.children)) {
+            children = [this.props.children];
+        }
+
+        // Check if Loading component's direct children have a loading state
+        children.forEach(child => {
+            // Because the Loading component's children could also be wrapped in a NotifyObservers component,
+            // (coming from dash-renderer), we look at the children of those as well
+            // which should be the actual component we want to look at
+            if(child && child.props && child.props.children){
+                if(child.props && child.props.loading_state && child.props.loading_state.is_loading){
+                    isLoading = child.props.loading_state.is_loading;
+                }
+            }
+            // But if there's a loading_state on the direct child, that should take precedence!
+            if(child.props.loading_state && child.props.loading_state.is_loading){
+                isLoading = child.props.loading_state.is_loading;
+            }
+        });
+
+        if (isLoading) {
             const Spinner = getSpinner(type);
             return (
                 <Spinner
