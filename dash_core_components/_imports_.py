@@ -9,6 +9,11 @@ from .Input import Input
 from .Interval import Interval
 from .Link import Link
 from .Loading import Loading
+from .CircleSpinner import CircleSpinner
+from .CubeSpinner import CubeSpinner
+from .DefaultSpinner import DefaultSpinner
+from .DotSpinner import DotSpinner
+from .GraphSpinner import GraphSpinner
 from .Location import Location
 from .LogoutButton import LogoutButton
 from .Markdown import Markdown
@@ -34,6 +39,11 @@ __all__ = [
     "Interval",
     "Link",
     "Loading",
+    "CircleSpinner",
+    "CubeSpinner",
+    "DefaultSpinner",
+    "DotSpinner",
+    "GraphSpinner",
     "Location",
     "LogoutButton",
     "Markdown",

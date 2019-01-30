@@ -36,14 +36,6 @@ jobs:
                       - 'node_modules'
 
             - run:
-                  name: prettier --list-different
-                  command: npm run format:test
-
-            - run:
-                  name: npm run lint
-                  command: npm run lint
-
-            - run:
                   name: Build
                   command: |
                       . venv/bin/activate
@@ -55,9 +47,7 @@ jobs:
                   command: |
                       . venv/bin/activate
                       python --version
-                      npm run test-unit
-                      python -m unittest test.test_integration
-                      python -m unittest test.test_dash_import
+                      npm run test
 
     'python-3.6':
         <<: *test-template

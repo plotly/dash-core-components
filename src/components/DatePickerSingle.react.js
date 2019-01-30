@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import R from 'ramda';
 import React, {Component} from 'react';
 
+import convertToMoment from '../utils/convertToMoment';
+
 /**
  * DatePickerSingle is a tailor made component designed for selecting
  * a single day off of a calendar.
@@ -15,6 +17,7 @@ import React, {Component} from 'react';
  * This component is based off of Airbnb's react-dates react component
  * which can be found here: https://github.com/airbnb/react-dates
  */
+
 export default class DatePickerSingle extends Component {
     constructor() {
         super();
@@ -29,21 +32,14 @@ export default class DatePickerSingle extends Component {
          * - user modifiable attributes
          * - moment converted attributes
          */
-        const newState = {};
-        const momentProps = [
+
+        const newState = convertToMoment(newProps, [
             'date',
             'initial_visible_month',
             'max_date_allowed',
             'min_date_allowed',
-        ];
-        momentProps.forEach(prop => {
-            if (R.type(newProps[prop]) !== 'Undefined') {
-                newState[prop] = moment(newProps[prop]);
-            }
-            if (prop === 'max_date_allowed' && R.has(prop, newState)) {
-                newState[prop].add(1, 'days');
-            }
-        });
+        ]);
+
         this.setState(newState);
     }
 
@@ -70,14 +66,11 @@ export default class DatePickerSingle extends Component {
     }
 
     onDateChange(date) {
-        const {setProps, fireEvent} = this.props;
+        const {setProps} = this.props;
         if (setProps && date !== null) {
             setProps({date: date.format('YYYY-MM-DD')});
         } else {
             this.setState({date});
-        }
-        if (fireEvent) {
-            fireEvent('change');
         }
     }
 
@@ -118,14 +111,14 @@ export default class DatePickerSingle extends Component {
                 withPortal={with_portal && verticalFlag}
                 withFullScreenPortal={with_full_screen_portal && verticalFlag}
                 firstDayOfWeek={first_day_of_week}
-                enableOutSideDays={show_outside_days}
+                enableOutsideDays={show_outside_days}
                 monthFormat={month_format}
                 displayFormat={display_format}
                 placeholder={placeholder}
                 showClearDate={clearable}
                 disabled={disabled}
                 keepOpenOnDateSelect={stay_open_on_select}
-                reopenPickerOnClearDates={reopen_calendar_on_clear}
+                reopenPickerOnClearDate={reopen_calendar_on_clear}
                 isRTL={is_RTL}
                 orientation={calendar_orientation}
                 daySize={day_size}
@@ -265,13 +258,6 @@ DatePickerSingle.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
-
-    /**
-     * Dash-assigned callback that gets fired when the value changes.
-     */
-    dashEvents: PropTypes.oneOf(['change']),
-
-    fireEvent: PropTypes.func,
 };
 
 DatePickerSingle.defaultProps = {

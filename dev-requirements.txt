@@ -6,3 +6,4 @@ selenium
 pandas
 dash_table_experiments
 xlrd
+flake8

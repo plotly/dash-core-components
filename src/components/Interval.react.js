@@ -2,72 +2,72 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react'; // eslint-disable-line no-unused-vars
 
 /**
- * A component that repeatedly fires an event ("interval")
- * with a fixed time delay between each event.
+ * A component that repeatedly increments a counter `n_intervals`
+ * with a fixed time delay between each increment.
  * Interval is good for triggering a component on a recurring basis.
  * The time delay is set with the property "interval" in milliseconds.
  */
 export default class Interval extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
-        this.setInterval = this.setInterval.bind(this);
+        this.intervalId = null;
+        this.handleInterval = this.handleInterval.bind(this);
     }
 
-    setInterval(props) {
-        const {interval, fireEvent, setProps} = props;
-        this.setState({
-            intervalId: window.setInterval(() => {
-                if (fireEvent && !props.disabled) {
-                    fireEvent({event: 'interval'});
-                }
-                if (setProps && !props.disabled) {
-                    setProps({n_intervals: this.props.n_intervals + 1});
-                }
-            }, interval),
-        });
+    startTimer(props) {
+        if (this.intervalId) {
+            throw new Error('startTimer() invoked when timer already started');
+        }
+
+        this.intervalId = window.setInterval(
+            this.handleInterval,
+            props.interval
+        );
     }
 
-    componentDidMount() {
-        if (this.props.fireEvent || this.props.setProps) {
-            this.setInterval(this.props);
+    resetTimer(props) {
+        this.clearTimer();
+        this.startTimer(props);
+    }
+
+    clearTimer() {
+        window.clearInterval(this.intervalId);
+        this.intervalId = null;
+    }
+
+    handleInterval() {
+        const {disabled, max_intervals, n_intervals, setProps} = this.props;
+        const withinMaximum =
+            max_intervals === -1 || n_intervals < max_intervals;
+        if (disabled || !withinMaximum) {
+            return;
+        }
+        if (setProps) {
+            setProps({n_intervals: n_intervals + 1});
         }
     }
 
+    componentDidMount() {
+        if (this.canStartTimer(this.props)) {
+            this.startTimer(this.props);
+        }
+    }
+
+    canStartTimer(props) {
+        return props.setProps;
+    }
+
     componentWillReceiveProps(nextProps) {
-        if (
-            nextProps.n_intervals < this.props.max_intervals ||
-            this.props.max_intervals === -1
-        ) {
-            if (
-                (!this.props.fireEvent && nextProps.fireEvent) ||
-                (!this.props.setProps && nextProps.setProps)
-            ) {
-                this.setInterval(nextProps);
-            } else if (
-                this.props.interval !== nextProps.interval &&
-                this.state.intervalId
-            ) {
-                window.clearInterval(this.state.intervalId);
-                this.setInterval(nextProps);
-            }
-        } else {
-            // So we can restart the interval after it was 0
-            if (
-                this.props.max_intervals === 0 &&
-                nextProps.max_intervals !== 0
-            ) {
-                if (this.props.fireEvent || this.props.setProps) {
-                    this.setInterval(nextProps);
-                }
-            } else {
-                window.clearInterval(this.state.intervalId);
-            }
+        // If we couldn't start the timer before, and we can now, start it.
+        if (!this.canStartTimer(this.props) && this.canStartTimer(nextProps)) {
+            this.startTimer(nextProps);
+        } else if (this.props.interval !== nextProps.interval) {
+            this.resetTimer(nextProps);
         }
     }
 
     componentWillUnmount() {
-        window.clearInterval(this.state.intervalId);
+        this.clearTimer();
     }
 
     render() {
@@ -78,14 +78,13 @@ export default class Interval extends Component {
 Interval.propTypes = {
     id: PropTypes.string,
     /**
-     * This component will fire an event every `interval`
-     * milliseconds with the event name `setInterval`
+     * This component will increment the counter `n_intervals` every
+     * `interval` milliseconds
      */
     interval: PropTypes.number,
 
     /**
-     * If True, the interval will no longer trigger
-     * an event.
+     * If True, the counter will no longer update
      */
     disabled: PropTypes.bool,
 
@@ -95,21 +94,16 @@ Interval.propTypes = {
     n_intervals: PropTypes.number,
 
     /**
-     * Number of times the interval will be fired. If -1, then the interval has no limit (the default) and if 0 then the interval stops running.
+     * Number of times the interval will be fired.
+     * If -1, then the interval has no limit (the default)
+     * and if 0 then the interval stops running.
      */
     max_intervals: PropTypes.number,
 
     /**
      * Dash assigned callback
      */
-    fireEvent: PropTypes.func,
-
-    /**
-     * Dash assigned callback
-     */
     setProps: PropTypes.func,
-
-    dashEvents: PropTypes.oneOf(['interval']),
 };
 
 Interval.defaultProps = {

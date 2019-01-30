@@ -33,14 +33,14 @@ the selected value.
 - searchable (boolean; optional): Whether to enable the searching feature or not
 - style (dict; optional)
 
-Available events: 'change'"""
+Available events: """
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
         self._type = 'Dropdown'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = ['change']
+        self.available_events = []
         self.available_properties = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
         self.available_wildcard_properties =            []
 

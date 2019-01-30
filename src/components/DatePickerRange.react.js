@@ -1,9 +1,9 @@
 import {DateRangePicker} from 'react-dates';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 import React, {Component} from 'react';
-import './css/react-dates@12.3.0.css';
+
+import convertToMoment from '../utils/convertToMoment';
 
 /**
  * DatePickerRange is a tailor made component designed for selecting
@@ -30,22 +30,15 @@ export default class DatePickerRange extends Component {
          * - user modifiable attributes
          * - moment converted attributes
          */
-        const newState = {};
-        const momentProps = [
+
+        const newState = convertToMoment(newProps, [
             'start_date',
             'end_date',
             'initial_visible_month',
             'max_date_allowed',
             'min_date_allowed',
-        ];
-        momentProps.forEach(prop => {
-            if (R.type(newProps[prop]) !== 'Undefined') {
-                newState[prop] = moment(newProps[prop]);
-            }
-            if (prop === 'max_date_allowed' && R.has(prop, newState)) {
-                newState[prop].add(1, 'days');
-            }
-        });
+        ]);
+
         this.setState(newState);
     }
 
@@ -57,7 +50,7 @@ export default class DatePickerRange extends Component {
         this.propsToState(this.props);
     }
     onDatesChange({startDate: start_date, endDate: end_date}) {
-        const {setProps, fireEvent, updatemode} = this.props;
+        const {setProps, updatemode} = this.props;
         const old_start_date = this.state.start_date;
         const old_end_date = this.state.end_date;
         const newState = {};
@@ -80,10 +73,6 @@ export default class DatePickerRange extends Component {
             }
         }
         newState.end_date = end_date;
-
-        if (fireEvent) {
-            fireEvent('change');
-        }
 
         this.setState(newState);
     }
@@ -325,11 +314,6 @@ DatePickerRange.propTypes = {
     setProps: PropTypes.func,
 
     /**
-     * Dash-assigned callback that gets fired when the value changes.
-     */
-    dashEvents: PropTypes.oneOf(['change']),
-
-    /**
      * Determines when the component should update
      * its value. If `bothdates`, then the DatePicker
      * will only trigger its value when the user has
@@ -338,8 +322,6 @@ DatePickerRange.propTypes = {
      * as one date is picked.
      */
     updatemode: PropTypes.oneOf(['singledate', 'bothdates']),
-
-    fireEvent: PropTypes.func,
 };
 
 DatePickerRange.defaultProps = {
