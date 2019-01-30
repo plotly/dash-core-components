@@ -1,6 +1,8 @@
 # Change Log for dash-core-components
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+## [0.43.1] - 2019-01-30
+- Check if master passes on Circle using latests drivers
 
 ## [0.43.0] - 2019-01-25
 ### Added
