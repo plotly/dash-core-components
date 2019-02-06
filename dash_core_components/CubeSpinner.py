@@ -13,16 +13,13 @@ Keyword arguments:
 - className (string; optional)
 - fullscreen (boolean; optional)
 - style (boolean; optional)
-- debug (boolean; optional)
-
-Available events: """
+- debug (boolean; optional)"""
     @_explicitize_args
     def __init__(self, status=Component.UNDEFINED, color=Component.UNDEFINED, className=Component.UNDEFINED, fullscreen=Component.UNDEFINED, style=Component.UNDEFINED, debug=Component.UNDEFINED, **kwargs):
         self._prop_names = ['status', 'color', 'className', 'fullscreen', 'style', 'debug']
         self._type = 'CubeSpinner'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
         self.available_properties = ['status', 'color', 'className', 'fullscreen', 'style', 'debug']
         self.available_wildcard_properties =            []
 

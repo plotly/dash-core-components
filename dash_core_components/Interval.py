@@ -18,16 +18,13 @@ Keyword arguments:
 - n_intervals (number; optional): Number of times the interval has passed
 - max_intervals (number; optional): Number of times the interval will be fired.
 If -1, then the interval has no limit (the default)
-and if 0 then the interval stops running.
-
-Available events: """
+and if 0 then the interval stops running."""
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, interval=Component.UNDEFINED, disabled=Component.UNDEFINED, n_intervals=Component.UNDEFINED, max_intervals=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
         self._type = 'Interval'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
         self.available_properties = ['id', 'interval', 'disabled', 'n_intervals', 'max_intervals']
         self.available_wildcard_properties =            []
 

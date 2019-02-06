@@ -17,19 +17,16 @@ Keyword arguments:
 - style (dict; optional): Additional CSS styling for the root DOM node
 - color (string; optional): Primary colour used for the loading spinners
 - loading_state (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: dict containing keys 'is_loading', 'prop_name', 'component_name'.
-Those keys have the following types: 
+Those keys have the following types:
   - is_loading (boolean; optional): Determines if the component is loading or not
   - prop_name (string; optional): Holds which property is loading
-  - component_name (string; optional): Holds the name of the component that is loading
-
-Available events: """
+  - component_name (string; optional): Holds the name of the component that is loading"""
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, type=Component.UNDEFINED, fullscreen=Component.UNDEFINED, debug=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, color=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
         self._prop_names = ['children', 'id', 'type', 'fullscreen', 'debug', 'className', 'style', 'color', 'loading_state']
         self._type = 'Loading'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
         self.available_properties = ['children', 'id', 'type', 'fullscreen', 'debug', 'className', 'style', 'color', 'loading_state']
         self.available_wildcard_properties =            []
 
