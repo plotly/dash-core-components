@@ -22,35 +22,6 @@ function getSpinner(type) {
     }
 }
 
-function getLoadingStateInChildren(children, initial_loading_state) {
-    if (!Array.isArray(children)) {
-        children = [children];
-    }
-    let isLoading = initial_loading_state;
-    for (let i = 0; i < children.length; i++) {
-        const child = children[i];
-        // If we found another Loading component, we break,
-        // because the next Loading component will take care of it's
-        // own children
-        if (child.type === Loading.type) {
-            break;
-        }
-        if (
-            child.props &&
-            child.props.loading_state
-        ) {
-            isLoading = child.props.loading_state.is_loading;
-        }
-        if (child.props && child.props.children) {
-            return getLoadingStateInChildren(
-                child.props.children,
-                isLoading
-            );
-        }
-    }
-    return isLoading;
-}
-
 /**
  * A Loading component that wraps any other component and displays a spinner until the wrapped component has rendered.
  */
@@ -66,9 +37,11 @@ export default class Loading extends Component {
             type,
         } = this.props;
 
+        const initial_loading_state = R.isNil(loading_state) ? false : loading_state.is_loading;
+
         const isLoading = getLoadingStateInChildren(
             this.props.children,
-            loading_state.is_loading
+            initial_loading_state
         );
 
         if (isLoading) {
@@ -158,3 +131,32 @@ Loading.propTypes = {
         component_name: PropTypes.string,
     }),
 };
+
+function getLoadingStateInChildren(children, initial_loading_state) {
+    if (!Array.isArray(children)) {
+        children = [children];
+    }
+    let isLoading = initial_loading_state;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        // If we found another Loading component, we break,
+        // because the next Loading component will take care of it's
+        // own children
+        if (child.type === Loading.type) {
+            break;
+        }
+        if (
+            child.props &&
+            child.props.loading_state
+        ) {
+            isLoading = child.props.loading_state.is_loading;
+        }
+        if (child.props && child.props.children) {
+            return getLoadingStateInChildren(
+                child.props.children,
+                isLoading
+            );
+        }
+    }
+    return isLoading;
+}

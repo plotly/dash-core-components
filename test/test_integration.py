@@ -918,10 +918,10 @@ class Tests(IntegrationTests):
         link_href = test_link.get_attribute("href")
         self.assertEqual(link_href, 'http://localhost:8050/test-link')
 
-        # test if callback is only fired once (offset of 3)
+        # test if callback is only fired once (offset of 2)
         self.assertEqual(
             call_count.value,
-            4
+            3
         )
 
     def test_candlestick(self):

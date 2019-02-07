@@ -77,7 +77,7 @@
     "no-new": ["error"],
     "no-new-func": ["error"],
     "no-new-wrappers": ["error"],
-    "no-param-reassign": ["error"],
+    "no-param-reassign": ["off"],
     "no-process-env": ["warn"],
     "no-proto": ["error"],
     "no-redeclare": ["error"],
