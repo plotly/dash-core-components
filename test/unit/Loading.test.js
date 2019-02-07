@@ -6,15 +6,15 @@ test('Loading renders', () => {
     const statusMock = {
         is_loading: true,
         prop_name: 'children',
-        component_name: 'div'
-    }
+        component_name: 'div',
+    };
     const loading = render(
         <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
+    expect(loading.html()).toMatchSnapshot('Loading with is_loading=true');
 });
 test('Loading renders without loading_state', () => {
     const loading = render(
@@ -23,53 +23,53 @@ test('Loading renders without loading_state', () => {
         </Loading>
     );
 
-    expect(loading.html()).toEqual("<div>Loading is done!</div>");
+    expect(loading.html()).toEqual('<div>Loading is done!</div>');
 });
 test('Loading renders without loading_state.is_loading', () => {
     const statusMock = {
         prop_name: 'children',
-        component_name: 'div'
-    }
+        component_name: 'div',
+    };
     const loading = render(
         <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toEqual("<div>Loading is done!</div>");
+    expect(loading.html()).toEqual('<div>Loading is done!</div>');
 });
 test('Loading renders without prop_name', () => {
     const statusMock = {
         is_loading: true,
-        component_name: 'div'
-    }
+        component_name: 'div',
+    };
     const loading = render(
         <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
+    expect(loading.html()).toMatchSnapshot('Loading with is_loading=true');
 });
 test('Loading renders without loading_state.component_name', () => {
     const statusMock = {
         is_loading: true,
-        prop_name: 'children'
-    }
+        prop_name: 'children',
+    };
     const loading = render(
         <Loading loading_state={statusMock}>
             <div>Loading is done!</div>
         </Loading>
     );
 
-    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
+    expect(loading.html()).toMatchSnapshot('Loading with is_loading=true');
 });
 test('Loading renders with multiple children', () => {
     const statusMock = {
         is_loading: true,
         prop_name: 'children',
-        component_name: 'div'
-    }
+        component_name: 'div',
+    };
     const loading = render(
         <Loading loading_state={statusMock}>
             <div>Child 1</div>
@@ -78,5 +78,5 @@ test('Loading renders with multiple children', () => {
         </Loading>
     );
 
-    expect(loading.html()).toMatchSnapshot("Loading with is_loading=true");
+    expect(loading.html()).toMatchSnapshot('Loading with is_loading=true');
 });
