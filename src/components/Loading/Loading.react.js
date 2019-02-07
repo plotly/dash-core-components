@@ -22,6 +22,35 @@ function getSpinner(type) {
     }
 }
 
+function getLoadingStateInChildren(children, initial_loading_state) {
+    if (!Array.isArray(children)) {
+        children = [children];
+    }
+    let isLoading = initial_loading_state;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        // If we found another Loading component, we break,
+        // because the next Loading component will take care of it's
+        // own children
+        if (child.type === Loading.type) {
+            break;
+        }
+        if (
+            child.props &&
+            child.props.loading_state
+        ) {
+            isLoading = child.props.loading_state.is_loading;
+        }
+        if (child.props && child.props.children) {
+            return getLoadingStateInChildren(
+                child.props.children,
+                isLoading
+            );
+        }
+    }
+    return isLoading;
+}
+
 /**
  * A Loading component that wraps any other component and displays a spinner until the wrapped component has rendered.
  */
@@ -36,29 +65,11 @@ export default class Loading extends Component {
             debug,
             type,
         } = this.props;
-        // is_loading could be true on the <Loading /> component itself
-        let isLoading = loading_state ? loading_state.is_loading : false;
 
-        let children = this.props.children;
-        if (!Array.isArray(this.props.children)) {
-            children = [this.props.children];
-        }
-
-        // Check if Loading component's direct children have a loading state
-        children.forEach(child => {
-            // Because the Loading component's children could also be wrapped in a NotifyObservers component,
-            // (coming from dash-renderer), we look at the children of those as well
-            // which should be the actual component we want to look at
-            if(child && child.props && child.props.children){
-                if(child.props && child.props.loading_state && child.props.loading_state.is_loading){
-                    isLoading = child.props.loading_state.is_loading;
-                }
-            }
-            // But if there's a loading_state on the direct child, that should take precedence!
-            if(child.props.loading_state && child.props.loading_state.is_loading){
-                isLoading = child.props.loading_state.is_loading;
-            }
-        });
+        const isLoading = getLoadingStateInChildren(
+            this.props.children,
+            loading_state.is_loading
+        );
 
         if (isLoading) {
             const Spinner = getSpinner(type);
@@ -77,7 +88,7 @@ export default class Loading extends Component {
             R.type(this.props.children) !== 'Object' ||
             R.type(this.props.children) !== 'Function'
         ) {
-            return <div>{this.props.children}</div>;
+            return <div className={className}>{this.props.children}</div>;
         }
         return this.props.children;
     }
