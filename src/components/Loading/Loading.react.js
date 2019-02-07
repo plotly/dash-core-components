@@ -37,7 +37,9 @@ export default class Loading extends Component {
             type,
         } = this.props;
 
-        const initial_loading_state = R.isNil(loading_state) ? false : loading_state.is_loading;
+        const initial_loading_state = R.isNil(loading_state)
+            ? false
+            : loading_state.is_loading;
 
         const isLoading = getLoadingStateInChildren(
             this.props.children,
@@ -145,17 +147,11 @@ function getLoadingStateInChildren(children, initial_loading_state) {
         if (child.type === Loading.type) {
             break;
         }
-        if (
-            child.props &&
-            child.props.loading_state
-        ) {
+        if (child.props && child.props.loading_state) {
             isLoading = child.props.loading_state.is_loading;
         }
         if (child.props && child.props.children) {
-            return getLoadingStateInChildren(
-                child.props.children,
-                isLoading
-            );
+            return getLoadingStateInChildren(child.props.children, isLoading);
         }
     }
     return isLoading;
