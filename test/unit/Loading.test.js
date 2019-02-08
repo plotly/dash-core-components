@@ -80,3 +80,20 @@ test('Loading renders with multiple children', () => {
 
     expect(loading.html()).toMatchSnapshot('Loading with is_loading=true');
 });
+
+test("Loading checks all it's children for a loading_state", () => {
+    const statusMock = {
+        is_loading: true,
+        prop_name: 'children',
+        component_name: 'div',
+    };
+    const loading = render(
+        <Loading>
+            <div>Child 1</div>
+            <div>Child 2</div>
+            <div loading_state={statusMock}>Child 3</div>
+        </Loading>
+    );
+
+    expect(loading.html()).toMatchSnapshot("Loading spinner for children");
+});
