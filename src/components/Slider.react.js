@@ -18,28 +18,30 @@ export default class Slider extends Component {
     }
 
     render() {
-        const {setProps, updatemode} = this.props;
+        const {id, setProps, updatemode, loading_state} = this.props;
         const {value} = this.state;
         return (
-            <ReactSlider
-                onChange={value => {
-                    this.setState({value});
-                    if (updatemode === 'drag') {
-                        if (setProps) {
-                            setProps({value});
+            <div id={id} data-dash-is-loading={loading_state.is_loading}>
+                <ReactSlider
+                    onChange={value => {
+                        this.setState({value});
+                        if (updatemode === 'drag') {
+                            if (setProps) {
+                                setProps({value});
+                            }
                         }
-                    }
-                }}
-                onAfterChange={value => {
-                    if (updatemode === 'mouseup') {
-                        if (setProps) {
-                            setProps({value});
+                    }}
+                    onAfterChange={value => {
+                        if (updatemode === 'mouseup') {
+                            if (setProps) {
+                                setProps({value});
+                            }
                         }
-                    }
-                }}
-                value={value}
-                {...omit(['setProps', 'updatemode', 'value'], this.props)}
-            />
+                    }}
+                    value={value}
+                    {...omit(['setProps', 'updatemode', 'value'], this.props)}
+                />
+            </div>
         );
     }
 }
@@ -135,8 +137,31 @@ Slider.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
+
+    /**
+     * Object that holds the loading state object coming from dash-renderer
+     */
+    loading_state: PropTypes.shape({
+        /**
+         * Determines if the component is loading or not
+         */
+        is_loading: PropTypes.bool,
+        /**
+         * Holds which property is loading
+         */
+        prop_name: PropTypes.string,
+        /**
+         * Holds the name of the component that is loading
+         */
+        component_name: PropTypes.string,
+    }),
 };
 
 Slider.defaultProps = {
     updatemode: 'mouseup',
+    loading_state: {
+        is_loading: false,
+        component_name: '',
+        prop_name: '',
+    },
 };

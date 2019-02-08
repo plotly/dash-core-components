@@ -33,14 +33,19 @@ Keyword arguments:
 - logout_url (string; optional): Url to submit a post logout request.
 - style (dict; optional): Style of the button
 - method (string; optional): Http method to submit the logout form.
-- className (string; optional): CSS class for the button."""
+- className (string; optional): CSS class for the button.
+- loading_state (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: dict containing keys 'is_loading', 'prop_name', 'component_name'.
+Those keys have the following types:
+  - is_loading (boolean; optional): Determines if the component is loading or not
+  - prop_name (string; optional): Holds which property is loading
+  - component_name (string; optional): Holds the name of the component that is loading"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, label=Component.UNDEFINED, logout_url=Component.UNDEFINED, style=Component.UNDEFINED, method=Component.UNDEFINED, className=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'label', 'logout_url', 'style', 'method', 'className']
+    def __init__(self, id=Component.UNDEFINED, label=Component.UNDEFINED, logout_url=Component.UNDEFINED, style=Component.UNDEFINED, method=Component.UNDEFINED, className=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'label', 'logout_url', 'style', 'method', 'className', 'loading_state']
         self._type = 'LogoutButton'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'label', 'logout_url', 'style', 'method', 'className']
+        self.available_properties = ['id', 'label', 'logout_url', 'style', 'method', 'className', 'loading_state']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

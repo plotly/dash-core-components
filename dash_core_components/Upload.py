@@ -36,14 +36,19 @@ See: https://github.com/react-dropzone/react-dropzone/issues/276
 - style (dict; optional): CSS styles to apply
 - style_active (dict; optional): CSS styles to apply while active
 - style_reject (dict; optional): CSS styles if rejected
-- style_disabled (dict; optional): CSS styles if disabled"""
+- style_disabled (dict; optional): CSS styles if disabled
+- loading_state (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: dict containing keys 'is_loading', 'prop_name', 'component_name'.
+Those keys have the following types:
+  - is_loading (boolean; optional): Determines if the component is loading or not
+  - prop_name (string; optional): Holds which property is loading
+  - component_name (string; optional): Holds the name of the component that is loading"""
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, contents=Component.UNDEFINED, filename=Component.UNDEFINED, last_modified=Component.UNDEFINED, accept=Component.UNDEFINED, disabled=Component.UNDEFINED, disable_click=Component.UNDEFINED, max_size=Component.UNDEFINED, min_size=Component.UNDEFINED, multiple=Component.UNDEFINED, className=Component.UNDEFINED, className_active=Component.UNDEFINED, className_reject=Component.UNDEFINED, className_disabled=Component.UNDEFINED, style=Component.UNDEFINED, style_active=Component.UNDEFINED, style_reject=Component.UNDEFINED, style_disabled=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
+    def __init__(self, children=None, id=Component.UNDEFINED, contents=Component.UNDEFINED, filename=Component.UNDEFINED, last_modified=Component.UNDEFINED, accept=Component.UNDEFINED, disabled=Component.UNDEFINED, disable_click=Component.UNDEFINED, max_size=Component.UNDEFINED, min_size=Component.UNDEFINED, multiple=Component.UNDEFINED, className=Component.UNDEFINED, className_active=Component.UNDEFINED, className_reject=Component.UNDEFINED, className_disabled=Component.UNDEFINED, style=Component.UNDEFINED, style_active=Component.UNDEFINED, style_reject=Component.UNDEFINED, style_disabled=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled', 'loading_state']
         self._type = 'Upload'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled']
+        self.available_properties = ['children', 'id', 'contents', 'filename', 'last_modified', 'accept', 'disabled', 'disable_click', 'max_size', 'min_size', 'multiple', 'className', 'className_active', 'className_reject', 'className_disabled', 'style', 'style_active', 'style_reject', 'style_disabled', 'loading_state']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

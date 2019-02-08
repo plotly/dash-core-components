@@ -31,14 +31,19 @@ the selected value.
 - multi (boolean; optional): If true, the user can select multiple values
 - placeholder (string; optional): The grey, default text shown when no option is selected
 - searchable (boolean; optional): Whether to enable the searching feature or not
-- style (dict; optional)"""
+- style (dict; optional)
+- loading_state (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: dict containing keys 'is_loading', 'prop_name', 'component_name'.
+Those keys have the following types:
+  - is_loading (boolean; optional): Determines if the component is loading or not
+  - prop_name (string; optional): Holds which property is loading
+  - component_name (string; optional): Holds the name of the component that is loading"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
+    def __init__(self, id=Component.UNDEFINED, options=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, clearable=Component.UNDEFINED, disabled=Component.UNDEFINED, multi=Component.UNDEFINED, placeholder=Component.UNDEFINED, searchable=Component.UNDEFINED, style=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style', 'loading_state']
         self._type = 'Dropdown'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style']
+        self.available_properties = ['id', 'options', 'value', 'className', 'clearable', 'disabled', 'multi', 'placeholder', 'searchable', 'style', 'loading_state']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

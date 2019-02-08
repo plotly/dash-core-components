@@ -17,11 +17,12 @@ export default class Textarea extends Component {
     }
 
     render() {
-        const {setProps} = this.props;
+        const {setProps, loading_state} = this.props;
         const {value} = this.state;
 
         return (
             <textarea
+                data-dash-is-loading={loading_state.is_loading}
                 value={value}
                 onChange={e => {
                     this.setState({value: e.target.value});
@@ -56,6 +57,11 @@ Textarea.defaultProps = {
     n_blur_timestamp: -1,
     n_clicks: 0,
     n_clicks_timestamp: -1,
+    loading_state: {
+        is_loading: false,
+        component_name: '',
+        prop_name: '',
+    },
 };
 
 Textarea.propTypes = {
@@ -213,4 +219,22 @@ Textarea.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
+
+    /**
+     * Object that holds the loading state object coming from dash-renderer
+     */
+    loading_state: PropTypes.shape({
+        /**
+         * Determines if the component is loading or not
+         */
+        is_loading: PropTypes.bool,
+        /**
+         * Holds which property is loading
+         */
+        prop_name: PropTypes.string,
+        /**
+         * Holds the name of the component that is loading
+         */
+        component_name: PropTypes.string,
+    }),
 };

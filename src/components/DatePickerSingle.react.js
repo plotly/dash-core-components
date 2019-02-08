@@ -93,36 +93,42 @@ export default class DatePickerSingle extends Component {
             stay_open_on_select,
             with_full_screen_portal,
             with_portal,
+            loading_state,
+            id,
         } = this.props;
 
         const verticalFlag = calendar_orientation !== 'vertical';
 
         return (
-            <SingleDatePicker
-                date={date}
-                onDateChange={this.onDateChange}
-                focused={focused}
-                onFocusChange={({focused}) => this.setState({focused})}
-                initialVisibleMonth={() =>
-                    date || initial_visible_month || moment()
-                }
-                isOutsideRange={this.isOutsideRange}
-                numberOfMonths={number_of_months_shown}
-                withPortal={with_portal && verticalFlag}
-                withFullScreenPortal={with_full_screen_portal && verticalFlag}
-                firstDayOfWeek={first_day_of_week}
-                enableOutsideDays={show_outside_days}
-                monthFormat={month_format}
-                displayFormat={display_format}
-                placeholder={placeholder}
-                showClearDate={clearable}
-                disabled={disabled}
-                keepOpenOnDateSelect={stay_open_on_select}
-                reopenPickerOnClearDate={reopen_calendar_on_clear}
-                isRTL={is_RTL}
-                orientation={calendar_orientation}
-                daySize={day_size}
-            />
+            <div id={id} data-dash-is-loading={loading_state.is_loading}>
+                <SingleDatePicker
+                    date={date}
+                    onDateChange={this.onDateChange}
+                    focused={focused}
+                    onFocusChange={({focused}) => this.setState({focused})}
+                    initialVisibleMonth={() =>
+                        date || initial_visible_month || moment()
+                    }
+                    isOutsideRange={this.isOutsideRange}
+                    numberOfMonths={number_of_months_shown}
+                    withPortal={with_portal && verticalFlag}
+                    withFullScreenPortal={
+                        with_full_screen_portal && verticalFlag
+                    }
+                    firstDayOfWeek={first_day_of_week}
+                    enableOutsideDays={show_outside_days}
+                    monthFormat={month_format}
+                    displayFormat={display_format}
+                    placeholder={placeholder}
+                    showClearDate={clearable}
+                    disabled={disabled}
+                    keepOpenOnDateSelect={stay_open_on_select}
+                    reopenPickerOnClearDate={reopen_calendar_on_clear}
+                    isRTL={is_RTL}
+                    orientation={calendar_orientation}
+                    daySize={day_size}
+                />
+            </div>
         );
     }
 }
@@ -258,6 +264,24 @@ DatePickerSingle.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
+
+    /**
+     * Object that holds the loading state object coming from dash-renderer
+     */
+    loading_state: PropTypes.shape({
+        /**
+         * Determines if the component is loading or not
+         */
+        is_loading: PropTypes.bool,
+        /**
+         * Holds which property is loading
+         */
+        prop_name: PropTypes.string,
+        /**
+         * Holds the name of the component that is loading
+         */
+        component_name: PropTypes.string,
+    }),
 };
 
 DatePickerSingle.defaultProps = {
@@ -273,4 +297,9 @@ DatePickerSingle.defaultProps = {
     reopen_calendar_on_clear: false,
     clearable: false,
     disabled: false,
+    loading_state: {
+        is_loading: false,
+        component_name: '',
+        prop_name: '',
+    },
 };

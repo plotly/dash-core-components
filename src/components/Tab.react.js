@@ -64,12 +64,35 @@ Tab.propTypes = {
      * Overrides the default (inline) styles for the Tab component when it is selected.
      */
     selected_style: PropTypes.object,
+
+    /**
+     * Object that holds the loading state object coming from dash-renderer
+     */
+    loading_state: PropTypes.shape({
+        /**
+         * Determines if the component is loading or not
+         */
+        is_loading: PropTypes.bool,
+        /**
+         * Holds which property is loading
+         */
+        prop_name: PropTypes.string,
+        /**
+         * Holds the name of the component that is loading
+         */
+        component_name: PropTypes.string,
+    }),
 };
 
 Tab.defaultProps = {
     disabled: false,
     disabled_style: {
         color: '#d6d6d6',
+    },
+    loading_state: {
+        is_loading: false,
+        component_name: '',
+        prop_name: '',
     },
 };
 
