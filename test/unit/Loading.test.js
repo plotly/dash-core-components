@@ -95,5 +95,5 @@ test("Loading checks all it's children for a loading_state", () => {
         </Loading>
     );
 
-    expect(loading.html()).toMatchSnapshot("Loading spinner for children");
+    expect(loading.html()).toMatchSnapshot('Loading spinner for children');
 });

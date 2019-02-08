@@ -147,11 +147,18 @@ function getLoadingStateInChildren(children, initial_loading_state) {
         if (child.type === Loading.type) {
             break;
         }
-        if (child.props && child.props.loading_state) {
-            isLoading = child.props.loading_state.is_loading;
+        if (
+            child.props &&
+            child.props.loading_state &&
+            child.props.loading_state.is_loading
+        ) {
+            isLoading = true;
         }
         if (child.props && child.props.children) {
-            return getLoadingStateInChildren(child.props.children, isLoading);
+            isLoading = getLoadingStateInChildren(
+                child.props.children,
+                isLoading
+            );
         }
     }
     return isLoading;
