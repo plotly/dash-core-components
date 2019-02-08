@@ -144,7 +144,7 @@ function getLoadingStateInChildren(children, initial_loading_state) {
         // If we found another Loading component, we break,
         // because the next Loading component will take care of it's
         // own children
-        if (child.type === Loading.type) {
+        if (child.type === Loading) {
             break;
         }
         if (
