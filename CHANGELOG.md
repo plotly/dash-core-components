@@ -5,11 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## UNRELEASED
 ### Updated
 - Upgraded plotly.js to 1.44.3 [#458](https://github.com/plotly/dash-core-components/pull/458)
-  - [Patch release 1.44.3](https://github.com/plotly/plotly.js/releases/tag/v1.44.3) which contains:
-    - Fixed axis `automargin` push offset
-    - Fix handling of alpha channel in rgba coloring in `scatter3d` traces
-    - Fixed subplots with multiple `carpet` traces
-    - Fixed MathJax placement in ternary `aaxis` titles
+  - Patch releases [1.44.2](https://github.com/plotly/plotly.js/releases/tag/v1.44.2) and [1.44.3](https://github.com/plotly/plotly.js/releases/tag/v1.44.3) containing numerous bug fixes
 
 ## [0.43.0] - 2019-01-25
 ### Added
