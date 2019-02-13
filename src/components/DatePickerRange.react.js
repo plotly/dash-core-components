@@ -123,8 +123,17 @@ export default class DatePickerRange extends Component {
 
         const verticalFlag = calendar_orientation !== 'vertical';
 
+        const DatePickerWrapperStyles = {
+            position: 'relative',
+            display: 'inline-block',
+        };
+
         return (
-            <div id={id} data-dash-is-loading={loading_state.is_loading}>
+            <div
+                id={id}
+                style={DatePickerWrapperStyles}
+                data-dash-is-loading={loading_state.is_loading}
+            >
                 <DateRangePicker
                     daySize={day_size}
                     disabled={disabled}
