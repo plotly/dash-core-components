@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.44.0] - 2019-01-30
+## [0.44.0] - 2019-02-13
 ### Added
 - Loading component
 ## [0.43.0] - 2019-01-25
