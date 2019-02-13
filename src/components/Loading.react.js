@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import GraphSpinner from './spinners/GraphSpinner.jsx';
-import DefaultSpinner from './spinners/DefaultSpinner.jsx';
-import CubeSpinner from './spinners/CubeSpinner.jsx';
-import CircleSpinner from './spinners/CircleSpinner.jsx';
-import DotSpinner from './spinners/DotSpinner.jsx';
+import GraphSpinner from '../fragments/Loading/spinners/GraphSpinner.jsx';
+import DefaultSpinner from '../fragments/Loading/spinners/DefaultSpinner.jsx';
+import CubeSpinner from '../fragments/Loading/spinners/CubeSpinner.jsx';
+import CircleSpinner from '../fragments/Loading/spinners/CircleSpinner.jsx';
+import DotSpinner from '../fragments/Loading/spinners/DotSpinner.jsx';
 import R from 'ramda';
 
 function getSpinner(type) {
