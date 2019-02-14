@@ -95,6 +95,8 @@ export default class DatePickerSingle extends Component {
             with_portal,
             loading_state,
             id,
+            style,
+            className,
         } = this.props;
 
         const verticalFlag = calendar_orientation !== 'vertical';
@@ -102,12 +104,14 @@ export default class DatePickerSingle extends Component {
         const DatePickerWrapperStyles = {
             position: 'relative',
             display: 'inline-block',
+            ...style,
         };
 
         return (
             <div
                 id={id}
                 style={DatePickerWrapperStyles}
+                className={className}
                 data-dash-is-loading={loading_state.is_loading}
             >
                 <SingleDatePicker
@@ -273,6 +277,16 @@ DatePickerSingle.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
+
+    /**
+     * CSS styles appended to wrapper div
+     */
+    style: PropTypes.object,
+
+    /**
+     * Appends a CSS class to the wrapper div component.
+     */
+    className: PropTypes.string,
 
     /**
      * Object that holds the loading state object coming from dash-renderer

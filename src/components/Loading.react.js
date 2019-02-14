@@ -41,10 +41,7 @@ export default class Loading extends Component {
             ? false
             : loading_state.is_loading;
 
-        isLoading = getLoadingStateInChildren(
-            this.props.children,
-            isLoading
-        );
+        isLoading = getLoadingStateInChildren(this.props.children, isLoading);
 
         if (isLoading) {
             const Spinner = getSpinner(type);
