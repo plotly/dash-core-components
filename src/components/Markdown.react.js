@@ -16,7 +16,9 @@ function DashMarkdown(props) {
     return (
         <div
             id={props.id}
-            data-dash-is-loading={props.loading_state.is_loading}
+            data-dash-is-loading={
+                props.loading_state && props.loading_state.is_loading
+            }
         >
             <Markdown
                 source={props.children}
@@ -77,11 +79,6 @@ DashMarkdown.propTypes = {
 
 DashMarkdown.defaultProps = {
     dangerously_allow_html: false,
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };
 
 export default DashMarkdown;

@@ -66,7 +66,10 @@ export default class Upload extends Component {
             loading_state,
         } = this.props;
         return (
-            <div id={id} data-dash-is-loading={loading_state.is_loading}>
+            <div
+                id={id}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
+            >
                 <Dropzone
                     onDrop={this.onDrop}
                     accept={accept}
@@ -270,10 +273,5 @@ Upload.defaultProps = {
         borderStyle: 'solid',
         borderColor: '#c66',
         backgroundColor: '#eee',
-    },
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
     },
 };

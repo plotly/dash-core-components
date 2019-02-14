@@ -89,11 +89,6 @@ Tab.defaultProps = {
     disabled_style: {
         color: '#d6d6d6',
     },
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };
 
 export default Tab;

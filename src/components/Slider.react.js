@@ -21,7 +21,10 @@ export default class Slider extends Component {
         const {id, setProps, updatemode, loading_state} = this.props;
         const {value} = this.state;
         return (
-            <div id={id} data-dash-is-loading={loading_state.is_loading}>
+            <div
+                id={id}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
+            >
                 <ReactSlider
                     onChange={value => {
                         this.setState({value});
@@ -159,9 +162,4 @@ Slider.propTypes = {
 
 Slider.defaultProps = {
     updatemode: 'mouseup',
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };

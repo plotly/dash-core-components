@@ -40,7 +40,7 @@ export default class RadioItems extends Component {
         }
         return (
             <div
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 {...ids}
                 className={className}
                 style={style}
@@ -166,9 +166,4 @@ RadioItems.defaultProps = {
     labelStyle: {},
     labelClassName: '',
     options: [],
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };

@@ -22,7 +22,7 @@ export default class Textarea extends Component {
 
         return (
             <textarea
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 value={value}
                 onChange={e => {
                     this.setState({value: e.target.value});
@@ -57,11 +57,6 @@ Textarea.defaultProps = {
     n_blur_timestamp: -1,
     n_clicks: 0,
     n_clicks_timestamp: -1,
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };
 
 Textarea.propTypes = {

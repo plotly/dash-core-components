@@ -35,7 +35,7 @@ export default class Checklist extends Component {
 
         return (
             <div
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 id={id}
                 style={style}
                 className={className}
@@ -167,9 +167,4 @@ Checklist.defaultProps = {
     labelStyle: {},
     labelClassName: '',
     options: [],
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };

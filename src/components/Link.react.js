@@ -56,7 +56,7 @@ export default class Link extends Component {
          */
         return (
             <a
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 id={id}
                 className={className}
                 style={style}
@@ -97,9 +97,4 @@ Link.propTypes = {
 
 Link.defaultProps = {
     refresh: false,
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };

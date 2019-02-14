@@ -37,7 +37,7 @@ export default class Input extends Component {
             : this.state;
         return (
             <input
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 onChange={e => {
                     const newValue = e.target.value;
                     if (
@@ -109,11 +109,6 @@ Input.defaultProps = {
     n_submit: 0,
     n_submit_timestamp: -1,
     debounce: false,
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };
 
 Input.propTypes = {

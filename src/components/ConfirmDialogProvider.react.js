@@ -47,7 +47,10 @@ export default class ConfirmDialogProvider extends React.Component {
             : children.map(e => e.props.children);
 
         return (
-            <div id={id} data-dash-is-loading={loading_state.is_loading}>
+            <div
+                id={id}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
+            >
                 {realChild && realChild.length
                     ? realChild.map(wrapClick)
                     : wrapClick(realChild)}
@@ -62,11 +65,6 @@ ConfirmDialogProvider.defaultProps = {
     submit_n_clicks_timestamp: -1,
     cancel_n_clicks: 0,
     cancel_n_clicks_timestamp: -1,
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };
 
 ConfirmDialogProvider.propTypes = {

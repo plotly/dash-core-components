@@ -25,7 +25,10 @@ export default function SyntaxHighlighter(props) {
         props.children = '';
     }
     return (
-        <div id={id} data-dash-is-loading={loading_state.is_loading}>
+        <div
+            id={id}
+            data-dash-is-loading={loading_state && loading_state.is_loading}
+        >
             <ReactSyntaxHighlighter style={style} {...omit(['theme'], props)} />
         </div>
     );
@@ -105,10 +108,4 @@ SyntaxHighlighter.propTypes = {
     }),
 };
 
-SyntaxHighlighter.defaultProps = {
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
-};
+SyntaxHighlighter.defaultProps = {};

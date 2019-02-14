@@ -220,7 +220,7 @@ class PlotlyGraph extends Component {
             <div
                 key={id}
                 id={id}
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 style={style}
                 className={className}
             />
@@ -554,11 +554,6 @@ const graphDefaultProps = {
         plotGlPixelRatio: 2,
         topojsonURL: 'https://cdn.plot.ly/',
         mapboxAccessToken: null,
-    },
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
     },
 };
 

@@ -112,7 +112,7 @@ export default class DatePickerSingle extends Component {
                 id={id}
                 style={DatePickerWrapperStyles}
                 className={className}
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
             >
                 <SingleDatePicker
                     date={date}
@@ -320,9 +320,4 @@ DatePickerSingle.defaultProps = {
     reopen_calendar_on_clear: false,
     clearable: false,
     disabled: false,
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };

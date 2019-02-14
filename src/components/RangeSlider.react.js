@@ -22,7 +22,7 @@ export default class RangeSlider extends Component {
         const {value} = this.state;
         return (
             <Range
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 onChange={value => {
                     this.setState({value});
                     if (updatemode === 'drag') {
@@ -177,9 +177,4 @@ RangeSlider.propTypes = {
 
 RangeSlider.defaultProps = {
     updatemode: 'mouseup',
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };

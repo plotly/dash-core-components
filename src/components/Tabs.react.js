@@ -48,7 +48,7 @@ const EnhancedTab = ({
     }
     return (
         <div
-            data-dash-is-loading={loading_state.is_loading}
+            data-dash-is-loading={loading_state && loading_state.is_loading}
             className={tabClassName}
             id={id}
             style={tabStyle}
@@ -263,7 +263,10 @@ export default class Tabs extends Component {
 
         return (
             <div
-                data-dash-is-loading={this.props.loading_state.is_loading}
+                data-dash-is-loading={
+                    this.props.loading_state &&
+                    this.props.loading_state.is_loading
+                }
                 className={`${tabParentClass} ${this.props.parent_className ||
                     ''}`}
                 style={this.props.parent_style}
@@ -338,11 +341,6 @@ Tabs.defaultProps = {
         border: '#d6d6d6',
         primary: '#1975FA',
         background: '#f9f9f9',
-    },
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
     },
     vertical: false,
 };

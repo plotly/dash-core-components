@@ -51,7 +51,7 @@ export default class LogoutButton extends React.Component {
 
         return (
             <form
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
                 action={url}
                 method={submitMethod}
                 className="dash-logout-frame"
@@ -72,11 +72,6 @@ export default class LogoutButton extends React.Component {
 LogoutButton.defaultProps = {
     label: 'Logout',
     method: 'post',
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };
 
 LogoutButton.propTypes = {

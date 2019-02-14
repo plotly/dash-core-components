@@ -67,7 +67,7 @@ export default class Dropdown extends Component {
             <div
                 id={id}
                 style={style}
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
             >
                 <ReactDropdown
                     filterOptions={filterOptions}
@@ -208,9 +208,4 @@ Dropdown.defaultProps = {
     disabled: false,
     multi: false,
     searchable: true,
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };

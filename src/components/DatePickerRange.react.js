@@ -136,7 +136,7 @@ export default class DatePickerRange extends Component {
                 id={id}
                 style={DatePickerWrapperStyles}
                 className={className}
-                data-dash-is-loading={loading_state.is_loading}
+                data-dash-is-loading={loading_state && loading_state.is_loading}
             >
                 <DateRangePicker
                     daySize={day_size}
@@ -386,9 +386,4 @@ DatePickerRange.defaultProps = {
     clearable: false,
     disabled: false,
     updatemode: 'singledate',
-    loading_state: {
-        is_loading: false,
-        component_name: '',
-        prop_name: '',
-    },
 };
