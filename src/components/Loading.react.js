@@ -37,11 +37,7 @@ export default class Loading extends Component {
             type,
         } = this.props;
 
-        let isLoading = R.isNil(loading_state)
-            ? false
-            : loading_state.is_loading;
-
-        isLoading = getLoadingStateInChildren(this.props.children, isLoading);
+        const isLoading = getLoadingState(this);
 
         if (isLoading) {
             const Spinner = getSpinner(type);
@@ -131,31 +127,22 @@ Loading.propTypes = {
     }),
 };
 
-function getLoadingStateInChildren(children, isLoading) {
-    if (!Array.isArray(children)) {
-        children = [children];
+function getLoadingState(element) {
+    if (
+        element.props &&
+        element.props.loading_state &&
+        element.props.loading_state.is_loading
+    ) {
+        return true;
     }
-    for (let i = 0; i < children.length; i++) {
-        const child = children[i];
-        // If we found another Loading component, we break,
-        // because the next Loading component will take care of it's
-        // own children
-        if (child.type === Loading) {
-            break;
-        }
-        if (
-            child.props &&
-            child.props.loading_state &&
-            child.props.loading_state.is_loading
-        ) {
-            isLoading = true;
-        }
-        if (child.props && child.props.children) {
-            isLoading = getLoadingStateInChildren(
-                child.props.children,
-                isLoading
-            );
-        }
+
+    const children = element.props && element.props.children;
+    if (!children) {
+        return false;
     }
-    return isLoading;
+
+    return R.any(
+        child => child.type !== Loading && getLoadingState(child),
+        Array.isArray(children) ? children : [children]
+    );
 }
