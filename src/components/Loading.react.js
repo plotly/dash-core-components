@@ -37,13 +37,13 @@ export default class Loading extends Component {
             type,
         } = this.props;
 
-        const initial_loading_state = R.isNil(loading_state)
+        let isLoading = R.isNil(loading_state)
             ? false
             : loading_state.is_loading;
 
-        const isLoading = getLoadingStateInChildren(
+        isLoading = getLoadingStateInChildren(
             this.props.children,
-            initial_loading_state
+            isLoading
         );
 
         if (isLoading) {
@@ -134,11 +134,10 @@ Loading.propTypes = {
     }),
 };
 
-function getLoadingStateInChildren(children, initial_loading_state) {
+function getLoadingStateInChildren(children, isLoading) {
     if (!Array.isArray(children)) {
         children = [children];
     }
-    let isLoading = initial_loading_state;
     for (let i = 0; i < children.length; i++) {
         const child = children[i];
         // If we found another Loading component, we break,
