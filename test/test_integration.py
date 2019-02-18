@@ -1304,7 +1304,7 @@ class Tests(IntegrationTests):
 
         self.startServer(app)
 
-        graph = wait_for.wait_for_element_by_css_selector(
+        graph = self.wait_for_element_by_css_selector(
             self.driver, '#trace_will_extend')
 
         comparison = json.dumps(
@@ -1314,7 +1314,7 @@ class Tests(IntegrationTests):
             )
         )
 
-        output = wait_for.wait_for_text_to_equal(self.driver, '#output', comparison)
+        output = self.wait_for_text_to_equal(self.driver, '#output', comparison)
 
     def test_extend_then_add_trace(self):
         app = dash.Dash(__name__)
@@ -1361,7 +1361,7 @@ class Tests(IntegrationTests):
 
         self.startServer(app)
 
-        graph = wait_for.wait_for_element_by_css_selector(
+        graph = self.wait_for_element_by_css_selector(
             self.driver, '#trace_will_extend_and_add')
 
         comparison = json.dumps([
@@ -1375,7 +1375,7 @@ class Tests(IntegrationTests):
             )
         ])
 
-        wait_for.wait_for_text_to_equal(self.driver, '#output', comparison)
+        self.wait_for_text_to_equal(self.driver, '#output', comparison)
 
     def test_storage_component(self):
         app = dash.Dash(__name__)
