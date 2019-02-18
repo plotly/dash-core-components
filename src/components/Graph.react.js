@@ -109,6 +109,43 @@ class PlotlyGraph extends Component {
         );
     }
 
+    extend(props) {
+        const {id, extendData} = props;
+        const gd = document.getElementById(id);
+
+        if (extendData) {
+            if (gd.data.length < 1)  {
+                // figure has no pre-existing data. redirect to plot()
+                props.figure.data = extendData
+                return this.plot(props)
+            }
+
+            var x = [];
+            var y = [];
+            var trace_order = []
+            for (var i = 0; i < Math.min(gd.data.length, extendData.length); i++) {
+                trace_order.push(i)
+                x.push(extendData[i].x)
+                y.push(extendData[i].y)
+            }
+
+            if (extendData.length > gd.data.length) {
+                Plotly.extendTraces(id, {x: x, y: y}, trace_order).then(
+                    () => {
+                            // extendData contains more traces than the figure.
+                            // after extending, add the remaining traces to the figure
+                            return Plotly.addTraces(id, extendData.slice(gd.data.length, extendData.length))
+                    }
+                );
+            }
+            else {
+                return Plotly.extendTraces(id, {x: x, y: y}, trace_order)
+            }
+        }
+
+        return this.plot(props)
+    }
+
     bindEvents() {
         const {id, setProps, clear_on_unhover} = this.props;
 
@@ -260,6 +297,12 @@ const graphPropTypes = {
      * when the user zooms or pans on the plot
      */
     relayoutData: PropTypes.object,
+
+    /**
+    * Data that should be appended to existing traces in the Graph figure
+    * Same format as the `data` array of the figure property.
+    */
+    extendData: PropTypes.array,
 
     /**
      * Plotly `figure` object. See schema:
@@ -480,6 +523,7 @@ const graphDefaultProps = {
     hoverData: null,
     selectedData: null,
     relayoutData: null,
+    extendData: null,
     figure: {data: [], layout: {}},
     animate: false,
     animation_options: {
