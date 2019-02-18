@@ -242,6 +242,12 @@ class PlotlyGraph extends Component {
         if (figureChanged) {
             this.plot(nextProps);
         }
+
+        const extendDataChanged = this.props.extendData !== nextProps.extendData;
+
+        if (extendDataChanged) {
+            this.extend(nextProps)
+        }
     }
 
     componentDidUpdate(prevProps) {

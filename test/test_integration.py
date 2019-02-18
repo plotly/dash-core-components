@@ -1267,8 +1267,6 @@ class Tests(IntegrationTests):
     def test_extend_trace(self):
         app = dash.Dash(__name__)
 
-        app.scripts.config.serve_locally = True
-        app.css.config.serve_locally = True
         app.layout = html.Div([
             dcc.Graph(
                 id='trace_will_extend',
@@ -1305,7 +1303,7 @@ class Tests(IntegrationTests):
         self.startServer(app)
 
         graph = self.wait_for_element_by_css_selector(
-            self.driver, '#trace_will_extend')
+            '#trace_will_extend')
 
         comparison = json.dumps(
             dict(
@@ -1314,13 +1312,11 @@ class Tests(IntegrationTests):
             )
         )
 
-        output = self.wait_for_text_to_equal(self.driver, '#output', comparison)
+        output = self.wait_for_text_to_equal('#output', comparison)
 
     def test_extend_then_add_trace(self):
         app = dash.Dash(__name__)
 
-        app.scripts.config.serve_locally = True
-        app.css.config.serve_locally = True
         app.layout = html.Div([
             dcc.Graph(
                 id='trace_will_extend_and_add',
@@ -1362,7 +1358,7 @@ class Tests(IntegrationTests):
         self.startServer(app)
 
         graph = self.wait_for_element_by_css_selector(
-            self.driver, '#trace_will_extend_and_add')
+            '#trace_will_extend_and_add')
 
         comparison = json.dumps([
             dict(
@@ -1375,7 +1371,7 @@ class Tests(IntegrationTests):
             )
         ])
 
-        self.wait_for_text_to_equal(self.driver, '#output', comparison)
+        self.wait_for_text_to_equal('#output', comparison)
 
     def test_storage_component(self):
         app = dash.Dash(__name__)
