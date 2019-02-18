@@ -114,36 +114,40 @@ class PlotlyGraph extends Component {
         const gd = document.getElementById(id);
 
         if (extendData) {
-            if (gd.data.length < 1)  {
+            if (gd.data.length < 1) {
                 // figure has no pre-existing data. redirect to plot()
-                props.figure.data = extendData
-                return this.plot(props)
+                props.figure.data = extendData;
+                return this.plot(props);
             }
 
             var x = [];
             var y = [];
-            var trace_order = []
-            for (var i = 0; i < Math.min(gd.data.length, extendData.length); i++) {
-                trace_order.push(i)
-                x.push(extendData[i].x)
-                y.push(extendData[i].y)
+            var trace_order = [];
+            for (
+                var i = 0;
+                i < Math.min(gd.data.length, extendData.length);
+                i++
+            ) {
+                trace_order.push(i);
+                x.push(extendData[i].x);
+                y.push(extendData[i].y);
             }
 
             if (extendData.length > gd.data.length) {
-                Plotly.extendTraces(id, {x: x, y: y}, trace_order).then(
-                    () => {
-                            // extendData contains more traces than the figure.
-                            // after extending, add the remaining traces to the figure
-                            return Plotly.addTraces(id, extendData.slice(gd.data.length, extendData.length))
-                    }
-                );
-            }
-            else {
-                return Plotly.extendTraces(id, {x: x, y: y}, trace_order)
+                Plotly.extendTraces(id, {x: x, y: y}, trace_order).then(() => {
+                    // extendData contains more traces than the figure.
+                    // after extending, add the remaining traces to the figure
+                    return Plotly.addTraces(
+                        id,
+                        extendData.slice(gd.data.length, extendData.length)
+                    );
+                });
+            } else {
+                return Plotly.extendTraces(id, {x: x, y: y}, trace_order);
             }
         }
 
-        return this.plot(props)
+        return this.plot(props);
     }
 
     bindEvents() {
@@ -243,10 +247,11 @@ class PlotlyGraph extends Component {
             this.plot(nextProps);
         }
 
-        const extendDataChanged = this.props.extendData !== nextProps.extendData;
+        const extendDataChanged =
+            this.props.extendData !== nextProps.extendData;
 
         if (extendDataChanged) {
-            this.extend(nextProps)
+            this.extend(nextProps);
         }
     }
 
@@ -305,9 +310,9 @@ const graphPropTypes = {
     relayoutData: PropTypes.object,
 
     /**
-    * Data that should be appended to existing traces in the Graph figure
-    * Same format as the `data` array of the figure property.
-    */
+     * Data that should be appended to existing traces in the Graph figure
+     * Same format as the `data` array of the figure property.
+     */
     extendData: PropTypes.array,
 
     /**
