@@ -52,7 +52,7 @@ jobs:
     'python-3.6':
         <<: *test-template
         docker:
-            - image: circleci/python:3.6.7-stretch-node-browsers
+            - image: circleci/python:3.6-stretch-node-browsers
               environment:
                   PYTHON_VERSION: py36
                   PERCY_ENABLE: 0
