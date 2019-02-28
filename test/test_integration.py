@@ -1124,118 +1124,118 @@ class Tests(IntegrationTests):
         # same element check for same text will always be true.
         self.assertEqual(output.text, output_stopped.text)
 
-    # def _test_confirm(self, app, test_name, add_callback=True):
-    #     count = Value('i', 0)
+    def _test_confirm(self, app, test_name, add_callback=True):
+        count = Value('i', 0)
 
-    #     if add_callback:
-    #         @app.callback(Output('confirmed', 'children'),
-    #                       [Input('confirm', 'submit_n_clicks'),
-    #                        Input('confirm', 'cancel_n_clicks')],
-    #                       [State('confirm', 'submit_n_clicks_timestamp'),
-    #                        State('confirm', 'cancel_n_clicks_timestamp')])
-    #         def _on_confirmed(submit_n_clicks, cancel_n_clicks,
-    #                           submit_timestamp, cancel_timestamp):
-    #             if not submit_n_clicks and not cancel_n_clicks:
-    #                 return ''
-    #             count.value += 1
-    #             if (submit_timestamp and cancel_timestamp is None) or\
-    #                     (submit_timestamp > cancel_timestamp):
-    #                 return 'confirmed'
-    #             else:
-    #                 return 'canceled'
+        if add_callback:
+            @app.callback(Output('confirmed', 'children'),
+                          [Input('confirm', 'submit_n_clicks'),
+                           Input('confirm', 'cancel_n_clicks')],
+                          [State('confirm', 'submit_n_clicks_timestamp'),
+                           State('confirm', 'cancel_n_clicks_timestamp')])
+            def _on_confirmed(submit_n_clicks, cancel_n_clicks,
+                              submit_timestamp, cancel_timestamp):
+                if not submit_n_clicks and not cancel_n_clicks:
+                    return ''
+                count.value += 1
+                if (submit_timestamp and cancel_timestamp is None) or\
+                        (submit_timestamp > cancel_timestamp):
+                    return 'confirmed'
+                else:
+                    return 'canceled'
 
-    #     self.startServer(app)
-    #     self.snapshot(test_name + ' -> initial')
-    #     button = self.wait_for_element_by_css_selector('#button')
+        self.startServer(app)
+        self.snapshot(test_name + ' -> initial')
+        button = self.wait_for_element_by_css_selector('#button')
 
-    #     button.click()
-    #     time.sleep(1)
-    #     self.driver.switch_to.alert.accept()
+        button.click()
+        time.sleep(1)
+        self.driver.switch_to.alert.accept()
 
-    #     if add_callback:
-    #         self.wait_for_text_to_equal('#confirmed', 'confirmed')
-    #         self.snapshot(test_name + ' -> confirmed')
+        if add_callback:
+            self.wait_for_text_to_equal('#confirmed', 'confirmed')
+            self.snapshot(test_name + ' -> confirmed')
 
-    #     button.click()
-    #     time.sleep(0.5)
-    #     self.driver.switch_to.alert.dismiss()
-    #     time.sleep(0.5)
+        button.click()
+        time.sleep(0.5)
+        self.driver.switch_to.alert.dismiss()
+        time.sleep(0.5)
 
-    #     if add_callback:
-    #         self.wait_for_text_to_equal('#confirmed', 'canceled')
-    #         self.snapshot(test_name + ' -> canceled')
+        if add_callback:
+            self.wait_for_text_to_equal('#confirmed', 'canceled')
+            self.snapshot(test_name + ' -> canceled')
 
-    #     if add_callback:
-    #         self.assertEqual(2, count.value,
-    #                          'Expected 2 callback but got ' + str(count.value))
+        if add_callback:
+            self.assertEqual(2, count.value,
+                             'Expected 2 callback but got ' + str(count.value))
 
-    # def test_confirm(self):
-    #     app = dash.Dash(__name__)
+    def test_confirm(self):
+        app = dash.Dash(__name__)
 
-    #     app.layout = html.Div([
-    #         html.Button(id='button', children='Send confirm', n_clicks=0),
-    #         dcc.ConfirmDialog(id='confirm', message='Please confirm.'),
-    #         html.Div(id='confirmed')
-    #     ])
+        app.layout = html.Div([
+            html.Button(id='button', children='Send confirm', n_clicks=0),
+            dcc.ConfirmDialog(id='confirm', message='Please confirm.'),
+            html.Div(id='confirmed')
+        ])
 
-    #     @app.callback(Output('confirm', 'displayed'),
-    #                   [Input('button', 'n_clicks')])
-    #     def on_click_confirm(n_clicks):
-    #         if n_clicks:
-    #             return True
+        @app.callback(Output('confirm', 'displayed'),
+                      [Input('button', 'n_clicks')])
+        def on_click_confirm(n_clicks):
+            if n_clicks:
+                return True
 
-    #     self._test_confirm(app, 'ConfirmDialog')
+        self._test_confirm(app, 'ConfirmDialog')
 
-    # def test_confirm_dialog_provider(self):
-    #     app = dash.Dash(__name__)
+    def test_confirm_dialog_provider(self):
+        app = dash.Dash(__name__)
 
-    #     app.layout = html.Div([
-    #         dcc.ConfirmDialogProvider(
-    #             html.Button('click me', id='button'),
-    #             id='confirm', message='Please confirm.'),
-    #         html.Div(id='confirmed')
-    #     ])
+        app.layout = html.Div([
+            dcc.ConfirmDialogProvider(
+                html.Button('click me', id='button'),
+                id='confirm', message='Please confirm.'),
+            html.Div(id='confirmed')
+        ])
 
-    #     self._test_confirm(app, 'ConfirmDialogProvider')
+        self._test_confirm(app, 'ConfirmDialogProvider')
 
-    # def test_confirm_without_callback(self):
-    #     app = dash.Dash(__name__)
-    #     app.layout = html.Div([
-    #         dcc.ConfirmDialogProvider(
-    #             html.Button('click me', id='button'),
-    #             id='confirm', message='Please confirm.'),
-    #         html.Div(id='confirmed')
-    #     ])
-    #     self._test_confirm(app, 'ConfirmDialogProviderWithoutCallback',
-    #                        add_callback=False)
+    def test_confirm_without_callback(self):
+        app = dash.Dash(__name__)
+        app.layout = html.Div([
+            dcc.ConfirmDialogProvider(
+                html.Button('click me', id='button'),
+                id='confirm', message='Please confirm.'),
+            html.Div(id='confirmed')
+        ])
+        self._test_confirm(app, 'ConfirmDialogProviderWithoutCallback',
+                           add_callback=False)
 
-    # def test_confirm_as_children(self):
-    #     app = dash.Dash(__name__)
+    def test_confirm_as_children(self):
+        app = dash.Dash(__name__)
 
-    #     app.layout = html.Div([
-    #         html.Button(id='button', children='Send confirm'),
-    #         html.Div(id='confirm-container'),
-    #         dcc.Location(id='dummy-location')
-    #     ])
+        app.layout = html.Div([
+            html.Button(id='button', children='Send confirm'),
+            html.Div(id='confirm-container'),
+            dcc.Location(id='dummy-location')
+        ])
 
-    #     @app.callback(Output('confirm-container', 'children'),
-    #                   [Input('button', 'n_clicks')])
-    #     def on_click(n_clicks):
-    #         if n_clicks:
-    #             return dcc.ConfirmDialog(
-    #                 displayed=True,
-    #                 id='confirm',
-    #                 key='confirm-{}'.format(time.time()),
-    #                 message='Please confirm.')
+        @app.callback(Output('confirm-container', 'children'),
+                      [Input('button', 'n_clicks')])
+        def on_click(n_clicks):
+            if n_clicks:
+                return dcc.ConfirmDialog(
+                    displayed=True,
+                    id='confirm',
+                    key='confirm-{}'.format(time.time()),
+                    message='Please confirm.')
 
-    #     self.startServer(app)
+        self.startServer(app)
 
-    #     button = self.wait_for_element_by_css_selector('#button')
+        button = self.wait_for_element_by_css_selector('#button')
 
-    #     button.click()
-    #     time.sleep(2)
+        button.click()
+        time.sleep(2)
 
-    #     self.driver.switch_to.alert.accept()
+        self.driver.switch_to.alert.accept()
 
     def test_empty_graph(self):
         app = dash.Dash(__name__)
