@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
      - Orthographic 3D projections
      - Hovertemplate support for more trace types, including all 3D traces 
      - And many other features and bug fixes
-  - Patch releases [1.44.4](https://github.com/plotly/plotly.js/releases/tag/v1.44.4) containing numerous bug fixes
+  - Patch release [1.44.4](https://github.com/plotly/plotly.js/releases/tag/v1.44.4) containing numerous bug fixes
 
 
 ## [0.43.1] - 2019-02-11
