@@ -48,7 +48,7 @@ const EnhancedTab = ({
     }
     return (
         <div
-            data-dash-is-loading={loading_state && loading_state.is_loading}
+            data-dash-is-loading={(loading_state && loading_state.is_loading) || undefined}
             className={tabClassName}
             id={id}
             style={tabStyle}
@@ -202,11 +202,11 @@ export default class Tabs extends Component {
                     // props we want are lying a bit deeper - which means they
                     // are coming from Dash
                     R.isNil(child.props.disabled) &&
-                    child.props.children &&
-                    child.props.children.props
+                    child.props.__dashlayout__ &&
+                    child.props.__dashlayout__.props
                 ) {
                     // props are coming from Dash
-                    childProps = child.props.children.props;
+                    childProps = child.props.__dashlayout__.props;
                 } else {
                     // else props are coming from React (Demo.react.js, or Tabs.test.js)
                     childProps = child.props;
@@ -220,6 +220,7 @@ export default class Tabs extends Component {
                 if (childProps.value === this.state.selected) {
                     selectedTab = child;
                 }
+
                 return (
                     <EnhancedTab
                         key={index}
