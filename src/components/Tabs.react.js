@@ -48,7 +48,9 @@ const EnhancedTab = ({
     }
     return (
         <div
-            data-dash-is-loading={(loading_state && loading_state.is_loading) || undefined}
+            data-dash-is-loading={
+                (loading_state && loading_state.is_loading) || undefined
+            }
             className={tabClassName}
             id={id}
             style={tabStyle}
