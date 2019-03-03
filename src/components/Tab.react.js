@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Fragment from 'react-dot-fragment';
 
-const Tab = ({ children }) => <Fragment>{children}</Fragment>;
+const Tab = ({children}) => <Fragment>{children}</Fragment>;
 
 /**
  * Part of dcc.Tabs - this is the child Tab component used to render a tabbed page.

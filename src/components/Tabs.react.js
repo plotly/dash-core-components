@@ -248,9 +248,7 @@ export default class Tabs extends Component {
             });
         }
 
-        const selectedTabContent = !R.isNil(selectedTab)
-            ? selectedTab
-            : '';
+        const selectedTabContent = !R.isNil(selectedTab) ? selectedTab : '';
 
         const tabContainerClass = this.props.vertical
             ? 'tab-container tab-container--vert'
