@@ -249,7 +249,7 @@ export default class Tabs extends Component {
         }
 
         const selectedTabContent = !R.isNil(selectedTab)
-            ? selectedTab.props.children
+            ? selectedTab
             : '';
 
         const tabContainerClass = this.props.vertical
