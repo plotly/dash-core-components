@@ -57,6 +57,10 @@ export default class ConfirmDialog extends Component {
         this._update();
     }
 
+    componentDidMount() {
+        this._update();
+    }
+
     render() {
         return null;
     }
