@@ -26,23 +26,18 @@ jobs:
             - run:
                 name: Install dependencies (dash)
                 command: |
-                    . venv/bin/activate
                     git clone git@github.com:plotly/dash.git
-                    pip install -e ./dash --quiet
                     git clone git@github.com:plotly/dash-renderer.git
-                    cd dash-renderer && npm install --ignore-scripts && cd ..
-                    cd dash-renderer && npm run build && cd ..
-                    pip uninstall dash-renderer -y
-                    pip install -e ./dash-renderer --quiet
                     git clone git@github.com:plotly/dash-html-components.git
-                    cd dash-html-components && npm install --ignore-scripts && cd ..
-                    cd dash-html-components && npm run build && cd ..
-                    pip uninstall dash-html-components -y
-                    pip install -e ./dash-html-components --quiet
                     git clone git@github.com:plotly/dash-table.git
-                    cd dash-table && npm install --ignore-scripts && cd ..
-                    cd dash-table && npm run build && cd ..
-                    pip uninstall dash-table -y
+                    . venv/bin/activate
+                    pip install -e ./dash --quiet
+                    cd dash-renderer && npm install --ignore-scripts && npm run build && cd ..
+                    cd dash-core-components && npm install --ignore-scripts && npm run build && cd ..
+                    cd dash-html-components && npm install --ignore-scripts && npm run build && cd ..
+                    pip uninstall dash-renderer dash-html-components dash-table -y
+                    pip install -e ./dash-renderer --quiet
+                    pip install -e ./dash-html-components --quiet
                     pip install -e ./dash-table --quiet
 
             - run:
