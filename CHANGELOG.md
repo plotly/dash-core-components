@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [Unreleased]
+### Added
+- Loading component [#267](https://github.com/plotly/dash/issues/267)
+
 ### Updated
 - Upgraded plotly.js to 1.45.0 [#470](https://github.com/plotly/dash-core-components/pull/470)
   - [Feature release 1.45.0](https://github.com/plotly/plotly.js/releases/tag/v1.45.0) which contains:
@@ -11,10 +14,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
      - Matching cartesian axes
      - Better bar, box, and violin alignment control
      - Orthographic 3D projections
-     - Hovertemplate support for more trace types, including all 3D traces 
+     - Hovertemplate support for more trace types, including all 3D traces
      - And many other features and bug fixes
   - Patch release [1.44.4](https://github.com/plotly/plotly.js/releases/tag/v1.44.4) containing numerous bug fixes
-
 
 ## [0.43.1] - 2019-02-11
 ### Updated
