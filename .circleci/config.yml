@@ -40,7 +40,6 @@ jobs:
                   command: |
                       . venv/bin/activate
                       npm run build
-                      pip uninstall dash-core-components -y
                       pip install -e . --quiet
                       pip list | grep dash
 
