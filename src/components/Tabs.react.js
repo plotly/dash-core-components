@@ -204,11 +204,11 @@ export default class Tabs extends Component {
                     // props we want are lying a bit deeper - which means they
                     // are coming from Dash
                     R.isNil(child.props.disabled) &&
-                    child.props.__dashlayout__ &&
-                    child.props.__dashlayout__.props
+                    child.props._dashprivate_layout &&
+                    child.props._dashprivate_layout.props
                 ) {
                     // props are coming from Dash
-                    childProps = child.props.__dashlayout__.props;
+                    childProps = child.props._dashprivate_layout.props;
                 } else {
                     // else props are coming from React (Demo.react.js, or Tabs.test.js)
                     childProps = child.props;

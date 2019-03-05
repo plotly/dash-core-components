@@ -34,7 +34,7 @@ export default class ConfirmDialogProvider extends React.Component {
         // Will lose the previous onClick of the child
         const wrapClick = child => {
             const props = clone(child.props);
-            props.__dashlayout__.props.onClick = () => {
+            props._dashprivate_layout.props.onClick = () => {
                 const update = {displayed: true};
                 this.setState(update);
                 if (setProps) {
