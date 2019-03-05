@@ -1,5 +1,3 @@
-git+git://github.com/plotly/dash@master#egg=dash
-dash_renderer-0.20.0rc1.tar.gz
 percy
 selenium
 pandas

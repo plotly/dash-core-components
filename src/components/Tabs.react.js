@@ -265,8 +265,9 @@ export default class Tabs extends Component {
         return (
             <div
                 data-dash-is-loading={
-                    this.props.loading_state &&
-                    this.props.loading_state.is_loading
+                    (this.props.loading_state &&
+                        this.props.loading_state.is_loading) ||
+                    undefined
                 }
                 className={`${tabParentClass} ${this.props.parent_className ||
                     ''}`}
