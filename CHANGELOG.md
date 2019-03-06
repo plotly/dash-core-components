@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Updated
+- Upgraded `react-markdown` third party library from 2.4.5 to [4.0.6](https://github.com/rexxars/react-markdown/blob/master/CHANGELOG.md#406---2019-01-04)
 
 ## [0.44.0] - 2019-03-04
 ### Added
