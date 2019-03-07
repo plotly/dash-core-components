@@ -356,13 +356,13 @@ class Tests(IntegrationTests):
                       id='disabled-textinput', disabled=True),
 
             html.Label('Slider'),
-            html.Div(children=[dcc.Slider(
+            dcc.Slider(
                 min=0,
                 max=9,
                 marks={i: 'Label {}'.format(i) if i == 1 else str(i)
                        for i in range(1, 6)},
                 value=5,
-            )], style={'height': '500px'}),
+            ),
 
             html.Label('Graph'),
             dcc.Graph(
@@ -502,7 +502,6 @@ class Tests(IntegrationTests):
         dt_input_3 = self.driver.find_element_by_css_selector(
             '#dt-range-no-date-values #endDate'
         )
-
         dt_input_3.click()
         self.snapshot('gallery - DatePickerRange\'s datepicker '
                       'when neither start date nor end date '
