@@ -338,7 +338,7 @@ class Tests(IntegrationTests):
 
             html.Label('Vertical Slider'),
             dcc.Slider(
-                id='vertical-slider'
+                id='vertical-slider',
                 min=0,
                 max=9,
                 marks={i: 'Label {}'.format(i) if i == 1 else str(i)
