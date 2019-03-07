@@ -51,7 +51,7 @@ class IntegrationTests(unittest.TestCase):
 
         options = Options()
         capabilities = DesiredCapabilities.CHROME
-        capabilities['loggingPrefs'] = { 'browser':'SEVERE' }
+        capabilities['loggingPrefs'] = {'browser': 'SEVERE'}
 
         if 'DASH_TEST_CHROMEPATH' in os.environ:
             options.binary_location = os.environ['DASH_TEST_CHROMEPATH']
