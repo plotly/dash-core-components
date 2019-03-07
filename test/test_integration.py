@@ -217,6 +217,34 @@ class Tests(IntegrationTests):
 
         self.snapshot('test_upload_gallery')
 
+    def test_vertical_slider(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label('Vertical Slider'),
+            dcc.Slider(
+                id='vertical-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=5,
+                vertical=True,
+            ),
+        ], style={'height': '500px'})
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector('#vertical-slider')
+        self.snapshot('vertical slider')
+
+        v_slider = self.driver.find_element_by_css_selector(
+            '#vertical-slider div[role="slider"]'
+        )
+        v_slider.click()
+
+        for entry in self.log_facade.get_log():
+            raise Exception('browser error logged during test', entry)
+
     def test_gallery(self):
         app = dash.Dash(__name__)
 
@@ -335,17 +363,6 @@ class Tests(IntegrationTests):
                        for i in range(1, 6)},
                 value=5,
             )], style={'height': '500px'}),
-
-            html.Label('Vertical Slider'),
-            dcc.Slider(
-                id='vertical-slider',
-                min=0,
-                max=9,
-                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
-                       for i in range(1, 6)},
-                value=5,
-                vertical=True,
-            ),
 
             html.Label('Graph'),
             dcc.Graph(
@@ -485,6 +502,7 @@ class Tests(IntegrationTests):
         dt_input_3 = self.driver.find_element_by_css_selector(
             '#dt-range-no-date-values #endDate'
         )
+
         dt_input_3.click()
         self.snapshot('gallery - DatePickerRange\'s datepicker '
                       'when neither start date nor end date '
@@ -499,12 +517,6 @@ class Tests(IntegrationTests):
                       'when neither start date nor end date is specified, '
                       'but initial month is')
         dt_input_4.send_keys("1997-05-03")
-
-        v_slider = self.driver.find_element_by_css_selector(
-            '#vertical-slider div[role="slider"]'
-        )
-        v_slider.click()
-        self.snapshot('gallery - Vertical Slider')
 
     def test_tabs_in_vertical_mode(self):
         app = dash.Dash(__name__)

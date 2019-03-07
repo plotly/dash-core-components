@@ -11,6 +11,36 @@ import requests
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+
+class WebdriverLogFacade(object):
+
+    last_timestamp = 0
+
+    def __init__(self, webdriver):
+        self._webdriver = webdriver
+
+    def get_log(self):
+        last_timestamp = self.last_timestamp
+        entries = self._webdriver.get_log("browser")
+        filtered = []
+
+        for entry in entries:
+            # check the logged timestamp against the
+            # stored timestamp
+            if entry["timestamp"] > self.last_timestamp:
+                filtered.append(entry)
+
+                # save the last timestamp only if newer
+                # in this set of logs
+                if entry["timestamp"] > last_timestamp:
+                    last_timestamp = entry["timestamp"]
+
+        # store the very last timestamp
+        self.last_timestamp = last_timestamp
+
+        return filtered
 
 
 class IntegrationTests(unittest.TestCase):
@@ -20,11 +50,13 @@ class IntegrationTests(unittest.TestCase):
         super(IntegrationTests, cls).setUpClass()
 
         options = Options()
+        capabilities = DesiredCapabilities.CHROME
+        capabilities['loggingPrefs'] = { 'browser':'SEVERE' }
 
         if 'DASH_TEST_CHROMEPATH' in os.environ:
             options.binary_location = os.environ['DASH_TEST_CHROMEPATH']
 
-        cls.driver = webdriver.Chrome(chrome_options=options)
+        cls.driver = webdriver.Chrome(options=options, desired_capabilities=capabilities)
         loader = percy.ResourceLoader(
             webdriver=cls.driver,
             base_url='/assets',
@@ -32,6 +64,7 @@ class IntegrationTests(unittest.TestCase):
         )
         cls.percy_runner = percy.Runner(loader=loader)
         cls.percy_runner.initialize_build()
+        cls.log_facade = WebdriverLogFacade(cls.driver)
 
     @classmethod
     def tearDownClass(cls):
@@ -47,7 +80,8 @@ class IntegrationTests(unittest.TestCase):
             requests.get('http://localhost:8050/stop')
         else:
             self.server_process.terminate()
-        self.driver.back()
+
+        self.log_facade.get_log()
         time.sleep(1)
 
     def startServer(self, app):
@@ -102,29 +136,3 @@ class IntegrationTests(unittest.TestCase):
 
         # Visit the dash page
         self.driver.get('http://localhost:8050')
-
-        # Inject an error and warning logger
-        logger = '''
-        window.tests = {};
-        window.tests.console = {error: [], warn: [], log: []};
-
-        var _log = console.log;
-        var _warn = console.warn;
-        var _error = console.error;
-
-        console.log = function() {
-            window.tests.console.log.push({method: 'log', arguments: arguments});
-            return _log.apply(console, arguments);
-        };
-
-        console.warn = function() {
-            window.tests.console.warn.push({method: 'warn', arguments: arguments});
-            return _warn.apply(console, arguments);
-        };
-
-        console.error = function() {
-            window.tests.console.error.push({method: 'error', arguments: arguments});
-            return _error.apply(console, arguments);
-        };
-        '''
-        self.driver.execute_script(logger)
