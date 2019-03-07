@@ -501,7 +501,7 @@ class Tests(IntegrationTests):
         dt_input_4.send_keys("1997-05-03")
 
         v_slider = self.driver.find_element_by_css_selector(
-            '#vertical-slider'
+            '#vertical-slider div[role="slider"]'
         )
         v_slider.click()
         self.snapshot('gallery - Vertical Slider')
