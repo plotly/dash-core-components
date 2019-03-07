@@ -328,12 +328,23 @@ class Tests(IntegrationTests):
                       id='disabled-textinput', disabled=True),
 
             html.Label('Slider'),
-            dcc.Slider(
+            html.Div(children=[dcc.Slider(
                 min=0,
                 max=9,
                 marks={i: 'Label {}'.format(i) if i == 1 else str(i)
                        for i in range(1, 6)},
                 value=5,
+            )], style={'height': '500px'}),
+
+            html.Label('Vertical Slider'),
+            dcc.Slider(
+                id='vertical-slider'
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=5,
+                vertical=True,
             ),
 
             html.Label('Graph'),
@@ -488,6 +499,12 @@ class Tests(IntegrationTests):
                       'when neither start date nor end date is specified, '
                       'but initial month is')
         dt_input_4.send_keys("1997-05-03")
+
+        v_slider = self.driver.find_element_by_css_selector(
+            '#vertical-slider'
+        )
+        v_slider.click()
+        self.snapshot('gallery - Vertical Slider')
 
     def test_tabs_in_vertical_mode(self):
         app = dash.Dash(__name__)
