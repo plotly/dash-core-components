@@ -26,7 +26,7 @@ jobs:
             - run:
                 name: Install dependencies (dash)
                 command: |
-                    git clone -b renderer-setprops-20rc1 git@github.com:plotly/dash.git
+                    git clone  -b renderer-setprops-20rc1 git@github.com:plotly/dash.git
                     git clone -b set-props-callback git@github.com:plotly/dash-renderer.git
                     git clone -b renderer-setprops-20rc1 git@github.com:plotly/dash-html-components.git
                     git clone -b renderer-setprops-20rc1 git@github.com:plotly/dash-table.git
