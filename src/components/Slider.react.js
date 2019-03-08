@@ -26,7 +26,7 @@ export default class Slider extends Component {
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
-                style={{display: 'initial'}}
+                style={{display: 'inline'}}
             >
                 <ReactSlider
                     onChange={value => {
