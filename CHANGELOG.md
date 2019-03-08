@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [unreleased]
 ### Fixed
 - Fix Vertical Slider regression [#479](https://github.com/plotly/dash/issues/479)
 
