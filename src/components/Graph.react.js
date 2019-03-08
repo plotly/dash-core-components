@@ -46,7 +46,7 @@ const filterEventData = (gd, eventData, event) => {
             points[i] = pointData;
         }
         filteredEventData = {points};
-    } else if (event === 'relayout') {
+    } else if ((event === 'relayout') || (event === 'restyle')) {
         /*
          * relayout shouldn't include any big objects
          * it will usually just contain the ranges of the axes like
@@ -160,6 +160,14 @@ class PlotlyGraph extends Component {
                 }
             }
         });
+        gd.on('plotly_restyle', eventData => {
+            const restyleData = filterEventData(gd, eventData, 'restyle');
+            if (!isNil(restyleData)) {
+                if (setProps) {
+                    setProps({restyleData});
+                }
+            }
+        });
         gd.on('plotly_unhover', () => {
             if (clear_on_unhover) {
                 if (setProps) {
@@ -270,6 +278,12 @@ const graphPropTypes = {
      * when the user zooms or pans on the plot
      */
     relayoutData: PropTypes.object,
+
+    /**
+     * Data from latest restyle event which occurs
+     * when the user toggles a legend item
+     */
+    restyleData: PropTypes.object,
 
     /**
      * Plotly `figure` object. See schema:
@@ -508,6 +522,7 @@ const graphDefaultProps = {
     hoverData: null,
     selectedData: null,
     relayoutData: null,
+    restyleData: null,
     figure: {data: [], layout: {}},
     animate: false,
     animation_options: {
