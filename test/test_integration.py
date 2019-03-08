@@ -242,7 +242,7 @@ class Tests(IntegrationTests):
         )
         v_slider.click()
 
-        for entry in self.log_facade.get_log():
+        for entry in self.get_log():
             raise Exception('browser error logged during test', entry)
 
     def test_gallery(self):

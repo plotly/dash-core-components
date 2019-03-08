@@ -14,35 +14,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
-class WebdriverLogFacade(object):
-
-    last_timestamp = 0
-
-    def __init__(self, webdriver):
-        self._webdriver = webdriver
-
-    def get_log(self):
-        last_timestamp = self.last_timestamp
-        entries = self._webdriver.get_log("browser")
-        filtered = []
-
-        for entry in entries:
-            # check the logged timestamp against the
-            # stored timestamp
-            if entry["timestamp"] > self.last_timestamp:
-                filtered.append(entry)
-
-                # save the last timestamp only if newer
-                # in this set of logs
-                if entry["timestamp"] > last_timestamp:
-                    last_timestamp = entry["timestamp"]
-
-        # store the very last timestamp
-        self.last_timestamp = last_timestamp
-
-        return filtered
-
-
 class IntegrationTests(unittest.TestCase):
 
     @classmethod
@@ -64,7 +35,6 @@ class IntegrationTests(unittest.TestCase):
         )
         cls.percy_runner = percy.Runner(loader=loader)
         cls.percy_runner.initialize_build()
-        cls.log_facade = WebdriverLogFacade(cls.driver)
 
     @classmethod
     def tearDownClass(cls):
@@ -81,7 +51,7 @@ class IntegrationTests(unittest.TestCase):
         else:
             self.server_process.terminate()
 
-        self.log_facade.get_log()
+        self.clear_log()
         time.sleep(1)
 
     def startServer(self, app):
@@ -136,3 +106,16 @@ class IntegrationTests(unittest.TestCase):
 
         # Visit the dash page
         self.driver.get('http://localhost:8050')
+
+    def clear_log(self):
+        entries = self.driver.get_log("browser")
+
+        if entries:
+            self.last_timestamp = entries[-1]["timestamp"]
+
+    def get_log(self):
+        entries = self.driver.get_log("browser")
+
+        return [entry for entry in entries if entry["timestamp"] > self.last_timestamp]
+
+    last_timestamp = 0
