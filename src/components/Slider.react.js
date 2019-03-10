@@ -18,12 +18,15 @@ export default class Slider extends Component {
     }
 
     render() {
-        const {id, setProps, updatemode, loading_state} = this.props;
+        const {id, loading_state, setProps, updatemode, vertical} = this.props;
         const {value} = this.state;
         return (
             <div
                 id={id}
-                data-dash-is-loading={loading_state && loading_state.is_loading}
+                data-dash-is-loading={
+                    (loading_state && loading_state.is_loading) || undefined
+                }
+                style={vertical ? {height: '100%'} : {}}
             >
                 <ReactSlider
                     onChange={value => {
