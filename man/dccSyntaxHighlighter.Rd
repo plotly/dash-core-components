@@ -10,10 +10,12 @@ A component for pretty printing code.
 }
 
 \usage{
-dccSyntaxHighlighter(id=NULL, language=NULL, theme=NULL, customStyle=NULL, codeTagProps=NULL, useInlineStyles=NULL, showLineNumbers=NULL, startingLineNumber=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, wrapLines=NULL, lineStyle=NULL, loading_state=NULL, ...)
+dccSyntaxHighlighter(children=NULL, id=NULL, language=NULL, theme=NULL, customStyle=NULL, codeTagProps=NULL, useInlineStyles=NULL, showLineNumbers=NULL, startingLineNumber=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, wrapLines=NULL, lineStyle=NULL, loading_state=NULL)
 }
 
 \arguments{
+\item{children}{The text to display and highlight}
+
 \item{id}{}
 
 \item{language}{the language to highlight code in.}

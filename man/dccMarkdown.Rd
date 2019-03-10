@@ -10,10 +10,12 @@ A component that renders Markdown text as specified by the CommonMark spec.
 }
 
 \usage{
-dccMarkdown(id=NULL, className=NULL, containerProps=NULL, dangerously_allow_html=NULL, loading_state=NULL, ...)
+dccMarkdown(children=NULL, id=NULL, className=NULL, containerProps=NULL, dangerously_allow_html=NULL, loading_state=NULL)
 }
 
 \arguments{
+\item{children}{A markdown string (or array of strings) that adhreres to the CommonMark spec}
+
 \item{id}{}
 
 \item{className}{Class name of the container element}

@@ -10,10 +10,12 @@
 }
 
 \usage{
-dccTab(id=NULL, label=NULL, value=NULL, disabled=NULL, disabled_style=NULL, disabled_className=NULL, className=NULL, selected_className=NULL, style=NULL, selected_style=NULL, loading_state=NULL, ...)
+dccTab(children=NULL, id=NULL, label=NULL, value=NULL, disabled=NULL, disabled_style=NULL, disabled_className=NULL, className=NULL, selected_className=NULL, style=NULL, selected_style=NULL, loading_state=NULL)
 }
 
 \arguments{
+\item{children}{The content of the tab - will only be displayed if this tab is selected}
+
 \item{id}{The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.}
