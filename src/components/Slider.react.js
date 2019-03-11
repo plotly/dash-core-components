@@ -24,7 +24,7 @@ export default class Slider extends Component {
             loading_state,
             setProps,
             updatemode,
-            vertical
+            vertical,
         } = this.props;
         const {value} = this.state;
         return (
@@ -53,7 +53,10 @@ export default class Slider extends Component {
                         }
                     }}
                     value={value}
-                    {...omit(['className', 'setProps', 'updatemode', 'value'], this.props)}
+                    {...omit(
+                        ['className', 'setProps', 'updatemode', 'value'],
+                        this.props
+                    )}
                 />
             </div>
         );
