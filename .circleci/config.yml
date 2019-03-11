@@ -28,7 +28,7 @@ jobs:
                 command: |
                     git clone git@github.com:plotly/dash.git
                     git clone git@github.com:plotly/dash-renderer.git
-                    git clone -b renderer-setprops-20rc1 git@github.com:plotly/dash-html-components.git
+                    git clone github.com:plotly/dash-html-components.git
                     git clone git@github.com:plotly/dash-table.git
                     . venv/bin/activate
                     pip install -e ./dash --quiet
