@@ -3,6 +3,8 @@ import ReactSlider from 'rc-slider';
 import PropTypes from 'prop-types';
 import {omit} from 'ramda';
 
+import 'rc-slider/assets/index.css';
+
 /**
  * A slider component with a single handle.
  */

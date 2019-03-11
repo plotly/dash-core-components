@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {omit} from 'ramda';
 import {Range} from 'rc-slider';
 
+import 'rc-slider/assets/index.css';
+
 /**
  * A double slider with two handles.
  * Used for specifying a range of numerical values.
