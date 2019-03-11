@@ -180,11 +180,6 @@ describe('Tabs handle Tab selection logic', () => {
         const renderedContent = tabs.find(Tab).html();
         expect(renderedContent).toEqual('<div>Tab 2 child</div>');
     });
-    test('Tab without value will still be clickable', () => {
-        tabs.find('[value="tab-2"]').simulate('click');
-        const renderedContent = tabs.find(Tab).html();
-        expect(renderedContent).toEqual('<div>Tab 2 child</div>');
-    });
 });
 describe('Tabs can be used 2 ways', () => {
     test('With Dash callbacks, using setProps()', () => {
