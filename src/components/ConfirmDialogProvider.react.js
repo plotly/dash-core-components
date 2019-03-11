@@ -52,9 +52,10 @@ export default class ConfirmDialogProvider extends React.Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
             >
-                {children && children.length
-                    ? children.map(c => wrapClick(c))
-                    : wrapClick(children)}
+                {Array.isArray(children) ?
+                    children.map(wrapClick) :
+                    wrapClick(children)
+                }
                 <ConfirmDialog {...this.props} displayed={displayed} />
             </div>
         );
