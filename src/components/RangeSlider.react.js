@@ -4,6 +4,7 @@ import {omit} from 'ramda';
 import {Range} from 'rc-slider';
 
 import 'rc-slider/assets/index.css';
+import './css/rc-slider.css';
 
 /**
  * A double slider with two handles.
