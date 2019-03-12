@@ -390,7 +390,8 @@ class Tests(IntegrationTests):
                 ], id='dt-single-no-date-value'
                 ),
                 html.Div([
-                    html.Label('DatePickerSingle - initial visible month (May 97)'),
+                    html.Label(
+                        'DatePickerSingle - initial visible month (May 97)'),
                     dcc.DatePickerSingle(
                         initial_visible_month=datetime(1997, 5, 10)
                     ),
@@ -414,7 +415,8 @@ class Tests(IntegrationTests):
                 ], id='dt-range-no-date-values'
                 ),
                 html.Div([
-                    html.Label('DatePickerRange - initial visible month (May 97)'),
+                    html.Label(
+                        'DatePickerRange - initial visible month (May 97)'),
                     dcc.DatePickerRange(
                         start_date_placeholder_text='Start date',
                         end_date_placeholder_text='End date',
@@ -654,7 +656,8 @@ class Tests(IntegrationTests):
 
         # wait for tabs to be loaded after clicking
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-one .main-svg"))
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, "#graph-one .main-svg"))
         )
 
         time.sleep(1)
@@ -664,7 +667,8 @@ class Tests(IntegrationTests):
 
         # wait for tabs to be loaded after clicking
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-two .main-svg"))
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, "#graph-two .main-svg"))
         )
 
         time.sleep(1)
@@ -692,7 +696,8 @@ class Tests(IntegrationTests):
 
         self.startServer(app=app)
 
-        self.wait_for_text_to_equal('#tabs-content', 'Default selected Tab content 1')
+        self.wait_for_text_to_equal(
+            '#tabs-content', 'Default selected Tab content 1')
 
         self.snapshot('Tab 1 should be selected by default')
 
@@ -752,10 +757,12 @@ class Tests(IntegrationTests):
 
         # wait for Graph's internal svg to be loaded after clicking
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-2-tabs .main-svg"))
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, "#graph-2-tabs .main-svg"))
         )
 
-        self.snapshot("Tabs with Graph - clicked tab 2 (graph should not resize)")
+        self.snapshot(
+            "Tabs with Graph - clicked tab 2 (graph should not resize)")
 
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.ID, "tab-1"))
@@ -765,10 +772,12 @@ class Tests(IntegrationTests):
 
         # wait for Graph to be loaded after clicking
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-1-tabs .main-svg"))
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, "#graph-1-tabs .main-svg"))
         )
 
-        self.snapshot("Tabs with Graph - clicked tab 1 (graph should not resize)")
+        self.snapshot(
+            "Tabs with Graph - clicked tab 1 (graph should not resize)")
 
     def test_location_link(self):
         app = dash.Dash(__name__)
@@ -1037,7 +1046,8 @@ class Tests(IntegrationTests):
         graph_1 = self.wait_for_element_by_css_selector('.graph-no-id-1')
         graph_2 = self.wait_for_element_by_css_selector('.graph-no-id-2')
 
-        self.assertNotEqual(graph_1.get_attribute('id'), graph_2.get_attribute('id'))
+        self.assertNotEqual(graph_1.get_attribute('id'),
+                            graph_2.get_attribute('id'))
 
     def test_datepickerrange_updatemodes(self):
         app = dash.Dash(__name__)
@@ -1294,7 +1304,7 @@ class Tests(IntegrationTests):
         time.sleep(2)  # Wait for graph to re-render
         self.snapshot('render-empty-graph')
 
-    def test_extend_trace(self):
+    def test_graph_extend_trace(self):
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
@@ -1322,7 +1332,7 @@ class Tests(IntegrationTests):
 
             x_new = [5, 6, 7, 8, 9]
             y_new = [.1, .2, .3, .4, .5]
-            return [dict(x=x_new, y=y_new)]
+            return dict(x=[x_new], y=[y_new]), [0]
 
         @app.callback(Output('output', 'children'),
                       [Input('trace_will_extend', 'extendData')],
@@ -1343,65 +1353,6 @@ class Tests(IntegrationTests):
         )
 
         output = self.wait_for_text_to_equal('#output', comparison)
-
-    def test_extend_then_add_trace(self):
-        app = dash.Dash(__name__)
-
-        app.layout = html.Div([
-            dcc.Graph(
-                id='trace_will_extend_and_add',
-                figure=dict(
-                    data=[{'x': [0, 1, 2, 3, 4],
-                           'y': [0, .5, 1, .5, 0]
-                           }],
-                )
-            ),
-            html.Div(id='output'),
-            dcc.Interval(
-                id='interval_extendablegraph_update',
-                interval=10,
-                n_intervals=0,
-                max_intervals=1),
-            dcc.Interval(
-                id='interval_check_figdata',
-                interval=500,
-                n_intervals=0,
-                max_intervals=-1)
-        ])
-
-        @app.callback(Output('trace_will_extend_and_add', 'extendData'),
-                      [Input('interval_extendablegraph_update', 'n_intervals')])
-        def trace_will_extend_then_add(n_intervals):
-            if n_intervals is None or n_intervals < 1:
-                raise PreventUpdate
-
-            x_new = [5, 6, 7, 8, 9]
-            y_new = [.1, .2, .3, .4, .5]
-            return [dict(x=x_new, y=y_new), dict(x=x_new, y=x_new)]
-
-        @app.callback(Output('output', 'children'),
-                      [Input('interval_check_figdata', 'n_intervals')],
-                      [State('trace_will_extend_and_add', 'figure')])
-        def display_data(trigger, figure):
-            return json.dumps(figure['data'])
-
-        self.startServer(app)
-
-        graph = self.wait_for_element_by_css_selector(
-            '#trace_will_extend_and_add')
-
-        comparison = json.dumps([
-            dict(
-                x=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                y=[0, .5, 1, .5, 0, .1, .2, .3, .4, .5]
-            ),
-            dict(
-                x=[5, 6, 7, 8, 9],
-                y=[5, 6, 7, 8, 9]
-            )
-        ])
-
-        self.wait_for_text_to_equal('#output', comparison)
 
     def test_storage_component(self):
         app = dash.Dash(__name__)
@@ -1560,7 +1511,8 @@ class Tests(IntegrationTests):
     def test_user_supplied_css(self):
         app = dash.Dash(__name__)
 
-        app.layout = html.Div(className="test-input-css", children=[dcc.Input()])
+        app.layout = html.Div(className="test-input-css",
+                              children=[dcc.Input()])
 
         self.startServer(app)
 
@@ -1630,9 +1582,9 @@ class Tests(IntegrationTests):
             return 'input="{}", state="{}"'.format(input, state)
 
         self.startServer(app)
-        output = lambda: self.driver.find_element_by_id('output')  # noqa: E731
-        input = lambda: self.driver.find_element_by_id('input')  # noqa: E731
-        state = lambda: self.driver.find_element_by_id('state')  # noqa: E731
+        def output(): return self.driver.find_element_by_id('output')  # noqa: E731
+        def input(): return self.driver.find_element_by_id('input')  # noqa: E731
+        def state(): return self.driver.find_element_by_id('state')  # noqa: E731
 
         # callback gets called with initial input
         wait_for(lambda: call_count.value == 1)
