@@ -115,7 +115,7 @@ class PlotlyGraph extends Component {
         const [updateData, traceIndices] = extendData;
 
         if (updateData && gd.data.length >= 1) {
-            Plotly.extendTraces(id, updateData, traceIndices)
+            Plotly.extendTraces(id, updateData, traceIndices);
         }
 
         return this.plot(props);
