@@ -1038,13 +1038,15 @@ class Tests(IntegrationTests):
 
         # use this opportunity to test restyleData, since there are multiple
         # traces on this graph
-        legendToggle = self.find_element_by_css_selector('#example-graph .traces:first-child .legendtoggle')
+        legendToggle = self.driver.find_element_by_css_selector('#example-graph .traces:first-child .legendtoggle')
         legendToggle.click()
-        self.wait_for_text_to_equal('#restyle-data', '[{"visible":["legendonly"]},[0]]')
+        self.wait_for_text_to_equal('#restyle-data', '[{"visible": ["legendonly"]}, [0]]')
 
         # and test relayoutData while we're at it
-        autoScale = self.find_element_by_css_selector('#example-graph a[data-title="Autoscale"]')
-        self.wait_for_text_to_equal('#restyle-data', '{"xaxis.autorange": true, "yaxis.autorange": true}')
+        autoscale = self.driver.find_element_by_css_selector('#example-graph .ewdrag')
+        autoscale.click()
+        autoscale.click()
+        self.wait_for_text_to_equal('#relayout-data', '{"xaxis.autorange": true}')
 
     def test_graphs_without_ids(self):
         app = dash.Dash(__name__)
