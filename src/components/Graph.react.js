@@ -46,7 +46,7 @@ const filterEventData = (gd, eventData, event) => {
             points[i] = pointData;
         }
         filteredEventData = {points};
-    } else if ((event === 'relayout') || (event === 'restyle')) {
+    } else if (event === 'relayout' || event === 'restyle') {
         /*
          * relayout shouldn't include any big objects
          * it will usually just contain the ranges of the axes like
