@@ -10,7 +10,7 @@ RadioItems is a component that encapsulates several radio item inputs. The value
 }
 
 \usage{
-coreRadioItems(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, ...)
+coreRadioItems(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
@@ -33,4 +33,6 @@ coreRadioItems(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL, in
 
 \item{labelClassName}{The class of the <label> that wraps the radio input
  and the option's label}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

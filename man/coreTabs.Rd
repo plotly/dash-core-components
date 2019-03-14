@@ -10,10 +10,12 @@ A Dash component that lets you render pages with tabs - the Tabs component's chi
 }
 
 \usage{
-coreTabs(id=NULL, value=NULL, className=NULL, content_className=NULL, parent_className=NULL, style=NULL, parent_style=NULL, content_style=NULL, vertical=NULL, mobile_breakpoint=NULL, colors=NULL, ...)
+coreTabs(children=NULL, id=NULL, value=NULL, className=NULL, content_className=NULL, parent_className=NULL, style=NULL, parent_style=NULL, content_style=NULL, vertical=NULL, mobile_breakpoint=NULL, colors=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
+\item{children}{Array that holds Tab components}
+
 \item{id}{The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.}
@@ -42,4 +44,6 @@ colors: {
    primary: '#1975FA',
    background: '#f9f9f9'
  }}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

@@ -10,7 +10,7 @@ DatePickerSingle is a tailor made component designed for selecting a single day 
 }
 
 \usage{
-coreDatePickerSingle(id=NULL, date=NULL, min_date_allowed=NULL, max_date_allowed=NULL, initial_visible_month=NULL, day_size=NULL, calendar_orientation=NULL, is_RTL=NULL, placeholder=NULL, reopen_calendar_on_clear=NULL, number_of_months_shown=NULL, with_portal=NULL, with_full_screen_portal=NULL, first_day_of_week=NULL, stay_open_on_select=NULL, show_outside_days=NULL, month_format=NULL, display_format=NULL, disabled=NULL, clearable=NULL, ...)
+coreDatePickerSingle(id=NULL, date=NULL, min_date_allowed=NULL, max_date_allowed=NULL, initial_visible_month=NULL, day_size=NULL, calendar_orientation=NULL, is_RTL=NULL, placeholder=NULL, reopen_calendar_on_clear=NULL, number_of_months_shown=NULL, with_portal=NULL, with_full_screen_portal=NULL, first_day_of_week=NULL, stay_open_on_select=NULL, show_outside_days=NULL, month_format=NULL, display_format=NULL, disabled=NULL, clearable=NULL, style=NULL, className=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
@@ -82,4 +82,10 @@ valid formats are variations of "MM YY DD". For example:
 \item{clearable}{Whether or not the dropdown is "clearable", that is, whether or
 not a small "x" appears on the right of the dropdown that removes
 the selected value.}
+
+\item{style}{CSS styles appended to wrapper div}
+
+\item{className}{Appends a CSS class to the wrapper div component.}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

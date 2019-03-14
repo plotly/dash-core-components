@@ -10,7 +10,7 @@ A slider component with a single handle.
 }
 
 \usage{
-coreSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL, dots=NULL, included=NULL, min=NULL, max=NULL, step=NULL, vertical=NULL, updatemode=NULL, ...)
+coreSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL, dots=NULL, included=NULL, min=NULL, max=NULL, step=NULL, vertical=NULL, updatemode=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
@@ -51,4 +51,6 @@ finished dragging the slider. If `drag`, then
 the slider will update its value continuously
 as it is being dragged.
 Only use `drag` if your updates are fast.}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

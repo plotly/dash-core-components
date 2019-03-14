@@ -10,7 +10,7 @@ Dropdown is an interactive dropdown element for selecting one or more items. The
 }
 
 \usage{
-coreDropdown(id=NULL, options=NULL, value=NULL, className=NULL, clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL, style=NULL, ...)
+coreDropdown(id=NULL, options=NULL, value=NULL, className=NULL, clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL, style=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
@@ -40,4 +40,6 @@ the selected value.}
 \item{searchable}{Whether to enable the searching feature or not}
 
 \item{style}{}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

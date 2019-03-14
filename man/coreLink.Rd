@@ -10,10 +10,12 @@
 }
 
 \usage{
-coreLink(href=NULL, refresh=NULL, className=NULL, style=NULL, id=NULL, ...)
+coreLink(children=NULL, href=NULL, refresh=NULL, className=NULL, style=NULL, id=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
+\item{children}{}
+
 \item{href}{}
 
 \item{refresh}{}
@@ -23,4 +25,6 @@ coreLink(href=NULL, refresh=NULL, className=NULL, style=NULL, id=NULL, ...)
 \item{style}{}
 
 \item{id}{}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

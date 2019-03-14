@@ -10,7 +10,7 @@ Logout button to submit a form post request to the `logout_url` prop. Usage is i
 }
 
 \usage{
-coreLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL, ...)
+coreLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
@@ -25,4 +25,6 @@ coreLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, 
 \item{method}{Http method to submit the logout form.}
 
 \item{className}{CSS class for the button.}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

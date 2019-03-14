@@ -10,10 +10,12 @@
 }
 
 \usage{
-coreUpload(id=NULL, contents=NULL, filename=NULL, last_modified=NULL, accept=NULL, disabled=NULL, disable_click=NULL, max_size=NULL, min_size=NULL, multiple=NULL, className=NULL, className_active=NULL, className_reject=NULL, className_disabled=NULL, style=NULL, style_active=NULL, style_reject=NULL, style_disabled=NULL, ...)
+coreUpload(children=NULL, id=NULL, contents=NULL, filename=NULL, last_modified=NULL, accept=NULL, disabled=NULL, disable_click=NULL, max_size=NULL, min_size=NULL, multiple=NULL, className=NULL, className_active=NULL, className_reject=NULL, className_disabled=NULL, style=NULL, style_active=NULL, style_reject=NULL, style_disabled=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
+\item{children}{Contents of the upload component}
+
 \item{id}{ID of the component. Used to identify component
 in Dash callback functions.}
 
@@ -59,4 +61,6 @@ See: https://github.com/react-dropzone/react-dropzone/issues/276}
 \item{style_reject}{CSS styles if rejected}
 
 \item{style_disabled}{CSS styles if disabled}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

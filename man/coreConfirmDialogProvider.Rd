@@ -10,10 +10,12 @@ A wrapper component that will display a confirmation dialog when its child compo
 }
 
 \usage{
-coreConfirmDialogProvider(id=NULL, message=NULL, submit_n_clicks=NULL, submit_n_clicks_timestamp=NULL, cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, displayed=NULL, ...)
+coreConfirmDialogProvider(children=NULL, id=NULL, message=NULL, submit_n_clicks=NULL, submit_n_clicks_timestamp=NULL, cancel_n_clicks=NULL, cancel_n_clicks_timestamp=NULL, displayed=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
+\item{children}{The children to hijack clicks from and display the popup.}
+
 \item{id}{}
 
 \item{message}{Message to show in the popup.}
@@ -27,4 +29,6 @@ coreConfirmDialogProvider(id=NULL, message=NULL, submit_n_clicks=NULL, submit_n_
 \item{cancel_n_clicks_timestamp}{Last time the cancel button was clicked.}
 
 \item{displayed}{Is the modal currently displayed.}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

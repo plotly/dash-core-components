@@ -10,10 +10,12 @@ A component for pretty printing code.
 }
 
 \usage{
-coreSyntaxHighlighter(id=NULL, language=NULL, theme=NULL, customStyle=NULL, codeTagProps=NULL, useInlineStyles=NULL, showLineNumbers=NULL, startingLineNumber=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, wrapLines=NULL, lineStyle=NULL, ...)
+coreSyntaxHighlighter(children=NULL, id=NULL, language=NULL, theme=NULL, customStyle=NULL, codeTagProps=NULL, useInlineStyles=NULL, showLineNumbers=NULL, startingLineNumber=NULL, lineNumberContainerStyle=NULL, lineNumberStyle=NULL, wrapLines=NULL, lineStyle=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
+\item{children}{The text to display and highlight}
+
 \item{id}{}
 
 \item{language}{the language to highlight code in.}
@@ -37,4 +39,6 @@ coreSyntaxHighlighter(id=NULL, language=NULL, theme=NULL, customStyle=NULL, code
 \item{wrapLines}{a boolean value that determines whether or not each line of code should be wrapped in a parent element. defaults to false, when false one can not take action on an element on the line level. You can see an example of what this enables here}
 
 \item{lineStyle}{inline style to be passed to the span wrapping each line if wrapLines is true. Can be either an object or a function that recieves current line number as argument and returns style object.}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

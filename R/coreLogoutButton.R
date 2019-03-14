@@ -1,12 +1,12 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-coreLogoutButton <- function(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL) {
+coreLogoutButton <- function(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL, loading_state=NULL) {
     
     component <- list(
-        props = list(id=id, label=label, logout_url=logout_url, style=style, method=method, className=className),
+        props = list(id=id, label=label, logout_url=logout_url, style=style, method=method, className=className, loading_state=loading_state),
         type = 'LogoutButton',
         namespace = 'dash_core_components',
-        propNames = c('id', 'label', 'logout_url', 'style', 'method', 'className'),
+        propNames = c('id', 'label', 'logout_url', 'style', 'method', 'className', 'loading_state'),
         package = 'dashCoreComponents'
         )
 

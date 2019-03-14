@@ -10,7 +10,7 @@ Checklist is a component that encapsulates several checkboxes. The values and la
 }
 
 \usage{
-coreChecklist(id=NULL, options=NULL, values=NULL, className=NULL, style=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, ...)
+coreChecklist(id=NULL, options=NULL, values=NULL, className=NULL, style=NULL, inputStyle=NULL, inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
@@ -33,4 +33,6 @@ coreChecklist(id=NULL, options=NULL, values=NULL, className=NULL, style=NULL, in
 
 \item{labelClassName}{The class of the <label> that wraps the checkbox input
  and the option's label}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }

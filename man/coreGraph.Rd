@@ -10,7 +10,7 @@
 }
 
 \usage{
-coreGraph(id=NULL, clickData=NULL, clickAnnotationData=NULL, hoverData=NULL, clear_on_unhover=NULL, selectedData=NULL, relayoutData=NULL, figure=NULL, style=NULL, className=NULL, animate=NULL, animation_options=NULL, config=NULL, ...)
+coreGraph(id=NULL, clickData=NULL, clickAnnotationData=NULL, hoverData=NULL, clear_on_unhover=NULL, selectedData=NULL, relayoutData=NULL, restyleData=NULL, figure=NULL, style=NULL, className=NULL, animate=NULL, animation_options=NULL, config=NULL, loading_state=NULL, ...)
 }
 
 \arguments{
@@ -34,6 +34,9 @@ data from the last point that was hovered over.}
 \item{relayoutData}{Data from latest relayout event which occurs
 when the user zooms or pans on the plot}
 
+\item{restyleData}{Data from latest restyle event which occurs
+when the user toggles a legend item}
+
 \item{figure}{Plotly `figure` object. See schema:
 https://plot.ly/javascript/reference
 Only supports `data` array and `layout` object.
@@ -53,4 +56,6 @@ Only applies if `animate` is `true`}
 \item{config}{Plotly.js config options.
 See https://plot.ly/javascript/configuration-options/
 for more info.}
+
+\item{loading_state}{Object that holds the loading state object coming from dash-renderer}
 }
