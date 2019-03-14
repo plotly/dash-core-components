@@ -1314,6 +1314,36 @@ class Tests(IntegrationTests):
                 max_intervals=1)
         ])
 
+        @app.callback(Output('trace_will_extend', 'extendData'),
+                      [Input('interval_extendablegraph_update', 'n_intervals')])
+        def trace_will_extend(n_intervals):
+            if n_intervals is None or n_intervals < 1:
+                raise PreventUpdate
+
+            x_new = [5, 6, 7, 8, 9]
+            y_new = [.1, .2, .3, .4, .5]
+            return dict(x=[x_new], y=[y_new]), [0]
+
+        @app.callback(Output('output', 'children'),
+                      [Input('trace_will_extend', 'extendData')],
+                      [State('trace_will_extend', 'figure')])
+        def display_data(trigger, figure):
+            return json.dumps(figure['data'][0])
+
+        self.startServer(app)
+
+        graph = self.wait_for_element_by_css_selector(
+            '#trace_will_extend')
+
+        comparison = json.dumps(
+            dict(
+                x=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                y=[0, .5, 1, .5, 0, .1, .2, .3, .4, .5]
+            )
+        )
+
+        output = self.wait_for_text_to_equal('#output', comparison)
+
     def test_storage_component(self):
         app = dash.Dash(__name__)
 
