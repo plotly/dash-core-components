@@ -146,12 +146,9 @@ export default class Tabs extends Component {
             this.state = {
                 selected: value,
             };
-            if (this.props.setProps) {
-                // updating the prop in Dash is necessary so that callbacks work
-                this.props.setProps({
-                    value: value,
-                });
-            }
+            this.props.setProps({
+                value: value,
+            });
         } else {
             this.state = {
                 selected: this.props.value,
@@ -167,13 +164,7 @@ export default class Tabs extends Component {
         return this.props.children;
     }
     selectHandler(value) {
-        if (this.props.setProps) {
-            this.props.setProps({value: value});
-        } else {
-            this.setState({
-                selected: value,
-            });
-        }
+        this.props.setProps({value: value});
     }
     componentWillReceiveProps(newProps) {
         const value = newProps.value;

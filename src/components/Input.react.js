@@ -12,19 +12,17 @@ import {omit, isEmpty} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
-        if (!props.setProps || props.debounce) {
+        if (props.debounce) {
             this.state = {value: props.value};
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.setProps) {
-            this.props = nextProps;
-            if (this.props.debounce) {
-                this.setState({
-                    value: nextProps.value,
-                });
-            }
+        this.props = nextProps;
+        if (this.props.debounce) {
+            this.setState({
+                value: nextProps.value,
+            });
         }
     }
 
@@ -48,7 +46,7 @@ export default class Input extends Component {
                     ) {
                         return;
                     }
-                    if (!debounce && setProps) {
+                    if (!debounce) {
                         const castValue =
                             type === 'number' ? Number(newValue) : newValue;
                         setProps({
@@ -59,20 +57,18 @@ export default class Input extends Component {
                     }
                 }}
                 onBlur={() => {
-                    if (setProps) {
-                        const payload = {
-                            n_blur: this.props.n_blur + 1,
-                            n_blur_timestamp: new Date(),
-                        };
-                        if (debounce) {
-                            payload.value =
-                                type === 'number' ? Number(value) : value;
-                        }
-                        setProps(payload);
+                    const payload = {
+                        n_blur: this.props.n_blur + 1,
+                        n_blur_timestamp: new Date(),
+                    };
+                    if (debounce) {
+                        payload.value =
+                            type === 'number' ? Number(value) : value;
                     }
+                    setProps(payload);
                 }}
                 onKeyPress={e => {
-                    if (setProps && e.key === 'Enter') {
+                    if (e.key === 'Enter') {
                         const payload = {
                             n_submit: this.props.n_submit + 1,
                             n_submit_timestamp: new Date(),
