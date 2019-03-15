@@ -640,7 +640,11 @@ class Tests(IntegrationTests):
                             'x': [1, 2, 3, 4],
                             'y': [4, 3, 2, 1]
                         }
-                    ]
+                    ],
+                    'layout': {
+                        'width': 700,
+                        'height': 450
+                    }
                 }
 
         self.startServer(app=app)
@@ -1196,8 +1200,8 @@ class Tests(IntegrationTests):
                     return 'canceled'
 
         self.startServer(app)
-        self.snapshot(test_name + ' -> initial')
         button = self.wait_for_element_by_css_selector('#button')
+        self.snapshot(test_name + ' -> initial')
 
         button.click()
         time.sleep(1)
