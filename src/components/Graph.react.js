@@ -163,9 +163,7 @@ class PlotlyGraph extends Component {
         gd.on('plotly_restyle', eventData => {
             const restyleData = filterEventData(gd, eventData, 'restyle');
             if (!isNil(restyleData)) {
-                if (setProps) {
-                    setProps({restyleData});
-                }
+                setProps({restyleData});
             }
         });
         gd.on('plotly_unhover', () => {
