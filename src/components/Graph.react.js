@@ -244,17 +244,17 @@ const graphPropTypes = {
      */
     id: PropTypes.string,
     /**
-     * Data from latest click event
+     * Data from latest click event. Read-only.
      */
     clickData: PropTypes.object,
 
     /**
-     * Data from latest click annotation event
+     * Data from latest click annotation event. Read-only.
      */
     clickAnnotationData: PropTypes.object,
 
     /**
-     * Data from latest hover event
+     * Data from latest hover event. Read-only.
      */
     hoverData: PropTypes.object,
 
@@ -267,21 +267,28 @@ const graphPropTypes = {
     clear_on_unhover: PropTypes.bool,
 
     /**
-     * Data from latest select event
+     * Data from latest select event. Read-only.
      */
     selectedData: PropTypes.object,
 
     /**
      * Data from latest relayout event which occurs
-     * when the user zooms or pans on the plot
+     * when the user zooms or pans on the plot or other
+     * layout-level edits. Has the form `{<attr string>: <value>}`
+     * describing the changes made. Read-only.
      */
     relayoutData: PropTypes.object,
 
     /**
      * Data from latest restyle event which occurs
-     * when the user toggles a legend item
+     * when the user toggles a legend item, changes
+     * parcoords selections, or other trace-level edits.
+     * Has the form `[edits, indices]`, where `edits` is an object
+     * `{<attr string>: <value>}` describing the changes made,
+     * and `indices` is an array of trace indices that were edited.
+     * Read-only.
      */
-    restyleData: PropTypes.object,
+    restyleData: PropTypes.array,
 
     /**
      * Plotly `figure` object. See schema:
