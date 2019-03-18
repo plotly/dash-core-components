@@ -344,7 +344,6 @@ class Tests(IntegrationTests):
         for entry in self.get_log():
             raise Exception('browser error logged during test', entry)
 
-
     def test_horizontal_range_slider(self):
         app = dash.Dash(__name__)
 
