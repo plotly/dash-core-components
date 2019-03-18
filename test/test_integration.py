@@ -5,6 +5,7 @@ from datetime import datetime
 import io
 import os
 import sys
+from multiprocessing import Lock
 import time
 import json
 
@@ -218,6 +219,9 @@ class Tests(IntegrationTests):
         self.snapshot('test_upload_gallery')
 
     def test_loading_slider(self):
+        lock = Lock()
+        lock.acquire()
+
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
@@ -237,7 +241,8 @@ class Tests(IntegrationTests):
             [Input('test-div', 'children')]
         )
         def delayed_value(children):
-            time.sleep(5)
+            lock.acquire()
+            lock.release()
             return 5
 
         self.startServer(app)
@@ -245,6 +250,7 @@ class Tests(IntegrationTests):
         self.wait_for_element_by_css_selector(
             '#horizontal-slider[data-dash-is-loading="true"]'
         )
+        lock.release()
 
         self.wait_for_element_by_css_selector(
             '#horizontal-slider:not([data-dash-is-loading="true"])'
@@ -309,6 +315,9 @@ class Tests(IntegrationTests):
             raise Exception('browser error logged during test', entry)
 
     def test_loading_range_slider(self):
+        lock = Lock()
+        lock.acquire()
+
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
@@ -328,7 +337,8 @@ class Tests(IntegrationTests):
             [Input('test-div', 'children')]
         )
         def delayed_value(children):
-            time.sleep(5)
+            lock.acquire()
+            lock.release()
             return [4, 6]
 
         self.startServer(app)
@@ -336,6 +346,7 @@ class Tests(IntegrationTests):
         self.wait_for_element_by_css_selector(
             '#horizontal-range-slider[data-dash-is-loading="true"]'
         )
+        lock.release()
 
         self.wait_for_element_by_css_selector(
             '#horizontal-range-slider:not([data-dash-is-loading="true"])'
