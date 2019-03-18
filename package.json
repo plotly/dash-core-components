@@ -26,7 +26,7 @@
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
     "build:js-dev": "webpack --mode development",
-    "build:py": "dash-generate-components ./src/components dash_core_components",
+    "build:py": "build-dash-components ./src/components dash_core_components",
     "build:r": "dash-generate-components ./src/components dash_core_components --r-prefix 'dcc'",
     "build": "npm run build:js && npm run build:js-dev && npm run build:py",
     "build-dev": "npm run build:js-dev && npm run build:py",
