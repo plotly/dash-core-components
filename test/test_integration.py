@@ -221,7 +221,7 @@ class Tests(IntegrationTests):
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
-            html.Label(id='test-div', 'Horizontal Slider'),
+            html.Label(id='test-div', children=['Horizontal Slider']),
             dcc.Slider(
                 id='horizontal-slider',
                 min=0,
@@ -316,7 +316,7 @@ class Tests(IntegrationTests):
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
-            html.Label(id='test-div', 'Horizontal Range Slider'),
+            html.Label(id='test-div', children=['Horizontal Range Slider']),
             dcc.RangeSlider(
                 id='horizontal-range-slider',
                 min=0,
