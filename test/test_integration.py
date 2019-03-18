@@ -242,13 +242,11 @@ class Tests(IntegrationTests):
 
         self.startServer(app)
 
-        slider = self.driver.find_element_by_css_selector(
+        self.wait_for_element_by_css_selector(
             '#horizontal-slider[data-dash-is-loading="true"]'
         )
 
-        time.sleep(5)
-
-        slider = self.driver.find_element_by_css_selector(
+        self.wait_for_element_by_css_selector(
             '#horizontal-slider:not([data-dash-is-loading="true"])'
         )
 
@@ -335,13 +333,11 @@ class Tests(IntegrationTests):
 
         self.startServer(app)
 
-        slider = self.driver.find_element_by_css_selector(
+        self.wait_for_element_by_css_selector(
             '#horizontal-range-slider[data-dash-is-loading="true"]'
         )
 
-        time.sleep(5)
-
-        slider = self.driver.find_element_by_css_selector(
+        self.wait_for_element_by_css_selector(
             '#horizontal-range-slider:not([data-dash-is-loading="true"])'
         )
 
