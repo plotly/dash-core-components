@@ -217,6 +217,45 @@ class Tests(IntegrationTests):
 
         self.snapshot('test_upload_gallery')
 
+    def test_loading_slider(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label(id='test-div', 'Horizontal Slider'),
+            dcc.Slider(
+                id='horizontal-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=5,
+                vertical=True,
+            ),
+        ])
+
+        @app.callback(
+            Output('horizontal-slider', 'value'),
+            [Input('test-div', 'children')]
+        )
+        def delayed_value(children):
+            time.sleep(5)
+            return 5
+
+        self.startServer(app)
+
+        slider = self.driver.find_element_by_css_selector(
+            '#horizontal-slider[data-dash-is-loading="true"]'
+        )
+
+        time.sleep(5)
+
+        slider = self.driver.find_element_by_css_selector(
+            '#horizontal-slider:not([data-dash-is-loading="true"])'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
     def test_horizontal_slider(self):
         app = dash.Dash(__name__)
 
@@ -272,6 +311,46 @@ class Tests(IntegrationTests):
 
         for entry in self.get_log():
             raise Exception('browser error logged during test', entry)
+
+    def test_loading_range_slider(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label(id='test-div', 'Horizontal Range Slider'),
+            dcc.RangeSlider(
+                id='horizontal-range-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=[4, 6],
+                vertical=True,
+            ),
+        ])
+
+        @app.callback(
+            Output('horizontal-range-slider', 'value'),
+            [Input('test-div', 'children')]
+        )
+        def delayed_value(children):
+            time.sleep(5)
+            return [4, 6]
+
+        self.startServer(app)
+
+        slider = self.driver.find_element_by_css_selector(
+            '#horizontal-range-slider[data-dash-is-loading="true"]'
+        )
+
+        time.sleep(5)
+
+        slider = self.driver.find_element_by_css_selector(
+            '#horizontal-range-slider:not([data-dash-is-loading="true"])'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
 
     def test_horizontal_range_slider(self):
         app = dash.Dash(__name__)
