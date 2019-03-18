@@ -229,7 +229,6 @@ class Tests(IntegrationTests):
                 marks={i: 'Label {}'.format(i) if i == 1 else str(i)
                        for i in range(1, 6)},
                 value=5,
-                vertical=True,
             ),
         ])
 
@@ -268,7 +267,6 @@ class Tests(IntegrationTests):
                 marks={i: 'Label {}'.format(i) if i == 1 else str(i)
                        for i in range(1, 6)},
                 value=5,
-                vertical=True,
             ),
         ])
         self.startServer(app)
@@ -324,7 +322,6 @@ class Tests(IntegrationTests):
                 marks={i: 'Label {}'.format(i) if i == 1 else str(i)
                        for i in range(1, 6)},
                 value=[4, 6],
-                vertical=True,
             ),
         ])
 
@@ -364,7 +361,6 @@ class Tests(IntegrationTests):
                 marks={i: 'Label {}'.format(i) if i == 1 else str(i)
                        for i in range(1, 6)},
                 value=[4, 6],
-                vertical=True,
             ),
         ])
         self.startServer(app)
