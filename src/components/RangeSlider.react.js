@@ -24,7 +24,7 @@ export default class RangeSlider extends Component {
             loading_state,
             setProps,
             updatemode,
-            vertical
+            vertical,
         } = this.props;
         const {value} = this.state;
         return (
@@ -55,8 +55,8 @@ export default class RangeSlider extends Component {
                     value={value}
                     {...omit(
                         ['className', 'value', 'setProps', 'updatemode'],
-                        this.props)
-                    }
+                        this.props
+                    )}
                 />
             </div>
         );
