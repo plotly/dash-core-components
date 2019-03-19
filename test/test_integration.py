@@ -5,6 +5,7 @@ from datetime import datetime
 import io
 import os
 import sys
+from multiprocessing import Lock
 import time
 import json
 
@@ -17,13 +18,11 @@ import dash_html_components as html
 import dash_core_components as dcc
 import dash_table_experiments as dt
 from dash.exceptions import PreventUpdate
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 
 from textwrap import dedent
 try:
@@ -217,6 +216,74 @@ class Tests(IntegrationTests):
 
         self.snapshot('test_upload_gallery')
 
+    def test_loading_slider(self):
+        lock = Lock()
+        lock.acquire()
+
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label(id='test-div', children=['Horizontal Slider']),
+            dcc.Slider(
+                id='horizontal-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=5,
+            ),
+        ])
+
+        @app.callback(
+            Output('horizontal-slider', 'value'),
+            [Input('test-div', 'children')]
+        )
+        def delayed_value(children):
+            lock.acquire()
+            lock.release()
+            return 5
+
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector(
+            '#horizontal-slider[data-dash-is-loading="true"]'
+        )
+        lock.release()
+
+        self.wait_for_element_by_css_selector(
+            '#horizontal-slider:not([data-dash-is-loading="true"])'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_horizontal_slider(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label('Horizontal Slider'),
+            dcc.Slider(
+                id='horizontal-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=5,
+            ),
+        ])
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector('#horizontal-slider')
+        self.snapshot('horizontal slider')
+
+        h_slider = self.driver.find_element_by_css_selector(
+            '#horizontal-slider div[role="slider"]'
+        )
+        h_slider.click()
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
     def test_vertical_slider(self):
         app = dash.Dash(__name__)
 
@@ -241,6 +308,112 @@ class Tests(IntegrationTests):
             '#vertical-slider div[role="slider"]'
         )
         v_slider.click()
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_loading_range_slider(self):
+        lock = Lock()
+        lock.acquire()
+
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label(id='test-div', children=['Horizontal Range Slider']),
+            dcc.RangeSlider(
+                id='horizontal-range-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=[4, 6],
+            ),
+        ])
+
+        @app.callback(
+            Output('horizontal-range-slider', 'value'),
+            [Input('test-div', 'children')]
+        )
+        def delayed_value(children):
+            lock.acquire()
+            lock.release()
+            return [4, 6]
+
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector(
+            '#horizontal-range-slider[data-dash-is-loading="true"]'
+        )
+        lock.release()
+
+        self.wait_for_element_by_css_selector(
+            '#horizontal-range-slider:not([data-dash-is-loading="true"])'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_horizontal_range_slider(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label('Horizontal Range Slider'),
+            dcc.RangeSlider(
+                id='horizontal-range-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=[4, 6],
+            ),
+        ])
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector('#horizontal-range-slider')
+        self.snapshot('horizontal range slider')
+
+        h_slider_1 = self.driver.find_element_by_css_selector(
+            '#horizontal-range-slider div.rc-slider-handle-1[role="slider"]'
+        )
+        h_slider_1.click()
+
+        h_slider_2 = self.driver.find_element_by_css_selector(
+            '#horizontal-range-slider div.rc-slider-handle-2[role="slider"]'
+        )
+        h_slider_2.click()
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_vertical_range_slider(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            html.Label('Vertical Range Slider'),
+            dcc.RangeSlider(
+                id='vertical-range-slider',
+                min=0,
+                max=9,
+                marks={i: 'Label {}'.format(i) if i == 1 else str(i)
+                       for i in range(1, 6)},
+                value=[4, 6],
+                vertical=True,
+            ),
+        ], style={'height': '500px'})
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector('#vertical-range-slider')
+        self.snapshot('vertical range slider')
+
+        v_slider_1 = self.driver.find_element_by_css_selector(
+            '#vertical-range-slider div.rc-slider-handle-1[role="slider"]'
+        )
+        v_slider_1.click()
+
+        v_slider_2 = self.driver.find_element_by_css_selector(
+            '#vertical-range-slider div.rc-slider-handle-2[role="slider"]'
+        )
+        v_slider_2.click()
 
         for entry in self.get_log():
             raise Exception('browser error logged during test', entry)
@@ -642,7 +815,11 @@ class Tests(IntegrationTests):
                             'x': [1, 2, 3, 4],
                             'y': [4, 3, 2, 1]
                         }
-                    ]
+                    ],
+                    'layout': {
+                        'width': 700,
+                        'height': 450
+                    }
                 }
 
         self.startServer(app=app)
@@ -1018,12 +1195,37 @@ class Tests(IntegrationTests):
                     }
                 }
             ),
-
+            html.Div(id='restyle-data'),
+            html.Div(id='relayout-data')
         ])
+
+        @app.callback(Output('restyle-data', 'children'), [Input('example-graph', 'restyleData')])
+        def show_restyle_data(data):
+            if data is None:  # ignore initial
+                return ''
+            return json.dumps(data)
+
+        @app.callback(Output('relayout-data', 'children'), [Input('example-graph', 'relayoutData')])
+        def show_relayout_data(data):
+            if data is None or 'autosize' in data:  # ignore initial & auto width
+                return ''
+            return json.dumps(data)
 
         self.startServer(app=app)
 
         self.snapshot('2 graphs with different figures')
+
+        # use this opportunity to test restyleData, since there are multiple
+        # traces on this graph
+        legendToggle = self.driver.find_element_by_css_selector('#example-graph .traces:first-child .legendtoggle')
+        legendToggle.click()
+        self.wait_for_text_to_equal('#restyle-data', '[{"visible": ["legendonly"]}, [0]]')
+
+        # and test relayoutData while we're at it
+        autoscale = self.driver.find_element_by_css_selector('#example-graph .ewdrag')
+        autoscale.click()
+        autoscale.click()
+        self.wait_for_text_to_equal('#relayout-data', '{"xaxis.autorange": true}')
 
     def test_graphs_without_ids(self):
         app = dash.Dash(__name__)
@@ -1173,8 +1375,8 @@ class Tests(IntegrationTests):
                     return 'canceled'
 
         self.startServer(app)
-        self.snapshot(test_name + ' -> initial')
         button = self.wait_for_element_by_css_selector('#button')
+        self.snapshot(test_name + ' -> initial')
 
         button.click()
         time.sleep(1)

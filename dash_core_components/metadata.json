@@ -1275,6 +1275,17 @@
           "computed": false
         }
       },
+      "restyleData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Data from latest restyle event which occurs\nwhen the user toggles a legend item",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
       "figure": {
         "type": {
           "name": "object"
@@ -3895,6 +3906,21 @@
         },
         "required": false,
         "description": "The last modified date of the file that was uploaded in unix time\r\n(seconds since 1970)."
+      },
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "node"
+            },
+            {
+              "name": "string"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Contents of the upload component"
       },
       "children": {
         "type": {

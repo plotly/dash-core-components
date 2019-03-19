@@ -46,7 +46,7 @@ const filterEventData = (gd, eventData, event) => {
             points[i] = pointData;
         }
         filteredEventData = {points};
-    } else if (event === 'relayout') {
+    } else if (event === 'relayout' || event === 'restyle') {
         /*
          * relayout shouldn't include any big objects
          * it will usually just contain the ranges of the axes like
@@ -115,7 +115,7 @@ class PlotlyGraph extends Component {
         const [updateData, traceIndices] = extendData;
 
         if (updateData && gd.data.length >= 1) {
-            Plotly.extendTraces(id, updateData, traceIndices);
+            return Plotly.extendTraces(id, updateData, traceIndices);
         }
 
         return this.plot(props);
@@ -170,6 +170,12 @@ class PlotlyGraph extends Component {
                 if (setProps) {
                     setProps({relayoutData});
                 }
+            }
+        });
+        gd.on('plotly_restyle', eventData => {
+            const restyleData = filterEventData(gd, eventData, 'restyle');
+            if (!isNil(restyleData)) {
+                setProps({restyleData});
             }
         });
         gd.on('plotly_unhover', () => {
@@ -257,17 +263,17 @@ const graphPropTypes = {
      */
     id: PropTypes.string,
     /**
-     * Data from latest click event
+     * Data from latest click event. Read-only.
      */
     clickData: PropTypes.object,
 
     /**
-     * Data from latest click annotation event
+     * Data from latest click annotation event. Read-only.
      */
     clickAnnotationData: PropTypes.object,
 
     /**
-     * Data from latest hover event
+     * Data from latest hover event. Read-only.
      */
     hoverData: PropTypes.object,
 
@@ -280,22 +286,37 @@ const graphPropTypes = {
     clear_on_unhover: PropTypes.bool,
 
     /**
-     * Data from latest select event
+     * Data from latest select event. Read-only.
      */
     selectedData: PropTypes.object,
 
     /**
      * Data from latest relayout event which occurs
-     * when the user zooms or pans on the plot
+     * when the user zooms or pans on the plot or other
+     * layout-level edits. Has the form `{<attr string>: <value>}`
+     * describing the changes made. Read-only.
      */
     relayoutData: PropTypes.object,
 
     /**
-     * Data that should be appended to existing traces in the Graph figure
-     * Uses the Plotly.extendTraces API
-     * https://plot.ly/javascript/plotlyjs-function-reference/
+     * Data that should be appended to existing traces. Has the form
+	 * `[updateData, traceIndices]`, where `updateData` is an object
+	 * containing the data to extend, and `traceIndices` is an array
+	 * of trace indices that should be extended. 
+     * Reference the Plotly.extendTraces API for full usage:
+     * https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces
      */
-    extendData: PropTypes.object,
+    extendData: PropTypes.array,
+
+     * Data from latest restyle event which occurs
+     * when the user toggles a legend item, changes
+     * parcoords selections, or other trace-level edits.
+     * Has the form `[edits, indices]`, where `edits` is an object
+     * `{<attr string>: <value>}` describing the changes made,
+     * and `indices` is an array of trace indices that were edited.
+     * Read-only.
+     */
+    restyleData: PropTypes.array,
 
     /**
      * Plotly `figure` object. See schema:
@@ -535,6 +556,7 @@ const graphDefaultProps = {
     selectedData: null,
     relayoutData: null,
     extendData: null,
+    restyleData: null,
     figure: {data: [], layout: {}},
     animate: false,
     animation_options: {
