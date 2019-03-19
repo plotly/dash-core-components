@@ -300,14 +300,15 @@ const graphPropTypes = {
 
     /**
      * Data that should be appended to existing traces. Has the form
-	 * `[updateData, traceIndices]`, where `updateData` is an object
-	 * containing the data to extend, and `traceIndices` is an array
-	 * of trace indices that should be extended. 
+     * `[updateData, traceIndices]`, where `updateData` is an object
+     * containing the data to extend, and `traceIndices` is an array
+     * of trace indices that should be extended.
      * Reference the Plotly.extendTraces API for full usage:
      * https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces
      */
     extendData: PropTypes.array,
 
+    /**
      * Data from latest restyle event which occurs
      * when the user toggles a legend item, changes
      * parcoords selections, or other trace-level edits.

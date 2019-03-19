@@ -1203,7 +1203,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "Data from latest click event",
+        "description": "Data from latest click event. Read-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1214,7 +1214,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "Data from latest click annotation event",
+        "description": "Data from latest click annotation event. Read-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1225,7 +1225,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "Data from latest hover event",
+        "description": "Data from latest hover event. Read-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1247,7 +1247,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "Data from latest select event",
+        "description": "Data from latest select event. Read-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1258,7 +1258,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "Data from latest relayout event which occurs\r\nwhen the user zooms or pans on the plot",
+        "description": "Data from latest relayout event which occurs\r\nwhen the user zooms or pans on the plot or other\r\nlayout-level edits. Has the form `{<attr string>: <value>}`\r\ndescribing the changes made. Read-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1266,10 +1266,10 @@
       },
       "extendData": {
         "type": {
-          "name": "object"
+          "name": "array"
         },
         "required": false,
-        "description": "Data that should be appended to existing traces in the Graph figure\r\nUses the Plotly.extendTraces API\r\nhttps://plot.ly/javascript/plotlyjs-function-reference/",
+        "description": "Data that should be appended to existing traces. Has the form\r\n`[updateData, traceIndices]`, where `updateData` is an object\r\ncontaining the data to extend, and `traceIndices` is an array\r\nof trace indices that should be extended.\r\nReference the Plotly.extendTraces API for full usage:\r\nhttps://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1277,10 +1277,10 @@
       },
       "restyleData": {
         "type": {
-          "name": "object"
+          "name": "array"
         },
         "required": false,
-        "description": "Data from latest restyle event which occurs\nwhen the user toggles a legend item",
+        "description": "Data from latest restyle event which occurs\r\nwhen the user toggles a legend item, changes\r\nparcoords selections, or other trace-level edits.\r\nHas the form `[edits, indices]`, where `edits` is an object\r\n`{<attr string>: <value>}` describing the changes made,\r\nand `indices` is an array of trace indices that were edited.\r\nRead-only.",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -3906,21 +3906,6 @@
         },
         "required": false,
         "description": "The last modified date of the file that was uploaded in unix time\r\n(seconds since 1970)."
-      },
-      "children": {
-        "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "node"
-            },
-            {
-              "name": "string"
-            }
-          ]
-        },
-        "required": false,
-        "description": "Contents of the upload component"
       },
       "children": {
         "type": {
