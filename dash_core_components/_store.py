@@ -20,6 +20,9 @@ class Store(DashComponent):
     """
     _namespace = 'dash_core_components'
     _typename = 'Store'
+    available_wildcard_properties = [
+
+    ]
     id = ComponentProp('id', UNDEFINED, True)
     storage_type = ComponentProp('storage_type', "'memory'", False)
     data = ComponentProp('data', UNDEFINED, False)
@@ -50,5 +53,8 @@ class Store(DashComponent):
             `data_key`.
         :param modified_timestamp: The last time the storage was modified.
         """
-        kws = {k: v for k, v in locals().items() if k != 'self'}
+        kws = {
+            k: v for k, v in locals().items() if k not in ('self', 'kwargs')
+        }
+        kws.update(kwargs)
         DashComponent.__init__(self, **kws)

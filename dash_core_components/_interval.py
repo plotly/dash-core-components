@@ -21,6 +21,9 @@ class Interval(DashComponent):
     """
     _namespace = 'dash_core_components'
     _typename = 'Interval'
+    available_wildcard_properties = [
+
+    ]
     id = ComponentProp('id', UNDEFINED, False)
     interval = ComponentProp('interval', 1000, False)
     disabled = ComponentProp('disabled', UNDEFINED, False)
@@ -48,5 +51,8 @@ class Interval(DashComponent):
             default) and if 0 then the interval stops
             running.
         """
-        kws = {k: v for k, v in locals().items() if k != 'self'}
+        kws = {
+            k: v for k, v in locals().items() if k not in ('self', 'kwargs')
+        }
+        kws.update(kwargs)
         DashComponent.__init__(self, **kws)

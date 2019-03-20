@@ -23,6 +23,9 @@ class DatePickerSingle(DashComponent):
     """
     _namespace = 'dash_core_components'
     _typename = 'DatePickerSingle'
+    available_wildcard_properties = [
+
+    ]
     id = ComponentProp('id', UNDEFINED, False)
     date = ComponentProp('date', UNDEFINED, False)
     min_date_allowed = ComponentProp('min_date_allowed', UNDEFINED, False)
@@ -150,5 +153,8 @@ class DatePickerSingle(DashComponent):
         :param loading_state: Object that holds the loading state object
             coming from dash-renderer
         """
-        kws = {k: v for k, v in locals().items() if k != 'self'}
+        kws = {
+            k: v for k, v in locals().items() if k not in ('self', 'kwargs')
+        }
+        kws.update(kwargs)
         DashComponent.__init__(self, **kws)

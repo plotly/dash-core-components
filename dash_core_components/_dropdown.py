@@ -24,6 +24,9 @@ class Dropdown(DashComponent):
     """
     _namespace = 'dash_core_components'
     _typename = 'Dropdown'
+    available_wildcard_properties = [
+
+    ]
     id = ComponentProp('id', UNDEFINED, False)
     options = ComponentProp('options', UNDEFINED, False)
     value = ComponentProp('value', UNDEFINED, False)
@@ -75,5 +78,8 @@ class Dropdown(DashComponent):
         :param loading_state: Object that holds the loading state object
             coming from dash-renderer
         """
-        kws = {k: v for k, v in locals().items() if k != 'self'}
+        kws = {
+            k: v for k, v in locals().items() if k not in ('self', 'kwargs')
+        }
+        kws.update(kwargs)
         DashComponent.__init__(self, **kws)

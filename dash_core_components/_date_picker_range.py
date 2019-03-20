@@ -23,6 +23,9 @@ class DatePickerRange(DashComponent):
     """
     _namespace = 'dash_core_components'
     _typename = 'DatePickerRange'
+    available_wildcard_properties = [
+
+    ]
     id = ComponentProp('id', UNDEFINED, False)
     start_date = ComponentProp('start_date', UNDEFINED, False)
     end_date = ComponentProp('end_date', UNDEFINED, False)
@@ -178,5 +181,8 @@ class DatePickerRange(DashComponent):
         :param loading_state: Object that holds the loading state object
             coming from dash-renderer
         """
-        kws = {k: v for k, v in locals().items() if k != 'self'}
+        kws = {
+            k: v for k, v in locals().items() if k not in ('self', 'kwargs')
+        }
+        kws.update(kwargs)
         DashComponent.__init__(self, **kws)

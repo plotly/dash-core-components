@@ -20,6 +20,9 @@ class Location(DashComponent):
     """
     _namespace = 'dash_core_components'
     _typename = 'Location'
+    available_wildcard_properties = [
+
+    ]
     id = ComponentProp('id', UNDEFINED, True)
     pathname = ComponentProp('pathname', UNDEFINED, False)
     search = ComponentProp('search', UNDEFINED, False)
@@ -48,5 +51,8 @@ class Location(DashComponent):
             "/my/full/pathname?myargument=1#myhash"
         :param refresh: Refresh the page when the location is updated?
         """
-        kws = {k: v for k, v in locals().items() if k != 'self'}
+        kws = {
+            k: v for k, v in locals().items() if k not in ('self', 'kwargs')
+        }
+        kws.update(kwargs)
         DashComponent.__init__(self, **kws)

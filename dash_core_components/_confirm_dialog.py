@@ -21,6 +21,9 @@ class ConfirmDialog(DashComponent):
     """
     _namespace = 'dash_core_components'
     _typename = 'ConfirmDialog'
+    available_wildcard_properties = [
+
+    ]
     id = ComponentProp('id', UNDEFINED, False)
     message = ComponentProp('message', UNDEFINED, False)
     submit_n_clicks = ComponentProp('submit_n_clicks', 0, False)
@@ -56,5 +59,8 @@ class ConfirmDialog(DashComponent):
         :param displayed: Set to true to send the ConfirmDialog.
         :param key:
         """
-        kws = {k: v for k, v in locals().items() if k != 'self'}
+        kws = {
+            k: v for k, v in locals().items() if k not in ('self', 'kwargs')
+        }
+        kws.update(kwargs)
         DashComponent.__init__(self, **kws)
