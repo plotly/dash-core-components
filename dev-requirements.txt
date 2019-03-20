@@ -4,3 +4,4 @@ pandas
 dash_table_experiments
 xlrd
 flake8
+dash-component-system==0.0.1rc1
