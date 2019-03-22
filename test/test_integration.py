@@ -216,6 +216,315 @@ class Tests(IntegrationTests):
 
         self.snapshot('test_upload_gallery')
 
+    def test_loading_component_initialization(self):
+        lock = Lock()
+        lock.acquire()
+
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.Loading([
+                html.Div(id='div-1')
+            ], className='loading')
+        ], id='root')
+
+        @app.callback(
+            Output('div-1', 'children'),
+            [Input('root', 'n_clicks')]
+        )
+        def updateDiv(children):
+            lock.acquire()
+            lock.release()
+            return 'content'
+
+        self.startServer(app)
+        self.wait_for_element_by_css_selector(
+            '.loading .dash-spinner'
+        )
+        lock.release()
+
+        self.wait_for_element_by_css_selector(
+            '.loading #div-1'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_loading_component_action(self):
+        lock = Lock()
+
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.Loading([
+                html.Div(id='div-1')
+            ], className='loading')
+        ], id='root')
+
+        @app.callback(
+            Output('div-1', 'children'),
+            [Input('root', 'n_clicks')]
+        )
+        def updateDiv(n_clicks):
+            if n_clicks is not None:
+                lock.acquire()
+                lock.release()
+                return
+
+            return 'content'
+
+        self.startServer(app)
+        self.wait_for_element_by_css_selector(
+            '.loading #div-1'
+        )
+
+        lock.acquire()
+        self.driver.find_element_by_id('root').click()
+
+        self.wait_for_element_by_css_selector(
+            '.loading .dash-spinner'
+        )
+        lock.release()
+
+        self.wait_for_element_by_css_selector(
+            '.loading #div-1'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_multiple_loading_components(self):
+        lock = Lock()
+
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.Loading([
+                html.Button(id='btn-1')
+            ], className='loading-1'),
+            dcc.Loading([
+                html.Button(id='btn-2')
+            ], className='loading-2')
+        ], id='root')
+
+        @app.callback(
+            Output('btn-1', 'value'),
+            [Input('btn-2', 'n_clicks')]
+        )
+        def updateDiv(n_clicks):
+            if n_clicks is not None:
+                lock.acquire()
+                lock.release()
+                return
+
+            return 'content'
+
+        @app.callback(
+            Output('btn-2', 'value'),
+            [Input('btn-1', 'n_clicks')]
+        )
+        def updateDiv(n_clicks):
+            if n_clicks is not None:
+                lock.acquire()
+                lock.release()
+                return
+
+            return 'content'
+
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-1'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-2 #btn-2'
+        )
+
+        lock.acquire()
+        self.driver.find_element_by_id('btn-1').click()
+
+        self.wait_for_element_by_css_selector(
+            '.loading-2 .dash-spinner'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-1'
+        )
+        lock.release()
+
+        lock.acquire()
+        self.driver.find_element_by_id('btn-2').click()
+
+        self.wait_for_element_by_css_selector(
+            '.loading-1 .dash-spinner'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-2 #btn-2'
+        )
+        lock.release()
+
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-1'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-2 #btn-2'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_nested_loading_components(self):
+        lock = Lock()
+
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.Loading([
+                html.Button(id='btn-1'),
+                dcc.Loading([
+                    html.Button(id='btn-2')
+                ], className='loading-2')
+            ], className='loading-1')
+        ], id='root')
+
+        @app.callback(
+            Output('btn-1', 'value'),
+            [Input('btn-2', 'n_clicks')]
+        )
+        def updateDiv(n_clicks):
+            if n_clicks is not None:
+                lock.acquire()
+                lock.release()
+                return
+
+            return 'content'
+
+        @app.callback(
+            Output('btn-2', 'value'),
+            [Input('btn-1', 'n_clicks')]
+        )
+        def updateDiv(n_clicks):
+            if n_clicks is not None:
+                lock.acquire()
+                lock.release()
+                return
+
+            return 'content'
+
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-1'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-2 #btn-2'
+        )
+
+        lock.acquire()
+        self.driver.find_element_by_id('btn-1').click()
+
+        self.wait_for_element_by_css_selector(
+            '.loading-2 .dash-spinner'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-1'
+        )
+        lock.release()
+
+        lock.acquire()
+        self.driver.find_element_by_id('btn-2').click()
+
+        self.wait_for_element_by_css_selector(
+            '.loading-1 .dash-spinner'
+        )
+        lock.release()
+
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-1'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-2 #btn-2'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+    def test_dynamic_loading_component(self):
+        lock = Lock()
+
+        app = dash.Dash(__name__)
+        app.config['suppress_callback_exceptions']=True
+
+        app.layout = html.Div([
+            html.Button(id='btn-1'),
+            html.Div(id='div-1')
+        ])
+
+        @app.callback(
+            Output('div-1', 'children'),
+            [Input('btn-1', 'n_clicks')]
+        )
+        def updateDiv(n_clicks):
+            if n_clicks is None:
+                return
+
+            lock.acquire()
+            lock.release()
+            return html.Div([
+                html.Button(id='btn-2'),
+                dcc.Loading([
+                    html.Button(id='btn-3')
+                ], className='loading-1')
+            ])
+
+        @app.callback(
+            Output('btn-3', 'content'),
+            [Input('btn-2', 'n_clicks')]
+        )
+        def updateDynamic(n_clicks):
+            if n_clicks is None:
+                return
+
+            lock.acquire()
+            lock.release()
+            return 'content'
+
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector(
+            '#btn-1'
+        )
+        self.wait_for_element_by_css_selector(
+            '#div-1'
+        )
+
+        self.driver.find_element_by_id('btn-1').click()
+
+        self.wait_for_element_by_css_selector(
+            '#div-1 #btn-2'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-3'
+        )
+
+        lock.acquire()
+        self.driver.find_element_by_id('btn-2').click()
+
+        self.wait_for_element_by_css_selector(
+            '.loading-1 .dash-spinner'
+        )
+        lock.release()
+
+        self.wait_for_element_by_css_selector(
+            '#div-1 #btn-2'
+        )
+        self.wait_for_element_by_css_selector(
+            '.loading-1 #btn-3'
+        )
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+
     def test_loading_slider(self):
         lock = Lock()
         lock.acquire()
