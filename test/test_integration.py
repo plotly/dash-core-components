@@ -344,17 +344,15 @@ class Tests(IntegrationTests):
                 '.loading-1 #btn-1'
             )
 
+        self.wait_for_element_by_css_selector(
+            '.loading-2 #btn-2'
+        )
+
         with lock:
-            self.wait_for_element_by_css_selector(
-                '.loading-2 #btn-2'
-            )
             self.driver.find_element_by_id('btn-2').click()
 
             self.wait_for_element_by_css_selector(
                 '.loading-1 .dash-spinner'
-            )
-            self.wait_for_element_by_css_selector(
-                '.loading-2 #btn-2'
             )
 
         self.wait_for_element_by_css_selector(
@@ -422,10 +420,11 @@ class Tests(IntegrationTests):
                 '.loading-1 #btn-1'
             )
 
+        self.wait_for_element_by_css_selector(
+            '.loading-2 #btn-2'
+        )
+
         with lock:
-            self.wait_for_element_by_css_selector(
-                '.loading-2 #btn-2'
-            )
             self.driver.find_element_by_id('btn-2').click()
 
             self.wait_for_element_by_css_selector(
