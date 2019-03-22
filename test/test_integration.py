@@ -218,7 +218,6 @@ class Tests(IntegrationTests):
 
     def test_loading_component_initialization(self):
         lock = Lock()
-        lock.acquire()
 
         app = dash.Dash(__name__)
 
@@ -233,15 +232,14 @@ class Tests(IntegrationTests):
             [Input('root', 'n_clicks')]
         )
         def updateDiv(children):
-            lock.acquire()
-            lock.release()
-            return 'content'
+            with lock:
+                return 'content'
 
-        self.startServer(app)
-        self.wait_for_element_by_css_selector(
-            '.loading .dash-spinner'
-        )
-        lock.release()
+        with lock:
+            self.startServer(app)
+            self.wait_for_element_by_css_selector(
+                '.loading .dash-spinner'
+            )
 
         self.wait_for_element_by_css_selector(
             '.loading #div-1'
@@ -267,24 +265,22 @@ class Tests(IntegrationTests):
         )
         def updateDiv(n_clicks):
             if n_clicks is not None:
-                lock.acquire()
-                lock.release()
-                return
+                with lock:
+                    return
 
             return 'content'
 
-        self.startServer(app)
-        self.wait_for_element_by_css_selector(
-            '.loading #div-1'
-        )
+        with lock:
+            self.startServer(app)
+            self.wait_for_element_by_css_selector(
+                '.loading #div-1'
+            )
 
-        lock.acquire()
-        self.driver.find_element_by_id('root').click()
+            self.driver.find_element_by_id('root').click()
 
-        self.wait_for_element_by_css_selector(
-            '.loading .dash-spinner'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '.loading .dash-spinner'
+            )
 
         self.wait_for_element_by_css_selector(
             '.loading #div-1'
@@ -313,9 +309,8 @@ class Tests(IntegrationTests):
         )
         def updateDiv(n_clicks):
             if n_clicks is not None:
-                lock.acquire()
-                lock.release()
-                return
+                with lock:
+                    return
 
             return 'content'
 
@@ -325,9 +320,8 @@ class Tests(IntegrationTests):
         )
         def updateDiv(n_clicks):
             if n_clicks is not None:
-                lock.acquire()
-                lock.release()
-                return
+                with lock:
+                    return
 
             return 'content'
 
@@ -340,27 +334,25 @@ class Tests(IntegrationTests):
             '.loading-2 #btn-2'
         )
 
-        lock.acquire()
-        self.driver.find_element_by_id('btn-1').click()
+        with lock:
+            self.driver.find_element_by_id('btn-1').click()
 
-        self.wait_for_element_by_css_selector(
-            '.loading-2 .dash-spinner'
-        )
-        self.wait_for_element_by_css_selector(
-            '.loading-1 #btn-1'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '.loading-2 .dash-spinner'
+            )
+            self.wait_for_element_by_css_selector(
+                '.loading-1 #btn-1'
+            )
 
-        lock.acquire()
-        self.driver.find_element_by_id('btn-2').click()
+        with lock:
+            self.driver.find_element_by_id('btn-2').click()
 
-        self.wait_for_element_by_css_selector(
-            '.loading-1 .dash-spinner'
-        )
-        self.wait_for_element_by_css_selector(
-            '.loading-2 #btn-2'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '.loading-1 .dash-spinner'
+            )
+            self.wait_for_element_by_css_selector(
+                '.loading-2 #btn-2'
+            )
 
         self.wait_for_element_by_css_selector(
             '.loading-1 #btn-1'
@@ -392,9 +384,8 @@ class Tests(IntegrationTests):
         )
         def updateDiv(n_clicks):
             if n_clicks is not None:
-                lock.acquire()
-                lock.release()
-                return
+                with lock:
+                    return
 
             return 'content'
 
@@ -404,9 +395,8 @@ class Tests(IntegrationTests):
         )
         def updateDiv(n_clicks):
             if n_clicks is not None:
-                lock.acquire()
-                lock.release()
-                return
+                with lock:
+                    return
 
             return 'content'
 
@@ -419,24 +409,22 @@ class Tests(IntegrationTests):
             '.loading-2 #btn-2'
         )
 
-        lock.acquire()
-        self.driver.find_element_by_id('btn-1').click()
+        with lock:
+            self.driver.find_element_by_id('btn-1').click()
 
-        self.wait_for_element_by_css_selector(
-            '.loading-2 .dash-spinner'
-        )
-        self.wait_for_element_by_css_selector(
-            '.loading-1 #btn-1'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '.loading-2 .dash-spinner'
+            )
+            self.wait_for_element_by_css_selector(
+                '.loading-1 #btn-1'
+            )
 
-        lock.acquire()
-        self.driver.find_element_by_id('btn-2').click()
+        with lock:
+            self.driver.find_element_by_id('btn-2').click()
 
-        self.wait_for_element_by_css_selector(
-            '.loading-1 .dash-spinner'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '.loading-1 .dash-spinner'
+            )
 
         self.wait_for_element_by_css_selector(
             '.loading-1 #btn-1'
@@ -467,14 +455,13 @@ class Tests(IntegrationTests):
             if n_clicks is None:
                 return
 
-            lock.acquire()
-            lock.release()
-            return html.Div([
-                html.Button(id='btn-2'),
-                dcc.Loading([
-                    html.Button(id='btn-3')
-                ], className='loading-1')
-            ])
+            with lock:
+                return html.Div([
+                    html.Button(id='btn-2'),
+                    dcc.Loading([
+                        html.Button(id='btn-3')
+                    ], className='loading-1')
+                ])
 
         @app.callback(
             Output('btn-3', 'content'),
@@ -484,9 +471,8 @@ class Tests(IntegrationTests):
             if n_clicks is None:
                 return
 
-            lock.acquire()
-            lock.release()
-            return 'content'
+            with lock:
+                return 'content'
 
         self.startServer(app)
 
@@ -506,13 +492,12 @@ class Tests(IntegrationTests):
             '.loading-1 #btn-3'
         )
 
-        lock.acquire()
-        self.driver.find_element_by_id('btn-2').click()
+        with lock:
+            self.driver.find_element_by_id('btn-2').click()
 
-        self.wait_for_element_by_css_selector(
-            '.loading-1 .dash-spinner'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '.loading-1 .dash-spinner'
+            )
 
         self.wait_for_element_by_css_selector(
             '#div-1 #btn-2'
@@ -527,7 +512,6 @@ class Tests(IntegrationTests):
 
     def test_loading_slider(self):
         lock = Lock()
-        lock.acquire()
 
         app = dash.Dash(__name__)
 
@@ -548,16 +532,15 @@ class Tests(IntegrationTests):
             [Input('test-div', 'children')]
         )
         def delayed_value(children):
-            lock.acquire()
-            lock.release()
-            return 5
+            with lock:
+                return 5
 
-        self.startServer(app)
+        with lock:
+            self.startServer(app)
 
-        self.wait_for_element_by_css_selector(
-            '#horizontal-slider[data-dash-is-loading="true"]'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '#horizontal-slider[data-dash-is-loading="true"]'
+            )
 
         self.wait_for_element_by_css_selector(
             '#horizontal-slider:not([data-dash-is-loading="true"])'
@@ -623,7 +606,6 @@ class Tests(IntegrationTests):
 
     def test_loading_range_slider(self):
         lock = Lock()
-        lock.acquire()
 
         app = dash.Dash(__name__)
 
@@ -644,16 +626,15 @@ class Tests(IntegrationTests):
             [Input('test-div', 'children')]
         )
         def delayed_value(children):
-            lock.acquire()
-            lock.release()
-            return [4, 6]
+            with lock:
+                return [4, 6]
 
-        self.startServer(app)
+        with lock:
+            self.startServer(app)
 
-        self.wait_for_element_by_css_selector(
-            '#horizontal-range-slider[data-dash-is-loading="true"]'
-        )
-        lock.release()
+            self.wait_for_element_by_css_selector(
+                '#horizontal-range-slider[data-dash-is-loading="true"]'
+            )
 
         self.wait_for_element_by_css_selector(
             '#horizontal-range-slider:not([data-dash-is-loading="true"])'
