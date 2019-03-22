@@ -440,7 +440,7 @@ class Tests(IntegrationTests):
         lock = Lock()
 
         app = dash.Dash(__name__)
-        app.config['suppress_callback_exceptions']=True
+        app.config['suppress_callback_exceptions'] = True
 
         app.layout = html.Div([
             html.Button(id='btn-1'),
@@ -508,7 +508,6 @@ class Tests(IntegrationTests):
 
         for entry in self.get_log():
             raise Exception('browser error logged during test', entry)
-
 
     def test_loading_slider(self):
         lock = Lock()
