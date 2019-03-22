@@ -345,6 +345,9 @@ class Tests(IntegrationTests):
             )
 
         with lock:
+            self.wait_for_element_by_css_selector(
+                '.loading-2 #btn-2'
+            )
             self.driver.find_element_by_id('btn-2').click()
 
             self.wait_for_element_by_css_selector(
@@ -420,6 +423,9 @@ class Tests(IntegrationTests):
             )
 
         with lock:
+            self.wait_for_element_by_css_selector(
+                '.loading-2 #btn-2'
+            )
             self.driver.find_element_by_id('btn-2').click()
 
             self.wait_for_element_by_css_selector(
