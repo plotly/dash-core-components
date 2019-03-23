@@ -520,6 +520,7 @@ class Tests(IntegrationTests):
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
+            html.Button(id='test-btn'),
             html.Label(id='test-div', children=['Horizontal Slider']),
             dcc.Slider(
                 id='horizontal-slider',
@@ -533,14 +534,25 @@ class Tests(IntegrationTests):
 
         @app.callback(
             Output('horizontal-slider', 'value'),
-            [Input('test-div', 'children')]
+            [Input('test-btn', 'n_clicks')]
         )
-        def delayed_value(children):
+        def user_delayed_value(n_clicks):
             with lock:
                 return 5
 
         with lock:
             self.startServer(app)
+
+            self.wait_for_element_by_css_selector(
+                '#horizontal-slider[data-dash-is-loading="true"]'
+            )
+
+        self.wait_for_element_by_css_selector(
+            '#horizontal-slider:not([data-dash-is-loading="true"])'
+        )
+
+        with lock:
+            self.driver.find_element_by_id('test-btn').click()
 
             self.wait_for_element_by_css_selector(
                 '#horizontal-slider[data-dash-is-loading="true"]'
@@ -614,6 +626,7 @@ class Tests(IntegrationTests):
         app = dash.Dash(__name__)
 
         app.layout = html.Div([
+            html.Button(id='test-btn'),
             html.Label(id='test-div', children=['Horizontal Range Slider']),
             dcc.RangeSlider(
                 id='horizontal-range-slider',
@@ -627,7 +640,7 @@ class Tests(IntegrationTests):
 
         @app.callback(
             Output('horizontal-range-slider', 'value'),
-            [Input('test-div', 'children')]
+            [Input('test-btn', 'n_clicks')]
         )
         def delayed_value(children):
             with lock:
@@ -635,6 +648,17 @@ class Tests(IntegrationTests):
 
         with lock:
             self.startServer(app)
+
+            self.wait_for_element_by_css_selector(
+                '#horizontal-range-slider[data-dash-is-loading="true"]'
+            )
+
+        self.wait_for_element_by_css_selector(
+            '#horizontal-range-slider:not([data-dash-is-loading="true"])'
+        )
+
+        with lock:
+            self.driver.find_element_by_id('test-btn').click()
 
             self.wait_for_element_by_css_selector(
                 '#horizontal-range-slider[data-dash-is-loading="true"]'
