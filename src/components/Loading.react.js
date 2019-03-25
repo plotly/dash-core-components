@@ -61,7 +61,7 @@ export default class Loading extends Component {
     }
 }
 
-Loading._dashprivate_deepstate = true;
+Loading._dashprivate_isLoadingComponent = true;
 
 Loading.defaultProps = {
     type: 'default',
