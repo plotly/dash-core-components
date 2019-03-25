@@ -1497,34 +1497,34 @@ class Tests(IntegrationTests):
     def test_graph_extend_trace(self):
         app = dash.Dash(__name__)
 
-        app.layout = html.Div([
-            dcc.Graph(
-                id='trace_will_extend',
-                figure=dict(
-                    data=[{'x': [0, 1, 2, 3, 4],
-                           'y': [0, .5, 1, .5, 0]
-                           }],
-                )
-            ),
-            dcc.Graph(
-                id='trace_will_extend_selectively',
-                figure=dict(
-                    data=[{'x': [0, 1, 2, 3, 4],
-                           'y': [0, .5, 1, .5, 0]
-                           },
-                          {'x': [0, 1, 2, 3, 4],
-                           'y': [1, 1, 1, 1, 1]
-                           }],
-                )
-            ),
-            html.Div(id='output1'),
-            html.Div(id='output2'),
-            dcc.Interval(
-                id='interval_extendablegraph_update',
-                interval=10,
-                n_intervals=0,
-                max_intervals=1)
-        ])
+        def generate_with_id(id, data=None):
+            if data is None:
+                data = [{'x': [0, 1, 2, 3, 4],
+                         'y': [0, .5, 1, .5, 0]
+                         }]
+
+            return html.Div([dcc.Graph(id=id,
+                                       figure=dict(data=data)),
+                             html.Div(id='output_{}'.format(id))])
+
+        figs = ['trace_will_extend',
+                'trace_will_extend_with_no_indices',
+                'trace_will_extend_with_max_points']
+
+        layout = [generate_with_id(id) for id in figs]
+
+        figs.append('trace_will_extend_selectively')
+        data = [{'x': [0, 1, 2, 3, 4], 'y': [0, .5, 1, .5, 0]},
+                {'x': [0, 1, 2, 3, 4], 'y': [1, 1, 1, 1, 1]}]
+        layout.append(generate_with_id(figs[-1], data))
+
+        layout.append(dcc.Interval(
+            id='interval_extendablegraph_update',
+            interval=10,
+            n_intervals=0,
+            max_intervals=2))
+
+        app.layout = html.Div(layout)
 
         @app.callback(Output('trace_will_extend', 'extendData'),
                       [Input('interval_extendablegraph_update', 'n_intervals')])
@@ -1546,46 +1546,62 @@ class Tests(IntegrationTests):
             y_new = [.1, .2, .3, .4, .5]
             return dict(x=[x_new], y=[y_new]), [1]
 
-        @app.callback(Output('output1', 'children'),
-                      [Input('trace_will_extend', 'extendData')],
-                      [State('trace_will_extend', 'figure')])
-        def display_data1(trigger, figure):
-            return json.dumps(figure['data'])
+        @app.callback(Output('trace_will_extend_with_no_indices', 'extendData'),
+                      [Input('interval_extendablegraph_update', 'n_intervals')])
+        def trace_will_extend_with_no_indices(n_intervals):
+            if n_intervals is None or n_intervals < 1:
+                raise PreventUpdate
 
-        @app.callback(Output('output2', 'children'),
-                      [Input('trace_will_extend_selectively', 'extendData')],
-                      [State('trace_will_extend_selectively', 'figure')])
-        def display_data2(trigger, figure):
-            return json.dumps(figure['data'])
+            x_new = [5, 6, 7, 8, 9]
+            y_new = [.1, .2, .3, .4, .5]
+            return dict(x=[x_new], y=[y_new])
+
+        @app.callback(Output('trace_will_extend_with_max_points', 'extendData'),
+                      [Input('interval_extendablegraph_update', 'n_intervals')])
+        def trace_will_extend_with_max_points(n_intervals):
+            if n_intervals is None or n_intervals < 1:
+                raise PreventUpdate
+
+            x_new = [5, 6, 7, 8, 9]
+            y_new = [.1, .2, .3, .4, .5]
+            return dict(x=[x_new], y=[y_new]), [0], 7
+
+        for id in figs:
+            @app.callback(Output('output_{}'.format(id), 'children'),
+                          [Input(id, 'extendData')],
+                          [State(id, 'figure')])
+            def display_data(trigger, fig):
+                return json.dumps(fig['data'])
 
         self.startServer(app)
 
-        try:
-            comparison = json.dumps([
-                dict(
-                    x=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    y=[0, .5, 1, .5, 0, .1, .2, .3, .4, .5]
-                )
-            ])
-            self.wait_for_text_to_equal('#output1', comparison)
-        except TimeoutException:
-            raise Exception('Graph data was not extended.')
+        comparison = json.dumps([
+            dict(
+                x=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                y=[0, .5, 1, .5, 0, .1, .2, .3, .4, .5]
+            )
+        ])
+        self.wait_for_text_to_equal('#output_trace_will_extend', comparison)
+        self.wait_for_text_to_equal('#output_trace_will_extend_with_no_indices', comparison)
+        comparison = json.dumps([
+            dict(
+                x=[0, 1, 2, 3, 4],
+                y=[0, .5, 1, .5, 0]
+            ),
+            dict(
+                x=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                y=[1, 1, 1, 1, 1, .1, .2, .3, .4, .5]
+            )
+        ])
+        self.wait_for_text_to_equal('#output_trace_will_extend_selectively', comparison)
 
-        try:
-            comparison = json.dumps([
-                dict(
-                    x=[0, 1, 2, 3, 4],
-                    y=[0, .5, 1, .5, 0]
-                ),
-                dict(
-                    x=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                    y=[1, 1, 1, 1, 1, .1, .2, .3, .4, .5]
-                )
-            ])
-            self.wait_for_text_to_equal('#output2', comparison)
-
-        except TimeoutException:
-            raise Exception('Graph data was not extended selectively.')
+        comparison = json.dumps([
+            dict(
+                x=[3, 4, 5, 6, 7, 8, 9],
+                y=[.5, 0, .1, .2, .3, .4, .5]
+            )
+        ])
+        self.wait_for_text_to_equal('#output_trace_will_extend_with_max_points', comparison)
 
     def test_storage_component(self):
         app = dash.Dash(__name__)

@@ -111,14 +111,40 @@ class PlotlyGraph extends Component {
 
     extend(props) {
         const {id, extendData} = props;
-        const gd = document.getElementById(id);
-        const [updateData, traceIndices] = extendData;
-
-        if (updateData && gd.data.length >= 1) {
-            return Plotly.extendTraces(id, updateData, traceIndices);
+        var updateData, traceIndices, maxPoints;
+        function getFirstProp(data) {
+            return data[Object.keys(data)[0]];
         }
 
-        return this.plot(props);
+        if (typeof extendData === 'object') {
+            if (Array.isArray(extendData)) {
+                [updateData, traceIndices, maxPoints] = extendData;
+            } else {
+                updateData = extendData;
+            }
+
+            if (typeof traceIndices === 'undefined') {
+                function generateIndices(data) {
+                    return Array.from(Array(getFirstProp(data).length).keys());
+                }
+                traceIndices = generateIndices(updateData);
+            }
+
+            if (
+                typeof updateData === 'object' &&
+                Array.isArray(getFirstProp(updateData)) &&
+                Array.isArray(getFirstProp(updateData)[0])
+            ) {
+                return Plotly.extendTraces(
+                    id,
+                    updateData,
+                    traceIndices,
+                    maxPoints
+                );
+            }
+        }
+
+        return null;
     }
 
     bindEvents() {
@@ -300,13 +326,15 @@ const graphPropTypes = {
 
     /**
      * Data that should be appended to existing traces. Has the form
-     * `[updateData, traceIndices]`, where `updateData` is an object
-     * containing the data to extend, and `traceIndices` is an array
-     * of trace indices that should be extended.
+     * `[updateData, traceIndices, maxPoints]`, where `updateData` is an object
+     * containing the data to extend, `traceIndices` (optional) is an array of
+     * trace indices that should be extended, and `maxPoints` (optional) is
+     * either an integer defining the maximum number of points allowed or an
+     * object with key:value pairs matching `updateData`
      * Reference the Plotly.extendTraces API for full usage:
      * https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces
      */
-    extendData: PropTypes.array,
+    extendData: PropTypes.object,
 
     /**
      * Data from latest restyle event which occurs

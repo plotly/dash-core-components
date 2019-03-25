@@ -1266,10 +1266,10 @@
       },
       "extendData": {
         "type": {
-          "name": "array"
+          "name": "object"
         },
         "required": false,
-        "description": "Data that should be appended to existing traces. Has the form\r\n`[updateData, traceIndices]`, where `updateData` is an object\r\ncontaining the data to extend, and `traceIndices` is an array\r\nof trace indices that should be extended.\r\nReference the Plotly.extendTraces API for full usage:\r\nhttps://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces",
+        "description": "Data that should be appended to existing traces. Has the form\r\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\r\ncontaining the data to extend, `traceIndices` (optional) is an array of\r\ntrace indices that should be extended, and `maxPoints` (optional) is\r\neither an integer defining the maximum number of points allowed or an\r\nobject with key:value pairs matching `updateData`\r\nReference the Plotly.extendTraces API for full usage:\r\nhttps://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces",
         "defaultValue": {
           "value": "null",
           "computed": false
