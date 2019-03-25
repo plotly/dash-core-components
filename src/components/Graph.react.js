@@ -111,40 +111,25 @@ class PlotlyGraph extends Component {
 
     extend(props) {
         const {id, extendData} = props;
-        var updateData, traceIndices, maxPoints;
-        function getFirstProp(data) {
-            return data[Object.keys(data)[0]];
+        let updateData, traceIndices, maxPoints;
+        if (Array.isArray(extendData)) {
+            [updateData, traceIndices, maxPoints] = extendData;
+        } else {
+            updateData = extendData;
         }
 
-        if (typeof extendData === 'object') {
-            if (Array.isArray(extendData)) {
-                [updateData, traceIndices, maxPoints] = extendData;
-            } else {
-                updateData = extendData;
+        if (typeof traceIndices === 'undefined') {
+            function getFirstProp(data) {
+                return data[Object.keys(data)[0]];
             }
 
-            if (typeof traceIndices === 'undefined') {
-                function generateIndices(data) {
-                    return Array.from(Array(getFirstProp(data).length).keys());
-                }
-                traceIndices = generateIndices(updateData);
+            function generateIndices(data) {
+                return Array.from(Array(getFirstProp(data).length).keys());
             }
-
-            if (
-                typeof updateData === 'object' &&
-                Array.isArray(getFirstProp(updateData)) &&
-                Array.isArray(getFirstProp(updateData)[0])
-            ) {
-                return Plotly.extendTraces(
-                    id,
-                    updateData,
-                    traceIndices,
-                    maxPoints
-                );
-            }
+            traceIndices = generateIndices(updateData);
         }
 
-        return null;
+        return Plotly.extendTraces(id, updateData, traceIndices, maxPoints);
     }
 
     bindEvents() {
@@ -251,7 +236,8 @@ class PlotlyGraph extends Component {
         }
 
         const extendDataChanged =
-            this.props.extendData !== nextProps.extendData;
+            JSON.stringify(this.props.extendData) !==
+            JSON.stringify(nextProps.extendData);
 
         if (extendDataChanged) {
             this.extend(nextProps);
