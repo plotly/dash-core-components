@@ -1821,7 +1821,8 @@ class Tests(IntegrationTests):
                          'y': [0, .5, 1, .5, 0]
                          }]
 
-            return html.Div([dcc.Graph(id=id,
+            return html.Div([html.P(id),
+                             dcc.Graph(id=id,
                                        figure=dict(data=data)),
                              html.Div(id='output_{}'.format(id))])
 
@@ -1830,6 +1831,10 @@ class Tests(IntegrationTests):
                 'trace_will_extend_with_max_points']
 
         layout = [generate_with_id(id) for id in figs]
+
+        figs.append('trace_will_allow_repeated_extend')
+        data = [{'y': [0, 0, 0]}]
+        layout.append(generate_with_id(figs[-1], data))
 
         figs.append('trace_will_extend_selectively')
         data = [{'x': [0, 1, 2, 3, 4], 'y': [0, .5, 1, .5, 0]},
@@ -1840,9 +1845,23 @@ class Tests(IntegrationTests):
             id='interval_extendablegraph_update',
             interval=10,
             n_intervals=0,
+            max_intervals=1))
+
+        layout.append(dcc.Interval(
+            id='interval_extendablegraph_extendtwice',
+            interval=500,
+            n_intervals=0,
             max_intervals=2))
 
         app.layout = html.Div(layout)
+
+        @app.callback(Output('trace_will_allow_repeated_extend', 'extendData'),
+                      [Input('interval_extendablegraph_extendtwice', 'n_intervals')])
+        def trace_will_allow_repeated_extend(n_intervals):
+            if n_intervals is None or n_intervals < 1:
+                raise PreventUpdate
+
+            return dict(y=[[.1, .2, .3, .4, .5]])
 
         @app.callback(Output('trace_will_extend', 'extendData'),
                       [Input('interval_extendablegraph_update', 'n_intervals')])
@@ -1920,6 +1939,13 @@ class Tests(IntegrationTests):
             )
         ])
         self.wait_for_text_to_equal('#output_trace_will_extend_with_max_points', comparison)
+
+        comparison = json.dumps([
+            dict(
+                y=[0, 0, 0, .1, .2, .3, .4, .5, .1, .2, .3, .4, .5]
+            )
+        ])
+        self.wait_for_text_to_equal('#output_trace_will_allow_repeated_extend', comparison)
 
     def test_storage_component(self):
         app = dash.Dash(__name__)

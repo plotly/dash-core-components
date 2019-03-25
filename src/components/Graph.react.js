@@ -112,13 +112,13 @@ class PlotlyGraph extends Component {
     extend(props) {
         const {id, extendData} = props;
         let updateData, traceIndices, maxPoints;
-        if (Array.isArray(extendData)) {
+        if (Array.isArray(extendData) && typeof extendData[0] === 'object') {
             [updateData, traceIndices, maxPoints] = extendData;
         } else {
             updateData = extendData;
         }
 
-        if (typeof traceIndices === 'undefined') {
+        if (!traceIndices) {
             function getFirstProp(data) {
                 return data[Object.keys(data)[0]];
             }
@@ -236,8 +236,7 @@ class PlotlyGraph extends Component {
         }
 
         const extendDataChanged =
-            JSON.stringify(this.props.extendData) !==
-            JSON.stringify(nextProps.extendData);
+            this.props.extendData !== nextProps.extendData;
 
         if (extendDataChanged) {
             this.extend(nextProps);
