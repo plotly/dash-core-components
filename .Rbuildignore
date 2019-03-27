@@ -22,7 +22,7 @@ setup.py
 requirements.txt
 MANIFEST.in
 CHANGELOG.md
-test/
+tests/
 # CRAN has weird LICENSE requirements
 LICENSE.txt
 ^.*\.Rproj$

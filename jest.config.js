@@ -108,14 +108,14 @@ module.exports = {
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-    "<rootDir>/test/unit"
+    "<rootDir>/tests/unit"
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ['<rootDir>/test/setupTests.js'],
+  setupFiles: ['<rootDir>/tests/setupTests.js'],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,
@@ -134,7 +134,7 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    "**/test/**/*.js?(x)",
+    "**/tests/**/*.js?(x)",
     "**/?(*.)+(spec|test).js?(x)"
   ],
 

@@ -74,7 +74,7 @@ class Tests(IntegrationTests):
     def create_upload_component_content_types_test(self, filename):
         app = dash.Dash(__name__)
 
-        filepath = os.path.join(os.getcwd(), 'test', 'upload-assets', filename)
+        filepath = os.path.join(os.getcwd(), 'tests', 'assets', filename)
 
         pre_style = {
             'whiteSpace': 'pre-wrap',
