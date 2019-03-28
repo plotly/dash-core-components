@@ -12,4 +12,5 @@ venv/
 *.egg-info
 *.log
 .idea/
+.vscode/
 .DS_Store
