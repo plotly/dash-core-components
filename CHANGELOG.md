@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `extendData` prop for `Graph` component. This feeds `Plotly.extendTraces` for incremental data updates. [#461](https://github.com/plotly/dash-core-components/pull/461)
 
+### Fixed
+- Patched plotly.js to 1.45.3 [#502]
+  - Patch releases [1.45.1](https://github.com/plotly/plotly.js/releases/tag/v1.45.1),  [1.45.2](https://github.com/plotly/plotly.js/releases/tag/v1.45.2), and [1.45.3](https://github.com/plotly/plotly.js/releases/tag/v1.45.3) containing numerous bug fixes
+
 ## [0.45.0] - 2019-03-25
 ### Added
 - `restyleData` prop for `Graph` component [#483](https://github.com/plotly/dash-core-components/pull/483)
