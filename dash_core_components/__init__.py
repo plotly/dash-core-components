@@ -29,7 +29,7 @@ _js_dist = [
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
             '/dash_core_components/dash_core_components.min.js'
-        ).format(__version__),
+        ).format('0.45.0-rc1'),
         'namespace': 'dash_core_components'
     },
     {
@@ -38,7 +38,7 @@ _js_dist = [
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
             '/dash_core_components/dash_core_components.min.js.map'
-        ).format(__version__),
+        ).format('0.45.0-rc1'),
         'namespace': 'dash_core_components',
         'dynamic': True
     }
