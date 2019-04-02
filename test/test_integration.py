@@ -116,7 +116,7 @@ class Tests(IntegrationTests):
                         content_string).decode('utf-8')))
                     return html.Div([
                         DataTable(
-                            rows=df.to_dict('records'),
+                            data=df.to_dict('records'),
                             columns=[{'id': i, 'name': i} for i in ['city', 'country']],
                         ),
                         html.Hr(),
