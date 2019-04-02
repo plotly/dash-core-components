@@ -16,7 +16,7 @@ import dash
 from dash.dependencies import Input, Output, State
 import dash_html_components as html
 import dash_core_components as dcc
-import dash_table_experiments as dt
+from dash_table import DataTable
 from dash.exceptions import PreventUpdate
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import InvalidElementStateException, TimeoutException
@@ -103,7 +103,7 @@ class Tests(IntegrationTests):
                 )
             ),
             html.Div(id='output'),
-            html.Div(dt.DataTable(rows=[{}]), style={'display': 'none'})
+            html.Div(DataTable(data=[{}]), style={'display': 'none'})
         ])
 
         @app.callback(Output('output', 'children'),
@@ -115,9 +115,10 @@ class Tests(IntegrationTests):
                     df = pd.read_csv(io.StringIO(base64.b64decode(
                         content_string).decode('utf-8')))
                     return html.Div([
-                        dt.DataTable(
+                        DataTable(
                             rows=df.to_dict('records'),
-                            columns=['city', 'country']),
+                            columns=[{'id': i, 'name': i} for i in ['city', 'country']],
+                        ),
                         html.Hr(),
                         html.Div('Raw Content'),
                         html.Pre(contents, style=pre_style)
@@ -126,9 +127,10 @@ class Tests(IntegrationTests):
                     df = pd.read_excel(io.BytesIO(base64.b64decode(
                         content_string)))
                     return html.Div([
-                        dt.DataTable(
-                            rows=df.to_dict('records'),
-                            columns=['city', 'country']),
+                        DataTable(
+                            data=df.to_dict('records'),
+                            columns=[{'id': i, 'name': i} for i in ['city', 'country']],
+                        ),
                         html.Hr(),
                         html.Div('Raw Content'),
                         html.Pre(contents, style=pre_style)
