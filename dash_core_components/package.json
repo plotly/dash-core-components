@@ -57,6 +57,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
     "babel-loader": "^8.0.5",
+    "check-prop-types": "^1.1.2",
     "component-playground": "^3.0.0",
     "copyfiles": "^2.0.0",
     "css-loader": "^1.0.1",
