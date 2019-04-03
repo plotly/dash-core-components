@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {omit, isEmpty} from 'ramda';
+import { assertPropTypes } from 'check-prop-types';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -12,6 +13,7 @@ import {omit, isEmpty} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
+        assertPropTypes(Input.propTypes, props, 'component prop', 'Input');
         if (!props.setProps || props.debounce) {
             this.state = {value: props.value};
         }
@@ -123,7 +125,7 @@ Input.propTypes = {
     id: PropTypes.string,
 
     /**
-     * The value of the input
+     * The input's current value
      */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
@@ -162,74 +164,19 @@ Input.propTypes = {
     /**
      * This attribute indicates whether the value of the control can be automatically completed by the browser.
      */
-    autocomplete: PropTypes.string,
+    autoComplete: PropTypes.string,
 
     /**
      * The element should be automatically focused after the page loaded.
      */
-    autofocus: PropTypes.string,
+    autoFocus: PropTypes.bool,
 
     /**
      * If true, the input is disabled and can't be clicked on.
      */
     disabled: PropTypes.bool,
 
-    inputmode: PropTypes.oneOf([
-        /**
-         * Alphanumeric, non-prose content such as usernames and passwords.
-         */
-        'verbatim',
-
-        /**
-         * Latin-script input in the user's preferred language with typing aids such as text prediction enabled. For human-to-computer communication such as search boxes.
-         */
-        'latin',
-
-        /**
-         * As latin, but for human names.
-         */
-        'latin-name',
-
-        /**
-         * As latin, but with more aggressive typing aids. For human-to-human communication such as instant messaging or email.
-         */
-        'latin-prose',
-
-        /**
-         * As latin-prose, but for the user's secondary languages.
-         */
-        'full-width-latin',
-
-        /**
-         * Kana or romaji input, typically hiragana input, using full-width characters, with support for converting to kanji. Intended for Japanese text input.
-         */
-        'kana',
-
-        /**
-         * Katakana input, using full-width characters, with support for converting to kanji. Intended for Japanese text input.
-         */
-        'katakana',
-
-        /**
-         * Numeric input, including keys for the digits 0 to 9, the user's preferred thousands separator character, and the character for indicating negative numbers. Intended for numeric codes (e.g. credit card numbers). For actual numbers, prefer using type="number"
-         */
-        'numeric',
-
-        /**
-         * Telephone input, including asterisk and pound key. Use type="tel" if possible instead.
-         */
-        'tel',
-
-        /**
-         * Email input. Use type="email" if possible instead.
-         */
-        'email',
-
-        /**
-         * URL input. Use type="url" if possible instead.
-         */
-        'url',
-    ]),
+    inputMode: PropTypes.string,
 
     /**
      * Identifies a list of pre-defined options to suggest to the user.
@@ -249,7 +196,7 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
      */
-    maxlength: PropTypes.string,
+    maxlength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
@@ -259,7 +206,7 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
      */
-    minlength: PropTypes.string,
+    minlength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
@@ -284,12 +231,12 @@ Input.propTypes = {
     /**
      * This attribute indicates that the user cannot modify the value of the control. The value of the attribute is irrelevant. If you need read-write access to the input value, do not add the "readonly" attribute. It is ignored if the value of the type attribute is hidden, range, color, checkbox, radio, file, or a button type (such as button or submit).
      */
-    readOnly: PropTypes.string,
+    readOnly: PropTypes.bool,
 
     /**
      * This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS pseudo-classes will be applied to the field as appropriate.
      */
-    required: PropTypes.string,
+    required: PropTypes.bool,
 
     /**
      * The direction in which selection occurred. This is "forward" if the selection was made from left-to-right in an LTR locale or right-to-left in an RTL locale, or "backward" if the selection was made in the opposite direction. On platforms on which it's possible this value isn't known, the value can be "none"; for example, on macOS, the default direction is "none", then as the user begins to modify the selection using the keyboard, this will change to reflect the direction in which the selection is expanding.
@@ -309,12 +256,12 @@ Input.propTypes = {
     /**
      * The initial size of the control. This value is in pixels unless the value of the type attribute is text or password, in which case it is an integer number of characters. Starting in, this attribute applies only when the type attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be greater than zero. If you do not specify a size, a default value of 20 is used.' simply states "the user agent should ensure that at least that many characters are visible", but different characters can have different widths in certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is defined to at least x.
      */
-    size: PropTypes.string,
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
-     * Setting the value of this attribute to true indicates that the element needs to have its spelling and grammar checked. The value default indicates that the element is to act according to a default behavior, possibly based on the parent element's own spellcheck value. The value false indicates that the element should not be checked.
+     * This attribute defines whether the element may be checked for spelling errors.
      */
-    spellCheck: PropTypes.string,
+    spellCheck: PropTypes.oneOf(['true', 'false']),
 
     /**
      * Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
