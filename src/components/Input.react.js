@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {omit, isEmpty} from 'ramda';
-import { assertPropTypes } from 'check-prop-types';
+import {assertPropTypes} from 'check-prop-types';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import {append, contains, without} from 'ramda';
 import React, {Component} from 'react';
+import {assertPropTypes} from 'check-prop-types';
 
 /**
  * Checklist is a component that encapsulates several checkboxes.
@@ -11,6 +12,12 @@ import React, {Component} from 'react';
 export default class Checklist extends Component {
     constructor(props) {
         super(props);
+        assertPropTypes(
+            Checklist.propTypes,
+            props,
+            'component prop',
+            'Checklist'
+        );
         this.state = {values: props.values};
     }
 
