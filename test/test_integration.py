@@ -126,7 +126,7 @@ class Tests(IntegrationTests):
                     df = pd.read_excel(io.BytesIO(base64.b64decode(
                         content_string)))
                     return html.Div([
-                        dt.DataTable(
+                        DataTable(
                             data=df.to_dict('records'),
                             columns=[{'id': i} for i in ['city', 'country']]),
                         html.Hr(),
