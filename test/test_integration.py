@@ -791,6 +791,10 @@ class Tests(IntegrationTests):
 
         self.snapshot('gallery - picker')
 
+        label = self.driver.find_element_by_css_selector(
+            'label'
+        )
+
         # DatePickerSingle and DatePickerRange test
         # for issue with datepicker when date value is `None`
         dt_input_1 = self.driver.find_element_by_css_selector(
@@ -807,7 +811,7 @@ class Tests(IntegrationTests):
         dt_input_2 = self.driver.find_element_by_css_selector(
             '#dt-single-no-date-value-init-month #date'
         )
-
+        label.click()
         dt_input_2.click()
         self.snapshot('gallery - DatePickerSingle\'s datepicker '
                       'when no date value, but initial month is specified')
@@ -819,6 +823,7 @@ class Tests(IntegrationTests):
         dt_input_3 = self.driver.find_element_by_css_selector(
             '#dt-range-no-date-values #endDate'
         )
+        label.click()
         dt_input_3.click()
         self.snapshot('gallery - DatePickerRange\'s datepicker '
                       'when neither start date nor end date '
@@ -831,6 +836,7 @@ class Tests(IntegrationTests):
         dt_input_4 = self.driver.find_element_by_css_selector(
             '#dt-range-no-date-values-init-month #endDate'
         )
+        label.click()
         dt_input_4.click()
         self.snapshot('gallery - DatePickerRange\'s datepicker '
                       'when neither start date nor end date is specified, '
