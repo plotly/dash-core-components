@@ -16,7 +16,7 @@ describe('Props can be set properly', () => {
         className: 'input-class',
         type: 'text',
         autoComplete: 'on',
-        autoFocus: 'on',
+        autoFocus: true,
         disabled: true,
         debounce: false,
         inputMode: 'verbatim',
@@ -29,8 +29,8 @@ describe('Props can be set properly', () => {
         name: 'input one',
         pattern: '/([A-Z])w+/g',
         placeholder: 'enter text',
-        readOnly: 'readonly',
-        required: 'required',
+        readOnly: false,
+        required: false,
         selectionDirection: 'forward',
         selectionEnd: '1',
         selectionStart: '1',
@@ -91,13 +91,11 @@ describe('Props can be set properly', () => {
     });
     test('props.readOnly is set as an attribute on the input', () => {
         const inputTag = input.render();
-        expect(inputTag.attr('readonly')).toBeDefined();
-        expect(inputTag.attr('readonly')).toEqual(defaultProps.readOnly);
+        expect(inputTag.attr('readonly')).toBeUndefined();
     });
     test('props.required is set as an attribute on the input', () => {
         const inputTag = input.render();
-        expect(inputTag.attr('required')).toBeDefined();
-        expect(inputTag.attr('required')).toEqual(defaultProps.required);
+        expect(inputTag.attr('required')).toBeUndefined();
     });
     test('props.size is set as an attribute on the input', () => {
         const inputTag = input.render();
