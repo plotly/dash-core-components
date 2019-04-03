@@ -31,21 +31,24 @@ export default class DatePickerRange extends Component {
          * - moment converted attributes
          */
 
-        const newState = convertToMoment(R.mergeAll([
-            {
-                start_date: null,
-                end_date: null,
-                max_date_allowed: null,
-                min_date_allowed: null
-            },
-            newProps
-        ]), [
-            'start_date',
-            'end_date',
-            'initial_visible_month',
-            'max_date_allowed',
-            'min_date_allowed',
-        ]);
+        const newState = convertToMoment(
+            R.mergeAll([
+                {
+                    start_date: null,
+                    end_date: null,
+                    max_date_allowed: null,
+                    min_date_allowed: null,
+                },
+                newProps,
+            ]),
+            [
+                'start_date',
+                'end_date',
+                'initial_visible_month',
+                'max_date_allowed',
+                'min_date_allowed',
+            ]
+        );
 
         this.setState(newState);
     }
