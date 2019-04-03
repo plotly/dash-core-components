@@ -1,3 +1,5 @@
+import 'react-dates/initialize';
+
 import {SingleDatePicker} from 'react-dates';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -35,15 +37,7 @@ export default class DatePickerSingle extends Component {
          * - moment converted attributes
          */
 
-        const newState = convertToMoment(
-            R.mergeAll([
-                {
-                    date: null,
-                    max_date_allowed: null,
-                    min_date_allowed: null,
-                },
-                newProps,
-            ]),
+        const newState = convertToMoment(newProps,
             [
                 'date',
                 'initial_visible_month',
@@ -64,25 +58,20 @@ export default class DatePickerSingle extends Component {
     }
 
     isOutsideRange(date) {
-        const {min_date_allowed, max_date_allowed} = this.state;
-        const notUndefined = R.complement(
-            R.pipe(
-                R.type,
-                R.equals('Undefined')
-            )
-        );
+        const { min_date_allowed, max_date_allowed } = this.state;
+
         return (
-            (notUndefined(min_date_allowed) && date < min_date_allowed) ||
-            (notUndefined(max_date_allowed) && date >= max_date_allowed)
+            (min_date_allowed && date.isBefore(min_date_allowed)) ||
+            (max_date_allowed && date.isAfter(max_date_allowed))
         );
     }
 
     onDateChange(date) {
-        const {setProps} = this.props;
-        if (setProps && date !== null) {
-            setProps({date: date.format('YYYY-MM-DD')});
-        } else {
-            this.setState({date});
+        const { setProps } = this.props;
+
+        this.setState({ date });
+        if (date) {
+            setProps({ date: date.format('YYYY-MM-DD') });
         }
     }
 

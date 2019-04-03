@@ -1,3 +1,4 @@
+import 'react-dates/initialize';
 import {DateRangePicker} from 'react-dates';
 import PropTypes from 'prop-types';
 import R from 'ramda';
@@ -31,16 +32,7 @@ export default class DatePickerRange extends Component {
          * - moment converted attributes
          */
 
-        const newState = convertToMoment(
-            R.mergeAll([
-                {
-                    start_date: null,
-                    end_date: null,
-                    max_date_allowed: null,
-                    min_date_allowed: null,
-                },
-                newProps,
-            ]),
+        const newState = convertToMoment(newProps,
             [
                 'start_date',
                 'end_date',
@@ -60,22 +52,23 @@ export default class DatePickerRange extends Component {
     componentWillMount() {
         this.propsToState(this.props);
     }
-    onDatesChange({startDate: start_date, endDate: end_date}) {
-        const {setProps, updatemode} = this.props;
+    onDatesChange({ startDate: start_date, endDate: end_date }) {
+        const { setProps, updatemode } = this.props;
+
         const old_start_date = this.state.start_date;
         const old_end_date = this.state.end_date;
-        const newState = {};
-        if (setProps && start_date !== null && start_date !== old_start_date) {
+
+        this.setState({ start_date, end_date });
+
+        if (start_date && !start_date.isSame(old_start_date)) {
             if (updatemode === 'singledate') {
-                setProps({start_date: start_date.format('YYYY-MM-DD')});
+                setProps({ start_date: start_date.format('YYYY-MM-DD') });
             }
         }
 
-        newState.start_date = start_date;
-
-        if (setProps && end_date !== null && end_date !== old_end_date) {
+        if (end_date && !end_date.isSame(old_end_date)) {
             if (updatemode === 'singledate') {
-                setProps({end_date: end_date.format('YYYY-MM-DD')});
+                setProps({ end_date: end_date.format('YYYY-MM-DD') });
             } else if (updatemode === 'bothdates') {
                 setProps({
                     start_date: start_date.format('YYYY-MM-DD'),
@@ -83,22 +76,14 @@ export default class DatePickerRange extends Component {
                 });
             }
         }
-        newState.end_date = end_date;
-
-        this.setState(newState);
     }
 
     isOutsideRange(date) {
         const {min_date_allowed, max_date_allowed} = this.state;
-        const notUndefined = R.complement(
-            R.pipe(
-                R.type,
-                R.equals('Undefined')
-            )
-        );
+
         return (
-            (notUndefined(min_date_allowed) && date < min_date_allowed) ||
-            (notUndefined(max_date_allowed) && date >= max_date_allowed)
+            (min_date_allowed && date.isBefore(min_date_allowed)) ||
+            (max_date_allowed && date.isAfter(max_date_allowed))
         );
     }
 
@@ -132,6 +117,8 @@ export default class DatePickerRange extends Component {
             id,
             style,
             className,
+            start_date_id,
+            end_date_id
         } = this.props;
 
         const verticalFlag = calendar_orientation !== 'vertical';
@@ -189,6 +176,8 @@ export default class DatePickerRange extends Component {
                         with_full_screen_portal && verticalFlag
                     }
                     withPortal={with_portal && verticalFlag}
+                    startDateId={start_date_id}
+                    endDateId={end_date_id}
                 />
             </div>
         );
@@ -204,6 +193,9 @@ DatePickerRange.propTypes = {
      * in the format 'YYYY-MM-DD'
      */
     start_date: PropTypes.string,
+
+    start_date_id: PropTypes.string,
+    end_date_id: PropTypes.string,
 
     /**
      * Specifies the ending date for the component.

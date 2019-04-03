@@ -1,11 +1,9 @@
 import DatePickerSingle from '../../src/components/DatePickerSingle.react';
 import R from 'ramda';
 import React from 'react';
-import {mount, render} from 'enzyme';
+import { mount, render } from 'enzyme';
 
 test('DatePickerSingle renders', () => {
-    spyOn(console, 'error');
-
     const dps = render(<DatePickerSingle />);
 
     expect(dps.html()).toBeDefined();
@@ -15,8 +13,6 @@ describe('Date can be set properly', () => {
     const defaultProps = {};
 
     test('null date is not converted by moment', () => {
-        spyOn(console, 'error');
-
         const props = R.merge(defaultProps, {
             date: null,
         });
@@ -25,7 +21,7 @@ describe('Date can be set properly', () => {
 
         expect(dps.props()).toBeDefined();
         expect(dps.props().date).toEqual(props.date);
-        expect(dps.state().date._isValid).toEqual(false);
+        expect(dps.state().date).toEqual(null);
     });
 
     test('valid date is not converted by moment', () => {
@@ -37,6 +33,6 @@ describe('Date can be set properly', () => {
 
         expect(dps.props()).toBeDefined();
         expect(dps.props().date).toEqual(props.date);
-        expect(dps.state().date.isSame(props.date)).toEqual(true);
+        expect(dps.state().date).not.toEqual(null);
     });
 });
