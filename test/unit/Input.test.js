@@ -22,7 +22,7 @@ describe('Props can be set properly', () => {
         inputMode: 'verbatim',
         list: 'hello',
         max: '2',
-        maxLength: '2',
+        maxLength: 2,
         min: '1',
         minLength: '1',
         multiple: true,

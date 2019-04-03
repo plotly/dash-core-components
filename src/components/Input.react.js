@@ -196,7 +196,7 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
      */
-    maxlength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
@@ -206,7 +206,7 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
      */
-    minlength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    minLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
