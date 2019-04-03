@@ -736,116 +736,6 @@ class Tests(IntegrationTests):
         for entry in self.get_log():
             raise Exception('browser error logged during test', entry)
 
-    def test_date_picker_range(self):
-        app = dash.Dash(__name__)
-
-        app.layout = html.Div([
-            html.Div([
-                html.Label('DatePickerRange'),
-                dcc.DatePickerRange(
-                    id='date-picker-range',
-                    start_date=datetime(1997, 5, 3),
-                    end_date_placeholder_text='Select a date!'
-                ),
-                html.Div([
-                    html.Label('DatePickerRange - empty input'),
-                    dcc.DatePickerRange(
-                        start_date_placeholder_text='Start date',
-                        end_date_placeholder_text='End date'
-                    ),
-                ], id='dt-range-no-date-values'
-                ),
-                html.Div([
-                    html.Label('DatePickerRange - initial visible month (May 97)'),
-                    dcc.DatePickerRange(
-                        start_date_placeholder_text='Start date',
-                        end_date_placeholder_text='End date',
-                        initial_visible_month=datetime(1997, 5, 10)
-                    ),
-                ], id='dt-range-no-date-values-init-month'
-                ),
-            ]),
-
-            html.Div([
-                html.Label('DatePickerSingle'),
-                dcc.DatePickerSingle(
-                    id='date-picker-single',
-                    date=datetime(1997, 5, 10)
-                ),
-                html.Div([
-                    html.Label('DatePickerSingle - empty input'),
-                    dcc.DatePickerSingle(),
-                ], id='dt-single-no-date-value'
-                ),
-                html.Div([
-                    html.Label('DatePickerSingle - initial visible month (May 97)'),
-                    dcc.DatePickerSingle(
-                        initial_visible_month=datetime(1997, 5, 10)
-                    ),
-                ], id='dt-single-no-date-value-init-month'
-                ),
-            ]),
-        ])
-
-        self.startServer(app)
-
-        self.snapshot('gallery - picker')
-
-        label = self.driver.find_element_by_css_selector(
-            'label'
-        )
-
-        # DatePickerSingle and DatePickerRange test
-        # for issue with datepicker when date value is `None`
-        dt_input_1 = self.driver.find_element_by_css_selector(
-            '#dt-single-no-date-value #date'
-        )
-        dt_input_1.click()
-        self.snapshot('gallery - DatePickerSingle\'s datepicker '
-                      'when no date value and no initial month specified')
-
-        dt1_length = len(dt_input_1.get_attribute('value'))
-        dt_input_1.send_keys(dt1_length * Keys.BACKSPACE)
-        dt_input_1.send_keys("1997-05-03")
-
-        dt_input_2 = self.driver.find_element_by_css_selector(
-            '#dt-single-no-date-value-init-month #date'
-        )
-        label.click()
-        dt_input_2.click()
-        self.snapshot('gallery - DatePickerSingle\'s datepicker '
-                      'when no date value, but initial month is specified')
-
-        dt2_length = len(dt_input_2.get_attribute('value'))
-        dt_input_2.send_keys(dt2_length * Keys.BACKSPACE)
-        dt_input_2.send_keys("1997-05-03")
-
-        dt_input_3 = self.driver.find_element_by_css_selector(
-            '#dt-range-no-date-values #endDate'
-        )
-        label.click()
-        dt_input_3.click()
-        self.snapshot('gallery - DatePickerRange\'s datepicker '
-                      'when neither start date nor end date '
-                      'nor initial month is specified')
-
-        dt3_length = len(dt_input_3.get_attribute('value'))
-        dt_input_3.send_keys(dt3_length * Keys.BACKSPACE)
-        dt_input_3.send_keys("1997-05-03")
-
-        dt_input_4 = self.driver.find_element_by_css_selector(
-            '#dt-range-no-date-values-init-month #endDate'
-        )
-        label.click()
-        dt_input_4.click()
-        self.snapshot('gallery - DatePickerRange\'s datepicker '
-                      'when neither start date nor end date is specified, '
-                      'but initial month is')
-
-        dt4_length = len(dt_input_4.get_attribute('value'))
-        dt_input_4.send_keys(dt4_length * Keys.BACKSPACE)
-        dt_input_4.send_keys("1997-05-03")
-
     def test_gallery(self):
         app = dash.Dash(__name__)
 
@@ -979,6 +869,52 @@ class Tests(IntegrationTests):
                 }
             ),
 
+            html.Div([
+                html.Label('DatePickerSingle'),
+                dcc.DatePickerSingle(
+                    id='date-picker-single',
+                    date=datetime(1997, 5, 10)
+                ),
+                html.Div([
+                    html.Label('DatePickerSingle - empty input'),
+                    dcc.DatePickerSingle(),
+                ], id='dt-single-no-date-value'
+                ),
+                html.Div([
+                    html.Label('DatePickerSingle - initial visible month (May 97)'),
+                    dcc.DatePickerSingle(
+                        initial_visible_month=datetime(1997, 5, 10)
+                    ),
+                ], id='dt-single-no-date-value-init-month'
+                ),
+            ]),
+
+            html.Div([
+                html.Label('DatePickerRange'),
+                dcc.DatePickerRange(
+                    id='date-picker-range',
+                    start_date=datetime(1997, 5, 3),
+                    end_date_placeholder_text='Select a date!'
+                ),
+                html.Div([
+                    html.Label('DatePickerRange - empty input'),
+                    dcc.DatePickerRange(
+                        start_date_placeholder_text='Start date',
+                        end_date_placeholder_text='End date'
+                    ),
+                ], id='dt-range-no-date-values'
+                ),
+                html.Div([
+                    html.Label('DatePickerRange - initial visible month (May 97)'),
+                    dcc.DatePickerRange(
+                        start_date_placeholder_text='Start date',
+                        end_date_placeholder_text='End date',
+                        initial_visible_month=datetime(1997, 5, 10)
+                    ),
+                ], id='dt-range-no-date-values-init-month'
+                ),
+            ]),
+
             html.Label('TextArea'),
             dcc.Textarea(
                 placeholder='Enter a value... 北京',
@@ -1035,6 +971,42 @@ class Tests(IntegrationTests):
             pass
 
         self.snapshot('gallery - text input')
+
+        # DatePickerSingle and DatePickerRange test
+        # for issue with datepicker when date value is `None`
+        dt_input_1 = self.driver.find_element_by_css_selector(
+            '#dt-single-no-date-value #date'
+        )
+        dt_input_1.click()
+        self.snapshot('gallery - DatePickerSingle\'s datepicker '
+                      'when no date value and no initial month specified')
+        dt_input_1.send_keys("1997-05-03")
+
+        dt_input_2 = self.driver.find_element_by_css_selector(
+            '#dt-single-no-date-value-init-month #date'
+        )
+        dt_input_2.click()
+        self.snapshot('gallery - DatePickerSingle\'s datepicker '
+                      'when no date value, but initial month is specified')
+        dt_input_2.send_keys("1997-05-03")
+
+        dt_input_3 = self.driver.find_element_by_css_selector(
+            '#dt-range-no-date-values #endDate'
+        )
+        dt_input_3.click()
+        self.snapshot('gallery - DatePickerRange\'s datepicker '
+                      'when neither start date nor end date '
+                      'nor initial month is specified')
+        dt_input_3.send_keys("1997-05-03")
+
+        dt_input_4 = self.driver.find_element_by_css_selector(
+            '#dt-range-no-date-values-init-month #endDate'
+        )
+        dt_input_4.click()
+        self.snapshot('gallery - DatePickerRange\'s datepicker '
+                      'when neither start date nor end date is specified, '
+                      'but initial month is')
+        dt_input_4.send_keys("1997-05-03")
 
     def test_tabs_in_vertical_mode(self):
         app = dash.Dash(__name__)
@@ -1619,16 +1591,10 @@ class Tests(IntegrationTests):
         self.wait_for_text_to_equal('#date-picker-range-output', 'None - None')
 
         # updated only one date, callback shouldn't fire and output should be unchanged
-        start_date_length = len(start_date.get_attribute('value'))
-        start_date.send_keys(start_date_length * Keys.BACKSPACE)
-
         start_date.send_keys("1997-05-03")
         self.wait_for_text_to_equal('#date-picker-range-output', 'None - None')
 
         # updated both dates, callback should now fire and update output
-        end_date_length = len(end_date.get_attribute('value'))
-        end_date.send_keys(end_date_length * Keys.BACKSPACE)
-
         end_date.send_keys("1997-05-04")
         end_date.click()
         self.wait_for_text_to_equal(
