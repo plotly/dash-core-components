@@ -18,6 +18,8 @@ import convertToMoment from '../utils/convertToMoment';
  * which can be found here: https://github.com/airbnb/react-dates
  */
 
+const UNIX_TIMESTAMP_FACTOR = 1000;
+
 export default class DatePickerSingle extends Component {
     constructor() {
         super();
@@ -33,7 +35,11 @@ export default class DatePickerSingle extends Component {
          * - moment converted attributes
          */
 
-        const newState = convertToMoment(newProps, [
+        const newState = convertToMoment(R.mergeAll([{
+            date: null,
+            max_date_allowed: null,
+            min_date_allowed: null
+        }, newProps]), [
             'date',
             'initial_visible_month',
             'max_date_allowed',
@@ -122,7 +128,11 @@ export default class DatePickerSingle extends Component {
                     focused={focused}
                     onFocusChange={({focused}) => this.setState({focused})}
                     initialVisibleMonth={() =>
-                        date || initial_visible_month || moment()
+                        date && date._isValid ?
+                            date :
+                            initial_visible_month && initial_visible_month._isValid ?
+                                initial_visible_month :
+                                moment.unix(Date.now() / UNIX_TIMESTAMP_FACTOR)
                     }
                     isOutsideRange={this.isOutsideRange}
                     numberOfMonths={number_of_months_shown}

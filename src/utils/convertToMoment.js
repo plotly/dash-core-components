@@ -7,15 +7,7 @@ export default (newProps, momentProps) => {
     momentProps.forEach(key => {
         const value = newProps[key];
 
-        switch (R.type(value)) {
-            case 'Undefined':
-                return;
-            case 'Null':
-                dest[key] = null;
-                return;
-            default:
-                dest[key] = moment(value);
-        }
+        dest[key] = moment(value);
 
         if (key === 'max_date_allowed' && R.has(key, dest)) {
             dest[key].add(1, 'days');
