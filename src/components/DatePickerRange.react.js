@@ -1,7 +1,6 @@
 import 'react-dates/initialize';
 import {DateRangePicker} from 'react-dates';
 import PropTypes from 'prop-types';
-import R from 'ramda';
 import React, {Component} from 'react';
 
 import convertToMoment from '../utils/convertToMoment';
@@ -32,15 +31,13 @@ export default class DatePickerRange extends Component {
          * - moment converted attributes
          */
 
-        const newState = convertToMoment(newProps,
-            [
-                'start_date',
-                'end_date',
-                'initial_visible_month',
-                'max_date_allowed',
-                'min_date_allowed',
-            ]
-        );
+        const newState = convertToMoment(newProps, [
+            'start_date',
+            'end_date',
+            'initial_visible_month',
+            'max_date_allowed',
+            'min_date_allowed',
+        ]);
 
         this.setState(newState);
     }
@@ -52,23 +49,23 @@ export default class DatePickerRange extends Component {
     componentWillMount() {
         this.propsToState(this.props);
     }
-    onDatesChange({ startDate: start_date, endDate: end_date }) {
-        const { setProps, updatemode } = this.props;
+    onDatesChange({startDate: start_date, endDate: end_date}) {
+        const {setProps, updatemode} = this.props;
 
         const old_start_date = this.state.start_date;
         const old_end_date = this.state.end_date;
 
-        this.setState({ start_date, end_date });
+        this.setState({start_date, end_date});
 
         if (start_date && !start_date.isSame(old_start_date)) {
             if (updatemode === 'singledate') {
-                setProps({ start_date: start_date.format('YYYY-MM-DD') });
+                setProps({start_date: start_date.format('YYYY-MM-DD')});
             }
         }
 
         if (end_date && !end_date.isSame(old_end_date)) {
             if (updatemode === 'singledate') {
-                setProps({ end_date: end_date.format('YYYY-MM-DD') });
+                setProps({end_date: end_date.format('YYYY-MM-DD')});
             } else if (updatemode === 'bothdates') {
                 setProps({
                     start_date: start_date.format('YYYY-MM-DD'),
@@ -118,7 +115,7 @@ export default class DatePickerRange extends Component {
             style,
             className,
             start_date_id,
-            end_date_id
+            end_date_id,
         } = this.props;
 
         const verticalFlag = calendar_orientation !== 'vertical';

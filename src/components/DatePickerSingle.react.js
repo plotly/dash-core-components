@@ -3,7 +3,6 @@ import 'react-dates/initialize';
 import {SingleDatePicker} from 'react-dates';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import R from 'ramda';
 import React, {Component} from 'react';
 
 import convertToMoment from '../utils/convertToMoment';
@@ -37,14 +36,12 @@ export default class DatePickerSingle extends Component {
          * - moment converted attributes
          */
 
-        const newState = convertToMoment(newProps,
-            [
-                'date',
-                'initial_visible_month',
-                'max_date_allowed',
-                'min_date_allowed',
-            ]
-        );
+        const newState = convertToMoment(newProps, [
+            'date',
+            'initial_visible_month',
+            'max_date_allowed',
+            'min_date_allowed',
+        ]);
 
         this.setState(newState);
     }
@@ -58,7 +55,7 @@ export default class DatePickerSingle extends Component {
     }
 
     isOutsideRange(date) {
-        const { min_date_allowed, max_date_allowed } = this.state;
+        const {min_date_allowed, max_date_allowed} = this.state;
 
         return (
             (min_date_allowed && date.isBefore(min_date_allowed)) ||
@@ -67,11 +64,11 @@ export default class DatePickerSingle extends Component {
     }
 
     onDateChange(date) {
-        const { setProps } = this.props;
+        const {setProps} = this.props;
 
-        this.setState({ date });
+        this.setState({date});
         if (date) {
-            setProps({ date: date.format('YYYY-MM-DD') });
+            setProps({date: date.format('YYYY-MM-DD')});
         }
     }
 

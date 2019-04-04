@@ -1,11 +1,11 @@
 import DatePickerRange from '../../src/components/DatePickerRange.react';
 import R from 'ramda';
 import React from 'react';
-import { mount, render } from 'enzyme';
+import {mount, render} from 'enzyme';
 
 const defaultProps = {
     start_date_id: 'start-date-id',
-    end_date_id: 'end-date-id'
+    end_date_id: 'end-date-id',
 };
 
 test('DatePickerRange renders', () => {

@@ -1,7 +1,7 @@
 import DatePickerSingle from '../../src/components/DatePickerSingle.react';
 import R from 'ramda';
 import React from 'react';
-import { mount, render } from 'enzyme';
+import {mount, render} from 'enzyme';
 
 test('DatePickerSingle renders', () => {
     const dps = render(<DatePickerSingle />);
