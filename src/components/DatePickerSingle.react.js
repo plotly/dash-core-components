@@ -19,8 +19,6 @@ import convertToMoment from '../utils/convertToMoment';
  * which can be found here: https://github.com/airbnb/react-dates
  */
 
-const UNIX_TIMESTAMP_FACTOR = 1000;
-
 export default class DatePickerSingle extends Component {
     constructor() {
         super();
