@@ -120,12 +120,7 @@ export default class DatePickerSingle extends Component {
                     focused={focused}
                     onFocusChange={({focused}) => this.setState({focused})}
                     initialVisibleMonth={() =>
-                        date && date._isValid
-                            ? date
-                            : initial_visible_month &&
-                              initial_visible_month._isValid
-                            ? initial_visible_month
-                            : moment.unix(Date.now() / UNIX_TIMESTAMP_FACTOR)
+                        date || initial_visible_month || moment()
                     }
                     isOutsideRange={this.isOutsideRange}
                     numberOfMonths={number_of_months_shown}
