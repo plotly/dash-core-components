@@ -1773,18 +1773,24 @@ class Tests(IntegrationTests):
                       [Input('button', 'n_clicks')])
         def on_click(n_clicks):
             if n_clicks:
-                return dcc.ConfirmDialog(
-                    displayed=True,
-                    id='confirm',
-                    key='confirm-{}'.format(time.time()),
-                    message='Please confirm as children.')
+                return [
+                    dcc.ConfirmDialog(
+                        displayed=True,
+                        id='confirm',
+                        key='confirm-{}'.format(time.time()),
+                        message='Please confirm as children.'
+                    )
+                ]
 
         self.startServer(app)
 
         button = self.wait_for_element_by_css_selector('#button')
 
         button.click()
-        time.sleep(2)
+
+        WebDriverWait(self.driver, 10).until(
+            EC.alert_is_present()
+        )
 
         self.driver.switch_to.alert.accept()
 
