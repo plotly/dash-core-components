@@ -24,6 +24,7 @@ class Graph(DashComponent):
     clear_on_unhover = ComponentProp('clear_on_unhover', False, False)
     selectedData = ComponentProp('selectedData', UNDEFINED, False)
     relayoutData = ComponentProp('relayoutData', UNDEFINED, False)
+    extendData = ComponentProp('extendData', UNDEFINED, False)
     restyleData = ComponentProp('restyleData', UNDEFINED, False)
     figure = ComponentProp('figure', UNDEFINED, False)
     style = ComponentProp('style', UNDEFINED, False)
@@ -42,6 +43,7 @@ class Graph(DashComponent):
             clear_on_unhover=False,
             selectedData=UNDEFINED,
             relayoutData=UNDEFINED,
+            extendData=UNDEFINED,
             restyleData=UNDEFINED,
             figure=UNDEFINED,
             style=UNDEFINED,
@@ -51,7 +53,7 @@ class Graph(DashComponent):
             config=UNDEFINED,
             loading_state=UNDEFINED,
     ):
-        # type: (typing.Union[str, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[bool, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.List, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[str, Undefined], typing.Union[bool, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict[str, typing.Union[bool, typing.Dict[str, typing.Union[bool]], typing.Union[float, int], typing.Any, str, typing.List]], Undefined], typing.Union[typing.Dict[str, typing.Union[bool, str]], Undefined]) -> None # noqa: E501
+        # type: (typing.Union[str, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[bool, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.List, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[str, Undefined], typing.Union[bool, Undefined], typing.Union[typing.Dict, Undefined], typing.Union[typing.Dict[str, typing.Union[bool, typing.Dict[str, typing.Union[bool]], typing.Union[float, int], typing.Any, str, typing.List]], Undefined], typing.Union[typing.Dict[str, typing.Union[bool, str]], Undefined]) -> None # noqa: E501
         """
         :param id: The ID of this component, used to identify dash
             components in callbacks. The ID needs to be unique
@@ -75,6 +77,18 @@ class Graph(DashComponent):
             other layout-level edits. Has the form `{<attr
             string>: <value>}` describing the changes
             made. Read-only.(default=null)
+        :param extendData: Data that should be appended to existing traces.
+            Has the form `[updateData, traceIndices,
+            maxPoints]`, where `updateData` is an object
+            containing the data to extend, `traceIndices`
+            (optional) is an array of trace indices that
+            should be extended, and `maxPoints` (optional)
+            is either an integer defining the maximum number
+            of points allowed or an object with key:value
+            pairs matching `updateData` Reference the
+            Plotly.extendTraces API for full usage:
+            https://plot.ly/javascript/plotlyjs-function-
+            reference/#plotlyextendtraces(default=null)
         :param restyleData: Data from latest restyle event which occurs
             when the user toggles a legend item, changes
             parcoords selections, or other trace-level
