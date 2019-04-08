@@ -66,7 +66,6 @@ export default class DatePickerSingle extends Component {
 
         this.setState({date});
         setProps({date: date ? date.format('YYYY-MM-DD') : null});
-        }
     }
 
     render() {
