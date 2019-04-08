@@ -1725,7 +1725,7 @@ class Tests(IntegrationTests):
 
         app.layout = html.Div([
             html.Button(id='button', children='Send confirm', n_clicks=0),
-            dcc.ConfirmDialog(id='confirm', message='Please confirm.'),
+            dcc.ConfirmDialog(id='confirm', message='Please confirm simple.'),
             html.Div(id='confirmed')
         ])
 
@@ -1743,7 +1743,7 @@ class Tests(IntegrationTests):
         app.layout = html.Div([
             dcc.ConfirmDialogProvider(
                 html.Button('click me', id='button'),
-                id='confirm', message='Please confirm.'),
+                id='confirm', message='Please confirm by provider.'),
             html.Div(id='confirmed')
         ])
 
@@ -1754,7 +1754,7 @@ class Tests(IntegrationTests):
         app.layout = html.Div([
             dcc.ConfirmDialogProvider(
                 html.Button('click me', id='button'),
-                id='confirm', message='Please confirm.'),
+                id='confirm', message='Please confirm without callback.'),
             html.Div(id='confirmed')
         ])
         self._test_confirm(app, 'ConfirmDialogProviderWithoutCallback',
@@ -1777,7 +1777,7 @@ class Tests(IntegrationTests):
                     displayed=True,
                     id='confirm',
                     key='confirm-{}'.format(time.time()),
-                    message='Please confirm.')
+                    message='Please confirm as children.')
 
         self.startServer(app)
 
