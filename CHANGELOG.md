@@ -15,6 +15,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix unnecessary `loading_state` prop for `Input` component. [#498](https://github.com/plotly/dash-core-components/issues/498)
 - Ensure `DatePickerSingle` callbacks fire with cleared dates. [#511](https://github.com/plotly/dash-core-components/pull/511)
 
+### Updated
+- Upgraded plotly.js to 1.47.0 [#](https://github.com/plotly/dash-core-components/pull/)
+  - [Feature release 1.47.0](https://github.com/plotly/plotly.js/releases/tag/v1.47.0) which contains:
+  - [Feature release 1.46.0](https://github.com/plotly/plotly.js/releases/tag/v1.46.0) which contains:
+  - Path releases [1.46.1](https://github.com/plotly/plotly.js/releases/tag/v1.46.1), [1.45.3](https://github.com/plotly/plotly.js/releases/tag/v1.45.3), [1.45.2](https://github.com/plotly/plotly.js/releases/tag/v1.45.2), [1.45.1](https://github.com/plotly/plotly.js/releases/tag/v1.45.1) containing numerous bug fixes
+
 ## [0.45.0] - 2019-03-25
 ### Added
 - `restyleData` prop for `Graph` component [#483](https://github.com/plotly/dash-core-components/pull/483)
