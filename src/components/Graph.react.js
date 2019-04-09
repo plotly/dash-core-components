@@ -375,6 +375,11 @@ const graphPropTypes = {
         staticPlot: PropTypes.bool,
 
         /**
+         * base URL for a Plotly cloud instance, if `showSendToCloud` is enabled
+         */
+        plotlyServerURL: PropTypes.string,
+
+        /**
          * we can edit titles, move annotations, etc - sets all pieces of `edits`
          * unless a separate `edits` config item overrides individual parts
          */
@@ -424,6 +429,11 @@ const graphPropTypes = {
          * (use default width or height values otherwise)
          */
         autosizable: PropTypes.bool,
+
+        /**
+         * Whether to change layout size when the window size changes
+         */
+        responsive: PropTypes.bool,
 
         /**
          * set the length of the undo/redo queue
@@ -492,6 +502,13 @@ const graphPropTypes = {
         displayModeBar: PropTypes.oneOf([true, false, 'hover']),
 
         /**
+         * should we include a modebar button to send this data to a
+         * Plotly Cloud instance, linked by `plotlyServerURL`.
+         * By default this is false.
+         */
+        showSendToCloud: PropTypes.bool,
+
+        /**
          * remove mode bar button by name.
          * All modebar button names at https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
          * Common names include:
@@ -517,9 +534,41 @@ const graphPropTypes = {
         modeBarButtons: PropTypes.any,
 
         /**
+         *
+         */
+        toImageButtonOptions: PropTypes.shape({
+            /**
+             * The file format to create
+             */
+            format: PropTypes.oneOf(['jpeg', 'png', 'webp', 'svg']),
+            /**
+             * The name given to the downloaded file
+             */
+            filename: PropTypes.string,
+            /**
+             * Width of the downloaded file, in px
+             */
+            width: PropTypes.number,
+            /**
+             * Height of the downloaded file, in px
+             */
+            height: PropTypes.number,
+            /**
+             * Extra resolution to give the file after
+             * rendering it with the given width and height
+             */
+            scale: PropTypes.number
+        }),
+
+        /**
          * add the plotly logo on the end of the mode bar
          */
         displaylogo: PropTypes.bool,
+
+        /**
+         * add the plotly logo even with no modebar
+         */
+        watermark: PropTypes.bool,
 
         /**
          * increase the pixel ratio for Gl plot images
@@ -537,6 +586,19 @@ const graphPropTypes = {
          * so that plotly.js won't attempt to authenticate to the public Mapbox server.
          */
         mapboxAccessToken: PropTypes.any,
+
+        /**
+         * The locale to use. Locales may be provided with the plot
+         * (`locales` below) or by loading them on the page, see:
+         * https://github.com/plotly/plotly.js/blob/master/dist/README.md#to-include-localization
+         */
+        locale: PropTypes.string,
+
+        /**
+         * Localization definitions, if you choose to provide them with the
+         * plot rather than registering them globally.
+         */
+        locales: PropTypes.object,
     }),
 
     /**
@@ -583,43 +645,7 @@ const graphDefaultProps = {
         },
     },
     clear_on_unhover: false,
-    config: {
-        staticPlot: false,
-        editable: false,
-        edits: {
-            annotationPosition: false,
-            annotationTail: false,
-            annotationText: false,
-            axisTitleText: false,
-            colorbarPosition: false,
-            colorbarTitleText: false,
-            legendPosition: false,
-            legendText: false,
-            shapePosition: false,
-            titleText: false,
-        },
-        autosizable: false,
-        queueLength: 0,
-        fillFrame: false,
-        frameMargins: 0,
-        scrollZoom: false,
-        doubleClick: 'reset+autosize',
-        showTips: true,
-        showAxisDragHandles: true,
-        showAxisRangeEntryBoxes: true,
-        showLink: false,
-        sendData: true,
-        linkText: 'Edit chart',
-        showSources: false,
-        displayModeBar: 'hover',
-        modeBarButtonsToRemove: [],
-        modeBarButtonsToAdd: [],
-        modeBarButtons: false,
-        displaylogo: true,
-        plotGlPixelRatio: 2,
-        topojsonURL: 'https://cdn.plot.ly/',
-        mapboxAccessToken: null,
-    },
+    config: {},
 };
 
 GraphWithDefaults.propTypes = graphPropTypes;
