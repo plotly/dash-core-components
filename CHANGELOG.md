@@ -18,17 +18,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Updated
 - Upgraded plotly.js to 1.47.0 [#516](https://github.com/plotly/dash-core-components/pull/516)
   - [Feature release 1.47.0](https://github.com/plotly/plotly.js/releases/tag/v1.47.0) which contains:
-    - New volume gl3d trace type
+    - New `volume` gl3d trace type
+    - Interactive node grouping for Sankey diagrams, using box or lasso selection
     - Add way for Plotly.toImage and Plotly.downloadImage to export images with current graph width/height by passing width/height option as null
-    - Add isosurface and volume to the gl3d bundle
-    - Allow re-plot during drag interactions
+    - Improvements to hover labels, legends, and more
   - [Feature release 1.46.0](https://github.com/plotly/plotly.js/releases/tag/v1.46.0) which contains:
-    - New waterfall trace type
-    - New sunburst trace type
+    - New `waterfall` trace type
+    - New `sunburst` trace type
     - Implement connectgaps on surface traces
     - Implement hovertemplate for box and violin points
     - Display hover labels above modebar, ensuring that the hover labels are always visible within the graph div
-  - Path releases [1.46.1](https://github.com/plotly/plotly.js/releases/tag/v1.46.1), [1.45.3](https://github.com/plotly/plotly.js/releases/tag/v1.45.3), [1.45.2](https://github.com/plotly/plotly.js/releases/tag/v1.45.2), and [1.45.1](https://github.com/plotly/plotly.js/releases/tag/v1.45.1) containing numerous bug fixes
+  - Patch releases [1.46.1](https://github.com/plotly/plotly.js/releases/tag/v1.46.1), [1.45.3](https://github.com/plotly/plotly.js/releases/tag/v1.45.3), [1.45.2](https://github.com/plotly/plotly.js/releases/tag/v1.45.2), and [1.45.1](https://github.com/plotly/plotly.js/releases/tag/v1.45.1) containing numerous bug fixes
 
 ## [0.45.0] - 2019-03-25
 ### Added
