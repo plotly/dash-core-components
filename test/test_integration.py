@@ -1193,7 +1193,7 @@ class Tests(IntegrationTests):
     def check_plotlyjs(self):
         # find plotly.js files in the dist folder, check that there's only one
         all_dist = os.listdir(dcc.__path__[0])
-        js_re = '^plotly-(.*)\.min\.js$'
+        js_re = r'^plotly-(.*)\.min\.js$'
         plotlyjs_dist = [fn for fn in all_dist if re.match(js_re, fn)]
 
         self.assertEqual(len(plotlyjs_dist), 1)
