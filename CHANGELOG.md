@@ -18,6 +18,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Updated
 - Upgraded plotly.js to 1.47.0 [#516](https://github.com/plotly/dash-core-components/pull/516)
   - [Feature release 1.47.0](https://github.com/plotly/plotly.js/releases/tag/v1.47.0) which contains:
+    - New volume gl3d trace type
+    - Add way for Plotly.toImage and Plotly.downloadImage to export images with current graph width/height by passing width/height option as null
+    - Add isosurface and volume to the gl3d bundle
+    - Allow re-plot during drag interactions
   - [Feature release 1.46.0](https://github.com/plotly/plotly.js/releases/tag/v1.46.0) which contains:
   - Path releases [1.46.1](https://github.com/plotly/plotly.js/releases/tag/v1.46.1), [1.45.3](https://github.com/plotly/plotly.js/releases/tag/v1.45.3), [1.45.2](https://github.com/plotly/plotly.js/releases/tag/v1.45.2), [1.45.1](https://github.com/plotly/plotly.js/releases/tag/v1.45.1) containing numerous bug fixes
 
