@@ -557,7 +557,7 @@ const graphPropTypes = {
              * Extra resolution to give the file after
              * rendering it with the given width and height
              */
-            scale: PropTypes.number
+            scale: PropTypes.number,
         }),
 
         /**
