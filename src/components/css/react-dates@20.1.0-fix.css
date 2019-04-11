@@ -1,3 +1,3 @@
-.DateInput {
-    overflow: hidden;
+.DateInput_input {
+    box-sizing: border-box;
 }
