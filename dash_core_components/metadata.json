@@ -2790,7 +2790,8 @@
               "name": "union",
               "value": [
                 {
-                  "name": "string"
+                  "name": "string",
+                  "description": "The label of the mark"
                 },
                 {
                   "name": "shape",
@@ -2803,7 +2804,8 @@
                       "name": "string",
                       "required": false
                     }
-                  }
+                  },
+                  "description": "The style and label of the mark"
                 }
               ],
               "required": false
@@ -2982,7 +2984,8 @@
               "name": "union",
               "value": [
                 {
-                  "name": "string"
+                  "name": "string",
+                  "description": "The label of the mark"
                 },
                 {
                   "name": "shape",
@@ -2995,7 +2998,8 @@
                       "name": "string",
                       "required": false
                     }
-                  }
+                  },
+                  "description": "The style and label of the mark"
                 }
               ],
               "required": false
@@ -3952,13 +3956,15 @@
           "name": "union",
           "value": [
             {
-              "name": "string"
+              "name": "string",
+              "description": "If `multiple` is `false`, then the contents will be a string"
             },
             {
               "name": "arrayOf",
               "value": {
                 "name": "string"
-              }
+              },
+              "description": "If `multiple` is `true`, then the contents will be a list of strings"
             }
           ]
         },
@@ -3970,13 +3976,15 @@
           "name": "union",
           "value": [
             {
-              "name": "string"
+              "name": "string",
+              "description": "If `multiple` is `false`, then the contents will be a string"
             },
             {
               "name": "arrayOf",
               "value": {
                 "name": "string"
-              }
+              },
+              "description": "If `multiple` is `true`, then the contents will be a list of strings"
             }
           ]
         },
@@ -3988,13 +3996,15 @@
           "name": "union",
           "value": [
             {
-              "name": "number"
+              "name": "number",
+              "description": "If `multiple` is `false`, then the contents will be a number"
             },
             {
               "name": "arrayOf",
               "value": {
                 "name": "number"
-              }
+              },
+              "description": "If `multiple` is `true`, then the contents will be a list of numbers"
             }
           ]
         },
