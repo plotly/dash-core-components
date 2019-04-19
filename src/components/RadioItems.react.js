@@ -81,18 +81,20 @@ RadioItems.propTypes = {
      * An array of options
      */
     options: PropTypes.arrayOf(
-        PropTypes.shape({
+        PropTypes.exact({
             /**
              * The radio item's label
              */
-            label: PropTypes.string,
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * The value of the radio item. This value
              * corresponds to the items specified in the
              * `values` property.
              */
-            value: PropTypes.string,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * If true, this radio item is disabled and can't be clicked on.
