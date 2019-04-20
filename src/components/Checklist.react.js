@@ -82,18 +82,20 @@ Checklist.propTypes = {
      * An array of options
      */
     options: PropTypes.arrayOf(
-        PropTypes.shape({
+        PropTypes.exact({
             /**
              * The checkbox's label
              */
-            label: PropTypes.string,
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * The value of the checkbox. This value
              * corresponds to the items specified in the
              * `values` property.
              */
-            value: PropTypes.string,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * If true, this checkbox is disabled and can't be clicked on.
@@ -105,7 +107,9 @@ Checklist.propTypes = {
     /**
      * The currently selected value
      */
-    values: PropTypes.arrayOf(PropTypes.string),
+    values: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
 
     /**
      * The class of the container (div)

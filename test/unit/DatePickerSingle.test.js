@@ -10,7 +10,9 @@ test('DatePickerSingle renders', () => {
 });
 
 describe('Date can be set properly', () => {
-    const defaultProps = {};
+    const defaultProps = {
+        id: 'datepicker',
+    };
 
     test('null date is not converted by moment', () => {
         const props = R.merge(defaultProps, {
@@ -21,7 +23,6 @@ describe('Date can be set properly', () => {
 
         expect(dps.props()).toBeDefined();
         expect(dps.props().date).toEqual(props.date);
-        expect(dps.state().date).toEqual(null);
     });
 
     test('valid date is not converted by moment', () => {
@@ -33,7 +34,6 @@ describe('Date can be set properly', () => {
 
         expect(dps.props()).toBeDefined();
         expect(dps.props().date).toEqual(props.date);
-        expect(dps.state().date).not.toEqual(null);
     });
 });
 
@@ -41,6 +41,7 @@ describe('Date can be selected', () => {
     test('`setProps` callback is called when date is selected', () => {
         const setPropsSpy = jest.fn();
         const props = {
+            id: 'datepicker',
             date: '2019-01-01',
             placeholder: 'My Date',
             setProps: setPropsSpy,
@@ -59,6 +60,7 @@ describe('Date can be cleared', () => {
     test('`setProps` callback is called when date is cleared', () => {
         const setPropsSpy = jest.fn();
         const props = {
+            id: 'datepicker',
             date: '2019-01-01',
             clearable: true,
             setProps: setPropsSpy,

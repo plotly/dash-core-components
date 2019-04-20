@@ -319,7 +319,7 @@ const graphPropTypes = {
      * Reference the Plotly.extendTraces API for full usage:
      * https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces
      */
-    extendData: PropTypes.object,
+    extendData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 
     /**
      * Data from latest restyle event which occurs
@@ -339,7 +339,10 @@ const graphPropTypes = {
      * `config` is set separately by the `config` property,
      * and `frames` is not supported.
      */
-    figure: PropTypes.object,
+    figure: PropTypes.exact({
+        data: PropTypes.arrayOf(PropTypes.object),
+        layout: PropTypes.object,
+    }),
 
     /**
      * Generic style overrides on the plot div
@@ -368,7 +371,7 @@ const graphPropTypes = {
      * See https://plot.ly/javascript/configuration-options/
      * for more info.
      */
-    config: PropTypes.shape({
+    config: PropTypes.exact({
         /**
          * No interactivity, for export or image generation
          */
@@ -388,7 +391,7 @@ const graphPropTypes = {
         /**
          * A set of editable properties
          */
-        edits: PropTypes.shape({
+        edits: PropTypes.exact({
             /**
              * annotationPosition: the main anchor of the annotation, which is the
              * text (if no arrow) or the arrow (which drags the whole thing leaving
@@ -536,7 +539,7 @@ const graphPropTypes = {
         /**
          * Modifications to how the toImage modebar button works
          */
-        toImageButtonOptions: PropTypes.shape({
+        toImageButtonOptions: PropTypes.exact({
             /**
              * The file format to create
              */
