@@ -54,7 +54,7 @@ jobs:
                   command: |
                       . venv/bin/activate
                       python --version
-                      python -m unittest -v --locals test.test_integration.Tests.test_gallery
+                      python -m unittest -v test.test_integration.Tests.test_gallery
 
     'python-3.6':
         <<: *test-template
