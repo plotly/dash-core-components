@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import R from 'ramda';
+import {has, is, isNil} from 'ramda';
 
 // EnhancedTab is defined here instead of in Tab.react.js because if exported there,
 // it will mess up the Python imports and metadata.json
@@ -39,7 +39,7 @@ const EnhancedTab = ({
         tabClassName += ` tab--selected ${selectedClassName || ''}`;
     }
     let labelDisplay;
-    if (R.is(Array, label)) {
+    if (is(Array, label)) {
         // label is an array, so it has children that we want to render
         labelDisplay = label[0].props.children;
     } else {
@@ -132,57 +132,39 @@ export default class Tabs extends Component {
 
         this.selectHandler = this.selectHandler.bind(this);
         this.parseChildrenToArray = this.parseChildrenToArray.bind(this);
+        this.valueOrDefault = this.valueOrDefault.bind(this);
 
-        if (!this.props.value) {
-            // if no value specified on Tabs component, set it to the first child's (which should be a Tab component) value
-
-            const children = this.parseChildrenToArray();
-            let value;
-            if (children && children[0].props.children) {
-                value = children[0].props.children.props.value || 'tab-1';
-            } else {
-                value = 'tab-1';
-            }
-            this.state = {
-                selected: value,
-            };
-            if (this.props.setProps) {
-                // updating the prop in Dash is necessary so that callbacks work
-                this.props.setProps({
-                    value: value,
-                });
-            }
-        } else {
-            this.state = {
-                selected: this.props.value,
-            };
+        if (!has('value', this.props)) {
+            this.props.setProps({
+                value: this.valueOrDefault(),
+            });
         }
     }
+
+    valueOrDefault() {
+        if (has('value', this.props)) {
+            return this.props.value;
+        }
+        const children = this.parseChildrenToArray();
+        if (children && children[0].props.children) {
+            return children[0].props.children.props.value || 'tab-1';
+        }
+        return 'tab-1';
+    }
+
     parseChildrenToArray() {
-        if (this.props.children && !R.is(Array, this.props.children)) {
+        if (this.props.children && !is(Array, this.props.children)) {
             // if dcc.Tabs.children contains just one single element, it gets passed as an object
             // instead of an array - so we put in in a array ourselves!
             return [this.props.children];
         }
         return this.props.children;
     }
+
     selectHandler(value) {
-        if (this.props.setProps) {
-            this.props.setProps({value: value});
-        } else {
-            this.setState({
-                selected: value,
-            });
-        }
+        this.props.setProps({value: value});
     }
-    componentWillReceiveProps(newProps) {
-        const value = newProps.value;
-        if (typeof value !== 'undefined' && this.props.value !== value) {
-            this.setState({
-                selected: value,
-            });
-        }
-    }
+
     render() {
         let EnhancedTabs;
         let selectedTab;
@@ -197,13 +179,12 @@ export default class Tabs extends Component {
                 // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
                 let childProps;
 
-                // TODO: fix issue in dash-renderer https://github.com/plotly/dash-renderer/issues/84
                 if (
                     // disabled is a defaultProp (so it's always set)
                     // meaning that if it's not set on child.props, the actual
                     // props we want are lying a bit deeper - which means they
                     // are coming from Dash
-                    R.isNil(child.props.disabled) &&
+                    isNil(child.props.disabled) &&
                     child.props._dashprivate_layout &&
                     child.props._dashprivate_layout.props
                 ) {
@@ -219,7 +200,7 @@ export default class Tabs extends Component {
                 }
 
                 // check if this child/Tab is currently selected
-                if (childProps.value === this.state.selected) {
+                if (childProps.value === this.valueOrDefault()) {
                     selectedTab = child;
                 }
 
@@ -228,7 +209,7 @@ export default class Tabs extends Component {
                         key={index}
                         id={childProps.id}
                         label={childProps.label}
-                        selected={this.state.selected === childProps.value}
+                        selected={this.valueOrDefault() === childProps.value}
                         selectHandler={this.selectHandler}
                         className={childProps.className}
                         style={childProps.style}
@@ -248,7 +229,7 @@ export default class Tabs extends Component {
             });
         }
 
-        const selectedTabContent = !R.isNil(selectedTab) ? selectedTab : '';
+        const selectedTabContent = !isNil(selectedTab) ? selectedTab : '';
 
         const tabContainerClass = this.props.vertical
             ? 'tab-container tab-container--vert'
