@@ -56,6 +56,9 @@ jobs:
                       python --version
                       python -m unittest -v test.test_integration.Tests.test_gallery
 
+            - store_artifacts:
+                  path: /tmp/artifacts
+
     'python-3.6':
         <<: *test-template
         docker:
