@@ -72,7 +72,7 @@ class Tests(IntegrationTests):
             python_version = sys.version.split(' ')[0]
             print('Percy Snapshot {}'.format(python_version))
             self.percy_runner.snapshot(name=name)
-            self.driver.save_snapshot(os.path.join(
+            self.driver.save_screenshot(os.path.join(
                 'tmp', 'artifacts', '{}.png'.format(name)
             ))
 
