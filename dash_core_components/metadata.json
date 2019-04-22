@@ -750,18 +750,6 @@
     "displayName": "DatePickerSingle",
     "methods": [
       {
-        "name": "propsToState",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "newProps",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
         "name": "isOutsideRange",
         "docblock": null,
         "modifiers": [],
@@ -1732,7 +1720,20 @@
   "src/components/Input.react.js": {
     "description": "A basic HTML input control for entering text, numbers, or passwords.\n\nNote that checkbox and radio types are supported through\nthe Checklist and RadioItems component. Dates, times, and file uploads\nare also supported through separate components.",
     "displayName": "Input",
-    "methods": [],
+    "methods": [
+      {
+        "name": "propsToState",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "newProps",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {
@@ -2247,7 +2248,7 @@
     "displayName": "Interval",
     "methods": [
       {
-        "name": "startTimer",
+        "name": "handleTimer",
         "docblock": null,
         "modifiers": [],
         "params": [
@@ -2278,22 +2279,10 @@
         "returns": null
       },
       {
-        "name": "handleInterval",
+        "name": "reportInterval",
         "docblock": null,
         "modifiers": [],
         "params": [],
-        "returns": null
-      },
-      {
-        "name": "canStartTimer",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "props",
-            "type": null
-          }
-        ],
         "returns": null
       }
     ],
@@ -2974,7 +2963,20 @@
   "src/components/RangeSlider.react.js": {
     "description": "A double slider with two handles.\nUsed for specifying a range of numerical values.",
     "displayName": "RangeSlider",
-    "methods": [],
+    "methods": [
+      {
+        "name": "propsToState",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "newProps",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {
@@ -3163,7 +3165,20 @@
   "src/components/Slider.react.js": {
     "description": "A slider component with a single handle.",
     "displayName": "Slider",
-    "methods": [],
+    "methods": [
+      {
+        "name": "propsToState",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "newProps",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {
@@ -3685,6 +3700,13 @@
     "description": "A Dash component that lets you render pages with tabs - the Tabs component's children\ncan be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold\nchildren components that will be that tab's content.",
     "displayName": "Tabs",
     "methods": [
+      {
+        "name": "valueOrDefault",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
       {
         "name": "parseChildrenToArray",
         "docblock": null,
