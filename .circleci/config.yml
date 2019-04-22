@@ -15,6 +15,10 @@ jobs:
                   command: echo $CIRCLE_JOB > circlejob.txt
 
             - run:
+                  name: Create artifacts directory
+                  command: mkdir /tmp/artifacts;
+
+            - run:
                   name: Install dependencies
                   command: |
                       sudo pip install virtualenv --upgrade
