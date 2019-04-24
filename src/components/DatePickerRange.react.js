@@ -17,29 +17,19 @@ import convertToMoment from '../utils/convertToMoment';
  * which can be found here: https://github.com/airbnb/react-dates
  */
 export default class DatePickerRange extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.propsToState = this.propsToState.bind(this);
         this.onDatesChange = this.onDatesChange.bind(this);
         this.isOutsideRange = this.isOutsideRange.bind(this);
+        this.state = {focused: false};
     }
 
     propsToState(newProps) {
-        /*
-         * state includes:
-         * - user modifiable attributes
-         * - moment converted attributes
-         */
-
-        const newState = convertToMoment(newProps, [
-            'start_date',
-            'end_date',
-            'initial_visible_month',
-            'max_date_allowed',
-            'min_date_allowed',
-        ]);
-
-        this.setState(newState);
+        this.setState({
+            start_date: newProps.start_date,
+            end_date: newProps.end_date,
+        });
     }
 
     componentWillReceiveProps(newProps) {
@@ -49,26 +39,29 @@ export default class DatePickerRange extends Component {
     componentWillMount() {
         this.propsToState(this.props);
     }
+
     onDatesChange({startDate: start_date, endDate: end_date}) {
         const {setProps, updatemode} = this.props;
 
-        const old_start_date = this.state.start_date;
-        const old_end_date = this.state.end_date;
+        const oldMomentDates = convertToMoment(this.state, [
+            'start_date',
+            'end_date',
+        ]);
 
-        this.setState({start_date, end_date});
-
-        if (start_date && !start_date.isSame(old_start_date)) {
+        if (start_date && !start_date.isSame(oldMomentDates.start_date)) {
             if (updatemode === 'singledate') {
                 setProps({start_date: start_date.format('YYYY-MM-DD')});
+            } else {
+                this.setState({start_date: start_date.format('YYYY-MM-DD')});
             }
         }
 
-        if (end_date && !end_date.isSame(old_end_date)) {
+        if (end_date && !end_date.isSame(oldMomentDates.end_date)) {
             if (updatemode === 'singledate') {
                 setProps({end_date: end_date.format('YYYY-MM-DD')});
             } else if (updatemode === 'bothdates') {
                 setProps({
-                    start_date: start_date.format('YYYY-MM-DD'),
+                    start_date: this.state.start_date,
                     end_date: end_date.format('YYYY-MM-DD'),
                 });
             }
@@ -85,12 +78,7 @@ export default class DatePickerRange extends Component {
     }
 
     render() {
-        const {
-            start_date,
-            end_date,
-            focusedInput,
-            initial_visible_month,
-        } = this.state;
+        const {focusedInput} = this.state;
 
         const {
             calendar_orientation,
@@ -118,6 +106,14 @@ export default class DatePickerRange extends Component {
             end_date_id,
         } = this.props;
 
+        const {initial_visible_month} = convertToMoment(this.props, [
+            'initial_visible_month',
+        ]);
+
+        const {start_date, end_date} = convertToMoment(this.state, [
+            'start_date',
+            'end_date',
+        ]);
         const verticalFlag = calendar_orientation !== 'vertical';
 
         const DatePickerWrapperStyles = {

@@ -12,29 +12,24 @@ import {omit, isEmpty} from 'ramda';
 export default class Input extends Component {
     constructor(props) {
         super(props);
-        if (!props.setProps || props.debounce) {
-            this.state = {value: props.value};
-        }
+        this.propsToState = this.propsToState.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.setProps) {
-            this.props = nextProps;
-            if (this.props.debounce) {
-                this.setState({
-                    value: nextProps.value,
-                });
-            }
-        }
+    propsToState(newProps) {
+        this.setState({value: newProps.value});
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.propsToState(newProps);
+    }
+
+    componentWillMount() {
+        this.propsToState(this.props);
     }
 
     render() {
         const {setProps, type, min, max, debounce, loading_state} = this.props;
-        const {value} = setProps
-            ? debounce
-                ? this.state
-                : this.props
-            : this.state;
+        const value = this.state.value;
         return (
             <input
                 data-dash-is-loading={
@@ -48,7 +43,7 @@ export default class Input extends Component {
                     ) {
                         return;
                     }
-                    if (!debounce && setProps) {
+                    if (!debounce) {
                         const castValue =
                             type === 'number' ? Number(newValue) : newValue;
                         setProps({
@@ -59,23 +54,21 @@ export default class Input extends Component {
                     }
                 }}
                 onBlur={() => {
-                    if (setProps) {
-                        const payload = {
-                            n_blur: this.props.n_blur + 1,
-                            n_blur_timestamp: new Date(),
-                        };
-                        if (debounce) {
-                            payload.value =
-                                type === 'number' ? Number(value) : value;
-                        }
-                        setProps(payload);
+                    const payload = {
+                        n_blur: this.props.n_blur + 1,
+                        n_blur_timestamp: Date.now(),
+                    };
+                    if (debounce) {
+                        payload.value =
+                            type === 'number' ? Number(value) : value;
                     }
+                    setProps(payload);
                 }}
                 onKeyPress={e => {
-                    if (setProps && e.key === 'Enter') {
+                    if (e.key === 'Enter') {
                         const payload = {
                             n_submit: this.props.n_submit + 1,
-                            n_submit_timestamp: new Date(),
+                            n_submit_timestamp: Date.now(),
                         };
                         if (debounce) {
                             payload.value =
@@ -162,19 +155,30 @@ Input.propTypes = {
     /**
      * This attribute indicates whether the value of the control can be automatically completed by the browser.
      */
-    autocomplete: PropTypes.string,
+    autoComplete: PropTypes.string,
 
     /**
      * The element should be automatically focused after the page loaded.
+     * autoFocus is an HTML boolean attribute - it is enabled by a boolean or
+     * 'autoFocus'. Alternative capitalizations `autofocus` & `AUTOFOCUS`
+     * are also acccepted.
      */
-    autofocus: PropTypes.string,
+    autoFocus: PropTypes.oneOfType([
+        PropTypes.oneOf(['autoFocus', 'autofocus', 'AUTOFOCUS']),
+        PropTypes.bool,
+    ]),
 
     /**
      * If true, the input is disabled and can't be clicked on.
+     * disabled is an HTML boolean attribute - it is enabled by a boolean or
+     * 'disabled'. Alternative capitalizations `DISABLED`
      */
-    disabled: PropTypes.bool,
+    disabled: PropTypes.oneOfType([
+        PropTypes.oneOf(['disabled', 'DISABLED']),
+        PropTypes.bool,
+    ]),
 
-    inputmode: PropTypes.oneOf([
+    inputMode: PropTypes.oneOf([
         /**
          * Alphanumeric, non-prose content such as usernames and passwords.
          */
@@ -249,7 +253,7 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in UTF-16 code units) that the user can enter. For other control types, it is ignored. It can exceed the value of the size attribute. If it is not specified, the user can enter an unlimited number of characters. Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of characters). The constraint is evaluated only when the value of the attribute has been changed.
      */
-    maxlength: PropTypes.string,
+    maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The minimum (numeric or date-time) value for this item, which must not be greater than its maximum (max attribute) value.
@@ -259,7 +263,7 @@ Input.propTypes = {
     /**
      * If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
      */
-    minlength: PropTypes.string,
+    minLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored.
@@ -279,17 +283,29 @@ Input.propTypes = {
     /**
      * A hint to the user of what can be entered in the control . The placeholder text must not contain carriage returns or line-feeds. Note: Do not use the placeholder attribute instead of a <label> element, their purposes are different. The <label> attribute describes the role of the form element (i.e. it indicates what kind of information is expected), and the placeholder attribute is a hint about the format that the content should take. There are cases in which the placeholder attribute is never displayed to the user, so the form must be understandable without it.
      */
-    placeholder: PropTypes.string,
+    placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * This attribute indicates that the user cannot modify the value of the control. The value of the attribute is irrelevant. If you need read-write access to the input value, do not add the "readonly" attribute. It is ignored if the value of the type attribute is hidden, range, color, checkbox, radio, file, or a button type (such as button or submit).
+     * readOnly is an HTML boolean attribute - it is enabled by a boolean or
+     * 'readOnly'. Alternative capitalizations `readonly` & `READONLY`
+     * are also acccepted.
      */
-    readOnly: PropTypes.string,
+    readOnly: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.oneOf(['readOnly', 'readonly', 'READONLY']),
+    ]),
 
     /**
      * This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS pseudo-classes will be applied to the field as appropriate.
+     * required is an HTML boolean attribute - it is enabled by a boolean or
+     * 'required'. Alternative capitalizations `REQUIRED`
+     * are also acccepted.
      */
-    required: PropTypes.string,
+    required: PropTypes.oneOfType([
+        PropTypes.oneOf(['required', 'REQUIRED']),
+        PropTypes.bool,
+    ]),
 
     /**
      * The direction in which selection occurred. This is "forward" if the selection was made from left-to-right in an LTR locale or right-to-left in an RTL locale, or "backward" if the selection was made in the opposite direction. On platforms on which it's possible this value isn't known, the value can be "none"; for example, on macOS, the default direction is "none", then as the user begins to modify the selection using the keyboard, this will change to reflect the direction in which the selection is expanding.
@@ -314,7 +330,11 @@ Input.propTypes = {
     /**
      * Setting the value of this attribute to true indicates that the element needs to have its spelling and grammar checked. The value default indicates that the element is to act according to a default behavior, possibly based on the parent element's own spellcheck value. The value false indicates that the element should not be checked.
      */
-    spellCheck: PropTypes.string,
+    spellCheck: PropTypes.oneOfType([
+        // enumerated property, not a boolean property: https://www.w3.org/TR/html51/editing.html#spelling-and-grammar-checking
+        PropTypes.oneOf(['true', 'false']),
+        PropTypes.bool,
+    ]),
 
     /**
      * Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.

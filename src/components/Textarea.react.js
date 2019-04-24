@@ -7,18 +7,8 @@ import {omit} from 'ramda';
  *
  */
 export default class Textarea extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {value: props.value};
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({value: nextProps.value});
-    }
-
     render() {
-        const {setProps, loading_state} = this.props;
-        const {value} = this.state;
+        const {setProps, loading_state, value} = this.props;
 
         return (
             <textarea
@@ -27,26 +17,19 @@ export default class Textarea extends Component {
                 }
                 value={value}
                 onChange={e => {
-                    this.setState({value: e.target.value});
-                    if (setProps) {
-                        setProps({value: e.target.value});
-                    }
+                    setProps({value: e.target.value});
                 }}
                 onBlur={() => {
-                    if (setProps) {
-                        setProps({
-                            n_blur: this.props.n_blur + 1,
-                            n_blur_timestamp: new Date(),
-                        });
-                    }
+                    setProps({
+                        n_blur: this.props.n_blur + 1,
+                        n_blur_timestamp: Date.now(),
+                    });
                 }}
                 onClick={() => {
-                    if (setProps) {
-                        setProps({
-                            n_clicks: this.props.n_clicks + 1,
-                            n_clicks_timestamp: new Date(),
-                        });
-                    }
+                    setProps({
+                        n_clicks: this.props.n_clicks + 1,
+                        n_clicks_timestamp: Date.now(),
+                    });
                 }}
                 {...omit(['setProps', 'value'], this.props)}
             />
@@ -82,12 +65,12 @@ Textarea.propTypes = {
     /**
      * Defines the number of columns in a textarea.
      */
-    cols: PropTypes.string,
+    cols: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Indicates whether the user can interact with the element.
      */
-    disabled: PropTypes.string,
+    disabled: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 
     /**
      * Indicates the form that is the owner of the element.
@@ -97,12 +80,12 @@ Textarea.propTypes = {
     /**
      * Defines the maximum number of characters allowed in the element.
      */
-    maxLength: PropTypes.string,
+    maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Defines the minimum number of characters allowed in the element.
      */
-    minLength: PropTypes.string,
+    minLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Name of the element. For example used by the server to identify the fields in form submits.
@@ -116,18 +99,30 @@ Textarea.propTypes = {
 
     /**
      * Indicates whether the element can be edited.
+     * readOnly is an HTML boolean attribute - it is enabled by a boolean or
+     * 'readOnly'. Alternative capitalizations `readonly` & `READONLY`
+     * are also acccepted.
      */
-    readOnly: PropTypes.string,
+    readOnly: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.oneOf(['readOnly', 'readonly', 'READONLY']),
+    ]),
 
     /**
      * Indicates whether this element is required to fill out or not.
+     * required is an HTML boolean attribute - it is enabled by a boolean or
+     * 'required'. Alternative capitalizations `REQUIRED`
+     * are also acccepted.
      */
-    required: PropTypes.string,
+    required: PropTypes.oneOfType([
+        PropTypes.oneOf(['required', 'REQUIRED']),
+        PropTypes.bool,
+    ]),
 
     /**
      * Defines the number of rows in a text area.
      */
-    rows: PropTypes.string,
+    rows: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Indicates whether the text should be wrapped.
@@ -147,7 +142,7 @@ Textarea.propTypes = {
     /**
      * Indicates whether the element's content is editable.
      */
-    contentEditable: PropTypes.string,
+    contentEditable: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 
     /**
      * Defines the ID of a <menu> element which will serve as the element's context menu.
@@ -162,7 +157,11 @@ Textarea.propTypes = {
     /**
      * Defines whether the element can be dragged.
      */
-    draggable: PropTypes.string,
+    draggable: PropTypes.oneOfType([
+        // enumerated property, not a boolean property: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable
+        PropTypes.oneOf(['true', 'false']),
+        PropTypes.bool,
+    ]),
 
     /**
      * Prevents rendering of given element, while keeping child elements, e.g. script elements, active.
@@ -177,7 +176,11 @@ Textarea.propTypes = {
     /**
      * Indicates whether spell checking is allowed for the element.
      */
-    spellCheck: PropTypes.string,
+    spellCheck: PropTypes.oneOfType([
+        // enumerated property, not a boolean property: https://www.w3.org/TR/html51/editing.html#spelling-and-grammar-checking
+        PropTypes.oneOf(['true', 'false']),
+        PropTypes.bool,
+    ]),
 
     /**
      * Defines CSS styles which will override styles previously set.
@@ -187,7 +190,7 @@ Textarea.propTypes = {
     /**
      * Overrides the browser's default tab order and follows the one specified instead.
      */
-    tabIndex: PropTypes.string,
+    tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * Text to be displayed in a tooltip when hovering over the element.

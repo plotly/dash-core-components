@@ -9,15 +9,6 @@ import React, {Component} from 'react';
  * Each checkbox is rendered as an input with a surrounding label.
  */
 export default class Checklist extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {values: props.values};
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({values: newProps.values});
-    }
-
     render() {
         const {
             className,
@@ -30,8 +21,8 @@ export default class Checklist extends Component {
             setProps,
             style,
             loading_state,
+            values,
         } = this.props;
-        const {values} = this.state;
 
         return (
             <div
@@ -61,10 +52,7 @@ export default class Checklist extends Component {
                                 } else {
                                     newValues = append(option.value, values);
                                 }
-                                this.setState({values: newValues});
-                                if (setProps) {
-                                    setProps({values: newValues});
-                                }
+                                setProps({values: newValues});
                             }}
                         />
                         {option.label}
@@ -82,18 +70,20 @@ Checklist.propTypes = {
      * An array of options
      */
     options: PropTypes.arrayOf(
-        PropTypes.shape({
+        PropTypes.exact({
             /**
              * The checkbox's label
              */
-            label: PropTypes.string,
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * The value of the checkbox. This value
              * corresponds to the items specified in the
              * `values` property.
              */
-            value: PropTypes.string,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * If true, this checkbox is disabled and can't be clicked on.
@@ -105,7 +95,9 @@ Checklist.propTypes = {
     /**
      * The currently selected value
      */
-    values: PropTypes.arrayOf(PropTypes.string),
+    values: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
 
     /**
      * The class of the container (div)

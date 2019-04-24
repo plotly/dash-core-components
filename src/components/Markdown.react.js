@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {type} from 'ramda';
+import {omit, propOr, type} from 'ramda';
 import Markdown from 'react-markdown';
 
 // eslint-disable-next-line valid-jsdoc
 /**
  * A component that renders Markdown text as specified by the
- * CommonMark spec.
+ * GitHub Markdown spec. These component uses
+ * [react-markdown](https://rexxars.github.io/react-markdown/) under the hood.
  */
 function DashMarkdown(props) {
     if (type(props.children) === 'Array') {
@@ -20,11 +21,12 @@ function DashMarkdown(props) {
                 (props.loading_state && props.loading_state.is_loading) ||
                 undefined
             }
+            {...propOr({}, 'containerProps', props)}
         >
             <Markdown
                 source={props.children}
                 escapeHtml={!props.dangerously_allow_html}
-                {...props}
+                {...omit(['containerProps'], props)}
             />
         </div>
     );

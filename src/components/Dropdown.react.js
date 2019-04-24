@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import R, {omit} from 'ramda';
+import {isNil, pluck, omit, type} from 'ramda';
 import React, {Component} from 'react';
 import ReactDropdown from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
@@ -34,7 +34,6 @@ export default class Dropdown extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: props.value,
             filterOptions: createFilterOptions({
                 options: props.options,
                 tokenizer: TOKENIZER,
@@ -43,7 +42,6 @@ export default class Dropdown extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value});
         if (newProps.options !== this.props.options) {
             this.setState({
                 filterOptions: createFilterOptions({
@@ -55,10 +53,18 @@ export default class Dropdown extends Component {
     }
 
     render() {
-        const {id, multi, options, setProps, style, loading_state} = this.props;
-        const {filterOptions, value} = this.state;
+        const {
+            id,
+            multi,
+            options,
+            setProps,
+            style,
+            loading_state,
+            value,
+        } = this.props;
+        const {filterOptions} = this.state;
         let selectedValue;
-        if (R.type(value) === 'array') {
+        if (type(value) === 'array') {
             selectedValue = value.join(DELIMETER);
         } else {
             selectedValue = value;
@@ -78,26 +84,20 @@ export default class Dropdown extends Component {
                     onChange={selectedOption => {
                         if (multi) {
                             let value;
-                            if (R.isNil(selectedOption)) {
+                            if (isNil(selectedOption)) {
                                 value = [];
                             } else {
-                                value = R.pluck('value', selectedOption);
+                                value = pluck('value', selectedOption);
                             }
-                            this.setState({value});
-                            if (setProps) {
-                                setProps({value});
-                            }
+                            setProps({value});
                         } else {
                             let value;
-                            if (R.isNil(selectedOption)) {
+                            if (isNil(selectedOption)) {
                                 value = null;
                             } else {
                                 value = selectedOption.value;
                             }
-                            this.setState({value});
-                            if (setProps) {
-                                setProps({value});
-                            }
+                            setProps({value});
                         }
                     }}
                     {...omit(['setProps', 'value'], this.props)}
@@ -114,18 +114,20 @@ Dropdown.propTypes = {
      * An array of options
      */
     options: PropTypes.arrayOf(
-        PropTypes.shape({
+        PropTypes.exact({
             /**
              * The dropdown's label
              */
-            label: PropTypes.string,
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * The value of the dropdown. This value
              * corresponds to the items specified in the
              * `values` property.
              */
-            value: PropTypes.string,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * If true, this dropdown is disabled and items can't be selected.
@@ -145,6 +147,8 @@ Dropdown.propTypes = {
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.number),
     ]),
 
     /**

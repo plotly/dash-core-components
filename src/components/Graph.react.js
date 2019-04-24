@@ -140,9 +140,7 @@ class PlotlyGraph extends Component {
         gd.on('plotly_click', eventData => {
             const clickData = filterEventData(gd, eventData, 'click');
             if (!isNil(clickData)) {
-                if (setProps) {
-                    setProps({clickData});
-                }
+                setProps({clickData});
             }
         });
         gd.on('plotly_clickannotation', eventData => {
@@ -150,37 +148,27 @@ class PlotlyGraph extends Component {
                 ['event', 'fullAnnotation'],
                 eventData
             );
-            if (setProps) {
-                setProps({clickAnnotationData});
-            }
+            setProps({clickAnnotationData});
         });
         gd.on('plotly_hover', eventData => {
             const hoverData = filterEventData(gd, eventData, 'hover');
             if (!isNil(hoverData)) {
-                if (setProps) {
-                    setProps({hoverData});
-                }
+                setProps({hoverData});
             }
         });
         gd.on('plotly_selected', eventData => {
             const selectedData = filterEventData(gd, eventData, 'selected');
             if (!isNil(selectedData)) {
-                if (setProps) {
-                    setProps({selectedData});
-                }
+                setProps({selectedData});
             }
         });
         gd.on('plotly_deselect', () => {
-            if (setProps) {
-                setProps({selectedData: null});
-            }
+            setProps({selectedData: null});
         });
         gd.on('plotly_relayout', eventData => {
             const relayoutData = filterEventData(gd, eventData, 'relayout');
             if (!isNil(relayoutData)) {
-                if (setProps) {
-                    setProps({relayoutData});
-                }
+                setProps({relayoutData});
             }
         });
         gd.on('plotly_restyle', eventData => {
@@ -191,9 +179,7 @@ class PlotlyGraph extends Component {
         });
         gd.on('plotly_unhover', () => {
             if (clear_on_unhover) {
-                if (setProps) {
-                    setProps({hoverData: null});
-                }
+                setProps({hoverData: null});
             }
         });
     }
@@ -319,7 +305,7 @@ const graphPropTypes = {
      * Reference the Plotly.extendTraces API for full usage:
      * https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces
      */
-    extendData: PropTypes.object,
+    extendData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 
     /**
      * Data from latest restyle event which occurs
@@ -339,7 +325,10 @@ const graphPropTypes = {
      * `config` is set separately by the `config` property,
      * and `frames` is not supported.
      */
-    figure: PropTypes.object,
+    figure: PropTypes.exact({
+        data: PropTypes.arrayOf(PropTypes.object),
+        layout: PropTypes.object,
+    }),
 
     /**
      * Generic style overrides on the plot div
@@ -368,7 +357,7 @@ const graphPropTypes = {
      * See https://plot.ly/javascript/configuration-options/
      * for more info.
      */
-    config: PropTypes.shape({
+    config: PropTypes.exact({
         /**
          * No interactivity, for export or image generation
          */
@@ -388,7 +377,7 @@ const graphPropTypes = {
         /**
          * A set of editable properties
          */
-        edits: PropTypes.shape({
+        edits: PropTypes.exact({
             /**
              * annotationPosition: the main anchor of the annotation, which is the
              * text (if no arrow) or the arrow (which drags the whole thing leaving
@@ -536,7 +525,7 @@ const graphPropTypes = {
         /**
          * Modifications to how the toImage modebar button works
          */
-        toImageButtonOptions: PropTypes.shape({
+        toImageButtonOptions: PropTypes.exact({
             /**
              * The file format to create
              */

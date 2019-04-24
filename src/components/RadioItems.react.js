@@ -10,15 +10,6 @@ import './css/react-select@1.0.0-rc.3.min.css';
  */
 
 export default class RadioItems extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {value: props.value};
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value});
-    }
-
     render() {
         const {
             id,
@@ -31,8 +22,8 @@ export default class RadioItems extends Component {
             options,
             setProps,
             loading_state,
+            value,
         } = this.props;
-        const {value} = this.state;
 
         let ids = {};
         if (id) {
@@ -60,10 +51,7 @@ export default class RadioItems extends Component {
                             style={inputStyle}
                             type="radio"
                             onChange={() => {
-                                this.setState({value: option.value});
-                                if (setProps) {
-                                    setProps({value: option.value});
-                                }
+                                setProps({value: option.value});
                             }}
                         />
                         {option.label}
@@ -81,18 +69,20 @@ RadioItems.propTypes = {
      * An array of options
      */
     options: PropTypes.arrayOf(
-        PropTypes.shape({
+        PropTypes.exact({
             /**
              * The radio item's label
              */
-            label: PropTypes.string,
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * The value of the radio item. This value
              * corresponds to the items specified in the
              * `values` property.
              */
-            value: PropTypes.string,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
 
             /**
              * If true, this radio item is disabled and can't be clicked on.

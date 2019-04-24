@@ -8,41 +8,33 @@ import {Component} from 'react';
  * is performing an action that should require an extra step of verification.
  */
 export default class ConfirmDialog extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            displayed: props.displayed,
-        };
+    componentDidUpdate(prevProps) {
+        this._update(!prevProps.displayed && this.props.displayed);
     }
 
-    _setStateAndProps(value) {
-        const {setProps} = this.props;
-        this.setState({displayed: value.displayed});
-        if (setProps) {
-            setProps(value);
-        }
+    componentDidMount() {
+        this._update(this.props.displayed);
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({displayed: props.displayed});
-    }
+    _update(shouldTriggerDisplay) {
+        const {
+            message,
+            setProps,
+            cancel_n_clicks,
+            submit_n_clicks,
+        } = this.props;
 
-    _update() {
-        const {message, cancel_n_clicks, submit_n_clicks} = this.props;
-
-        const displayed = this.state.displayed;
-
-        if (displayed) {
+        if (shouldTriggerDisplay) {
             new Promise(resolve => resolve(window.confirm(message))).then(
                 result => {
                     if (result) {
-                        this._setStateAndProps({
+                        setProps({
                             submit_n_clicks: submit_n_clicks + 1,
                             submit_n_clicks_timestamp: Date.now(),
                             displayed: false,
                         });
                     } else {
-                        this._setStateAndProps({
+                        setProps({
                             cancel_n_clicks: cancel_n_clicks + 1,
                             cancel_n_clicks_timestamp: Date.now(),
                             displayed: false,
@@ -51,14 +43,6 @@ export default class ConfirmDialog extends Component {
                 }
             );
         }
-    }
-
-    componentDidUpdate() {
-        this._update();
-    }
-
-    componentDidMount() {
-        this._update();
     }
 
     render() {

@@ -4,7 +4,37 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Fixed
-- Fix style regression in DatePickerSingle and DatePickerRange [#518](https://github.com/plotly/dash-core-components/issues/518)
+- Fixed style regression in DatePickerSingle and DatePickerRange [#518](https://github.com/plotly/dash-core-components/issues/518)
+- **Breaking** - In `dcc.Input`, fixed several HTML properties that weren't properly camel cased and therefore were not actually applied in the DOM [#523](https://github.com/plotly/dash-core-components/pull/523/):
+    - `autocomplete` is now `autoComplete`
+    - `autofocus` is now `autoFocus`
+    - `inputmode` is now `inputMode`
+    - `maxlength` is now `maxLength`
+    - `minlength` is now `minLength`
+- Improved property definitions of various components in anticipation of upcoming component validation (https://github.com/plotly/dash-renderer/pull/100/). [#523](https://github.com/plotly/dash-core-components/pull/523/)
+- **Breaking** - `n_blur_timestamp` & `n_submit_timestamp` in `Input` & `Textarea` is now a number instead of a date object/string. This matches the form of `n_clicks_timestamp` as used in `dash_html_components`. [#523](https://github.com/plotly/dash-core-components/pull/523/)
+- Fixed an issue with `ConfirmDialog` that could display multiple confirm popups instead of a single popup in certain contexts. [#523](https://github.com/plotly/dash-core-components/pull/523/)
+- `dcc.Markdown` `containerProps` is now applied to the component's container again. This was broken in 0.45.0's `react-markdown` upgrade.
+
+### Changed
+- `dcc.Interval` will reset its timer when re-enabled. Previously, if the `dcc.Interval` was disabled, it's "clock would keep running": when it was reenabled, it would fire at the next `interval` on the previous clock's schedule, rather than `interval` milliseconds later. For example, previously the schedule might look like this:
+    ```
+    0 seconds: interval started with `interval=5000`
+    5 seconds: `n_intervals=1`
+    7 seconds: callback sets `disabled=True`
+    10 seconds: interval continues to run, but doesn't fire an update
+    13 seconds: callback sets `disabled=False`
+    15 seconds: interval fires an update: `n_intervals=2`
+    ```
+
+    Now, it will look like this:
+    ```
+    0 seconds: interval started with `interval=5000`
+    5 seconds: `n_intervals=1`
+    7 seconds: callback sets `disabled=True` - interval stops
+    13 seconds: callback sets `disabled=False` - clock resets
+    18 seconds: interval fires an update: `n_intervals=2`
+    ```
 
 ## [0.46.0] - 2019-04-10
 ### Added
@@ -39,8 +69,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `restyleData` prop for `Graph` component [#483](https://github.com/plotly/dash-core-components/pull/483)
 
-### Updated
-- Upgraded `react-markdown` third party library from 2.4.5 to [4.0.6](https://github.com/rexxars/react-markdown/blob/master/CHANGELOG.md#406---2019-01-04)
+### Changed
+- `dcc.Markdown` now uses GitHub-flavored markdown instead of CommonMark markdown. This was done as part of upgrading `react-markdown` third party library from 2.4.5 to [4.0.6](https://github.com/rexxars/react-markdown/blob/master/CHANGELOG.md#406---2019-01-04). Compare the differences in these online editors: [CommonMark editor](https://spec.commonmark.org/dingus/), [GitHub Markdown Editor](https://rexxars.github.io/react-markdown/). Notable changes:
+    - A line break is now needed between paragraphs and lists.
+    - Links are automatically rendered.
+    - Many more features are supported like tables and strikethrough.
 
 ### Fixed
 - Fix Vertical Slider regression [#479](https://github.com/plotly/dash/issues/479)

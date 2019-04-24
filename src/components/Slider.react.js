@@ -10,11 +10,19 @@ import './css/rc-slider@6.1.2.css';
 export default class Slider extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: props.value};
+        this.propsToState = this.propsToState.bind(this);
+    }
+
+    propsToState(newProps) {
+        this.setState({value: newProps.value});
     }
 
     componentWillReceiveProps(newProps) {
-        this.setState({value: newProps.value});
+        this.propsToState(newProps);
+    }
+
+    componentWillMount() {
+        this.propsToState(this.props);
     }
 
     render() {
@@ -26,7 +34,8 @@ export default class Slider extends Component {
             updatemode,
             vertical,
         } = this.props;
-        const {value} = this.state;
+        const value = this.state.value;
+
         return (
             <div
                 id={id}
@@ -38,18 +47,15 @@ export default class Slider extends Component {
             >
                 <ReactSlider
                     onChange={value => {
-                        this.setState({value});
                         if (updatemode === 'drag') {
-                            if (setProps) {
-                                setProps({value});
-                            }
+                            setProps({value});
+                        } else {
+                            this.setState({value});
                         }
                     }}
                     onAfterChange={value => {
                         if (updatemode === 'mouseup') {
-                            if (setProps) {
-                                setProps({value});
-                            }
+                            setProps({value});
                         }
                     }}
                     value={value}
@@ -68,28 +74,21 @@ Slider.propTypes = {
 
     /**
      * Marks on the slider.
-     * The key determines the position,
+     * The key determines the position (a number),
      * and the value determines what will show.
      * If you want to set the style of a specific mark point,
      * the value should be an object which
      * contains style and label properties.
      */
-    marks: PropTypes.shape({
-        number: PropTypes.oneOfType([
-            /**
-             * The label of the mark
-             */
+    marks: PropTypes.objectOf(
+        PropTypes.oneOfType([
             PropTypes.string,
-
-            /**
-             * The style and label of the mark
-             */
-            PropTypes.shape({
-                style: PropTypes.object,
+            PropTypes.exact({
                 label: PropTypes.string,
+                style: PropTypes.object,
             }),
-        ]),
-    }),
+        ])
+    ),
 
     /**
      * The value of the input

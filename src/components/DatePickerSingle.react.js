@@ -22,38 +22,16 @@ import convertToMoment from '../utils/convertToMoment';
 export default class DatePickerSingle extends Component {
     constructor() {
         super();
-        this.propsToState = this.propsToState.bind(this);
         this.isOutsideRange = this.isOutsideRange.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
-    }
-
-    propsToState(newProps) {
-        /*
-         * state includes:
-         * - user modifiable attributes
-         * - moment converted attributes
-         */
-
-        const newState = convertToMoment(newProps, [
-            'date',
-            'initial_visible_month',
-            'max_date_allowed',
-            'min_date_allowed',
-        ]);
-
-        this.setState(newState);
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.propsToState(newProps);
-    }
-
-    componentWillMount() {
-        this.propsToState(this.props);
+        this.state = {focused: false};
     }
 
     isOutsideRange(date) {
-        const {min_date_allowed, max_date_allowed} = this.state;
+        const {max_date_allowed, min_date_allowed} = convertToMoment(
+            this.props,
+            ['max_date_allowed', 'min_date_allowed']
+        );
 
         return (
             (min_date_allowed && date.isBefore(min_date_allowed)) ||
@@ -63,13 +41,12 @@ export default class DatePickerSingle extends Component {
 
     onDateChange(date) {
         const {setProps} = this.props;
-
-        this.setState({date});
-        setProps({date: date ? date.format('YYYY-MM-DD') : null});
+        const payload = {date: date ? date.format('YYYY-MM-DD') : null};
+        setProps(payload);
     }
 
     render() {
-        const {date, focused, initial_visible_month} = this.state;
+        const {focused} = this.state;
 
         const {
             calendar_orientation,
@@ -92,6 +69,11 @@ export default class DatePickerSingle extends Component {
             style,
             className,
         } = this.props;
+
+        const {date, initial_visible_month} = convertToMoment(this.props, [
+            'date',
+            'initial_visible_month',
+        ]);
 
         const verticalFlag = calendar_orientation !== 'vertical';
 
