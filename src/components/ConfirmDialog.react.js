@@ -89,7 +89,6 @@ ConfirmDialog.propTypes = {
      *  Set to true to send the ConfirmDialog.
      */
     displayed: PropTypes.bool,
-    key: PropTypes.string,
 
     /**
      * Dash-assigned callback that gets fired when the value changes.
