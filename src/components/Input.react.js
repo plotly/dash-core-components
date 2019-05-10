@@ -100,6 +100,7 @@ export default class Input extends Component {
 }
 
 Input.defaultProps = {
+    type: 'text',
     n_blur: 0,
     n_blur_timestamp: -1,
     n_submit: 0,
@@ -178,6 +179,10 @@ Input.propTypes = {
         PropTypes.bool,
     ]),
 
+    /**
+     * Provides a hint to the browser as to the type of data that might be
+     * entered by the user while editing the element or its contents.
+     */
     inputMode: PropTypes.oneOf([
         /**
          * Alphanumeric, non-prose content such as usernames and passwords.

@@ -75,6 +75,12 @@ function generateId() {
     );
 }
 
+/**
+ * Graph can be used to render any plotly.js-powered data visualization.
+ *
+ * You can define callbacks based on user interaction with Graphs such as
+ * hovering, clicking or selecting
+ */
 const GraphWithDefaults = props => {
     const id = props.id ? props.id : generateId();
     return <PlotlyGraph {...props} id={id} />;
@@ -98,15 +104,18 @@ class PlotlyGraph extends Component {
         ) {
             return Plotly.animate(id, figure, animation_options);
         }
-        return Plotly.react(id, figure.data, clone(figure.layout), config).then(
-            () => {
-                if (!this._hasPlotted) {
-                    this.bindEvents();
-                    Plotly.Plots.resize(document.getElementById(id));
-                    this._hasPlotted = true;
-                }
+        return Plotly.react(id, {
+            data: figure.data,
+            layout: clone(figure.layout),
+            frames: figure.frames,
+            config: config,
+        }).then(() => {
+            if (!this._hasPlotted) {
+                this.bindEvents();
+                Plotly.Plots.resize(document.getElementById(id));
+                this._hasPlotted = true;
             }
-        );
+        });
     }
 
     extend(props) {
@@ -321,13 +330,13 @@ const graphPropTypes = {
     /**
      * Plotly `figure` object. See schema:
      * https://plot.ly/javascript/reference
-     * Only supports `data` array and `layout` object.
-     * `config` is set separately by the `config` property,
-     * and `frames` is not supported.
+     *
+     * `config` is set separately by the `config` property
      */
     figure: PropTypes.exact({
         data: PropTypes.arrayOf(PropTypes.object),
         layout: PropTypes.object,
+        frames: PropTypes.arrayOf(PropTypes.object),
     }),
 
     /**
@@ -622,7 +631,7 @@ const graphDefaultProps = {
     relayoutData: null,
     extendData: null,
     restyleData: null,
-    figure: {data: [], layout: {}},
+    figure: {data: [], layout: {}, frames: []},
     animate: false,
     animation_options: {
         frame: {
