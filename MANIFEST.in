@@ -10,3 +10,4 @@ include dash_core_components/react-virtualized@9.9.0.css
 include dash_core_components/react-dates@12.3.0.css
 include README.md
 include LICENSE.txt
+include package.json
