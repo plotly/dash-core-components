@@ -69,7 +69,7 @@ export default class DatePickerRange extends Component {
     }
 
     isOutsideRange(date) {
-        const {min_date_allowed, max_date_allowed} = this.state;
+        const {min_date_allowed, max_date_allowed} = this.props;
 
         return (
             (min_date_allowed && date.isBefore(min_date_allowed)) ||
@@ -196,13 +196,13 @@ DatePickerRange.propTypes = {
      * The HTML element ID of the start date input field.
      * Not used by Dash, only by CSS.
      */
-    start_date_id: PropTypes.string,
+    start_date_id: PropTypes.string.isRequired,
 
     /**
      * The HTML element ID of the end date input field.
      * Not used by Dash, only by CSS.
      */
-    end_date_id: PropTypes.string,
+    end_date_id: PropTypes.string.isRequired,
 
     /**
      * Specifies the ending date for the component.
