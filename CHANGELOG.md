@@ -11,6 +11,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Removed unused `key` prop from `dcc.ConfirmDialog`
 
+### Fixed
+- Fixed `min_date_allowed`, `max_date_allowed` props in `DatePickerRange` #551
+
 ## [0.47.0] - 2019-04-25
 ### Fixed
 - Fixed style regression in DatePickerSingle and DatePickerRange [#518](https://github.com/plotly/dash-core-components/issues/518)
