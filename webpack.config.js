@@ -44,7 +44,7 @@ module.exports = (env, argv) => {
         mode,
         entry,
         output: {
-            path: path.resolve(__dirname, dashLibraryName),
+            path: path.resolve(__dirname, 'dist', 'js'),
             filename,
             library: dashLibraryName,
             libraryTarget: 'window',
