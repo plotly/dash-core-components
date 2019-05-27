@@ -46,6 +46,7 @@ jobs:
                   command: |
                       . venv/bin/activate
                       python --version
+                      pip list  | grep dash
                       npm run test
 
     'python-3.6':
