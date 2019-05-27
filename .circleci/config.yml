@@ -28,11 +28,10 @@ jobs:
                 command: |
                     git clone git@github.com:plotly/dash.git
                     git clone git@github.com:plotly/dash-html-components.git
-                    git clone git@github.com:plotly/dash-renderer.git
                     . venv/bin/activate
                     cd ./dash && pip install -e . --quiet && cd ..
                     cd dash-html-components && npm install --ignore-scripts && npm run build && pip install -e . && cd ..
-                    cd dash-renderer && npm install --ignore-scripts && npm run build && pip install -e . && cd ..
+                    cd dash/dash-renderer && npm install --ignore-scripts && npm run build && pip install -e . && cd ../..
             - run:
                   name: Build
                   command: |
