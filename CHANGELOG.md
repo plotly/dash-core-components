@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
 ## [0.48.0] - 2019-05-15
 ### Added
 - `figure` prop in `dcc.Graph` now accepts a `frames` key
