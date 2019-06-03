@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {omit} from 'ramda';
-import {Range} from 'rc-slider';
+import {Range, createSliderWithTooltip} from 'rc-slider';
 
 /**
  * A double slider with two handles.
@@ -31,10 +31,15 @@ export default class RangeSlider extends Component {
             id,
             loading_state,
             setProps,
+            tooltip,
             updatemode,
             vertical,
         } = this.props;
         const value = this.state.value;
+
+        const DashSlider = tooltip
+          ? createSliderWithTooltip(Range)
+          : Range;
 
         return (
             <div
@@ -42,10 +47,10 @@ export default class RangeSlider extends Component {
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
-                className={className}
+                className={className + ' desu'}
                 style={vertical ? {height: '100%'} : {}}
             >
-                <Range
+                <DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
                             setProps({value});
@@ -58,6 +63,7 @@ export default class RangeSlider extends Component {
                             setProps({value});
                         }
                     }}
+                    tipProps={tooltip}
                     value={value}
                     {...omit(
                         ['className', 'value', 'setProps', 'updatemode'],
@@ -153,6 +159,34 @@ RangeSlider.propTypes = {
     pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
     /**
+     * Object that holds optional tooltip parameters
+     */
+    tooltip: PropTypes.shape({
+        /**
+         * Determines whether tooltips should always be visible
+         */
+        visible: PropTypes.bool,
+    }),
+
+    /**
+     * Object that holds the loading state object coming from dash-renderer
+     */
+    loading_state: PropTypes.shape({
+        /**
+         * Determines if the component is loading or not
+         */
+        is_loading: PropTypes.bool,
+        /**
+         * Holds which property is loading
+         */
+        prop_name: PropTypes.string,
+        /**
+         * Holds the name of the component that is loading
+         */
+        component_name: PropTypes.string,
+    }),
+
+    /**
      * Value by which increments or decrements are made
      */
     step: PropTypes.number,
@@ -177,24 +211,6 @@ RangeSlider.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
-
-    /**
-     * Object that holds the loading state object coming from dash-renderer
-     */
-    loading_state: PropTypes.shape({
-        /**
-         * Determines if the component is loading or not
-         */
-        is_loading: PropTypes.bool,
-        /**
-         * Holds which property is loading
-         */
-        prop_name: PropTypes.string,
-        /**
-         * Holds the name of the component that is loading
-         */
-        component_name: PropTypes.string,
-    }),
 };
 
 RangeSlider.defaultProps = {

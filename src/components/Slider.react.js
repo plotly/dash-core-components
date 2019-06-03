@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactSlider from 'rc-slider';
+import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import PropTypes from 'prop-types';
 import {omit} from 'ramda';
 import './css/rc-slider@6.1.2.css';
@@ -31,10 +31,15 @@ export default class Slider extends Component {
             id,
             loading_state,
             setProps,
+            tooltip,
             updatemode,
             vertical,
         } = this.props;
         const value = this.state.value;
+
+        const DashSlider = tooltip
+          ? createSliderWithTooltip(ReactSlider)
+          : ReactSlider;
 
         return (
             <div
@@ -45,7 +50,7 @@ export default class Slider extends Component {
                 className={className}
                 style={vertical ? {height: '100%'} : {}}
             >
-                <ReactSlider
+                <DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
                             setProps({value});
@@ -58,6 +63,7 @@ export default class Slider extends Component {
                             setProps({value});
                         }
                     }}
+                    tipProps={tooltip}
                     value={value}
                     {...omit(
                         ['className', 'setProps', 'updatemode', 'value'],
@@ -132,6 +138,16 @@ Slider.propTypes = {
      * Maximum allowed value of the slider
      */
     max: PropTypes.number,
+
+    /**
+     * Object that holds optional tooltip parameters
+     */
+    tooltip: PropTypes.shape({
+        /**
+         * Determines whether tooltips should always be visible
+         */
+        visible: PropTypes.bool,
+    }),
 
     /**
      * Value by which increments or decrements are made
