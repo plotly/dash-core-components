@@ -47,7 +47,7 @@ export default class RangeSlider extends Component {
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
-                className={className + ' desu'}
+                className={className}
                 style={vertical ? {height: '100%'} : {}}
             >
                 <DashSlider
@@ -169,24 +169,6 @@ RangeSlider.propTypes = {
     }),
 
     /**
-     * Object that holds the loading state object coming from dash-renderer
-     */
-    loading_state: PropTypes.shape({
-        /**
-         * Determines if the component is loading or not
-         */
-        is_loading: PropTypes.bool,
-        /**
-         * Holds which property is loading
-         */
-        prop_name: PropTypes.string,
-        /**
-         * Holds the name of the component that is loading
-         */
-        component_name: PropTypes.string,
-    }),
-
-    /**
      * Value by which increments or decrements are made
      */
     step: PropTypes.number,
@@ -211,6 +193,24 @@ RangeSlider.propTypes = {
      * Dash-assigned callback that gets fired when the value changes.
      */
     setProps: PropTypes.func,
+
+    /**
+     * Object that holds the loading state object coming from dash-renderer
+     */
+    loading_state: PropTypes.shape({
+        /**
+         * Determines if the component is loading or not
+         */
+        is_loading: PropTypes.bool,
+        /**
+         * Holds which property is loading
+         */
+        prop_name: PropTypes.string,
+        /**
+         * Holds the name of the component that is loading
+         */
+        component_name: PropTypes.string,
+    }),
 };
 
 RangeSlider.defaultProps = {
