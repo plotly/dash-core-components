@@ -280,7 +280,7 @@ class Controller extends Component {
     constructor() {
         super();
         this.state = {
-            values: ['melons', 'apples']
+            value: ['melons', 'apples']
         };
     }
 
@@ -289,7 +289,7 @@ class Controller extends Component {
             setProps={(props) => {
                 this.setState(props);
             }}
-            values={this.state.values}
+            value={this.state.value}
             {...properties}
         />);
     }
