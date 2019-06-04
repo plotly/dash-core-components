@@ -3,8 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Fixed `min_date_allowed` and `max_date_allowed` bug in `DatePickerRange` [#551]https://github.com/plotly/dash-core-components/issues/551)
+
 ### Changed
 - Changed `dcc.Checklist` prop `values` to `value`, to match all the other input components [#558](https://github.com/plotly/dash-core-components/pull/558). Also improved prop types for `Dropdown` and `RadioItems` `value` props to consistently accept both strings and numbers.
+- Marked `start_date_id` and `end_date_id` as required in `DatePickerRange`, as dependent component expects those props and throws an error
 
 ## [0.48.0] - 2019-05-15
 ### Added
