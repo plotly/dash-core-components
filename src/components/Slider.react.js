@@ -142,12 +142,22 @@ Slider.propTypes = {
     /**
      * Object that holds optional tooltip parameters
      */
-    tooltip: PropTypes.shape({
+    tooltip: PropTypes.oneOfType([
+
+        // TODO: variations on PropTypes.exact
+
         /**
          * Determines whether tooltips should always be visible
          */
-        visible: PropTypes.bool,
-    }),
+        PropTypes.exact({
+            visible: PropTypes.oneOf(['visible', 'hover'])
+        }),
+
+        PropTypes.exact([
+            visible: PropTypes.oneOf(['visible', 'hover']),
+            position: PropTypes.oneOf(['top', 'hover'])
+        ])
+    ]),
 
     /**
      * Value by which increments or decrements are made
