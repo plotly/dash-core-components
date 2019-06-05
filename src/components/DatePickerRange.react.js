@@ -23,7 +23,11 @@ export default class DatePickerRange extends Component {
         this.propsToState = this.propsToState.bind(this);
         this.onDatesChange = this.onDatesChange.bind(this);
         this.isOutsideRange = this.isOutsideRange.bind(this);
-        this.state = {focused: false, start_date_id: props.start_date_id || uniqid(), end_date_id: props.end_date_id || uniqid()};
+        this.state = {
+            focused: false, 
+            start_date_id: props.start_date_id || uniqid(), 
+            end_date_id: props.end_date_id || uniqid()
+        };
     }
 
     propsToState(newProps) {
@@ -103,6 +107,8 @@ export default class DatePickerRange extends Component {
             id,
             style,
             className,
+            start_date_id,
+            end_date_id
         } = this.props;
 
         const {initial_visible_month} = convertToMoment(this.props, [
@@ -168,8 +174,8 @@ export default class DatePickerRange extends Component {
                         with_full_screen_portal && verticalFlag
                     }
                     withPortal={with_portal && verticalFlag}
-                    startDateId={this.state.start_date_id}
-                    endDateId={this.state.end_date_id}
+                    startDateId={start_date_id || this.state.start_date_id}
+                    endDateId={end_date_id || this.state.end_date_id}
                 />
             </div>
         );
