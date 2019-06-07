@@ -11,7 +11,7 @@ from .Link import Link
 from .Loading import Loading
 from .Location import Location
 from .LogoutButton import LogoutButton
-from .Markdown import Markdown
+import markdown
 from .RadioItems import RadioItems
 from .RangeSlider import RangeSlider
 from .Slider import Slider
@@ -36,7 +36,7 @@ __all__ = [
     "Loading",
     "Location",
     "LogoutButton",
-    "Markdown",
+    "markdown",
     "RadioItems",
     "RangeSlider",
     "Slider",
