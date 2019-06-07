@@ -65,5 +65,7 @@ _js_dist = [
     }
 ]
 
+_css_dist = []
+
 for _component in __all__:
     setattr(locals()[_component], '_js_dist', _js_dist)
