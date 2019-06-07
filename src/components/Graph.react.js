@@ -196,7 +196,10 @@ class PlotlyGraph extends Component {
     componentDidMount() {
         this.plot(this.props).then(() => {
             window.addEventListener('resize', () => {
-                Plotly.Plots.resize(document.getElementById(this.props.id));
+                const graphDiv = document.getElementById(this.props.id);
+                if (graphDiv) {
+                    Plotly.Plots.resize(graphDiv);
+                }
             });
         });
     }
