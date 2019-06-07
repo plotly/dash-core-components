@@ -31,18 +31,17 @@ class DashMarkdown extends Component {
     }
 
     render() {
-        let {
+        const {
             id,
-            children,
             style,
             className,
             highlight_config,
             loading_state,
-            dangerously_allow_html
+            dangerously_allow_html,
         } = this.props;
 
-        if (type(children) === 'Array') {
-            children = this.props.children.join('\n');
+        if (type(this.props.children) === 'Array') {
+            this.props.children = this.props.children.join('\n');
         }
 
         return (
@@ -50,17 +49,21 @@ class DashMarkdown extends Component {
                 id={id}
                 style={style}
                 className={
-                   (highlight_config && highlight_config.dark || className) &&
-                    `${className ? className : ''} ${highlight_config && highlight_config.dark ? 'hljs-dark' : ''}`
+                    ((highlight_config && highlight_config.dark) ||
+                        className) &&
+                    `${className ? className : ''} ${
+                        highlight_config && highlight_config.dark
+                            ? 'hljs-dark'
+                            : ''
+                    }`
                 }
                 data-dash-is-loading={
-                    (loading_state && loading_state.is_loading) ||
-                    undefined
+                    (loading_state && loading_state.is_loading) || undefined
                 }
                 {...propOr({}, 'containerProps', this.props)}
             >
                 <Markdown
-                    source={children}
+                    source={this.props.children}
                     escapeHtml={!dangerously_allow_html}
                     {...omit(['containerProps'], this.props)}
                 />
