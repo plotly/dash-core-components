@@ -49,7 +49,10 @@ class DashMarkdown extends Component {
             <div
                 id={id}
                 style={style}
-                className={`${highlight_config.dark ? 'hljs-dark' : ''} ${className}`}
+                className={
+                   (highlight_config && highlight_config.dark || className) &&
+                    `${className ? className : ''} ${highlight_config && highlight_config.dark ? 'hljs-dark' : ''}`
+                }
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) ||
                     undefined
