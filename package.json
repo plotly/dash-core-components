@@ -25,7 +25,7 @@
     "format:test": "prettier --config .prettierrc src/**/*.js test/unit/*.js --list-different",
     "uninstall-local": "pip uninstall dash-core-components -y",
     "build:js": "webpack --mode production",
-    "build:py_and_r": "dash-generate-components ./src/components dash_core_components -p package-info.json --r-prefix 'dcc'",
+    "build:py_and_r": "dash-generate-components ./src/components dash_core_components -p package-info.json --r-prefix 'dcc' && mv ./dash_core_components/Markdown.py ./dash_core_components/markdown/",
     "build": "npm run build:js && npm run build:py_and_r",
     "build:watch": "watch 'npm run build' src"
   },
