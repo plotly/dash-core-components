@@ -17,6 +17,7 @@ import dash
 from dash.dependencies import Input, Output, State
 import dash_html_components as html
 import dash_core_components as dcc
+from dash_core_components.markdown import Markdown
 from dash_table import DataTable
 from dash.exceptions import PreventUpdate
 from selenium.webdriver.common.keys import Keys
@@ -929,7 +930,7 @@ class Tests(IntegrationTests):
             ),
 
             html.Label('Markdown'),
-            dcc.Markdown('''
+            Markdown('''
                 #### Dash and Markdown
 
                 Dash supports [Markdown](https://rexxars.github.io/react-markdown/).
@@ -951,33 +952,33 @@ class Tests(IntegrationTests):
 
                 北京
             '''.replace('    ', '')),
-            dcc.Markdown(['# Line one', '## Line two']),
-            dcc.Markdown(),
-            dcc.Markdown(dedent('''``` python import python
+            Markdown(['# Line one', '## Line two']),
+            Markdown(),
+            Markdown(dedent('''``` python import python
                 print(3)''')),
             Markdown([
-            '''
-                import python
-                print(3)
-            '''
+                '''
+                    import python
+                    print(3)
+                '''
             ]),
             Markdown([
-            '''
-                import python
-                print(3)
-            '''
+                '''
+                    import python
+                    print(3)
+                '''
             ], className="myClass", highlight_config={'dark': True}),
             Markdown([
-            '''
-                import python
-                print('python string')
-            '''
+                '''
+                    import python
+                    print('python string')
+                '''
             ], className="myClass"),
             Markdown([
-            '''
-                import python
-                # python comment
-            '''
+                '''
+                    import python
+                    # python comment
+                '''
             ], highlight_config={}),
         ])
         self.startServer(app)
