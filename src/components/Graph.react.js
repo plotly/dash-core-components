@@ -91,6 +91,7 @@ class PlotlyGraph extends Component {
         super(props);
         this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
+        this.graphResize = this.graphResize.bind(this);
     }
 
     plot(props) {
@@ -139,6 +140,13 @@ class PlotlyGraph extends Component {
         }
 
         return Plotly.extendTraces(id, updateData, traceIndices, maxPoints);
+    }
+
+    graphResize() {
+        const graphDiv = document.getElementById(this.props.id);
+        if (graphDiv) {
+            Plotly.Plots.resize(graphDiv);
+        }
     }
 
     bindEvents() {
@@ -195,12 +203,7 @@ class PlotlyGraph extends Component {
 
     componentDidMount() {
         this.plot(this.props).then(() => {
-            window.addEventListener('resize', () => {
-                const graphDiv = document.getElementById(this.props.id);
-                if (graphDiv) {
-                    Plotly.Plots.resize(graphDiv);
-                }
-            });
+            window.addEventListener('resize', this.graphResize);
         });
     }
 
@@ -208,6 +211,7 @@ class PlotlyGraph extends Component {
         if (this.eventEmitter) {
             this.eventEmitter.removeAllListeners();
         }
+        window.removeEventListener('resize', this.graphResize);
     }
 
     shouldComponentUpdate(nextProps) {
