@@ -12,8 +12,8 @@ export default class Slider extends Component {
         super(props);
         this.propsToState = this.propsToState.bind(this);
         this.DashSlider = props.tooltip
-            ? createSliderWithTooltip(Range)
-            : Range;
+            ? createSliderWithTooltip(ReactSlider)
+            : ReactSlider;
     }
 
     propsToState(newProps) {
