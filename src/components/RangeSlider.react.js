@@ -11,6 +11,9 @@ export default class RangeSlider extends Component {
     constructor(props) {
         super(props);
         this.propsToState = this.propsToState.bind(this);
+        this.DashSlider = props.tooltip
+          ? createSliderWithTooltip(Range)
+          : Range;
     }
 
     propsToState(newProps) {
@@ -37,10 +40,6 @@ export default class RangeSlider extends Component {
         } = this.props;
         const value = this.state.value;
 
-        const DashSlider = tooltip
-          ? createSliderWithTooltip(Range)
-          : Range;
-
         return (
             <div
                 id={id}
@@ -50,7 +49,7 @@ export default class RangeSlider extends Component {
                 className={className}
                 style={vertical ? {height: '100%'} : {}}
             >
-                <DashSlider
+                <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
                             setProps({value});
@@ -158,15 +157,30 @@ RangeSlider.propTypes = {
      */
     pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
-    /**
-     * Object that holds optional tooltip parameters
-     */
-    tooltip: PropTypes.shape({
+    tooltip: PropTypes.oneOfType([
         /**
          * Determines whether tooltips should always be visible
+         * (as opposed to the default, visible on hover)
          */
-        visible: PropTypes.bool,
-    }),
+        PropTypes.exact({
+            visible: PropTypes.oneOf(['visible', 'hover']).isRequired
+        }),
+
+        /**
+         * Determines the position of tooltips
+         * See https://github.com/react-component/tooltip#api
+         * top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will
+         * in reality appear to be on the top right of the handle
+         */
+        PropTypes.exact({
+            position: PropTypes.oneOf(['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight']).isRequired
+        }),
+
+        PropTypes.exact({
+            visible: PropTypes.oneOf(['visible', 'hover']),
+            position: PropTypes.oneOf(['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'])
+        })
+    ]),
 
     /**
      * Value by which increments or decrements are made
