@@ -12,8 +12,8 @@ export default class RangeSlider extends Component {
         super(props);
         this.propsToState = this.propsToState.bind(this);
         this.DashSlider = props.tooltip
-          ? createSliderWithTooltip(Range)
-          : Range;
+            ? createSliderWithTooltip(Range)
+            : Range;
     }
 
     propsToState(newProps) {
@@ -163,7 +163,7 @@ RangeSlider.propTypes = {
          * (as opposed to the default, visible on hover)
          */
         PropTypes.exact({
-            visible: PropTypes.oneOf(['visible', 'hover']).isRequired
+            visible: PropTypes.bool.isRequired,
         }),
 
         /**
@@ -173,13 +173,31 @@ RangeSlider.propTypes = {
          * in reality appear to be on the top right of the handle
          */
         PropTypes.exact({
-            position: PropTypes.oneOf(['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight']).isRequired
+            position: PropTypes.oneOf([
+                'left',
+                'right',
+                'top',
+                'bottom',
+                'topLeft',
+                'topRight',
+                'bottomLeft',
+                'bottomRight',
+            ]).isRequired,
         }),
 
         PropTypes.exact({
-            visible: PropTypes.oneOf(['visible', 'hover']),
-            position: PropTypes.oneOf(['left','right','top','bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'])
-        })
+            visible: PropTypes.bool,
+            position: PropTypes.oneOf([
+                'left',
+                'right',
+                'top',
+                'bottom',
+                'topLeft',
+                'topRight',
+                'bottomLeft',
+                'bottomRight',
+            ]),
+        }),
     ]),
 
     /**
