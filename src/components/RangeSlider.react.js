@@ -159,7 +159,6 @@ RangeSlider.propTypes = {
     pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
     tooltip: PropTypes.exact({
-
        /**
         * Determines whether tooltips should always be visible
         * (as opposed to the default, visible on hover)
