@@ -112,9 +112,13 @@ class PlotlyGraph extends Component {
             config: config,
         }).then(() => {
             if (!this._hasPlotted) {
-                this.bindEvents();
-                Plotly.Plots.resize(document.getElementById(id));
-                this._hasPlotted = true;
+                // double-check gd hasn't been unmounted
+                const gd = document.getElementById(id);
+                if (gd) {
+                    this.bindEvents();
+                    Plotly.Plots.resize(gd);
+                    this._hasPlotted = true;
+                }
             }
         });
     }
