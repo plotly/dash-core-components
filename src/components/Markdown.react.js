@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {omit, propOr, type} from 'ramda';
 import Markdown from 'react-markdown';
+import './css/highlight.css';
 
 // eslint-disable-next-line valid-jsdoc
 /**
