@@ -11,9 +11,6 @@ export default class RangeSlider extends Component {
     constructor(props) {
         super(props);
         this.propsToState = this.propsToState.bind(this);
-        this.DashSlider = props.tooltip
-            ? createSliderWithTooltip(Range)
-            : Range;
     }
 
     propsToState(newProps) {
@@ -40,6 +37,10 @@ export default class RangeSlider extends Component {
         } = this.props;
         const value = this.state.value;
 
+        const DashSlider = tooltip
+            ? createSliderWithTooltip(Range)
+            : Range;
+
         return (
             <div
                 id={id}
@@ -49,7 +50,7 @@ export default class RangeSlider extends Component {
                 className={className}
                 style={vertical ? {height: '100%'} : {}}
             >
-                <this.DashSlider
+                <DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
                             setProps({value});

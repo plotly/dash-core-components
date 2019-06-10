@@ -11,9 +11,6 @@ export default class Slider extends Component {
     constructor(props) {
         super(props);
         this.propsToState = this.propsToState.bind(this);
-        this.DashSlider = props.tooltip
-            ? createSliderWithTooltip(ReactSlider)
-            : ReactSlider;
     }
 
     propsToState(newProps) {
@@ -40,6 +37,10 @@ export default class Slider extends Component {
         } = this.props;
         const value = this.state.value;
 
+        const DashSlider = tooltip
+            ? createSliderWithTooltip(ReactSlider)
+            : ReactSlider;
+
         return (
             <div
                 id={id}
@@ -49,7 +50,7 @@ export default class Slider extends Component {
                 className={className}
                 style={vertical ? {height: '100%'} : {}}
             >
-                <this.DashSlider
+                <DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
                             setProps({value});
