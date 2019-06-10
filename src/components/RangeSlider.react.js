@@ -157,48 +157,31 @@ RangeSlider.propTypes = {
      */
     pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
-    tooltip: PropTypes.oneOfType([
-        /**
-         * Determines whether tooltips should always be visible
-         * (as opposed to the default, visible on hover)
-         */
-        PropTypes.exact({
-            visible: PropTypes.bool.isRequired,
-        }),
+    tooltip: PropTypes.exact({
+
+       /**
+        * Determines whether tooltips should always be visible
+        * (as opposed to the default, visible on hover)
+        */
+        visible: PropTypes.bool,
 
         /**
-         * Determines the position of tooltips
-         * See https://github.com/react-component/tooltip#api
-         * top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will
-         * in reality appear to be on the top right of the handle
-         */
-        PropTypes.exact({
-            position: PropTypes.oneOf([
-                'left',
-                'right',
-                'top',
-                'bottom',
-                'topLeft',
-                'topRight',
-                'bottomLeft',
-                'bottomRight',
-            ]).isRequired,
-        }),
-
-        PropTypes.exact({
-            visible: PropTypes.bool,
-            position: PropTypes.oneOf([
-                'left',
-                'right',
-                'top',
-                'bottom',
-                'topLeft',
-                'topRight',
-                'bottomLeft',
-                'bottomRight',
-            ]),
-        }),
-    ]),
+        * Determines the position of tooltips
+        * See https://github.com/react-component/tooltip#api
+        * top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will
+        * in reality appear to be on the top right of the handle
+        */
+        position: PropTypes.oneOf([
+            'left',
+            'right',
+            'top',
+            'bottom',
+            'topLeft',
+            'topRight',
+            'bottomLeft',
+            'bottomRight',
+        ]),
+    }),
 
     /**
      * Value by which increments or decrements are made
