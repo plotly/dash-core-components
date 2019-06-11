@@ -37,9 +37,7 @@ export default class RangeSlider extends Component {
         } = this.props;
         const value = this.state.value;
 
-        const DashSlider = tooltip
-            ? createSliderWithTooltip(Range)
-            : Range;
+        const DashSlider = tooltip ? createSliderWithTooltip(Range) : Range;
 
         return (
             <div
@@ -159,18 +157,18 @@ RangeSlider.propTypes = {
     pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
     tooltip: PropTypes.exact({
-       /**
-        * Determines whether tooltips should always be visible
-        * (as opposed to the default, visible on hover)
-        */
+        /**
+         * Determines whether tooltips should always be visible
+         * (as opposed to the default, visible on hover)
+         */
         visible: PropTypes.bool,
 
         /**
-        * Determines the position of tooltips
-        * See https://github.com/react-component/tooltip#api
-        * top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will
-        * in reality appear to be on the top right of the handle
-        */
+         * Determines the position of tooltips
+         * See https://github.com/react-component/tooltip#api
+         * top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will
+         * in reality appear to be on the top right of the handle
+         */
         position: PropTypes.oneOf([
             'left',
             'right',
