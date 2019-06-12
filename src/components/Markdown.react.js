@@ -24,10 +24,12 @@ class DashMarkdown extends Component {
             // skip highlighting if highlight.js isn't found
             return;
         }
-        const nodes = document.querySelectorAll('pre code');
+        if (this.mdContainer) {
+            const nodes = this.mdContainer.getElementsByTagName('code');
 
-        for (let i = 0; i < nodes.length; i++) {
-            window.hljs.highlightBlock(nodes[i]);
+            for (let i = 0; i < nodes.length; i++) {
+                window.hljs.highlightBlock(nodes[i]);
+            }
         }
     }
 
@@ -48,6 +50,7 @@ class DashMarkdown extends Component {
         return (
             <div
                 id={id}
+                ref={(node) => { this.mdContainer = node; }}
                 style={style}
                 className={
                     ((highlight_config && highlight_config.dark) ||
