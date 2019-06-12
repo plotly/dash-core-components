@@ -14,3 +14,4 @@ dccRangeSlider <- function(id=NULL, marks=NULL, value=NULL, allowCross=NULL, cla
 
     structure(component, class = c('dash_component', 'list'))
 }
+

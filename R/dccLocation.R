@@ -14,3 +14,4 @@ dccLocation <- function(id=NULL, pathname=NULL, search=NULL, hash=NULL, href=NUL
 
     structure(component, class = c('dash_component', 'list'))
 }
+

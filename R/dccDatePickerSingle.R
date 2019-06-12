@@ -14,3 +14,4 @@ dccDatePickerSingle <- function(id=NULL, date=NULL, min_date_allowed=NULL, max_d
 
     structure(component, class = c('dash_component', 'list'))
 }
+

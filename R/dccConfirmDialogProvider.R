@@ -14,3 +14,4 @@ dccConfirmDialogProvider <- function(children=NULL, id=NULL, message=NULL, submi
 
     structure(component, class = c('dash_component', 'list'))
 }
+

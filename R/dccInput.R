@@ -14,3 +14,4 @@ dccInput <- function(id=NULL, value=NULL, style=NULL, className=NULL, debounce=N
 
     structure(component, class = c('dash_component', 'list'))
 }
+

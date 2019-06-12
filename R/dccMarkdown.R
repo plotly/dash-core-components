@@ -14,3 +14,4 @@ dccMarkdown <- function(children=NULL, id=NULL, className=NULL, containerProps=N
 
     structure(component, class = c('dash_component', 'list'))
 }
+

@@ -14,3 +14,4 @@ dccDatePickerRange <- function(id=NULL, start_date=NULL, start_date_id=NULL, end
 
     structure(component, class = c('dash_component', 'list'))
 }
+

@@ -14,3 +14,4 @@ dccLogoutButton <- function(id=NULL, label=NULL, logout_url=NULL, style=NULL, me
 
     structure(component, class = c('dash_component', 'list'))
 }
+

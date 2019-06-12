@@ -14,3 +14,4 @@ dccSlider <- function(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=
 
     structure(component, class = c('dash_component', 'list'))
 }
+

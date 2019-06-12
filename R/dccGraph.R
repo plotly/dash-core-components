@@ -14,3 +14,4 @@ dccGraph <- function(id=NULL, clickData=NULL, clickAnnotationData=NULL, hoverDat
 
     structure(component, class = c('dash_component', 'list'))
 }
+

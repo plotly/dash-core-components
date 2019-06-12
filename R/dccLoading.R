@@ -14,3 +14,4 @@ dccLoading <- function(children=NULL, id=NULL, type=NULL, fullscreen=NULL, debug
 
     structure(component, class = c('dash_component', 'list'))
 }
+
