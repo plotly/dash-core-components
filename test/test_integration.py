@@ -2407,3 +2407,68 @@ class Tests(IntegrationTests):
                         type_change
                     )
                 )
+
+    def test_unmounted_graph_resize(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div(children=[
+            dcc.Tabs(id="tabs", children=[
+            dcc.Tab(label='Tab one', children=[
+                html.Div([
+                    dcc.Graph(
+                        id='eg-graph-1',
+                        figure={
+                            'data': [
+                                {'x': [1, 2, 3], 'y': [4, 1, 2],
+                                    'type': 'scattergl', 'name': 'SF'},
+                                {'x': [1, 2, 3], 'y': [2, 4, 5],
+                                 'type': 'scattergl', 'name': u'Montréal'},
+                            ]
+                        }
+                    )
+                ], id='graph-tab-1')
+            ]),
+            dcc.Tab(label='Tab two', children=[
+                    dcc.Graph(
+                        id='eg-graph-2',
+                        figure={
+                            'data': [
+                                {'x': [1, 2, 3], 'y': [1, 4, 1],
+                                    'type': 'scattergl', 'name': 'SF'},
+                                {'x': [1, 2, 3], 'y': [1, 2, 3],
+                                 'type': 'scattergl', 'name': u'Montréal'},
+                            ]
+                        }
+                    )
+            ], id='graph-tab-2'),
+            ])
+        ])
+
+        self.startServer(app)
+
+        try:
+            self.wait_for_element_by_css_selector('#eg-graph-1')
+        except Exception as e:
+            print(self.wait_for_element_by_css_selector(
+                '#_dash-app-content').get_attribute('innerHTML'))
+            raise e
+
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "graph-tab-2"))
+        )
+
+        tab_two = self.wait_for_element_by_css_selector('#graph-tab-2')
+
+        tab_two.click()
+
+        # save the current window size
+        window_size = self.driver.get_window_size()
+
+        # resize
+        self.driver.set_window_size(800, 600)
+
+        for entry in self.get_log():
+            raise Exception('browser error logged during test', entry)
+
+        # set back to original size
+        self.driver.set_window_size(window_size['width'], window_size['height'])
