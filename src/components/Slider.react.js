@@ -11,6 +11,9 @@ export default class Slider extends Component {
     constructor(props) {
         super(props);
         this.propsToState = this.propsToState.bind(this);
+        this.DashSlider = props.tooltip
+            ? createSliderWithTooltip(ReactSlider)
+            : ReactSlider;
     }
 
     propsToState(newProps) {
@@ -18,6 +21,11 @@ export default class Slider extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+        if (newProps.tooltip !== this.props.tooltip) {
+            this.DashSlider = newProps.tooltip
+                ? createSliderWithTooltip(ReactSlider)
+                : ReactSlider;
+        }
         this.propsToState(newProps);
     }
 
@@ -37,10 +45,6 @@ export default class Slider extends Component {
         } = this.props;
         const value = this.state.value;
 
-        const DashSlider = tooltip
-            ? createSliderWithTooltip(ReactSlider)
-            : ReactSlider;
-
         let tipProps;
         if (tooltip && tooltip.always_visible) {
             /**
@@ -49,8 +53,8 @@ export default class Slider extends Component {
              * assigns the new (renamed) key to the old key and deletes the old key
              */
             tipProps = Object.assign(tooltip, {
-                visible: tooltip.always_visible
-            })
+                visible: tooltip.always_visible,
+            });
             delete tipProps.always_visible;
         } else {
             tipProps = tooltip;
@@ -65,7 +69,7 @@ export default class Slider extends Component {
                 className={className}
                 style={vertical ? {height: '100%'} : {}}
             >
-                <DashSlider
+                <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
                             setProps({value});
