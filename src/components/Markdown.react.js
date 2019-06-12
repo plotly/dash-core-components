@@ -135,7 +135,6 @@ DashMarkdown.propTypes = {
 
     /**
      * User-defined inline styles for the rendered Markdown
-     * Legacy from SyntaxHighlighter prop `customStyles`
      */
     style: PropTypes.object,
 };
