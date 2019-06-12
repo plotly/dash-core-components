@@ -14,4 +14,3 @@ dccLink <- function(children=NULL, id=NULL, href=NULL, refresh=NULL, className=N
 
     structure(component, class = c('dash_component', 'list'))
 }
-

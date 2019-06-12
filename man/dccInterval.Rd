@@ -30,4 +30,3 @@ components in an app.}
 If -1, then the interval has no limit (the default)
 and if 0 then the interval stops running.}
 }
-

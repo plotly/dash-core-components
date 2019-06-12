@@ -14,4 +14,3 @@ dccChecklist <- function(id=NULL, options=NULL, value=NULL, className=NULL, styl
 
     structure(component, class = c('dash_component', 'list'))
 }
-

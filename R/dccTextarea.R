@@ -14,4 +14,3 @@ dccTextarea <- function(id=NULL, value=NULL, autoFocus=NULL, cols=NULL, disabled
 
     structure(component, class = c('dash_component', 'list'))
 }
-

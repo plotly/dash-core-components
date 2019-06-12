@@ -14,4 +14,3 @@ dccTabs <- function(children=NULL, id=NULL, value=NULL, className=NULL, content_
 
     structure(component, class = c('dash_component', 'list'))
 }
-

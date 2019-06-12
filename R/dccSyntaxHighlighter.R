@@ -14,4 +14,3 @@ dccSyntaxHighlighter <- function(children=NULL, id=NULL, language=NULL, theme=NU
 
     structure(component, class = c('dash_component', 'list'))
 }
-

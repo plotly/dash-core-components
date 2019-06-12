@@ -14,4 +14,3 @@ dccUpload <- function(children=NULL, id=NULL, contents=NULL, filename=NULL, last
 
     structure(component, class = c('dash_component', 'list'))
 }
-

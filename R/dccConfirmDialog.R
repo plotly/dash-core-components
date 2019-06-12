@@ -14,4 +14,3 @@ dccConfirmDialog <- function(id=NULL, message=NULL, submit_n_clicks=NULL, submit
 
     structure(component, class = c('dash_component', 'list'))
 }
-

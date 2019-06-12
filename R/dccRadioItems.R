@@ -14,4 +14,3 @@ dccRadioItems <- function(id=NULL, options=NULL, value=NULL, style=NULL, classNa
 
     structure(component, class = c('dash_component', 'list'))
 }
-

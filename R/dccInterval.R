@@ -14,4 +14,3 @@ dccInterval <- function(id=NULL, interval=NULL, disabled=NULL, n_intervals=NULL,
 
     structure(component, class = c('dash_component', 'list'))
 }
-

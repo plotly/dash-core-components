@@ -31,4 +31,3 @@ session: window.sessionStorage, data is cleared once the browser quit.}
 
 \item{modified_timestamp}{Numeric. The last time the storage was modified.}
 }
-

@@ -32,4 +32,3 @@ components in an app.}
 
 \item{displayed}{Logical. Set to true to send the ConfirmDialog.}
 }
-

@@ -14,4 +14,3 @@ dccStore <- function(id=NULL, storage_type=NULL, data=NULL, clear_data=NULL, mod
 
     structure(component, class = c('dash_component', 'list'))
 }
-

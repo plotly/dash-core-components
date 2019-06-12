@@ -29,4 +29,3 @@ components in an app.}
 
 \item{refresh}{Logical. Refresh the page when the location is updated?}
 }
-

@@ -14,4 +14,3 @@ dccDropdown <- function(id=NULL, options=NULL, value=NULL, optionHeight=NULL, cl
 
     structure(component, class = c('dash_component', 'list'))
 }
-
