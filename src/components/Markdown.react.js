@@ -50,13 +50,17 @@ class DashMarkdown extends Component {
         return (
             <div
                 id={id}
-                ref={(node) => { this.mdContainer = node; }}
+                ref={node => {
+                    this.mdContainer = node;
+                }}
                 style={style}
                 className={
-                    ((highlight_config && highlight_config.dark) ||
+                    ((highlight_config && highlight_config.theme) ||
                         className) &&
                     `${className ? className : ''} ${
-                        highlight_config && highlight_config.dark
+                        highlight_config &&
+                        highlight_config.theme &&
+                        highlight_config.theme === 'dark'
                             ? 'hljs-dark'
                             : ''
                     }`
@@ -113,7 +117,9 @@ DashMarkdown.propTypes = {
     /**
      * Config options for syntax highlighting.
      */
-    highlight_config: PropTypes.object,
+    highlight_config: PropTypes.exact({
+        theme: PropTypes.oneOf(['dark', 'light']),
+    }),
 
     /**
      * Object that holds the loading state object coming from dash-renderer
@@ -141,6 +147,7 @@ DashMarkdown.propTypes = {
 
 DashMarkdown.defaultProps = {
     dangerously_allow_html: false,
+    highlight_config: {},
 };
 
 export default DashMarkdown;
