@@ -39,6 +39,21 @@ export default class RangeSlider extends Component {
 
         const DashSlider = tooltip ? createSliderWithTooltip(Range) : Range;
 
+        let tipProps;
+        if (tooltip && tooltip.always_visible) {
+            /**
+             * clone `tooltip` but with renamed key `always_visible` -> `visible`
+             * the rc-tooltip API uses `visible`, but `always_visible is more semantic
+             * assigns the new (renamed) key to the old key and deletes the old key
+             */
+            tipProps = Object.assign(tooltip, {
+                visible: tooltip.always_visible
+            })
+            delete tipProps.always_visible;
+        } else {
+            tipProps = tooltip;
+        }
+
         return (
             <div
                 id={id}
@@ -61,7 +76,7 @@ export default class RangeSlider extends Component {
                             setProps({value});
                         }
                     }}
-                    tipProps={tooltip}
+                    tipProps={tipProps}
                     value={value}
                     {...omit(
                         ['className', 'value', 'setProps', 'updatemode'],
@@ -161,15 +176,15 @@ RangeSlider.propTypes = {
          * Determines whether tooltips should always be visible
          * (as opposed to the default, visible on hover)
          */
-        visible: PropTypes.bool,
+        always_visible: PropTypes.bool,
 
         /**
-         * Determines the position of tooltips
+         * Determines the placement of tooltips
          * See https://github.com/react-component/tooltip#api
          * top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will
          * in reality appear to be on the top right of the handle
          */
-        position: PropTypes.oneOf([
+        placement: PropTypes.oneOf([
             'left',
             'right',
             'top',
