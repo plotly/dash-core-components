@@ -11,8 +11,8 @@ A slider component with a single handle.
 
 \usage{
 dccSlider(dccSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL,
-dots=NULL, included=NULL, min=NULL, max=NULL, step=NULL, vertical=NULL,
-updatemode=NULL, loading_state=NULL))
+dots=NULL, included=NULL, min=NULL, max=NULL, tooltip=NULL, step=NULL,
+vertical=NULL, updatemode=NULL, loading_state=NULL))
 }
 
 \arguments{
@@ -43,6 +43,8 @@ value is included. Otherwise, it is an independent value.}
 \item{min}{Numeric. Minimum allowed value of the slider}
 
 \item{max}{Numeric. Maximum allowed value of the slider}
+
+\item{tooltip}{}
 
 \item{step}{Numeric. Value by which increments or decrements are made}
 
