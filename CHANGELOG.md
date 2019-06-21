@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.0.0] - 2019-06-20
 ### Added
 - `Markdown` components support code highlighting - no need to switch to `SyntaxHighlighter`, which has been removed. Use triple backticks, with the opening backticks followed by the language name or abbreviation. [#562](https://github.com/plotly/dash-core-components/pull/562) Supported languages:
     - Bash
@@ -32,6 +32,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - 💥 Removed the `SyntaxHighlighter` component. This is now built into `Markdown` [#562](https://github.com/plotly/dash-core-components/pull/562).
 - Removed the `containerProps` prop in `Markdown` - after the refactor of [#562](https://github.com/plotly/dash-core-components/pull/562), its function is served by the `id`, `className`, and `style` props. [#569](https://github.com/plotly/dash-core-components/pull/569)
+- Removed `version.py` - use `__version__` in the main namespace instead. [#555](https://github.com/plotly/dash-core-components/pull/555)
 
 ### Updated
 - Upgraded plotly.js to 1.48.3 [#571](https://github.com/plotly/dash-core-components/pull/571)
