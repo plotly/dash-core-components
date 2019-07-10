@@ -175,7 +175,7 @@ describe('Input with type=number', () => {
             // if the target value is higher than max, don't even call setProps
             expect(mockSetProps.mock.calls.length).toEqual(1);
             // input's value should remain the same
-            expect(mockSetProps.mock.calls[0][0].value).toEqual(1);
+            expect(mockSetProps.mock.calls[0][0].value).toEqual('1');
         });
     });
     describe('without min and max props', () => {
@@ -189,7 +189,7 @@ describe('Input with type=number', () => {
         test('Input can update normally', () => {
             input.find('input').simulate('change', {target: {value: '100'}});
             expect(mockSetProps.mock.calls.length).toEqual(1);
-            expect(mockSetProps.mock.calls[0][0].value).toEqual(100);
+            expect(mockSetProps.mock.calls[0][0].value).toEqual('100');
         });
     });
     describe('with debouncing on', () => {
@@ -224,7 +224,7 @@ describe('Input with type=number', () => {
 
             expect(mockSetProps.mock.calls.length).toEqual(1);
             expect(mockSetProps.mock.calls[0][0].value).toEqual(
-                Number(inputValues[inputValues.length - 1])
+                inputValues[inputValues.length - 1]
             );
         });
     });

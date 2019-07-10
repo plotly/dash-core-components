@@ -28,7 +28,7 @@ export default class Input extends Component {
     }
 
     render() {
-        const {setProps, type, min, max, debounce, loading_state} = this.props;
+        const {setProps, min, max, debounce, loading_state} = this.props;
         const value = this.state.value;
         return (
             <input
@@ -44,10 +44,8 @@ export default class Input extends Component {
                         return;
                     }
                     if (!debounce) {
-                        const castValue =
-                            type === 'number' ? Number(newValue) : newValue;
                         setProps({
-                            value: castValue,
+                            value: newValue,
                         });
                     } else {
                         this.setState({value: newValue});
@@ -59,8 +57,7 @@ export default class Input extends Component {
                         n_blur_timestamp: Date.now(),
                     };
                     if (debounce) {
-                        payload.value =
-                            type === 'number' ? Number(value) : value;
+                        payload.value = value;
                     }
                     setProps(payload);
                 }}
@@ -71,8 +68,7 @@ export default class Input extends Component {
                             n_submit_timestamp: Date.now(),
                         };
                         if (debounce) {
-                            payload.value =
-                                type === 'number' ? Number(value) : value;
+                            payload.value = value;
                         }
                         setProps(payload);
                     }
