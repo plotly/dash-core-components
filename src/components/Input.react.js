@@ -75,7 +75,10 @@ export default class Input extends Component {
                         n_blur: this.props.n_blur + 1,
                         n_blur_timestamp: Date.now(),
                     };
-                    payload.value = this.handleNumberValue(value, type);
+                    const castValue = this.handleNumberValue(value, type);
+                    if (debounce) {
+                        payload.value = castValue;
+                    }
                     setProps(payload);
                 }}
                 onKeyPress={e => {
@@ -84,7 +87,10 @@ export default class Input extends Component {
                             n_submit: this.props.n_submit + 1,
                             n_submit_timestamp: Date.now(),
                         };
-                        payload.value = this.handleNumberValue(value, type);
+                        const castValue = this.handleNumberValue(value, type);
+                        if (debounce) {
+                            payload.value = castValue;
+                        }
                         setProps(payload);
                     }
                 }}
