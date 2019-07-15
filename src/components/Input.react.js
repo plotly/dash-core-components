@@ -13,6 +13,23 @@ export default class Input extends Component {
     constructor(props) {
         super(props);
         this.propsToState = this.propsToState.bind(this);
+        this.state = {
+            return_nan: false,
+        };
+    }
+
+    handleNumberValue(val, type) {
+        var castValue;
+        if (val !== '') {
+            castValue = type === 'number' ? Number(val) : val;
+            if (isNaN(castValue)) {
+                castValue = val;
+                this.setState({return_nan: true});
+            } else {
+                this.setState({return_nan: false});
+            }
+        }
+        return castValue;
     }
 
     propsToState(newProps) {
@@ -28,7 +45,7 @@ export default class Input extends Component {
     }
 
     render() {
-        const {setProps, min, max, debounce, loading_state} = this.props;
+        const {setProps, type, min, max, debounce, loading_state} = this.props;
         const value = this.state.value;
         return (
             <input
@@ -43,12 +60,14 @@ export default class Input extends Component {
                     ) {
                         return;
                     }
-                    if (!debounce) {
-                        setProps({
-                            value: newValue,
+                    if (debounce) {
+                        this.setState({
+                            value: this.handleNumberValue(newValue, type),
                         });
                     } else {
-                        this.setState({value: newValue});
+                        setProps({
+                            value: this.handleNumberValue(newValue, type),
+                        });
                     }
                 }}
                 onBlur={() => {
@@ -56,9 +75,7 @@ export default class Input extends Component {
                         n_blur: this.props.n_blur + 1,
                         n_blur_timestamp: Date.now(),
                     };
-                    if (debounce) {
-                        payload.value = value;
-                    }
+                    payload.value = this.handleNumberValue(value, type);
                     setProps(payload);
                 }}
                 onKeyPress={e => {
@@ -67,11 +84,12 @@ export default class Input extends Component {
                             n_submit: this.props.n_submit + 1,
                             n_submit_timestamp: Date.now(),
                         };
-                        if (debounce) {
-                            payload.value = value;
-                        }
+                        payload.value = this.handleNumberValue(value, type);
                         setProps(payload);
                     }
+                }}
+                style={{
+                    outline: this.state.return_nan ? 'solid red' : '',
                 }}
                 value={value}
                 {...omit(
