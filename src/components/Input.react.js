@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {omit, isEmpty} from 'ramda';
+import './css/input.css';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -52,6 +53,7 @@ export default class Input extends Component {
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
+                className={this.state.return_nan ? 'invalid' : null}
                 onChange={e => {
                     const newValue = e.target.value;
                     if (
@@ -93,9 +95,6 @@ export default class Input extends Component {
                         }
                         setProps(payload);
                     }
-                }}
-                style={{
-                    outline: this.state.return_nan ? 'solid red' : '',
                 }}
                 value={value}
                 {...omit(
