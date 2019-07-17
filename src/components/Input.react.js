@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import isNumeric from 'fast-isnumeric';
 import {omit, isEmpty} from 'ramda';
+import './css/input.css';
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -15,18 +17,32 @@ export default class Input extends Component {
         this.propsToState = this.propsToState.bind(this);
         this.state = {
             return_nan: false,
+            raw: null,
         };
     }
 
     handleNumberValue(val, type) {
-        var castValue;
+        let castValue = val;
         if (val !== '') {
-            castValue = type === 'number' ? Number(val) : val;
-            if (isNaN(castValue)) {
-                castValue = val;
-                this.setState({return_nan: true});
-            } else {
-                this.setState({return_nan: false});
+            if (type === 'number') {
+                castValue = isNumeric(val) ? +val : val;
+                this.setState({return_nan: !isNumeric(val)});
+            }
+            // castValue = type === 'number' ? Number(val) : val;
+            // if (isNaN(castValue)) {
+            //     castValue = val;
+            //     this.setState({return_nan: true});
+            // } else {
+            //     this.setState({return_nan: false});
+            // }
+        } else {
+            console.log('val is empty', 'raw is =>', this.state.rawValue);
+            const raw = this.state.raw;
+            if (type === 'number') {
+                castValue = isNumeric(raw) ? +raw : raw;
+                this.setState({
+                    return_nan: !isNumeric(raw),
+                });
             }
         }
         return castValue;
@@ -52,8 +68,10 @@ export default class Input extends Component {
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
+                className={this.state.return_nan ? 'invalid' : null}
                 onChange={e => {
                     const newValue = e.target.value;
+                    this.setState({raw: newValue});
                     if (
                         (!isEmpty(min) && Number(newValue) < min) ||
                         (!isEmpty(max) && Number(newValue) > max)
@@ -93,9 +111,6 @@ export default class Input extends Component {
                         }
                         setProps(payload);
                     }
-                }}
-                style={{
-                    outline: this.state.return_nan ? 'solid red' : '',
                 }}
                 value={value}
                 {...omit(
