@@ -17,35 +17,56 @@ export default class Input extends Component {
         this.propsToState = this.propsToState.bind(this);
         this.state = {
             return_nan: false,
-            raw: null,
+            override: props.type === 'number',
         };
     }
 
-    handleNumberValue(val, type) {
+    handleNumber(val, final) {
         let castValue = val;
-        if (val !== '') {
-            if (type === 'number') {
-                castValue = isNumeric(val) ? +val : val;
-                this.setState({return_nan: !isNumeric(val)});
-            }
-            // castValue = type === 'number' ? Number(val) : val;
-            // if (isNaN(castValue)) {
-            //     castValue = val;
-            //     this.setState({return_nan: true});
-            // } else {
-            //     this.setState({return_nan: false});
-            // }
-        } else {
-            console.log('val is empty', 'raw is =>', this.state.rawValue);
-            const raw = this.state.raw;
-            if (type === 'number') {
-                castValue = isNumeric(raw) ? +raw : raw;
-                this.setState({
-                    return_nan: !isNumeric(raw),
-                });
+        if (
+            this.state.override &&
+            isNumeric(val) &&
+            typeof val.includes === 'function'
+        ) {
+            const lastChar = val[val.length - 1];
+            if (
+                lastChar !== '.' &&
+                (final || lastChar !== '0') &&
+                (final || !val.includes('e'))
+            ) {
+                castValue = Number(val);
+                console.log('casting', val, '=>', castValue);
             }
         }
+        if (this.state.override && val === '') {
+            castValue = null;
+        }
         return castValue;
+    }
+
+    checkNumberic(val) {
+        if (this.state.override) {
+            this.setState({return_nan: !isNumeric(val)});
+        }
+        return val;
+
+        // castValue = this.state.override ? Number(val) : val;
+        // if (isNaN(castValue)) {
+        //     castValue = val;
+        //     this.setState({return_nan: true});
+        // } else {
+        //     this.setState({return_nan: false});
+        // }
+        // } else {
+        //     console.log('val is empty', 'raw is =>', this.state.rawValue);
+        //     const raw = this.state.raw;
+        //     if (type === 'number') {
+        //         castValue = isNumeric(raw) ? +raw : raw;
+        //         this.setState({
+        //             return_nan: !isNumeric(raw),
+        //         });
+        //     }
+        // }
     }
 
     propsToState(newProps) {
@@ -61,31 +82,30 @@ export default class Input extends Component {
     }
 
     render() {
-        const {setProps, type, min, max, debounce, loading_state} = this.props;
+        const {setProps, min, max, debounce, loading_state, type} = this.props;
         const value = this.state.value;
+        const virtualtype = type === 'number' ? 'text' : type;
         return (
             <input
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={this.state.return_nan ? 'invalid' : null}
+                type={virtualtype}
                 onChange={e => {
                     const newValue = e.target.value;
-                    this.setState({raw: newValue});
+                    // this.setState({raw: newValue});
                     if (
                         (!isEmpty(min) && Number(newValue) < min) ||
                         (!isEmpty(max) && Number(newValue) > max)
                     ) {
                         return;
                     }
+                    this.checkNumberic(newValue);
                     if (debounce) {
-                        this.setState({
-                            value: this.handleNumberValue(newValue, type),
-                        });
+                        this.setState({value: newValue});
                     } else {
-                        setProps({
-                            value: this.handleNumberValue(newValue, type),
-                        });
+                        setProps({value: this.handleNumber(newValue, false)});
                     }
                 }}
                 onBlur={() => {
@@ -93,10 +113,8 @@ export default class Input extends Component {
                         n_blur: this.props.n_blur + 1,
                         n_blur_timestamp: Date.now(),
                     };
-                    const castValue = this.handleNumberValue(value, type);
-                    if (debounce) {
-                        payload.value = castValue;
-                    }
+                    this.checkNumberic(value);
+                    payload.value = this.handleNumber(value, true);
                     setProps(payload);
                 }}
                 onKeyPress={e => {
@@ -105,10 +123,8 @@ export default class Input extends Component {
                             n_submit: this.props.n_submit + 1,
                             n_submit_timestamp: Date.now(),
                         };
-                        const castValue = this.handleNumberValue(value, type);
-                        if (debounce) {
-                            payload.value = castValue;
-                        }
+                        this.checkNumberic(value);
+                        payload.value = this.handleNumber(value, true);
                         setProps(payload);
                     }
                 }}
@@ -120,6 +136,7 @@ export default class Input extends Component {
                         'n_blur',
                         'n_blur_timestamp',
                         'n_submit',
+                        'type',
                         'n_submit_timestamp',
                         'selectionDirection',
                         'selectionEnd',
