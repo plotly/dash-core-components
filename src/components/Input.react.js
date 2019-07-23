@@ -1,8 +1,13 @@
-import React, {Component} from 'react';
+import * as R from 'ramda';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import isNumeric from 'fast-isnumeric';
-import {omit, isEmpty} from 'ramda';
 import './css/input.css';
+import isNumeric from 'fast-isnumeric';
+
+// eslint-disable-next-line no-implicit-coercion
+const convert = val => (isNumeric(val) ? +val : NaN);
+
+const isEquivalent = (v1, v2) => v1 === v2 || (isNaN(v1) && isNaN(v2));
 
 /**
  * A basic HTML input control for entering text, numbers, or passwords.
@@ -11,132 +16,52 @@ import './css/input.css';
  * the Checklist and RadioItems component. Dates, times, and file uploads
  * are also supported through separate components.
  */
-export default class Input extends Component {
+export default class Input extends PureComponent {
     constructor(props) {
         super(props);
-        this.propsToState = this.propsToState.bind(this);
-        this.state = {
-            return_nan: false,
-            override: props.type === 'number',
-        };
+
+        this.input = React.createRef();
+
+        this.onBlur = this.onBlur.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onEvent = this.onEvent.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
+        this.setInputValue = this.setInputValue.bind(this);
+        this.setPropValue = this.setPropValue.bind(this);
     }
 
-    handleNumber(val, final) {
-        let castValue = val;
-        if (
-            this.state.override &&
-            isNumeric(val) &&
-            typeof val.includes === 'function'
-        ) {
-            const lastChar = val[val.length - 1];
-            if (
-                lastChar !== '.' &&
-                (final || lastChar !== '0') &&
-                (final || !val.includes('e'))
-            ) {
-                castValue = Number(val);
-                console.log('casting', val, '=>', castValue);
-            }
-        }
-        if (this.state.override && val === '') {
-            castValue = null;
-        }
-        return castValue;
+    componentWillReceiveProps(nextProps) {
+        const {value, valueAsNumber} = this.input.current;
+
+        this.setInputValue(
+            R.isNil(valueAsNumber) ? value : valueAsNumber,
+            nextProps.value
+        );
     }
 
-    checkNumberic(val) {
-        if (this.state.override) {
-            this.setState({return_nan: !isNumeric(val)});
-        }
-        return val;
+    componentDidMount() {
+        const {value, valueAsNumber} = this.input.current;
 
-        // castValue = this.state.override ? Number(val) : val;
-        // if (isNaN(castValue)) {
-        //     castValue = val;
-        //     this.setState({return_nan: true});
-        // } else {
-        //     this.setState({return_nan: false});
-        // }
-        // } else {
-        //     console.log('val is empty', 'raw is =>', this.state.rawValue);
-        //     const raw = this.state.raw;
-        //     if (type === 'number') {
-        //         castValue = isNumeric(raw) ? +raw : raw;
-        //         this.setState({
-        //             return_nan: !isNumeric(raw),
-        //         });
-        //     }
-        // }
-    }
-
-    propsToState(newProps) {
-        this.setState({value: newProps.value});
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.propsToState(newProps);
-    }
-
-    componentWillMount() {
-        this.propsToState(this.props);
+        this.setInputValue(
+            R.isNil(valueAsNumber) ? value : valueAsNumber,
+            this.props.value
+        );
     }
 
     render() {
-        const {setProps, min, max, debounce, loading_state, type} = this.props;
-        const value = this.state.value;
-        const virtualtype = type === 'number' ? 'text' : type;
         return (
             <input
-                data-dash-is-loading={
-                    (loading_state && loading_state.is_loading) || undefined
-                }
-                className={this.state.return_nan ? 'invalid' : null}
-                type={virtualtype}
-                onChange={e => {
-                    const newValue = e.target.value;
-                    // this.setState({raw: newValue});
-                    if (
-                        (!isEmpty(min) && Number(newValue) < min) ||
-                        (!isEmpty(max) && Number(newValue) > max)
-                    ) {
-                        return;
-                    }
-                    this.checkNumberic(newValue);
-                    if (debounce) {
-                        this.setState({value: newValue});
-                    } else {
-                        setProps({value: this.handleNumber(newValue, false)});
-                    }
-                }}
-                onBlur={() => {
-                    const payload = {
-                        n_blur: this.props.n_blur + 1,
-                        n_blur_timestamp: Date.now(),
-                    };
-                    this.checkNumberic(value);
-                    payload.value = this.handleNumber(value, true);
-                    setProps(payload);
-                }}
-                onKeyPress={e => {
-                    if (e.key === 'Enter') {
-                        const payload = {
-                            n_submit: this.props.n_submit + 1,
-                            n_submit_timestamp: Date.now(),
-                        };
-                        this.checkNumberic(value);
-                        payload.value = this.handleNumber(value, true);
-                        setProps(payload);
-                    }
-                }}
-                value={value}
-                {...omit(
+                ref={this.input}
+                onBlur={this.onBlur}
+                onChange={this.onChange}
+                onKeyPress={this.onKeyPress}
+                {...R.omit(
                     [
                         'debounce',
                         'value',
                         'n_blur',
                         'n_blur_timestamp',
                         'n_submit',
-                        'type',
                         'n_submit_timestamp',
                         'selectionDirection',
                         'selectionEnd',
@@ -148,6 +73,47 @@ export default class Input extends Component {
                 )}
             />
         );
+    }
+
+    onEvent() {
+        const {value, valueAsNumber} = this.input.current;
+
+        this.setPropValue(
+            this.props.value,
+            R.isNil(valueAsNumber) ? value : valueAsNumber
+        );
+    }
+
+    onBlur() {
+        return this.props.debounce && this.onEvent();
+    }
+
+    onKeyPress(e) {
+        return this.props.debounce && e.key === 'Enter' && this.onEvent();
+    }
+
+    onChange() {
+        return !this.props.debounce && this.onEvent();
+    }
+
+    setInputValue(base, value) {
+        const __value = value;
+
+        base = convert(base);
+        value = convert(value);
+
+        if (!isEquivalent(base, value)) {
+            this.input.current.value = isNumeric(value) ? value : __value;
+        }
+    }
+
+    setPropValue(base, value) {
+        base = convert(base);
+        value = convert(value);
+
+        if (!isEquivalent(base, value)) {
+            this.props.setProps({value});
+        }
     }
 }
 
