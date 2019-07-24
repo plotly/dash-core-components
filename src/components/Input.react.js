@@ -78,17 +78,31 @@ export default class Input extends PureComponent {
     onEvent() {
         const {value, valueAsNumber} = this.input.current;
 
-        this.setPropValue(
-            this.props.value,
-            R.isNil(valueAsNumber) ? value : valueAsNumber
-        );
+        if (this.props.type === 'number') {
+            this.setPropValue(
+                this.props.value,
+                R.isNil(valueAsNumber) ? value : valueAsNumber
+            );
+        } else {
+            this.props.setProps({value: value});
+        }
     }
 
     onBlur() {
+        this.props.setProps({
+            n_blur: this.props.n_blur + 1,
+            n_blur_timestamp: Date.now(),
+        });
         return this.props.debounce && this.onEvent();
     }
 
     onKeyPress(e) {
+        if (e.key === 'Enter') {
+            this.props.setProps({
+                n_submit: this.props.n_submit + 1,
+                n_submit_timestamp: Date.now(),
+            });
+        }
         return this.props.debounce && e.key === 'Enter' && this.onEvent();
     }
 
