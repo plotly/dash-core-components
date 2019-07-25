@@ -52,6 +52,7 @@ export default class Input extends PureComponent {
         return (
             <input
                 ref={this.input}
+                value={this.props.value}
                 onBlur={this.onBlur}
                 onChange={this.onChange}
                 onKeyPress={this.onKeyPress}

@@ -42,7 +42,7 @@ def test_state_and_inputs(dash_duo):
     input_.send_keys("x")
     wait.until(lambda: call_count.value == 2, timeout=1)
     assert dash_duo.wait_for_text_to_equal(
-        "#output", 'input="x", state="Initial State"'
+        "#output", 'input="Initial Inputx", state="Initial State"'
     )
 
     dash_duo.find_element("#state").send_keys("x")
@@ -50,12 +50,12 @@ def test_state_and_inputs(dash_duo):
 
     assert call_count.value == 2
     assert dash_duo.wait_for_text_to_equal(
-        "#output", 'input="x", state="Initial State"'
+        "#output", 'input="Initial Inputx", state="Initial State"'
     ), "state value sshould not trigger callback"
 
     input_.send_keys("y")
 
     wait.until(lambda: call_count.value == 3, timeout=1)
     assert dash_duo.wait_for_text_to_equal(
-        "#output", 'input="xy", state="x"'
+        "#output", 'input="Initial Inputxy", state="Initial Statex"'
     ), "input value triggers callback, and the last state change is kept"
