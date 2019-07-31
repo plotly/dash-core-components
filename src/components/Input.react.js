@@ -49,11 +49,37 @@ export default class Input extends PureComponent {
     }
 
     render() {
+        if (this.props.type === 'number') {
+            return (
+                <input
+                    ref={this.input}
+                    onBlur={this.onBlur}
+                    onChange={this.onChange}
+                    onKeyPress={this.onKeyPress}
+                    {...R.omit(
+                        [
+                            'debounce',
+                            'value',
+                            'n_blur',
+                            'n_blur_timestamp',
+                            'n_submit',
+                            'n_submit_timestamp',
+                            'selectionDirection',
+                            'selectionEnd',
+                            'selectionStart',
+                            'setProps',
+                            'loading_state',
+                        ],
+                        this.props
+                    )}
+                />
+            );
+        }
         return (
             <input
                 ref={this.input}
                 onBlur={this.onBlur}
-                value={this.props.type === 'number' ? null : this.props.value}
+                value={this.props.value}
                 onChange={this.onChange}
                 onKeyPress={this.onKeyPress}
                 {...R.omit(

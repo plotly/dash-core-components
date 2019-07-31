@@ -21,6 +21,8 @@ def test_inni001_invalid_numbers(ninput_app, dash_duo):
             elem.send_keys(invalid_number)
             elem.send_keys(Keys.TAB)  # onblur
 
+            # the number input element is special now, selenium doesn't work
+            dash_duo.percy_snapshot("inni001 - invalid number input onblur")
             assert dash_duo.wait_for_text_to_equal(
                 "#div_{}".format(debounce), ""
             ), "callback should return None if invalid"
@@ -37,6 +39,7 @@ def test_inni001_invalid_numbers(ninput_app, dash_duo):
             elem.send_keys(invalid_number)
             elem.send_keys(Keys.ENTER)  # Enter key press
 
+            dash_duo.percy_snapshot("inni001 - invalid number input enter key")
             assert dash_duo.wait_for_text_to_equal(
                 "#div_{}".format(debounce), ""
             ), "callback should return None if invalid"
