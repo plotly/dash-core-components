@@ -6,10 +6,10 @@ def test_inni001_invalid_numbers(ninput_app, dash_duo):
     dash_duo.start_server(ninput_app)
     for invalid_number in (
         "10e10000",
+        "5e-325",
         "e+++eeeeeE-",
         "120.2.33",
         "12-.3",
-        "-122.33-",
         "-3.3.3",
         "0..0",
     ):

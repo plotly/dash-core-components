@@ -2,6 +2,7 @@ import * as R from 'ramda';
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import isNumeric from 'fast-isnumeric';
+import './css/input.css';
 
 // eslint-disable-next-line no-implicit-coercion
 const convert = val => (isNumeric(val) ? +val : NaN);
@@ -80,6 +81,12 @@ export default class Input extends PureComponent {
 
     onEvent() {
         const {value, valueAsNumber} = this.input.current;
+        console.log(
+            'event',
+            this.input.current.checkValidity(),
+            value,
+            valueAsNumber
+        );
 
         if (this.props.type === 'number') {
             this.setPropValue(
@@ -87,11 +94,12 @@ export default class Input extends PureComponent {
                 R.isNil(valueAsNumber) ? value : valueAsNumber
             );
         } else {
-            this.props.setProps({value: value});
+            this.props.setProps({value});
         }
     }
 
     onBlur() {
+        console.log('blur', this.input.current.checkValidity());
         this.props.setProps({
             n_blur: this.props.n_blur + 1,
             n_blur_timestamp: Date.now(),
@@ -101,7 +109,7 @@ export default class Input extends PureComponent {
             this.input.current.setCustomValidity('');
         } else {
             this.input.current.setCustomValidity(
-                'the number is not convertable by Number()'
+                'the number is not convertable by Number'
             );
         }
         return this.props.debounce && this.onEvent();
@@ -113,11 +121,19 @@ export default class Input extends PureComponent {
                 n_submit: this.props.n_submit + 1,
                 n_submit_timestamp: Date.now(),
             });
+            if (this.input.current.checkValidity()) {
+                this.input.current.setCustomValidity('');
+            } else {
+                this.input.current.setCustomValidity(
+                    'the number is not convertable by Number'
+                );
+            }
         }
         return this.props.debounce && e.key === 'Enter' && this.onEvent();
     }
 
     onChange() {
+        this.input.current.setCustomValidity('');
         return !this.props.debounce && this.onEvent();
     }
 
@@ -149,6 +165,7 @@ Input.defaultProps = {
     n_submit: 0,
     n_submit_timestamp: -1,
     debounce: false,
+    step: 'any',
 };
 
 Input.propTypes = {
