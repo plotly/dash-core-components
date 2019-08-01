@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import './css/input.css';
 import isNumeric from 'fast-isnumeric';
 
 // eslint-disable-next-line no-implicit-coercion
@@ -49,39 +48,16 @@ export default class Input extends PureComponent {
     }
 
     render() {
-        if (this.props.type === 'number') {
-            return (
-                <input
-                    ref={this.input}
-                    onBlur={this.onBlur}
-                    onChange={this.onChange}
-                    onKeyPress={this.onKeyPress}
-                    {...R.omit(
-                        [
-                            'debounce',
-                            'value',
-                            'n_blur',
-                            'n_blur_timestamp',
-                            'n_submit',
-                            'n_submit_timestamp',
-                            'selectionDirection',
-                            'selectionEnd',
-                            'selectionStart',
-                            'setProps',
-                            'loading_state',
-                        ],
-                        this.props
-                    )}
-                />
-            );
-        }
+        const valprops =
+            this.props.type === 'number' ? {} : {value: this.props.value};
+
         return (
             <input
                 ref={this.input}
                 onBlur={this.onBlur}
-                value={this.props.value}
                 onChange={this.onChange}
                 onKeyPress={this.onKeyPress}
+                {...valprops}
                 {...R.omit(
                     [
                         'debounce',
@@ -120,6 +96,14 @@ export default class Input extends PureComponent {
             n_blur: this.props.n_blur + 1,
             n_blur_timestamp: Date.now(),
         });
+
+        if (this.input.current.checkValidity()) {
+            this.input.current.setCustomValidity('');
+        } else {
+            this.input.current.setCustomValidity(
+                'the number is not convertable by Number()'
+            );
+        }
         return this.props.debounce && this.onEvent();
     }
 
