@@ -2,10 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [Unreleased] -
 
 ### Fixed
 - Fixed inconsistent behavior of `input` with `type=number` [#580](https://github.com/plotly/dash-core-components/pull/580)
+
+### Updated
+- Upgraded plotly.js to 1.49.0 [#589](https://github.com/plotly/dash-core-components/pull/589)
+  - [Feature release 1.49.0](https://github.com/plotly/plotly.js/releases/tag/v1.49.0) which contains:
+    - New `indicator` trace type for gauge and KPI displays.
+    - Lots of tile map improvements: `choroplethmapbox` and `densitymapbox` trace types, numerous `style` options for `mapbox` subplots that do not require a Mapbox access token, and more.
+    - Various bug fixes and smaller improvements.
 
 ## [1.0.0] - 2019-06-20
 ### Added
