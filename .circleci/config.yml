@@ -75,7 +75,6 @@ workflows:
     jobs:
       - 'python-2.7'
       - "percy-finalize":
-          when: always
           requires:
             - 'python-2.7'
       - 'python-3.6'
