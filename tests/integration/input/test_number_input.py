@@ -45,27 +45,18 @@ def test_inni002_invalid_numbers_ui(dash_duo, ninput_app):
     assert dash_duo.wait_for_text_to_equal("#div_false", "0")
 
     dash_duo.clear_input(elem)
-    # elem.send_keys("0.0.0")
-    # elem.send_keys(Keys.TAB)
-    ActionChains(dash_duo.driver).send_keys("0.0.0").send_keys(
-        Keys.TAB
-    ).perform()
+    elem.send_keys("0.0.0")
+    elem.send_keys(Keys.TAB)
 
     assert dash_duo.find_element("#div_false").text != "0.0"
     time.sleep(0.5)
     dash_duo.percy_snapshot("inni002 - input invalid number")
-    elem.click()
-    ActionChains(dash_duo.driver).move_to_element(elem).perform()
-
-    time.sleep(3)
-    dash_duo.percy_snapshot("inni002 - invalid tooltip")
 
 
 def test_inni003_invalid_numbers_range(dash_duo, input_range_app):
-    dash_duo.start_server(input_range_app)
-    # range [10, 10000] step=3
-    elem_range = dash_duo.find_element("#range")
+    dash_duo.start_server(input_range_app)  # range [10, 10000] step=3
 
+    elem_range = dash_duo.find_element("#range")
     elem_range.send_keys("1999")
     assert dash_duo.find_element("#out").text == "1999"
 
@@ -81,8 +72,7 @@ def test_inni003_invalid_numbers_range(dash_duo, input_range_app):
         "#out", ""
     ), "invalid value should return none"
 
-    ActionChains(dash_duo.driver).move_to_element(elem_range).perform()
-    time.sleep(3)
+    time.sleep(0.5)
     dash_duo.percy_snapshot("inni003 - number out of range")
 
 
