@@ -31,31 +31,39 @@ export default class Input extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.type === 'number') {
-            const {value, valueAsNumber} = this.input.current;
-            this.setInputValue(
-                R.isNil(valueAsNumber) ? value : valueAsNumber,
-                nextProps.value
-            );
+        const {value, valueAsNumber} = this.input.current;
+        this.setInputValue(
+            R.isNil(valueAsNumber) ? value : valueAsNumber,
+            nextProps.value
+        );
+        if (this.props.type !== 'number') {
+            this.setState({value: nextProps.value});
         }
     }
 
     componentDidMount() {
-        if (this.props.type === 'number') {
-            const {value, valueAsNumber} = this.input.current;
-            this.setInputValue(
-                R.isNil(valueAsNumber) ? value : valueAsNumber,
-                this.props.value
-            );
+        const {value, valueAsNumber} = this.input.current;
+        this.setInputValue(
+            R.isNil(valueAsNumber) ? value : valueAsNumber,
+            this.props.value
+        );
+    }
+
+    componentWillMount() {
+        if (this.props.type !== 'number') {
+            this.setState({value: this.props.value});
         }
     }
 
     render() {
         const valprops =
-            this.props.type === 'number' ? {} : {value: this.props.value};
-
+            this.props.type === 'number' ? {} : {value: this.state.value};
+        const {loading_state} = this.props;
         return (
             <input
+                data-dash-is-loading={
+                    (loading_state && loading_state.is_loading) || undefined
+                }
                 ref={this.input}
                 onBlur={this.onBlur}
                 onChange={this.onChange}
@@ -79,6 +87,25 @@ export default class Input extends PureComponent {
                 )}
             />
         );
+    }
+
+    setInputValue(base, value) {
+        const __value = value;
+        base = this.input.current.checkValidity() ? convert(base) : NaN;
+        value = convert(value);
+
+        if (!isEquivalent(base, value)) {
+            this.input.current.value = isNumeric(value) ? value : __value;
+        }
+    }
+
+    setPropValue(base, value) {
+        base = convert(base);
+        value = this.input.current.checkValidity() ? convert(value) : NaN;
+
+        if (!isEquivalent(base, value)) {
+            this.props.setProps({value});
+        }
     }
 
     onEvent() {
@@ -114,25 +141,10 @@ export default class Input extends PureComponent {
     }
 
     onChange() {
-        return !this.props.debounce && this.onEvent();
-    }
-
-    setInputValue(base, value) {
-        const __value = value;
-        base = this.input.current.checkValidity() ? convert(base) : NaN;
-        value = convert(value);
-
-        if (!isEquivalent(base, value)) {
-            this.input.current.value = isNumeric(value) ? value : __value;
-        }
-    }
-
-    setPropValue(base, value) {
-        base = convert(base);
-        value = this.input.current.checkValidity() ? convert(value) : NaN;
-
-        if (!isEquivalent(base, value)) {
-            this.props.setProps({value});
+        if (!this.props.debounce) {
+            this.onEvent();
+        } else if (this.props.type !== 'number') {
+            this.setState({value: this.input.current.value});
         }
     }
 }

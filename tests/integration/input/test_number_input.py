@@ -91,6 +91,7 @@ def test_inni010_valid_numbers(dash_duo, ninput_app):
     for num, op in (
         ("1.0", lambda x: int(float(x))),  # limitation of js/json
         ("10e10", lambda x: int(float(x))),
+        ("1E308", lambda x: int(float(x))),
         ("-1.0001", float),
         (str(sys.float_info.max), float),
         (str(sys.float_info.min), float),
