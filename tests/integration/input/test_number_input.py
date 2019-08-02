@@ -1,12 +1,13 @@
+import time
 import sys
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 def test_inni001_invalid_numbers(ninput_app, dash_duo):
     dash_duo.start_server(ninput_app)
     for invalid_number in (
         "10e10000",
-        "5e-325",
         "e+++eeeeeE-",
         "120.2.33",
         "12-.3",
@@ -16,40 +17,73 @@ def test_inni001_invalid_numbers(ninput_app, dash_duo):
         for debounce in ("false", "true"):
 
             elem = dash_duo.find_element("#input_{}".format(debounce))
-            assert not elem.get_attribute("value")
+            assert not elem.get_attribute(
+                "value"
+            ), "input should have no initial value"
 
+            # onblur
             elem.send_keys(invalid_number)
-            elem.send_keys(Keys.TAB)  # onblur
+            elem.send_keys(Keys.TAB)
+            # dash_duo.percy_snapshot("inni001 - invalid number input onblur")
 
-            # the number input element is special now, selenium doesn't work
-            dash_duo.percy_snapshot("inni001 - invalid number input onblur")
-            assert dash_duo.wait_for_text_to_equal(
-                "#div_{}".format(debounce), ""
-            ), "callback should return None if invalid"
+            dash_duo.wait_for_text_to_equal("#div_{}".format(debounce), "")
+
+            # Enter keypress
+            dash_duo.clear_input(elem)
+            elem.send_keys(invalid_number)
+            elem.send_keys(Keys.ENTER)
+
+            dash_duo.wait_for_text_to_equal("#div_{}".format(debounce), "")
 
             dash_duo.clear_input(elem)
-            elem.send_keys("0.0")
-            if not debounce:
-                assert dash_duo.wait_for_text_to_equal(
-                    "#div_{}".format(debounce), "0"  # limitation of js/json
-                ), "debounce False input should have converted number form"
 
-            dash_duo.clear_input(elem)
 
-            elem.send_keys(invalid_number)
-            elem.send_keys(Keys.ENTER)  # Enter key press
+def test_inni002_invalid_numbers_ui(dash_duo, ninput_app):
+    dash_duo.start_server(ninput_app)
+    elem = dash_duo.find_element("#input_false")
 
-            dash_duo.percy_snapshot("inni001 - invalid number input enter key")
-            assert dash_duo.wait_for_text_to_equal(
-                "#div_{}".format(debounce), ""
-            ), "callback should return None if invalid"
+    elem.send_keys("5e-325")  # smaller than Number.MIN_VALUE
+    assert dash_duo.wait_for_text_to_equal("#div_false", "0")
+
+    dash_duo.clear_input(elem)
+    elem.send_keys("0.0.0")
+
+    assert dash_duo.find_element("#div_false").text != "0.0"
+    dash_duo.percy_snapshot("inni002 - input invalid number")
+    ActionChains(dash_duo.driver).move_to_element(elem).perform()
+
+    time.sleep(1.5)
+    dash_duo.percy_snapshot("inni002 - invalid tooltip")
+
+
+def test_inni003_invalid_numbers_range(dash_duo, input_range_app):
+    dash_duo.start_server(input_range_app)
+    # range [10, 10000] step=3
+    elem_range = dash_duo.find_element("#range")
+
+    elem_range.send_keys('1999')
+    assert dash_duo.find_element('#out').text == '1999'
+
+    for invalid_number in ("0.0", "12", "10e10"):
+        elem_range.send_keys(invalid_number)
+        dash_duo.wait_for_text_to_equal(
+            "#out", ""
+        ), "invalid value should return none"
+        dash_duo.clear_input(elem_range)
+
+    elem_range.send_keys("-13")
+    dash_duo.wait_for_text_to_equal(
+        "#out", ""
+    ), "invalid value should return none"
+
+    time.sleep(1.5)
+    dash_duo.percy_snapshot("inni003 - number out of range")
 
 
 def test_inni010_valid_numbers(dash_duo, ninput_app):
     dash_duo.start_server(ninput_app)
     for num, op in (
-        # limitation of js/json
-        ("1.0", lambda x: int(float(x))),
+        ("1.0", lambda x: int(float(x))),  # limitation of js/json
         ("10e10", lambda x: int(float(x))),
         ("-1.0001", float),
         (str(sys.float_info.max), float),

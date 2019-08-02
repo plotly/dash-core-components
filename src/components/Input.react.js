@@ -31,21 +31,23 @@ export default class Input extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {value, valueAsNumber} = this.input.current;
-
-        this.setInputValue(
-            R.isNil(valueAsNumber) ? value : valueAsNumber,
-            nextProps.value
-        );
+        if (this.props.type === 'number') {
+            const {value, valueAsNumber} = this.input.current;
+            this.setInputValue(
+                R.isNil(valueAsNumber) ? value : valueAsNumber,
+                nextProps.value
+            );
+        }
     }
 
     componentDidMount() {
-        const {value, valueAsNumber} = this.input.current;
-
-        this.setInputValue(
-            R.isNil(valueAsNumber) ? value : valueAsNumber,
-            this.props.value
-        );
+        if (this.props.type === 'number') {
+            const {value, valueAsNumber} = this.input.current;
+            this.setInputValue(
+                R.isNil(valueAsNumber) ? value : valueAsNumber,
+                this.props.value
+            );
+        }
     }
 
     render() {
@@ -117,8 +119,7 @@ export default class Input extends PureComponent {
 
     setInputValue(base, value) {
         const __value = value;
-
-        base = convert(base);
+        base = this.input.current.checkValidity() ? convert(base) : NaN;
         value = convert(value);
 
         if (!isEquivalent(base, value)) {
@@ -128,7 +129,7 @@ export default class Input extends PureComponent {
 
     setPropValue(base, value) {
         base = convert(base);
-        value = convert(value);
+        value = this.input.current.checkValidity() ? convert(value) : NaN;
 
         if (!isEquivalent(base, value)) {
             this.props.setProps({value});
