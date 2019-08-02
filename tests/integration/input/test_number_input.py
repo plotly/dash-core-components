@@ -24,7 +24,6 @@ def test_inni001_invalid_numbers(ninput_app, dash_duo):
             # onblur
             elem.send_keys(invalid_number)
             elem.send_keys(Keys.TAB)
-            # dash_duo.percy_snapshot("inni001 - invalid number input onblur")
 
             dash_duo.wait_for_text_to_equal("#div_{}".format(debounce), "")
 
@@ -76,6 +75,7 @@ def test_inni003_invalid_numbers_range(dash_duo, input_range_app):
         "#out", ""
     ), "invalid value should return none"
 
+    ActionChains(dash_duo.driver).move_to_element(elem_range).perform()
     time.sleep(1.5)
     dash_duo.percy_snapshot("inni003 - number out of range")
 
