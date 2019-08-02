@@ -14,7 +14,7 @@ def ninput_app():
                 id="input_false",
                 type="number",
                 debounce=False,
-                placeholder="number input debounce=False",
+                placeholder="debounce=False",
             ),
             html.Div(id="div_false"),
             html.Hr(id="silent-break-line"),
@@ -22,7 +22,7 @@ def ninput_app():
                 id="input_true",
                 type="number",
                 debounce=True,
-                placeholder="number input debounce=True",
+                placeholder="debounce=True",
             ),
             html.Div(id="div_true"),
         ]
