@@ -11,6 +11,7 @@ jobs:
           - image: circleci/python:2.7-stretch-node-browsers
             environment:
                 PYTHON_VERSION: py27
+                PERCY_PARALLEL_TOTAL: '-1'
 
       steps:
           - checkout
