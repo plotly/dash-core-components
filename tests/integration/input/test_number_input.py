@@ -46,12 +46,13 @@ def test_inni002_invalid_numbers_ui(dash_duo, ninput_app):
 
     dash_duo.clear_input(elem)
     elem.send_keys("0.0.0")
+    elem.send_keys(Keys.TAB)
 
     assert dash_duo.find_element("#div_false").text != "0.0"
     dash_duo.percy_snapshot("inni002 - input invalid number")
     ActionChains(dash_duo.driver).move_to_element(elem).perform()
 
-    time.sleep(1.5)
+    time.sleep(3)
     dash_duo.percy_snapshot("inni002 - invalid tooltip")
 
 
@@ -76,7 +77,7 @@ def test_inni003_invalid_numbers_range(dash_duo, input_range_app):
     ), "invalid value should return none"
 
     ActionChains(dash_duo.driver).move_to_element(elem_range).perform()
-    time.sleep(1.5)
+    time.sleep(3)
     dash_duo.percy_snapshot("inni003 - number out of range")
 
 
