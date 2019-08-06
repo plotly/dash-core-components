@@ -6,3 +6,454 @@ pkg_help_description: >
     is on GitHub: plotly/dash-core-components.
 pkg_help_title: >
     Core Interactive UI Components for Dash 
+
+r_examples:
+    - name: dccChecklist
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccChecklist(
+                    options=list(
+                      list("label" = "New York City", "value" = "NYC"),
+                      list("label" = "Montréal", "value" = "MTL"),
+                      list("label" = "San Francisco", "value" = "SF")
+                    ),
+                    value=list("MTL", "SF")
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccConfirmDialog
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccConfirmDialog(
+                    id = "confirm",
+                    message = "Danger danger! Are you sure you want to continue?",
+                    displayed = TRUE
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccConfirmDialogProvider
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccConfirmDialogProvider(
+                    id = "confirm",
+                    children = htmlButton("Click Me"),
+                    message = "Danger danger! Are you sure you want to continue?"
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccDatePickerRange
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccDatePickerRange(
+                    id = "date-picker-range",
+                    start_date = as.Date("1997/5/10"),
+                    end_date_placeholder_text="Select a date!"
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccDatePickerSingle
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccDatePickerSingle(
+                      id="date-picker-single",
+                      date=as.Date("1997/5/10")
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccDropdown
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccDropdown(
+                    options=list(
+                      list(label = "New York City", value = "NYC"),
+                      list(label = "Montréal", value = "MTL"),
+                      list(label = "San Francisco", value = "SF")
+                    ),
+                    value="MTL"
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccGraph
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccGraph(
+                    id = "my-graph",
+                    figure = list(
+                      data = list(
+                        list(x = c(1, 2, 3), y = c(5, 2, 7))
+                      )
+                    )
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccInput
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  dccInput(
+                    placeholder = "Enter a value...",
+                    type = "text",
+                    value = ""
+                  )
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccInterval
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+                  htmlH1(id = "my-h1", children = "0"),
+                  dccInterval(
+                    id = "my-interval",
+                    interval=1*1000, # in milliseconds 
+                    n_intervals = 0
+                  )
+                )
+              )
+            )
+
+            app$callback(
+              output("my-h1", "children"),
+              list(input("my-interval", "n_intervals")),
+              function(x){
+                x
+              }
+            )
+
+            app$run_server()
+    - name: dccLink
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccLoading
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccLocation
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccLogoutButton
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccMarkdown
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccRadioItems
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccRangeSlider
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccSlider
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccStore
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccTab
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccTabs
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccTextarea
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
+    - name: dccUpload
+      dontrun: TRUE
+      code: |
+            library(dash)
+            library(dashHtmlComponents)
+            library(dashCoreComponents)
+
+            app <- Dash$new()
+
+            app$layout(
+              htmlDiv(
+                list(
+
+                )
+              )
+            )
+
+            app$run_server()
