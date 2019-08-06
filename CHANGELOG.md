@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] = 2019-08-06
+## [Unreleased] - 2019-08-06
 - Upgraded plotly.js to 1.49.1 [#595](https://github.com/plotly/dash-core-components/issues/595)
 - Patch release [1.49.1](https://github.com/plotly/plotly.js/releases/tag/v1.49.1)
 
