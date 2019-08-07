@@ -1186,7 +1186,6 @@ class Tests(IntegrationTests):
 
         self.assertNotEqual(graph_1.get_attribute('id'), graph_2.get_attribute('id'))
 
-
     def test_interval(self):
         app = dash.Dash(__name__)
         app.layout = html.Div([
