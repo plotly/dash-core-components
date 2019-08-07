@@ -73,6 +73,7 @@ workflows:
   version: 2
   build:
     jobs:
+      - percy-finalize
       - 'python-2.7'
       - "percy-finalize":
           requires:
