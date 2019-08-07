@@ -5,6 +5,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash
 from dash.dependencies import Input, Output
+import dash.testing.wait as wait
 
 DAY_SELECTOR = 'div[data-visible="true"] td.CalendarDay'
 
@@ -87,7 +88,9 @@ def test_cdpr002_updatemodes(dash_duo):
         == "None - None"
     ), "the output should not update when only one is selected"
 
-    dash_duo.find_elements(DAY_SELECTOR)[-4].click()
+    eday = dash_duo.find_elements(DAY_SELECTOR)[-4]
+    wait.until(lambda: eday.is_displayed() and eday.is_enabled(), timeout=2)
+    eday.click()
 
     date_tokens = set(start_date.get_attribute("value").split("/"))
     date_tokens.update(end_date.get_attribute("value").split("/"))
