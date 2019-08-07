@@ -235,9 +235,20 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccLocation(id = "url", refresh = FALSE),
+                  dccLink("navigate to page 1", href = "/page1"),
+                  dccLink("navigate to page 2", href = "/page2"),
+                  htmlDiv(id = "page-content")
                 )
               )
+            )
+
+            app$callback(
+              output("page-content", "children"),
+              list(input("url", "pathname")),
+              function(x){
+                htmlH1(sprintf("You are on %s", x)) 
+              }
             )
 
             app$run_server()
@@ -253,7 +264,15 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccLoading(
+                    children = dccGraph(
+                      figure = list(
+                        data = list(
+                            list(x = c(1,2,3), y = c(2,5,7))
+                        )
+                      )
+                    )
+                  )
                 )
               )
             )
@@ -271,9 +290,20 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccLocation(id = "url", refresh = FALSE),
+                  dccLink("navigate to page 1", href = "/page1"),
+                  dccLink("navigate to page 2", href = "/page2"),
+                  htmlDiv(id = "page-content")
                 )
               )
+            )
+
+            app$callback(
+              output("page-content", "children"),
+              list(input("url", "pathname")),
+              function(x){
+                htmlH1(sprintf("You are on %s", x)) 
+              }
             )
 
             app$run_server()
@@ -289,7 +319,9 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccLogoutButton(
+                    label = "logout", logout_url = "https://dashr.plot.ly/"
+                  )
                 )
               )
             )
@@ -307,7 +339,13 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccMarkdown("
+                    Dash supports [Markdown](http://commonmark.org/help).
+                    Markdown is a simple way to write and format text.
+                    It includes a syntax for things like **bold text** and *italics*,
+                    [links](http://commonmark.org/help), inline `code` snippets, lists,
+                    quotes, and more."
+                  )
                 )
               )
             )
@@ -325,7 +363,14 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccRadioItems(
+                    options=list(
+                      list("label" = "New York City", "value" = "NYC"),
+                      list("label" = "Montréal", "value" = "MTL"),
+                      list("label" = "San Francisco", "value" = "SF")
+                    ),
+                    value = "MTL"
+                  )
                 )
               )
             )
@@ -343,7 +388,13 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccRangeSlider(
+                    count = 1,
+                    min = -5,
+                    max = 10,
+                    step = 0.5,
+                    value = list(-3, 7)
+                  )
                 )
               )
             )
@@ -361,7 +412,12 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccSlider(
+                    min = 0,
+                    max = 9,
+                    marks = 0:9, 
+                    value = 5,
+                  )
                 )
               )
             )
@@ -379,7 +435,10 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccStore(
+                    id = "my-store", 
+                    data = list("my-data" = "data")
+                  )
                 )
               )
             )
@@ -397,7 +456,18 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccTabs(
+                    children = list(
+                      dccTab(
+                        label = "tab1",
+                        children = htmlH1("Tab 1 Contents")
+                      ),
+                      dccTab(
+                        label = "tab2",
+                        children = htmlH1("Tab 2 Contents")
+                      )
+                    )
+                  )
                 )
               )
             )
@@ -415,7 +485,18 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccTabs(
+                    children = list(
+                      dccTab(
+                        label = "tab1",
+                        children = htmlH1("Tab 1 Contents")
+                      ),
+                      dccTab(
+                        label = "tab2",
+                        children = htmlH1("Tab 2 Contents")
+                      )
+                    )
+                  )
                 )
               )
             )
@@ -433,7 +514,11 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccTextarea(
+                    placeholder = "Enter a value...",
+                    value = "This is a TextArea component",
+                    style = list("width" = "100%")
+                  )     
                 )
               )
             )
@@ -451,7 +536,11 @@ r_examples:
             app$layout(
               htmlDiv(
                 list(
-
+                  dccUpload(
+                    id = "upload-data",
+                    children = htmlH1("select files"),
+                    style = list(border = "1px dashed")
+                  )
                 )
               )
             )
