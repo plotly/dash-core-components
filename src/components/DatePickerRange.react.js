@@ -76,8 +76,8 @@ export default class DatePickerRange extends Component {
             clearable &&
             !start_date &&
             !end_date &&
-            oldMomentDates.start_date &&
-            oldMomentDates.end_date
+            (oldMomentDates.start_date !== start_date ||
+                oldMomentDates.end_date !== end_date)
         ) {
             setProps({start_date: null, end_date: null});
         }
