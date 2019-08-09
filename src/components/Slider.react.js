@@ -52,9 +52,9 @@ export default class Slider extends Component {
              * the rc-tooltip API uses `visible`, but `always_visible is more semantic
              * assigns the new (renamed) key to the old key and deletes the old key
              */
-            tipProps = Object.assign(tooltip, {
+            tipProps = Object.assign({
                 visible: tooltip.always_visible,
-            });
+            }, tooltip);
             delete tipProps.always_visible;
         } else {
             tipProps = tooltip;
@@ -82,7 +82,7 @@ export default class Slider extends Component {
                             setProps({value});
                         }
                     }}
-                    tipProps={tooltip}
+                    tipProps={tipProps}
                     value={value}
                     {...omit(
                         ['className', 'setProps', 'updatemode', 'value'],
