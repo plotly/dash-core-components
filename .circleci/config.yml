@@ -67,12 +67,12 @@ jobs:
             # build main dash
             git clone --depth 1 https://github.com/plotly/dash.git dash-main
             cd dash-main && pip install -e . && python setup.py sdist && mv dist/* ../packages/
-            cd dash-renderer && npm install --ignore-scripts && npm run build:dev && npm run build && python setup.py sdist && mv dist/* ../../packages/ && cd ../..
+            cd dash-renderer && npm i --ignore-scripts && npm run build:dev && npm run build && python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            npm install --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ./packages
+            npm i --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
-            cd dash-html-components && npm install --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ../packages
+            cd dash-html-components && npm i --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ../packages
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -99,6 +99,7 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate
+            rm -rf dash_core_components
             cd packages && ls -la && pip install *
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
@@ -111,7 +112,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD npm install @percy/agent && percy finalize --all
+          command: npm i @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -136,7 +137,7 @@ jobs:
             . venv/bin/activate
             cd packages && ls -la && pip install *
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
-            pytest --durations=20 --junitxml=test-reports/junit_intg.xml tests/test_integration.py
+            pytest --junitxml=test-reports/junit_intg.xml tests/test_integration.py
       - store_artifacts:
           path: test-reports
       - store_test_results:
@@ -145,7 +146,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD npm install @percy/agent && percy finalize --all
+          command: npm i @percy/agent && percy finalize --all
           when: on_fail
 
 

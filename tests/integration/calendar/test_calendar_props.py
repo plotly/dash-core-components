@@ -33,12 +33,11 @@ def test_cdpr001_date_clearable_true_works(dash_duo):
     ), "both start date and end date should get values"
 
     close_btn.click()
-    wait.until(
-        lambda: not start_date.get_attribute("value")
-        and not end_date.get_attribute("value"),
-        timeout=2,
-        msg="both start and end dates should be cleared",
-    )
+    assert not start_date.get_attribute(
+        "value"
+    ) and not end_date.get_attribute(
+        "value"
+    ), "both start and end dates should be cleared"
 
 
 def test_cdpr002_updatemodes(dash_duo):

@@ -1,5 +1,6 @@
 pandas
 xlrd
 flake8
+dash[testing]
 mimesis;python_version>="3.6"
 virtualenv;python_version=="2.7"
