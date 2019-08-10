@@ -112,7 +112,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: npm i @percy/agent && percy finalize --all
+          command: sudo npm i -g @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -146,7 +146,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: npm i @percy/agent && percy finalize --all
+          command: sudo npm i -g @percy/agent && percy finalize --all
           when: on_fail
 
 
