@@ -86,6 +86,7 @@ jobs:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
             PERCY_ENABLE: '0'
+            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
     parallelism: 2
     steps:
       - checkout
@@ -110,7 +111,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install @percy/agent && percy finalize --all
+          command: sudo npm install @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -121,6 +122,7 @@ jobs:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
             PERCY_ENABLE: '0'
+            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
@@ -143,7 +145,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install @percy/agent && percy finalize --all
+          command: sudo npm install @percy/agent && percy finalize --all
           when: on_fail
 
 
