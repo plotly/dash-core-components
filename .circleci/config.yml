@@ -99,11 +99,11 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate
-            rm -rf dash_core_components
+            pip list | grep dash | xargs pip uninstall -y
             cd packages && ls -la && pip install *
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
-            pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
+            pytest --cli-log-level DEBUG --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
           path: test-reports
       - store_test_results:
@@ -112,7 +112,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: sudo npm i -g @percy/agent && percy finalize --all
+          command: npm i @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -137,7 +137,7 @@ jobs:
             . venv/bin/activate
             cd packages && ls -la && pip install *
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
-            pytest --junitxml=test-reports/junit_intg.xml tests/test_integration.py
+            pytest --junitxml=test-reports/junit_legacy.xml tests/test_integration.py
       - store_artifacts:
           path: test-reports
       - store_test_results:
@@ -146,7 +146,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: sudo npm i -g @percy/agent && percy finalize --all
+          command: sudo npm i @percy/agent && percy finalize --all
           when: on_fail
 
 
