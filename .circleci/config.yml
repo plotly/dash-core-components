@@ -69,7 +69,7 @@ jobs:
             cd dash-main && pip install -e . && python setup.py sdist && mv dist/* ../packages/
             cd dash-renderer && npm install --ignore-scripts && npm run build:dev && npm run build && python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            npm install --ignore-scripts && npm run build && python setup sdist && mv dist/* ./packages
+            npm install --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm install --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ../packages
