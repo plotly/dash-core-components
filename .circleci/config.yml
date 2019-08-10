@@ -110,7 +110,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: npm install -g @percy/agent && percy finalize --all
+          command: sudo npm install -g @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -134,7 +134,7 @@ jobs:
             . venv/bin/activate
             cd packages && ls -la && pip install *
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
-            pytest --duraction=20 tests/test_integration.py
+            pytest --duractions=20 tests/test_integration.py
       - store_artifacts:
           path: test-reports
       - store_test_results:
@@ -143,7 +143,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: npm install -g @percy/agent && percy finalize --all
+          command: sudo npm install -g @percy/agent && percy finalize --all
           when: on_fail
 
 
