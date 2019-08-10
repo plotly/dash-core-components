@@ -69,7 +69,7 @@ jobs:
             cd dash-main && pip install -e . && python setup.py sdist && mv dist/* ../packages/
             cd dash-renderer && npm install --ignore-scripts && npm run build:dev && npm run build && python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            npm install --ignore-scripts && npm run build && python setup sdist && mv dist/* /packages
+            npm install --ignore-scripts && npm run build && python setup sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm install --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ../packages
@@ -110,7 +110,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install -g @percy/agent && percy finalize --all
+          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -143,7 +143,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install -g @percy/agent && percy finalize --all
+          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install @percy/agent && percy finalize --all
           when: on_fail
 
 
