@@ -134,7 +134,7 @@ jobs:
             . venv/bin/activate
             cd packages && ls -la && pip install *
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
-            pytest --durations=20 tests/test_integration.py
+            pytest --durations=20 --junitxml=test-reports/junit_intg.xml tests/test_integration.py
       - store_artifacts:
           path: test-reports
       - store_test_results:
