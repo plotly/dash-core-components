@@ -111,7 +111,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: sudo npm install @percy/agent && percy finalize --all
+          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD npm install @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -145,7 +145,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: sudo npm install @percy/agent && percy finalize --all
+          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD npm install @percy/agent && percy finalize --all
           when: on_fail
 
 
