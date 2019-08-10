@@ -85,7 +85,7 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
-      - image: percyio/agent
+            PERCY_ENABLE: '0'
     parallelism: 2
     steps:
       - checkout
@@ -102,9 +102,15 @@ jobs:
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
+      - store_artifacts:
+          path: test-reports
+      - store_test_results:
+          path: test-reports
+      - store_artifacts:
+          path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: percy --finalize -all
+          command: npm install -g @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -114,7 +120,7 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
-      - image: percyio/agent
+            PERCY_ENABLE: '0'
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
@@ -128,10 +134,16 @@ jobs:
             . venv/bin/activate
             cd packages && ls -la && pip install *
             mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] && pip list | grep dash && cd ..
-            pytest tests/test_integration.py
+            pytest --duraction=20 tests/test_integration.py
+      - store_artifacts:
+          path: test-reports
+      - store_test_results:
+          path: test-reports
+      - store_artifacts:
+          path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: percy --finalize -all
+          command: npm install -g @percy/agent && percy finalize --all
           when: on_fail
 
 
