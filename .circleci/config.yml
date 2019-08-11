@@ -103,7 +103,7 @@ jobs:
             pip list | grep dash | xargs pip uninstall -y
             find . -name "*.gz" | xargs pip install && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
-            pytest --cli-log-level DEBUG --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
+            pytest --log-cli-level DEBUG --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
           path: test-reports
       - store_test_results:
