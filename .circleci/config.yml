@@ -89,7 +89,7 @@ jobs:
             PERCY_PARALLEL_TOTAL: '-1'
             PERCY_ENABLE: '0'
             PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
-    parallelism: 2
+    parallelism: 3
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
@@ -125,6 +125,7 @@ jobs:
             PERCY_PARALLEL_TOTAL: '-1'
             PERCY_ENABLE: '0'
             PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+    parallelism: 2
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt

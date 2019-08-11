@@ -23,7 +23,7 @@ from .IntegrationTests import IntegrationTests
 TIMEOUT = 10
 
 
-class Tests(IntegrationTests):
+class Test2(IntegrationTests):
     def setUp(self):
         pass
 
