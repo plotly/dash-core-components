@@ -2,9 +2,9 @@ version: 2
 jobs:
   "percy-finalize":
     docker:
-    - image: percyio/agent
+      - image: percyio/agent
     steps:
-    - run: percy finalize --all
+      - run: percy finalize --all
 
   'lint-unit-37': &lint-unit
     working_directory: ~/project
@@ -67,12 +67,14 @@ jobs:
             # build main dash
             git clone --depth 1 https://github.com/plotly/dash.git dash-main
             cd dash-main && pip install -e . && python setup.py sdist && mv dist/* ../packages/
-            cd dash-renderer && npm i --ignore-scripts && npm run build:dev && npm run build && python setup.py sdist && mv dist/* ../../packages/ && cd ../..
+            cd dash-renderer && npm i --ignore-scripts && npm run build:dev && npm run build
+            python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
             npm i --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
-            cd dash-html-components && npm i --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ../packages
+            cd dash-html-components && npm i --ignore-scripts && npm run build
+            python setup.py sdist && mv dist/* ../packages
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -98,12 +100,11 @@ jobs:
       - run:
           name: 🧪 Run Integration Tests
           command: |
-            . venv/bin/activate
-            cd packages && ls -la && mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing]
-            pip list | grep dash | xargs pip uninstall -y
-            find . -name "*.gz" | xargs pip install && pip list | grep dash && cd ..
+            . venv/bin/activate && cd packages && ls -la
+            mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            find . -name "*.gz" | xargs pip install --quiet && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
-            pytest --log-cli-level DEBUG --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
+            pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
           path: test-reports
       - store_test_results:
@@ -112,7 +113,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: npm install -g @percy/agent && percy finalize --all
+          command: sudo npm install -g @percy/agent && percy finalize --all
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -134,11 +135,12 @@ jobs:
       - run:
           name: 🧪 Run Legacy Integration Tests
           command: |
-            . venv/bin/activate
-            cd packages && ls -la && mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing]
-            pip list | grep dash | xargs pip uninstall -y
-            find . -name "*.gz" | xargs pip install && pip list | grep dash && cd ..
-            pytest --junitxml=test-reports/junit_legacy.xml tests/test_integration.py
+            . venv/bin/activate && cd packages && ls -la
+            mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            find . -name "*.gz" | xargs pip install --quiet && pip list | grep dash && cd ..
+            TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
+            pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
+            exit -1
       - store_artifacts:
           path: test-reports
       - store_test_results:
@@ -147,9 +149,8 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: npm install -g @percy/agent && percy finalize --all
+          command: sudo npm install @percy/agent && ./node_modules/@percy/agent/bin/percy finalize --all
           when: on_fail
-
 
 workflows:
   version: 2
