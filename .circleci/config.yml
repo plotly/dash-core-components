@@ -18,7 +18,7 @@ jobs:
       - restore_cache:
           key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
-          name: 🚧 pip dev requirements
+          name: 🐍 pip dev requirements
           command: |
             sudo pip install virtualenv --upgrade
             python -m venv || virtualenv venv && . venv/bin/activate
@@ -51,7 +51,7 @@ jobs:
       - restore_cache:
           key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
-          name: 🚧 pip dev requirements
+          name: 🐍 pip dev requirements
           command: |
             sudo pip install virtualenv --upgrade
             python -m venv || virtualenv venv && . venv/bin/activate
@@ -61,7 +61,7 @@ jobs:
           paths:
               - "venv"
       - run:
-          name: 🔩 build dash
+          name: 🏗️ build dash
           command: |
             . venv/bin/activate && pip install --upgrade -e . --quiet && mkdir packages
             # build main dash
@@ -150,7 +150,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: sudo npm install @percy/agent && ./node_modules/@percy/agent/bin/percy finalize --all
+          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install @percy/agent && ./node_modules/@percy/agent/bin/percy finalize --all
           when: on_fail
 
 workflows:
