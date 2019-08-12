@@ -99,9 +99,9 @@ jobs:
       - run:
           name: 🧪 Run Integration Tests
           command: |
-            . venv/bin/activate && cd packages && ls -la
-            mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
-            find . -name "*.gz" | xargs pip install && pip list | grep dash && cd ..
+            . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
+            pip install main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
