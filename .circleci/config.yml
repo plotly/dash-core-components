@@ -87,7 +87,6 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
-            PERCY_ENABLE: '0'
     parallelism: 3
     steps:
       - checkout
@@ -110,6 +109,10 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: /tmp/dash_artifacts
+      - run:
+          name: Percy TearDown
+          command: pytest --headless -k inni002 tests/integration
+          when: on_fail
 
   "test-legacy-37": &test-legacy
     working_directory: ~/project
@@ -118,7 +121,6 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
-            PERCY_ENABLE: '0'
     parallelism: 2
     steps:
       - checkout
@@ -141,6 +143,11 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: /tmp/dash_artifacts
+      - run:
+          name: Percy TearDown
+          command: pytest --headless -k inni002 tests/integration
+          when: on_fail
+
 
 workflows:
   version: 2
