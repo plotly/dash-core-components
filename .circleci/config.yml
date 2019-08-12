@@ -103,17 +103,12 @@ jobs:
             find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
-            exit -1
       - store_artifacts:
           path: test-reports
       - store_test_results:
           path: test-reports
       - store_artifacts:
           path: /tmp/dash_artifacts
-      - run:
-          name: Percy TearDown
-          command: . venv/bin/activate && pytest --headless -k cdpr001 tests/integration
-          when: on_fail
 
   "test-legacy-37": &test-legacy
     working_directory: ~/project
@@ -144,11 +139,6 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: /tmp/dash_artifacts
-      - run:
-          name: Percy TearDown
-          command: . venv/bin/activate && pytest --headless -k cdpr001 tests/integration
-          when: on_fail
-
 
 workflows:
   version: 2
