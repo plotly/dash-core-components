@@ -87,6 +87,7 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
+            PERCY_ENABLE: '0'
     parallelism: 3
     steps:
       - checkout
@@ -117,6 +118,7 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
+            PERCY_ENABLE: '0'
     parallelism: 2
     steps:
       - checkout
@@ -144,16 +146,15 @@ workflows:
   version: 2
   python3.7:
     jobs:
-      - "percy-finalize"
-      # - 'lint-unit-37'
-      # - 'build-dash-37'
-      # - "test-37":
-      #     requires:
-      #       - build-dash-37
-      # - "test-legacy-37":
-      #     requires:
-      #       - build-dash-37
-      # - "percy-finalize":
-      #     requires:
-      #       - "test-37"
-      #       - "test-legacy-37"
+      - 'lint-unit-37'
+      - 'build-dash-37'
+      - "test-37":
+          requires:
+            - build-dash-37
+      - "test-legacy-37":
+          requires:
+            - build-dash-37
+      - "percy-finalize":
+          requires:
+            - "test-37"
+            - "test-legacy-37"
