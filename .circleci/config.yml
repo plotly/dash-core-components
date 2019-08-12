@@ -100,7 +100,7 @@ jobs:
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz dash.tar.gz
             pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
-            find . -name "*.gz" | xargs pip install --quiet && pip list | grep dash && cd ..
+            find . -name "*.gz" | xargs pip install && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
@@ -144,15 +144,16 @@ workflows:
   version: 2
   python3.7:
     jobs:
-      - 'lint-unit-37'
-      - 'build-dash-37'
-      - "test-37":
-          requires:
-            - build-dash-37
-      - "test-legacy-37":
-          requires:
-            - build-dash-37
-      - "percy-finalize":
-          requires:
-            - "test-37"
-            - "test-legacy-37"
+      - "percy-finalize"
+      # - 'lint-unit-37'
+      # - 'build-dash-37'
+      # - "test-37":
+      #     requires:
+      #       - build-dash-37
+      # - "test-legacy-37":
+      #     requires:
+      #       - build-dash-37
+      # - "percy-finalize":
+      #     requires:
+      #       - "test-37"
+      #       - "test-legacy-37"
