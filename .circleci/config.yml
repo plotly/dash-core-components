@@ -99,9 +99,8 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
-            pip list | grep dash | xargs pip uninstall -y
-            find . -name "dash*.gz" | xargs pip install
-            pip install main.tar.gz[testing] && pip list | grep dash && cd ..
+            pip install main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
@@ -134,9 +133,8 @@ jobs:
           name: 🧪 Run Legacy Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
-            pip list | grep dash | xargs pip uninstall -y
-            find . -name "dash*.gz" | xargs pip install
-            pip install main.tar.gz[testing] && pip list | grep dash && cd ..
+            pip install main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
             pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
       - store_artifacts:
