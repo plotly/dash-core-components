@@ -144,6 +144,7 @@ jobs:
       - image: circleci/python:3.6-stretch-node-browsers
         environment:
           PYTHON_VERSION: py36
+          PERCY_ENABLE: '0'
 
   'test-27':
     <<: *test
@@ -151,6 +152,7 @@ jobs:
       - image: circleci/python:2.7-stretch-node-browsers
         environment:
           PYTHON_VERSION: py27
+          PERCY_ENABLE: '0'
 
   "test-legacy-37": &test-legacy
     working_directory: ~/project
@@ -188,13 +190,14 @@ jobs:
       - image: circleci/python:3.6-stretch-node-browsers
         environment:
           PYTHON_VERSION: py36
-
+          PERCY_ENABLE: '0'
   'test-legacy-27':
     <<: *test-legacy
     docker:
       - image: circleci/python:2.7-stretch-node-browsers
         environment:
           PYTHON_VERSION: py27
+          PERCY_ENABLE: '0'
 
 workflows:
   version: 2
