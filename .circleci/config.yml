@@ -35,7 +35,7 @@ jobs:
             npm run format:test && npm run lint
             flake8 --ignore=E501,F401,F841,F811,W503 tests
       - run:
-          name: 🧪 Unit Tests
+          name: 🔎 Unit Tests
           command: |
             npm run test-unit
 
@@ -87,8 +87,6 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
-            PERCY_ENABLE: '0'
-            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
     parallelism: 3
     steps:
       - checkout
@@ -100,8 +98,8 @@ jobs:
       - run:
           name: 🧪 Run Integration Tests
           command: |
-            . venv/bin/activate && cd packages && ls -la
-            mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz dash.tar.gz
+            pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
             find . -name "*.gz" | xargs pip install --quiet && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
@@ -111,10 +109,6 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: /tmp/dash_artifacts
-      - run:
-          name: Percy TearDown
-          command: sudo npm install -g @percy/agent && percy finalize --all
-          when: on_fail
 
   "test-legacy-37": &test-legacy
     working_directory: ~/project
@@ -123,8 +117,6 @@ jobs:
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: '-1'
-            PERCY_ENABLE: '0'
-            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
     parallelism: 2
     steps:
       - checkout
@@ -136,22 +128,17 @@ jobs:
       - run:
           name: 🧪 Run Legacy Integration Tests
           command: |
-            . venv/bin/activate && cd packages && ls -la
-            mv dash-*.tar.gz dash.tar.gz && pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz dash.tar.gz
+            pip install dash.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
             find . -name "*.gz" | xargs pip install --quiet && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
             pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
-            exit -1
       - store_artifacts:
           path: test-reports
       - store_test_results:
           path: test-reports
       - store_artifacts:
           path: /tmp/dash_artifacts
-      - run:
-          name: Percy TearDown
-          command: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true sudo npm install @percy/agent && ./node_modules/@percy/agent/bin/percy finalize --all
-          when: on_fail
 
 workflows:
   version: 2
