@@ -99,8 +99,9 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
-            find . -name "dash*.gz" | xargs pip install --force-reinstall
-            pip install --force-reinstall main.tar.gz[testing] && pip list | grep dash && cd ..
+            pip list | grep dash | xargs pip uninstall -y
+            find . -name "dash*.gz" | xargs pip install
+            pip install main.tar.gz[testing] && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
@@ -111,7 +112,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: pytest --headless -k inni002 tests/integration
+          command: . venv/bin/activate && pytest --headless -k inni002 tests/integration
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -133,8 +134,9 @@ jobs:
           name: 🧪 Run Legacy Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
-            find . -name "dash*.gz" | xargs pip install --force-reinstall
-            pip install --force-reinstall main.tar.gz[testing] && pip list | grep dash && cd ..
+            pip list | grep dash | xargs pip uninstall -y
+            find . -name "dash*.gz" | xargs pip install
+            pip install main.tar.gz[testing] && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
             pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
       - store_artifacts:
@@ -145,7 +147,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: pytest --headless -k inni002 tests/integration
+          command: . venv/bin/activate && pytest --headless -k inni002 tests/integration
           when: on_fail
 
 
