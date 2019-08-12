@@ -112,7 +112,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: . venv/bin/activate && pytest --headless -k inni002 tests/integration
+          command: . venv/bin/activate && pytest --headless -k cdpr001 tests/integration
           when: on_fail
 
   "test-legacy-37": &test-legacy
@@ -146,7 +146,7 @@ jobs:
           path: /tmp/dash_artifacts
       - run:
           name: Percy TearDown
-          command: . venv/bin/activate && pytest --headless -k inni002 tests/integration
+          command: . venv/bin/activate && pytest --headless -k cdpr001 tests/integration
           when: on_fail
 
 
