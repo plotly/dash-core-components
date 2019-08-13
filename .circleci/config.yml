@@ -226,10 +226,6 @@ workflows:
       - "test-legacy-36":
           requires:
             - build-dash-36
-      - "percy-finalize":
-          requires:
-            - "test-36"
-            - "test-legacy-36"
 
   python2.7:
     jobs:
@@ -241,7 +237,3 @@ workflows:
       - "test-legacy-27":
           requires:
             - build-dash-27
-      - "percy-finalize":
-          requires:
-            - "test-27"
-            - "test-legacy-27"
