@@ -106,7 +106,10 @@ class PlotlyGraph extends Component {
 
             // in case we've made a new DOM element, transfer events
             if(this._hasPlotted && gd !== this._prevGd) {
-                this._prevGd.removeAllListeners();
+                if(this._prevGd && this._prevGd.removeAllListeners) {
+                    this._prevGd.removeAllListeners();
+                    Plotly.purge(this._prevGd);
+                }
                 this._hasPlotted = false;
             }
 
