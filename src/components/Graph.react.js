@@ -212,8 +212,9 @@ class PlotlyGraph extends Component {
     }
 
     componentWillUnmount() {
-        if (this.eventEmitter) {
-            this.eventEmitter.removeAllListeners();
+        const gd = document.getElementById(this.props.id);
+        if (gd && gd.removeAllListeners) {
+            gd.removeAllListeners();
         }
         window.removeEventListener('resize', this.graphResize);
     }
