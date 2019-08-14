@@ -64,67 +64,63 @@ const filterEventData = (gd, eventData, event) => {
     return filteredEventData;
 };
 
-function generateId() {
-    const charAmount = 36;
-    const length = 7;
-    return (
-        'graph-' +
-        Math.random()
-            .toString(charAmount)
-            .substring(2, length)
-    );
-}
-
 /**
  * Graph can be used to render any plotly.js-powered data visualization.
  *
  * You can define callbacks based on user interaction with Graphs such as
  * hovering, clicking or selecting
  */
-const GraphWithDefaults = props => {
-    const id = props.id ? props.id : generateId();
-    return <PlotlyGraph {...props} id={id} />;
-};
-
 class PlotlyGraph extends Component {
     constructor(props) {
         super(props);
+        this.gd = React.createRef();
         this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
+        this._prevGd = null;
         this.graphResize = this.graphResize.bind(this);
     }
 
     plot(props) {
-        const {figure, id, animate, animation_options, config} = props;
-        const gd = document.getElementById(id);
+        const {figure, animate, animation_options, config} = props;
+        const gd = this.gd.current;
 
         if (
             animate &&
             this._hasPlotted &&
             figure.data.length === gd.data.length
         ) {
-            return Plotly.animate(id, figure, animation_options);
+            return Plotly.animate(gd, figure, animation_options);
         }
-        return Plotly.react(id, {
+        return Plotly.react(gd, {
             data: figure.data,
             layout: clone(figure.layout),
             frames: figure.frames,
             config: config,
         }).then(() => {
+            const gd = this.gd.current;
+
+            // double-check gd hasn't been unmounted
+            if (!gd) {
+                return;
+            }
+
+            // in case we've made a new DOM element, transfer events
+            if(this._hasPlotted && gd !== this._prevGd) {
+                this._prevGd.removeAllListeners();
+                this._hasPlotted = false;
+            }
+
             if (!this._hasPlotted) {
-                // double-check gd hasn't been unmounted
-                const gd = document.getElementById(id);
-                if (gd) {
-                    this.bindEvents();
-                    Plotly.Plots.resize(gd);
-                    this._hasPlotted = true;
-                }
+                this.bindEvents();
+                Plotly.Plots.resize(gd);
+                this._hasPlotted = true;
+                this._prevGd = gd;
             }
         });
     }
 
     extend(props) {
-        const {id, extendData} = props;
+        const {extendData} = props;
         let updateData, traceIndices, maxPoints;
         if (Array.isArray(extendData) && typeof extendData[0] === 'object') {
             [updateData, traceIndices, maxPoints] = extendData;
@@ -143,20 +139,21 @@ class PlotlyGraph extends Component {
             traceIndices = generateIndices(updateData);
         }
 
-        return Plotly.extendTraces(id, updateData, traceIndices, maxPoints);
+        const gd = this.gd.current;
+        return Plotly.extendTraces(gd, updateData, traceIndices, maxPoints);
     }
 
     graphResize() {
-        const graphDiv = document.getElementById(this.props.id);
-        if (graphDiv) {
-            Plotly.Plots.resize(graphDiv);
+        const gd = this.gd.current;
+        if (gd) {
+            Plotly.Plots.resize(gd);
         }
     }
 
     bindEvents() {
-        const {id, setProps, clear_on_unhover} = this.props;
+        const {setProps, clear_on_unhover} = this.props;
 
-        const gd = document.getElementById(id);
+        const gd = this.gd.current;
 
         gd.on('plotly_click', eventData => {
             const clickData = filterEventData(gd, eventData, 'click');
@@ -212,9 +209,10 @@ class PlotlyGraph extends Component {
     }
 
     componentWillUnmount() {
-        const gd = document.getElementById(this.props.id);
+        const gd = this.gd.current;
         if (gd && gd.removeAllListeners) {
             gd.removeAllListeners();
+            Plotly.purge(gd);
         }
         window.removeEventListener('resize', this.graphResize);
     }
@@ -263,6 +261,7 @@ class PlotlyGraph extends Component {
             <div
                 key={id}
                 id={id}
+                ref={this.gd}
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
@@ -280,6 +279,7 @@ const graphPropTypes = {
      * components in an app.
      */
     id: PropTypes.string,
+
     /**
      * Data from latest click event. Read-only.
      */
@@ -673,10 +673,8 @@ const graphDefaultProps = {
     config: {},
 };
 
-GraphWithDefaults.propTypes = graphPropTypes;
 PlotlyGraph.propTypes = graphPropTypes;
 
-GraphWithDefaults.defaultProps = graphDefaultProps;
 PlotlyGraph.defaultProps = graphDefaultProps;
 
-export default GraphWithDefaults;
+export default PlotlyGraph;
