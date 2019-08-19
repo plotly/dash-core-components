@@ -13,3 +13,8 @@ venv/
 *.log
 .idea/
 .DS_Store
+
+dash_core_components/
+inst/
+images/
+R/
