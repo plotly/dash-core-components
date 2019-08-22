@@ -1,3 +1,21 @@
 .DateInput_input {
     box-sizing: border-box;
 }
+.DayPickerNavigation_button__verticalDefault {
+    width: 40%;
+    padding: 0;
+    height: initial;
+}
+.DayPicker_focusRegion {
+    height: 375px;
+}
+.DayPickerNavigation__verticalDefault {
+    margin-left: 25px;
+}
+.CalendarMonthGrid__vertical {
+    height: 375px;
+}
+.DayPickerNavigation_svg__vertical {
+    height: 32px;
+    width: 32px;
+}
