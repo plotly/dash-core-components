@@ -81,11 +81,11 @@ jobs:
             # build main dash
             git clone --branch assets-#597 --depth 1 https://github.com/plotly/dash.git dash-main
             cd dash-main && pip install -e .[dev,testing] && python setup.py sdist && mv dist/* ../packages/
-            cd dash-renderer && npm i --ignore-scripts && npm run build
+            cd dash-renderer && renderer build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            pip install --upgrade -e . --quiet
             dcc npm && dcc bundles && dcc digest && python setup.py sdist && mv dist/* ./packages
+            pip install --upgrade -e . --quiet
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm i --ignore-scripts && npm run build
