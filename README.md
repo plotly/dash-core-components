@@ -29,7 +29,7 @@ $ pip install -e .
 ### The local build process
 
 `dash-core-components` now shares the same build process as `dash-renderer`. The build
-tool can be called by `npm run build` or `python scripts/build.py build`.  There are several sub commands in `build.py`, they are explained in [dash-renderer guide](https://github.com/plotly/dash/blob/dev/CONTRIBUTING.md#dash-renderer-beginner-guide).
+tool can be called by `npm run build` or `python scripts/build.py build`.  There are several sub-commands in `build.py`; they are explained in the [dash-renderer guide](https://github.com/plotly/dash/blob/dev/CONTRIBUTING.md#dash-renderer-beginner-guide).
 
 
 ### Demo server
