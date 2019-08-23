@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import os
+import shutil
 import fire
 from dash.development.build_process import BuildProcess
 
@@ -15,6 +16,13 @@ class DCC(BuildProcess):
             self._concat(self.main, "R"),
             self._concat(self.main, "inst"),
         )
+
+    def _bundles_extra(self):
+        shutil.copyfile(
+            self._concat(self.main, "assets", "highlight.pack.js"),
+            self._concat(self.build_folder, "highlight.pack.js"),
+        )
+        self.logger.info("copy the customized highligh js")
 
 
 if __name__ == "__main__":
