@@ -31,7 +31,7 @@ jobs:
           name: 🌸 Lint
           command: |
             . venv/bin/activate
-            npm i --ignore-scripts && npm i --ignore-scripts --only=dev
+            npm i --ignore-scripts
             npm run format:test && npm run lint
             flake8 --ignore=E501,F401,F841,F811,W503 tests
       - run:
@@ -77,14 +77,15 @@ jobs:
       - run:
           name: 🏗️ build dash
           command: |
-            . venv/bin/activate && pip install --upgrade -e . --quiet && mkdir packages
+            . venv/bin/activate && mkdir packages
             # build main dash
             git clone --depth 1 https://github.com/plotly/dash.git dash-main
-            cd dash-main && pip install -e .[ci,testing] && python setup.py sdist && mv dist/* ../packages/
+            cd dash-main && pip install -e .[dev,testing] && python setup.py sdist && mv dist/* ../packages/
             cd dash-renderer && npm i --ignore-scripts && npm run build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            npm i --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ./packages
+            pip install --upgrade -e . --quiet
+            dcc npm && dcc bundles && dcc digest && python setup.py sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm i --ignore-scripts && npm run build

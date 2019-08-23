@@ -1,19 +1,20 @@
 from setuptools import setup
 import json
 
-with open('package.json') as f:
+with open("package.json") as f:
     package = json.load(f)
 
 package_name = str(package["name"].replace(" ", "_").replace("-", "_"))
 
 setup(
-    name='dash_core_components',
+    name="dash_core_components",
     version=package["version"],
-    author=package['author'],
-    author_email='chris@plot.ly',
+    author=package["author"],
+    author_email="chris@plot.ly",
     packages=[package_name],
     include_package_data=True,
-    license=package['license'],
-    description=package['description'] if 'description' in package else package_name,
-    install_requires=[]
+    license=package["license"],
+    description=package.get("descirption", package_name),
+    install_requires=[],
+    entry_points={"console_scripts": ["dcc = scripts.build:dcc"]},
 )
