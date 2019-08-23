@@ -45,7 +45,7 @@ You have to maintain the list of components in `demo/Demo.react.js`.
 
 ### Linting and Testing
 
-Note: the integration test needs an extra selenium setup, please refer to [install section](https://dash.plot.ly/testing)
+Note: the integration test requires Selenium to be set up, please refer to [install section](https://dash.plot.ly/testing)
 
 You can run everything in one command by `npm run test`. There are also a list of test command available inside the `scripts` property of `package.json` file.
 
