@@ -79,7 +79,7 @@ jobs:
           command: |
             . venv/bin/activate && mkdir packages
             # build main dash
-            git clone --branch asset-#597 --depth 1 https://github.com/plotly/dash.git dash-main
+            git clone --branch assets-#597 --depth 1 https://github.com/plotly/dash.git dash-main
             cd dash-main && pip install -e .[dev,testing] && python setup.py sdist && mv dist/* ../packages/
             cd dash-renderer && npm i --ignore-scripts && npm run build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
