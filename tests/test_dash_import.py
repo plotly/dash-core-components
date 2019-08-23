@@ -1,10 +1,12 @@
 import os
+import sys
 import unittest
 
 
+@unittest.skipIf(sys.version_info[0] == 2, "only run in python3")
 class TestDashImport(unittest.TestCase):
     def setUp(self):
-        with open('dash.py', 'w') as f:
+        with open('dash.py', 'w') as _:
             pass
 
     def tearDown(self):
@@ -18,6 +20,6 @@ class TestDashImport(unittest.TestCase):
         """Test that program exits if the wrong dash module was imported"""
 
         with self.assertRaises(SystemExit) as cm:
-            import dash_core_components
+            import dash_core_components  # noqa
 
         self.assertEqual(cm.exception.code, 1)
