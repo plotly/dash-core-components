@@ -28,8 +28,8 @@ $ pip install -e .
 
 ### The local build process
 
-Dash-core-components nows shares the same build process as in dash-renderer. The build
-tool can be called by `npm run build` or `python scripts/build.py build`.  There are several sub commands in `build.py`, they are explained in [dash-renderer guide](https://github.com/plotly/dash/blob/dev/CONTRIBUTING.md#dash-renderer-beginner-guide).
+`dash-core-components` now shares the same build process as `dash-renderer`. The build
+tool can be called by `npm run build` or `python scripts/build.py build`.  There are several sub-commands in `build.py`; they are explained in the [dash-renderer guide](https://github.com/plotly/dash/blob/dev/CONTRIBUTING.md#dash-renderer-beginner-guide).
 
 
 ### Demo server
@@ -45,9 +45,9 @@ You have to maintain the list of components in `demo/Demo.react.js`.
 
 ### Linting and Testing
 
-Note: the integration test needs an extra selenium setup, please refer to [install section](https://dash.plot.ly/testing)
+Note: the integration test requires Selenium to be set up, please refer to [install section](https://dash.plot.ly/testing)
 
-You can run everything in one command by `npm run test`. There are also a list of test command available inside `scripts` property of `package.json` file.
+You can run everything in one command by `npm run test`. There are also a list of test command available inside the `scripts` property of `package.json` file.
 
 
 ### Testing your components in Dash
