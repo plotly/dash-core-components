@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {contains, filter, clone, has, isNil, type, omit} from 'ramda';
+import {contains, filter, clone, has, isNil, type, omit, equals} from 'ramda';
 /* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
@@ -105,8 +105,8 @@ class PlotlyGraph extends Component {
             }
 
             // in case we've made a new DOM element, transfer events
-            if(this._hasPlotted && gd !== this._prevGd) {
-                if(this._prevGd && this._prevGd.removeAllListeners) {
+            if (this._hasPlotted && gd !== this._prevGd) {
+                if (this._prevGd && this._prevGd.removeAllListeners) {
                     this._prevGd.removeAllListeners();
                     Plotly.purge(this._prevGd);
                 }
@@ -154,7 +154,14 @@ class PlotlyGraph extends Component {
     }
 
     bindEvents() {
-        const {setProps, clear_on_unhover} = this.props;
+        const {
+            setProps,
+            clear_on_unhover,
+            relayoutData,
+            restyleData,
+            hoverData,
+            selectedData,
+        } = this.props;
 
         const gd = this.gd.current;
 
@@ -172,30 +179,30 @@ class PlotlyGraph extends Component {
             setProps({clickAnnotationData});
         });
         gd.on('plotly_hover', eventData => {
-            const hoverData = filterEventData(gd, eventData, 'hover');
-            if (!isNil(hoverData)) {
-                setProps({hoverData});
+            const hover = filterEventData(gd, eventData, 'hover');
+            if (!isNil(hover) && !equals(hover, hoverData)) {
+                setProps({hoverData: hover});
             }
         });
         gd.on('plotly_selected', eventData => {
-            const selectedData = filterEventData(gd, eventData, 'selected');
-            if (!isNil(selectedData)) {
-                setProps({selectedData});
+            const selected = filterEventData(gd, eventData, 'selected');
+            if (!isNil(selected) && !equals(selected, selectedData)) {
+                setProps({selectedData: selected});
             }
         });
         gd.on('plotly_deselect', () => {
             setProps({selectedData: null});
         });
         gd.on('plotly_relayout', eventData => {
-            const relayoutData = filterEventData(gd, eventData, 'relayout');
-            if (!isNil(relayoutData)) {
-                setProps({relayoutData});
+            const r = filterEventData(gd, eventData, 'relayout');
+            if (!isNil(r) && !equals(r, relayoutData)) {
+                setProps({relayoutData: r});
             }
         });
         gd.on('plotly_restyle', eventData => {
-            const restyleData = filterEventData(gd, eventData, 'restyle');
-            if (!isNil(restyleData)) {
-                setProps({restyleData});
+            const restyle = filterEventData(gd, eventData, 'restyle');
+            if (!isNil(restyle) && !equals(restyle, restyleData)) {
+                setProps({restyleData: restyle});
             }
         });
         gd.on('plotly_unhover', () => {
@@ -237,9 +244,7 @@ class PlotlyGraph extends Component {
             return;
         }
 
-        const figureChanged = this.props.figure !== nextProps.figure;
-
-        if (figureChanged) {
+        if (!equals(this.props.figure, nextProps.figure)) {
             this.plot(nextProps);
         }
 
