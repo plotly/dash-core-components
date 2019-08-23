@@ -84,7 +84,7 @@ jobs:
             cd dash-renderer && renderer build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            python scripts/build.py build && python setup.py sdist && mv dist/* ./packages
+            npm run build && python setup.py sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm i --ignore-scripts && npm run build
@@ -175,6 +175,7 @@ jobs:
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
             pip install main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
             find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
+            npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
             pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
       - store_artifacts:
