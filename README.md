@@ -6,8 +6,6 @@ This package provides the core React components suite for [Dash][].
 
 ## Development
 
-### Testing Locally
-
 The `dash` package contains some tools to build components and drive the bundles build process.
 To avoid the circulair dependency situation, we don't add dash as a required install in dash-core-components setup. But in order to do the local development, you need to install `dash` before everything.
 
@@ -27,6 +25,12 @@ $ npm run build  # or `python scripts/build.py build`
 # install dcc in editable mode
 $ pip install -e .
 ```
+
+### The local build process
+
+Dash-core-components nows shares the same build process as in dash-renderer. The build
+tool can be called by `npm run build` or `python scripts/build.py build`.  There are several sub commands in `build.py`, they are explained in [dash-renderer guide](https://github.com/plotly/dash/blob/dev/CONTRIBUTING.md#dash-renderer-beginner-guide).
+
 
 ### Demo server
 
