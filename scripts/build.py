@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import os
+import sys
 import shutil
 import fire
-from dash.development.build_process import BuildProcess
+try:
+    from dash.development.build_process import BuildProcess
+except ModuleNotFoundError:
+    print("you need to run `pip install dash` first", file=sys.stderr)
+    sys.exit(1)
 
 
 class DCC(BuildProcess):
