@@ -16,5 +16,4 @@ setup(
     license=package["license"],
     description=package.get("descirption", package_name),
     install_requires=[],
-    entry_points={"console_scripts": ["dcc = scripts.build:dcc"]},
 )

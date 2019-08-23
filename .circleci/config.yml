@@ -84,8 +84,7 @@ jobs:
             cd dash-renderer && renderer build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            dcc npm && dcc bundles && dcc digest && python setup.py sdist && mv dist/* ./packages
-            pip install --upgrade -e . --quiet
+            python scripts/build.py build && python setup.py sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm i --ignore-scripts && npm run build

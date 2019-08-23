@@ -17,5 +17,5 @@ class DCC(BuildProcess):
         )
 
 
-def dcc():
+if __name__ == "__main__":
     fire.Fire(DCC)
