@@ -24,19 +24,6 @@ you've pulled from upstream otherwise you may be running with an out of date
 `bundle.js`. See the instructions for building `bundle.js` in the [Testing
 Locally](README.md#testing-locally) section of README.md.
 
-## Local configuration
-You can configure the test server with the following variables:
-### DASH_TEST_CHROMEPATH
-If you run a special chrome set the path to your chrome binary with this environment variable.
-
-### DASH_TEST_PROCESSES
-If you encounter errors about Multi-server + Multi-processing when running under Python 3 try running the tests with the number of server processes set to 1.
-
-### Example: single test run with configuration
-```
-DASH_TEST_CHROMEPATH=/bin/google-chrome-beta DASH_TEST_PROCESSES=1 python -m unittest -v test.test_integration.Tests.test_inputs
-```
-
 ## Publishing New Components/Features
 
 For now, multiple steps are necessary for publishing to NPM and PyPi,
