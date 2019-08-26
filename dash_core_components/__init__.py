@@ -42,13 +42,26 @@ _this_module = _sys.modules[__name__]
 
 _js_dist = [
     {
-        'external_url': 'https://cdn.plot.ly/plotly-1.49.1.min.js',
-        'relative_package_path': 'plotly-1.49.1.min.js',
+        'relative_package_path': 'highlight.pack.js',
         'namespace': 'dash_core_components'
     },
     {
-        'relative_package_path': 'highlight.pack.js',
-        'namespace': 'dash_core_components'
+        'relative_package_path': 'async~graph.js',
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/async~graph.js'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        dynamic: True
+    },
+    {
+        'relative_package_path': 'async~graph.js.map',
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/async~graph.js.map'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        dynamic: True
     },
     {
         'relative_package_path': '{}.min.js'.format(__name__),

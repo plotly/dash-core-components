@@ -1,4 +1,6 @@
 const path = require('path');
+const WebpackDashDynamicImport = require('webpack-dash-dynamic-import');
+
 const packagejson = require('./package.json');
 
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
@@ -37,7 +39,6 @@ module.exports = (env, argv) => {
     const externals = ('externals' in overrides) ? overrides.externals : ({
         react: 'React',
         'react-dom': 'ReactDOM',
-        'plotly.js': 'Plotly',
         'prop-types': 'PropTypes'
     });
 
@@ -46,6 +47,7 @@ module.exports = (env, argv) => {
         entry,
         output: {
             path: path.resolve(__dirname, dashLibraryName),
+            chunkFilename: '[name].js',
             filename,
             library: dashLibraryName,
             libraryTarget: 'window',
@@ -76,6 +78,20 @@ module.exports = (env, argv) => {
                     ],
                 },
             ],
-        }
+        },
+        optimization: {
+            splitChunks: {
+                chunks: 'async',
+                name: true,
+                cacheGroups: {
+                    async: {
+
+                    }
+                }
+            }
+        },
+        plugins: [
+            new WebpackDashDynamicImport()
+        ]
     }
 };
