@@ -148,7 +148,7 @@ export const graphPropTypes = {
          */
         edits: PropTypes.exact({
             /**
-             * annotationPosition: the main anchor of the annotation, which is the
+             * The main anchor of the annotation, which is the
              * text (if no arrow) or the arrow (which drags the whole thing leaving
              * the arrow length & direction unchanged)
              */
@@ -285,12 +285,12 @@ export const graphPropTypes = {
          * Remove mode bar button by name.
          * All modebar button names at https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
          * Common names include:
-         *  - sendDataToCloud
-         * - (2D): zoom2d, pan2d, select2d, lasso2d, zoomIn2d, zoomOut2d, autoScale2d, resetScale2d
-         * - (Cartesian): hoverClosestCartesian, hoverCompareCartesian
-         * - (3D): zoom3d, pan3d, orbitRotation, tableRotation, handleDrag3d, resetCameraDefault3d, resetCameraLastSave3d, hoverClosest3d
-         * - (Geo): zoomInGeo, zoomOutGeo, resetGeo, hoverClosestGeo
-         * - hoverClosestGl2d, hoverClosestPie, toggleHover, resetViews
+         * sendDataToCloud;
+         * (2D) zoom2d, pan2d, select2d, lasso2d, zoomIn2d, zoomOut2d, autoScale2d, resetScale2d;
+         * (Cartesian) hoverClosestCartesian, hoverCompareCartesian;
+         * (3D) zoom3d, pan3d, orbitRotation, tableRotation, handleDrag3d, resetCameraDefault3d, resetCameraLastSave3d, hoverClosest3d;
+         * (Geo) zoomInGeo, zoomOutGeo, resetGeo, hoverClosestGeo;
+         * hoverClosestGl2d, hoverClosestPie, toggleHover, resetViews.
          */
         modeBarButtonsToRemove: PropTypes.array,
 
