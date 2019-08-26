@@ -80,7 +80,7 @@ jobs:
             . venv/bin/activate && pip install --upgrade -e . --quiet && mkdir packages
             # build main dash
             git clone --depth 1 https://github.com/plotly/dash.git dash-main
-            cd dash-main && pip install -e .[ci,testing] && python setup.py sdist && mv dist/* ../packages/
+            cd dash-main && pip install -e .[dev,testing] && python setup.py sdist && mv dist/* ../packages/
             cd dash-renderer && npm i --ignore-scripts && npm run build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
