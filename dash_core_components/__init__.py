@@ -52,7 +52,7 @@ _js_dist = [
             '/dash_core_components/async~graph.js'
         ).format(__version__),
         'namespace': 'dash_core_components',
-        dynamic: True
+        'dynamic': True
     },
     {
         'relative_package_path': 'async~graph.js.map',
@@ -61,7 +61,7 @@ _js_dist = [
             '/dash_core_components/async~graph.js.map'
         ).format(__version__),
         'namespace': 'dash_core_components',
-        dynamic: True
+        'dynamic': True
     },
     {
         'relative_package_path': '{}.min.js'.format(__name__),
