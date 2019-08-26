@@ -83,7 +83,7 @@ class PlotlyGraph extends Component {
     plot(props) {
         const {figure, animate, animation_options, config} = props;
         const gd = this.gd.current;
-
+        console.log('plot func called', props);
         if (
             animate &&
             this._hasPlotted &&
@@ -123,6 +123,7 @@ class PlotlyGraph extends Component {
     }
 
     extend(props) {
+        console.log('extend called', props);
         const {extendData} = props;
         let updateData, traceIndices, maxPoints;
         if (Array.isArray(extendData) && typeof extendData[0] === 'object') {
@@ -147,6 +148,7 @@ class PlotlyGraph extends Component {
     }
 
     graphResize() {
+        console.log('graph resize', gd);
         const gd = this.gd.current;
         if (gd) {
             Plotly.Plots.resize(gd);
@@ -213,6 +215,7 @@ class PlotlyGraph extends Component {
     }
 
     componentDidMount() {
+        console.log('did mount');
         this.plot(this.props).then(() => {
             window.addEventListener('resize', this.graphResize);
         });
@@ -241,15 +244,24 @@ class PlotlyGraph extends Component {
              * then the dom needs to get re-rendered with a new ID.
              * the graph will get updated in componentDidUpdate
              */
+            console.log('will receive props => id changed');
             return;
         }
-
+        console.log('will receive props => id ');
         if (!equals(this.props.figure, nextProps.figure)) {
+            console.log(
+                'plot as figure diff',
+                this.props.figure,
+                nextProps.figure
+            );
             this.plot(nextProps);
         }
 
-        const extendDataChanged =
-            this.props.extendData !== nextProps.extendData;
+        const extendDataChanged = !equals(
+            this.props.extendData,
+            nextProps.extendData
+        );
+        // this.props.extendData !== nextProps.extendData;
 
         if (extendDataChanged) {
             this.extend(nextProps);
@@ -257,7 +269,9 @@ class PlotlyGraph extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log('did update', prevProps, this.props);
         if (prevProps.id !== this.props.id) {
+            console.log('id diff plot');
             this.plot(this.props);
         }
     }
