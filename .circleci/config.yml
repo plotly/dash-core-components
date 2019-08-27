@@ -78,7 +78,7 @@ jobs:
           name: 🏗️ build dash
           command: |
             . venv/bin/activate && pip install --upgrade -e . --quiet && mkdir packages
-            if [ $CIRCLE_BRANCH = "ci_exp" ]; then
+            if [ $CIRCLE_BRANCH = "master" ]; then
               echo "Clone from ci_exp branch"
               git clone -b master --depth 1 https://github.com/plotly/dash.git dash-main
               git clone -b master --depth 1 https://github.com/plotly/dash-html-components.git
