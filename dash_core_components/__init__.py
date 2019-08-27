@@ -42,8 +42,8 @@ _this_module = _sys.modules[__name__]
 
 _js_dist = [
     {
-        'external_url': 'https://cdn.plot.ly/plotly-1.49.1.min.js', # Original 
-        #'external_url': 'https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.49.1/plotly.min.js', # Edited one
+        #'external_url': 'https://cdn.plot.ly/plotly-1.49.1.min.js', # Original 
+        'external_url': 'https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.49.1/plotly.min.js', # Edited one
         'relative_package_path': 'plotly-1.49.1.min.js',
         'namespace': 'dash_core_components'
     },
