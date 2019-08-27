@@ -83,7 +83,6 @@ class PlotlyGraph extends Component {
     plot(props) {
         const {figure, animate, animation_options, config} = props;
         const gd = this.gd.current;
-        console.log('plot func called', props);
         if (
             animate &&
             this._hasPlotted &&
@@ -98,14 +97,13 @@ class PlotlyGraph extends Component {
             config: config,
         }).then(() => {
             const gd = this.gd.current;
-
             // double-check gd hasn't been unmounted
             if (!gd) {
                 return;
             }
 
             // in case we've made a new DOM element, transfer events
-            if (this._hasPlotted && gd !== this._prevGd) {
+            if (this._hasPlotted && !equals(gd, this._prevGd)) {
                 if (this._prevGd && this._prevGd.removeAllListeners) {
                     this._prevGd.removeAllListeners();
                     Plotly.purge(this._prevGd);
@@ -123,7 +121,6 @@ class PlotlyGraph extends Component {
     }
 
     extend(props) {
-        console.log('extend called', props);
         const {extendData} = props;
         let updateData, traceIndices, maxPoints;
         if (Array.isArray(extendData) && typeof extendData[0] === 'object') {
@@ -148,7 +145,6 @@ class PlotlyGraph extends Component {
     }
 
     graphResize() {
-        console.log('graph resize', gd);
         const gd = this.gd.current;
         if (gd) {
             Plotly.Plots.resize(gd);
@@ -196,9 +192,13 @@ class PlotlyGraph extends Component {
             setProps({selectedData: null});
         });
         gd.on('plotly_relayout', eventData => {
-            const r = filterEventData(gd, eventData, 'relayout');
-            if (!isNil(r) && !equals(r, relayoutData)) {
-                setProps({relayoutData: r});
+            const relayout = filterEventData(gd, eventData, 'relayout');
+            if (
+                !isNil(relayout) &&
+                !equals(relayout, relayoutData) &&
+                !equals(relayout, {autosize: true})
+            ) {
+                setProps({relayoutData: relayout});
             }
         });
         gd.on('plotly_restyle', eventData => {
@@ -215,7 +215,6 @@ class PlotlyGraph extends Component {
     }
 
     componentDidMount() {
-        console.log('did mount');
         this.plot(this.props).then(() => {
             window.addEventListener('resize', this.graphResize);
         });
@@ -244,16 +243,9 @@ class PlotlyGraph extends Component {
              * then the dom needs to get re-rendered with a new ID.
              * the graph will get updated in componentDidUpdate
              */
-            console.log('will receive props => id changed');
             return;
         }
-        console.log('will receive props => id ');
         if (!equals(this.props.figure, nextProps.figure)) {
-            console.log(
-                'plot as figure diff',
-                this.props.figure,
-                nextProps.figure
-            );
             this.plot(nextProps);
         }
 
@@ -269,9 +261,7 @@ class PlotlyGraph extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('did update', prevProps, this.props);
         if (prevProps.id !== this.props.id) {
-            console.log('id diff plot');
             this.plot(this.props);
         }
     }
