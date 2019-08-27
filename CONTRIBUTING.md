@@ -35,12 +35,10 @@ respectively. TODO:
     * Add `rc1` to `version.py` (`./dash_core_components/version.py`) e.g. `0.13.0rc1`
     * Add `-rc1` to `package.json` e.g. `0.13.0-rc1`
     * Update the `unpkg` link in `./dash_core_components/__init__.py`, replacing `__version__` with your release candidate (e.g. `"0.13.0-rc1"`)
-    * Run `npm run publish-all`.
+    * Run `npm publish` to publish on NPM.
+    * Run `python setup.py sdist` to build the PyPi package.
+    * Upload your release to pypi with: `twine upload dist/dash_core_components-X.X.X.tar.gz`
         - If needed, ask @chriddyp to get NPM / PyPi package publishing access.
-        - If the `publish-all` script fails on the `twine` command, try running
-            ```sh
-            twine upload dist/dash_core_components-X.X.X.tar.gz # where xx.x.x is the version number
-            ```
 3. Comment in the PR with the prerelease version
 4. Update the top-level comment to include info about how to install, a summary of the changes, and a simple example. For a good example, see the [Confirmation Modal component][].
     * This makes it easier for a community member to come in and try it out. As more folks review, it's harder to find the installation instructions deep in the PR
