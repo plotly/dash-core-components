@@ -103,7 +103,7 @@ class PlotlyGraph extends Component {
             }
 
             // in case we've made a new DOM element, transfer events
-            if (this._hasPlotted && !equals(gd, this._prevGd)) {
+            if (this._hasPlotted && gd !== this._prevGd) {
                 if (this._prevGd && this._prevGd.removeAllListeners) {
                     this._prevGd.removeAllListeners();
                     Plotly.purge(this._prevGd);
@@ -245,7 +245,7 @@ class PlotlyGraph extends Component {
              */
             return;
         }
-        if (!equals(this.props.figure, nextProps.figure)) {
+        if (this.props.figure !== nextProps.figure) {
             this.plot(nextProps);
         }
 
