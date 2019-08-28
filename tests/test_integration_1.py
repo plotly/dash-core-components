@@ -728,20 +728,6 @@ class Test1(IntegrationTests):
         # do some extra tests while we're here
         # and have access to Graph and plotly.js
         self.check_graph_config_shape()
-        self.check_plotlyjs()
-
-    def check_plotlyjs(self):
-        # find plotly.js files in the dist folder, check that there's only one
-        all_dist = os.listdir(dcc.__path__[0])
-        js_re = r'^plotly-(.*)\.min\.js$'
-        plotlyjs_dist = [fn for fn in all_dist if re.match(js_re, fn)]
-
-        self.assertEqual(len(plotlyjs_dist), 1)
-
-        # check that the version matches what we see in the page
-        page_version = self.driver.execute_script('return Plotly.version;')
-        dist_version = re.match(js_re, plotlyjs_dist[0]).groups()[0]
-        self.assertEqual(page_version, dist_version)
 
     def check_graph_config_shape(self):
         config_schema = self.driver.execute_script(
