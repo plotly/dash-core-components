@@ -213,6 +213,10 @@ class LazyPlotlyGraph extends Component {
         this.plot(this.props).then(() => {
             window.addEventListener('resize', this.graphResize);
         });
+
+        if (this.props.extendData) {
+            this.extend(this.props);
+        }
     }
 
     componentWillUnmount() {
@@ -229,12 +233,6 @@ class LazyPlotlyGraph extends Component {
             this.props.id !== nextProps.id ||
             JSON.stringify(this.props.style) !== JSON.stringify(nextProps.style)
         );
-    }
-
-    componentDidMount() {
-        if(this.props.extendData) {
-            this.extend(this.props);
-        }
     }
 
     componentWillReceiveProps(nextProps) {
