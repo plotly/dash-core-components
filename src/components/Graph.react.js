@@ -1,4 +1,4 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, lazy, PureComponent, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line no-inline-comments
@@ -11,6 +11,51 @@ const LazyPlotlyGraph = lazy(() => import(/* webpackChunkName: "graph" */ '../fr
  * hovering, clicking or selecting
  */
 class PlotlyGraph extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            extendData: []
+        };
+    }
+
+    componentDidMount() {
+        if (this.props.extendData) {
+            this.setState({ extendData: [this.props.extendData] });
+        }
+    }
+
+    componentWillUnmount() {
+        this.setState({ extendData: [] });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let extendData = this.state.extendData.slice(0);
+
+        if (this.props.figure !== nextProps.figure) {
+            extendData = [];
+        }
+
+        if (nextProps.extendData && this.props.extendData !== nextProps.extendData) {
+            extendData.push(nextProps.extendData);
+        } else {
+            extendData = [];
+        }
+
+        if (!extendData.length && this.state.extendData.length) {
+            this.setState({ extendData });
+        }
+    }
+
+    render() {
+        return (<ControlledPlotlyGraph {...{
+            ...this.props,
+            extendData: this.state.extendData
+        }} />);
+    }
+}
+
+class ControlledPlotlyGraph extends PureComponent {
     render() {
         return (<Suspense
             fallback={null}

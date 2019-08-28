@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { contains, filter, clone, has, isNil, type, omit } from 'ramda';
+import PropTypes from 'prop-types';
 
 import { graphPropTypes, graphDefaultProps } from '../components/Graph.react';
 import Plotly from 'plotly.js-dist';
@@ -124,27 +125,29 @@ class LazyPlotlyGraph extends Component {
     }
 
     extend(props) {
-        const { extendData } = props;
-        let updateData, traceIndices, maxPoints;
-        if (Array.isArray(extendData) && typeof extendData[0] === 'object') {
-            [updateData, traceIndices, maxPoints] = extendData;
-        } else {
-            updateData = extendData;
-        }
-
-        if (!traceIndices) {
-            function getFirstProp(data) {
-                return data[Object.keys(data)[0]];
+        const { extendData: extendDataArray } = props;
+        extendDataArray.forEach(extendData => {
+            let updateData, traceIndices, maxPoints;
+            if (Array.isArray(extendData) && typeof extendData[0] === 'object') {
+                [updateData, traceIndices, maxPoints] = extendData;
+            } else {
+                updateData = extendData;
             }
 
-            function generateIndices(data) {
-                return Array.from(Array(getFirstProp(data).length).keys());
-            }
-            traceIndices = generateIndices(updateData);
-        }
+            if (!traceIndices) {
+                function getFirstProp(data) {
+                    return data[Object.keys(data)[0]];
+                }
 
-        const gd = this.gd.current;
-        return Plotly.extendTraces(gd, updateData, traceIndices, maxPoints);
+                function generateIndices(data) {
+                    return Array.from(Array(getFirstProp(data).length).keys());
+                }
+                traceIndices = generateIndices(updateData);
+            }
+
+            const gd = this.gd.current;
+            return Plotly.extendTraces(gd, updateData, traceIndices, maxPoints);
+        });
     }
 
     graphResize() {
@@ -228,6 +231,12 @@ class LazyPlotlyGraph extends Component {
         );
     }
 
+    componentDidMount() {
+        if(this.props.extendData) {
+            this.extend(this.props);
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         const idChanged = this.props.id !== nextProps.id;
         if (idChanged) {
@@ -276,8 +285,16 @@ class LazyPlotlyGraph extends Component {
     }
 }
 
-LazyPlotlyGraph.propTypes = graphPropTypes;
+LazyPlotlyGraph.propTypes = {
+    ...graphPropTypes,
+    extendData: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+    )
+};
 
-LazyPlotlyGraph.defaultProps = graphDefaultProps;
+LazyPlotlyGraph.defaultProps = {
+    ...graphDefaultProps,
+    extendData: []
+};
 
 export default LazyPlotlyGraph;
