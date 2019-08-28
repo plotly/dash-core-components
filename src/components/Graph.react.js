@@ -193,11 +193,7 @@ class PlotlyGraph extends Component {
         });
         gd.on('plotly_relayout', eventData => {
             const relayout = filterEventData(gd, eventData, 'relayout');
-            if (
-                !isNil(relayout) &&
-                !equals(relayout, relayoutData) &&
-                !equals(relayout, {autosize: true})
-            ) {
+            if (!isNil(relayout) && !equals(relayout, relayoutData)) {
                 setProps({relayoutData: relayout});
             }
         });
@@ -249,12 +245,7 @@ class PlotlyGraph extends Component {
             this.plot(nextProps);
         }
 
-        const extendDataChanged = !equals(
-            this.props.extendData,
-            nextProps.extendData
-        );
-
-        if (extendDataChanged) {
+        if (this.props.extendData !== nextProps.extendData) {
             this.extend(nextProps);
         }
     }
