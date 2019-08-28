@@ -21,6 +21,7 @@ _For larger features, your contribution will have a higher likelihood of getting
 
 1. Create a pull request.
 2. After a review has been done and your changes have been approved, they will be merged and included in a future release of Dash.
+3. If significant enough, you have created an issue about documenting the new feature or change and you have added it to the [dash-docs](https://github.com/plotly/dash-docs) project.
 
 ## Running the Tests
 
