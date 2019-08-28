@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // eslint-disable-next-line no-inline-comments
 const LazyPlotlyGraph = lazy(() => import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react'));
+const EMPTY_EXTEND_DATA = [];
 
 /**
  * Graph can be used to render any plotly.js-powered data visualization.
@@ -33,16 +34,16 @@ class PlotlyGraph extends Component {
         let extendData = this.state.extendData.slice(0);
 
         if (this.props.figure !== nextProps.figure) {
-            extendData = [];
+            extendData = EMPTY_EXTEND_DATA;
         }
 
         if (nextProps.extendData && this.props.extendData !== nextProps.extendData) {
             extendData.push(nextProps.extendData);
         } else {
-            extendData = [];
+            extendData = EMPTY_EXTEND_DATA;
         }
 
-        if (!extendData.length && this.state.extendData.length) {
+        if (extendData !== EMPTY_EXTEND_DATA) {
             this.setState({ extendData });
         }
     }
