@@ -158,7 +158,14 @@ class LazyPlotlyGraph extends Component {
     }
 
     bindEvents() {
-        const { setProps, clear_on_unhover } = this.props;
+        const {
+            setProps,
+            clear_on_unhover,
+            relayoutData,
+            restyleData,
+            hoverData,
+            selectedData,
+        } = this.props;
 
         const gd = this.gd.current;
 
@@ -176,30 +183,30 @@ class LazyPlotlyGraph extends Component {
             setProps({ clickAnnotationData });
         });
         gd.on('plotly_hover', eventData => {
-            const hoverData = filterEventData(gd, eventData, 'hover');
-            if (!isNil(hoverData)) {
-                setProps({ hoverData });
+            const hover = filterEventData(gd, eventData, 'hover');
+            if (!isNil(hover) && !equals(hover, hoverData)) {
+                setProps({ hoverData: hover });
             }
         });
         gd.on('plotly_selected', eventData => {
-            const selectedData = filterEventData(gd, eventData, 'selected');
-            if (!isNil(selectedData)) {
-                setProps({ selectedData });
+            const selected = filterEventData(gd, eventData, 'selected');
+            if (!isNil(selected) && !equals(selected, selectedData)) {
+                setProps({ selectedData: selected });
             }
         });
         gd.on('plotly_deselect', () => {
             setProps({ selectedData: null });
         });
         gd.on('plotly_relayout', eventData => {
-            const relayoutData = filterEventData(gd, eventData, 'relayout');
-            if (!isNil(relayoutData)) {
-                setProps({ relayoutData });
+            const relayout = filterEventData(gd, eventData, 'relayout');
+            if (!isNil(relayout) && !equals(relayout, relayoutData)) {
+                setProps({ relayoutData: relayout });
             }
         });
         gd.on('plotly_restyle', eventData => {
-            const restyleData = filterEventData(gd, eventData, 'restyle');
-            if (!isNil(restyleData)) {
-                setProps({ restyleData });
+            const restyle = filterEventData(gd, eventData, 'restyle');
+            if (!isNil(restyle) && !equals(restyle, restyleData)) {
+                setProps({ restyleData: restyle });
             }
         });
         gd.on('plotly_unhover', () => {
@@ -244,17 +251,11 @@ class LazyPlotlyGraph extends Component {
              */
             return;
         }
-
-        const figureChanged = this.props.figure !== nextProps.figure;
-
-        if (figureChanged) {
+        if (this.props.figure !== nextProps.figure) {
             this.plot(nextProps);
         }
 
-        const extendDataChanged =
-            this.props.extendData !== nextProps.extendData;
-
-        if (extendDataChanged) {
+        if (this.props.extendData !== nextProps.extendData) {
             this.extend(nextProps);
         }
     }
