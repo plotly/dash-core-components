@@ -1,8 +1,39 @@
 import React, { Component, lazy, PureComponent, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-// eslint-disable-next-line no-inline-comments
-const LazyPlotlyGraph = lazy(() => import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react'));
+const factory = (target, promise) => {
+    let resolve;
+    const isReady = new Promise(r => {
+        resolve = r;
+    });
+
+    const state = {
+        isReady,
+        get: lazy(async () => {
+            // let __r;
+            // const p = new Promise(_r => { __r = _r });
+            // // eslint-disable-next-line no-magic-numbers
+            // setTimeout(() => __r(), 10000);
+
+            // await p;
+
+            // delay `isReady`
+            setTimeout(async () => {
+                await resolve(true);
+                state.isReady = true;
+            }, 0);
+
+            return await promise();
+        })
+    };
+
+    Object.defineProperty(target, '_dashprivate_isLazyComponentReady', {
+        get: () => state.isReady
+    });
+
+    return state.get;
+}
+
 const EMPTY_EXTEND_DATA = [];
 
 /**
@@ -55,6 +86,9 @@ class PlotlyGraph extends Component {
         }} />);
     }
 }
+
+// eslint-disable-next-line no-inline-comments
+const LazyPlotlyGraph = factory(PlotlyGraph, () => import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react'));
 
 class ControlledPlotlyGraph extends PureComponent {
     render() {

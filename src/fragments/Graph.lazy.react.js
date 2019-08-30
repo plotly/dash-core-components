@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { contains, filter, clone, has, isNil, type, omit } from 'ramda';
+import { contains, filter, clone, equals, has, isNil, type, omit } from 'ramda';
 import PropTypes from 'prop-types';
 
 import { graphPropTypes, graphDefaultProps } from '../components/Graph.react';
