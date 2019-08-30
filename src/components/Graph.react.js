@@ -9,21 +9,15 @@ const factory = (target, promise) => {
 
     const state = {
         isReady,
-        get: lazy(async () => {
-            // let __r;
-            // const p = new Promise(_r => { __r = _r });
-            // // eslint-disable-next-line no-magic-numbers
-            // setTimeout(() => __r(), 10000);
+        get: lazy(() => {
+            return Promise.resolve(promise()).then(res => {
+                setTimeout(async () => {
+                    await resolve(true);
+                    state.isReady = true;
+                }, 0);
 
-            // await p;
-
-            // delay `isReady`
-            setTimeout(async () => {
-                await resolve(true);
-                state.isReady = true;
-            }, 0);
-
-            return await promise();
+                return res;
+            });
         })
     };
 
