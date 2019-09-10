@@ -81,11 +81,14 @@ module.exports = (env, argv) => {
         },
         optimization: {
             splitChunks: {
-                chunks: 'async',
                 name: true,
                 cacheGroups: {
                     async: {
-
+                        chunks: 'async',
+                        minSize: 0,
+                        name(module, chunks, cacheGroupKey) {
+                            return `${cacheGroupKey}~${chunks[0].name}`;
+                        }
                     }
                 }
             }
