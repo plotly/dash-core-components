@@ -1,6 +1,6 @@
 const presets = [
     ['@babel/env', {
-        useBuiltIns: 'entry',
+        useBuiltIns: 'usage',
         corejs: 3
     }],
     '@babel/preset-react'
