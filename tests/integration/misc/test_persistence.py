@@ -150,15 +150,15 @@ def test_msps001_basic_persistence(dash_duo):
         ]
     )
     def make_output(*args):
-        return json.dumps(args, ensure_ascii=False)
+        return json.dumps(args)
 
     initial_settings = [
-        ["🏎️"],
+        [u"🏎️"],
         "2017-08-21",
         "2024-04-08",
         "2019-01-01",
-        "2️⃣",
-        ["4️⃣"],
+        u"2️⃣",
+        [u"4️⃣"],
         "yes",
         "b",
         [3, 7],
@@ -168,10 +168,7 @@ def test_msps001_basic_persistence(dash_duo):
     ]
 
     dash_duo.start_server(app)
-    dash_duo.wait_for_text_to_equal(
-        "#settings",
-        json.dumps(initial_settings, ensure_ascii=False)
-    )
+    dash_duo.wait_for_text_to_equal("#settings", json.dumps(initial_settings))
 
     dash_duo.find_element("#checklist label:last-child input").click()  # 🚀
 
@@ -207,12 +204,12 @@ def test_msps001_basic_persistence(dash_duo):
     dash_duo.find_element("#textarea").send_keys(Keys.ENTER + "who's there?")
 
     edited_settings = [
-        ["🏎️", "🚀"],
+        [u"🏎️", u"🚀"],
         "2019-05-04",
         "2019-05-14",
         "2019-01-20",
-        "1️⃣",
-        ["4️⃣", "6️⃣"],
+        u"1️⃣",
+        [u"4️⃣", u"6️⃣"],
         "yes maybe",
         "r",
         [0, 5],
@@ -221,14 +218,8 @@ def test_msps001_basic_persistence(dash_duo):
         "knock knock\nwho's there?"
     ]
 
-    dash_duo.wait_for_text_to_equal(
-        "#settings",
-        json.dumps(edited_settings, ensure_ascii=False)
-    )
+    dash_duo.wait_for_text_to_equal("#settings", json.dumps(edited_settings))
 
     # now reload the page - all of these settings should persist
     dash_duo.wait_for_page()
-    dash_duo.wait_for_text_to_equal(
-        "#settings",
-        json.dumps(edited_settings, ensure_ascii=False)
-    )
+    dash_duo.wait_for_text_to_equal("#settings", json.dumps(edited_settings))
