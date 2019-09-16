@@ -29,22 +29,14 @@ const factory = (target, promise) => {
 }
 
 const loader = {
-    plotly: () => import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist'),
+    plotly: () => Promise.resolve(window.Plotly ||
+        import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist')
+            .then(({ default: Plotly }) => {
+                window.Plotly = Plotly;
+                return Plotly;
+            })),
     graph: () => import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react')
 };
-
-let __localWindowPlotly = window.Plotly;
-Object.defineProperty(window, 'Plotly', {
-    get: function () {
-        if (!__localWindowPlotly) {
-            loader.plotly().then(({ default: Plotly }) => {
-                __localWindowPlotly = Plotly;
-            });
-        }
-
-        return __localWindowPlotly;
-    }
-});
 
 const EMPTY_EXTEND_DATA = [];
 
@@ -102,7 +94,7 @@ class PlotlyGraph extends Component {
 // eslint-disable-next-line no-inline-comments
 const LazyPlotlyGraph = factory(
     PlotlyGraph,
-    () => loader.plotly().then(() => loader.graph)
+    () => loader.plotly().then(() => loader.graph())
 );
 
 class ControlledPlotlyGraph extends PureComponent {

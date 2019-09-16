@@ -3,7 +3,8 @@ import { contains, filter, clone, equals, has, isNil, type, omit } from 'ramda';
 import PropTypes from 'prop-types';
 
 import { graphPropTypes, graphDefaultProps } from '../components/Graph.react';
-import Plotly from 'plotly.js-dist';
+
+/* global Plotly:true */
 
 const filterEventData = (gd, eventData, event) => {
     let filteredEventData;
