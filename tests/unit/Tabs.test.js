@@ -119,7 +119,7 @@ describe('Tabs correctly appends classes', () => {
             expect.stringMatching(
                 new RegExp(`jsx-\\d+\\stab-parent\\s${testParentClass}`)
             )
-        )
+        );
     });
 });
 describe('Tabs render content correctly', () => {

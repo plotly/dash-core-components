@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { contains, filter, clone, equals, has, isNil, type, omit } from 'ramda';
+import React, {Component} from 'react';
+import {contains, filter, clone, equals, has, isNil, type, omit} from 'ramda';
 import PropTypes from 'prop-types';
 
-import { graphPropTypes, graphDefaultProps } from '../components/Graph.react';
+import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
 
 /* global Plotly:true */
 
@@ -27,7 +27,7 @@ const filterEventData = (gd, eventData, event) => {
 
         for (let i = 0; i < eventData.points.length; i++) {
             const fullPoint = eventData.points[i];
-            const pointData = filter(function (o) {
+            const pointData = filter(function(o) {
                 return !contains(type(o), ['Object', 'Array']);
             }, fullPoint);
             if (
@@ -37,7 +37,7 @@ const filterEventData = (gd, eventData, event) => {
             ) {
                 pointData.customdata =
                     data[pointData.curveNumber].customdata[
-                    fullPoint.pointNumber
+                        fullPoint.pointNumber
                     ];
             }
 
@@ -48,7 +48,7 @@ const filterEventData = (gd, eventData, event) => {
 
             points[i] = pointData;
         }
-        filteredEventData = { points };
+        filteredEventData = {points};
     } else if (event === 'relayout' || event === 'restyle') {
         /*
          * relayout shouldn't include any big objects
@@ -84,7 +84,7 @@ class LazyPlotlyGraph extends Component {
     }
 
     plot(props) {
-        const { figure, animate, animation_options, config } = props;
+        const {figure, animate, animation_options, config} = props;
         const gd = this.gd.current;
 
         if (
@@ -126,10 +126,13 @@ class LazyPlotlyGraph extends Component {
     }
 
     extend(props) {
-        const { extendData: extendDataArray } = props;
+        const {extendData: extendDataArray} = props;
         extendDataArray.forEach(extendData => {
             let updateData, traceIndices, maxPoints;
-            if (Array.isArray(extendData) && typeof extendData[0] === 'object') {
+            if (
+                Array.isArray(extendData) &&
+                typeof extendData[0] === 'object'
+            ) {
                 [updateData, traceIndices, maxPoints] = extendData;
             } else {
                 updateData = extendData;
@@ -173,7 +176,7 @@ class LazyPlotlyGraph extends Component {
         gd.on('plotly_click', eventData => {
             const clickData = filterEventData(gd, eventData, 'click');
             if (!isNil(clickData)) {
-                setProps({ clickData });
+                setProps({clickData});
             }
         });
         gd.on('plotly_clickannotation', eventData => {
@@ -181,38 +184,38 @@ class LazyPlotlyGraph extends Component {
                 ['event', 'fullAnnotation'],
                 eventData
             );
-            setProps({ clickAnnotationData });
+            setProps({clickAnnotationData});
         });
         gd.on('plotly_hover', eventData => {
             const hover = filterEventData(gd, eventData, 'hover');
             if (!isNil(hover) && !equals(hover, hoverData)) {
-                setProps({ hoverData: hover });
+                setProps({hoverData: hover});
             }
         });
         gd.on('plotly_selected', eventData => {
             const selected = filterEventData(gd, eventData, 'selected');
             if (!isNil(selected) && !equals(selected, selectedData)) {
-                setProps({ selectedData: selected });
+                setProps({selectedData: selected});
             }
         });
         gd.on('plotly_deselect', () => {
-            setProps({ selectedData: null });
+            setProps({selectedData: null});
         });
         gd.on('plotly_relayout', eventData => {
             const relayout = filterEventData(gd, eventData, 'relayout');
             if (!isNil(relayout) && !equals(relayout, relayoutData)) {
-                setProps({ relayoutData: relayout });
+                setProps({relayoutData: relayout});
             }
         });
         gd.on('plotly_restyle', eventData => {
             const restyle = filterEventData(gd, eventData, 'restyle');
             if (!isNil(restyle) && !equals(restyle, restyleData)) {
-                setProps({ restyleData: restyle });
+                setProps({restyleData: restyle});
             }
         });
         gd.on('plotly_unhover', () => {
             if (clear_on_unhover) {
-                setProps({ hoverData: null });
+                setProps({hoverData: null});
             }
         });
     }
@@ -268,7 +271,7 @@ class LazyPlotlyGraph extends Component {
     }
 
     render() {
-        const { className, id, style, loading_state } = this.props;
+        const {className, id, style, loading_state} = this.props;
 
         return (
             <div
@@ -289,12 +292,12 @@ LazyPlotlyGraph.propTypes = {
     ...graphPropTypes,
     extendData: PropTypes.arrayOf(
         PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-    )
+    ),
 };
 
 LazyPlotlyGraph.defaultProps = {
     ...graphDefaultProps,
-    extendData: []
+    extendData: [],
 };
 
 export default LazyPlotlyGraph;

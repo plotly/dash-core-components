@@ -1,4 +1,4 @@
-import React, { Component, lazy, PureComponent, Suspense } from 'react';
+import React, {Component, lazy, PureComponent, Suspense} from 'react';
 import PropTypes from 'prop-types';
 
 const factory = (target, promise) => {
@@ -18,24 +18,29 @@ const factory = (target, promise) => {
 
                 return res;
             });
-        })
+        }),
     };
 
     Object.defineProperty(target, '_dashprivate_isLazyComponentReady', {
-        get: () => state.isReady
+        get: () => state.isReady,
     });
 
     return state.get;
-}
+};
 
 const loader = {
-    plotly: () => Promise.resolve(window.Plotly ||
-        import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist')
-            .then(({ default: Plotly }) => {
-                window.Plotly = Plotly;
-                return Plotly;
-            })),
-    graph: () => import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react')
+    plotly: () =>
+        Promise.resolve(
+            window.Plotly ||
+                import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist').then(
+                    ({default: Plotly}) => {
+                        window.Plotly = Plotly;
+                        return Plotly;
+                    }
+                )
+        ),
+    graph: () =>
+        import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react'),
 };
 
 const EMPTY_EXTEND_DATA = [];
@@ -51,18 +56,18 @@ class PlotlyGraph extends Component {
         super(props);
 
         this.state = {
-            extendData: []
+            extendData: [],
         };
     }
 
     componentDidMount() {
         if (this.props.extendData) {
-            this.setState({ extendData: [this.props.extendData] });
+            this.setState({extendData: [this.props.extendData]});
         }
     }
 
     componentWillUnmount() {
-        this.setState({ extendData: [] });
+        this.setState({extendData: []});
     }
 
     componentWillReceiveProps(nextProps) {
@@ -72,38 +77,44 @@ class PlotlyGraph extends Component {
             extendData = EMPTY_EXTEND_DATA;
         }
 
-        if (nextProps.extendData && this.props.extendData !== nextProps.extendData) {
+        if (
+            nextProps.extendData &&
+            this.props.extendData !== nextProps.extendData
+        ) {
             extendData.push(nextProps.extendData);
         } else {
             extendData = EMPTY_EXTEND_DATA;
         }
 
         if (extendData !== EMPTY_EXTEND_DATA) {
-            this.setState({ extendData });
+            this.setState({extendData});
         }
     }
 
     render() {
-        return (<ControlledPlotlyGraph {...{
-            ...this.props,
-            extendData: this.state.extendData
-        }} />);
+        return (
+            <ControlledPlotlyGraph
+                {...{
+                    ...this.props,
+                    extendData: this.state.extendData,
+                }}
+            />
+        );
     }
 }
 
 // eslint-disable-next-line no-inline-comments
-const LazyPlotlyGraph = factory(
-    PlotlyGraph,
-    () => loader.plotly().then(() => loader.graph())
+const LazyPlotlyGraph = factory(PlotlyGraph, () =>
+    loader.plotly().then(() => loader.graph())
 );
 
 class ControlledPlotlyGraph extends PureComponent {
     render() {
-        return (<Suspense
-            fallback={null}
-        >
-            <LazyPlotlyGraph {...this.props} />
-        </Suspense>);
+        return (
+            <Suspense fallback={null}>
+                <LazyPlotlyGraph {...this.props} />
+            </Suspense>
+        );
     }
 }
 
@@ -493,7 +504,7 @@ export const graphDefaultProps = {
     relayoutData: null,
     extendData: null,
     restyleData: null,
-    figure: { data: [], layout: {}, frames: [] },
+    figure: {data: [], layout: {}, frames: []},
     animate: false,
     animation_options: {
         frame: {
