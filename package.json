@@ -59,6 +59,7 @@
     "check-prop-types": "^1.1.2",
     "component-playground": "^3.0.0",
     "copyfiles": "^2.0.0",
+    "core-js": "^3.2.1",
     "css-loader": "^1.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
