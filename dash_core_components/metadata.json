@@ -1243,46 +1243,7 @@
   "src/components/Graph.react.js": {
     "description": "Graph can be used to render any plotly.js-powered data visualization.\n\nYou can define callbacks based on user interaction with Graphs such as\nhovering, clicking or selecting",
     "displayName": "PlotlyGraph",
-    "methods": [
-      {
-        "name": "plot",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "props",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "extend",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "props",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "graphResize",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "bindEvents",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {
