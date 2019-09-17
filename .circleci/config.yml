@@ -88,11 +88,12 @@ jobs:
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm i --ignore-scripts && npm run build
-            python setup.py sdist && mv dist/* ../packages
+            python setup.py sdist && mv dist/* ../packages && cd ..
+            ls -la packages
       - persist_to_workspace:
           root: ~/project
           paths:
-            - packages
+            - packages/*.tar.gz
 
   "build-dash-36":
     <<: *build-dash
