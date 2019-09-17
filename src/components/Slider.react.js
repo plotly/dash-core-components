@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import PropTypes from 'prop-types';
-import {omit} from 'ramda';
+import {assoc, omit} from 'ramda';
 import './css/rc-slider@6.1.2.css';
 
 /**
@@ -49,12 +49,10 @@ export default class Slider extends Component {
         if (tooltip && tooltip.always_visible) {
             /**
              * clone `tooltip` but with renamed key `always_visible` -> `visible`
-             * the rc-tooltip API uses `visible`, but `always_visible is more semantic
+             * the rc-tooltip API uses `visible`, but `always_visible` is more semantic
              * assigns the new (renamed) key to the old key and deletes the old key
              */
-            tipProps = Object.assign(tooltip, {
-                visible: tooltip.always_visible,
-            });
+            tipProps = assoc('visible', tooltip.always_visible, tooltip);
             delete tipProps.always_visible;
         } else {
             tipProps = tooltip;
@@ -82,7 +80,7 @@ export default class Slider extends Component {
                             setProps({value});
                         }
                     }}
-                    tipProps={tooltip}
+                    tipProps={tipProps}
                     value={value}
                     {...omit(
                         ['className', 'setProps', 'updatemode', 'value'],
@@ -226,8 +224,37 @@ Slider.propTypes = {
          */
         component_name: PropTypes.string,
     }),
+
+    /**
+     * Used to allow user interactions in this component to be persisted when
+     * the component - or the page - is refreshed. If `persisted` is truthy and
+     * hasn't changed from its previous value, a `value` that the user has
+     * changed while using the app will keep that change, as long as
+     * the new `value` also matches what was given originally.
+     * Used in conjunction with `persistence_type`.
+     */
+    persistence: PropTypes.oneOfType(
+        [PropTypes.bool, PropTypes.string, PropTypes.number]
+    ),
+
+    /**
+     * Properties whose user interactions will persist after refreshing the
+     * component or the page. Since only `value` is allowed this prop can
+     * normally be ignored.
+     */
+    persisted_props: PropTypes.arrayOf(PropTypes.oneOf(['value'])),
+
+    /**
+     * Where persisted user changes will be stored:
+     * memory: only kept in memory, reset on page refresh.
+     * local: window.localStorage, data is kept after the browser quit.
+     * session: window.sessionStorage, data is cleared once the browser quit.
+     */
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
 };
 
 Slider.defaultProps = {
     updatemode: 'mouseup',
+    persisted_props: ['value'],
+    persistence_type: 'local'
 };

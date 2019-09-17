@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {append, contains, without} from 'ramda';
+import {append, includes, without} from 'ramda';
 import React, {Component} from 'react';
 
 /**
@@ -40,14 +40,14 @@ export default class Checklist extends Component {
                         className={labelClassName}
                     >
                         <input
-                            checked={contains(option.value, value)}
+                            checked={includes(option.value, value)}
                             className={inputClassName}
                             disabled={Boolean(option.disabled)}
                             style={inputStyle}
                             type="checkbox"
                             onChange={() => {
                                 let newValue;
-                                if (contains(option.value, value)) {
+                                if (includes(option.value, value)) {
                                     newValue = without([option.value], value);
                                 } else {
                                     newValue = append(option.value, value);
@@ -158,6 +158,33 @@ Checklist.propTypes = {
          */
         component_name: PropTypes.string,
     }),
+
+    /**
+     * Used to allow user interactions in this component to be persisted when
+     * the component - or the page - is refreshed. If `persisted` is truthy and
+     * hasn't changed from its previous value, a `value` that the user has
+     * changed while using the app will keep that change, as long as
+     * the new `value` also matches what was given originally.
+     * Used in conjunction with `persistence_type`.
+     */
+    persistence: PropTypes.oneOfType(
+        [PropTypes.bool, PropTypes.string, PropTypes.number]
+    ),
+
+    /**
+     * Properties whose user interactions will persist after refreshing the
+     * component or the page. Since only `value` is allowed this prop can
+     * normally be ignored.
+     */
+    persisted_props: PropTypes.arrayOf(PropTypes.oneOf(['value'])),
+
+    /**
+     * Where persisted user changes will be stored:
+     * memory: only kept in memory, reset on page refresh.
+     * local: window.localStorage, data is kept after the browser quit.
+     * session: window.sessionStorage, data is cleared once the browser quit.
+     */
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
 };
 
 Checklist.defaultProps = {
@@ -167,4 +194,6 @@ Checklist.defaultProps = {
     labelClassName: '',
     options: [],
     value: [],
+    persisted_props: ['value'],
+    persistence_type: 'local',
 };
