@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -24,7 +24,7 @@ jobs:
             python -m venv || virtualenv venv && . venv/bin/activate
             pip install -r dev-requirements.txt
       - save_cache:
-          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
           paths:
               - "venv"
       - run:
@@ -63,7 +63,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -71,7 +71,7 @@ jobs:
             python -m venv || virtualenv venv && . venv/bin/activate
             pip install -r dev-requirements.txt
       - save_cache:
-          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
           paths:
               - "venv"
       - run:
@@ -121,7 +121,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
@@ -167,7 +167,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
