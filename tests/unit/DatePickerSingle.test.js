@@ -1,5 +1,5 @@
 import DatePickerSingle from '../../src/components/DatePickerSingle.react';
-import R from 'ramda';
+import * as R from 'ramda';
 import React from 'react';
 import {mount, render} from 'enzyme';
 

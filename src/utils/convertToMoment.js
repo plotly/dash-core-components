@@ -1,5 +1,5 @@
 import moment from 'moment';
-import R from 'ramda';
+import * as R from 'ramda';
 
 export default (newProps, momentProps) => {
     const dest = {};

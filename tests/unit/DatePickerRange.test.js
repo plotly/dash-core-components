@@ -1,5 +1,5 @@
 import DatePickerRange from '../../src/components/DatePickerRange.react';
-import R from 'ramda';
+import * as R from 'ramda';
 import React from 'react';
 import {mount, render} from 'enzyme';
 
