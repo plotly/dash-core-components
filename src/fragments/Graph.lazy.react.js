@@ -124,7 +124,8 @@ class LazyPlotlyGraph extends Component {
     }
 
     extend(props) {
-        const { extendData: extendDataArray } = props;
+        const { clearExtendData, extendData: extendDataArray } = props;
+
         extendDataArray.forEach(extendData => {
             let updateData, traceIndices, maxPoints;
             if (
@@ -150,6 +151,7 @@ class LazyPlotlyGraph extends Component {
             const gd = this.gd.current;
             return Plotly.extendTraces(gd, updateData, traceIndices, maxPoints);
         });
+        clearExtendData();
     }
 
     graphResize() {
@@ -291,6 +293,7 @@ LazyPlotlyGraph.propTypes = {
     extendData: PropTypes.arrayOf(
         PropTypes.oneOfType([PropTypes.array, PropTypes.object])
     ),
+    clearExtendData: PropTypes.func.isRequired
 };
 
 LazyPlotlyGraph.defaultProps = {
