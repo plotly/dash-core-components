@@ -176,6 +176,14 @@ jobs:
             . venv/bin/activate && cd packages && ls -la
             find . -name "dash-*.gz" | xargs -d '\n' -I {} pip install --ignore-installed {}[dev,testing]
             find . -name "dash_*.gz" | xargs pip install --ignore-installed && pip list | grep dash && cd ..
+
+            pip uninstall dash dash-renderer dash-html-components dash-core-components -y
+            git clone --depth 1 -b exp-dynamic https://github.com/plotly/dash.git dash-main
+            cd dash-main && pip install -e .[dev,testing]
+            cd dash-renderer && npm run build && pip install -e .
+            cd ../..
+            npm i --ignore-scripts && npm run build && pip install -e .
+
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
             pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
