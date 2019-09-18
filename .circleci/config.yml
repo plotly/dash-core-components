@@ -174,7 +174,7 @@ jobs:
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
             pip install main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
-            find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
+            find . -name "dash*.gz" | xargs pip install -I && pip install -I main.tar.gz && pip list | grep dash && cd ..
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
             pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
