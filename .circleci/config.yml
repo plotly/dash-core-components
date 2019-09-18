@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -24,7 +24,7 @@ jobs:
             python -m venv || virtualenv venv && . venv/bin/activate
             pip install -r dev-requirements.txt
       - save_cache:
-          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
           paths:
               - "venv"
       - run:
@@ -63,7 +63,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -71,7 +71,7 @@ jobs:
             python -m venv || virtualenv venv && . venv/bin/activate
             pip install -r dev-requirements.txt
       - save_cache:
-          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
           paths:
               - "venv"
       - run:
@@ -121,15 +121,15 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
-            pip install --ignore-installed main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
-            find . -name "dash*.gz" | xargs pip install --ignore-installed && pip install --ignore-installed main.tar.gz && pip list | grep dash && cd ..
+            pip install main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
       - store_artifacts:
@@ -167,15 +167,15 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
           name: 🧪 Run Legacy Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
-            pip install --ignore-installed main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
-            find . -name "dash*.gz" | xargs pip install --ignore-installed && pip install --ignore-installed main.tar.gz && pip list | grep dash && cd ..
+            pip install main.tar.gz[testing] --quiet && pip list | grep dash | xargs pip uninstall -y
+            find . -name "dash*.gz" | xargs pip install && pip install main.tar.gz && pip list | grep dash && cd ..
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
             pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
