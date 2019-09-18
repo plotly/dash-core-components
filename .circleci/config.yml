@@ -128,7 +128,7 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la
-            find . -name "dash-*.gz" | xargs -d '\n' -I {} pip install --ignore-installed {}[dev,testing] && pip list | grep dash && cd ..
+            find . -name "dash-*.gz" | xargs -d '\n' -I {} pip install --ignore-installed {}[dev,testing]
             find . -name "dash_*.gz" | xargs pip install --ignore-installed && pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
@@ -174,7 +174,7 @@ jobs:
           name: 🧪 Run Legacy Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la
-            find . -name "dash-*.gz" | xargs -d '\n' -I {} pip install --ignore-installed {}[dev,testing] && pip list | grep dash && cd ..
+            find . -name "dash-*.gz" | xargs -d '\n' -I {} pip install --ignore-installed {}[dev,testing]
             find . -name "dash_*.gz" | xargs pip install --ignore-installed && pip list | grep dash && cd ..
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
