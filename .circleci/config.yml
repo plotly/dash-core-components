@@ -78,8 +78,6 @@ jobs:
           name: 🏗️ build dash
           command: |
             . venv/bin/activate && pip install --upgrade -e . --quiet && mkdir packages
-            pip uninstall dash dash-core-components dash-renderer dash-html-components -y
-            pip list | grep dash
             # build main dash
             git clone --depth 1 -b exp-dynamic https://github.com/plotly/dash.git dash-main
             cd dash-main && pip install -e .[dev,testing] && python setup.py sdist && mv dist/* ../packages/
