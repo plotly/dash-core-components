@@ -836,6 +836,9 @@ class Test1(IntegrationTests):
             EC.element_to_be_clickable((By.ID, "tab-2"))
         )
 
+        # Allow the async of Plotly.js to complete
+        time.sleep(2)
+
         self.snapshot("Tabs with Graph - initial (graph should not resize)")
         tab_two.click()
 
