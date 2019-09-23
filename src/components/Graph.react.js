@@ -94,10 +94,11 @@ class PlotlyGraph extends Component {
     }
 
     clearExtendData() {
-        this.setState(({ extendData }) => {
-            const res = extendData && extendData.length ?
-                { extendData: EMPTY_EXTEND_DATA } :
-                undefined;
+        this.setState(({extendData}) => {
+            const res =
+                extendData && extendData.length
+                    ? {extendData: EMPTY_EXTEND_DATA}
+                    : undefined;
 
             return res;
         });
@@ -109,7 +110,7 @@ class PlotlyGraph extends Component {
                 {...{
                     ...this.props,
                     extendData: this.state.extendData,
-                    clearExtendData: this.clearExtendData
+                    clearExtendData: this.clearExtendData,
                 }}
             />
         );
