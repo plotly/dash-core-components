@@ -127,6 +127,12 @@ class Test2(IntegrationTests):
         self.startServer(app=app)
 
         button = self.wait_for_element_by_css_selector("#button")
+
+        # wait for Graph to be ready
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph .main-svg"))
+        )
+
         self.snapshot("candlestick - initial")
         button.click()
         time.sleep(1)

@@ -10,6 +10,12 @@ def test_mspl001_dcc_components_platter(platter_app, dash_duo):
     dash_duo.start_server(platter_app)
 
     dash_duo.wait_for_element("#waitfor")
+
+    # wait for Graph to be ready
+    WebDriverWait(self.driver, 10).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph .main-svg"))
+    )
+
     dash_duo.percy_snapshot("gallery")
 
     dash_duo.find_element("#dropdown .Select-input input").send_keys(u"北")
