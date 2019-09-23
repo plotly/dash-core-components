@@ -836,15 +836,10 @@ class Test1(IntegrationTests):
             EC.element_to_be_clickable((By.ID, "tab-2"))
         )
 
-        # wait for Graph to be ready
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-2-tabs .main-svg"))
-        )
-
         self.snapshot("Tabs with Graph - initial (graph should not resize)")
         tab_two.click()
 
-        # wait for Graph's internal svg to be loaded after clicking
+        # wait for Graph to be ready
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-2-tabs .main-svg"))
         )
