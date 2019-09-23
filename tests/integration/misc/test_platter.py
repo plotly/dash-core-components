@@ -12,7 +12,7 @@ def test_mspl001_dcc_components_platter(platter_app, dash_duo):
     dash_duo.wait_for_element("#waitfor")
 
     # wait for Graph to be ready
-    dash_duo.wait_for_element()"#graph .main-svg")
+    dash_duo.wait_for_element("#graph .main-svg")
 
     dash_duo.percy_snapshot("gallery")
 
