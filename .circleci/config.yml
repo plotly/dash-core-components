@@ -80,7 +80,7 @@ jobs:
             . venv/bin/activate && pip install --progress-bar off --no-cache-dir --upgrade -e . --quiet && mkdir packages
             # build main dash
             git clone --depth 1 https://github.com/plotly/dash.git dash-main
-            cd dash-main && pip install -e .[dev,testing] && python setup.py sdist && mv dist/* ../packages/
+            cd dash-main && pip install -e .[dev] && python setup.py sdist && mv dist/* ../packages/
             cd dash-renderer && npm run build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
@@ -127,8 +127,8 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
+            pip install --progress-bar off --no-cache-dir main.tar.gz[testing,dev]
             find . -name "dash*.gz" | xargs pip install -I --no-cache-dir --progress-bar off
-            pip install --progress-bar off --no-cache-dir main.tar.gz[testing]
             pip list | grep 'dash|plotly' && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
@@ -174,8 +174,8 @@ jobs:
           name: 🧪 Run Legacy Integration Tests
           command: |
             . venv/bin/activate && cd packages && ls -la && mv dash-*.tar.gz main.tar.gz
+            pip install --no-cache-dir --progress-bar off main.tar.gz[testing,dev]
             find . -name "dash*.gz" | xargs pip install -I --no-cache-dir --progress-bar off
-            pip install -I --no-cache-dir --progress-bar off main.tar.gz[testing]
             pip list | grep 'dash|plotly' && cd ..
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
