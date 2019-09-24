@@ -1,7 +1,7 @@
 import React, {Component, lazy, PureComponent, Suspense} from 'react';
 import PropTypes from 'prop-types';
 
-const factory = (target, promise) => {
+const isLazyComponentReady = (target, promise) => {
     let resolve;
     const isReady = new Promise(r => {
         resolve = r;
@@ -64,12 +64,16 @@ class PlotlyGraph extends Component {
 
     componentDidMount() {
         if (this.props.extendData) {
-            this.setState({extendData: [this.props.extendData]});
+            this.setState({
+                extendData: [this.props.extendData],
+            });
         }
     }
 
     componentWillUnmount() {
-        this.setState({extendData: []});
+        this.setState({
+            extendData: [],
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -89,7 +93,9 @@ class PlotlyGraph extends Component {
         }
 
         if (extendData !== EMPTY_EXTEND_DATA) {
-            this.setState({extendData});
+            this.setState({
+                extendData,
+            });
         }
     }
 
@@ -97,7 +103,9 @@ class PlotlyGraph extends Component {
         this.setState(({extendData}) => {
             const res =
                 extendData && extendData.length
-                    ? {extendData: EMPTY_EXTEND_DATA}
+                    ? {
+                          extendData: EMPTY_EXTEND_DATA,
+                      }
                     : undefined;
 
             return res;
@@ -117,8 +125,7 @@ class PlotlyGraph extends Component {
     }
 }
 
-// eslint-disable-next-line no-inline-comments
-const LazyPlotlyGraph = factory(PlotlyGraph, () =>
+const LazyPlotlyGraph = isLazyComponentReady(PlotlyGraph, () =>
     loader.plotly().then(() => loader.graph())
 );
 
@@ -518,7 +525,11 @@ export const graphDefaultProps = {
     relayoutData: null,
     extendData: null,
     restyleData: null,
-    figure: {data: [], layout: {}, frames: []},
+    figure: {
+        data: [],
+        layout: {},
+        frames: [],
+    },
     animate: false,
     animation_options: {
         frame: {
