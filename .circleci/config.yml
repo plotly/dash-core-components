@@ -128,6 +128,7 @@ jobs:
           command: |
             . venv/bin/activate && cd packages
             mv dash-*.tar.gz main1.tar.gz && ls -la
+            pip uninstall -y dash dash-renderer dash-core-components dash-html-components
             pip install -I --progress-bar off --no-cache-dir main1.tar.gz[dev,testing]
             find . -name "dash_*.gz" | xargs pip install -I --progress-bar off --no-cache-dir
             pip list | grep dash && cd ..
@@ -175,8 +176,9 @@ jobs:
           name: 🧪 Run Legacy Integration Tests
           command: |
             . venv/bin/activate && cd packages && mv dash-*.tar.gz main1.tar.gz && ls -la
-            pip install -I --progress-bar off --no-cache-dir main1.tar.gz[dev,testing]
-            find . -name "dash_*.gz" | xargs pip install -I --progress-bar off --no-cache-dir
+            pip uninstall -y dash dash-renderer dash-core-components dash-html-components
+            pip install --progress-bar off main1.tar.gz[dev,testing]
+            find . -name "dash_*.gz" | xargs pip install --progress-bar off
             pip list | grep dash && cd ..
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
