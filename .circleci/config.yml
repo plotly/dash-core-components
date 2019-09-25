@@ -127,9 +127,10 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate && cd packages
-            mv dash-*.tar.gz main1.tar.gz && ls -la
+            rm -rf dash_core_components
+            mv dash-*.tar.gz main.tar.gz && ls -la
             find . -name "dash_*.gz" | xargs pip install -I --progress-bar off --no-cache-dir
-            pip install --no-cache-dir --progress-bar off main1.tar.gz[dev,testing]
+            pip install --no-cache-dir --progress-bar off main.tar.gz[dev,testing]
             pip list | grep dash | xargs pip show && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
@@ -174,9 +175,11 @@ jobs:
       - run:
           name: 🧪 Run Legacy Integration Tests
           command: |
-            . venv/bin/activate && cd packages && mv dash-*.tar.gz main1.tar.gz && ls -la
+            . venv/bin/activate && cd packages
+            rm -rf dash_core_components
+            mv dash-*.tar.gz main.tar.gz && ls -la
             find . -name "dash_*.gz" | xargs pip install -I --progress-bar off --no-cache-dir
-            pip install --no-cache-dir --progress-bar off main1.tar.gz[dev,testing]
+            pip install --no-cache-dir --progress-bar off main.tar.gz[dev,testing]
             pip list | grep dash | xargs pip show && cd ..
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
