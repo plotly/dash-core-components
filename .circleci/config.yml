@@ -88,8 +88,7 @@ jobs:
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm i --ignore-scripts && npm run build
-            python setup.py sdist && mv dist/* ../packages && cd ..
-            ls -la packages
+            python setup.py sdist && mv dist/* ../packages && cd .. && ls -la packages
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -128,8 +127,8 @@ jobs:
           name: 🧪 Run Integration Tests
           command: |
             . venv/bin/activate && cd packages
-            mv dash-*.tar.gz main.tar.gz && ls -la
-            pip install -I --progress-bar off --no-cache-dir main.tar.gz[dev,testing]
+            mv dash-*.tar.gz main1.tar.gz && ls -la
+            pip install -I --progress-bar off --no-cache-dir main1.tar.gz[dev,testing]
             find . -name "dash_*.gz" | xargs pip install -I --progress-bar off --no-cache-dir
             pip list | grep dash && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
@@ -175,8 +174,8 @@ jobs:
       - run:
           name: 🧪 Run Legacy Integration Tests
           command: |
-            . venv/bin/activate && cd packages && mv dash-*.tar.gz main.tar.gz && ls -la
-            pip install -I --progress-bar off --no-cache-dir main.tar.gz[dev,testing]
+            . venv/bin/activate && cd packages && mv dash-*.tar.gz main1.tar.gz && ls -la
+            pip install -I --progress-bar off --no-cache-dir main1.tar.gz[dev,testing]
             find . -name "dash_*.gz" | xargs pip install -I --progress-bar off --no-cache-dir
             pip list | grep dash && cd ..
             npm run test:pyimport
