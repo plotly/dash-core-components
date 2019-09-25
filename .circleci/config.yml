@@ -180,7 +180,7 @@ jobs:
             pip list | grep dash | xargs pip show && cd ..
             npm run test:pyimport
             TESTFILES=$(circleci tests glob "tests/test_integration_*.py" | circleci tests split --split-by=timings)
-            pytest --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
+            pytest --log-cli-level DEBUG --durations=10 --junitxml=test-reports/junit_legacy.xml ${TESTFILES}
       - store_artifacts:
           path: test-reports
       - store_test_results:
