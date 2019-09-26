@@ -53,9 +53,6 @@ describe('Props can be set properly', () => {
         expect(multiDD.props()).toEqual(multiProps);
     });
 
-    test('search_value is being updated', () => {
-    })
-
     test('props.id is set as the outer element id', () => {
         // test if id is in the actual HTML string
         const ddTag = singleDD.render();
