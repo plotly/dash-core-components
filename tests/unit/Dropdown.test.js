@@ -25,6 +25,7 @@ describe('Props can be set properly', () => {
         multi: false,
         placeholder: 'pick something',
         searchable: true,
+        search_value: "hello",
         style: {backgroundColor: 'hotpink'},
         loading_state: {
             is_loading: false,
@@ -51,6 +52,9 @@ describe('Props can be set properly', () => {
         expect(multiDD.props()).toBeDefined();
         expect(multiDD.props()).toEqual(multiProps);
     });
+
+    test('search_value is being updated', () => {
+    })
 
     test('props.id is set as the outer element id', () => {
         // test if id is in the actual HTML string
