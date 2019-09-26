@@ -6,7 +6,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 
-def test_search_value(dash_duo):
+def test_ddsv001_search_value(dash_duo):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [dcc.Dropdown(id="dropdown", search_value="something"), html.Div(id="output")]
