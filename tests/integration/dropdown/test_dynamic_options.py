@@ -6,23 +6,23 @@ import dash_core_components as dcc
 
 
 def test_ddsv001_dynamic_options(dash_duo):
-    options=[
-        {'label': 'New York City', 'value': 'NYC'},
-        {'label': 'Montreal', 'value': 'MTL'},
-        {'label': 'San Francisco', 'value': 'SF'}
+    options = [
+        {"label": "New York City", "value": "NYC"},
+        {"label": "Montreal", "value": "MTL"},
+        {"label": "San Francisco", "value": "SF"},
     ]
 
     app = dash.Dash(__name__)
     app.layout = dcc.Dropdown(id="my-dynamic-dropdown", options=[])
 
     @app.callback(
-        dash.dependencies.Output('my-dynamic-dropdown', 'options'),
-        [dash.dependencies.Input('my-dynamic-dropdown', 'search_value')],
+        dash.dependencies.Output("my-dynamic-dropdown", "options"),
+        [dash.dependencies.Input("my-dynamic-dropdown", "search_value")],
     )
     def update_options(search_value):
         if not search_value:
             raise PreventUpdate
-        return [o for o in options if search_value in o['label']]
+        return [o for o in options if search_value in o["label"]]
 
     dash_duo.start_server(app)
 
@@ -33,7 +33,7 @@ def test_ddsv001_dynamic_options(dash_duo):
     # Focus on the input to open the options menu
     input_.send_keys("x")
 
-    #No options to be found with `x` in them, should show the empty message.
+    # No options to be found with `x` in them, should show the empty message.
     dash_duo.wait_for_text_to_equal(".Select-noresults", "No results found")
 
     input_.clear()
