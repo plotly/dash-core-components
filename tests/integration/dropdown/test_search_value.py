@@ -24,13 +24,13 @@ def test_ddsv001_search_value(dash_duo):
     dash_duo.start_server(app)
 
     # Get the inner input used for search value.
-    input_ = dash_duo.find_element("#dropdown").find_element_by_tag_name("input")
+    input_ = dash_duo.find_element("#dropdown input")
 
     # callback gets called with initial input
     wait.until(lambda: call_count.value == 1, timeout=1)
 
-    assert dash_duo.wait_for_text_to_equal("#output", 'search_value="something"')
+    dash_duo.wait_for_text_to_equal("#output", 'search_value="something"')
 
     input_.send_keys("x")
     wait.until(lambda: call_count.value == 2, timeout=1)
-    assert dash_duo.wait_for_text_to_equal("#output", 'search_value="x"')
+    dash_duo.wait_for_text_to_equal("#output", 'search_value="x"')
