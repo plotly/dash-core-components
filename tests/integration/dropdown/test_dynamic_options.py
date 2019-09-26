@@ -5,7 +5,7 @@ import dash.testing.wait as wait
 import dash_core_components as dcc
 
 
-def test_ddsv001_dynamic_options(dash_duo):
+def test_dddo001_dynamic_options(dash_duo):
     options = [
         {"label": "New York City", "value": "NYC"},
         {"label": "Montreal", "value": "MTL"},
