@@ -68,7 +68,7 @@ _js_dist = [
             '/dash_core_components/async~graph.js'
         ).format(__version__),
         'namespace': 'dash_core_components',
-        'dynamic': True
+        'async': True
     },
     {
         'relative_package_path': 'async~graph.js.map',
@@ -80,13 +80,22 @@ _js_dist = [
         'dynamic': True
     },
     {
+        'relative_package_path': 'plotly-1.49.4.min.js',
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/plotly-1.49.4.min.js'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        'async': 'eager'
+    },
+    {
         'relative_package_path': 'async~plotlyjs.js',
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
             '/dash_core_components/async~graph~plotlyjs.js'
         ).format(__version__),
         'namespace': 'dash_core_components',
-        'dynamic': True
+        'async': 'lazy'
     },
     {
         'relative_package_path': 'async~plotlyjs.js.map',
