@@ -132,6 +132,7 @@ jobs:
             cd packages && mv dash-*.tar.gz main.tar.gz && ls -la
             find . -name "dash_*.gz" | xargs pip install -I --progress-bar off --no-cache-dir
             pip install --no-cache-dir --progress-bar off main.tar.gz[dev,testing]
+            npm i --ignore-scripts && npm run build && python setup.py sdist && pip install -e .
             pip list | grep dash | xargs pip show && cd ..
             TESTFILES=$(circleci tests glob "tests/integration/**/test_*.py" | circleci tests split --split-by=timings)
             pytest --headless --nopercyfinalize --junitxml=test-reports/junit_intg.xml ${TESTFILES}
