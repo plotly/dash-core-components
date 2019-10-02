@@ -37,7 +37,12 @@ module.exports = (env, argv) => {
     const devtool = overrides.devtool || 'source-map';
 
     const externals = ('externals' in overrides) ? overrides.externals : ({
-        react: 'React',
+        react: {
+            'commonjs': 'react',
+            'commonjs2': 'react',
+            'amd': 'react',
+            'root': 'React'
+        },
         'react-dom': 'ReactDOM',
         'prop-types': 'PropTypes'
     });
