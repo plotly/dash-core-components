@@ -1,43 +1,18 @@
-import React, {Component, lazy, PureComponent, Suspense} from 'react';
+import React, { Component, PureComponent, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-const isLazyComponentReady = (target, promise) => {
-    let resolve;
-    const isReady = new Promise(r => {
-        resolve = r;
-    });
-
-    const state = {
-        isReady,
-        get: lazy(() => {
-            return Promise.resolve(promise()).then(res => {
-                setTimeout(async () => {
-                    await resolve(true);
-                    state.isReady = true;
-                }, 0);
-
-                return res;
-            });
-        }),
-    };
-
-    Object.defineProperty(target, '_dashprivate_isLazyComponentReady', {
-        get: () => state.isReady,
-    });
-
-    return state.get;
-};
+import isComponentReady from 'dash-renderer/async';
 
 const loader = {
     plotly: () =>
         Promise.resolve(
             window.Plotly ||
-                import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist').then(
-                    ({default: Plotly}) => {
-                        window.Plotly = Plotly;
-                        return Plotly;
-                    }
-                )
+            import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist').then(
+                ({ default: Plotly }) => {
+                    window.Plotly = Plotly;
+                    return Plotly;
+                }
+            )
         ),
     graph: () =>
         import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react'),
@@ -100,12 +75,12 @@ class PlotlyGraph extends Component {
     }
 
     clearExtendData() {
-        this.setState(({extendData}) => {
+        this.setState(({ extendData }) => {
             const res =
                 extendData && extendData.length
                     ? {
-                          extendData: EMPTY_EXTEND_DATA,
-                      }
+                        extendData: EMPTY_EXTEND_DATA,
+                    }
                     : undefined;
 
             return res;
@@ -125,7 +100,7 @@ class PlotlyGraph extends Component {
     }
 }
 
-const LazyPlotlyGraph = isLazyComponentReady(PlotlyGraph, () =>
+const RealPlotlyGraph = isComponentReady(PlotlyGraph, () =>
     loader.plotly().then(() => loader.graph())
 );
 
@@ -133,7 +108,7 @@ class ControlledPlotlyGraph extends PureComponent {
     render() {
         return (
             <Suspense fallback={null}>
-                <LazyPlotlyGraph {...this.props} />
+                <RealPlotlyGraph {...this.props} />
             </Suspense>
         );
     }

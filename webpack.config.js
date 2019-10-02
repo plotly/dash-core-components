@@ -79,6 +79,11 @@ module.exports = (env, argv) => {
                 },
             ],
         },
+        resolve: {
+            alias: {
+                'dash-renderer/async': 'dash-renderer/dash_renderer/dash_renderer.async.min.js'
+            }
+        },
         optimization: {
             splitChunks: {
                 name: true,
