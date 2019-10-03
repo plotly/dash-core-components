@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Added
 - Added `search_value` prop to `Dropdown`, for server-side options loading/filtering. [#660](https://github.com/plotly/dash-core-components/pull/660)
-- [TDB](https://github.com/plotly/dash-core-components/issues/) Async Graph and Plotly.js
+- [#616](https://github.com/plotly/dash-core-components/pull/616) Async Graph and Plotly.js
 
 ## [1.2.1] - 2019-09-19
 ### Fixed
