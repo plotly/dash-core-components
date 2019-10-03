@@ -71,7 +71,7 @@ const filterEventData = (gd, eventData, event) => {
  * You can define callbacks based on user interaction with Graphs such as
  * hovering, clicking or selecting
  */
-class LazyPlotlyGraph extends Component {
+class PlotlyGraph extends Component {
     constructor(props) {
         super(props);
         this.gd = React.createRef();
@@ -288,7 +288,7 @@ class LazyPlotlyGraph extends Component {
     }
 }
 
-LazyPlotlyGraph.propTypes = {
+PlotlyGraph.propTypes = {
     ...graphPropTypes,
     extendData: PropTypes.arrayOf(
         PropTypes.oneOfType([PropTypes.array, PropTypes.object])
@@ -296,9 +296,9 @@ LazyPlotlyGraph.propTypes = {
     clearExtendData: PropTypes.func.isRequired,
 };
 
-LazyPlotlyGraph.defaultProps = {
+PlotlyGraph.defaultProps = {
     ...graphDefaultProps,
     extendData: [],
 };
 
-export default LazyPlotlyGraph;
+export default PlotlyGraph;

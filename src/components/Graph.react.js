@@ -1,21 +1,21 @@
-import React, {Component, PureComponent, Suspense} from 'react';
+import React, { Component, PureComponent, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-import {decorate as asyncDecorator} from '@plotly/dash-component-plugins';
+import { decorate as asyncDecorator } from '@plotly/dash-component-plugins';
 
 const loader = {
     plotly: () =>
         Promise.resolve(
             window.Plotly ||
-                import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist').then(
-                    ({default: Plotly}) => {
-                        window.Plotly = Plotly;
-                        return Plotly;
-                    }
-                )
+            import(/* webpackChunkName: "plotlyjs" */ 'plotly.js-dist').then(
+                ({ default: Plotly }) => {
+                    window.Plotly = Plotly;
+                    return Plotly;
+                }
+            )
         ),
     graph: () =>
-        import(/* webpackChunkName: "graph" */ '../fragments/Graph.lazy.react'),
+        import(/* webpackChunkName: "graph" */ '../fragments/Graph.react
 };
 
 const EMPTY_EXTEND_DATA = [];
@@ -75,12 +75,12 @@ class PlotlyGraph extends Component {
     }
 
     clearExtendData() {
-        this.setState(({extendData}) => {
+        this.setState(({ extendData }) => {
             const res =
                 extendData && extendData.length
                     ? {
-                          extendData: EMPTY_EXTEND_DATA,
-                      }
+                        extendData: EMPTY_EXTEND_DATA,
+                    }
                     : undefined;
 
             return res;
