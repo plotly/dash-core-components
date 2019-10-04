@@ -1,7 +1,7 @@
 import React, {Component, PureComponent, Suspense} from 'react';
 import PropTypes from 'prop-types';
 
-import {decorate as asyncDecorator} from '@plotly/dash-component-plugins';
+import {asyncDecorator} from '@plotly/dash-component-plugins';
 
 const loader = {
     plotly: () =>
