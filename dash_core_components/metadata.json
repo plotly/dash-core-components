@@ -1393,6 +1393,13 @@
           "computed": false
         }
       },
+      "search_value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The value typed in the DropDown for searching."
+      },
       "setProps": {
         "type": {
           "name": "func"

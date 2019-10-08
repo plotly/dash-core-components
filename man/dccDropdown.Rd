@@ -12,8 +12,8 @@ Dropdown is an interactive dropdown element for selecting one or more items. The
 \usage{
 dccDropdown(id=NULL, options=NULL, value=NULL, optionHeight=NULL, className=NULL,
 clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL,
-style=NULL, loading_state=NULL, persistence=NULL, persisted_props=NULL,
-persistence_type=NULL)
+search_value=NULL, style=NULL, loading_state=NULL, persistence=NULL,
+persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{
@@ -52,6 +52,8 @@ the selected value.}
 \item{placeholder}{Character. The grey, default text shown when no option is selected}
 
 \item{searchable}{Logical. Whether to enable the searching feature or not}
+
+\item{search_value}{Character. The value typed in the DropDown for searching.}
 
 \item{style}{Named list. Defines CSS styles which will override styles previously set.}
 
