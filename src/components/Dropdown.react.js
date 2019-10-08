@@ -100,6 +100,7 @@ export default class Dropdown extends Component {
                             setProps({value});
                         }
                     }}
+                    onInputChange={search_value => setProps({search_value})}
                     {...omit(['setProps', 'value'], this.props)}
                 />
             </div>
@@ -196,6 +197,11 @@ Dropdown.propTypes = {
     searchable: PropTypes.bool,
 
     /**
+     * The value typed in the DropDown for searching.
+     */
+    search_value: PropTypes.string,
+
+    /**
      * Dash-assigned callback that gets fired when the input changes
      */
     setProps: PropTypes.func,
@@ -231,9 +237,11 @@ Dropdown.propTypes = {
      * the new `value` also matches what was given originally.
      * Used in conjunction with `persistence_type`.
      */
-    persistence: PropTypes.oneOfType(
-        [PropTypes.bool, PropTypes.string, PropTypes.number]
-    ),
+    persistence: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.string,
+        PropTypes.number,
+    ]),
 
     /**
      * Properties whose user interactions will persist after refreshing the
