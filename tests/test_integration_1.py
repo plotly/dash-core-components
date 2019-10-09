@@ -638,14 +638,8 @@ class Test1(IntegrationTests):
 
         self.snapshot('Tabs component with children undefined')
 
-    def test_tabs_render_without_selected_eager(self):
-        self.base_test_tabs_render_without_selected(True)
-
-    def test_tabs_render_without_selected_lazy(self):
-        self.base_test_tabs_render_without_selected(False)
-
-    def base_test_tabs_render_without_selected(self, is_eager):
-        app = dash.Dash(__name__, eager_loading=is_eager)
+    def test_tabs_render_without_selected(self):
+        app = dash.Dash(__name__)
 
         data = [
             {'id': 'one', 'value': 1},
@@ -791,14 +785,8 @@ class Test1(IntegrationTests):
 
         self.snapshot('Tab 1 should be selected by default')
 
-    def test_graph_does_not_resize_in_tabs_eager(self):
-        self.base_test_graph_does_not_resize_in_tabs(True)
-
-    def test_graph_does_not_resize_in_tabs_lazy(self):
-        self.base_test_graph_does_not_resize_in_tabs(False)
-
-    def base_test_graph_does_not_resize_in_tabs(self, is_eager):
-        app = dash.Dash(__name__, eager_laoding=is_eager)
+    def test_graph_does_not_resize_in_tabs(self):
+        app = dash.Dash(__name__)
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
             dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
@@ -853,7 +841,7 @@ class Test1(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-1-tabs .main-svg"))
         )
 
-        self.snapshot("Tabs with Graph - initial (graph should not resize) (eager={})".format(is_eager))
+        self.snapshot("Tabs with Graph - initial (graph should not resize)")
         tab_two.click()
 
         # wait for Graph to be ready

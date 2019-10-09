@@ -11,16 +11,8 @@ from dash.dependencies import Input, Output
 import dash.testing.wait as wait
 
 
-def test_grbs001_graph_without_ids_eager(dash_dcc):
-    base_test_grbs001_graph_without_ids(dash_dcc, True)
-
-
-def test_grbs001_graph_without_ids_lazy(dash_dcc):
-    base_test_grbs001_graph_without_ids(dash_dcc, False)
-
-
-def base_test_grbs001_graph_without_ids(dash_dcc, is_eager):
-    app = dash.Dash(__name__, eager_loading=is_eager)
+def test_grbs001_graph_without_ids(dash_dcc):
+    app = dash.Dash(__name__)
     app.layout = html.Div(
         [
             dcc.Graph(className="graph-no-id-1"),
