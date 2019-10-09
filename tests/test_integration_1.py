@@ -853,7 +853,7 @@ class Test1(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-1-tabs .main-svg"))
         )
 
-        self.snapshot("Tabs with Graph - initial (graph should not resize)")
+        self.snapshot("Tabs with Graph - initial (graph should not resize) (eager={})".format(is_eager))
         tab_two.click()
 
         # wait for Graph to be ready
