@@ -638,8 +638,14 @@ class Test1(IntegrationTests):
 
         self.snapshot('Tabs component with children undefined')
 
-    def test_tabs_render_without_selected(self):
-        app = dash.Dash(__name__)
+    def test_tabs_render_without_selected_eager(self):
+        self.base_test_tabs_render_without_selected(True)
+
+    def test_tabs_render_without_selected_lazy(self):
+        self.base_test_tabs_render_without_selected(False)
+
+    def base_test_tabs_render_without_selected(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
 
         data = [
             {'id': 'one', 'value': 1},
@@ -785,8 +791,14 @@ class Test1(IntegrationTests):
 
         self.snapshot('Tab 1 should be selected by default')
 
-    def test_graph_does_not_resize_in_tabs(self):
-        app = dash.Dash(__name__)
+    def test_graph_does_not_resize_in_tabs_eager(self):
+        base_test_graph_does_not_resize_in_tabs(True)
+
+    def test_graph_does_not_resize_in_tabs_lazy(self):
+        base_test_graph_does_not_resize_in_tabs(False)
+
+    def base_test_graph_does_not_resize_in_tabs(self, is_eager):
+        app = dash.Dash(__name__, eager_laoding=is_eager)
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
             dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
