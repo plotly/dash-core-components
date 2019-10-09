@@ -7,6 +7,7 @@ from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 
+
 def test_grgp001_clean_purge_eager(dash_dcc):
     base_test_grgp001_clean_purge(dash_dcc, True)
 

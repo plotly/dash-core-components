@@ -10,6 +10,7 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import dash.testing.wait as wait
 
+
 def test_grbs001_graph_without_ids_eager(dash_dcc):
     base_test_grbs001_graph_without_ids(dash_dcc, True)
 
