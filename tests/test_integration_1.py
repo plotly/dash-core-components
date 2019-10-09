@@ -792,10 +792,10 @@ class Test1(IntegrationTests):
         self.snapshot('Tab 1 should be selected by default')
 
     def test_graph_does_not_resize_in_tabs_eager(self):
-        base_test_graph_does_not_resize_in_tabs(True)
+        self.base_test_graph_does_not_resize_in_tabs(True)
 
     def test_graph_does_not_resize_in_tabs_lazy(self):
-        base_test_graph_does_not_resize_in_tabs(False)
+        self.base_test_graph_does_not_resize_in_tabs(False)
 
     def base_test_graph_does_not_resize_in_tabs(self, is_eager):
         app = dash.Dash(__name__, eager_laoding=is_eager)

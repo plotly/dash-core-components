@@ -10,8 +10,10 @@ import dash_html_components as html
 def test_grgp001_clean_purge_eager(dash_dcc):
     base_test_grgp001_clean_purge(dash_dcc, True)
 
+
 def test_grgp001_clean_purge_lazy(dash_dcc):
     base_test_grgp001_clean_purge(dash_dcc, False)
+
 
 def base_test_grgp001_clean_purge(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)

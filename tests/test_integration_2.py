@@ -99,10 +99,10 @@ class Test2(IntegrationTests):
         self.assertEqual(call_count.value, 3)
 
     def test_candlestick_eager(self):
-        base_test_candlestick(True)
+        self.base_test_candlestick(True)
 
     def test_candlestick_lazy(self):
-        base_test_candlestick(False)
+        self.base_test_candlestick(False)
 
     def base_test_candlestick(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
@@ -149,10 +149,10 @@ class Test2(IntegrationTests):
         self.snapshot("candlestick - 2 click")
 
     def test_graphs_with_different_figures_eager(self):
-        base_test_graphs_with_different_figures(True)
+        self.base_test_graphs_with_different_figures(True)
 
     def test_graphs_with_different_figures_lazy(self):
-        base_test_graphs_with_different_figures(False)
+        self.base_test_graphs_with_different_figures(False)
 
     def base_test_graphs_with_different_figures(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
@@ -471,10 +471,10 @@ class Test2(IntegrationTests):
         self.driver.switch_to.alert.accept()
 
     def test_empty_graph_eager(self):
-        base_test_empty_graph(True)
+        self.base_test_empty_graph(True)
 
     def test_empty_graph_lazy(self):
-        base_test_empty_graph(False)
+        self.base_test_empty_graph(False)
 
     def base_test_empty_graph(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
@@ -510,10 +510,10 @@ class Test2(IntegrationTests):
         self.snapshot("render-empty-graph")
 
     def test_graph_extend_trace_eager(self):
-        base_test_graph_extend_trace(True)
+        self.base_test_graph_extend_trace(True)
 
     def test_graph_extend_trace_lazy(self):
-        base_test_graph_extend_trace(False)
+        self.base_test_graph_extend_trace(False)
 
     def base_test_graph_extend_trace(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
@@ -836,10 +836,10 @@ class Test2(IntegrationTests):
         )
 
     def test_unmounted_graph_resize_eager(self):
-        base_test_unmounted_graph_resize(True)
+        self.base_test_unmounted_graph_resize(True)
 
     def test_unmounted_graph_resize_lazy(self):
-        base_test_unmounted_graph_resize(False)
+        self.base_test_unmounted_graph_resize(False)
 
     def base_test_unmounted_graph_resize(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
