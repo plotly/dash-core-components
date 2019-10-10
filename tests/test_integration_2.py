@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import pytest
 import time
 import json
 import flask
@@ -98,7 +99,6 @@ class Test2(IntegrationTests):
         # test if callback is only fired once (offset of 2)
         self.assertEqual(call_count.value, 3)
 
-
     @pytest.mark.parametrize("is_eager", [True, False])
     def test_candlestick(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
@@ -143,7 +143,6 @@ class Test2(IntegrationTests):
         button.click()
         time.sleep(1)
         self.snapshot("candlestick - 2 click ({})".format("eager" if is_eager else "lazy"))
-
 
     @pytest.mark.parametrize("is_eager", [True, False])
     def test_graphs_with_different_figures(self, is_eager):
@@ -462,7 +461,6 @@ class Test2(IntegrationTests):
 
         self.driver.switch_to.alert.accept()
 
-
     @pytest.mark.parametrize("is_eager", [True, False])
     def test_empty_graph(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
@@ -496,7 +494,6 @@ class Test2(IntegrationTests):
         button.click()
         time.sleep(2)  # Wait for graph to re-render
         self.snapshot("render-empty-graph ({})".format("eager" if is_eager else "lazy"))
-
 
     @pytest.mark.parametrize("is_eager", [True, False])
     def test_graph_extend_trace(self, is_eager):
@@ -818,7 +815,6 @@ class Test2(IntegrationTests):
                 (By.CSS_SELECTOR, ".tab--disabled")
             )
         )
-
 
     @pytest.mark.parametrize("is_eager", [True, False])
     def test_unmounted_graph_resize(self, is_eager):

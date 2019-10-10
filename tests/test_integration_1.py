@@ -2,6 +2,7 @@
 import os
 import sys
 from multiprocessing import Lock
+import pytest
 import time
 import json
 import re
@@ -638,7 +639,6 @@ class Test1(IntegrationTests):
 
         self.snapshot('Tabs component with children undefined')
 
-
     @pytest.mark.parametrize("is_eager", [True, False])
     def test_tabs_render_without_selected(self, is_eager):
         app = dash.Dash(__name__, eager_loading=is_eager)
@@ -786,7 +786,6 @@ class Test1(IntegrationTests):
         self.wait_for_text_to_equal('#tabs-content', 'Default selected Tab content 1')
 
         self.snapshot('Tab 1 should be selected by default')
-
 
     @pytest.mark.parametrize("is_eager", [True, False])
     def test_graph_does_not_resize_in_tabs(self, is_eager):
