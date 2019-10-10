@@ -10,8 +10,14 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import dash.testing.wait as wait
 
-
-def test_grbs001_graph_without_ids(dash_dcc):
+@pytest.mark.parametrize(
+    "is_eager",
+    [
+        (True),
+        (False)
+    ]
+)
+def test_grbs001_graph_without_ids(dash_dcc, is_eager):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
