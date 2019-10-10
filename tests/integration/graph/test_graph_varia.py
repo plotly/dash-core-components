@@ -15,6 +15,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 @pytest.mark.parametrize("is_eager", [True, False])
 def test_candlestick(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
@@ -156,6 +157,7 @@ def test_graphs_with_different_figures(dash_dcc, is_eager):
         "#relayout-data", '{"xaxis.autorange": true}'
     )
 
+
 @pytest.mark.parametrize("is_eager", [True, False])
 def test_empty_graph(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
@@ -189,6 +191,7 @@ def test_empty_graph(dash_dcc, is_eager):
     button.click()
     time.sleep(2)  # Wait for graph to re-render
     dash_dcc.percy_snapshot("render-empty-graph ({})".format("eager" if is_eager else "lazy"))
+
 
 @pytest.mark.parametrize("is_eager", [True, False])
 def test_graph_extend_trace(dash_dcc, is_eager):

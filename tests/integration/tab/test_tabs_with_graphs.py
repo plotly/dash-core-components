@@ -29,7 +29,7 @@ def test_graph_does_not_resize_in_tabs(dash_dcc, is_eager):
     ])
 
     @app.callback(Output('tabs-content-example', 'children'),
-                    [Input('tabs-example', 'value')])
+        [Input('tabs-example', 'value')])
     def render_content(tab):
         if tab == 'tab-1-example':
             return html.Div([
@@ -132,7 +132,7 @@ def test_tabs_render_without_selected(dash_dcc, is_eager):
     for i in ('one', 'two'):
 
         @app.callback(Output('tabs-{}'.format(i), 'style'),
-                        [Input(i, 'n_clicks')])
+            [Input(i, 'n_clicks')])
         def on_click(n_clicks):
             if n_clicks is None:
                 raise PreventUpdate
@@ -142,7 +142,7 @@ def test_tabs_render_without_selected(dash_dcc, is_eager):
             return {'display': 'none'}
 
         @app.callback(Output('graph-{}'.format(i), 'figure'),
-                        [Input(i, 'n_clicks')])
+            [Input(i, 'n_clicks')])
         def on_click(n_clicks):
             if n_clicks is None:
                 raise PreventUpdate
