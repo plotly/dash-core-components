@@ -126,7 +126,8 @@ def test_graph_does_not_resize_in_tabs(dash_dcc, is_eager):
     )
 
     dash_dcc.percy_snapshot(
-        "Tabs with Graph - clicked tab 1 (graph should not resize)"
+        "Tabs with Graph - clicked tab 1 (graph should not resize) ({})".format(
+            "eager" if is_eager else "lazy""
     )
 
 
