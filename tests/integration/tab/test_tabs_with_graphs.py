@@ -1,16 +1,19 @@
 import dash
 from dash.dependencies import Input, Output
+from dash.exceptions import PreventUpdate
 import dash.testing.wait as wait
 import dash_core_components as dcc
 import dash_html_components as html
+import json
 from multiprocessing import Value
 import numpy as np
+import os
 import pandas as pd
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from time import sleep
+import time
 
 
 @pytest.mark.parametrize("is_eager", [True, False])
@@ -92,3 +95,127 @@ def test_graph_does_not_resize_in_tabs(dash_dcc, is_eager):
     )
 
     dash_dcc.percy_snapshot("Tabs with Graph - clicked tab 1 (graph should not resize)")
+
+
+@pytest.mark.parametrize("is_eager", [True, False])
+def test_tabs_render_without_selected(dash_dcc, is_eager):
+    app = dash.Dash(__name__, eager_loading=is_eager)
+
+    data = [
+        {'id': 'one', 'value': 1},
+        {'id': 'two', 'value': 2},
+    ]
+
+    menu = html.Div([
+        html.Div('one', id='one'),
+        html.Div('two', id='two')
+    ])
+
+    tabs_one = html.Div([
+        dcc.Tabs([
+            dcc.Tab(dcc.Graph(id='graph-one'), label='tab-one-one'),
+        ])
+    ], id='tabs-one', style={'display': 'none'})
+
+    tabs_two = html.Div([
+        dcc.Tabs([
+            dcc.Tab(dcc.Graph(id='graph-two'), label='tab-two-one'),
+        ])
+    ], id='tabs-two', style={'display': 'none'})
+
+    app.layout = html.Div([
+        menu,
+        tabs_one,
+        tabs_two
+    ])
+
+    for i in ('one', 'two'):
+
+        @app.callback(Output('tabs-{}'.format(i), 'style'),
+                        [Input(i, 'n_clicks')])
+        def on_click(n_clicks):
+            if n_clicks is None:
+                raise PreventUpdate
+
+            if n_clicks % 2 == 1:
+                return {'display': 'block'}
+            return {'display': 'none'}
+
+        @app.callback(Output('graph-{}'.format(i), 'figure'),
+                        [Input(i, 'n_clicks')])
+        def on_click(n_clicks):
+            if n_clicks is None:
+                raise PreventUpdate
+
+            return {
+                'data': [
+                    {
+                        'x': [1, 2, 3, 4],
+                        'y': [4, 3, 2, 1]
+                    }
+                ],
+                'layout': {
+                    'width': 700,
+                    'height': 450
+                }
+            }
+
+    dash_dcc.start_server(app)
+
+    button_one = dash_dcc.wait_for_element('#one')
+    button_two = dash_dcc.wait_for_element('#two')
+
+    button_one.click()
+
+    # wait for tabs to be loaded after clicking
+    WebDriverWait(dash_dcc.driver, 10).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-one .main-svg"))
+    )
+
+    time.sleep(1)
+    dash_dcc.percy_snapshot("Tabs 1 rendered ")
+
+    button_two.click()
+
+    # wait for tabs to be loaded after clicking
+    WebDriverWait(dash_dcc.driver, 10).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-two .main-svg"))
+    )
+
+    time.sleep(1)
+    dash_dcc.percy_snapshot("Tabs 2 rendered ({})".format("eager" if is_eager else "lazy"))
+
+    # do some extra tests while we're here
+    # and have access to Graph and plotly.js
+    check_graph_config_shape(dash_dcc)
+
+
+def check_graph_config_shape(dash_dcc):
+    config_schema = dash_dcc.driver.execute_script(
+        'return Plotly.PlotSchema.get().config;'
+    )
+    with open(os.path.join(dcc.__path__[0], 'metadata.json')) as meta:
+        graph_meta = json.load(meta)['src/components/Graph.react.js']
+        config_prop_shape = graph_meta['props']['config']['type']['value']
+
+    ignored_config = [
+        'setBackground',
+        'showSources',
+        'logging',
+        'globalTransforms',
+        'role'
+    ]
+
+    def crawl(schema, props):
+        for prop_name in props:
+            assert(prop_name in schema)
+
+        for item_name, item in schema.items():
+            if item_name in ignored_config:
+                continue
+
+            assert(item_name in props)
+            if 'valType' not in item:
+                crawl(item, props[item_name]['value'])
+
+    crawl(config_schema, config_prop_shape)
