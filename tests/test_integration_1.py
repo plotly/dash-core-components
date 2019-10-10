@@ -638,8 +638,10 @@ class Test1(IntegrationTests):
 
         self.snapshot('Tabs component with children undefined')
 
-    def test_tabs_render_without_selected(self):
-        app = dash.Dash(__name__)
+
+    @pytest.mark.parametrize("is_eager", [True, False])
+    def test_tabs_render_without_selected(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
 
         data = [
             {'id': 'one', 'value': 1},
@@ -723,7 +725,7 @@ class Test1(IntegrationTests):
         )
 
         time.sleep(1)
-        self.snapshot("Tabs 2 rendered ")
+        self.snapshot("Tabs 2 rendered ({})".format("eager" if is_eager else "lazy"))
 
         # do some extra tests while we're here
         # and have access to Graph and plotly.js
@@ -785,8 +787,10 @@ class Test1(IntegrationTests):
 
         self.snapshot('Tab 1 should be selected by default')
 
-    def test_graph_does_not_resize_in_tabs(self):
-        app = dash.Dash(__name__)
+
+    @pytest.mark.parametrize("is_eager", [True, False])
+    def test_graph_does_not_resize_in_tabs(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
             dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
@@ -841,7 +845,7 @@ class Test1(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph-1-tabs .main-svg"))
         )
 
-        self.snapshot("Tabs with Graph - initial (graph should not resize)")
+        self.snapshot("Tabs with Graph - initial (graph should not resize) ({})".format("eager" if is_eager else "lazy"))
         tab_two.click()
 
         # wait for Graph to be ready

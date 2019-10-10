@@ -98,8 +98,10 @@ class Test2(IntegrationTests):
         # test if callback is only fired once (offset of 2)
         self.assertEqual(call_count.value, 3)
 
-    def test_candlestick(self):
-        app = dash.Dash(__name__)
+
+    @pytest.mark.parametrize("is_eager", [True, False])
+    def test_candlestick(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
         app.layout = html.Div(
             [
                 html.Button(
@@ -133,17 +135,19 @@ class Test2(IntegrationTests):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#graph .main-svg"))
         )
 
-        self.snapshot("candlestick - initial")
+        self.snapshot("candlestick - initial ({})".format("eager" if is_eager else "lazy"))
         button.click()
         time.sleep(1)
-        self.snapshot("candlestick - 1 click")
+        self.snapshot("candlestick - 1 click ({})".format("eager" if is_eager else "lazy"))
 
         button.click()
         time.sleep(1)
-        self.snapshot("candlestick - 2 click")
+        self.snapshot("candlestick - 2 click ({})".format("eager" if is_eager else "lazy"))
 
-    def test_graphs_with_different_figures(self):
-        app = dash.Dash(__name__)
+
+    @pytest.mark.parametrize("is_eager", [True, False])
+    def test_graphs_with_different_figures(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
         app.layout = html.Div(
             [
                 dcc.Graph(
@@ -224,7 +228,7 @@ class Test2(IntegrationTests):
         )
 
         # move snapshot after click, so it's more stable with the wait
-        self.snapshot("2 graphs with different figures")
+        self.snapshot("2 graphs with different figures ({})".format("eager" if is_eager else "lazy"))
 
         # and test relayoutData while we're at it
         autoscale = self.driver.find_element_by_css_selector(
@@ -458,8 +462,10 @@ class Test2(IntegrationTests):
 
         self.driver.switch_to.alert.accept()
 
-    def test_empty_graph(self):
-        app = dash.Dash(__name__)
+
+    @pytest.mark.parametrize("is_eager", [True, False])
+    def test_empty_graph(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
 
         app.layout = html.Div(
             [
@@ -489,10 +495,12 @@ class Test2(IntegrationTests):
         button = self.wait_for_element_by_css_selector("#click")
         button.click()
         time.sleep(2)  # Wait for graph to re-render
-        self.snapshot("render-empty-graph")
+        self.snapshot("render-empty-graph ({})".format("eager" if is_eager else "lazy"))
 
-    def test_graph_extend_trace(self):
-        app = dash.Dash(__name__)
+
+    @pytest.mark.parametrize("is_eager", [True, False])
+    def test_graph_extend_trace(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
 
         def generate_with_id(id, data=None):
             if data is None:
@@ -811,8 +819,10 @@ class Test2(IntegrationTests):
             )
         )
 
-    def test_unmounted_graph_resize(self):
-        app = dash.Dash(__name__)
+
+    @pytest.mark.parametrize("is_eager", [True, False])
+    def test_unmounted_graph_resize(self, is_eager):
+        app = dash.Dash(__name__, eager_loading=is_eager)
 
         app.layout = html.Div(
             children=[

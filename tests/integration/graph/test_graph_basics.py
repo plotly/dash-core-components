@@ -13,7 +13,7 @@ import dash.testing.wait as wait
 
 @pytest.mark.parametrize("is_eager", [True, False])
 def test_grbs001_graph_without_ids(dash_dcc, is_eager):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=is_eager)
     app.layout = html.Div(
         [
             dcc.Graph(className="graph-no-id-1"),
@@ -32,7 +32,8 @@ def test_grbs001_graph_without_ids(dash_dcc, is_eager):
 
 
 @pytest.mark.DCC608
-def test_grbs002_wrapped_graph_has_no_infinite_loop(dash_dcc):
+@pytest.mark.parametrize("is_eager", [True, False])
+def test_grbs002_wrapped_graph_has_no_infinite_loop(dash_dcc, is_eager):
 
     df = pd.DataFrame(np.random.randn(50, 50))
     figure = {
@@ -42,7 +43,7 @@ def test_grbs002_wrapped_graph_has_no_infinite_loop(dash_dcc):
         "layout": {"xaxis": {"scaleanchor": "y"}},
     }
 
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=is_eager)
     app.layout = html.Div(
         style={
             "backgroundColor": "red",
