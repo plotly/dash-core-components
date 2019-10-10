@@ -190,7 +190,7 @@ def test_tabs_render_without_selected(dash_dcc, is_eager):
     )
 
     time.sleep(1)
-    dash_dcc.percy_snapshot("Tabs 1 rendered ")
+    dash_dcc.percy_snapshot("Tabs 1 rendered ({})".format("eager" if is_eager else "lazy"))
 
     button_two.click()
 
