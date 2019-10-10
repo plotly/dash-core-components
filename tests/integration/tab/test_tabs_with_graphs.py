@@ -107,7 +107,9 @@ def test_graph_does_not_resize_in_tabs(dash_dcc, is_eager):
     )
 
     dash_dcc.percy_snapshot(
-        "Tabs with Graph - clicked tab 2 (graph should not resize)"
+        "Tabs with Graph - clicked tab 2 (graph should not resize) ({})".format(
+            "eager" if is_eager else "lazy"
+        )
     )
 
     WebDriverWait(dash_dcc.driver, 10).until(
@@ -190,7 +192,9 @@ def test_tabs_render_without_selected(dash_dcc, is_eager):
     )
 
     time.sleep(1)
-    dash_dcc.percy_snapshot("Tabs 1 rendered ({})".format("eager" if is_eager else "lazy"))
+    dash_dcc.percy_snapshot(
+        "Tabs 1 rendered ({})".format("eager" if is_eager else "lazy")
+    )
 
     button_two.click()
 
