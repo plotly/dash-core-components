@@ -498,8 +498,9 @@ def test_unmounted_graph_resize(dash_dcc, is_eager):
         window_size["width"], window_size["height"]
     )
 
+
 def test_external_plotlyjs_prevents_lazy(dash_dcc):
-    app = Dash(
+    app = dash.Dash(
         __name__,
         eager_loading=False,
         external_scripts=[
