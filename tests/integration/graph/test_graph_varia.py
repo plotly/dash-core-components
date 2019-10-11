@@ -17,6 +17,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+def findSyncPlotlyJs(scripts):
+    for script in scripts:
+        if "dash_core_components/plotly-" in script.get_attribute('src'):
+            return script
+
+
+def findAsyncPlotlyJs(scripts):
+    for script in scripts:
+        if "dash_core_components/async~plotlyjs" in script.get_attribute(
+            'src'
+        ):
+            return script
+
+
 @pytest.mark.parametrize("is_eager", [True, False])
 def test_candlestick(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
@@ -483,3 +497,45 @@ def test_unmounted_graph_resize(dash_dcc, is_eager):
     dash_dcc.driver.set_window_size(
         window_size["width"], window_size["height"]
     )
+
+def test_external_plotlyjs_prevents_lazy(dash_dcc):
+    app = Dash(
+        __name__,
+        eager_loading=False,
+        external_scripts=[
+            'https://unpkg.com/plotly.js/dist/plotly.min.js'
+        ]
+    )
+
+    app.layout = html.Div(id="div", children=[html.Button(id="btn")])
+
+    @app.callback(Output("div", "children"), [Input("btn", "n_clicks")])
+    def load_chart(n_clicks):
+        if n_clicks is None:
+            raise PreventUpdate
+
+        return dcc.Graph(id="output", figure={"data": [{"y": [3, 1, 2]}]})
+
+    dash_dcc.start_server(
+        app,
+        debug=True,
+        use_reloader=False,
+        use_debugger=True,
+        dev_tools_hot_reload=False,
+    )
+
+    # Give time for the async dependency to be requested (if any)
+    time.sleep(2)
+
+    scripts = dash_dcc.driver.find_elements(By.CSS_SELECTOR, "script")
+    assert findSyncPlotlyJs(scripts) is None
+    assert findAsyncPlotlyJs(scripts) is None
+
+    dash_dcc.find_element("#btn").click()
+
+    # Give time for the async dependency to be requested (if any)
+    time.sleep(2)
+
+    scripts = dash_dcc.driver.find_elements(By.CSS_SELECTOR, "script")
+    assert findSyncPlotlyJs(scripts) is None
+    assert findAsyncPlotlyJs(scripts) is None
