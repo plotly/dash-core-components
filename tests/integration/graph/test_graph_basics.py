@@ -131,3 +131,5 @@ def test_grbs002_graph_wrapped_in_loading_component_does_not_fail(dash_dcc):
     dash_dcc.start_server(app)
 
     dash_dcc.wait_for_element('#my-graph .main-svg')
+
+    assert not dash_dcc.get_logs()
