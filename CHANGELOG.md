@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Updated
 - Upgraded plotly.js to 1.50.1 [#681](https://github.com/plotly/dash-core-components/issues/681)
-  - Path release [1.50.1](https://github.com/plotly/plotly.js/releases/tag/v1.50.1) containing several bug fixes.
+  - Patch release [1.50.1](https://github.com/plotly/plotly.js/releases/tag/v1.50.1) containing several bug fixes.
 
 ### Fixed
 - [#681](https://github.com/plotly/dash-core-components/issues/681) Fix a bug with the dcc.Graph component logging errors in certain circumstances when nested inside a dcc.Loading component
