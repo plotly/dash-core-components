@@ -3722,13 +3722,13 @@
                   "computed": false
                 }
               ],
-              "description": "Determines the placement of tooltips\nSee https://github.com/react-component/tooltip#api\ntop/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will\nin reality appear to be on the top right of the handle",
+              "description": "Determines the placement of tooltips\nSee https://github.com/react-component/tooltip#api\ntop/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft`\nwill in reality appear to be on the top right of the handle",
               "required": false
             }
           }
         },
         "required": false,
-        "description": ""
+        "description": "Configuration for tooltips describing the current slider values"
       },
       "step": {
         "type": {
@@ -4008,13 +4008,13 @@
                   "computed": false
                 }
               ],
-              "description": "Determines the placement of tooltips\nSee https://github.com/react-component/tooltip#api\ntop/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will\nin reality appear to be on the top right of the handle",
+              "description": "Determines the placement of tooltips\nSee https://github.com/react-component/tooltip#api\ntop/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft`\nwill in reality appear to be on the top right of the handle",
               "required": false
             }
           }
         },
         "required": false,
-        "description": ""
+        "description": "Configuration for tooltips describing the current slider value"
       },
       "step": {
         "type": {

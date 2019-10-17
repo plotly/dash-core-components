@@ -54,8 +54,8 @@ those elements have the following types:
 (as opposed to the default, visible on hover)
   - placement (a value equal to: 'left', 'right', 'top', 'bottom', 'topleft', 'topright', 'bottomleft', 'bottomright'; optional): determines the placement of tooltips
 see https://github.com/react-component/tooltip#api
-top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topleft` will
-in reality appear to be on the top right of the handle. }
+top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topleft`
+will in reality appear to be on the top right of the handle. Configuration for tooltips describing the current slider value}
 
 \item{step}{Numeric. Value by which increments or decrements are made}
 

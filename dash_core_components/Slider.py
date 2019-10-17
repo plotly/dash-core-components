@@ -30,14 +30,14 @@ render the slider with dots.
 value is included. Otherwise, it is an independent value.
 - min (number; optional): Minimum allowed value of the slider
 - max (number; optional): Maximum allowed value of the slider
-- tooltip (dict; optional): tooltip has the following type: dict containing keys 'always_visible', 'placement'.
+- tooltip (dict; optional): Configuration for tooltips describing the current slider value. tooltip has the following type: dict containing keys 'always_visible', 'placement'.
 Those keys have the following types:
   - always_visible (boolean; optional): Determines whether tooltips should always be visible
 (as opposed to the default, visible on hover)
   - placement (a value equal to: 'left', 'right', 'top', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight'; optional): Determines the placement of tooltips
 See https://github.com/react-component/tooltip#api
-top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft` will
-in reality appear to be on the top right of the handle
+top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft`
+will in reality appear to be on the top right of the handle
 - step (number; optional): Value by which increments or decrements are made
 - vertical (boolean; optional): If true, the slider will be vertical
 - updatemode (a value equal to: 'mouseup', 'drag'; default 'mouseup'): Determines when the component should update
