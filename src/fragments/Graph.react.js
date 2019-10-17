@@ -35,7 +35,7 @@ const filterEventData = (gd, eventData, event) => {
             ) {
                 pointData.customdata =
                     data[pointData.curveNumber].customdata[
-                    fullPoint.pointNumber
+                        fullPoint.pointNumber
                     ];
             }
 
