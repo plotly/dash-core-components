@@ -35,7 +35,7 @@ const filterEventData = (gd, eventData, event) => {
             ) {
                 pointData.customdata =
                     data[pointData.curveNumber].customdata[
-                        fullPoint.pointNumber
+                    fullPoint.pointNumber
                     ];
             }
 
@@ -234,7 +234,9 @@ class PlotlyGraph extends Component {
         const gd = this.gd.current;
         if (gd && gd.removeAllListeners) {
             gd.removeAllListeners();
-            Plotly.purge(gd);
+            if (this._hasPlotted) {
+                Plotly.purge(gd);
+            }
         }
         window.removeEventListener('resize', this.graphResize);
     }
