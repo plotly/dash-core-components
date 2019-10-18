@@ -100,7 +100,7 @@ class ControlledPlotlyGraph extends PureComponent {
     }
 }
 
-export const graphPropTypes = {
+PlotlyGraph.propTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -478,7 +478,7 @@ export const graphPropTypes = {
     }),
 };
 
-export const graphDefaultProps = {
+PlotlyGraph.defaultProps = {
     clickData: null,
     clickAnnotationData: null,
     hoverData: null,
@@ -505,8 +505,7 @@ export const graphDefaultProps = {
     config: {},
 };
 
-PlotlyGraph.propTypes = graphPropTypes;
-
-PlotlyGraph.defaultProps = graphDefaultProps;
+export const graphPropTypes = PlotlyGraph.propTypes;
+export const graphDefaultProps = PlotlyGraph.defaultProps;
 
 export default PlotlyGraph;

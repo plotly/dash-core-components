@@ -14,7 +14,7 @@ export default class DashMarkdown extends Component {
     }
 }
 
-export const propTypes = {
+DashMarkdown.propTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -84,11 +84,11 @@ export const propTypes = {
     style: PropTypes.object,
 };
 
-export const defaultProps = {
+DashMarkdown.defaultProps = {
     dangerously_allow_html: false,
     highlight_config: {},
     dedent: true,
 };
 
-DashMarkdown.propTypes = propTypes;
-DashMarkdown.defaultProps = defaultProps;
+export const propTypes = DashMarkdown.propTypes;
+export const defaultProps = DashMarkdown.defaultProps;

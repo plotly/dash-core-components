@@ -24,7 +24,7 @@ export default class Dropdown extends Component {
     }
 }
 
-export const propTypes = {
+Dropdown.propTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -175,7 +175,7 @@ export const propTypes = {
     persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
 };
 
-export const defaultProps = {
+Dropdown.defaultProps = {
     clearable: true,
     disabled: false,
     multi: false,
@@ -185,5 +185,5 @@ export const defaultProps = {
     persistence_type: 'local',
 };
 
-Dropdown.propTypes = Dropdown;
-Dropdown.defaultProps = defaultProps;
+export const propTypes = Dropdown.propTypes;
+export const defaultProps = Dropdown.defaultProps;

@@ -17,7 +17,7 @@ export default class Upload extends Component {
     }
 }
 
-export const propTypes = {
+Upload.propTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -178,7 +178,7 @@ export const propTypes = {
     }),
 };
 
-export const defaultProps = {
+Upload.defaultProps = {
     disabled: false,
     disable_click: false,
     max_size: -1,
@@ -200,5 +200,5 @@ export const defaultProps = {
     },
 };
 
-Upload.propTypes = propTypes;
-Upload.defaultProps = defaultProps;
+export const propTypes = Upload.propTypes;
+export const defaultProps = Upload.defaultProps;

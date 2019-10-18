@@ -25,7 +25,7 @@ export default class DatePickerSingle extends Component {
     }
 }
 
-export const propTypes = {
+DatePickerSingle.propTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -220,7 +220,7 @@ export const propTypes = {
     persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
 };
 
-export const defaultProps = {
+DatePickerSingle.defaultProps = {
     calendar_orientation: 'horizontal',
     is_RTL: false,
     day_size: 39,
@@ -237,5 +237,5 @@ export const defaultProps = {
     persistence_type: 'local',
 };
 
-DatePickerSingle.propTypes = propTypes;
-DatePickerSingle.defaultProps = defaultProps;
+export const propTypes = DatePickerSingle.propTypes;
+export const defaultProps = DatePickerSingle.defaultProps;

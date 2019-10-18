@@ -18,7 +18,7 @@ export default class RangeSlider extends Component {
     }
 }
 
-export const propTypes = {
+RangeSlider.propTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -203,11 +203,11 @@ export const propTypes = {
     persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
 };
 
-export const defaultProps = {
+RangeSlider.defaultProps = {
     updatemode: 'mouseup',
     persisted_props: ['value'],
     persistence_type: 'local',
 };
 
-RangeSlider.propTypes = propTypes;
-RangeSlider.defaultProps = defaultProps;
+export const propTypes = RangeSlider.propTypes;
+export const defaultProps = RangeSlider.defaultProps;

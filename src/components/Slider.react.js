@@ -17,7 +17,7 @@ export default class Slider extends Component {
     }
 }
 
-export const propTypes = {
+Slider.propTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -183,11 +183,11 @@ export const propTypes = {
     persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
 };
 
-export const defaultProps = {
+Slider.defaultProps = {
     updatemode: 'mouseup',
     persisted_props: ['value'],
     persistence_type: 'local',
 };
 
-Slider.propTypes = propTypes;
-Slider.defaultProps = defaultProps;
+export const propTypes = Slider.propTypes;
+export const defaultProps = Slider.defaultProps;

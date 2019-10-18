@@ -51,24 +51,24 @@ async_resources = [
 _js_dist = []
 
 _js_dist.extend([{
-        'relative_package_path': 'async~{}.js'.format(async),
+        'relative_package_path': 'async~{}.js'.format(async_resource),
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/async~{}.js'.format(async)
-        ).format(__version__),
+            '/dash_core_components/async~{}.js'
+        ).format(__version__, async_resource),
         'namespace': 'dash_core_components',
         'async': True
-    } for async in async_resources])
+    } for async_resource in async_resources])
 
 _js_dist.extend([{
-        'relative_package_path': 'async~{}.js.map'.format(async),
+        'relative_package_path': 'async~{}.js.map'.format(async_resource),
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/async~{}.js.map'.format(async)
-        ).format(__version__),
+            '/dash_core_components/async~{}.js.map'
+        ).format(__version__, async_resource),
         'namespace': 'dash_core_components',
         'dynamic': True
-    } for async in async_resources])
+    } for async_resource in async_resources])
 
 _js_dist.extend([
     {
@@ -119,7 +119,7 @@ _js_dist.extend([
         'namespace': 'dash_core_components',
         'dynamic': True
     },
-]
+])
 
 for _component in __all__:
     setattr(locals()[_component], '_js_dist', _js_dist)
