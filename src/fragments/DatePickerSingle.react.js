@@ -1,10 +1,10 @@
 import 'react-dates/initialize';
 
-import { SingleDatePicker } from 'react-dates';
+import {SingleDatePicker} from 'react-dates';
 import moment from 'moment';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { propTypes, defaultProps } from '../components/DatePickerRange.react';
+import {propTypes, defaultProps} from '../components/DatePickerRange.react';
 import convertToMoment from '../utils/convertToMoment';
 
 export default class DatePickerSingle extends Component {
@@ -12,11 +12,11 @@ export default class DatePickerSingle extends Component {
         super();
         this.isOutsideRange = this.isOutsideRange.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
-        this.state = { focused: false };
+        this.state = {focused: false};
     }
 
     isOutsideRange(date) {
-        const { max_date_allowed, min_date_allowed } = convertToMoment(
+        const {max_date_allowed, min_date_allowed} = convertToMoment(
             this.props,
             ['max_date_allowed', 'min_date_allowed']
         );
@@ -28,13 +28,13 @@ export default class DatePickerSingle extends Component {
     }
 
     onDateChange(date) {
-        const { setProps } = this.props;
-        const payload = { date: date ? date.format('YYYY-MM-DD') : null };
+        const {setProps} = this.props;
+        const payload = {date: date ? date.format('YYYY-MM-DD') : null};
         setProps(payload);
     }
 
     render() {
-        const { focused } = this.state;
+        const {focused} = this.state;
 
         const {
             calendar_orientation,
@@ -58,7 +58,7 @@ export default class DatePickerSingle extends Component {
             className,
         } = this.props;
 
-        const { date, initial_visible_month } = convertToMoment(this.props, [
+        const {date, initial_visible_month} = convertToMoment(this.props, [
             'date',
             'initial_visible_month',
         ]);
@@ -84,7 +84,7 @@ export default class DatePickerSingle extends Component {
                     date={date}
                     onDateChange={this.onDateChange}
                     focused={focused}
-                    onFocusChange={({ focused }) => this.setState({ focused })}
+                    onFocusChange={({focused}) => this.setState({focused})}
                     initialVisibleMonth={() =>
                         date || initial_visible_month || moment()
                     }

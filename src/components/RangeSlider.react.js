@@ -1,4 +1,4 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, {Component, lazy, Suspense} from 'react';
 import PropTypes from 'prop-types';
 import LazyLoader from '../utils/LazyLoader';
 
@@ -208,7 +208,6 @@ export const defaultProps = {
     persisted_props: ['value'],
     persistence_type: 'local',
 };
-
 
 RangeSlider.propTypes = propTypes;
 RangeSlider.defaultProps = defaultProps;

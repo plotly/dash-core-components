@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 
-import { propTypes, defaultProps } from '../components/Upload.react';
+import {propTypes, defaultProps} from '../components/Upload.react';
 
 export default class Upload extends Component {
     constructor() {
@@ -10,7 +10,7 @@ export default class Upload extends Component {
     }
 
     onDrop(files) {
-        const { multiple, setProps } = this.props;
+        const {multiple, setProps} = this.props;
         const newProps = {
             contents: [],
             filename: [],

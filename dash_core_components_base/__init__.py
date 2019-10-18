@@ -60,7 +60,7 @@ _js_dist.extend([{
         'async': True
     } for async in async_resources])
 
-_js_dist.extend([    {
+_js_dist.extend([{
         'relative_package_path': 'async~{}.js.map'.format(async),
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import ReactSlider, { createSliderWithTooltip } from 'rc-slider';
-import { assoc, omit } from 'ramda';
+import React, {Component} from 'react';
+import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
+import {assoc, omit} from 'ramda';
 import '../components/css/rc-slider@6.1.2.css';
 
-import { propTypes, defaultProps } from '../components/Slider.react';
+import {propTypes, defaultProps} from '../components/Slider.react';
 
 export default class Slider extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ export default class Slider extends Component {
     }
 
     propsToState(newProps) {
-        this.setState({ value: newProps.value });
+        this.setState({value: newProps.value});
     }
 
     componentWillReceiveProps(newProps) {
@@ -63,19 +63,19 @@ export default class Slider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={vertical ? { height: '100%' } : {}}
+                style={vertical ? {height: '100%'} : {}}
             >
                 <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
-                            setProps({ value });
+                            setProps({value});
                         } else {
-                            this.setState({ value });
+                            this.setState({value});
                         }
                     }}
                     onAfterChange={value => {
                         if (updatemode === 'mouseup') {
-                            setProps({ value });
+                            setProps({value});
                         }
                     }}
                     tipProps={tipProps}

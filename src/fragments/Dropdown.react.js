@@ -1,11 +1,11 @@
-import { isNil, pluck, omit, type } from 'ramda';
-import React, { Component } from 'react';
+import {isNil, pluck, omit, type} from 'ramda';
+import React, {Component} from 'react';
 import ReactDropdown from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import '../components/css/react-virtualized-select@3.1.0.css';
 import '../components/css/react-virtualized@9.9.0.css';
 
-import { propTypes, defaultProps } from '../components/Dropdown.react';
+import {propTypes, defaultProps} from '../components/Dropdown.react';
 
 // Custom tokenizer, see https://github.com/bvaughn/js-search/issues/43
 // Split on spaces
@@ -53,7 +53,7 @@ export default class Dropdown extends Component {
             loading_state,
             value,
         } = this.props;
-        const { filterOptions } = this.state;
+        const {filterOptions} = this.state;
         let selectedValue;
         if (type(value) === 'array') {
             selectedValue = value.join(DELIMETER);
@@ -80,7 +80,7 @@ export default class Dropdown extends Component {
                             } else {
                                 value = pluck('value', selectedOption);
                             }
-                            setProps({ value });
+                            setProps({value});
                         } else {
                             let value;
                             if (isNil(selectedOption)) {
@@ -88,10 +88,10 @@ export default class Dropdown extends Component {
                             } else {
                                 value = selectedOption.value;
                             }
-                            setProps({ value });
+                            setProps({value});
                         }
                     }}
-                    onInputChange={search_value => setProps({ search_value })}
+                    onInputChange={search_value => setProps({search_value})}
                     {...omit(['setProps', 'value'], this.props)}
                 />
             </div>

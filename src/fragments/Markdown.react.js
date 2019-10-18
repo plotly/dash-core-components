@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { type } from 'ramda';
+import React, {Component} from 'react';
+import {type} from 'ramda';
 import Markdown from 'react-markdown';
 
-import { propTypes, defaultProps } from '../components/Markdown.react';
+import {propTypes, defaultProps} from '../components/Markdown.react';
 import '../components/css/highlight.css';
 
 // eslint-disable-next-line valid-jsdoc
@@ -102,11 +102,11 @@ export default class DashMarkdown extends Component {
                     ((highlight_config && highlight_config.theme) ||
                         className) &&
                     `${className ? className : ''} ${
-                    highlight_config &&
+                        highlight_config &&
                         highlight_config.theme &&
                         highlight_config.theme === 'dark'
-                        ? 'hljs-dark'
-                        : ''
+                            ? 'hljs-dark'
+                            : ''
                     }`
                 }
                 data-dash-is-loading={

@@ -1,9 +1,9 @@
 import 'react-dates/initialize';
-import { DateRangePicker } from 'react-dates';
-import React, { Component } from 'react';
+import {DateRangePicker} from 'react-dates';
+import React, {Component} from 'react';
 import uniqid from 'uniqid';
 
-import { propTypes, defaultProps } from '../components/DatePickerRange.react';
+import {propTypes, defaultProps} from '../components/DatePickerRange.react';
 import convertToMoment from '../utils/convertToMoment';
 
 export default class DatePickerRange extends Component {
@@ -34,8 +34,8 @@ export default class DatePickerRange extends Component {
         this.propsToState(this.props);
     }
 
-    onDatesChange({ startDate: start_date, endDate: end_date }) {
-        const { setProps, updatemode, clearable } = this.props;
+    onDatesChange({startDate: start_date, endDate: end_date}) {
+        const {setProps, updatemode, clearable} = this.props;
 
         const oldMomentDates = convertToMoment(this.state, [
             'start_date',
@@ -44,15 +44,15 @@ export default class DatePickerRange extends Component {
 
         if (start_date && !start_date.isSame(oldMomentDates.start_date)) {
             if (updatemode === 'singledate') {
-                setProps({ start_date: start_date.format('YYYY-MM-DD') });
+                setProps({start_date: start_date.format('YYYY-MM-DD')});
             } else {
-                this.setState({ start_date: start_date.format('YYYY-MM-DD') });
+                this.setState({start_date: start_date.format('YYYY-MM-DD')});
             }
         }
 
         if (end_date && !end_date.isSame(oldMomentDates.end_date)) {
             if (updatemode === 'singledate') {
-                setProps({ end_date: end_date.format('YYYY-MM-DD') });
+                setProps({end_date: end_date.format('YYYY-MM-DD')});
             } else if (updatemode === 'bothdates') {
                 setProps({
                     start_date: this.state.start_date,
@@ -68,12 +68,12 @@ export default class DatePickerRange extends Component {
             (oldMomentDates.start_date !== start_date ||
                 oldMomentDates.end_date !== end_date)
         ) {
-            setProps({ start_date: null, end_date: null });
+            setProps({start_date: null, end_date: null});
         }
     }
 
     isOutsideRange(date) {
-        const { min_date_allowed, max_date_allowed } = this.props;
+        const {min_date_allowed, max_date_allowed} = this.props;
 
         return (
             (min_date_allowed && date.isBefore(min_date_allowed)) ||
@@ -82,7 +82,7 @@ export default class DatePickerRange extends Component {
     }
 
     render() {
-        const { focusedInput } = this.state;
+        const {focusedInput} = this.state;
 
         const {
             calendar_orientation,
@@ -110,11 +110,11 @@ export default class DatePickerRange extends Component {
             end_date_id,
         } = this.props;
 
-        const { initial_visible_month } = convertToMoment(this.props, [
+        const {initial_visible_month} = convertToMoment(this.props, [
             'initial_visible_month',
         ]);
 
-        const { start_date, end_date } = convertToMoment(this.state, [
+        const {start_date, end_date} = convertToMoment(this.state, [
             'start_date',
             'end_date',
         ]);
@@ -162,7 +162,7 @@ export default class DatePickerRange extends Component {
                     numberOfMonths={number_of_months_shown}
                     onDatesChange={this.onDatesChange}
                     onFocusChange={focusedInput =>
-                        this.setState({ focusedInput })
+                        this.setState({focusedInput})
                     }
                     orientation={calendar_orientation}
                     reopenPickerOnClearDates={reopen_calendar_on_clear}

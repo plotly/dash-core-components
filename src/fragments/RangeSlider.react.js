@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { assoc, omit } from 'ramda';
-import { Range, createSliderWithTooltip } from 'rc-slider';
+import React, {Component} from 'react';
+import {assoc, omit} from 'ramda';
+import {Range, createSliderWithTooltip} from 'rc-slider';
 
-import { propTypes, defaultProps } from '../components/RangeSlider.react';
+import {propTypes, defaultProps} from '../components/RangeSlider.react';
 
 export default class RangeSlider extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class RangeSlider extends Component {
     }
 
     propsToState(newProps) {
-        this.setState({ value: newProps.value });
+        this.setState({value: newProps.value});
     }
 
     componentWillReceiveProps(newProps) {
@@ -62,19 +62,19 @@ export default class RangeSlider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={vertical ? { height: '100%' } : {}}
+                style={vertical ? {height: '100%'} : {}}
             >
                 <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
-                            setProps({ value });
+                            setProps({value});
                         } else {
-                            this.setState({ value });
+                            this.setState({value});
                         }
                     }}
                     onAfterChange={value => {
                         if (updatemode === 'mouseup') {
-                            setProps({ value });
+                            setProps({value});
                         }
                     }}
                     tipProps={tipProps}

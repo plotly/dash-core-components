@@ -12,17 +12,17 @@ export default {
     plotly: () =>
         Promise.resolve(
             window.Plotly ||
-            import(/* webpackChunkName: "plotlyjs" */ 'plotly.js').then(
-                ({ default: Plotly }) => {
-                    window.Plotly = Plotly;
-                    return Plotly;
-                }
-            )
+                import(/* webpackChunkName: "plotlyjs" */ 'plotly.js').then(
+                    ({default: Plotly}) => {
+                        window.Plotly = Plotly;
+                        return Plotly;
+                    }
+                )
         ),
     rangeSlider: () =>
         import(/* webpackChunkName: "slider" */ '../fragments/RangeSlider.react'),
     slider: () =>
         import(/* webpackChunkName: "slider" */ '../fragments/Slider.react'),
     upload: () =>
-        import(/* webpackChunkName: "upload" */ '../fragments/Upload.react')
+        import(/* webpackChunkName: "upload" */ '../fragments/Upload.react'),
 };

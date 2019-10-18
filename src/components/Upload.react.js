@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component, lazy, Suspense } from 'react';
+import React, {Component, lazy, Suspense} from 'react';
 import LazyLoader from '../utils/LazyLoader';
 
 const RealUpload = lazy(LazyLoader.upload);
