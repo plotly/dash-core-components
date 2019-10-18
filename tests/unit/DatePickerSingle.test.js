@@ -1,7 +1,7 @@
 import DatePickerSingle from '../../src/fragments/DatePickerSingle.react';
-import { merge } from 'ramda';
+import {merge} from 'ramda';
 import React from 'react';
-import { mount, render } from 'enzyme';
+import {mount, render} from 'enzyme';
 
 test('DatePickerSingle renders', () => {
     const dps = render(<DatePickerSingle />);
@@ -48,11 +48,11 @@ describe('Date can be selected', () => {
         };
 
         const dps = mount(<DatePickerSingle {...props} />);
-        dps.setState({ focused: true });
+        dps.setState({focused: true});
         const day = dps.find("[aria-label='Saturday, January 19, 2019']");
         day.simulate('click');
 
-        expect(setPropsSpy).toHaveBeenCalledWith({ date: '2019-01-19' });
+        expect(setPropsSpy).toHaveBeenCalledWith({date: '2019-01-19'});
     });
 });
 
@@ -70,6 +70,6 @@ describe('Date can be cleared', () => {
         const clearDate = dps.find("[aria-label='Clear Date']");
         clearDate.simulate('click');
 
-        expect(setPropsSpy).toHaveBeenCalledWith({ date: null });
+        expect(setPropsSpy).toHaveBeenCalledWith({date: null});
     });
 });

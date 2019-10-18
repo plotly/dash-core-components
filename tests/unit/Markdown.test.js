@@ -1,6 +1,6 @@
 import Markdown from '../../src/fragments/Markdown.react.js';
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import {shallow, render} from 'enzyme';
 
 test('Input renders', () => {
     const md = render(<Markdown />);
@@ -31,31 +31,31 @@ describe('dedent', () => {
             expect(
                 md.dedent(
                     pre +
-                    'a\n' +
-                    pre +
-                    '  b\r' +
-                    pre +
-                    'c\r\n' +
-                    pre +
-                    '\td\n' +
-                    '\t\n' +
-                    '\n' +
-                    pre +
-                    'e\n' +
-                    '\n' +
-                    pre +
-                    'f'
+                        'a\n' +
+                        pre +
+                        '  b\r' +
+                        pre +
+                        'c\r\n' +
+                        pre +
+                        '\td\n' +
+                        '\t\n' +
+                        '\n' +
+                        pre +
+                        'e\n' +
+                        '\n' +
+                        pre +
+                        'f'
                 )
             ).toEqual(
                 'a\n' +
-                '  b\n' +
-                'c\n' +
-                '\td\n' +
-                '\n' +
-                '\n' +
-                'e\n' +
-                '\n' +
-                'f'
+                    '  b\n' +
+                    'c\n' +
+                    '\td\n' +
+                    '\n' +
+                    '\n' +
+                    'e\n' +
+                    '\n' +
+                    'f'
             );
         });
     });

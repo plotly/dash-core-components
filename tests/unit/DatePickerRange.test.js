@@ -1,7 +1,7 @@
 import DatePickerRange from '../../src/fragments/DatePickerRange.react';
-import { merge } from 'ramda';
+import {merge} from 'ramda';
 import React from 'react';
-import { mount, render } from 'enzyme';
+import {mount, render} from 'enzyme';
 
 const defaultProps = {
     start_date_id: 'start-date-id',
