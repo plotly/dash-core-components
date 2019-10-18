@@ -1,22 +1,8 @@
-import React, {Component, PureComponent, Suspense} from 'react';
+import React, { Component, PureComponent, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-import {asyncDecorator} from '@plotly/dash-component-plugins';
-
-const loader = {
-    plotly: () =>
-        Promise.resolve(
-            window.Plotly ||
-                import(/* webpackChunkName: "plotlyjs" */ 'plotly.js').then(
-                    ({default: Plotly}) => {
-                        window.Plotly = Plotly;
-                        return Plotly;
-                    }
-                )
-        ),
-    graph: () =>
-        import(/* webpackChunkName: "graph" */ '../fragments/Graph.react'),
-};
+import { asyncDecorator } from '@plotly/dash-component-plugins';
+import LazyLoader from '../utils/LazyLoader';
 
 const EMPTY_EXTEND_DATA = [];
 
@@ -75,12 +61,12 @@ class PlotlyGraph extends Component {
     }
 
     clearExtendData() {
-        this.setState(({extendData}) => {
+        this.setState(({ extendData }) => {
             const res =
                 extendData && extendData.length
                     ? {
-                          extendData: EMPTY_EXTEND_DATA,
-                      }
+                        extendData: EMPTY_EXTEND_DATA,
+                    }
                     : undefined;
 
             return res;
@@ -101,7 +87,7 @@ class PlotlyGraph extends Component {
 }
 
 const RealPlotlyGraph = asyncDecorator(PlotlyGraph, () =>
-    loader.plotly().then(() => loader.graph())
+    LazyLoader.plotly.then(LazyLoader.graph)
 );
 
 class ControlledPlotlyGraph extends PureComponent {
