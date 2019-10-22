@@ -87,7 +87,7 @@ class PlotlyGraph extends Component {
 }
 
 const RealPlotlyGraph = asyncDecorator(PlotlyGraph, () =>
-    LazyLoader.plotly.then(LazyLoader.graph)
+    LazyLoader.plotly().then(LazyLoader.graph)
 );
 
 class ControlledPlotlyGraph extends PureComponent {
