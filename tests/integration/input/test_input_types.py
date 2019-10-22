@@ -22,7 +22,7 @@ def test_intp001_all_types(dash_dcc):
     def input_id(type_):
         return "input_{}".format(type_)
 
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             dcc.Input(

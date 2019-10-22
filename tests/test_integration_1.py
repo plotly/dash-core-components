@@ -50,7 +50,7 @@ class Test1(IntegrationTests):
     def test_loading_component_initialization(self):
         lock = Lock()
 
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             dcc.Loading([
@@ -82,7 +82,7 @@ class Test1(IntegrationTests):
     def test_loading_component_action(self):
         lock = Lock()
 
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             dcc.Loading([
@@ -123,7 +123,7 @@ class Test1(IntegrationTests):
     def test_multiple_loading_components(self):
         lock = Lock()
 
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             dcc.Loading([
@@ -199,7 +199,7 @@ class Test1(IntegrationTests):
     def test_nested_loading_components(self):
         lock = Lock()
 
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             dcc.Loading([
@@ -275,7 +275,7 @@ class Test1(IntegrationTests):
     def test_dynamic_loading_component(self):
         lock = Lock()
 
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
         app.config['suppress_callback_exceptions'] = True
 
         app.layout = html.Div([
@@ -348,7 +348,7 @@ class Test1(IntegrationTests):
     def test_loading_slider(self):
         lock = Lock()
 
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.Button(id='test-btn'),
@@ -397,7 +397,7 @@ class Test1(IntegrationTests):
             raise Exception('browser error logged during test', entry)
 
     def test_horizontal_slider(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.Label('Horizontal Slider'),
@@ -424,7 +424,7 @@ class Test1(IntegrationTests):
             raise Exception('browser error logged during test', entry)
 
     def test_vertical_slider(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.Label('Vertical Slider'),
@@ -454,7 +454,7 @@ class Test1(IntegrationTests):
     def test_loading_range_slider(self):
         lock = Lock()
 
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.Button(id='test-btn'),
@@ -503,7 +503,7 @@ class Test1(IntegrationTests):
             raise Exception('browser error logged during test', entry)
 
     def test_horizontal_range_slider(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.Label('Horizontal Range Slider'),
@@ -535,7 +535,7 @@ class Test1(IntegrationTests):
             raise Exception('browser error logged during test', entry)
 
     def test_vertical_range_slider(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.Label('Vertical Range Slider'),
@@ -568,7 +568,7 @@ class Test1(IntegrationTests):
             raise Exception('browser error logged during test', entry)
 
     def test_tabs_in_vertical_mode(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             dcc.Tabs(id="tabs", value='tab-3', children=[
@@ -591,7 +591,7 @@ class Test1(IntegrationTests):
         self.snapshot('Tabs - vertical mode')
 
     def test_tabs_without_children(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
@@ -625,7 +625,7 @@ class Test1(IntegrationTests):
         self.wait_for_text_to_equal('#tabs-content', 'Test content 1')
 
     def test_tabs_with_children_undefined(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
@@ -640,7 +640,7 @@ class Test1(IntegrationTests):
         self.snapshot('Tabs component with children undefined')
 
     def test_tabs_without_value(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.H1('Dash Tabs component demo'),
@@ -666,7 +666,7 @@ class Test1(IntegrationTests):
         self.snapshot('Tab 1 should be selected by default')
 
     def test_location_link(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div([
             html.Div(id='waitfor'),

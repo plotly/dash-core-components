@@ -48,7 +48,7 @@ class Test2(IntegrationTests):
             self.percy_runner.snapshot(name=name)
 
     def test_link_scroll(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
         app.layout = html.Div(
             [
                 dcc.Location(id="test-url", refresh=False),
@@ -100,7 +100,7 @@ class Test2(IntegrationTests):
         self.assertEqual(call_count.value, 3)
 
     def test_interval(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
         app.layout = html.Div(
             [
                 html.Div(id="output"),
@@ -122,7 +122,7 @@ class Test2(IntegrationTests):
         self.wait_for_text_to_equal("#output", "2")
 
     def test_if_interval_can_be_restarted(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
         app.layout = html.Div(
             [
                 dcc.Interval(
@@ -240,7 +240,7 @@ class Test2(IntegrationTests):
             )
 
     def test_confirm(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div(
             [
@@ -260,7 +260,7 @@ class Test2(IntegrationTests):
         self._test_confirm(app, "ConfirmDialog")
 
     def test_confirm_dialog_provider(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div(
             [
@@ -276,7 +276,7 @@ class Test2(IntegrationTests):
         self._test_confirm(app, "ConfirmDialogProvider")
 
     def test_confirm_without_callback(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
         app.layout = html.Div(
             [
                 dcc.ConfirmDialogProvider(
@@ -292,7 +292,7 @@ class Test2(IntegrationTests):
         )
 
     def test_confirm_as_children(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div(
             [
@@ -322,7 +322,7 @@ class Test2(IntegrationTests):
         self.driver.switch_to.alert.accept()
 
     def test_user_supplied_css(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         app.layout = html.Div(
             className="test-input-css", children=[dcc.Input()]
@@ -334,7 +334,7 @@ class Test2(IntegrationTests):
         self.snapshot("styled input - width: 100%, border-color: hotpink")
 
     def test_logout_btn(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
 
         @app.server.route("/_logout", methods=["POST"])
         def on_logout():
@@ -382,7 +382,7 @@ class Test2(IntegrationTests):
         self.assertFalse(self.driver.get_cookie("logout-cookie"))
 
     def test_simple_callback(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
         app.layout = html.Div(
             [
                 dcc.Input(id="input"),
@@ -417,7 +417,7 @@ class Test2(IntegrationTests):
         )
 
     def test_disabled_tab(self):
-        app = dash.Dash(__name__)
+        app = dash.Dash(__name__, eager_loading=True)
         app.layout = html.Div(
             [
                 html.H1("Dash Tabs component with disabled tab demo"),

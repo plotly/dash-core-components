@@ -11,7 +11,7 @@ import dash_html_components as html
 
 
 def test_stda001_data_types(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
 
     types = [
         ("str", "hello"),
@@ -65,7 +65,7 @@ def test_stda001_data_types(dash_dcc):
 
 
 def test_stda002_nested_data(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
 
     nested = {"nested": {"nest": "much"}}
     nested_list = dict(my_list=[1, 2, 3])
@@ -128,7 +128,7 @@ def test_stda003_large_data_size(storage_type, csv_5mb, dash_dcc):
     def fingerprint(data):
         return hashlib.sha1(data.encode("utf-8")).hexdigest()
 
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             dcc.Store(id=storage_type, storage_type=storage_type),

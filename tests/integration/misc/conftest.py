@@ -17,7 +17,7 @@ OPTIONS = [
 
 @pytest.fixture(scope="module")
 def platter_app():
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
 
     app.layout = html.Div(
         [

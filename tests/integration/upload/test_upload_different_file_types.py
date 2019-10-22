@@ -59,7 +59,7 @@ def test_upft001_test_upload_with_different_file_types(filetype, dash_dcc):
         "upft001.{}".format(filetype),
     )
 
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
 
     app.layout = html.Div(
         [

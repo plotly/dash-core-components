@@ -13,7 +13,7 @@ UUID = "store-test-{}".format(uuid.uuid4().hex)
 
 @pytest.fixture(scope="module")
 def store_app():
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.uuid = UUID
     app.layout = html.Div(
         [

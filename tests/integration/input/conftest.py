@@ -7,7 +7,7 @@ import dash_html_components as html
 
 @pytest.fixture(scope="module")
 def ninput_app():
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             dcc.Input(
@@ -40,7 +40,7 @@ def ninput_app():
 
 @pytest.fixture(scope="module")
 def input_range_app():
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             dcc.Input(

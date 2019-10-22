@@ -29,7 +29,7 @@ def test_stcp100_clear_data_on_all_types(store_app, dash_dcc):
 
 
 def test_stcp200_modified_ts(store_app, dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             dcc.Store(id="initial-storage", storage_type="session"),

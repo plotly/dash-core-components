@@ -9,7 +9,7 @@ from dash.dependencies import Input, Output
 
 @pytest.mark.DCC652
 def test_dtps001_simple_click(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             html.Label("Operating Date"),
@@ -39,7 +39,7 @@ def test_dtps001_simple_click(dash_dcc):
 
 
 def test_dtps010_local_and_session_persistence(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             dcc.DatePickerSingle(id="dps-local", persistence=True, day_size=47),
@@ -75,7 +75,7 @@ def test_dtps010_local_and_session_persistence(dash_dcc):
 
 
 def test_dtps011_memory_persistence(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [html.Button(id="switch", children="Switch"), html.Div(id="out")]
     )

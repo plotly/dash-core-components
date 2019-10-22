@@ -8,7 +8,7 @@ import dash_html_components as html
 
 
 def test_state_and_inputs(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div(
         [
             dcc.Input(value="Initial Input", id="input"),

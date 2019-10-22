@@ -5,7 +5,7 @@ import dash_core_components as dcc
 
 
 def test_slsl001_always_visible_slider(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div([
         dcc.Slider(
             id="slider",
@@ -33,7 +33,7 @@ def test_slsl001_always_visible_slider(dash_dcc):
 
 
 def test_slsl002_always_visible_rangeslider(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = html.Div([
         dcc.RangeSlider(
             id="rangeslider",

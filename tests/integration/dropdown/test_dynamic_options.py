@@ -12,7 +12,7 @@ def test_dddo001_dynamic_options(dash_duo):
         {"label": "San Francisco", "value": "SF"},
     ]
 
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, eager_loading=True)
     app.layout = dcc.Dropdown(id="my-dynamic-dropdown", options=[])
 
     @app.callback(
