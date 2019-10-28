@@ -11,8 +11,10 @@ export default (newProps, momentProps) => {
             dest[key] = null;
 
             if (key === 'initial_visible_month') {
-                dest[key] = newProps['start_date'] || newProps['min_date_allowed'] ?
-		    moment(newProps['start_date'] || newProps['min_date_allowed']) :
+                dest[key] = newProps['start_date'] || newProps['min_date_allowed']
+		    || newProps['end_date'] || newProps['max_date_allowed'] ?
+		    moment(newProps['start_date'] || newProps['min_date_allowed']
+			  || newProps['end_date'] || newProps['max_date_allowed']) :
 		    moment();
             }
         } else {
