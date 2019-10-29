@@ -41,7 +41,11 @@ Has the form `[edits, indices]`, where `edits` is an object
 `{<attr string>: <value>}` describing the changes made,
 and `indices` is an array of trace indices that were edited.
 Read-only.
-- figure (dict; default {data: [], layout: {}, frames: []}): Plotly `figure` object. See schema:
+- figure (dict; default {
+    data: [],
+    layout: {},
+    frames: [],
+}): Plotly `figure` object. See schema:
 https://plot.ly/javascript/reference
 
 `config` is set separately by the `config` property. figure has the following type: dict containing keys 'data', 'layout', 'frames'.

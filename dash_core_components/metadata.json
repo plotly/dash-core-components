@@ -1508,38 +1508,7 @@
     "displayName": "PlotlyGraph",
     "methods": [
       {
-        "name": "plot",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "props",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "extend",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "props",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "graphResize",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "bindEvents",
+        "name": "clearExtendData",
         "docblock": null,
         "modifiers": [],
         "params": [],
@@ -1677,7 +1646,7 @@
         "required": false,
         "description": "Plotly `figure` object. See schema:\nhttps://plot.ly/javascript/reference\n\n`config` is set separately by the `config` property",
         "defaultValue": {
-          "value": "{data: [], layout: {}, frames: []}",
+          "value": "{\n    data: [],\n    layout: {},\n    frames: [],\n}",
           "computed": false
         }
       },
