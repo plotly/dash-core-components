@@ -42,7 +42,9 @@ _this_module = _sys.modules[__name__]
 async_resources = [
     'datepicker',
     'dropdown',
-    'graph'
+    'graph',
+    'markdown',
+    'upload'
 ]
 
 _js_dist = []
