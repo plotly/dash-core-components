@@ -1,10 +1,10 @@
 export default {
-    // datePickerRange: () =>
-    //     import(/* webpackChunkName: "datepicker" */ '../fragments/DatePickerRange.react'),
-    // datePickerSingle: () =>
-    //     import(/* webpackChunkName: "datepicker" */ '../fragments/DatePickerSingle.react'),
-    // dropdown: () =>
-    //     import(/* webpackChunkName: "dropdown" */ '../fragments/Dropdown.react'),
+    datePickerRange: () =>
+        import(/* webpackChunkName: "datepicker" */ '../fragments/DatePickerRange.react'),
+    datePickerSingle: () =>
+        import(/* webpackChunkName: "datepicker" */ '../fragments/DatePickerSingle.react'),
+    dropdown: () =>
+        import(/* webpackChunkName: "dropdown" */ '../fragments/Dropdown.react'),
     graph: () =>
         import(/* webpackChunkName: "graph" */ '../fragments/Graph.react'),
     // markdown: () =>
