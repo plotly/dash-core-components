@@ -40,12 +40,7 @@ _current_path = _os.path.dirname(_os.path.abspath(__file__))
 _this_module = _sys.modules[__name__]
 
 async_resources = [
-    'datepicker',
-    'dropdown',
-    'graph',
-    'markdown',
-    'slider',
-    'upload'
+    'graph'
 ]
 
 _js_dist = []
