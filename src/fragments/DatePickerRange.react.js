@@ -30,7 +30,7 @@ export default class DatePickerRange extends Component {
             state.end_date = newProps.end_date;
         }
 
-        if (Object.keys(state)) {
+        if (Object.keys(state).length) {
             this.setState(state);
         }
     }
