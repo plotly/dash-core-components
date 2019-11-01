@@ -20,10 +20,19 @@ export default class DatePickerRange extends Component {
     }
 
     propsToState(newProps) {
-        this.setState({
-            start_date: newProps.start_date,
-            end_date: newProps.end_date,
-        });
+        const state = {};
+
+        if (newProps.start_date !== this.props.start_date) {
+            state.start_date = newProps.start_date;
+        }
+
+        if (newProps.end_date !== this.props.end_date) {
+            state.end_date = newProps.end_date;
+        }
+
+        if (Object.keys(state)) {
+            this.setState(state);
+        }
     }
 
     componentWillReceiveProps(newProps) {
