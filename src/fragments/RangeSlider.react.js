@@ -20,7 +20,7 @@ export default class RangeSlider extends Component {
             state.value = newProps.value;
         }
 
-        if (Object.keys(state)) {
+        if (Object.keys(state).length) {
             this.setState(state);
         }
     }
