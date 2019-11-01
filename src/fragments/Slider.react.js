@@ -14,10 +14,10 @@ export default class Slider extends Component {
             : ReactSlider;
     }
 
-    propsToState(newProps) {
+    propsToState(newProps, force = false) {
         const state = {};
 
-        if (newProps.value !== this.props.value) {
+        if (force || newProps.value !== this.props.value) {
             state.value = newProps.value;
         }
 
@@ -36,7 +36,7 @@ export default class Slider extends Component {
     }
 
     componentWillMount() {
-        this.propsToState(this.props);
+        this.propsToState(this.props, true);
     }
 
     render() {

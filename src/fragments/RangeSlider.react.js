@@ -13,7 +13,7 @@ export default class RangeSlider extends Component {
             : Range;
     }
 
-    propsToState(newProps) {
+    propsToState(newProps, force = false) {
         const state = {};
 
         if (newProps.value !== this.props.value) {
@@ -35,7 +35,7 @@ export default class RangeSlider extends Component {
     }
 
     componentWillMount() {
-        this.propsToState(this.props);
+        this.propsToState(this.props, true);
     }
 
     render() {
