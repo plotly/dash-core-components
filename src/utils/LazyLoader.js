@@ -12,12 +12,12 @@ export default {
     plotly: () =>
         Promise.resolve(
             window.Plotly ||
-            import(/* webpackChunkName: "plotlyjs" */ 'plotly.js').then(
-                ({ default: Plotly }) => {
-                    window.Plotly = Plotly;
-                    return Plotly;
-                }
-            )
+                import(/* webpackChunkName: "plotlyjs" */ 'plotly.js').then(
+                    ({default: Plotly}) => {
+                        window.Plotly = Plotly;
+                        return Plotly;
+                    }
+                )
         ),
     // rangeSlider: () =>
     //     import(/* webpackChunkName: "slider" */ '../fragments/RangeSlider.react'),
