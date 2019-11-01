@@ -14,7 +14,15 @@ export default class RangeSlider extends Component {
     }
 
     propsToState(newProps) {
-        this.setState({value: newProps.value});
+        const state = {};
+
+        if (newProps.value !== this.props.value) {
+            state.value = newProps.value;
+        }
+
+        if (Object.keys(state)) {
+            this.setState(state);
+        }
     }
 
     componentWillReceiveProps(newProps) {
