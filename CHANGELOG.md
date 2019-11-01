@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- [#692](https://github.com/plotly/dash-core-components/pull/692) Async DatePickerSingle, DatePickerRange, Dropdown, Markdown, Upload components
+
 ## [1.4.0] - 2019-10-29
 ### Added
 - [#616](https://github.com/plotly/dash-core-components/pull/616) Async Graph and Plotly.js
