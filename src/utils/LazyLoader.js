@@ -19,10 +19,6 @@ export default {
                     }
                 )
         ),
-    // rangeSlider: () =>
-    //     import(/* webpackChunkName: "slider" */ '../fragments/RangeSlider.react'),
-    // slider: () =>
-    //     import(/* webpackChunkName: "slider" */ '../fragments/Slider.react'),
     upload: () =>
         import(/* webpackChunkName: "upload" */ '../fragments/Upload.react'),
 };
