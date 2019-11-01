@@ -19,14 +19,14 @@ export default class DatePickerRange extends Component {
         };
     }
 
-    propsToState(newProps) {
+    propsToState(newProps, force = false) {
         const state = {};
 
-        if (newProps.start_date !== this.props.start_date) {
+        if (force || newProps.start_date !== this.props.start_date) {
             state.start_date = newProps.start_date;
         }
 
-        if (newProps.end_date !== this.props.end_date) {
+        if (force || newProps.end_date !== this.props.end_date) {
             state.end_date = newProps.end_date;
         }
 
@@ -40,7 +40,7 @@ export default class DatePickerRange extends Component {
     }
 
     componentWillMount() {
-        this.propsToState(this.props);
+        this.propsToState(this.props, true);
     }
 
     onDatesChange({startDate: start_date, endDate: end_date}) {
