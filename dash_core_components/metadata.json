@@ -439,44 +439,7 @@
   "src/components/DatePickerRange.react.js": {
     "description": "DatePickerRange is a tailor made component designed for selecting\ntimespan across multiple days off of a calendar.\n\nThe DatePicker integrates well with the Python datetime module with the\nstartDate and endDate being returned in a string format suitable for\ncreating datetime objects.\n\nThis component is based off of Airbnb's react-dates react component\nwhich can be found here: https://github.com/airbnb/react-dates",
     "displayName": "DatePickerRange",
-    "methods": [
-      {
-        "name": "propsToState",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "newProps",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "onDatesChange",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{startDate: start_date, endDate: end_date}",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "isOutsideRange",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "date",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {
@@ -875,32 +838,7 @@
   "src/components/DatePickerSingle.react.js": {
     "description": "DatePickerSingle is a tailor made component designed for selecting\na single day off of a calendar.\n\nThe DatePicker integrates well with the Python datetime module with the\nstartDate and endDate being returned in a string format suitable for\ncreating datetime objects.\n\nThis component is based off of Airbnb's react-dates react component\nwhich can be found here: https://github.com/airbnb/react-dates",
     "displayName": "DatePickerSingle",
-    "methods": [
-      {
-        "name": "isOutsideRange",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "date",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "onDateChange",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "date",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {
@@ -3147,27 +3085,7 @@
   "src/components/Markdown.react.js": {
     "description": "A component that renders Markdown text as specified by the\nGitHub Markdown spec. These component uses\n[react-markdown](https://rexxars.github.io/react-markdown/) under the hood.",
     "displayName": "DashMarkdown",
-    "methods": [
-      {
-        "name": "highlightCode",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "dedent",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "text",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {
@@ -5041,20 +4959,7 @@
   "src/components/Upload.react.js": {
     "description": "Upload components allow your app to accept user-uploaded files via drag'n'drop",
     "displayName": "Upload",
-    "methods": [
-      {
-        "name": "onDrop",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "files",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {

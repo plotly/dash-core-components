@@ -39,7 +39,37 @@ _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
 _this_module = _sys.modules[__name__]
 
-_js_dist = [
+async_resources = [
+    'datepicker',
+    'dropdown',
+    'graph',
+    'markdown',
+    'upload'
+]
+
+_js_dist = []
+
+_js_dist.extend([{
+        'relative_package_path': 'async~{}.js'.format(async_resource),
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/async~{}.js'
+        ).format(__version__, async_resource),
+        'namespace': 'dash_core_components',
+        'async': True
+    } for async_resource in async_resources])
+
+_js_dist.extend([{
+        'relative_package_path': 'async~{}.js.map'.format(async_resource),
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/async~{}.js.map'
+        ).format(__version__, async_resource),
+        'namespace': 'dash_core_components',
+        'dynamic': True
+    } for async_resource in async_resources])
+
+_js_dist.extend([
     {
         'relative_package_path': 'highlight.pack.js',
         'namespace': 'dash_core_components'
@@ -80,10 +110,10 @@ _js_dist = [
         'dynamic': True
     },
     {
-        'relative_package_path': 'plotly-1.50.1.min.js',
+        'relative_package_path': 'plotly-1.51.1.min.js',
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/plotly-1.50.1.min.js'
+            '/dash_core_components/plotly-1.51.1.min.js'
         ).format(__version__),
         'namespace': 'dash_core_components',
         'async': 'eager'
@@ -106,7 +136,7 @@ _js_dist = [
         'namespace': 'dash_core_components',
         'dynamic': True
     },
-]
+])
 
 for _component in __all__:
     setattr(locals()[_component], '_js_dist', _js_dist)
