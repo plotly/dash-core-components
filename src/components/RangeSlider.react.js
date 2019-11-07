@@ -58,9 +58,12 @@ export default class RangeSlider extends Component {
             tipProps = tooltip;
         }
 
-        const omittedMarks = Object.keys(this.props.marks).filter(value => {
-            return value < this.props.min || value > this.props.max;
-        });
+        const omittedMarks = this.props.marks
+            ? Object.keys(this.props.marks).filter(value => {
+                  return value < this.props.min || value > this.props.max;
+              })
+            : [];
+
         const truncatedMarks = omit(
             omittedMarks.map(mark => parseInt(mark, 10)),
             this.props.marks
