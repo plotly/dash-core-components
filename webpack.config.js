@@ -58,7 +58,7 @@ module.exports = (env, argv) => {
             rules: [
                 {
                     test: /\.jsx?$/,
-                    exclude: /node_modules\/(?!@plotly\/dash-component-plugins)/,
+                    exclude: /node_modules/,
                     use: {
                         loader: 'babel-loader',
                     },
