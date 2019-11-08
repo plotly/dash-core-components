@@ -58,3 +58,19 @@ def test_slsl002_always_visible_rangeslider(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 2-15")
     dash_dcc.click_at_coord_fractions(slider, 0.5, 0.5)
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 2-10")
+
+
+def test_slsl003_out_of_range_marks_rangeslider(dash_dcc):
+
+    app = dash.Dash(__name__)
+    app.layout = html.Div([
+        dcc.RangeSlider(
+            min=0,
+            max=5,
+            marks={i: 'Label {}'.format(i) for i in range(10)}
+        )
+    ])
+
+    dash_dcc.start_server(app)
+
+    assert len(dash_dcc.find_elements('span.rc-slider-mark-text')) == 6
