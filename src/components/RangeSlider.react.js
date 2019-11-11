@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {assoc, omit} from 'ramda';
+import {assoc, omit, pickBy} from 'ramda';
 import {Range, createSliderWithTooltip} from 'rc-slider';
 
 /**
@@ -58,16 +58,12 @@ export default class RangeSlider extends Component {
             tipProps = tooltip;
         }
 
-        const omittedMarks = this.props.marks
-            ? Object.keys(this.props.marks).filter(value => {
-                  return value < this.props.min || value > this.props.max;
-              })
-            : [];
-
-        const truncatedMarks = omit(
-            omittedMarks.map(mark => parseInt(mark, 10)),
-            this.props.marks
-        );
+        const truncatedMarks = this.props.marks
+            ? pickBy(
+                  (k, mark) => mark >= this.props.min && mark <= this.props.max,
+                  this.props.marks
+              )
+            : this.props.marks;
 
         return (
             <div
