@@ -67,7 +67,7 @@ def test_slsl003_out_of_range_marks_rangeslider(dash_dcc):
         dcc.RangeSlider(
             min=0,
             max=5,
-            marks={i: 'Label {}'.format(i) for i in range(10)}
+            marks={i: 'Label {}'.format(i) for i in range(-1, 10)}
         )
     ])
 
