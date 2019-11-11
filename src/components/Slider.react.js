@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import PropTypes from 'prop-types';
-import {assoc, omit} from 'ramda';
+import {assoc, omit, pickBy} from 'ramda';
 import './css/rc-slider@6.1.2.css';
 
 /**
@@ -58,6 +58,13 @@ export default class Slider extends Component {
             tipProps = tooltip;
         }
 
+        const truncatedMarks = this.props.marks
+            ? pickBy(
+                  (k, mark) => mark >= this.props.min && mark <= this.props.max,
+                  this.props.marks
+              )
+            : this.props.marks;
+
         return (
             <div
                 id={id}
@@ -82,8 +89,15 @@ export default class Slider extends Component {
                     }}
                     tipProps={tipProps}
                     value={value}
+                    marks={truncatedMarks}
                     {...omit(
-                        ['className', 'setProps', 'updatemode', 'value'],
+                        [
+                            'className',
+                            'setProps',
+                            'updatemode',
+                            'value',
+                            'marks',
+                        ],
                         this.props
                     )}
                 />
