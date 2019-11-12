@@ -32,7 +32,7 @@ jobs:
           command: |
             . venv/bin/activate
             set -eo pipefail
-            npm i --ignore-scripts
+            npm ci
             npm run format:test
             npm run lint
             flake8 --ignore=E501,F401,F841,F811,W503 tests
@@ -81,15 +81,15 @@ jobs:
           command: |
             . venv/bin/activate && mkdir packages
             # build main dash
-            git clone --depth 1 https://github.com/plotly/dash.git dash-main
+            git clone --depth 1 -b 1003-dash-ie11 https://github.com/plotly/dash.git dash-main
             cd dash-main && pip install -e .[dev] --progress-bar off && python setup.py sdist && mv dist/* ../packages/
             cd dash-renderer && npm run build
             python setup.py sdist && mv dist/* ../../packages/ && cd ../..
             # build dcc
-            npm i --ignore-scripts && npm run build && python setup.py sdist && mv dist/* ./packages
+            npm ci && npm run build && python setup.py sdist && mv dist/* ./packages
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
-            cd dash-html-components && npm i --ignore-scripts && npm run build
+            cd dash-html-components && npm ci && npm run build
             python setup.py sdist && mv dist/* ../packages && cd .. && ls -la packages
       - persist_to_workspace:
           root: ~/project
