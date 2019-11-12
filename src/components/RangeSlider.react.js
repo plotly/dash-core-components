@@ -72,7 +72,11 @@ export default class RangeSlider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={vertical ? {height: '100%'} : {}}
+                style={Object.assign(
+                    {},
+                    {padding: '25px'},
+                    vertical ? {height: '100%'} : {}
+                )}
             >
                 <this.DashSlider
                     onChange={value => {
