@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import PropTypes from 'prop-types';
-import {assoc, omit, pickBy} from 'ramda';
+import {assoc, omit, pickBy, contains} from 'ramda';
 import './css/rc-slider@6.1.2.css';
 
 /**
@@ -75,6 +75,15 @@ export default class Slider extends Component {
                 style={Object.assign(
                     {},
                     {padding: '25px'},
+                    !tooltip ||
+                        !tooltip.always_visible ||
+                        !contains(tooltip.placement, [
+                            'top',
+                            'topLeft',
+                            'topRight',
+                        ])
+                        ? {paddingTop: '0px'}
+                        : {},
                     vertical ? {height: '100%'} : {}
                 )}
             >

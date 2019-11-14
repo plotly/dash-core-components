@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {assoc, omit, pickBy} from 'ramda';
+import {assoc, omit, contains, pickBy} from 'ramda';
 import {Range, createSliderWithTooltip} from 'rc-slider';
 
 /**
@@ -75,6 +75,15 @@ export default class RangeSlider extends Component {
                 style={Object.assign(
                     {},
                     {padding: '25px'},
+                    !tooltip ||
+                        !tooltip.always_visible ||
+                        !contains(tooltip.placement, [
+                            'top',
+                            'topLeft',
+                            'topRight',
+                        ])
+                        ? {paddingTop: '0px'}
+                        : {},
                     vertical ? {height: '100%'} : {}
                 )}
             >
