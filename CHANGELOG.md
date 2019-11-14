@@ -2,7 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [1.5.1] - 2019-11-14
+### Fixed
+- [#696](https://github.com/plotly/dash-core-components/pull/696) Fix IE11 compatibility issues and ES5 compatibility and validation
+
 ### Changed
 - [#687](https://github.com/plotly/dash-core-components/pull/687/) Use `start_date`, `min_date_allowed`, `end_date`, or `max_date_allowed` for the initial visible month if the value of the parameter `initial_visible_month` is not supplied.
 
