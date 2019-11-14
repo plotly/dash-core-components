@@ -57,6 +57,7 @@
   cursor: pointer;
   color: #999;
   white-space: pre;
+  width: fit-content;
 }
 .rc-slider-mark-text-active {
   color: #666;
