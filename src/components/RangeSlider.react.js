@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {assoc, omit, contains, pickBy} from 'ramda';
+import {assoc, omit, contains, pickBy, merge} from 'ramda';
 import {Range, createSliderWithTooltip} from 'rc-slider';
 
 /**
@@ -42,6 +42,7 @@ export default class RangeSlider extends Component {
             tooltip,
             updatemode,
             vertical,
+            verticalHeight,
         } = this.props;
         const value = this.state.value;
 
@@ -65,6 +66,36 @@ export default class RangeSlider extends Component {
               )
             : this.props.marks;
 
+        let style = {
+            padding: '25px',
+        };
+
+        if (
+            !vertical &&
+            (!tooltip ||
+                !tooltip.always_visible ||
+                !contains(tooltip.placement, ['top', 'topLeft', 'topRight']))
+        ) {
+            style = merge(style, {paddingTop: '0px'});
+        }
+
+        if (
+            vertical &&
+            (!tooltip ||
+                !tooltip.always_visible ||
+                !contains(tooltip.placement, [
+                    'left',
+                    'topRight',
+                    'bottomRight',
+                ]))
+        ) {
+            style = merge(style, {paddingLeft: '0px'});
+        }
+
+        if (vertical) {
+            style = merge(style, {height: verticalHeight + 'px'});
+        }
+
         return (
             <div
                 id={id}
@@ -72,20 +103,7 @@ export default class RangeSlider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={Object.assign(
-                    {},
-                    {padding: '25px'},
-                    !tooltip ||
-                        !tooltip.always_visible ||
-                        !contains(tooltip.placement, [
-                            'top',
-                            'topLeft',
-                            'topRight',
-                        ])
-                        ? {paddingTop: '0px'}
-                        : {},
-                    vertical ? {height: '100%'} : {}
-                )}
+                style={style}
             >
                 <this.DashSlider
                     onChange={value => {
@@ -110,6 +128,7 @@ export default class RangeSlider extends Component {
                             'setProps',
                             'marks',
                             'updatemode',
+                            'verticalHeight',
                         ],
                         this.props
                     )}
@@ -241,6 +260,11 @@ RangeSlider.propTypes = {
     vertical: PropTypes.bool,
 
     /**
+     * The height, in px, of the slider if it is vertical.
+     */
+    verticalHeight: PropTypes.number,
+
+    /**
      * Determines when the component should update
      * its value. If `mouseup`, then the slider
      * will only trigger its value when the user has
@@ -308,4 +332,5 @@ RangeSlider.defaultProps = {
     updatemode: 'mouseup',
     persisted_props: ['value'],
     persistence_type: 'local',
+    verticalHeight: 400,
 };
