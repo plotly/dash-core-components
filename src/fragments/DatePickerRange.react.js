@@ -184,6 +184,7 @@ export default class DatePickerRange extends Component {
                     withPortal={with_portal && verticalFlag}
                     startDateId={start_date_id || this.state.start_date_id}
                     endDateId={end_date_id || this.state.end_date_id}
+                    verticalHeight={145 + day_size * 6 + 'px'}
                 />
             </div>
         );
