@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {assoc, omit, contains, pickBy, merge} from 'ramda';
+import {assoc, omit, contains, pickBy} from 'ramda';
 import {Range, createSliderWithTooltip} from 'rc-slider';
+import computeSliderStyle from '../utils/computeSliderStyle';
 
 /**
  * A double slider with two handles.
@@ -14,6 +15,7 @@ export default class RangeSlider extends Component {
         this.DashSlider = props.tooltip
             ? createSliderWithTooltip(Range)
             : Range;
+        this._computeStyle = computeSliderStyle();
     }
 
     propsToState(newProps) {
@@ -59,42 +61,12 @@ export default class RangeSlider extends Component {
             tipProps = tooltip;
         }
 
-        const truncatedMarks = this.props.marks
-            ? pickBy(
-                  (k, mark) => mark >= this.props.min && mark <= this.props.max,
-                  this.props.marks
-              )
-            : this.props.marks;
-
-        let style = {
-            padding: '25px',
-        };
-
-        if (
-            !vertical &&
-            (!tooltip ||
-                !tooltip.always_visible ||
-                !contains(tooltip.placement, ['top', 'topLeft', 'topRight']))
-        ) {
-            style = merge(style, {paddingTop: '0px'});
-        }
-
-        if (
-            vertical &&
-            (!tooltip ||
-                !tooltip.always_visible ||
-                !contains(tooltip.placement, [
-                    'left',
-                    'topRight',
-                    'bottomRight',
-                ]))
-        ) {
-            style = merge(style, {paddingLeft: '0px'});
-        }
-
-        if (vertical) {
-            style = merge(style, {height: verticalHeight + 'px'});
-        }
+        const truncatedMarks =
+            this.props.marks &&
+            pickBy(
+                (k, mark) => mark >= this.props.min && mark <= this.props.max,
+                this.props.marks
+            );
 
         return (
             <div
@@ -103,7 +75,7 @@ export default class RangeSlider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={style}
+                style={this._computeStyle(vertical, verticalHeight, tooltip)}
             >
                 <this.DashSlider
                     onChange={value => {

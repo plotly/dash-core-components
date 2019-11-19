@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import PropTypes from 'prop-types';
-import {assoc, omit, pickBy, contains, merge} from 'ramda';
+import {assoc, omit, pickBy, contains} from 'ramda';
 import './css/rc-slider@6.1.2.css';
+import computeSliderStyle from '../utils/computeSliderStyle';
 
 /**
  * A slider component with a single handle.
@@ -14,6 +15,7 @@ export default class Slider extends Component {
         this.DashSlider = props.tooltip
             ? createSliderWithTooltip(ReactSlider)
             : ReactSlider;
+        this._computeStyle = computeSliderStyle();
     }
 
     propsToState(newProps) {
@@ -66,36 +68,6 @@ export default class Slider extends Component {
               )
             : this.props.marks;
 
-        let style = {
-            padding: '25px',
-        };
-
-        if (
-            !vertical &&
-            (!tooltip ||
-                !tooltip.always_visible ||
-                !contains(tooltip.placement, ['top', 'topLeft', 'topRight']))
-        ) {
-            style = merge(style, {paddingTop: '0px'});
-        }
-
-        if (
-            vertical &&
-            (!tooltip ||
-                !tooltip.always_visible ||
-                !contains(tooltip.placement, [
-                    'left',
-                    'topRight',
-                    'bottomRight',
-                ]))
-        ) {
-            style = merge(style, {paddingLeft: '0px'});
-        }
-
-        if (vertical) {
-            style = merge(style, {height: verticalHeight + 'px'});
-        }
-
         return (
             <div
                 id={id}
@@ -103,7 +75,7 @@ export default class Slider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={style}
+                style={this._computeStyle(vertical, verticalHeight, tooltip)}
             >
                 <this.DashSlider
                     onChange={value => {
