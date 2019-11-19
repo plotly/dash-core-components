@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {assoc, omit, contains, pickBy} from 'ramda';
+import {assoc, omit, pickBy} from 'ramda';
 import {Range, createSliderWithTooltip} from 'rc-slider';
 import computeSliderStyle from '../utils/computeSliderStyle';
 

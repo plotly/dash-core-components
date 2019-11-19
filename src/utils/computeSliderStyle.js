@@ -1,6 +1,6 @@
 import {merge, memoizeWith, identity, contains} from 'ramda';
 
-export default (vertical, verticalHeight, tooltip) => {
+export default () => {
     return memoizeWith(identity, (vertical, verticalHeight, tooltip) => {
         let style = {
             padding: '25px',
