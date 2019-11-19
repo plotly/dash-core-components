@@ -6,30 +6,28 @@ export default (vertical, verticalHeight, tooltip) => {
             padding: '25px',
         };
 
-        if (
-            !vertical &&
-            (!tooltip ||
-                !tooltip.always_visible ||
-                !contains(tooltip.placement, ['top', 'topLeft', 'topRight']))
-        ) {
-            style = merge(style, {paddingTop: '0px'});
-        }
+        if (vertical) {
+            style = merge(style, {height: verticalHeight + 'px'});
 
-        if (
-            vertical &&
-            (!tooltip ||
+            if (
+                !tooltip ||
                 !tooltip.always_visible ||
                 !contains(tooltip.placement, [
                     'left',
                     'topRight',
                     'bottomRight',
-                ]))
-        ) {
-            style = merge(style, {paddingLeft: '0px'});
-        }
-
-        if (vertical) {
-            style = merge(style, {height: verticalHeight + 'px'});
+                ])
+            ) {
+                style = merge(style, {paddingLeft: '0px'});
+            }
+        } else {
+            if (
+                !tooltip ||
+                !tooltip.always_visible ||
+                !contains(tooltip.placement, ['top', 'topLeft', 'topRight'])
+            ) {
+                style = merge(style, {paddingTop: '0px'});
+            }
         }
 
         return style;
