@@ -1,13 +1,13 @@
-import {merge, memoizeWith, identity, contains} from 'ramda';
+import {memoizeWith, identity, contains} from 'ramda';
 
 export default () => {
     return memoizeWith(identity, (vertical, verticalHeight, tooltip) => {
-        let style = {
+        const style = {
             padding: '25px',
         };
 
         if (vertical) {
-            style = merge(style, {height: verticalHeight + 'px'});
+            style.height = verticalHeight + 'px';
 
             if (
                 !tooltip ||
@@ -18,7 +18,7 @@ export default () => {
                     'bottomRight',
                 ])
             ) {
-                style = merge(style, {paddingLeft: '0px'});
+                style.paddingLeft = '0px';
             }
         } else {
             if (
@@ -26,7 +26,7 @@ export default () => {
                 !tooltip.always_visible ||
                 !contains(tooltip.placement, ['top', 'topLeft', 'topRight'])
             ) {
-                style = merge(style, {paddingTop: '0px'});
+                style.paddingTop = '0px';
             }
         }
 
