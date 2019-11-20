@@ -1,8 +1,29 @@
-import React, {Component} from 'react';
-import {clone, equals, filter, has, includes, isNil, omit, type} from 'ramda';
+import React, {Component, Fragment} from 'react';
+import ResizeDetector from 'react-resize-detector';
+import {
+    clone,
+    equals,
+    filter,
+    has,
+    includes,
+    isNil,
+    merge,
+    omit,
+    type,
+} from 'ramda';
 import PropTypes from 'prop-types';
 import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
 /* global Plotly:true */
+
+/**
+ * `responsive: true` causes Plotly.js to resize the graph on `window.resize`.
+ * This is necessary for `dcc.Graph` call to `Plotly.Plots.resize(target)` to do something.
+ *
+ * Users can override this value for specific use-cases by explicitly passing `responsive: false`.
+ */
+const DEFAULT_CONFIG = {
+    responsive: true,
+};
 
 const filterEventData = (gd, eventData, event) => {
     let filteredEventData;
@@ -79,6 +100,10 @@ class PlotlyGraph extends Component {
         this._hasPlotted = false;
         this._prevGd = null;
         this.graphResize = this.graphResize.bind(this);
+
+        this.state = {
+            resizesInProgress: 0,
+        };
     }
 
     plot(props) {
@@ -96,7 +121,7 @@ class PlotlyGraph extends Component {
             data: figure.data,
             layout: clone(figure.layout),
             frames: figure.frames,
-            config: config,
+            config: merge(DEFAULT_CONFIG, config),
         }).then(() => {
             const gd = this.gd.current;
 
@@ -116,7 +141,6 @@ class PlotlyGraph extends Component {
 
             if (!this._hasPlotted) {
                 this.bindEvents();
-                Plotly.Plots.resize(gd);
                 this._hasPlotted = true;
                 this._prevGd = gd;
             }
@@ -154,10 +178,21 @@ class PlotlyGraph extends Component {
         clearExtendData();
     }
 
-    graphResize() {
+    async graphResize(width, height) {
+        console.log('graphResize', this.props.id, width, height);
+
         const gd = this.gd.current;
         if (gd) {
-            Plotly.Plots.resize(gd);
+            this.setState(state => ({
+                resizesInProgress: state.resizesInProgress + 1,
+            }));
+
+            await Plotly.Plots.resize(gd);
+            // await new Promise(resolve => setTimeout(resolve, 5000));
+
+            this.setState(state => ({
+                resizesInProgress: state.resizesInProgress - 1,
+            }));
         }
     }
 
@@ -221,10 +256,7 @@ class PlotlyGraph extends Component {
     }
 
     componentDidMount() {
-        this.plot(this.props).then(() => {
-            window.addEventListener('resize', this.graphResize);
-        });
-
+        this.plot(this.props);
         if (this.props.extendData) {
             this.extend(this.props);
         }
@@ -238,7 +270,6 @@ class PlotlyGraph extends Component {
                 Plotly.purge(gd);
             }
         }
-        window.removeEventListener('resize', this.graphResize);
     }
 
     shouldComponentUpdate(nextProps) {
@@ -274,18 +305,33 @@ class PlotlyGraph extends Component {
 
     render() {
         const {className, id, style, loading_state} = this.props;
+        const {resizesInProgress} = this.state;
 
         return (
-            <div
-                key={id}
-                id={id}
-                ref={this.gd}
-                data-dash-is-loading={
-                    (loading_state && loading_state.is_loading) || undefined
-                }
-                style={style}
-                className={className}
-            />
+            <Fragment>
+                <ResizeDetector
+                    handleHeight={true}
+                    handleWidth={true}
+                    refreshMode="debounce"
+                    refreshOptions={{trailing: true}}
+                    refreshRate={50}
+                    onResize={this.graphResize}
+                />
+                <div
+                    key={id}
+                    id={id}
+                    ref={this.gd}
+                    data-dash-is-loading={
+                        (loading_state && loading_state.is_loading) || undefined
+                    }
+                    style={style}
+                    className={
+                        resizesInProgress
+                            ? `${className || ''} dash-graph-is-resizing`.trim()
+                            : className
+                    }
+                />
+            </Fragment>
         );
     }
 }
