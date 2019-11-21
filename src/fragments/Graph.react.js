@@ -7,7 +7,7 @@ import {
     has,
     includes,
     isNil,
-    merge,
+    mergeDeepRight,
     omit,
     type,
 } from 'ramda';
@@ -15,9 +15,16 @@ import PropTypes from 'prop-types';
 import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
 /* global Plotly:true */
 
-function getParam(param) {
-    return new URL(window.location.href).searchParams.get(param);
-}
+/**
+ * `autosize: true` causes Plotly.js to conform to the parent element size.
+ * This is necessary for `dcc.Graph` call to `Plotly.Plots.resize(target)` to do something for
+ * plots with an explicit `figure.layout.height` and/or `figure.layout.width`.
+ *
+ * Users can override this value for specific use-cases by explicitly passing `autoresize: true`.
+ */
+const DEFAULT_LAYOUT = {
+    autosize: true,
+};
 
 /**
  * `responsive: true` causes Plotly.js to resize the graph on `window.resize`.
@@ -104,14 +111,14 @@ class PlotlyGraph extends Component {
         this._hasPlotted = false;
         this._prevGd = null;
         this.graphResize = this.graphResize.bind(this);
-
-        this.state = {
-            resizesInProgress: 0,
-        };
+        this.isResponsive = this.isResponsive.bind(this);
     }
 
     plot(props) {
         const {figure, animate, animation_options, config} = props;
+        const responsive = this.isResponsive(props);
+        console.log('plot', props.id, responsive);
+
         const gd = this.gd.current;
 
         if (
@@ -122,25 +129,26 @@ class PlotlyGraph extends Component {
             return Plotly.animate(gd, figure, animation_options);
         }
 
-        const layoutStrategy = getParam('layout');
-
         let layoutClone = figure.layout;
-        if (layoutStrategy !== 'none') {
-            if (layoutClone) {
-                layoutClone = clone(figure.layout);
+        if (layoutClone) {
+            if (responsive) {
+                layoutClone = mergeDeepRight(figure.layout, DEFAULT_LAYOUT);
                 delete layoutClone.height;
                 delete layoutClone.width;
+            } else {
+                layoutClone = clone(figure.layout);
             }
-            console.log('layout >> sanitize', figure.layout, layoutClone);
-        } else {
-            console.log('layout >> none', figure.layout);
         }
+
+        const configClone = responsive
+            ? mergeDeepRight(config, DEFAULT_CONFIG)
+            : clone(config);
 
         return Plotly.react(gd, {
             data: figure.data,
             layout: layoutClone,
             frames: figure.frames,
-            config: merge(DEFAULT_CONFIG, config),
+            config: configClone,
         }).then(() => {
             const gd = this.gd.current;
 
@@ -160,6 +168,9 @@ class PlotlyGraph extends Component {
 
             if (!this._hasPlotted) {
                 this.bindEvents();
+                if (!responsive) {
+                    Plotly.Plots.resize(gd);
+                }
                 this._hasPlotted = true;
                 this._prevGd = gd;
             }
@@ -197,21 +208,33 @@ class PlotlyGraph extends Component {
         clearExtendData();
     }
 
-    async graphResize(width, height) {
-        console.log('graphResize', this.props.id, width, height);
+    isResponsive(props) {
+        const {config, figure, responsive} = props;
+
+        if (type(responsive) === 'Boolean') {
+            return responsive;
+        }
+
+        return (
+            (config.responsive || isNil(config.responsive)) &&
+            (!figure.layout ||
+                ((figure.layout.autosize || isNil(figure.layout.autosize)) &&
+                    (isNil(figure.layout.height) ||
+                        isNil(figure.layout.width))))
+        );
+    }
+
+    graphResize(width, height) {
+        const responsive = this.isResponsive(this.props);
+
+        console.log('graphResize', this.props.id, width, height, responsive);
+        if (!responsive) {
+            return;
+        }
 
         const gd = this.gd.current;
         if (gd) {
-            this.setState(state => ({
-                resizesInProgress: state.resizesInProgress + 1,
-            }));
-
-            await Plotly.Plots.resize(gd);
-            // await new Promise(resolve => setTimeout(resolve, 5000));
-
-            this.setState(state => ({
-                resizesInProgress: state.resizesInProgress - 1,
-            }));
+            Plotly.Plots.resize(gd);
         }
     }
 
@@ -323,56 +346,12 @@ class PlotlyGraph extends Component {
     }
 
     render() {
-        const renderStrategy = getParam('render');
-
-        return renderStrategy === 'initial'
-            ? this.renderInitial()
-            : this.renderCandidate();
-    }
-
-    renderInitial() {
-        console.log('render >> initial');
         const {className, id, style, loading_state} = this.props;
-        const {resizesInProgress} = this.state;
-
-        return (
-            <Fragment>
-                <ResizeDetector
-                    handleHeight={true}
-                    handleWidth={true}
-                    refreshMode="debounce"
-                    refreshOptions={{trailing: true}}
-                    refreshRate={50}
-                    onResize={this.graphResize}
-                />
-                <div
-                    key={id}
-                    id={id}
-                    ref={this.gd}
-                    data-dash-is-loading={
-                        (loading_state && loading_state.is_loading) || undefined
-                    }
-                    style={style}
-                    className={
-                        resizesInProgress
-                            ? `${className || ''} dash-graph-is-resizing`.trim()
-                            : className
-                    }
-                />
-            </Fragment>
-        );
-    }
-
-    renderCandidate() {
-        console.log('render >> wrapped graph');
-        const {className, id, style, loading_state} = this.props;
-        const {resizesInProgress} = this.state;
 
         return (
             <div
                 id={id}
                 key={id}
-                className={resizesInProgress ? 'dash-graph-is-resizing' : ''}
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }

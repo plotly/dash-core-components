@@ -108,6 +108,8 @@ PlotlyGraph.propTypes = {
      */
     id: PropTypes.string,
 
+    responsive: PropTypes.oneOf([true, false, 'auto']),
+
     /**
      * Data from latest click event. Read-only.
      */
@@ -491,6 +493,7 @@ PlotlyGraph.defaultProps = {
         layout: {},
         frames: [],
     },
+    responsive: false,
     animate: false,
     animation_options: {
         frame: {
