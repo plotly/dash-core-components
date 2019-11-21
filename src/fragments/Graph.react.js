@@ -24,6 +24,8 @@ import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
  */
 const DEFAULT_LAYOUT = {
     autosize: true,
+    height: undefined,
+    width: undefined,
 };
 
 /**
@@ -133,8 +135,6 @@ class PlotlyGraph extends Component {
         if (layoutClone) {
             if (responsive) {
                 layoutClone = mergeDeepRight(figure.layout, DEFAULT_LAYOUT);
-                delete layoutClone.height;
-                delete layoutClone.width;
             } else {
                 layoutClone = clone(figure.layout);
             }
