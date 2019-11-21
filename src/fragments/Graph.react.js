@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import ResizeDetector from 'react-resize-detector';
 import {
     clone,
@@ -117,7 +117,6 @@ class PlotlyGraph extends Component {
     plot(props) {
         const {figure, animate, animation_options, config} = props;
         const responsive = this.isResponsive(props);
-        console.log('plot', props.id, responsive);
 
         const gd = this.gd.current;
 
@@ -224,10 +223,8 @@ class PlotlyGraph extends Component {
         );
     }
 
-    graphResize(width, height) {
+    graphResize() {
         const responsive = this.isResponsive(this.props);
-
-        console.log('graphResize', this.props.id, width, height, responsive);
         if (!responsive) {
             return;
         }
