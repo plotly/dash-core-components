@@ -43,7 +43,7 @@ module.exports = (env, argv) => {
     });
 
     return {
-        mode: 'development',
+        mode,
         entry,
         output: {
             path: path.resolve(__dirname, dashLibraryName),
@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
             library: dashLibraryName,
             libraryTarget: 'window',
         },
-        // devtool,
+        devtool,
         externals,
         module: {
             rules: [
