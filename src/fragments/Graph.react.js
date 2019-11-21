@@ -17,10 +17,10 @@ import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
 
 /**
  * `autosize: true` causes Plotly.js to conform to the parent element size.
- * This is necessary for `dcc.Graph` call to `Plotly.Plots.resize(target)` to do something for
- * plots with an explicit `figure.layout.height` and/or `figure.layout.width`.
+ * This is necessary for `dcc.Graph` call to `Plotly.Plots.resize(target)` to do something.
  *
- * Users can override this value for specific use-cases by explicitly passing `autoresize: true`.
+ * Users can override this value for specific use-cases by explicitly passing `autoresize: true`
+ * if `responsive` is not set to True.
  */
 const DEFAULT_LAYOUT = {
     autosize: true,
@@ -30,7 +30,8 @@ const DEFAULT_LAYOUT = {
  * `responsive: true` causes Plotly.js to resize the graph on `window.resize`.
  * This is necessary for `dcc.Graph` call to `Plotly.Plots.resize(target)` to do something.
  *
- * Users can override this value for specific use-cases by explicitly passing `responsive: false`.
+ * Users can override this value for specific use-cases by explicitly passing `responsive: false`
+ * if `responsive` is not set to True.
  */
 const DEFAULT_CONFIG = {
     responsive: true,
