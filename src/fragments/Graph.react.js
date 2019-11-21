@@ -168,9 +168,7 @@ class PlotlyGraph extends Component {
 
             if (!this._hasPlotted) {
                 this.bindEvents();
-                if (!responsive) {
-                    Plotly.Plots.resize(gd);
-                }
+                Plotly.Plots.resize(gd);
                 this._hasPlotted = true;
                 this._prevGd = gd;
             }
