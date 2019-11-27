@@ -3631,6 +3631,17 @@
         "required": false,
         "description": "If true, the slider will be vertical"
       },
+      "verticalHeight": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The height, in px, of the slider if it is vertical.",
+        "defaultValue": {
+          "value": "400",
+          "computed": false
+        }
+      },
       "updatemode": {
         "type": {
           "name": "enum",
@@ -3916,6 +3927,17 @@
         },
         "required": false,
         "description": "If true, the slider will be vertical"
+      },
+      "verticalHeight": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The height, in px, of the slider if it is vertical.",
+        "defaultValue": {
+          "value": "400",
+          "computed": false
+        }
       },
       "updatemode": {
         "type": {

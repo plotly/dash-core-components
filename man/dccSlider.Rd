@@ -12,8 +12,8 @@ A slider component with a single handle.
 \usage{
 dccSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL, dots=NULL,
 included=NULL, min=NULL, max=NULL, tooltip=NULL, step=NULL, vertical=NULL,
-updatemode=NULL, loading_state=NULL, persistence=NULL, persisted_props=NULL,
-persistence_type=NULL)
+verticalHeight=NULL, updatemode=NULL, loading_state=NULL, persistence=NULL,
+persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{
@@ -60,6 +60,8 @@ will in reality appear to be on the top right of the handle. Configuration for t
 \item{step}{Numeric. Value by which increments or decrements are made}
 
 \item{vertical}{Logical. If true, the slider will be vertical}
+
+\item{verticalHeight}{Numeric. The height, in px, of the slider if it is vertical.}
 
 \item{updatemode}{A value equal to: 'mouseup', 'drag'. Determines when the component should update
 its value. If `mouseup`, then the slider

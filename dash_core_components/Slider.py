@@ -40,6 +40,7 @@ top/bottom{*} sets the _origin_ of the tooltip, so e.g. `topLeft`
 will in reality appear to be on the top right of the handle
 - step (number; optional): Value by which increments or decrements are made
 - vertical (boolean; optional): If true, the slider will be vertical
+- verticalHeight (number; default 400): The height, in px, of the slider if it is vertical.
 - updatemode (a value equal to: 'mouseup', 'drag'; default 'mouseup'): Determines when the component should update
 its value. If `mouseup`, then the slider
 will only trigger its value when the user has
@@ -66,12 +67,12 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit."""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, tooltip=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, updatemode=Component.UNDEFINED, loading_state=Component.UNDEFINED, persistence=Component.UNDEFINED, persisted_props=Component.UNDEFINED, persistence_type=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'tooltip', 'step', 'vertical', 'updatemode', 'loading_state', 'persistence', 'persisted_props', 'persistence_type']
+    def __init__(self, id=Component.UNDEFINED, marks=Component.UNDEFINED, value=Component.UNDEFINED, className=Component.UNDEFINED, disabled=Component.UNDEFINED, dots=Component.UNDEFINED, included=Component.UNDEFINED, min=Component.UNDEFINED, max=Component.UNDEFINED, tooltip=Component.UNDEFINED, step=Component.UNDEFINED, vertical=Component.UNDEFINED, verticalHeight=Component.UNDEFINED, updatemode=Component.UNDEFINED, loading_state=Component.UNDEFINED, persistence=Component.UNDEFINED, persisted_props=Component.UNDEFINED, persistence_type=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'tooltip', 'step', 'vertical', 'verticalHeight', 'updatemode', 'loading_state', 'persistence', 'persisted_props', 'persistence_type']
         self._type = 'Slider'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'tooltip', 'step', 'vertical', 'updatemode', 'loading_state', 'persistence', 'persisted_props', 'persistence_type']
+        self.available_properties = ['id', 'marks', 'value', 'className', 'disabled', 'dots', 'included', 'min', 'max', 'tooltip', 'step', 'vertical', 'verticalHeight', 'updatemode', 'loading_state', 'persistence', 'persisted_props', 'persistence_type']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
