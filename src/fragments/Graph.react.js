@@ -214,12 +214,13 @@ class PlotlyGraph extends Component {
     }
 
     getLayout(layout, responsive) {
-        return (
-            layout &&
-            mergeDeepRight(
-                layout,
-                responsive ? RESPONSIVE_LAYOUT : UNRESPONSIVE_LAYOUT
-            )
+        if (!layout) {
+            return layout;
+        }
+
+        return mergeDeepRight(
+            layout,
+            responsive ? RESPONSIVE_LAYOUT : UNRESPONSIVE_LAYOUT
         );
     }
 
