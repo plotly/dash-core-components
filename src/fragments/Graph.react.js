@@ -207,7 +207,7 @@ class PlotlyGraph extends Component {
     }
 
     getConfig(config, responsive) {
-        mergeDeepRight(
+        return mergeDeepRight(
             config,
             responsive ? RESPONSIVE_CONFIG : UNRESPONSIVE_CONFIG
         );
