@@ -113,10 +113,11 @@ PlotlyGraph.propTypes = {
      * and parent element resize event. This is achieved by overriding
      * `config.responsive` to True, `figure.layout.autosize` to True and unsetting
      * `figure.layout.height` and `figure.layout.width`.
-     * If False (default), the Plotly.js plot may exhibit certain responsive
-     * behaviors on its own but nothing is done in Dash to help this behavior.
+     * If False, the Plotly.js plot not be responsive to window resize and
+     * parent element resize event. This is achieved by overriding `config.responsive`
+     * to False and `figure.layout.autosize` to False.
      * This is the legacy behavior of the Graph component.
-     * If 'auto', the Graph will determine if the Plotly.js plot can be made fully
+     * If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
      * responsive (True) or not (False) based on the values in `config.responsive`,
      * `figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
      */
