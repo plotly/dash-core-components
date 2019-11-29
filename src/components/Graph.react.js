@@ -505,7 +505,7 @@ PlotlyGraph.defaultProps = {
         layout: {},
         frames: [],
     },
-    responsive: false,
+    responsive: 'auto',
     animate: false,
     animation_options: {
         frame: {
