@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ResizeDetector from 'react-resize-detector';
 import {
-    clone,
     equals,
     filter,
     has,
@@ -22,10 +21,14 @@ import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
  * Users can override this value for specific use-cases by explicitly passing `autoresize: true`
  * if `responsive` is not set to True.
  */
-const DEFAULT_LAYOUT = {
+const RESPONSIVE_LAYOUT = {
     autosize: true,
     height: undefined,
     width: undefined,
+};
+
+const UNRESPONSIVE_LAYOUT = {
+    autosize: false,
 };
 
 /**
@@ -35,8 +38,12 @@ const DEFAULT_LAYOUT = {
  * Users can override this value for specific use-cases by explicitly passing `responsive: false`
  * if `responsive` is not set to True.
  */
-const DEFAULT_CONFIG = {
+const RESPONSIVE_CONFIG = {
     responsive: true,
+};
+
+const UNRESPONSIVE_CONFIG = {
+    responsive: false,
 };
 
 const filterEventData = (gd, eventData, event) => {
@@ -110,16 +117,18 @@ class PlotlyGraph extends Component {
     constructor(props) {
         super(props);
         this.gd = React.createRef();
-        this.bindEvents = this.bindEvents.bind(this);
         this._hasPlotted = false;
         this._prevGd = null;
+
+        this.bindEvents = this.bindEvents.bind(this);
+        this.getConfig = this.getConfig.bind(this);
+        this.getLayout = this.getLayout.bind(this);
         this.graphResize = this.graphResize.bind(this);
         this.isResponsive = this.isResponsive.bind(this);
     }
 
     plot(props) {
         const {figure, animate, animation_options, config} = props;
-        const responsive = this.isResponsive(props);
 
         const gd = this.gd.current;
 
@@ -131,18 +140,9 @@ class PlotlyGraph extends Component {
             return Plotly.animate(gd, figure, animation_options);
         }
 
-        let layoutClone = figure.layout;
-        if (layoutClone) {
-            if (responsive) {
-                layoutClone = mergeDeepRight(figure.layout, DEFAULT_LAYOUT);
-            } else {
-                layoutClone = clone(figure.layout);
-            }
-        }
-
-        const configClone = responsive
-            ? mergeDeepRight(config, DEFAULT_CONFIG)
-            : clone(config);
+        const responsive = this.isResponsive(props);
+        const configClone = this.getConfig(config, responsive);
+        const layoutClone = this.getLayout(figure.layout, responsive);
 
         return Plotly.react(gd, {
             data: figure.data,
@@ -206,6 +206,23 @@ class PlotlyGraph extends Component {
         clearExtendData();
     }
 
+    getConfig(config, responsive) {
+        mergeDeepRight(
+            config,
+            responsive ? RESPONSIVE_CONFIG : UNRESPONSIVE_CONFIG
+        );
+    }
+
+    getLayout(layout, responsive) {
+        return (
+            layout &&
+            mergeDeepRight(
+                layout,
+                responsive ? RESPONSIVE_LAYOUT : UNRESPONSIVE_LAYOUT
+            )
+        );
+    }
+
     isResponsive(props) {
         const {config, figure, responsive} = props;
 
@@ -223,8 +240,7 @@ class PlotlyGraph extends Component {
     }
 
     graphResize() {
-        const responsive = this.isResponsive(this.props);
-        if (!responsive) {
+        if (!this.isResponsive(this.props)) {
             return;
         }
 
