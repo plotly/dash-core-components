@@ -84,10 +84,10 @@ def test_grrs001_graph(
 
     dash_dcc.start_server(app)
 
-    resolved_responsive = is_responsive == True or (
+    resolved_responsive = is_responsive is True or (
         is_responsive == 'auto'
-        and responsive != False
-        and autoresize != False
+        and responsive is False
+        and autoresize is False
         and height is None
         and width is None
     )
