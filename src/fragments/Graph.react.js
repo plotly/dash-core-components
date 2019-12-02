@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import ResizeDetector from 'react-resize-detector';
 import {
     equals,
@@ -119,6 +119,7 @@ class PlotlyGraph extends Component {
         this.gd = React.createRef();
         this._hasPlotted = false;
         this._prevGd = null;
+        this._resizes = 0;
 
         this.bindEvents = this.bindEvents.bind(this);
         this.getConfig = this.getConfig.bind(this);
@@ -168,7 +169,7 @@ class PlotlyGraph extends Component {
 
             if (!this._hasPlotted) {
                 this.bindEvents();
-                Plotly.Plots.resize(gd);
+                this.graphResize(true);
                 this._hasPlotted = true;
                 this._prevGd = gd;
             }
@@ -240,15 +241,28 @@ class PlotlyGraph extends Component {
         );
     }
 
-    graphResize() {
-        if (!this.isResponsive(this.props)) {
+    async graphResize(force = false) {
+        if (!force && !this.isResponsive(this.props)) {
             return;
         }
 
         const gd = this.gd.current;
-        if (gd) {
-            Plotly.Plots.resize(gd);
+        if (!gd) {
+            return;
         }
+
+        ++this._resizes;
+        gd.classList.add('dash-graph-resizing');
+
+        Plotly.Plots.resize(gd)
+            .catch(() => {})
+            .finally(() => {
+                --this._resizes;
+
+                if (!this._resizes) {
+                    gd.classList.remove('dash-graph-resizing');
+                }
+            });
     }
 
     bindEvents() {
@@ -325,6 +339,8 @@ class PlotlyGraph extends Component {
                 Plotly.purge(gd);
             }
         }
+
+        this._resizes = 0;
     }
 
     shouldComponentUpdate(nextProps) {
@@ -362,7 +378,15 @@ class PlotlyGraph extends Component {
         const {className, id, style, loading_state} = this.props;
 
         return (
-            <Fragment>
+            <div
+                id={id}
+                key={id}
+                data-dash-is-loading={
+                    (loading_state && loading_state.is_loading) || undefined
+                }
+                style={style}
+                className={className}
+            >
                 <ResizeDetector
                     handleHeight={true}
                     handleWidth={true}
@@ -371,16 +395,8 @@ class PlotlyGraph extends Component {
                     refreshRate={50}
                     onResize={this.graphResize}
                 />
-                <div
-                    id={id}
-                    ref={this.gd}
-                    data-dash-is-loading={
-                        (loading_state && loading_state.is_loading) || undefined
-                    }
-                    style={style}
-                    className={className}
-                />
-            </Fragment>
+                <div ref={this.gd} style={{height: '100%', width: '100%'}} />
+            </div>
         );
     }
 }
