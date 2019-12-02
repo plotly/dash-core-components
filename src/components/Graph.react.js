@@ -1,7 +1,7 @@
-import React, {Component, PureComponent, Suspense} from 'react';
+import React, { Component, PureComponent, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-import {asyncDecorator} from '@plotly/dash-component-plugins';
+import { asyncDecorator } from '@plotly/dash-component-plugins';
 import LazyLoader from '../utils/LazyLoader';
 
 const EMPTY_EXTEND_DATA = [];
@@ -61,12 +61,12 @@ class PlotlyGraph extends Component {
     }
 
     clearExtendData() {
-        this.setState(({extendData}) => {
+        this.setState(({ extendData }) => {
             const res =
                 extendData && extendData.length
                     ? {
-                          extendData: EMPTY_EXTEND_DATA,
-                      }
+                        extendData: EMPTY_EXTEND_DATA,
+                    }
                     : undefined;
 
             return res;
@@ -116,10 +116,10 @@ PlotlyGraph.propTypes = {
      * If False, the Plotly.js plot not be responsive to window resize and
      * parent element resize event. This is achieved by overriding `config.responsive`
      * to False and `figure.layout.autosize` to False.
-     * This is the legacy behavior of the Graph component.
      * If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
      * responsive (True) or not (False) based on the values in `config.responsive`,
      * `figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
+     * This is the legacy behavior of the Graph component.
      */
     responsive: PropTypes.oneOf([true, false, 'auto']),
 
