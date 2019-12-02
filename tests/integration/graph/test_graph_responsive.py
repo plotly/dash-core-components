@@ -86,10 +86,9 @@ def test_grrs001_graph(
 
     resolved_responsive = is_responsive is True or (
         is_responsive == 'auto'
-        and responsive is False
-        and autoresize is False
-        and height is None
-        and width is None
+        and responsive is not False
+        and autoresize is not False
+        and (height is None or width is None)
     )
 
     wait_for(
