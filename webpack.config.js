@@ -58,7 +58,7 @@ module.exports = (env, argv) => {
             rules: [
                 {
                     test: /\.jsx?$/,
-                    exclude: /node_modules/,
+                    exclude: /node_modules\/(?!react-jsx-parser\/)/,
                     use: {
                         loader: 'babel-loader',
                     },

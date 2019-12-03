@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {type} from 'ramda';
+import JsxParser from 'react-jsx-parser';
 import Markdown from 'react-markdown';
 
 import {propTypes, defaultProps} from '../components/Markdown.react';
 import '../components/css/highlight.css';
+
+import DccLink from './../components/Link.react';
 
 export default class DashMarkdown extends Component {
     constructor(props) {
@@ -85,6 +88,10 @@ export default class DashMarkdown extends Component {
         const displayText =
             dedent && textProp ? this.dedent(textProp) : textProp;
 
+        const componentTransforms = {
+            DccLink: props => <DccLink {...props} />,
+        };
+
         return (
             <div
                 id={id}
@@ -110,6 +117,14 @@ export default class DashMarkdown extends Component {
                 <Markdown
                     source={displayText}
                     escapeHtml={!dangerously_allow_html}
+                    renderers={{
+                        html: props => (
+                            <JsxParser
+                                jsx={props.value}
+                                components={componentTransforms}
+                            />
+                        ),
+                    }}
                 />
             </div>
         );
