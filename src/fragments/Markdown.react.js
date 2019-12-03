@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {type} from 'ramda';
+import {mergeDeepRight, pick, type} from 'ramda';
 import JsxParser from 'react-jsx-parser';
 import Markdown from 'react-markdown';
 
@@ -90,6 +90,14 @@ export default class DashMarkdown extends Component {
 
         const componentTransforms = {
             dccLink: props => <DccLink {...props} />,
+            dccMarkdown: props => (
+                <Markdown
+                    {...mergeDeepRight(
+                        pick(['dangerously_allow_html', 'dedent'], this.props),
+                        pick(['children'], props)
+                    )}
+                />
+            ),
         };
 
         return (
