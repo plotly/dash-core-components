@@ -7,13 +7,9 @@ from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 
-assets_folder = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 'assets'
-)
-
 
 def test_mkdw001_img(dash_dcc):
-    app = dash.Dash(__name__, eager_loading=True, assets_folder=assets_folder)
+    app = dash.Dash(__name__, eager_loading=True)
 
     app.layout = html.Div(
         [
@@ -31,7 +27,7 @@ def test_mkdw001_img(dash_dcc):
 
 
 def test_mkdw002_dcclink(dash_dcc):
-    app = dash.Dash(__name__, eager_loading=True, assets_folder=assets_folder)
+    app = dash.Dash(__name__, eager_loading=True)
 
     app.layout = html.Div(
         [
