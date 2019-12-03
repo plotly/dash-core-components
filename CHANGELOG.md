@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- [#711](https://github.com/plotly/dash-core-components/pull/711) Added support for `dcc.Link` react component inside of `dcc.Markdown`
+- [#711](https://github.com/plotly/dash-core-components/pull/711) Added support for `dcc.Link` (dccLink) and `dcc.Markdown` (dccMarkdown) react components inside of `dcc.Markdown`
 
 ## [1.6.0] - 2019-11-27
 ### Updated
