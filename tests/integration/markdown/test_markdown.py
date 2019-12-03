@@ -21,7 +21,7 @@ def test_mkdw001_img(dash_dcc):
     )
 
     dash_dcc.start_server(app)
-    dash_dcc.percy_snapshot("mkdw001 - markdowns display")
+    dash_dcc.percy_snapshot("mkdw001 - image display")
 
 
 def test_mkdw002_dcclink(dash_dcc):
@@ -93,4 +93,4 @@ def test_mkdw002_dcclink(dash_dcc):
     )
 
     dash_dcc.start_server(app)
-    dash_dcc.percy_snapshot("mkdw001 - markdowns display")
+    dash_dcc.percy_snapshot("mkdw002 - markdowns display")
