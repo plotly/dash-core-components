@@ -120,6 +120,9 @@ PlotlyGraph.propTypes = {
      * responsive (True) or not (False) based on the values in `config.responsive`,
      * `figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
      * This is the legacy behavior of the Graph component.
+     *
+     * Needs to be combined with appropriate dimension / styling through the `style` prop
+     * to fully take effect.
      */
     responsive: PropTypes.oneOf([true, false, 'auto']),
 
