@@ -89,7 +89,7 @@ export default class DashMarkdown extends Component {
             dedent && textProp ? this.dedent(textProp) : textProp;
 
         const componentTransforms = {
-            DccLink: props => <DccLink {...props} />,
+            dccLink: props => <DccLink {...props} />,
         };
 
         return (
