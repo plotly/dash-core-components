@@ -32,7 +32,10 @@ def test_mkdw002_dcclink(dash_dcc):
             html.Div(['Markdown link']),
             dcc.Markdown(['[Title](title_crumb)']),
             html.Div(['Markdown dccLink']),
-            dcc.Markdown(['<dccLink href="title_crumb" children="Title" />']),
+            dcc.Markdown(
+                ['<dccLink href="title_crumb" children="Title" />'],
+                dangerously_allow_html=True,
+            ),
             html.Div(['Markdown dccLink - explicit children']),
             dcc.Markdown(
                 [
@@ -41,6 +44,13 @@ def test_mkdw002_dcclink(dash_dcc):
                 Title
             </dccLink>
         '''
+                ],
+                dangerously_allow_html=True,
+            ),
+            html.Div('Markdown dccLink = inlined'),
+            dcc.Markdown(
+                [
+                    'This is an inlined <dccLink href="title_crumb" children="Title" /> with text on both sides'
                 ],
                 dangerously_allow_html=True,
             ),

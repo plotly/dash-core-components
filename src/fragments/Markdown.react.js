@@ -133,6 +133,7 @@ export default class DashMarkdown extends Component {
                                 <JsxParser
                                     jsx={props.value}
                                     components={componentTransforms}
+                                    renderInWrapper={false}
                                 />
                             ),
                     }}
