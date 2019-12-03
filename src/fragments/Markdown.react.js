@@ -126,12 +126,15 @@ export default class DashMarkdown extends Component {
                     source={displayText}
                     escapeHtml={!dangerously_allow_html}
                     renderers={{
-                        html: props => (
-                            <JsxParser
-                                jsx={props.value}
-                                components={componentTransforms}
-                            />
-                        ),
+                        html: props =>
+                            props.escapeHtml ? (
+                                props.value
+                            ) : (
+                                <JsxParser
+                                    jsx={props.value}
+                                    components={componentTransforms}
+                                />
+                            ),
                     }}
                 />
             </div>

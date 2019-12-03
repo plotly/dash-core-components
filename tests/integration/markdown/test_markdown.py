@@ -6,7 +6,25 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 
-def test_mkdw001_display(dash_dcc):
+def test_mkdw001_img(dash_dcc):
+    app = dash.Dash(__name__, eager_loading=True)
+
+    app.layout = html.Div(
+        [
+            html.Div('Markdown img'),
+            dcc.Markdown(
+                ['<img src="assets/image.png" />'], dangerously_allow_html=True
+            ),
+            html.Div('Markdown img - requires dangerously_allow_html'),
+            dcc.Markdown(['<img src="assets/image.png" />']),
+        ]
+    )
+
+    dash_dcc.start_server(app)
+    dash_dcc.percy_snapshot("mkdw001 - markdowns display")
+
+
+def test_mkdw002_dcclink(dash_dcc):
     app = dash.Dash(__name__, eager_loading=True)
 
     app.layout = html.Div(
@@ -23,7 +41,8 @@ def test_mkdw001_display(dash_dcc):
                 Title
             </dccLink>
         '''
-                ]
+                ],
+                dangerously_allow_html=True,
             ),
             html.Div('Markdown dccLink - nested image'),
             dcc.Markdown(
@@ -33,7 +52,8 @@ def test_mkdw001_display(dash_dcc):
                 <img src="assets/image.png" />
             </dccLink>
         '''
-                ]
+                ],
+                dangerously_allow_html=True,
             ),
             html.Div('Markdown dccLink - nested markdown'),
             dcc.Markdown(
@@ -43,7 +63,8 @@ def test_mkdw001_display(dash_dcc):
                 <dccMarkdown children="## Title" />
             </dccLink>
         '''
-                ]
+                ],
+                dangerously_allow_html=True,
             ),
             html.Div('Markdown dccLink - nested markdown image'),
             dcc.Markdown(
@@ -53,8 +74,11 @@ def test_mkdw001_display(dash_dcc):
                 <dccMarkdown children="![Image](assets/image.png)" />
             </dccLink>
         '''
-                ]
+                ],
+                dangerously_allow_html=True,
             ),
+            html.Div('Markdown dccLink - requires dangerously_allow_html'),
+            dcc.Markdown(['<dccLink href="title_crumb" children="Title" />']),
         ]
     )
 
