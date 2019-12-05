@@ -13,12 +13,12 @@ from utils import wait_for
 
 
 @pytest.mark.parametrize("responsive", [True, False, None])
-@pytest.mark.parametrize("autoresize", [True, False, None])
+@pytest.mark.parametrize("autosize", [True, False, None])
 @pytest.mark.parametrize("height", [600, None])
 @pytest.mark.parametrize("width", [600, None])
 @pytest.mark.parametrize("is_responsive", [True, False, 'auto'])
 def test_grrs001_graph(
-    dash_dcc, responsive, autoresize, height, width, is_responsive
+    dash_dcc, responsive, autosize, height, width, is_responsive
 ):
     app = dash.Dash(__name__, eager_loading=True)
 
@@ -52,9 +52,7 @@ def test_grrs001_graph(
                 style=dict(height='100%', width='100%'),
                 config=dict(responsive=responsive),
                 figure=dict(
-                    layout=dict(
-                        autoresize=autoresize, height=height, width=width
-                    ),
+                    layout=dict(autosize=autosize, height=height, width=width),
                     data=[
                         dict(
                             x=[1, 2, 3, 4],
@@ -68,7 +66,18 @@ def test_grrs001_graph(
     )
 
     app.layout = html.Div(
-        id='card', style=card_style, children=[header, graph]
+        [
+            html.Div(
+                [
+                    'responsive: {}, '.format(responsive),
+                    'autosize: {}, '.format(autosize),
+                    'height: {}, '.format(height),
+                    'width: {}, '.format(width),
+                    'is_responsive: {}'.format(is_responsive),
+                ]
+            ),
+            html.Div(id='card', style=card_style, children=[header, graph]),
+        ]
     )
 
     @app.callback(
@@ -84,11 +93,27 @@ def test_grrs001_graph(
 
     dash_dcc.start_server(app)
 
-    resolved_responsive = is_responsive is True or (
+    responsive_candidate = is_responsive is True or (
         is_responsive == 'auto'
         and responsive is not False
-        and autoresize is not False
+        and autosize is not False
         and (height is None or width is None)
+    )
+
+    initial_height = (
+        360
+        if (responsive_candidate and (height is None or is_responsive is True))
+        else 450
+        if height is None
+        else height
+    )
+
+    final_height = (
+        260
+        if (responsive_candidate and (height is None or is_responsive is True))
+        else 450
+        if height is None
+        else height
     )
 
     wait_for(
@@ -96,14 +121,12 @@ def test_grrs001_graph(
         lambda: dash_dcc.wait_for_element('#graph svg.main-svg').size.get(
             'height', -1
         )
-        == 360
-        if resolved_responsive
-        else 600,
+        == initial_height,
         lambda: 'initial graph height {}, expected {}'.format(
             dash_dcc.wait_for_element('#graph svg.main-svg').size.get(
                 'height', -1
             ),
-            360 if resolved_responsive else 600,
+            initial_height,
         ),
     )
     dash_dcc.wait_for_element('#resize').click()
@@ -113,13 +136,11 @@ def test_grrs001_graph(
         lambda: dash_dcc.wait_for_element('#graph svg.main-svg').size.get(
             'height', -1
         )
-        == 260
-        if resolved_responsive
-        else 600,
+        == final_height,
         lambda: 'resized graph height {}, expected {}'.format(
             dash_dcc.wait_for_element('#graph svg.main-svg').size.get(
                 'height', -1
             ),
-            260 if resolved_responsive else 600,
+            final_height,
         ),
     )
