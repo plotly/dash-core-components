@@ -123,7 +123,6 @@ class PlotlyGraph extends Component {
         this.gd = React.createRef();
         this._hasPlotted = false;
         this._prevGd = null;
-        this._resizes = 0;
 
         this.bindEvents = this.bindEvents.bind(this);
         this.getConfig = this.getConfig.bind(this);
@@ -271,18 +270,11 @@ class PlotlyGraph extends Component {
             return;
         }
 
-        ++this._resizes;
         gd.classList.add('dash-graph-resizing');
 
         Plotly.Plots.resize(gd)
             .catch(() => {})
-            .finally(() => {
-                --this._resizes;
-
-                if (!this._resizes) {
-                    gd.classList.remove('dash-graph-resizing');
-                }
-            });
+            .finally(() => gd.classList.remove('dash-graph-resizing'));
     }
 
     bindEvents() {
@@ -359,8 +351,6 @@ class PlotlyGraph extends Component {
                 Plotly.purge(gd);
             }
         }
-
-        this._resizes = 0;
     }
 
     shouldComponentUpdate(nextProps) {
