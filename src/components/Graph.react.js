@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import {asyncDecorator} from '@plotly/dash-component-plugins';
 import LazyLoader from '../utils/LazyLoader';
+import {
+    privatePropTypes,
+    privateDefaultProps,
+} from '../fragments/Graph.privateprops';
 
 const EMPTY_EXTEND_DATA = [];
 
@@ -101,6 +105,8 @@ class ControlledPlotlyGraph extends PureComponent {
 }
 
 PlotlyGraph.propTypes = {
+    ...privatePropTypes,
+
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
@@ -497,6 +503,8 @@ PlotlyGraph.propTypes = {
 };
 
 PlotlyGraph.defaultProps = {
+    ...privateDefaultProps,
+
     clickData: null,
     clickAnnotationData: null,
     hoverData: null,

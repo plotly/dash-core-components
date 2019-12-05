@@ -23,6 +23,10 @@ import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
  */
 const RESPONSIVE_LAYOUT = {
     autosize: true,
+};
+
+const RESPONSIVE_LAYOUT_CLEAR_DIMENSIONS = {
+    ...RESPONSIVE_LAYOUT,
     height: undefined,
     width: undefined,
 };
@@ -124,14 +128,19 @@ class PlotlyGraph extends Component {
         this.bindEvents = this.bindEvents.bind(this);
         this.getConfig = this.getConfig.bind(this);
         this.getLayout = this.getLayout.bind(this);
+        this.getLayoutOverride = this.getLayoutOverride.bind(this);
         this.graphResize = this.graphResize.bind(this);
         this.isResponsive = this.isResponsive.bind(this);
     }
 
     plot(props) {
-        const {figure, animate, animation_options, config} = props;
+        let {figure, config} = this.props;
+        const {animate, animation_options} = props;
 
         const gd = this.gd.current;
+
+        figure = this.props._dashprivate_transformFigure(figure, gd);
+        config = this.props._dashprivate_transformConfig(config, gd);
 
         if (
             animate &&
@@ -219,10 +228,18 @@ class PlotlyGraph extends Component {
             return layout;
         }
 
-        return mergeDeepRight(
-            layout,
-            responsive ? RESPONSIVE_LAYOUT : UNRESPONSIVE_LAYOUT
-        );
+        return mergeDeepRight(layout, this.getLayoutOverride(responsive));
+    }
+
+    getLayoutOverride(responsive) {
+        switch (responsive) {
+            case false:
+                return UNRESPONSIVE_LAYOUT;
+            case true:
+                return RESPONSIVE_LAYOUT_CLEAR_DIMENSIONS;
+            default:
+                return RESPONSIVE_LAYOUT;
+        }
     }
 
     isResponsive(props) {
@@ -233,11 +250,14 @@ class PlotlyGraph extends Component {
         }
 
         return (
-            (config.responsive || isNil(config.responsive)) &&
-            (!figure.layout ||
-                ((figure.layout.autosize || isNil(figure.layout.autosize)) &&
-                    (isNil(figure.layout.height) ||
-                        isNil(figure.layout.width))))
+            Boolean(
+                (config.responsive || isNil(config.responsive)) &&
+                    (!figure.layout ||
+                        ((figure.layout.autosize ||
+                            isNil(figure.layout.autosize)) &&
+                            (isNil(figure.layout.height) ||
+                                isNil(figure.layout.width))))
+            ) && 'auto'
         );
     }
 
