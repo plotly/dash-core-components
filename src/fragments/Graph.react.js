@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import ResizeDetector from 'react-resize-detector';
 import {
     equals,
@@ -133,13 +133,19 @@ class PlotlyGraph extends Component {
     }
 
     plot(props) {
+        console.log(
+            'plot',
+            props.id,
+            props._dashprivate_transformConfig,
+            props._dashprivate_transformFigure
+        );
         let {figure, config} = this.props;
         const {animate, animation_options} = props;
 
         const gd = this.gd.current;
 
-        figure = this.props._dashprivate_transformFigure(figure, gd);
-        config = this.props._dashprivate_transformConfig(config, gd);
+        figure = props._dashprivate_transformFigure(figure, gd);
+        config = props._dashprivate_transformConfig(config, gd);
 
         if (
             animate &&
@@ -388,15 +394,7 @@ class PlotlyGraph extends Component {
         const {className, id, style, loading_state} = this.props;
 
         return (
-            <div
-                id={id}
-                key={id}
-                data-dash-is-loading={
-                    (loading_state && loading_state.is_loading) || undefined
-                }
-                style={style}
-                className={className}
-            >
+            <Fragment>
                 <ResizeDetector
                     handleHeight={true}
                     handleWidth={true}
@@ -405,8 +403,18 @@ class PlotlyGraph extends Component {
                     refreshRate={50}
                     onResize={this.graphResize}
                 />
-                <div ref={this.gd} style={{height: '100%', width: '100%'}} />
-            </div>
+                <div
+                    ref={this.gd}
+                    // style={{ height: '100%', width: '100%' }}
+                    id={id}
+                    key={id}
+                    data-dash-is-loading={
+                        (loading_state && loading_state.is_loading) || undefined
+                    }
+                    style={style}
+                    className={className}
+                />
+            </Fragment>
         );
     }
 }
