@@ -133,12 +133,6 @@ class PlotlyGraph extends Component {
     }
 
     plot(props) {
-        console.log(
-            'plot',
-            props.id,
-            props._dashprivate_transformConfig,
-            props._dashprivate_transformFigure
-        );
         let {figure, config} = this.props;
         const {animate, animation_options} = props;
 
