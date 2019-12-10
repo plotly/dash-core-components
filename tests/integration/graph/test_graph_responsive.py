@@ -93,25 +93,31 @@ def test_grrs001_graph(
 
     dash_dcc.start_server(app)
 
-    responsive_candidate = is_responsive is True or (
+    initial_responsive = is_responsive is True or (
         is_responsive == 'auto'
-        and responsive is not False
+        and autosize is not False
+        and (height is None or width is None)
+    )
+
+    resize_responsive = is_responsive is True or (
+        is_responsive == 'auto'
+        and responsive is True
         and autosize is not False
         and (height is None or width is None)
     )
 
     initial_height = (
         360
-        if (responsive_candidate and (height is None or is_responsive is True))
+        if (initial_responsive and (height is None or is_responsive is True))
         else 450
         if height is None
         else height
     )
 
-    final_height = (
+    resize_height = (
         260
-        if (responsive_candidate and (height is None or is_responsive is True))
-        else 450
+        if (resize_responsive and (height is None or is_responsive is True))
+        else initial_height
         if height is None
         else height
     )
@@ -136,11 +142,11 @@ def test_grrs001_graph(
         lambda: dash_dcc.wait_for_element('#graph svg.main-svg').size.get(
             'height', -1
         )
-        == final_height,
+        == resize_height,
         lambda: 'resized graph height {}, expected {}'.format(
             dash_dcc.wait_for_element('#graph svg.main-svg').size.get(
                 'height', -1
             ),
-            final_height,
+            resize_height,
         ),
     )

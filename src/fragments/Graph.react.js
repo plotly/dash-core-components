@@ -257,7 +257,7 @@ class PlotlyGraph extends Component {
         }
 
         return Boolean(
-            (config.responsive || isNil(config.responsive)) &&
+            config.responsive &&
                 (!figure.layout ||
                     ((figure.layout.autosize ||
                         isNil(figure.layout.autosize)) &&
