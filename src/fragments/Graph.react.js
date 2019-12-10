@@ -369,9 +369,13 @@ class PlotlyGraph extends Component {
              */
             return;
         }
-        if (this.props.figure !== nextProps.figure ||
-            this.props._dashprivate_transformConfig !== nextProps._dashprivate_transformConfig ||
-            this.props._dashprivate_transformFigure !== nextProps._dashprivate_transformFigure) {
+        if (
+            this.props.figure !== nextProps.figure ||
+            this.props._dashprivate_transformConfig !==
+                nextProps._dashprivate_transformConfig ||
+            this.props._dashprivate_transformFigure !==
+                nextProps._dashprivate_transformFigure
+        ) {
             this.plot(nextProps);
         }
 
