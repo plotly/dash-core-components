@@ -23,13 +23,11 @@ import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
  */
 const RESPONSIVE_LAYOUT = {
     autosize: true,
-};
-
-const RESPONSIVE_LAYOUT_CLEAR_DIMENSIONS = {
-    ...RESPONSIVE_LAYOUT,
     height: undefined,
     width: undefined,
 };
+
+const AUTO_LAYOUT = {};
 
 const UNRESPONSIVE_LAYOUT = {
     autosize: false,
@@ -45,6 +43,8 @@ const UNRESPONSIVE_LAYOUT = {
 const RESPONSIVE_CONFIG = {
     responsive: true,
 };
+
+const AUTO_CONFIG = {};
 
 const UNRESPONSIVE_CONFIG = {
     responsive: false,
@@ -126,6 +126,7 @@ class PlotlyGraph extends Component {
 
         this.bindEvents = this.bindEvents.bind(this);
         this.getConfig = this.getConfig.bind(this);
+        this.getConfigOverride = this.getConfigOverride.bind(this);
         this.getLayout = this.getLayout.bind(this);
         this.getLayoutOverride = this.getLayoutOverride.bind(this);
         this.graphResize = this.graphResize.bind(this);
@@ -134,7 +135,7 @@ class PlotlyGraph extends Component {
 
     plot(props) {
         let {figure, config} = props;
-        const {animate, animation_options} = props;
+        const {animate, animation_options, responsive} = props;
 
         const gd = this.gd.current;
 
@@ -149,7 +150,6 @@ class PlotlyGraph extends Component {
             return Plotly.animate(gd, figure, animation_options);
         }
 
-        const responsive = this.isResponsive(props);
         const configClone = this.getConfig(config, responsive);
         const layoutClone = this.getLayout(figure.layout, responsive);
 
@@ -216,10 +216,7 @@ class PlotlyGraph extends Component {
     }
 
     getConfig(config, responsive) {
-        return mergeDeepRight(
-            config,
-            responsive ? RESPONSIVE_CONFIG : UNRESPONSIVE_CONFIG
-        );
+        return mergeDeepRight(config, this.getConfigOverride(responsive));
     }
 
     getLayout(layout, responsive) {
@@ -230,14 +227,25 @@ class PlotlyGraph extends Component {
         return mergeDeepRight(layout, this.getLayoutOverride(responsive));
     }
 
+    getConfigOverride(responsive) {
+        switch (responsive) {
+            case false:
+                return UNRESPONSIVE_CONFIG;
+            case true:
+                return RESPONSIVE_CONFIG;
+            default:
+                return AUTO_CONFIG;
+        }
+    }
+
     getLayoutOverride(responsive) {
         switch (responsive) {
             case false:
                 return UNRESPONSIVE_LAYOUT;
             case true:
-                return RESPONSIVE_LAYOUT_CLEAR_DIMENSIONS;
-            default:
                 return RESPONSIVE_LAYOUT;
+            default:
+                return AUTO_LAYOUT;
         }
     }
 
@@ -248,15 +256,13 @@ class PlotlyGraph extends Component {
             return responsive;
         }
 
-        return (
-            Boolean(
-                (config.responsive || isNil(config.responsive)) &&
-                    (!figure.layout ||
-                        ((figure.layout.autosize ||
-                            isNil(figure.layout.autosize)) &&
-                            (isNil(figure.layout.height) ||
-                                isNil(figure.layout.width))))
-            ) && 'auto'
+        return Boolean(
+            (config.responsive || isNil(config.responsive)) &&
+                (!figure.layout ||
+                    ((figure.layout.autosize ||
+                        isNil(figure.layout.autosize)) &&
+                        (isNil(figure.layout.height) ||
+                            isNil(figure.layout.width))))
         );
     }
 
@@ -405,7 +411,6 @@ class PlotlyGraph extends Component {
                 />
                 <div
                     ref={this.gd}
-                    // style={{ height: '100%', width: '100%' }}
                     id={id}
                     key={id}
                     data-dash-is-loading={
