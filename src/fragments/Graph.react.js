@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import ResizeDetector from 'react-resize-detector';
 import {
     equals,
@@ -400,7 +400,15 @@ class PlotlyGraph extends Component {
         const {className, id, style, loading_state} = this.props;
 
         return (
-            <Fragment>
+            <div
+                id={id}
+                key={id}
+                data-dash-is-loading={
+                    (loading_state && loading_state.is_loading) || undefined
+                }
+                className={className}
+                style={style}
+            >
                 <ResizeDetector
                     handleHeight={true}
                     handleWidth={true}
@@ -409,17 +417,8 @@ class PlotlyGraph extends Component {
                     refreshRate={50}
                     onResize={this.graphResize}
                 />
-                <div
-                    ref={this.gd}
-                    id={id}
-                    key={id}
-                    data-dash-is-loading={
-                        (loading_state && loading_state.is_loading) || undefined
-                    }
-                    style={style}
-                    className={className}
-                />
-            </Fragment>
+                <div ref={this.gd} style={{height: '100%', width: '100%'}} />
+            </div>
         );
     }
 }

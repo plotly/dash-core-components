@@ -93,6 +93,11 @@ def test_grrs001_graph(
 
     dash_dcc.start_server(app)
 
+    # autosize=true|udefined will make the graph fit its parent on first render, responsive has no impact on that behavior
+    #
+    # responsive=true will make the graph resize only if autosize=true|undefined, interestingly enough, responsive=undefined
+    # behaves the same as responsive=false (https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js#L122)
+
     initial_responsive = is_responsive is True or (
         is_responsive == 'auto'
         and autosize is not False
