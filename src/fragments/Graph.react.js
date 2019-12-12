@@ -153,6 +153,8 @@ class PlotlyGraph extends Component {
         const configClone = this.getConfig(config, responsive);
         const layoutClone = this.getLayout(figure.layout, responsive);
 
+        gd.classList.add('dash-graph--pending');
+
         return Plotly.react(gd, {
             data: figure.data,
             layout: layoutClone,
@@ -165,6 +167,8 @@ class PlotlyGraph extends Component {
             if (!gd) {
                 return;
             }
+
+            gd.classList.remove('dash-graph--pending');
 
             // in case we've made a new DOM element, transfer events
             if (this._hasPlotted && gd !== this._prevGd) {

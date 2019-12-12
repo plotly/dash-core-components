@@ -106,6 +106,7 @@ const ControlledPlotlyGraph = memo(props => {
             fallback={
                 <div
                     id={id}
+                    key={id}
                     className={`${extendedClassName} dash-graph--pending`}
                 />
             }
