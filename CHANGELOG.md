@@ -7,7 +7,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [#706](https://github.com/plotly/dash-core-components/pull/706)
   - Added new `responsive` property that overrides the underlying Plotly.js graph responsiveness from Dash-land
   - Added responsiveness on graph parent element resize (previously only worked on window.resize)
-  - Added new `dash-graph--pending` class to dcc.Graph, present while resizing is in progress
 
 ## [1.6.0] - 2019-11-27
 ### Updated
