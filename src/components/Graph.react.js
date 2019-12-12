@@ -1,4 +1,4 @@
-import React, {Component, PureComponent, Suspense} from 'react';
+import React, {Component, memo, Suspense} from 'react';
 import PropTypes from 'prop-types';
 
 import {asyncDecorator} from '@plotly/dash-component-plugins';
@@ -94,15 +94,33 @@ const RealPlotlyGraph = asyncDecorator(PlotlyGraph, () =>
     LazyLoader.plotly().then(LazyLoader.graph)
 );
 
-class ControlledPlotlyGraph extends PureComponent {
-    render() {
-        return (
-            <Suspense fallback={null}>
-                <RealPlotlyGraph {...this.props} />
-            </Suspense>
-        );
-    }
-}
+const ControlledPlotlyGraph = memo(props => {
+    const {className, id} = props;
+
+    const extendedClassName = className
+        ? 'dash-graph js-plotly-plot ' + className
+        : 'dash-graph js-plotly-plot';
+
+    return (
+        <Suspense
+            fallback={
+                <div
+                    id={id}
+                    className={`${extendedClassName} dash-graph--pending`}
+                />
+            }
+        >
+            <RealPlotlyGraph
+                {...{
+                    ...props,
+                    className: extendedClassName,
+                }}
+            />
+        </Suspense>
+    );
+});
+
+ControlledPlotlyGraph.propTypes = PropTypes.any;
 
 PlotlyGraph.propTypes = {
     ...privatePropTypes,

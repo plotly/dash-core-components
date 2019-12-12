@@ -399,10 +399,6 @@ class PlotlyGraph extends Component {
     render() {
         const {className, id, style, loading_state} = this.props;
 
-        const extendedClassName = className
-            ? 'dash-graph js-plotly-plot ' + className
-            : 'dash-graph js-plotly-plot';
-
         return (
             <div
                 id={id}
@@ -410,7 +406,7 @@ class PlotlyGraph extends Component {
                 data-dash-is-loading={
                     (loading_state && loading_state.is_loading) || undefined
                 }
-                className={extendedClassName}
+                className={className}
                 style={style}
             >
                 <ResizeDetector
