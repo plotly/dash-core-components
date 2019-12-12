@@ -276,7 +276,11 @@ class PlotlyGraph extends Component {
             return;
         }
 
-        Plotly.Plots.resize(gd);
+        gd.classList.add('dash-graph--pending');
+
+        Plotly.Plots.resize(gd)
+            .catch(() => {})
+            .finally(() => gd.classList.remove('dash-graph--pending'));
     }
 
     bindEvents() {
