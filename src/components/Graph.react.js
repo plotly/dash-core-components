@@ -80,10 +80,9 @@ class PlotlyGraph extends Component {
     render() {
         return (
             <ControlledPlotlyGraph
-                {...{
-                    ...this.props,
-                    extendData: this.state.extendData,
-                    clearExtendData: this.clearExtendData,
+                {...this.props}
+                extendData={this.state.extendData},
+                clearExtendData={this.clearExtendData},
                 }}
             />
         );
@@ -112,9 +111,8 @@ const ControlledPlotlyGraph = memo(props => {
             }
         >
             <RealPlotlyGraph
-                {...{
-                    ...props,
-                    className: extendedClassName,
+                {...props}
+                className=extendedClassName,
                 }}
             />
         </Suspense>
