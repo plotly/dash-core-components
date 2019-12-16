@@ -98,8 +98,8 @@ const ControlledPlotlyGraph = memo(props => {
     const {className, id} = props;
 
     const extendedClassName = className
-        ? 'dash-graph js-plotly-plot ' + className
-        : 'dash-graph js-plotly-plot';
+        ? 'dash-graph ' + className
+        : 'dash-graph';
 
     return (
         <Suspense
