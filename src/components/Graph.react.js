@@ -109,10 +109,7 @@ const ControlledPlotlyGraph = memo(props => {
                 />
             }
         >
-            <RealPlotlyGraph
-                {...props}
-                className={extendedClassName}
-            />
+            <RealPlotlyGraph {...props} className={extendedClassName} />
         </Suspense>
     );
 });
