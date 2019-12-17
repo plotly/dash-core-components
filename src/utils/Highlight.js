@@ -1,11 +1,10 @@
 import LazyLoader from './LazyLoader';
 
 export default class Highlight {
-
     static hljsResolve() {}
 
     constructor() {
-        if(!Highlight.isReady) {
+        if (!Highlight.isReady) {
             Highlight.isReady = new Promise(resolve => {
                 Highlight.hljsResolve = resolve;
             });
@@ -17,5 +16,4 @@ export default class Highlight {
         Highlight.hljsResolve();
         Highlight.isReady = true;
     }
-
 }

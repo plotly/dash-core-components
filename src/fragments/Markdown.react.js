@@ -12,7 +12,9 @@ export default class DashMarkdown extends Component {
         /* eslint-disable no-new */
         new Highlight();
         if (Highlight.isReady !== true) {
-            Highlight.isReady.then(() => { this.setState({}); })
+            Highlight.isReady.then(() => {
+                this.setState({});
+            });
         }
         this.highlightCode = this.highlightCode.bind(this);
         this.dedent = this.dedent.bind(this);
@@ -30,11 +32,13 @@ export default class DashMarkdown extends Component {
         if (this.mdContainer) {
             const nodes = this.mdContainer.querySelectorAll('pre code');
 
-            if(Highlight.hljs) {
+            if (Highlight.hljs) {
                 for (let i = 0; i < nodes.length; i++) {
                     Highlight.hljs.highlightBlock(nodes[i]);
                 }
-            } else { Highlight.loadhljs(); }
+            } else {
+                Highlight.loadhljs();
+            }
         }
     }
 
