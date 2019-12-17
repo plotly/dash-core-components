@@ -9,8 +9,7 @@ import '../components/css/highlight.css';
 export default class DashMarkdown extends Component {
     constructor(props) {
         super(props);
-        /* eslint-disable no-new */
-        new MarkdownHighlighter();
+
         if (MarkdownHighlighter.isReady !== true) {
             MarkdownHighlighter.isReady.then(() => {
                 this.setState({});

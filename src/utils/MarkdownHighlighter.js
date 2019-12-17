@@ -1,19 +1,17 @@
 import LazyLoader from './LazyLoader';
 
-export default class Highlight {
-    static hljsResolve() {}
+const MarkdownHighlighter = {
+    loadhljs: async function() {
+        this.hljs = await LazyLoader.hljs();
+        this.hljsResolve();
+        this.isReady = true;
+    },
+};
 
-    constructor() {
-        if (!Highlight.isReady) {
-            Highlight.isReady = new Promise(resolve => {
-                Highlight.hljsResolve = resolve;
-            });
-        }
-    }
+const isReady = new Promise(resolve => {
+    MarkdownHighlighter.hljsResolve = resolve;
+});
 
-    static async loadhljs() {
-        Highlight.hljs = await LazyLoader.hljs();
-        Highlight.hljsResolve();
-        Highlight.isReady = true;
-    }
-}
+MarkdownHighlighter.isReady = isReady;
+
+export default MarkdownHighlighter;
