@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {type} from 'ramda';
 import Markdown from 'react-markdown';
 
-import Highlight from '../utils/Highlight';
+import MarkdownHighlighter from '../utils/MarkdownHighlighter';
 import {propTypes, defaultProps} from '../components/Markdown.react';
 import '../components/css/highlight.css';
 
@@ -10,9 +10,9 @@ export default class DashMarkdown extends Component {
     constructor(props) {
         super(props);
         /* eslint-disable no-new */
-        new Highlight();
-        if (Highlight.isReady !== true) {
-            Highlight.isReady.then(() => {
+        new MarkdownHighlighter();
+        if (MarkdownHighlighter.isReady !== true) {
+            MarkdownHighlighter.isReady.then(() => {
                 this.setState({});
             });
         }
@@ -32,12 +32,12 @@ export default class DashMarkdown extends Component {
         if (this.mdContainer) {
             const nodes = this.mdContainer.querySelectorAll('pre code');
 
-            if (Highlight.hljs) {
+            if (MarkdownHighlighter.hljs) {
                 for (let i = 0; i < nodes.length; i++) {
-                    Highlight.hljs.highlightBlock(nodes[i]);
+                    MarkdownHighlighter.hljs.highlightBlock(nodes[i]);
                 }
             } else {
-                Highlight.loadhljs();
+                MarkdownHighlighter.loadhljs();
             }
         }
     }
