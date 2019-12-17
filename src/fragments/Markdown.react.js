@@ -2,12 +2,17 @@ import React, {Component} from 'react';
 import {type} from 'ramda';
 import Markdown from 'react-markdown';
 
+import Highlight from '../utils/Highlight';
 import {propTypes, defaultProps} from '../components/Markdown.react';
 import '../components/css/highlight.css';
 
 export default class DashMarkdown extends Component {
     constructor(props) {
         super(props);
+        new Highlight();
+        if (Highlight.isReady !== true) {
+            Highlight.isReady.then(() => { this.setState({}); })
+        }
         this.highlightCode = this.highlightCode.bind(this);
         this.dedent = this.dedent.bind(this);
     }
@@ -21,16 +26,14 @@ export default class DashMarkdown extends Component {
     }
 
     highlightCode() {
-        if (!window.hljs) {
-            // skip highlighting if highlight.js isn't found
-            return;
-        }
         if (this.mdContainer) {
             const nodes = this.mdContainer.querySelectorAll('pre code');
 
-            for (let i = 0; i < nodes.length; i++) {
-                window.hljs.highlightBlock(nodes[i]);
-            }
+            if(Highlight.hljs) {
+                for (let i = 0; i < nodes.length; i++) {
+                    Highlight.hljs.highlightBlock(nodes[i]);
+                }
+            } else { Highlight.loadhljs(); }
         }
     }
 

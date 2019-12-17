@@ -7,6 +7,13 @@ export default {
         import(/* webpackChunkName: "dropdown" */ '../fragments/Dropdown.react'),
     graph: () =>
         import(/* webpackChunkName: "graph" */ '../fragments/Graph.react'),
+    hljs: () =>
+        Promise.resolve(
+            window.hljs ||
+                import(/* webpackChunkName: "highlight" */ '../../third-party/highlight.js').then(
+                    result => result.default
+                )
+        ),
     markdown: () =>
         import(/* webpackChunkName: "markdown" */ '../fragments/Markdown.react'),
     plotly: () =>
