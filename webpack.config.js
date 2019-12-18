@@ -110,6 +110,21 @@ module.exports = (env, argv) => {
             }
         },
         plugins: [
+            new webpack.DefinePlugin({
+                __VERSION__: (() => {
+                    const version = packagejson.version;
+
+                    const versionPattern = /^(\d+)[.](\d+)[.](\d+)(?:-(.*))?$/
+                    const [, major, minor, patch, pre] = version.match(versionPattern);
+
+                    return JSON.stringify({
+                        major: parseInt(major, 10),
+                        minor: parseInt(minor, 10),
+                        patch: parseInt(patch, 10),
+                        pre
+                    });
+                })()
+            }),
             new WebpackDashDynamicImport(),
             new webpack.SourceMapDevToolPlugin({
                 filename: '[name].js.map',

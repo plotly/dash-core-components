@@ -49,3 +49,5 @@ export {
     Store,
     LogoutButton,
 };
+
+export const __version__ = __VERSION__;

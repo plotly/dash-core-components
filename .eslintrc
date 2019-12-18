@@ -25,7 +25,8 @@
     "node": true
   },
   "globals": {
-    "jest": true
+    "jest": true,
+    "__VERSION__": true
   },
   "plugins": [
     "react",
