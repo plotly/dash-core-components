@@ -2,7 +2,8 @@ import React, {Component, memo, Suspense} from 'react';
 import PropTypes from 'prop-types';
 
 import {asyncDecorator} from '@plotly/dash-component-plugins';
-import {plotly, graph} from '../utils/LazyLoader';
+import graph from '../utils/LazyLoader/graph';
+import plotly from '../utils/LazyLoader/plotly';
 import {
     privatePropTypes,
     privateDefaultProps,

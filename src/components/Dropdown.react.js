@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Component, lazy, Suspense} from 'react';
-import {dropdown} from '../utils/LazyLoader';
+import dropdown from '../utils/LazyLoader/dropdown';
 
 const RealDropdown = lazy(dropdown);
 

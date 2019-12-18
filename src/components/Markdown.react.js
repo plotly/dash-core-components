@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Component, lazy, Suspense} from 'react';
-import {markdown} from '../utils/LazyLoader';
+import markdown from '../utils/LazyLoader/markdown';
 
 const RealDashMarkdown = lazy(markdown);
 
