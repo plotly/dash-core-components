@@ -4,7 +4,6 @@ import Markdown from 'react-markdown';
 
 import MarkdownHighlighter from '../utils/MarkdownHighlighter';
 import {propTypes, defaultProps} from '../components/Markdown.react';
-import '../components/css/highlight.css';
 
 export default class DashMarkdown extends Component {
     constructor(props) {
