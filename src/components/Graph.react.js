@@ -2,7 +2,8 @@ import React, {Component, memo, Suspense} from 'react';
 import PropTypes from 'prop-types';
 
 import {asyncDecorator} from '@plotly/dash-component-plugins';
-import LazyLoader from '../utils/LazyLoader';
+import graph from '../utils/LazyLoader/graph';
+import plotly from '../utils/LazyLoader/plotly';
 import {
     privatePropTypes,
     privateDefaultProps,
@@ -89,7 +90,7 @@ class PlotlyGraph extends Component {
 }
 
 const RealPlotlyGraph = asyncDecorator(PlotlyGraph, () =>
-    LazyLoader.plotly().then(LazyLoader.graph)
+    Promise.all([plotly(), graph()]).then(([, graph]) => graph)
 );
 
 const ControlledPlotlyGraph = memo(props => {
