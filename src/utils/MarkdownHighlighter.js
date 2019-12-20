@@ -1,5 +1,4 @@
 import lazyhljs from './LazyLoader/hljs';
-import '../components/css/highlight.css';
 
 const MarkdownHighlighter = {
     loadhljs: async function() {
