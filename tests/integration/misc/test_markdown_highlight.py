@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import dash
+from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -20,9 +21,25 @@ def test_msmh001_no_window_variable(dash_dcc):
     assert window_hljs is None
 
 
-def test_msmh001_window_override(dash_dcc):
+def test_msmh002_window_override(dash_dcc):
     app = dash.Dash(__name__)
-    app.layout = html.Div(dcc.Markdown(md_text))
+    app.layout = html.Div([
+        html.Div(id='md-trigger'),
+        html.Div(id='md-container')
+    ])
+
+    # we can't run the script below until after the page has loaded,
+    # so we need to trigger a rerender of the markdown component
+    @app.callback(
+        Output('md-container', 'children'),
+        [Input('md-trigger', 'children')]
+    )
+    def trigger_md_rerender(_):
+        return dcc.Markdown(md_text)
+
     dash_dcc.start_server(app)
 
     dash_dcc.driver.execute_script('window.hljs = {highlightBlock: (block) => {block.innerHTML="hljs override"}};')
+
+    assert dash_dcc.find_element('code').text == 'hljs override'
+    dash_dcc.percy_snapshot('md_code_highlight_override')
