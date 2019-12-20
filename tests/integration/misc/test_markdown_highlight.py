@@ -41,5 +41,5 @@ def test_msmh002_window_override(dash_dcc):
 
     dash_dcc.driver.execute_script('window.hljs = {highlightBlock: (block) => {block.innerHTML="hljs override"}};')
 
-    assert dash_dcc.find_element('code').text == 'hljs override'
+    dash_dcc.wait_for_text_to_equal('#md-container code', 'hljs override')
     dash_dcc.percy_snapshot('md_code_highlight_override')
