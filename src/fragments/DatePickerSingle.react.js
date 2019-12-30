@@ -5,11 +5,12 @@ import moment from 'moment';
 import React, {Component} from 'react';
 
 import {propTypes, defaultProps} from '../components/DatePickerSingle.react';
-import convertToMoment from '../utils/convertToMoment';
+import convertToMoment, {setLocaleGlobally} from '../utils/convertToMoment';
 
 export default class DatePickerSingle extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        setLocaleGlobally(this.props.language);
         this.isOutsideRange = this.isOutsideRange.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
         this.state = {focused: false};
