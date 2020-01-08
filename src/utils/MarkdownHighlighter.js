@@ -1,10 +1,11 @@
 import lazyhljs from './LazyLoader/hljs';
 
 const MarkdownHighlighter = {
-    loadhljs: async function() {
-        this.hljs = await lazyhljs();
-        this.hljsResolve();
-        this.isReady = true;
+    loadhljs: function () {
+        return lazyhljs().then(() => {
+            this.hljsResolve();
+            this.isReady = true;
+        });
     },
 };
 
