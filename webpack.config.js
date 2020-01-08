@@ -58,11 +58,26 @@ module.exports = (env, argv) => {
             rules: [
                 {
                     test: /\.jsx?$/,
-                    exclude: /node_modules\/(?!react-jsx-parser\/)/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: 'babel-loader'
+                    }
+                },
+                {
+                    test: /\.jsx?$/,
+                    include: /node_modules\/(react-jsx-parser\/)/,
                     use: {
                         loader: 'babel-loader',
-                    },
+                        options: {
+                            babelrc: false,
+                            configFile: false,
+                            presets: [
+                                '@babel/preset-env'
+                            ]
+                        }
+                    }
                 },
+
                 {
                     test: /\.css$/,
                     use: [
