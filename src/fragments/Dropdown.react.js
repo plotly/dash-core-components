@@ -74,6 +74,12 @@ export default class Dropdown extends Component {
                     value={selectedValue}
                     onChange={selectedOption => {
                         if (multi) {
+                            if (
+                                !this.props.clearable &&
+                                selectedOption.length < 1
+                            ) {
+                                return;
+                            }
                             let value;
                             if (isNil(selectedOption) && this.props.clearable) {
                                 value = [];
