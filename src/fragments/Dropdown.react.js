@@ -75,7 +75,7 @@ export default class Dropdown extends Component {
                     onChange={selectedOption => {
                         if (multi) {
                             let value;
-                            if (isNil(selectedOption)) {
+                            if (isNil(selectedOption) && this.props.clearable) {
                                 value = [];
                             } else {
                                 value = pluck('value', selectedOption);
@@ -83,7 +83,7 @@ export default class Dropdown extends Component {
                             setProps({value});
                         } else {
                             let value;
-                            if (isNil(selectedOption)) {
+                            if (isNil(selectedOption) && this.props.clearable) {
                                 value = null;
                             } else {
                                 value = selectedOption.value;
