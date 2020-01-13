@@ -28,10 +28,12 @@ export default class Input extends PureComponent {
         this.onKeyPress = this.onKeyPress.bind(this);
         this.setInputValue = this.setInputValue.bind(this);
         this.setPropValue = this.setPropValue.bind(this);
+        this.getValueAsNumber = this.getValueAsNumber.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        const {value, valueAsNumber} = this.input.current;
+        const {value} = this.input.current;
+        const valueAsNumber = this.getValueAsNumber(value);
         this.setInputValue(
             isNil(valueAsNumber) ? value : valueAsNumber,
             nextProps.value
@@ -42,7 +44,8 @@ export default class Input extends PureComponent {
     }
 
     componentDidMount() {
-        const {value, valueAsNumber} = this.input.current;
+        const {value} = this.input.current;
+        const valueAsNumber = this.getValueAsNumber(value);
         this.setInputValue(
             isNil(valueAsNumber) ? value : valueAsNumber,
             this.props.value
@@ -89,6 +92,13 @@ export default class Input extends PureComponent {
         );
     }
 
+    getValueAsNumber(value) {
+        if (parseInt(value, 10) !== parseFloat(value)) {
+            return parseFloat(value);
+        }
+        return parseInt(value, 10);
+    }
+
     setInputValue(base, value) {
         const __value = value;
         base = this.input.current.checkValidity() ? convert(base) : NaN;
@@ -109,7 +119,8 @@ export default class Input extends PureComponent {
     }
 
     onEvent() {
-        const {value, valueAsNumber} = this.input.current;
+        const {value} = this.input.current;
+        const valueAsNumber = this.getValueAsNumber(value);
         if (this.props.type === 'number') {
             this.setPropValue(
                 this.props.value,
