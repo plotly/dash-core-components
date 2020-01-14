@@ -93,10 +93,8 @@ export default class Input extends PureComponent {
     }
 
     getValueAsNumber(value) {
-        let intVal = parseInt(value, 10);
-        let floatVal = parseFloat(value);
-
-        return intVal == floatVal ? intVal : floatVal;
+        const numericValue = convert(value);
+        return numericValue % 1 === 0 ? Math.floor(numericValue) : numericValue;
     }
 
     setInputValue(base, value) {
