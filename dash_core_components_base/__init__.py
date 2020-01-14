@@ -43,6 +43,7 @@ async_resources = [
     'datepicker',
     'dropdown',
     'graph',
+    'highlight',
     'markdown',
     'upload'
 ]
@@ -71,10 +72,6 @@ _js_dist.extend([{
 
 _js_dist.extend([
     {
-        'relative_package_path': 'highlight.pack.js',
-        'namespace': 'dash_core_components'
-    },
-    {
         'relative_package_path': '{}.min.js'.format(__name__),
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
@@ -92,10 +89,27 @@ _js_dist.extend([
         'dynamic': True
     },
     {
-        'relative_package_path': 'plotly-1.51.2.min.js',
+        'relative_package_path': '{}-shared.js'.format(__name__),
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/plotly-1.51.2.min.js'
+            '/dash_core_components/dash_core_components-shared.js'
+        ).format(__version__),
+        'namespace': 'dash_core_components'
+    },
+    {
+        'relative_package_path': '{}-shared.js.map'.format(__name__),
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/dash_core_components-shared.js.map'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        'dynamic': True
+    },
+    {
+        'relative_package_path': 'plotly.min.js',
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/plotly.min.js'
         ).format(__version__),
         'namespace': 'dash_core_components',
         'async': 'eager'
