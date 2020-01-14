@@ -1461,6 +1461,31 @@
         "required": false,
         "description": "The ID of this component, used to identify dash components\nin callbacks. The ID needs to be unique across all of the\ncomponents in an app."
       },
+      "responsive": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "true",
+              "computed": false
+            },
+            {
+              "value": "false",
+              "computed": false
+            },
+            {
+              "value": "'auto'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "If True, the Plotly.js plot will be fully responsive to window resize\nand parent element resize event. This is achieved by overriding\n`config.responsive` to True, `figure.layout.autosize` to True and unsetting\n`figure.layout.height` and `figure.layout.width`.\nIf False, the Plotly.js plot not be responsive to window resize and\nparent element resize event. This is achieved by overriding `config.responsive`\nto False and `figure.layout.autosize` to False.\nIf 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully\nresponsive (True) or not (False) based on the values in `config.responsive`,\n`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.\nThis is the legacy behavior of the Graph component.\n\nNeeds to be combined with appropriate dimension / styling through the `style` prop\nto fully take effect.",
+        "defaultValue": {
+          "value": "'auto'",
+          "computed": false
+        }
+      },
       "clickData": {
         "type": {
           "name": "object"
@@ -1951,7 +1976,10 @@
         "required": false,
         "description": "Object that holds the loading state object coming from dash-renderer"
       }
-    }
+    },
+    "composes": [
+      "../fragments/Graph.privateprops"
+    ]
   },
   "src/components/Input.react.js": {
     "description": "A basic HTML input control for entering text, numbers, or passwords.\n\nNote that checkbox and radio types are supported through\nthe Checklist and RadioItems component. Dates, times, and file uploads\nare also supported through separate components.",

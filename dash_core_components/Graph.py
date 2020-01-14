@@ -14,6 +14,20 @@ Keyword arguments:
 - id (string; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.
+- responsive (a value equal to: true, false, 'auto'; default 'auto'): If True, the Plotly.js plot will be fully responsive to window resize
+and parent element resize event. This is achieved by overriding
+`config.responsive` to True, `figure.layout.autosize` to True and unsetting
+`figure.layout.height` and `figure.layout.width`.
+If False, the Plotly.js plot not be responsive to window resize and
+parent element resize event. This is achieved by overriding `config.responsive`
+to False and `figure.layout.autosize` to False.
+If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
+responsive (True) or not (False) based on the values in `config.responsive`,
+`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
+This is the legacy behavior of the Graph component.
+
+Needs to be combined with appropriate dimension / styling through the `style` prop
+to fully take effect.
 - clickData (dict; optional): Data from latest click event. Read-only.
 - clickAnnotationData (dict; optional): Data from latest click annotation event. Read-only.
 - hoverData (dict; optional): Data from latest hover event. Read-only.
@@ -154,12 +168,12 @@ Those keys have the following types:
   - prop_name (string; optional): Holds which property is loading
   - component_name (string; optional): Holds the name of the component that is loading"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, clickData=Component.UNDEFINED, clickAnnotationData=Component.UNDEFINED, hoverData=Component.UNDEFINED, clear_on_unhover=Component.UNDEFINED, selectedData=Component.UNDEFINED, relayoutData=Component.UNDEFINED, extendData=Component.UNDEFINED, restyleData=Component.UNDEFINED, figure=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, animate=Component.UNDEFINED, animation_options=Component.UNDEFINED, config=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'clickData', 'clickAnnotationData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'extendData', 'restyleData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config', 'loading_state']
+    def __init__(self, id=Component.UNDEFINED, responsive=Component.UNDEFINED, clickData=Component.UNDEFINED, clickAnnotationData=Component.UNDEFINED, hoverData=Component.UNDEFINED, clear_on_unhover=Component.UNDEFINED, selectedData=Component.UNDEFINED, relayoutData=Component.UNDEFINED, extendData=Component.UNDEFINED, restyleData=Component.UNDEFINED, figure=Component.UNDEFINED, style=Component.UNDEFINED, className=Component.UNDEFINED, animate=Component.UNDEFINED, animation_options=Component.UNDEFINED, config=Component.UNDEFINED, loading_state=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'responsive', 'clickData', 'clickAnnotationData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'extendData', 'restyleData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config', 'loading_state']
         self._type = 'Graph'
         self._namespace = 'dash_core_components'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'clickData', 'clickAnnotationData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'extendData', 'restyleData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config', 'loading_state']
+        self.available_properties = ['id', 'responsive', 'clickData', 'clickAnnotationData', 'hoverData', 'clear_on_unhover', 'selectedData', 'relayoutData', 'extendData', 'restyleData', 'figure', 'style', 'className', 'animate', 'animation_options', 'config', 'loading_state']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

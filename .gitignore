@@ -1,3 +1,4 @@
+.build_cache/
 build/
 dist/
 lib/
@@ -13,3 +14,4 @@ venv/
 *.log
 .idea/
 .DS_Store
+dash_core_components_base/plotly.min.js

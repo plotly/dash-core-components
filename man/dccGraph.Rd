@@ -10,16 +10,31 @@ Graph can be used to render any plotly.js-powered data visualization.  You can d
 }
 
 \usage{
-dccGraph(id=NULL, clickData=NULL, clickAnnotationData=NULL, hoverData=NULL,
-clear_on_unhover=NULL, selectedData=NULL, relayoutData=NULL, extendData=NULL,
-restyleData=NULL, figure=NULL, style=NULL, className=NULL, animate=NULL,
-animation_options=NULL, config=NULL, loading_state=NULL)
+dccGraph(id=NULL, responsive=NULL, clickData=NULL, clickAnnotationData=NULL,
+hoverData=NULL, clear_on_unhover=NULL, selectedData=NULL, relayoutData=NULL,
+extendData=NULL, restyleData=NULL, figure=NULL, style=NULL, className=NULL,
+animate=NULL, animation_options=NULL, config=NULL, loading_state=NULL)
 }
 
 \arguments{
 \item{id}{Character. The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.}
+
+\item{responsive}{A value equal to: true, false, 'auto'. If True, the Plotly.js plot will be fully responsive to window resize
+and parent element resize event. This is achieved by overriding
+`config.responsive` to True, `figure.layout.autosize` to True and unsetting
+`figure.layout.height` and `figure.layout.width`.
+If False, the Plotly.js plot not be responsive to window resize and
+parent element resize event. This is achieved by overriding `config.responsive`
+to False and `figure.layout.autosize` to False.
+If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
+responsive (True) or not (False) based on the values in `config.responsive`,
+`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
+This is the legacy behavior of the Graph component.
+
+Needs to be combined with appropriate dimension / styling through the `style` prop
+to fully take effect.}
 
 \item{clickData}{Named list. Data from latest click event. Read-only.}
 

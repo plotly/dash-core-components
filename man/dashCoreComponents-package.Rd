@@ -7,5 +7,5 @@
 Dash ships with supercharged components for interactive user interfaces. A core set of components, written and maintained by the Dash team, is available in the dashCoreComponents package. The source for this package is on GitHub: plotly/dash-core-components.
 }
 \author{
-\strong{Maintainer}: Ryan Patrick Kyle <ryan@plot.ly>
+\strong{Maintainer}: Chris Parmer <chris@plot.ly>
 }
