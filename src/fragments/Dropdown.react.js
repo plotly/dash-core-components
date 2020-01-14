@@ -89,7 +89,10 @@ export default class Dropdown extends Component {
                             setProps({value});
                         } else {
                             let value;
-                            if (isNil(selectedOption) && this.props.clearable) {
+                            if (isNil(selectedOption)) {
+                                if (!this.props.clearable) {
+                                    return;
+                                }
                                 value = null;
                             } else {
                                 value = selectedOption.value;
