@@ -1,6 +1,6 @@
 {
   "name": "dash-core-components",
-  "version": "1.6.0",
+  "version": "1.7.1",
   "description": "Core component suite for Dash",
   "repository": {
     "type": "git",
@@ -14,7 +14,6 @@
   "scripts": {
     "prepublishOnly": "rm -rf lib && babel src --out-dir lib --copy-files",
     "start": "webpack-serve ./webpack.serve.config.js --open",
-    "generator": "node generator/plotly.js",
     "lint": "eslint src tests",
     "lint:py": "flake8 --ignore=E501,F401,F841,F811,W503 tests",
     "test": "run-s -c lint lint:py format:test test-unit test:legacy test:intg test:pyimport",
@@ -28,7 +27,7 @@
     "prebuild:js": "cp node_modules/plotly.js/dist/plotly.min.js dash_core_components_base/plotly.min.js",
     "build:js": "webpack --mode production",
     "build:py_and_r": "dash-generate-components ./src/components dash_core_components -p package-info.json && cp dash_core_components_base/** dash_core_components/ && dash-generate-components ./src/components dash_core_components -p package-info.json --r-prefix 'dcc'",
-    "build": "run-s build:js generator build:py_and_r",
+    "build": "run-s build:js build:py_and_r",
     "postbuild": "es-check es5 dash_core_components/*.js",
     "build:watch": "watch 'npm run build' src"
   },
@@ -39,7 +38,7 @@
     "fast-isnumeric": "^1.1.3",
     "highlight.js": "^9.17.1",
     "moment": "^2.20.1",
-    "plotly.js": "1.51.3",
+    "plotly.js": "1.52.1",
     "prop-types": "^15.6.0",
     "ramda": "^0.26.1",
     "rc-slider": "^8.6.11",
