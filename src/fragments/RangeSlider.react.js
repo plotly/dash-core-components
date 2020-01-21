@@ -15,10 +15,15 @@ export default class RangeSlider extends Component {
             ? createSliderWithTooltip(Range)
             : Range;
         this._computeStyle = computeSliderStyle();
+        this.state = {
+            value: props.value,
+        };
     }
 
     propsToState(newProps) {
-        this.setState({value: newProps.value});
+        if (newProps.value !== this.props.value) {
+            this.setState({value: newProps.value});
+        }
     }
 
     componentWillReceiveProps(newProps) {
