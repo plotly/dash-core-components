@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [#739](https://github.com/plotly/dash-core-components/pull/739) Async Slider and RangeSlider
 
 ## [1.7.1] - 2020-01-15 (JS-only)
 ### Fixed
