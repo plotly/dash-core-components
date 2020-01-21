@@ -93,8 +93,7 @@ export default class Input extends PureComponent {
     }
 
     getValueAsNumber(value) {
-        const numericValue = convert(value);
-        return numericValue % 1 === 0 ? Math.floor(numericValue) : numericValue;
+        return convert(value);
     }
 
     setInputValue(base, value) {
