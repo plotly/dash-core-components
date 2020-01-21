@@ -4,6 +4,8 @@ import {assoc, omit, pickBy} from 'ramda';
 import {Range, createSliderWithTooltip} from 'rc-slider';
 import computeSliderStyle from '../utils/computeSliderStyle';
 
+import 'rc-slider/assets/index.css';
+
 /**
  * A double slider with two handles.
  * Used for specifying a range of numerical values.

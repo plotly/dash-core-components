@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {assoc, omit, pickBy} from 'ramda';
 import computeSliderStyle from '../utils/computeSliderStyle';
 
+import 'rc-slider/assets/index.css';
 /**
  * A slider component with a single handle.
  */
