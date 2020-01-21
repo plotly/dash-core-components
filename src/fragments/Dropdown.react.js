@@ -46,6 +46,7 @@ export default class Dropdown extends Component {
     render() {
         const {
             id,
+            clearable,
             multi,
             options,
             setProps,
@@ -74,14 +75,8 @@ export default class Dropdown extends Component {
                     value={selectedValue}
                     onChange={selectedOption => {
                         if (multi) {
-                            if (
-                                !this.props.clearable &&
-                                selectedOption.length < 1
-                            ) {
-                                return;
-                            }
                             let value;
-                            if (isNil(selectedOption) && this.props.clearable) {
+                            if (isNil(selectedOption)) {
                                 value = [];
                             } else {
                                 value = pluck('value', selectedOption);
@@ -90,9 +85,6 @@ export default class Dropdown extends Component {
                         } else {
                             let value;
                             if (isNil(selectedOption)) {
-                                if (!this.props.clearable) {
-                                    return;
-                                }
                                 value = null;
                             } else {
                                 value = selectedOption.value;
@@ -101,6 +93,8 @@ export default class Dropdown extends Component {
                         }
                     }}
                     onInputChange={search_value => setProps({search_value})}
+                    backspaceRemoves={clearable}
+                    deleteRemoves={clearable}
                     {...omit(['setProps', 'value'], this.props)}
                 />
             </div>
