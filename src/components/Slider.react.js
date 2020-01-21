@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import PropTypes from 'prop-types';
 import {assoc, omit, pickBy} from 'ramda';
-import './css/rc-slider@6.1.2.css';
 import computeSliderStyle from '../utils/computeSliderStyle';
 
 /**
