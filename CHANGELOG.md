@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+### Changed
+- [#729](https://github.com/plotly/dash-core-components/pull/729) Handle case where dcc fails to load when used inside an iframe with a sandbox attribute that only has allow-scripts
+
+## [1.7.1] - 2020-01-15 (JS-only)
+### Fixed
+- [#734](https://github.com/plotly/dash-core-components/pull/734) Fix JS-facing release bug where `Plotly.js` was listed in `devDependencies` instead of `dependencies`
+
+## [1.7.0] - 2020-01-14
 ### Added
 - [#711](https://github.com/plotly/dash-core-components/pull/711) Added support for `dcc.Link` (dccLink) and nested `dcc.Markdown` (dccMarkdown) react components inside of `dcc.Markdown`
 - [#706](https://github.com/plotly/dash-core-components/pull/706)
