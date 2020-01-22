@@ -51,8 +51,8 @@ export default class Loading extends Component {
                             height: '100%',
                             width: '100%',
                             display: 'flex',
-                            'justify-content': 'center',
-                            'align-items': 'center',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             ...style,
                         }}
                         status={loading_state}
