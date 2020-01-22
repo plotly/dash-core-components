@@ -40,14 +40,27 @@ export default class Loading extends Component {
         if (loading_state && loading_state.is_loading) {
             const Spinner = getSpinner(spinnerType);
             return (
-                <Spinner
-                    className={className}
-                    style={style}
-                    status={loading_state}
-                    color={color}
-                    debug={debug}
-                    fullscreen={fullscreen}
-                />
+                <div style={{visibility: 'hidden', position: 'relative'}}>
+                    {this.props.children}
+                    <Spinner
+                        className={className}
+                        style={{
+                            visibility: 'visible',
+                            position: 'absolute',
+                            top: '0',
+                            height: '100%',
+                            width: '100%',
+                            display: 'flex',
+                            'justify-content': 'center',
+                            'align-items': 'center',
+                            ...style,
+                        }}
+                        status={loading_state}
+                        color={color}
+                        debug={debug}
+                        fullscreen={fullscreen}
+                    />
+                </div>
             );
         }
 
