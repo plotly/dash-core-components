@@ -55,7 +55,11 @@ export default class Loading extends Component {
             type(this.props.children) !== 'Object' ||
             type(this.props.children) !== 'Function'
         ) {
-            return <div className={className}>{this.props.children}</div>;
+            return (
+                <div className={className} style={style}>
+                    {this.props.children}
+                </div>
+            );
         }
         return this.props.children;
     }
