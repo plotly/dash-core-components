@@ -100,7 +100,7 @@ export default class Location extends Component {
         window.onpopstate = this.onLocationChange;
 
         window.addEventListener(
-            '_dashprivate_onpushstate',
+            '_dashprivate_pushstate',
             this.onLocationChange
         );
         this.updateLocation(this.props);
