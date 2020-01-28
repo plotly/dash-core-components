@@ -9,12 +9,13 @@ import dash_html_components as html
 
 def test_link001_event(dash_dcc):
     app = dash.Dash(__name__)
-    app.layout = html.Div([
-        dcc.Link("Page 1", id="link1", href="/page-1"),
-        dcc.Location(id="url", refresh=False),
-        html.Div(id='content')
-    ])
-
+    app.layout = html.Div(
+        [
+            dcc.Link("Page 1", id="link1", href="/page-1"),
+            dcc.Location(id="url", refresh=False),
+            html.Div(id='content'),
+        ]
+    )
 
     @app.callback(Output("content", "children"), [Input("url", "pathname")])
     def display_page(pathname):
@@ -25,9 +26,9 @@ def test_link001_event(dash_dcc):
         else:
             return "404"
 
-
     dash_dcc.start_server(app)
-    dash_dcc.driver.execute_script('''
+    dash_dcc.driver.execute_script(
+        '''
         window.addEventListener('_dashprivate_pushstate', function() {
             window._test_link_event_counter = (window._test_link_event_counter || 0) + 1;
         });
@@ -35,7 +36,8 @@ def test_link001_event(dash_dcc):
         window.addEventListener('_dashprivate_historychange', function() {
             window._test_history_event_counter = (window._test_history_event_counter || 0) + 1;
         });
-    ''')
+    '''
+    )
 
     dash_dcc.wait_for_element_by_id("div0")
 
@@ -43,13 +45,17 @@ def test_link001_event(dash_dcc):
 
     dash_dcc.wait_for_element_by_id("div1")
 
-    link_counter = dash_dcc.driver.execute_script('''
+    link_counter = dash_dcc.driver.execute_script(
+        '''
         return window._test_link_event_counter;
-    ''')
+    '''
+    )
 
-    history_counter = dash_dcc.driver.execute_script('''
+    history_counter = dash_dcc.driver.execute_script(
+        '''
         return window._test_history_event_counter;
-    ''')
+    '''
+    )
 
     assert link_counter == 1
     assert history_counter == 1
