@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.8.0] - 2020-02-04
+### Changed
+- [#743](https://github.com/plotly/dash-core-components/pull/743) Location component now emits an event on URL path update from Link component
+- [#739](https://github.com/plotly/dash-core-components/pull/739) Async Slider and RangeSlider
+- [#729](https://github.com/plotly/dash-core-components/pull/729) Handle case where dcc fails to load when used inside an iframe with a sandbox attribute that only has allow-scripts
+
+### Fixed
+- [#730](https://github.com/plotly/dash-core-components/pull/730) Fixed bug in which input components with type `number` did not correctly update their values.
+- [#731](https://github.com/plotly/dash-core-components/pull/731) Fixed bug where non-clearable dropdowns could still be cleared by typing backspace
+
+### Updated
+- [#747](https://github.com/plotly/dash-core-components/pull/747)
+  - Upgrade plotly.js to [1.52.2](https://github.com/plotly/plotly.js/releases/tag/v1.52.2)
+
 ## [1.7.1] - 2020-01-15 (JS-only)
 ### Fixed
 - [#734](https://github.com/plotly/dash-core-components/pull/734) Fix JS-facing release bug where `Plotly.js` was listed in `devDependencies` instead of `dependencies`

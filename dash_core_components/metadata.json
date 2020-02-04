@@ -2964,6 +2964,13 @@
           }
         ],
         "returns": null
+      },
+      {
+        "name": "onLocationChange",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
       }
     ],
     "props": {
@@ -3461,20 +3468,7 @@
   "src/components/RangeSlider.react.js": {
     "description": "A double slider with two handles.\nUsed for specifying a range of numerical values.",
     "displayName": "RangeSlider",
-    "methods": [
-      {
-        "name": "propsToState",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "newProps",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {
@@ -3790,20 +3784,7 @@
   "src/components/Slider.react.js": {
     "description": "A slider component with a single handle.",
     "displayName": "Slider",
-    "methods": [
-      {
-        "name": "propsToState",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "newProps",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {
