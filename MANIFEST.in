@@ -1,3 +1,4 @@
+include dash_core_components/dash_core_components.css
 include dash_core_components/dash_core_components.min.js
 include dash_core_components/dash_core_components.min.js.map
 include dash_core_components/dash_core_components-shared.js
