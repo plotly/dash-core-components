@@ -31,7 +31,7 @@
     "postbuild": "es-check es5 dash_core_components/*.js",
     "build:watch": "watch 'npm run build' src"
   },
-  "author": "Chris Parmer <chris@plot.ly>",
+  "author": "Chris Parmer <chris@plotly.com>",
   "license": "MIT",
   "dependencies": {
     "color": "^3.1.0",
