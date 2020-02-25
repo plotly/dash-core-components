@@ -21,7 +21,7 @@ r_examples:
                 id = "checklist-input",
                 options=list(
                   list("label" = "New York City", "value" = "NYC"),
-                  list("label" = "Montréal", "value" = "MTL"),
+                  list("label" = "Montreal", "value" = "MTL"),
                   list("label" = "San Francisco", "value" = "SF")
                 ),
                 value=list("MTL", "SF")
@@ -731,7 +731,7 @@ r_examples:
                 dccRadioItems(
                   options=list(
                     list("label" = "New York City", "value" = "NYC"),
-                    list("label" = "Montréal", "value" = "MTL"),
+                    list("label" = "Montreal", "value" = "MTL"),
                     list("label" = "San Francisco", "value" = "SF")
                   ),
                   value = "MTL"
