@@ -54,7 +54,7 @@ module.exports = (env, argv) => {
         },
         externals,
         module: {
-            noParse: /node_modules\/plotly.js/,
+            noParse: /node_modules[\\\/]plotly.js/,
             rules: [
                 {
                     test: /\.jsx?$/,
@@ -65,7 +65,7 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.jsx?$/,
-                    include: /node_modules\/(react-jsx-parser\/)/,
+                    include: /node_modules[\\\/](react-jsx-parser[\\\/])/,
                     use: {
                         loader: 'babel-loader',
                         options: {
@@ -118,7 +118,7 @@ module.exports = (env, argv) => {
                         chunks: 'async',
                         minSize: 0,
                         name(module, chunks, cacheGroupKey) {
-                            return `${cacheGroupKey}~${chunks[0].name}`;
+                            return `${cacheGroupKey}-${chunks[0].name}`;
                         }
                     },
                     shared: {
@@ -134,7 +134,7 @@ module.exports = (env, argv) => {
             new WebpackDashDynamicImport(),
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map',
-                exclude: ['async~plotlyjs']
+                exclude: ['async-plotlyjs']
             })
         ]
     }
