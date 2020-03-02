@@ -43,37 +43,35 @@ async_resources = [
     'datepicker',
     'dropdown',
     'graph',
+    'highlight',
     'markdown',
+    'slider',
     'upload'
 ]
 
 _js_dist = []
 
 _js_dist.extend([{
-        'relative_package_path': 'async~{}.js'.format(async_resource),
+        'relative_package_path': 'async-{}.js'.format(async_resource),
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/async~{}.js'
+            '/dash_core_components/async-{}.js'
         ).format(__version__, async_resource),
         'namespace': 'dash_core_components',
         'async': True
     } for async_resource in async_resources])
 
 _js_dist.extend([{
-        'relative_package_path': 'async~{}.js.map'.format(async_resource),
+        'relative_package_path': 'async-{}.js.map'.format(async_resource),
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/async~{}.js.map'
+            '/dash_core_components/async-{}.js.map'
         ).format(__version__, async_resource),
         'namespace': 'dash_core_components',
         'dynamic': True
     } for async_resource in async_resources])
 
 _js_dist.extend([
-    {
-        'relative_package_path': 'highlight.pack.js',
-        'namespace': 'dash_core_components'
-    },
     {
         'relative_package_path': '{}.min.js'.format(__name__),
         'external_url': (
@@ -92,6 +90,23 @@ _js_dist.extend([
         'dynamic': True
     },
     {
+        'relative_package_path': '{}-shared.js'.format(__name__),
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/dash_core_components-shared.js'
+        ).format(__version__),
+        'namespace': 'dash_core_components'
+    },
+    {
+        'relative_package_path': '{}-shared.js.map'.format(__name__),
+        'external_url': (
+            'https://unpkg.com/dash-core-components@{}'
+            '/dash_core_components/dash_core_components-shared.js.map'
+        ).format(__version__),
+        'namespace': 'dash_core_components',
+        'dynamic': True
+    },
+    {
         'relative_package_path': 'plotly.min.js',
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
@@ -101,19 +116,19 @@ _js_dist.extend([
         'async': 'eager'
     },
     {
-        'relative_package_path': 'async~plotlyjs.js',
+        'relative_package_path': 'async-plotlyjs.js',
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/async~graph~plotlyjs.js'
+            '/dash_core_components/async-plotlyjs.js'
         ).format(__version__),
         'namespace': 'dash_core_components',
         'async': 'lazy'
     },
     {
-        'relative_package_path': 'async~plotlyjs.js.map',
+        'relative_package_path': 'async-plotlyjs.js.map',
         'external_url': (
             'https://unpkg.com/dash-core-components@{}'
-            '/dash_core_components/async~graph~plotlyjs.js.map'
+            '/dash_core_components/async-plotlyjs.js.map'
         ).format(__version__),
         'namespace': 'dash_core_components',
         'dynamic': True

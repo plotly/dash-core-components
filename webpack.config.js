@@ -54,15 +54,30 @@ module.exports = (env, argv) => {
         },
         externals,
         module: {
-            noParse: /node_modules\/plotly.js/,
+            noParse: /node_modules[\\\/]plotly.js/,
             rules: [
                 {
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
                     use: {
-                        loader: 'babel-loader',
-                    },
+                        loader: 'babel-loader'
+                    }
                 },
+                {
+                    test: /\.jsx?$/,
+                    include: /node_modules[\\\/](react-jsx-parser[\\\/])/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            babelrc: false,
+                            configFile: false,
+                            presets: [
+                                '@babel/preset-env'
+                            ]
+                        }
+                    }
+                },
+
                 {
                     test: /\.css$/,
                     use: [
@@ -103,8 +118,14 @@ module.exports = (env, argv) => {
                         chunks: 'async',
                         minSize: 0,
                         name(module, chunks, cacheGroupKey) {
-                            return `${cacheGroupKey}~${chunks[0].name}`;
+                            return `${cacheGroupKey}-${chunks[0].name}`;
                         }
+                    },
+                    shared: {
+                        chunks: 'all',
+                        minSize: 0,
+                        minChunks: 2,
+                        name: 'dash_core_components-shared'
                     }
                 }
             }
@@ -113,7 +134,7 @@ module.exports = (env, argv) => {
             new WebpackDashDynamicImport(),
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map',
-                exclude: ['async~plotlyjs']
+                exclude: ['async-plotlyjs']
             })
         ]
     }

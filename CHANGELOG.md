@@ -2,8 +2,31 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.8.1] -2020-02-27
+### Changed
+- [#762](https://github.com/plotly/dash-core-components/pull/762) Renamed async modules with hyphen `-` instead of tilde `~`
+
+## [1.8.0] - 2020-02-04
+### Changed
+- [#743](https://github.com/plotly/dash-core-components/pull/743) Location component now emits an event on URL path update from Link component
+- [#739](https://github.com/plotly/dash-core-components/pull/739) Async Slider and RangeSlider
+- [#729](https://github.com/plotly/dash-core-components/pull/729) Handle case where dcc fails to load when used inside an iframe with a sandbox attribute that only has allow-scripts
+
+### Fixed
+- [#730](https://github.com/plotly/dash-core-components/pull/730) Fixed bug in which input components with type `number` did not correctly update their values.
+- [#731](https://github.com/plotly/dash-core-components/pull/731) Fixed bug where non-clearable dropdowns could still be cleared by typing backspace
+
+### Updated
+- [#747](https://github.com/plotly/dash-core-components/pull/747)
+  - Upgrade plotly.js to [1.52.2](https://github.com/plotly/plotly.js/releases/tag/v1.52.2)
+
+## [1.7.1] - 2020-01-15 (JS-only)
+### Fixed
+- [#734](https://github.com/plotly/dash-core-components/pull/734) Fix JS-facing release bug where `Plotly.js` was listed in `devDependencies` instead of `dependencies`
+
+## [1.7.0] - 2020-01-14
 ### Added
+- [#711](https://github.com/plotly/dash-core-components/pull/711) Added support for `dcc.Link` (dccLink) and nested `dcc.Markdown` (dccMarkdown) react components inside of `dcc.Markdown`
 - [#706](https://github.com/plotly/dash-core-components/pull/706)
   - Added new `responsive` property that overrides the underlying Plotly.js graph responsiveness from Dash-land
   - Added responsiveness on graph parent element resize (previously only worked on window.resize)
@@ -12,8 +35,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - [#723](https://github.com/plotly/dash-core-components/pull/723) Changed npm package content to allow source code inclusion from other projects
 - [#725](https://github.com/plotly/dash-core-components/pull/725) Improve async graph performance by parallelizing resource fetching instead of fetching sequentially
+- [#720](https://github.com/plotly/dash-core-components/pull/720) `highlight.js` is now bundled into the package, and no longer sets the `window.hljs` variable. Similarly to how `plotly.js` is handled, it is overridden by a user-provided version if one exists.
 
 ### Updated
+- [#732](https://github.com/plotly/dash-core-components/pull/732)
+  - Upgraded plotly.js to [1.52.1](https://github.com/plotly/plotly.js/releases/tag/v1.52.1)
+  - [Feature release 1.52.0](https://github.com/plotly/plotly.js/releases/tag/v1.52.0) which contains:
+    - Enable loading locale bundles before plotly.js bundles [#4453](https://github.com/plotly/plotly.js/pull/4453)
+    - `ko` localization [#4315](https://github.com/plotly/plotly.js/pull/4315)
+  - Patch release [1.52.1](https://github.com/plotly/plotly.js/releases/tag/v1.52.1) containing several bug fixes.
 - [#706](https://github.com/plotly/dash-core-components/pull/706)
   - Upgraded plotly.js to [1.51.3](https://github.com/plotly/plotly.js/releases/tag/v1.51.3)
 

@@ -1,13 +1,22 @@
 import React, {Component} from 'react';
-import {type} from 'ramda';
+import {mergeDeepRight, pick, type} from 'ramda';
+import JsxParser from 'react-jsx-parser';
 import Markdown from 'react-markdown';
 
+import MarkdownHighlighter from '../utils/MarkdownHighlighter';
 import {propTypes, defaultProps} from '../components/Markdown.react';
-import '../components/css/highlight.css';
+
+import DccLink from './../components/Link.react';
 
 export default class DashMarkdown extends Component {
     constructor(props) {
         super(props);
+
+        if (MarkdownHighlighter.isReady !== true) {
+            MarkdownHighlighter.isReady.then(() => {
+                this.setState({});
+            });
+        }
         this.highlightCode = this.highlightCode.bind(this);
         this.dedent = this.dedent.bind(this);
     }
@@ -21,15 +30,15 @@ export default class DashMarkdown extends Component {
     }
 
     highlightCode() {
-        if (!window.hljs) {
-            // skip highlighting if highlight.js isn't found
-            return;
-        }
         if (this.mdContainer) {
             const nodes = this.mdContainer.querySelectorAll('pre code');
 
-            for (let i = 0; i < nodes.length; i++) {
-                window.hljs.highlightBlock(nodes[i]);
+            if (MarkdownHighlighter.hljs) {
+                for (let i = 0; i < nodes.length; i++) {
+                    MarkdownHighlighter.hljs.highlightBlock(nodes[i]);
+                }
+            } else {
+                MarkdownHighlighter.loadhljs();
             }
         }
     }
@@ -85,6 +94,18 @@ export default class DashMarkdown extends Component {
         const displayText =
             dedent && textProp ? this.dedent(textProp) : textProp;
 
+        const componentTransforms = {
+            dccLink: props => <DccLink {...props} />,
+            dccMarkdown: props => (
+                <Markdown
+                    {...mergeDeepRight(
+                        pick(['dangerously_allow_html', 'dedent'], this.props),
+                        pick(['children'], props)
+                    )}
+                />
+            ),
+        };
+
         return (
             <div
                 id={id}
@@ -110,6 +131,18 @@ export default class DashMarkdown extends Component {
                 <Markdown
                     source={displayText}
                     escapeHtml={!dangerously_allow_html}
+                    renderers={{
+                        html: props =>
+                            props.escapeHtml ? (
+                                props.value
+                            ) : (
+                                <JsxParser
+                                    jsx={props.value}
+                                    components={componentTransforms}
+                                    renderInWrapper={false}
+                                />
+                            ),
+                    }}
                 />
             </div>
         );
