@@ -35,6 +35,7 @@ r_examples:
             library(dash)
             library(dashHtmlComponents)
             library(dashCoreComponents)
+            library(plotly)
 
             app <- Dash$new()
 
