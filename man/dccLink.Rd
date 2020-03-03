@@ -10,8 +10,8 @@ Link allows you to create a clickable link within a multi-page app.  For links w
 }
 
 \usage{
-dccLink(children=NULL, id=NULL, href=NULL, refresh=NULL, className=NULL, style=NULL,
-loading_state=NULL)
+dccLink(children=NULL, id=NULL, href=NULL, refresh=NULL, className=NULL,
+style=NULL, loading_state=NULL)
 }
 
 \arguments{
@@ -35,3 +35,35 @@ those elements have the following types:
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+library(dashHtmlComponents)
+
+app <- Dash$new()
+
+app$layout(htmlDiv(list(
+          # represents the URL bar, doesn't render anything
+          dccLocation(id = 'url', refresh=FALSE),
+          dccLink('Navigate to "/"', href='/'),
+          htmlBr(),
+          dccLink('Navigate to "/page-2"', href='/page-2'),
+
+          # content will be rendered in this element
+          htmlDiv(id='page-content')
+        )
+    )
+)
+
+app$callback(output=list(id='page-content', property='children'),
+             params=list(
+          input(id='url', property='pathname')),
+          function(pathname)
+          {
+          sprintf('You are on page %s', pathname)
+          }
+)
+
+app$run_server()      
+}}

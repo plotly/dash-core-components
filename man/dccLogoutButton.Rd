@@ -6,12 +6,12 @@
 \title{LogoutButton component}
 
 \description{
-Logout button to submit a form post request to the `logout_url` prop. Usage is intended for dash-deployment-server authentication.  DDS usage:  `dcc.LogoutButton(logout_url=os.getenv('DASH_LOGOUT_URL'))`  Custom usage:  - Implement a login mechanism. - Create a flask route with a post method handler. `@app.server.route('/logout', methods=['POST'])`   - The logout route should perform what's necessary for the user to logout.   - If you store the session in a cookie, clear the cookie:   `rep = flask.Response(); rep.set_cookie('session', '', expires=0)`  - Create a logout button component and assign it the logout_url `dcc.LogoutButton(logout_url='/logout')`  See https://dash.plot.ly/dash-core-components/logout_button for more documentation and examples.
+Logout button to submit a form post request to the `logout_url` prop. Usage is intended for dash-deployment-server authentication.  DDS usage:  `dccLogoutButton(logout_url=os.getenv('DASH_LOGOUT_URL'))`  Custom usage:  - Implement a login mechanism. - Create a flask route with a post method handler. `@app.server.route('/logout', methods=['POST'])`   - The logout route should perform what's necessary for the user to logout.   - If you store the session in a cookie, clear the cookie:   `rep = flask.Response(); rep.set_cookie('session', '', expires=0)`  - Create a logout button component and assign it the logout_url `dccLogoutButton(logout_url='/logout')`  See https://dash.plot.ly/dash-core-components/logout_button for more documentation and examples.
 }
 
 \usage{
-dccLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL,
-loading_state=NULL)
+dccLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL,
+className=NULL, loading_state=NULL)
 }
 
 \arguments{
@@ -33,3 +33,16 @@ those elements have the following types:
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+
+app <- Dash$new()
+
+app$layout(
+  dccLogoutButton(logout_url='/custom-auth/logout')
+)
+
+app$run_server()
+}}

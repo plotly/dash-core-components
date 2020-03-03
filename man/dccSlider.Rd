@@ -10,10 +10,11 @@ A slider component with a single handle.
 }
 
 \usage{
-dccSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL, dots=NULL,
-included=NULL, min=NULL, max=NULL, tooltip=NULL, step=NULL, vertical=NULL,
-verticalHeight=NULL, updatemode=NULL, loading_state=NULL, persistence=NULL,
-persisted_props=NULL, persistence_type=NULL)
+dccSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL,
+dots=NULL, included=NULL, min=NULL, max=NULL, tooltip=NULL, step=NULL,
+vertical=NULL, verticalHeight=NULL, updatemode=NULL,
+loading_state=NULL, persistence=NULL, persisted_props=NULL,
+persistence_type=NULL)
 }
 
 \arguments{
@@ -93,3 +94,39 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+library(dashHtmlComponents)
+
+app <- Dash$new()
+
+app$layout(
+  htmlDiv(
+    list(
+      dccSlider(
+        id = "slider-input",
+        min = -5,
+        max = 10,
+        step = 0.5,
+        value = -3,
+      ),
+      htmlDiv(
+        id = "slider-output",
+        children = "Make a selection on the slider to see the value appear here."
+      )
+    )
+  )
+)
+
+app$callback(
+  output("slider-output", "children"),
+  list(input("slider-input", "value")),
+  function(value) {
+    return(sprintf("You have chosen %s on the slider above.", value))
+  }
+)
+
+app$run_server()
+}}

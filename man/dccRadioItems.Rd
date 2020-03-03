@@ -10,9 +10,10 @@ RadioItems is a component that encapsulates several radio item inputs. The value
 }
 
 \usage{
-dccRadioItems(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL, inputStyle=NULL,
-inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, loading_state=NULL,
-persistence=NULL, persisted_props=NULL, persistence_type=NULL)
+dccRadioItems(id=NULL, options=NULL, value=NULL, style=NULL, className=NULL,
+inputStyle=NULL, inputClassName=NULL, labelStyle=NULL,
+labelClassName=NULL, loading_state=NULL, persistence=NULL,
+persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{
@@ -66,3 +67,26 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashHtmlComponents)
+library(dashCoreComponents)
+
+app <- Dash$new()
+
+app$layout(
+  htmlDiv(
+    dccRadioItems(
+      options=list(
+        list("label" = "New York City", "value" = "NYC"),
+        list("label" = "Montreal", "value" = "MTL"),
+        list("label" = "San Francisco", "value" = "SF")
+      ),
+      value = "MTL"
+    )
+  )
+)
+
+app$run_server()
+}}

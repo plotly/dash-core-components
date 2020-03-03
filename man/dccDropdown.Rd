@@ -11,9 +11,9 @@ Dropdown is an interactive dropdown element for selecting one or more items. The
 
 \usage{
 dccDropdown(id=NULL, options=NULL, value=NULL, optionHeight=NULL, className=NULL,
-clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL,
-search_value=NULL, style=NULL, loading_state=NULL, persistence=NULL,
-persisted_props=NULL, persistence_type=NULL)
+clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL,
+searchable=NULL, search_value=NULL, style=NULL, loading_state=NULL,
+persistence=NULL, persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{
@@ -79,3 +79,25 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+
+app <- Dash$new()
+
+app$layout(
+  htmlDiv(
+    dccDropdown(
+      options=list(
+        list(label = "New York City", value = "NYC"),
+        list(label = "Montreal", value = "MTL"),
+        list(label = "San Francisco", value = "SF")
+      ),
+      value="MTL"
+    )
+  )
+)
+
+app$run_server()
+}}

@@ -10,8 +10,8 @@ A Loading component that wraps any other component and displays a spinner until 
 }
 
 \usage{
-dccLoading(children=NULL, id=NULL, type=NULL, fullscreen=NULL, debug=NULL, className=NULL,
-style=NULL, color=NULL, loading_state=NULL)
+dccLoading(children=NULL, id=NULL, type=NULL, fullscreen=NULL, debug=NULL,
+className=NULL, style=NULL, color=NULL, loading_state=NULL)
 }
 
 \arguments{
@@ -39,3 +39,49 @@ those elements have the following types:
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+library(dashHtmlComponents)
+
+app <- Dash$new()
+
+app$layout(htmlDiv(
+  children=list(
+    htmlH3("Edit text input to see loading state"),
+    dccInput(id="input-1", value='Input triggers local spinner'),
+    dccLoading(id="loading-1", children=list(htmlDiv(id="loading-output-1")), type="default"),
+    htmlDiv(
+      list(
+        dccInput(id="input-2", value='Input triggers nested spinner'),
+        dccLoading(
+          id="loading-2",
+          children=list(htmlDiv(list(htmlDiv(id="loading-output-2")))),
+          type="circle"
+        )
+      )
+    )
+  )
+))
+
+app$callback(
+  output = list(id='loading-output-1', property = 'children'),
+  params = list(input(id = 'input-1', property = 'value')),
+  function(value){
+    Sys.sleep(1)
+    return(value)
+  }
+)
+
+app$callback(
+  output = list(id='loading-output-2', property = 'children'),
+  params = list(input(id = 'input-2', property = 'value')),
+  function(value){
+    Sys.sleep(1)
+    return(value)
+  }
+)
+
+app$run_server()            
+}}

@@ -6,13 +6,14 @@
 \title{Tabs component}
 
 \description{
-A Dash component that lets you render pages with tabs - the Tabs component's children can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold children components that will be that tab's content.
+A Dash component that lets you render pages with tabs - the Tabs component's children can be dccTab components, which can hold a label that will be displayed as a tab, and can in turn hold children components that will be that tab's content.
 }
 
 \usage{
-dccTabs(children=NULL, id=NULL, value=NULL, className=NULL, content_className=NULL,
-parent_className=NULL, style=NULL, parent_style=NULL, content_style=NULL,
-vertical=NULL, mobile_breakpoint=NULL, colors=NULL, loading_state=NULL,
+dccTabs(children=NULL, id=NULL, value=NULL, className=NULL,
+content_className=NULL, parent_className=NULL, style=NULL,
+parent_style=NULL, content_style=NULL, vertical=NULL,
+mobile_breakpoint=NULL, colors=NULL, loading_state=NULL,
 persistence=NULL, persisted_props=NULL, persistence_type=NULL)
 }
 
@@ -74,3 +75,38 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+library(dashHtmlComponents)
+
+app <- Dash$new()
+
+app$layout(htmlDiv(list(
+  dccTabs(id="tabs", value='tab-1', children=list(
+    dccTab(label='Tab one', value='tab-1'),
+    dccTab(label='Tab two', value='tab-2')
+    )
+  ),
+  htmlDiv(id='tabs-content')
+  )
+  )
+)
+
+app$callback(output('tabs-content', 'children'),
+    params = list(input('tabs', 'value')),
+function(tab){
+  if(tab == 'tab-1'){
+  return(htmlDiv(list(
+    htmlH3('Tab content 1')
+    )))}
+  else if(tab == 'tab-2'){
+  return(htmlDiv(list(
+    htmlH3('Tab content 2')
+    )))}
+  }
+)
+
+app$run_server()
+}}

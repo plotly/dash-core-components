@@ -10,14 +10,16 @@ DatePickerRange is a tailor made component designed for selecting timespan acros
 }
 
 \usage{
-dccDatePickerRange(id=NULL, start_date=NULL, start_date_id=NULL, end_date_id=NULL, end_date=NULL,
-min_date_allowed=NULL, max_date_allowed=NULL, initial_visible_month=NULL,
-start_date_placeholder_text=NULL, end_date_placeholder_text=NULL, day_size=NULL,
+dccDatePickerRange(id=NULL, start_date=NULL, start_date_id=NULL, end_date_id=NULL,
+end_date=NULL, min_date_allowed=NULL, max_date_allowed=NULL,
+initial_visible_month=NULL, start_date_placeholder_text=NULL,
+end_date_placeholder_text=NULL, day_size=NULL,
 calendar_orientation=NULL, is_RTL=NULL, reopen_calendar_on_clear=NULL,
-number_of_months_shown=NULL, with_portal=NULL, with_full_screen_portal=NULL,
-first_day_of_week=NULL, minimum_nights=NULL, stay_open_on_select=NULL,
-show_outside_days=NULL, month_format=NULL, display_format=NULL, disabled=NULL,
-clearable=NULL, style=NULL, className=NULL, updatemode=NULL, loading_state=NULL,
+number_of_months_shown=NULL, with_portal=NULL,
+with_full_screen_portal=NULL, first_day_of_week=NULL,
+minimum_nights=NULL, stay_open_on_select=NULL, show_outside_days=NULL,
+month_format=NULL, display_format=NULL, disabled=NULL, clearable=NULL,
+style=NULL, className=NULL, updatemode=NULL, loading_state=NULL,
 persistence=NULL, persisted_props=NULL, persistence_type=NULL)
 }
 
@@ -141,3 +143,20 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+
+app <- Dash$new()
+
+app$layout(
+  dccDatePickerRange(
+    id = "date-picker-range",
+    start_date = as.Date("1997/5/10"),
+    end_date_placeholder_text="Select a date!"
+  )
+)
+
+app$run_server()
+}}

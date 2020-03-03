@@ -6,7 +6,7 @@
 \title{ConfirmDialogProvider component}
 
 \description{
-A wrapper component that will display a confirmation dialog when its child component has been clicked on.  For example: ``` dcc.ConfirmDialogProvider(     html.Button('click me', id='btn'),     message='Danger - Are you sure you want to continue.'     id='confirm') ```
+A wrapper component that will display a confirmation dialog when its child component has been clicked on.  For example: ``` dccConfirmDialogProvider(     html.Button('click me', id='btn'),     message='Danger - Are you sure you want to continue.'     id='confirm') ```
 }
 
 \usage{
@@ -40,3 +40,41 @@ those elements have the following types:
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashCoreComponents)
+library(dashHtmlComponents)
+
+app <- Dash$new()
+
+app$layout(htmlDiv(list(
+  dccConfirmDialogProvider(
+    children=htmlButton(
+      'Click Me',
+      n_clicks = 0
+    ),
+    id='danger-danger-provider',
+    message='Danger danger! Are you sure you want to continue?',
+    submit_n_clicks=NULL
+  ),
+  htmlDiv(id='output-provider',
+          children='Click the button to submit')
+)))
+
+app$callback(
+  output = list(id = 'output-provider', property = 'children'),
+  params=list(input(id = 'danger-danger-provider', property = 'submit_n_clicks')),
+  function(submit_n_clicks){
+    if (is.null(unlist(submit_n_clicks))){
+      return('')
+    } else{
+      sprintf('That was a dangerous choice!
+              Submitted %s times.', submit_n_clicks)
+    }
+    }
+
+)
+
+app$run_server()
+}}

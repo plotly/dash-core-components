@@ -10,11 +10,11 @@ A double slider with two handles. Used for specifying a range of numerical value
 }
 
 \usage{
-dccRangeSlider(id=NULL, marks=NULL, value=NULL, allowCross=NULL, className=NULL, count=NULL,
-disabled=NULL, dots=NULL, included=NULL, min=NULL, max=NULL, pushable=NULL,
-tooltip=NULL, step=NULL, vertical=NULL, verticalHeight=NULL, updatemode=NULL,
-loading_state=NULL, persistence=NULL, persisted_props=NULL,
-persistence_type=NULL)
+dccRangeSlider(id=NULL, marks=NULL, value=NULL, allowCross=NULL, className=NULL,
+count=NULL, disabled=NULL, dots=NULL, included=NULL, min=NULL,
+max=NULL, pushable=NULL, tooltip=NULL, step=NULL, vertical=NULL,
+verticalHeight=NULL, updatemode=NULL, loading_state=NULL,
+persistence=NULL, persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{
@@ -104,3 +104,28 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.}
 }
+\examples{
+\dontrun{
+library(dash)
+library(dashHtmlComponents)
+library(dashCoreComponents)
+
+app <- Dash$new()
+
+app$layout(
+  htmlDiv(
+    dccRangeSlider(
+      count = 1,
+      min = -5,
+      max = 10,
+      step = 0.5,
+      value = list(-3, 7),
+      marks = as.list(
+        setNames(-5:10, as.character(-5:10))
+      )
+    )
+  )
+)
+
+app$run_server()
+}}
