@@ -635,10 +635,13 @@ r_examples:
                             state(id = 'upload-image', property = 'filename'),
                             state(id = 'upload-image', property = 'last_modified')),
               function(list_of_contents, list_of_names, list_of_dates){
-                if (!is.null(list_of_contents) && !is.null(list_of_names) && !is.null(list_of_dates)) {
+                if (!is.null(list_of_contents) && !is.null(list_of_names) && !is.null(list_of_dates[[1)) {
                   children = lapply(1:length(list_of_contents), function(x){
                     parse_content(list_of_contents[[x]], list_of_names[[x]], list_of_dates[[x]])
                   })
+                }
+                else {
+                  children = "Upload a file to see the raw data."
                 }
                 return(children)
               }
