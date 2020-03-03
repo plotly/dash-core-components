@@ -51,7 +51,7 @@ jobs:
   lint-unit-27:
     <<: *lint-unit
     docker:
-      - image: circleci/python:2.7-stretch-node-browsers
+      - image: circleci/python:2.7.16-stretch-node-browsers
         environment:
           PYTHON_VERSION: py27
 
