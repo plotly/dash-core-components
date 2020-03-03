@@ -152,14 +152,6 @@ r_examples:
               })
             
             
-            app$callback(
-              output = list(id = 'output-confirm1', property = 'children'),
-              params=list(input(id = 'confirm', property = 'submit_n_clicks')),
-              function(n_clicks, value) {
-                if(length(n_clicks) == FALSE){
-                  sprintf('It wasnt easy but we did it %s', str(n_clicks))
-                }
-              })
             
             app$run_server()
     - name: dccLink
