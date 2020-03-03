@@ -200,9 +200,7 @@ r_examples:
             library(dashCoreComponents)
             library(dashHtmlComponents)
             library(dash)
-            
             app <- Dash$new()
-            
             app$layout(htmlDiv(list(
               # The memory store reverts to the default on every page refresh
               dccStore(id='memory'),
@@ -215,7 +213,7 @@ r_examples:
               dccStore(id='session', storage_type='session'),
               htmlTable(list(
                 htmlThead(list(
-                  htmlTr(htmlTh('Click to store in:', colSpan="3")),
+                  htmlTr(htmlTh('Click to store in:', colSpan='3')),
                   htmlTr(list(
                     htmlTh(htmlButton('memory', id='memory-button')),
                     htmlTh(htmlButton('localStorage', id='local-button')),
@@ -236,75 +234,49 @@ r_examples:
                 ))
               ))
             )))
-
-            storeData <- function(n_clicks, values) {
-                if (is.null(n_clicks)) {
-                  return()
+            for (i in c('memory', 'local', 'session')) {
+              app$callback(
+                output(id = i, property = 'data'),
+                params = list(
+                  input(id = sprintf('%s-button', i), property = 'n_clicks'),
+                  state(id = i, property = 'data')
+                ),
+                function(n_clicks, data){
+                  if(is.null(n_clicks)){
+                    return()
+                  }
+                  
+                  if(is.null(data[[1]])){
+                    data = list('clicks' = 0)
+                  } else{
+                    data = data
+                  }  
+                  data['clicks'] = data$clicks + 1
+                  return(data)
                 }
-            
-                if (is.null(values[[1]]))
-                  values = list('clicks' = 0)
-                else
-                  values = values
-                
-                values['clicks'] = values$clicks + 1
-                return(values)
+              )
             }
-            
-            returnStoreData <- function(ts, values) {
-                if (is.null(ts))
-                  return()
-                if (is.null(values[[1]]))
-                  values = list()
-                else
-                  values = values
-                
-                return(values[[1]])
+            for (i in c('memory', 'local', 'session')) {
+              app$callback(
+                output(id = sprintf('%s-clicks', i), property = 'children'),
+                params = list(
+                  input(id = i, property = 'modified_timestamp'),
+                  state(id = i, property = 'data')
+                ),
+                function(ts, data){
+                  if(is.null(ts)){
+                    return()
+                  }
+                  if(is.null(data[[1]])){
+                    data = list()
+                  } else{
+                    data = data
+                  }  
+                  return(data$clicks[[1]])
+                }
+              )
             }
-            
-            app$callback(
-              output = list(id = 'memory', property = 'data'),
-              params = list(input(id = 'memory-button', property = 'n_clicks'),
-                            state(id = 'memory', property = 'data')),
-              storeData
-            )
-            
-            app$callback(
-              output = list(id = 'memory-clicks', property = 'children'),
-              params = list(input(id = 'memory', property = 'modified_timestamp'),
-                            state(id = 'memory', property = 'data')),
-              returnStoreData
-            )
-            
-            app$callback(
-              output = list(id = 'local', property = 'data'),
-              params = list(input(id = 'local-button', property = 'n_clicks'),
-                            state(id = 'local', property = 'data')),
-              storeData
-            )
-            
-            app$callback(
-              output = list(id = 'local-clicks', property = 'children'),
-              params = list(input(id = 'local', property = 'modified_timestamp'),
-                            state(id = 'local', property = 'data')),
-              returnStoreData
-            )
-            
-            app$callback(
-              output = list(id = 'session', property = 'data'),
-              params = list(input(id = 'session-button', property = 'n_clicks'),
-                            state(id = 'session', property = 'data')),
-              storeData
-            )
-            
-            app$callback(
-              output = list(id = 'session-clicks', property = 'children'),
-              params = list(input(id = 'session', property = 'modified_timestamp'),
-                            state(id = 'session', property = 'data')),
-              returnStoreData
-            )
-            
-            app$run_server()      
+            app$run_server()
     - name: dccConfirmDialogProvider
       dontrun: TRUE 
       code: | 
