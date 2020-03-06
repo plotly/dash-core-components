@@ -43,6 +43,9 @@ export default class Link extends Component {
         // prevent anchor from updating location
         e.preventDefault();
         const {href, refresh} = this.props;
+        if (e.ctrlKey) {
+            window.open(href, '_blank');
+        }
         if (refresh) {
             window.location.pathname = href;
         } else {
