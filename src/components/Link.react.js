@@ -40,12 +40,17 @@ export default class Link extends Component {
     }
 
     updateLocation(e) {
+        const hasModifiers = (
+            e.metaKey ||
+            e.shiftKey ||
+            e.altKey ||
+            e.ctrlKey
+        );
+
+        if (hasModifiers || e.button !== 1) {return};
         // prevent anchor from updating location
         e.preventDefault();
         const {href, refresh} = this.props;
-        if (e.ctrlKey) {
-            window.open(href, '_blank');
-        }
         if (refresh) {
             window.location.pathname = href;
         } else {
