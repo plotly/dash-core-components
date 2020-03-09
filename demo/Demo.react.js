@@ -58,17 +58,6 @@ Some code
 \\\`\\\`\\\`
 
 Inline \\\`code\\\` example.
-
-***
-
-Some block mathematics:
-
-$$
-e^{ix} = \\\\cos x + i\\\\sin x.
-$$
-
-Some inline mathematics $\\\\alpha=2$ and $\\\\beta=3$.
-
 \`
 
 ReactDOM.render(<Markdown>{markdown}</Markdown>, mountNode);

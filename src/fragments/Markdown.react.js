@@ -3,10 +3,6 @@ import {mergeDeepRight, pick, type} from 'ramda';
 import JsxParser from 'react-jsx-parser';
 import Markdown from 'react-markdown';
 
-import RemarkMathPlugin from 'remark-math';
-import { InlineMath, BlockMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
-
 import MarkdownHighlighter from '../utils/MarkdownHighlighter';
 import {propTypes, defaultProps} from '../components/Markdown.react';
 
@@ -135,10 +131,7 @@ export default class DashMarkdown extends Component {
                 <Markdown
                     source={displayText}
                     escapeHtml={!dangerously_allow_html}
-                    plugins={[RemarkMathPlugin]}
                     renderers={{
-                        math: ({value}) => <BlockMath>{value}</BlockMath>,
-                        inlineMath: ({value}) => <InlineMath>{value}</InlineMath>,
                         html: props =>
                             props.escapeHtml ? (
                                 props.value
