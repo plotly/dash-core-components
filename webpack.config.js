@@ -1,5 +1,7 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpack = require('webpack');
 const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
 
@@ -82,10 +84,10 @@ module.exports = (env, argv) => {
                     test: /\.css$/,
                     use: [
                         {
-                            loader: 'style-loader',
-                            options: {
-                                insertAt: 'top'
-                            }
+                            loader:
+                                mode === "production"
+                                    ? MiniCssExtractPlugin.loader
+                                    : "style-loader",
                         },
                         {
                             loader: 'css-loader',
@@ -109,7 +111,8 @@ module.exports = (env, argv) => {
                         warnings: false,
                         ie8: false
                     }
-                })
+                }),
+                new OptimizeCSSAssetsPlugin({})
             ],
             splitChunks: {
                 name: true,
@@ -131,7 +134,10 @@ module.exports = (env, argv) => {
             }
         },
         plugins: [
-            new WebpackDashDynamicImport(),
+            new MiniCssExtractPlugin({
+                filename: `${dashLibraryName}.css`,
+            }),
+            //new WebpackDashDynamicImport(),
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map',
                 exclude: ['async-plotlyjs']
