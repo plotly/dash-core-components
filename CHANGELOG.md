@@ -5,7 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - [#766](https://github.com/plotly/dash-core-components/pull/766) Update from React 16.8.6 to 16.13.0
+- [#740](https://github.com/plotly/dash-core-components/pull/740) Keep components that are loading in the DOM, but not visible, as opposed to removing them entirely
 
+### Fixed
+- [#740](https://github.com/plotly/dash-core-components/pull/740) Fixed bug in which mapbox `uirevision` was not behaving when inside a `dcc.Loading` component
 
 ## [1.8.1] -2020-02-27
 ### Added
