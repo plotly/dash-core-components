@@ -24,9 +24,9 @@ def test_title001_prop(dash_dcc):
 
     title_exists = dash_dcc.driver.execute_script(
         '''
-        return document.getElementById("link1").hasAttribute("title");
+        return document.getElementById("link1").getAttribute("title");
         '''
     )
 
-    assert title_exists
+    assert "This is a test title!"
 
