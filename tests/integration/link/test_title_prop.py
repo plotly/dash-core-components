@@ -6,7 +6,7 @@ import dash_html_components as html
 
 
 @pytest.mark.DCC768
-def test_title001_prop(dash_dcc):
+def test_liti001_prop(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
