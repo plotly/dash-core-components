@@ -94,7 +94,7 @@ Link.propTypes = {
     /**
      * The URL of a linked resource.
      */
-    href: PropTypes.string,
+    href: PropTypes.string.isRequired,
     /**
      * Controls whether or not the page will refresh when the link is clicked
      */
