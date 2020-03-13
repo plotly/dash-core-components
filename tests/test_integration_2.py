@@ -152,7 +152,6 @@ class Test2(IntegrationTests):
 
         self.startServer(app=app)
 
-        self.wait_for_element_by_css_selector("#start")
         stop_button = self.wait_for_element_by_css_selector("#stop")
 
         # interval will start itself, we wait a second before pressing 'stop'
