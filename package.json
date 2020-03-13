@@ -12,10 +12,12 @@
   "homepage": "https://github.com/plotly/dash-core-components",
   "main": "dash_core_components/dash_core_components.min.js",
   "scripts": {
+    "private::format:black": "black --exclude dash_core_components .",
     "private::format.eslint": "eslint src tests --fix",
     "private::format.prettier": "prettier --config .prettierrc --write src/**/*.js tests/unit/*.js",
+    "private::lint:black": "if [[ PYTHON_VERSION != 'py27' ]]; then black --check --exclude dash_core_components .; fi",
     "private::lint.eslint": "eslint src tests",
-    "private::lint.flake": "flake8 --ignore=E501,F401,F841,F811,W503 tests",
+    "private::lint.flake8": "flake8 --exclude=dash_core_components*,node_modules",
     "private::lint.prettier": "prettier --config .prettierrc src/**/*.js tests/unit/*.js --list-different",
     "prepublishOnly": "rm -rf lib && babel src --out-dir lib --copy-files",
     "start": "webpack-serve ./webpack.serve.config.js --open",
