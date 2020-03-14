@@ -27,4 +27,6 @@ def test_lich001_default(dash_dcc):
         '''
     )
 
+    dash_dcc.wait_for_text_to_equal("#link1", "/page-1")
+
     assert href_as_children == "/page-1"
