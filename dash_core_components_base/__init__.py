@@ -1,6 +1,4 @@
 from __future__ import print_function as _
-from ._imports_ import *  # noqa: F401, F403
-from ._imports_ import __all__
 
 import json
 import os as _os
@@ -28,6 +26,9 @@ if not hasattr(_dash.development.base_component, '_explicitize_args'):
           "You are using version {:s}".format(_dash.version.__version__),
           file=_sys.stderr)
     _sys.exit(1)
+
+from ._imports_ import *  # noqa: F401, F403
+from ._imports_ import __all__  # noqa: E402
 
 _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
