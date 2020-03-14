@@ -21,12 +21,4 @@ def test_lich001_default(dash_dcc):
 
     dash_dcc.start_server(app)
 
-    href_as_children = dash_dcc.driver.execute_script(
-        '''
-        return document.getElementById("link1").text;
-        '''
-    )
-
     dash_dcc.wait_for_text_to_equal("#link1", "/page-1")
-
-    assert href_as_children == "/page-1"

@@ -56,7 +56,7 @@ export default class Link extends Component {
     }
 
     render() {
-        const {className, style, id, href, loading_state} = this.props;
+        const {className, style, id, href, loading_state, children} = this.props;
         /*
          * ideally, we would use cloneElement however
          * that doesn't work with dash's recursive
@@ -73,9 +73,9 @@ export default class Link extends Component {
                 href={href}
                 onClick={e => this.updateLocation(e)}
             >
-                {isNil(this.props.children)
-                    ? this.props.href
-                    : this.props.children}
+                {isNil(children)
+                    ? href
+                    : children}
             </a>
         );
     }
