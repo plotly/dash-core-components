@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import React, {Component} from 'react';
 
+import {isNil} from 'ramda';
+
 /*
  * event polyfill for IE
  * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
@@ -55,16 +57,6 @@ export default class Link extends Component {
 
     render() {
         const {className, style, id, href, loading_state} = this.props;
-
-        const setChildren = () => {
-            if (
-                this.props.children === null ||
-                typeof this.props.children === 'undefined'
-            ) {
-                return this.props.href;
-            }
-            return this.props.children;
-        };
         /*
          * ideally, we would use cloneElement however
          * that doesn't work with dash's recursive
@@ -81,7 +73,9 @@ export default class Link extends Component {
                 href={href}
                 onClick={e => this.updateLocation(e)}
             >
-                {setChildren()}
+                {isNil(this.props.children)
+                    ? this.props.href
+                    : this.props.children}
             </a>
         );
     }
