@@ -19,6 +19,7 @@ def test_lich001_default(dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#link1", "/page-1")
 
+
 @pytest.mark.DCC776
 def test_lich002_children(dash_dcc):
     app = dash.Dash(__name__)
