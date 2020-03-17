@@ -79,6 +79,7 @@ export default class Link extends Component {
                 style={style}
                 href={href}
                 onClick={e => this.updateLocation(e)}
+                title={title}
             >
                 {isNil(children) ? href : children}
             </a>
@@ -109,6 +110,11 @@ Link.propTypes = {
      * Defines CSS styles which will override styles previously set.
      */
     style: PropTypes.object,
+    /**
+     * Adds the title attribute to your link, which can contain supplementary
+     * information.
+     */
+    title: PropTypes.string,
     /**
      * The children of this component
      */
