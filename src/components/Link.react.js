@@ -63,6 +63,7 @@ export default class Link extends Component {
             href,
             loading_state,
             children,
+            title,
         } = this.props;
         /*
          * ideally, we would use cloneElement however
