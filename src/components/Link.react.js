@@ -44,7 +44,7 @@ export default class Link extends Component {
     updateLocation(e) {
         const hasModifiers = e.metaKey || e.shiftKey || e.altKey || e.ctrlKey;
 
-        if (hasModifiers || event.button !== 1) {
+        if (hasModifiers) {
             return;
         }
         // prevent anchor from updating location
