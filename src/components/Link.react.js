@@ -69,6 +69,7 @@ export default class Link extends Component {
             loading_state,
             children,
             title,
+            external,
         } = this.props;
         /*
          * ideally, we would use cloneElement however
@@ -86,6 +87,7 @@ export default class Link extends Component {
                 href={href}
                 onClick={e => this.updateLocation(e)}
                 title={title}
+                target={external ? '_blank' : '_self'}
             >
                 {isNil(children) ? href : children}
             </a>
@@ -122,6 +124,10 @@ Link.propTypes = {
      */
     title: PropTypes.string,
     /**
+     * Opens the link in a new tab.
+     */
+    external: PropTypes.bool,
+    /**
      * The children of this component
      */
     children: PropTypes.node,
@@ -146,4 +152,5 @@ Link.propTypes = {
 
 Link.defaultProps = {
     refresh: false,
+    external: false,
 };
