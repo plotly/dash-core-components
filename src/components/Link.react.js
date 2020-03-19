@@ -43,13 +43,16 @@ export default class Link extends Component {
 
     updateLocation(e) {
         const hasModifiers = e.metaKey || e.shiftKey || e.altKey || e.ctrlKey;
+        const {href, refresh, target} = this.props;
 
         if (hasModifiers) {
             return;
         }
+        if (target !== '_self' && !isNil(target)) {
+            return;
+        }
         // prevent anchor from updating location
         e.preventDefault();
-        const {href, refresh} = this.props;
         if (refresh) {
             window.location.pathname = href;
         } else {
