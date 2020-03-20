@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [#768](https://github.com/plotly/dash-core-components/pull/768) Added title property to dcc.Link
 - [#776](https://github.com/plotly/dash-core-components/pull/776) Update dcc.Link to set href as children if children not defined. Makes href a required prop as well.
 - [#767](https://github.com/plotly/dash-core-components/pull/767) Updated dcc.Link to respond to click modifiers, and added a target prop.
+-[772](https://github.com/plotly/dash-core-components/pull/772) Modified dcc.Link to work with absolute paths if refresh=True.
 
 ## [1.8.1] -2020-02-27
 ### Added
