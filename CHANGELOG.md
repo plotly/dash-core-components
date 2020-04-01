@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 - [#784](https://github.com/plotly/dash-core-components/pull/784)
-  - [Feature release 1.53.0](https://github.com/plotly/plotly.js/releases/tag/v1.53.0) which contains:
+  - [Feature release of Plotly.js 1.53.0](https://github.com/plotly/plotly.js/releases/tag/v1.53.0) which contains:
     - `rangebreaks` on date axes [#4614](https://github.com/plotly/plotly.js/pull/4614)
     - (x|y) unified `hovermode` [#4620](https://github.com/plotly/plotly.js/pull/4620)
     - "hovered data" mode to `spikesnap` [#4665](https://github.com/plotly/plotly.js/pull/4665)
