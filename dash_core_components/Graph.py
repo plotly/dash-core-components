@@ -47,7 +47,7 @@ trace indices that should be extended, and `maxPoints` (optional) is
 either an integer defining the maximum number of points allowed or an
 object with key:value pairs matching `updateData`
 Reference the Plotly.extendTraces API for full usage:
-https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces
+https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces
 - restyleData (list; optional): Data from latest restyle event which occurs
 when the user toggles a legend item, changes
 parcoords selections, or other trace-level edits.
@@ -60,7 +60,7 @@ Read-only.
     layout: {},
     frames: [],
 }): Plotly `figure` object. See schema:
-https://plot.ly/javascript/reference
+https://plotly.com/javascript/reference
 
 `config` is set separately by the `config` property. figure has the following type: dict containing keys 'data', 'layout', 'frames'.
 Those keys have the following types:
@@ -82,7 +82,7 @@ plotly.js's `animate` function
 }): Beta: Object containing animation settings.
 Only applies if `animate` is `true`
 - config (dict; optional): Plotly.js config options.
-See https://plot.ly/javascript/configuration-options/
+See https://plotly.com/javascript/configuration-options/
 for more info. config has the following type: dict containing keys 'staticPlot', 'plotlyServerURL', 'editable', 'edits', 'autosizable', 'responsive', 'queueLength', 'fillFrame', 'frameMargins', 'scrollZoom', 'doubleClick', 'doubleClickDelay', 'showTips', 'showAxisDragHandles', 'showAxisRangeEntryBoxes', 'showLink', 'sendData', 'linkText', 'displayModeBar', 'showSendToCloud', 'showEditInChartStudio', 'modeBarButtonsToRemove', 'modeBarButtonsToAdd', 'modeBarButtons', 'toImageButtonOptions', 'displaylogo', 'watermark', 'plotGlPixelRatio', 'topojsonURL', 'mapboxAccessToken', 'locale', 'locales'.
 Those keys have the following types:
   - staticPlot (boolean; optional): No interactivity, for export or image generation

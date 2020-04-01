@@ -11,9 +11,9 @@ Dropdown is an interactive dropdown element for selecting one or more items. The
 
 \usage{
 dccDropdown(id=NULL, options=NULL, value=NULL, optionHeight=NULL, className=NULL,
-clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL,
-searchable=NULL, search_value=NULL, style=NULL, loading_state=NULL,
-persistence=NULL, persisted_props=NULL, persistence_type=NULL)
+clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL,
+search_value=NULL, style=NULL, loading_state=NULL, persistence=NULL,
+persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{

@@ -1446,6 +1446,18 @@
     "displayName": "PlotlyGraph",
     "methods": [
       {
+        "name": "UNSAFE_componentWillReceiveProps",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "nextProps",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
         "name": "clearExtendData",
         "docblock": null,
         "modifiers": [],
@@ -1565,7 +1577,7 @@
           ]
         },
         "required": false,
-        "description": "Data that should be appended to existing traces. Has the form\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\ncontaining the data to extend, `traceIndices` (optional) is an array of\ntrace indices that should be extended, and `maxPoints` (optional) is\neither an integer defining the maximum number of points allowed or an\nobject with key:value pairs matching `updateData`\nReference the Plotly.extendTraces API for full usage:\nhttps://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces",
+        "description": "Data that should be appended to existing traces. Has the form\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\ncontaining the data to extend, `traceIndices` (optional) is an array of\ntrace indices that should be extended, and `maxPoints` (optional) is\neither an integer defining the maximum number of points allowed or an\nobject with key:value pairs matching `updateData`\nReference the Plotly.extendTraces API for full usage:\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces",
         "defaultValue": {
           "value": "null",
           "computed": false
@@ -1607,7 +1619,7 @@
           }
         },
         "required": false,
-        "description": "Plotly `figure` object. See schema:\nhttps://plot.ly/javascript/reference\n\n`config` is set separately by the `config` property",
+        "description": "Plotly `figure` object. See schema:\nhttps://plotly.com/javascript/reference\n\n`config` is set separately by the `config` property",
         "defaultValue": {
           "value": "{\n    data: [],\n    layout: {},\n    frames: [],\n}",
           "computed": false
@@ -1939,7 +1951,7 @@
           }
         },
         "required": false,
-        "description": "Plotly.js config options.\nSee https://plot.ly/javascript/configuration-options/\nfor more info.",
+        "description": "Plotly.js config options.\nSee https://plotly.com/javascript/configuration-options/\nfor more info.",
         "defaultValue": {
           "value": "{}",
           "computed": false
@@ -1985,6 +1997,25 @@
     "description": "A basic HTML input control for entering text, numbers, or passwords.\n\nNote that checkbox and radio types are supported through\nthe Checklist and RadioItems component. Dates, times, and file uploads\nare also supported through separate components.",
     "displayName": "Input",
     "methods": [
+      {
+        "name": "UNSAFE_componentWillReceiveProps",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "nextProps",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "UNSAFE_componentWillMount",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
       {
         "name": "setInputValue",
         "docblock": null,
@@ -2672,6 +2703,18 @@
         "modifiers": [],
         "params": [],
         "returns": null
+      },
+      {
+        "name": "UNSAFE_componentWillReceiveProps",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "nextProps",
+            "type": null
+          }
+        ],
+        "returns": null
       }
     ],
     "props": {
@@ -2760,7 +2803,7 @@
         "type": {
           "name": "string"
         },
-        "required": false,
+        "required": true,
         "description": "The URL of a linked resource."
       },
       "refresh": {
@@ -2787,6 +2830,20 @@
         },
         "required": false,
         "description": "Defines CSS styles which will override styles previously set."
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Adds the title attribute to your link, which can contain supplementary\ninformation."
+      },
+      "target": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Specifies where to open the link reference."
       },
       "children": {
         "type": {
@@ -2971,6 +3028,18 @@
         "modifiers": [],
         "params": [],
         "returns": null
+      },
+      {
+        "name": "UNSAFE_componentWillReceiveProps",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "nextProps",
+            "type": null
+          }
+        ],
+        "returns": null
       }
     ],
     "props": {
@@ -3030,7 +3099,7 @@
     }
   },
   "src/components/LogoutButton.react.js": {
-    "description": "Logout button to submit a form post request to the `logout_url` prop.\nUsage is intended for dash-deployment-server authentication.\n\nDDS usage:\n\n`dcc.LogoutButton(logout_url=os.getenv('DASH_LOGOUT_URL'))`\n\nCustom usage:\n\n- Implement a login mechanism.\n- Create a flask route with a post method handler.\n`@app.server.route('/logout', methods=['POST'])`\n  - The logout route should perform what's necessary for the user to logout.\n  - If you store the session in a cookie, clear the cookie:\n  `rep = flask.Response(); rep.set_cookie('session', '', expires=0)`\n\n- Create a logout button component and assign it the logout_url\n`dcc.LogoutButton(logout_url='/logout')`\n\nSee https://dash.plot.ly/dash-core-components/logout_button\nfor more documentation and examples.",
+    "description": "Logout button to submit a form post request to the `logout_url` prop.\nUsage is intended for dash-deployment-server authentication.\n\nDDS usage:\n\n`dcc.LogoutButton(logout_url=os.getenv('DASH_LOGOUT_URL'))`\n\nCustom usage:\n\n- Implement a login mechanism.\n- Create a flask route with a post method handler.\n`@app.server.route('/logout', methods=['POST'])`\n  - The logout route should perform what's necessary for the user to logout.\n  - If you store the session in a cookie, clear the cookie:\n  `rep = flask.Response(); rep.set_cookie('session', '', expires=0)`\n\n- Create a logout button component and assign it the logout_url\n`dcc.LogoutButton(logout_url='/logout')`\n\nSee https://dash.plotly.com/dash-core-components/logout_button\nfor more documentation and examples.",
     "displayName": "LogoutButton",
     "methods": [],
     "props": {
@@ -4079,6 +4148,13 @@
             "type": null
           }
         ],
+        "returns": null
+      },
+      {
+        "name": "UNSAFE_componentWillMount",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
         "returns": null
       }
     ],

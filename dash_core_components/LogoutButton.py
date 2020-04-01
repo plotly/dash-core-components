@@ -24,7 +24,7 @@ Custom usage:
 - Create a logout button component and assign it the logout_url
 `dcc.LogoutButton(logout_url='/logout')`
 
-See https://dash.plot.ly/dash-core-components/logout_button
+See https://dash.plotly.com/dash-core-components/logout_button
 for more documentation and examples.
 
 Keyword arguments:

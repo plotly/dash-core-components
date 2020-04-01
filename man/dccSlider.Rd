@@ -10,11 +10,10 @@ A slider component with a single handle.
 }
 
 \usage{
-dccSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL,
-dots=NULL, included=NULL, min=NULL, max=NULL, tooltip=NULL, step=NULL,
-vertical=NULL, verticalHeight=NULL, updatemode=NULL,
-loading_state=NULL, persistence=NULL, persisted_props=NULL,
-persistence_type=NULL)
+dccSlider(id=NULL, marks=NULL, value=NULL, className=NULL, disabled=NULL, dots=NULL,
+included=NULL, min=NULL, max=NULL, tooltip=NULL, step=NULL, vertical=NULL,
+verticalHeight=NULL, updatemode=NULL, loading_state=NULL, persistence=NULL,
+persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{

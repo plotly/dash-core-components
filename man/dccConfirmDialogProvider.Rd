@@ -6,7 +6,7 @@
 \title{ConfirmDialogProvider component}
 
 \description{
-A wrapper component that will display a confirmation dialog when its child component has been clicked on.  For example: ``` dccConfirmDialogProvider(     html.Button('click me', id='btn'),     message='Danger - Are you sure you want to continue.'     id='confirm') ```
+A wrapper component that will display a confirmation dialog when its child component has been clicked on.  For example: ``` dcc.ConfirmDialogProvider(     html.Button('click me', id='btn'),     message='Danger - Are you sure you want to continue.'     id='confirm') ```
 }
 
 \usage{

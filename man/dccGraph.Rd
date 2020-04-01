@@ -11,10 +11,9 @@ Graph can be used to render any plotly.js-powered data visualization.  You can d
 
 \usage{
 dccGraph(id=NULL, responsive=NULL, clickData=NULL, clickAnnotationData=NULL,
-hoverData=NULL, clear_on_unhover=NULL, selectedData=NULL,
-relayoutData=NULL, extendData=NULL, restyleData=NULL, figure=NULL,
-style=NULL, className=NULL, animate=NULL, animation_options=NULL,
-config=NULL, loading_state=NULL)
+hoverData=NULL, clear_on_unhover=NULL, selectedData=NULL, relayoutData=NULL,
+extendData=NULL, restyleData=NULL, figure=NULL, style=NULL, className=NULL,
+animate=NULL, animation_options=NULL, config=NULL, loading_state=NULL)
 }
 
 \arguments{
@@ -62,7 +61,7 @@ trace indices that should be extended, and `maxPoints` (optional) is
 either an integer defining the maximum number of points allowed or an
 object with key:value pairs matching `updateData`
 Reference the Plotly.extendTraces API for full usage:
-https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces}
+https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces}
 
 \item{restyleData}{Unnamed list. Data from latest restyle event which occurs
 when the user toggles a legend item, changes
@@ -77,7 +76,7 @@ those elements have the following types:
   - data (list of named lists; optional)
   - layout (named list; optional)
   - frames (list of named lists; optional). Plotly `figure` object. See schema:
-https://plot.ly/javascript/reference
+https://plotly.com/javascript/reference
 
 `config` is set separately by the `config` property}
 
@@ -170,7 +169,7 @@ so that plotly.js won't attempt to authenticate to the public mapbox server.
 https://github.com/plotly/plotly.js/blob/master/dist/readme.md#to-include-localization
   - locales (named list; optional): localization definitions, if you choose to provide them with the
 plot rather than registering them globally.. Plotly.js config options.
-See https://plot.ly/javascript/configuration-options/
+See https://plotly.com/javascript/configuration-options/
 for more info.}
 
 \item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.

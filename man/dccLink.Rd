@@ -10,8 +10,8 @@ Link allows you to create a clickable link within a multi-page app.  For links w
 }
 
 \usage{
-dccLink(children=NULL, id=NULL, href=NULL, refresh=NULL, className=NULL,
-style=NULL, loading_state=NULL)
+dccLink(children=NULL, id=NULL, href=NULL, refresh=NULL, className=NULL, style=NULL,
+title=NULL, target=NULL, loading_state=NULL)
 }
 
 \arguments{
@@ -28,6 +28,11 @@ components in an app.}
 \item{className}{Character. Often used with CSS to style elements with common properties.}
 
 \item{style}{Named list. Defines CSS styles which will override styles previously set.}
+
+\item{title}{Character. Adds the title attribute to your link, which can contain supplementary
+information.}
+
+\item{target}{Character. Specifies where to open the link reference.}
 
 \item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.
 those elements have the following types:

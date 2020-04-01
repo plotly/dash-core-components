@@ -10,10 +10,9 @@ Checklist is a component that encapsulates several checkboxes. The values and la
 }
 
 \usage{
-dccChecklist(id=NULL, options=NULL, value=NULL, className=NULL, style=NULL,
-inputStyle=NULL, inputClassName=NULL, labelStyle=NULL,
-labelClassName=NULL, loading_state=NULL, persistence=NULL,
-persisted_props=NULL, persistence_type=NULL)
+dccChecklist(id=NULL, options=NULL, value=NULL, className=NULL, style=NULL, inputStyle=NULL,
+inputClassName=NULL, labelStyle=NULL, labelClassName=NULL, loading_state=NULL,
+persistence=NULL, persisted_props=NULL, persistence_type=NULL)
 }
 
 \arguments{

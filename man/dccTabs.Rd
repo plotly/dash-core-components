@@ -6,14 +6,13 @@
 \title{Tabs component}
 
 \description{
-A Dash component that lets you render pages with tabs - the Tabs component's children can be dccTab components, which can hold a label that will be displayed as a tab, and can in turn hold children components that will be that tab's content.
+A Dash component that lets you render pages with tabs - the Tabs component's children can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold children components that will be that tab's content.
 }
 
 \usage{
-dccTabs(children=NULL, id=NULL, value=NULL, className=NULL,
-content_className=NULL, parent_className=NULL, style=NULL,
-parent_style=NULL, content_style=NULL, vertical=NULL,
-mobile_breakpoint=NULL, colors=NULL, loading_state=NULL,
+dccTabs(children=NULL, id=NULL, value=NULL, className=NULL, content_className=NULL,
+parent_className=NULL, style=NULL, parent_style=NULL, content_style=NULL,
+vertical=NULL, mobile_breakpoint=NULL, colors=NULL, loading_state=NULL,
 persistence=NULL, persisted_props=NULL, persistence_type=NULL)
 }
 

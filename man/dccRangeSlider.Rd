@@ -10,11 +10,11 @@ A double slider with two handles. Used for specifying a range of numerical value
 }
 
 \usage{
-dccRangeSlider(id=NULL, marks=NULL, value=NULL, allowCross=NULL, className=NULL,
-count=NULL, disabled=NULL, dots=NULL, included=NULL, min=NULL,
-max=NULL, pushable=NULL, tooltip=NULL, step=NULL, vertical=NULL,
-verticalHeight=NULL, updatemode=NULL, loading_state=NULL,
-persistence=NULL, persisted_props=NULL, persistence_type=NULL)
+dccRangeSlider(id=NULL, marks=NULL, value=NULL, allowCross=NULL, className=NULL, count=NULL,
+disabled=NULL, dots=NULL, included=NULL, min=NULL, max=NULL, pushable=NULL,
+tooltip=NULL, step=NULL, vertical=NULL, verticalHeight=NULL, updatemode=NULL,
+loading_state=NULL, persistence=NULL, persisted_props=NULL,
+persistence_type=NULL)
 }
 
 \arguments{
