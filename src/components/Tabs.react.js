@@ -121,6 +121,95 @@ EnhancedTab.defaultProps = {
     },
 };
 
+const NextTab = ({
+    className,
+    style,
+    selectHandler,
+    value,
+    disabled,
+    disabled_style,
+    disabled_className,
+    mobile_breakpoint,
+    amountOfTabs,
+    colors,
+    vertical,
+    loading_state,
+}) => {
+    let tabStyle = style;
+    if (disabled) {
+        tabStyle = {tabStyle, ...disabled_style};
+    }
+    let tabClassName = `tab ${className || ''}`;
+    if (disabled) {
+        tabClassName += ` tab--disabled ${disabled_className || ''}`;
+    }
+    return (
+        <div
+            data-dash-is-loading={
+                (loading_state && loading_state.is_loading) || undefined
+            }
+            className={tabClassName}
+            id="next-tab"
+            style={tabStyle}
+            onClick={() => {
+                if (!disabled) {
+                    selectHandler(value);
+                }
+            }}
+        >
+            <span>Next Tab</span>
+            <style jsx>{`
+                .tab {
+                    display: inline-block;
+                    background-color: ${colors.background};
+                    border: 1px solid ${colors.border};
+                    border-bottom: none;
+                    padding: 20px 25px;
+                    transition: background-color, color 200ms;
+                    width: 100%;
+                    text-align: center;
+                    box-sizing: border-box;
+                }
+                .tab:last-of-type {
+                    border-right: 1px solid ${colors.border};
+                    border-bottom: 1px solid ${colors.border};
+                }
+                .tab:hover {
+                    cursor: pointer;
+                    background-color: #f0f0f0;
+                }
+                .tab--selected {
+                    border-top: 2px solid ${colors.primary};
+                    color: black;
+                    background-color: white;
+                }
+                .tab--selected:hover {
+                    background-color: white;
+                }
+                .tab--disabled {
+                    color: #d6d6d6;
+                }
+
+                @media screen and (min-width: ${mobile_breakpoint}px) {
+                    .tab {
+                        border: 1px solid ${colors.border};
+                        border-right: none;
+                        ${vertical
+                            ? ''
+                            : `width: calc(100% / ${amountOfTabs});`};
+                    }
+                    .tab--selected,
+                    .tab:last-of-type.tab--selected {
+                        border-bottom: none;
+                        ${vertical
+                            ? `border-left: 2px solid ${colors.primary};`
+                            : `border-top: 2px solid ${colors.primary};`};
+                    }
+                }
+            `}</style>
+        </div>
+    );
+};
 /**
  * A Dash component that lets you render pages with tabs - the Tabs component's children
  * can be dcc.Tab components, which can hold a label that will be displayed as a tab, and can in turn hold
@@ -168,6 +257,7 @@ export default class Tabs extends Component {
     render() {
         let EnhancedTabs;
         let selectedTab;
+        let nextTab;
 
         if (this.props.children) {
             const children = this.parseChildrenToArray();
@@ -227,6 +317,64 @@ export default class Tabs extends Component {
                     />
                 );
             });
+        }
+
+        if (this.props.children) {
+            nextTab = () => {
+                // TODO: handle components that are not dcc.Tab components (throw error)
+                // enhance Tab components coming from Dash (as dcc.Tab) with methods needed for handling logic
+                let childProps;
+                const child = this.parseChildrenToArray()[0];
+                const length = this.props.children.length;
+                let currentIndex = 0;
+
+                const nextTabHandler = () => {
+                    currentIndex = this.props.value.slice(-1) - 1;
+                    currentIndex = ((currentIndex + 1) % length) + 1;
+                    this.props.setProps({value: `tab-${currentIndex}`});
+                };
+
+                if (
+                    // disabled is a defaultProp (so it's always set)
+                    // meaning that if it's not set on child.props, the actual
+                    // props we want are lying a bit deeper - which means they
+                    // are coming from Dash
+                    isNil(child.props.disabled) &&
+                    child.props._dashprivate_layout &&
+                    child.props._dashprivate_layout.props
+                ) {
+                    // props are coming from Dash
+                    childProps = child.props._dashprivate_layout.props;
+                } else {
+                    // else props are coming from React (Demo.react.js, or Tabs.test.js)
+                    childProps = child.props;
+                }
+
+                return (
+                    <div key={length}>
+                        <NextTab
+                            key={this.props.children.length}
+                            selectHandler={nextTabHandler}
+                            className={childProps.className}
+                            style={childProps.style}
+                            selectedClassName={childProps.selected_className}
+                            selected_style={childProps.selected_style}
+                            value={childProps.value}
+                            disabled={childProps.disabled}
+                            disabled_style={childProps.disabled_style}
+                            disabled_classname={childProps.disabled_className}
+                            mobile_breakpoint={this.props.mobile_breakpoint}
+                            vertical={this.props.vertical}
+                            colors={this.props.colors}
+                            loading_state={childProps.loading_state}
+                        />
+                    </div>
+                );
+            };
+        }
+
+        if (this.props.next_tab) {
+            EnhancedTabs = EnhancedTabs.concat(nextTab());
         }
 
         const selectedTabContent = !isNil(selectedTab) ? selectedTab : '';
@@ -326,6 +474,7 @@ Tabs.defaultProps = {
         background: '#f9f9f9',
     },
     vertical: false,
+    next_tab: false,
     persisted_props: ['value'],
     persistence_type: 'local',
 };
@@ -377,6 +526,11 @@ Tabs.propTypes = {
      * Renders the tabs vertically (on the side)
      */
     vertical: PropTypes.bool,
+
+    /**
+     * Adds a next tab button to the component, enabling sequential scrolling through the tabs.
+     */
+    next_tab: PropTypes.bool,
 
     /**
      * Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)
