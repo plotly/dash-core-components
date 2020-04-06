@@ -2,13 +2,24 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.9.0] - 2020-04-01
 ### Changed
 - [#766](https://github.com/plotly/dash-core-components/pull/766) Update from React 16.8.6 to 16.13.0
 - [#768](https://github.com/plotly/dash-core-components/pull/768) Added title property to dcc.Link
 - [#776](https://github.com/plotly/dash-core-components/pull/776) Update dcc.Link to set href as children if children not defined. Makes href a required prop as well.
 - [#767](https://github.com/plotly/dash-core-components/pull/767) Updated dcc.Link to respond to click modifiers, and added a target prop.
-- [#774](https://github.com/plotly/dash-core-components/pull/774) Fixed dcc.Location firing callbacks for wrong property. 
+- [#774](https://github.com/plotly/dash-core-components/pull/774) Fixed dcc.Location firing callbacks for wrong property.
+- [772](https://github.com/plotly/dash-core-components/pull/772) Modified dcc.Link to work with absolute paths if refresh=True.
+
+### Updated
+- [#784](https://github.com/plotly/dash-core-components/pull/784)
+  - [Feature release of Plotly.js 1.53.0](https://github.com/plotly/plotly.js/releases/tag/v1.53.0) which contains:
+    - `rangebreaks` on date axes [#4614](https://github.com/plotly/plotly.js/pull/4614)
+    - (x|y) unified `hovermode` [#4620](https://github.com/plotly/plotly.js/pull/4620)
+    - "hovered data" mode to `spikesnap` [#4665](https://github.com/plotly/plotly.js/pull/4665)
+    - "full-json" export format to `Plotly.toImage` and `Plotly.dowloadImage` [#4593](https://github.com/plotly/plotly.js/pull/4593)
+    - node.customdata and link.customdata in `sankey` traces [#4621](https://github.com/plotly/plotly.js/pull/4621)
+    - `opacityscale` for `surface` traces [#4480](https://github.com/plotly/plotly.js/pull/4480)
 
 ## [1.8.1] -2020-02-27
 ### Added
@@ -503,7 +514,7 @@ See https://github.com/plotly/dash-core-components/pull/182.
   - A `responsive` plot config option
   - And various other features and bug fixes.
 
-  Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plot.ly/products/consulting-and-oem
+  Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plotly.com/products/consulting-and-oem
 
 ## [0.28.3] - 2018-09-07
 ### Changed
@@ -576,7 +587,7 @@ adding support for IDE autocomplete etc.
     - `polar` polygon grids
     - And many other features and bug fixes
   - Patch releases [1.39.1](https://github.com/plotly/plotly.js/releases/tag/v1.39.1), [1.38.3](https://github.com/plotly/plotly.js/releases/tag/v1.38.3), [1.38.2](https://github.com/plotly/plotly.js/releases/tag/v1.38.2), and [1.38.1](https://github.com/plotly/plotly.js/releases/tag/v1.38.1) containing numerous bug fixes.
-  - Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plot.ly/products/consulting-and-oem
+  - Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plotly.com/products/consulting-and-oem
 
 ## [0.23.0]
 ### Updated
@@ -664,7 +675,7 @@ removed every time the graph was updated. They are now removed and reattached. #
   - Add official Spanish translation (locale `es`) [plotly.js#2249](https://github.com/plotly/plotly.js/pull/2249)
   - Add official French translation (locale `fr`) [plotly.js#2252](https://github.com/plotly/plotly.js/pull/2252)
   - And numerous other features and bug fixes
-  - Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plot.ly/products/consulting-and-oem
+  - Many of these features were funded directly by companies that rely on this library. If your organization or company would like to sponsor particular features or bug fixes in these open source libraries, please reach out: http://plotly.com/products/consulting-and-oem
 
 ## [0.17.1] - 2017-01-18
 ### Fixed
@@ -751,7 +762,7 @@ Big thanks to community contributor @Akronix!
 
 ## [0.14.0] - 2017-10-17
 ### :sparkles: Added
-- An `Upload` component! :tada: See [https://plot.ly/dash/dash-core-components/upload](https://plot.ly/dash/dash-core-components/upload) for docs.
+- An `Upload` component! :tada: See [https://plotly.com/dash/dash-core-components/upload](https://plotly.com/dash/dash-core-components/upload) for docs.
 
 ## [0.13.0] - 2017-10-05
 ### Updated
@@ -779,7 +790,7 @@ Big thanks to community contributor @Akronix!
 
 ## [0.12.5] - 2017-09-11
 ### :bug: Fixed
--  The `Interval` component was constantly resetting its interval on every update. Initially reported in https://community.plot.ly/t/multiple-interval-object-in-a-single-page/5699/3
+-  The `Interval` component was constantly resetting its interval on every update. Initially reported in https://community.plotly.com/t/multiple-interval-object-in-a-single-page/5699/3
 - Removed the used `label` property from the `Slider` component
 - Provide a more descriptive documentation for the `marks` property of the `Slider` component
 
@@ -792,11 +803,11 @@ Big thanks to community contributor @Akronix!
 
 ## [0.12.3] - 2017-08-17
 ### Fixed
-- Previously, the `max_date_allowed` could not be selected. This issue has been fixed, issue first reported in https://community.plot.ly/t/solved-datepicker-in-dash/4816/10
+- Previously, the `max_date_allowed` could not be selected. This issue has been fixed, issue first reported in https://community.plotly.com/t/solved-datepicker-in-dash/4816/10
 
 ## [0.12.2] - 2017-08-10
 ### Fixed
-- Previously, when the `options` of a `dcc.Dropdown` would change, the options would no longer be searchable. That has been fixed. Issue was originally reported in https://community.plot.ly/t/dropdown-not-searching-values-when-typing/5323/3
+- Previously, when the `options` of a `dcc.Dropdown` would change, the options would no longer be searchable. That has been fixed. Issue was originally reported in https://community.plotly.com/t/dropdown-not-searching-values-when-typing/5323/3
 
 ## [0.12.1] - 2017-08-09
 ### Fixed
@@ -834,7 +845,7 @@ Big thanks to community contributor @Akronix!
 
 ## [0.9.0] - 2017-07-28
 ### Added
-- A `config` property of the `Graph` component that exposes the [plotly.js config properties](https://plot.ly/javascript/configuration-options/). Here's an example that hides 2 buttons and makes the elements in the graph "editable":
+- A `config` property of the `Graph` component that exposes the [plotly.js config properties](https://plotly.com/javascript/configuration-options/). Here's an example that hides 2 buttons and makes the elements in the graph "editable":
 ```
 import dash
 import dash_core_components as dcc
