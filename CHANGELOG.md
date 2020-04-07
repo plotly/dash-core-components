@@ -10,6 +10,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [#767](https://github.com/plotly/dash-core-components/pull/767) Updated dcc.Link to respond to click modifiers, and added a target prop.
 - [#774](https://github.com/plotly/dash-core-components/pull/774) Fixed dcc.Location firing callbacks for wrong property. 
 
+### Added
+- [#786](https://github.com/plotly/dash-core-components/pull/786) Added 'Next Tab' optional button to dcc.Tabs
+
 ## [1.8.1] -2020-02-27
 ### Added
 - [#760](https://github.com/plotly/dash-core-components/pull/760) Added R examples to package help
