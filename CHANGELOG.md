@@ -22,7 +22,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - `opacityscale` for `surface` traces [#4480](https://github.com/plotly/plotly.js/pull/4480)
 
 ### Added
-- [#786](https://github.com/plotly/dash-core-components/pull/786) Added 'Next Tab' optional button to dcc.Tabs
+- [#786](https://github.com/plotly/dash-core-components/pull/786) Added 'Next Tab' optional button to dcc.Tabs 
 
 ## [1.8.1] -2020-02-27
 ### Added
