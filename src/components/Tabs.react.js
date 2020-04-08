@@ -134,6 +134,7 @@ const NextTab = ({
     colors,
     vertical,
     loading_state,
+    title,
 }) => {
     let tabStyle = style;
     if (disabled) {
@@ -157,7 +158,7 @@ const NextTab = ({
                 }
             }}
         >
-            <span>Next Tab</span>
+            <span>{title}</span>
             <style jsx>{`
                 .tab {
                     display: inline-block;
@@ -356,7 +357,11 @@ export default class Tabs extends Component {
                             key={this.props.children.length}
                             selectHandler={nextTabHandler}
                             className={childProps.className}
-                            style={childProps.style}
+                            style={
+                                isNil(this.props.next_tab_layout.style)
+                                    ? childProps.style
+                                    : this.props.next_tab_layout.style
+                            }
                             selectedClassName={childProps.selected_className}
                             selected_style={childProps.selected_style}
                             value={childProps.value}
@@ -367,6 +372,7 @@ export default class Tabs extends Component {
                             vertical={this.props.vertical}
                             colors={this.props.colors}
                             loading_state={childProps.loading_state}
+                            title={this.props.next_tab_layout.title}
                         />
                     </div>
                 );
@@ -477,6 +483,7 @@ Tabs.defaultProps = {
     next_tab: false,
     persisted_props: ['value'],
     persistence_type: 'local',
+    next_tab_layout: {title: 'Next', style: null},
 };
 
 Tabs.propTypes = {
@@ -531,6 +538,11 @@ Tabs.propTypes = {
      * Adds a next tab button to the component, enabling sequential scrolling through the tabs.
      */
     next_tab: PropTypes.bool,
+
+    /**
+     * An object that contains the entries for "title" and "style" to modify the Next Tab button.
+     */
+    next_tab_layout: PropTypes.object,
 
     /**
      * Breakpoint at which tabs are rendered full width (can be 0 if you don't want full width tabs on mobile)
