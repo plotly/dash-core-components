@@ -28,7 +28,7 @@ test('Loading renders without loading_state', () => {
         </Loading>
     );
 
-    expect(loading.html()).toEqual('<div>Loading is done!</div>');
+    expect(loading.html()).toEqual('<div>Loading is done!</div><div></div>');
 });
 test('Loading renders without loading_state.is_loading', () => {
     const statusMock = {
@@ -41,7 +41,7 @@ test('Loading renders without loading_state.is_loading', () => {
         </Loading>
     );
 
-    expect(loading.html()).toEqual('<div>Loading is done!</div>');
+    expect(loading.html()).toEqual('<div>Loading is done!</div><div></div>');
 });
 test('Loading renders without prop_name', () => {
     const statusMock = {
