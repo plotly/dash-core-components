@@ -221,3 +221,48 @@ def test_ldcp005_dynamic_loading_component(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#btn-3", "changed")
 
     assert not dash_dcc.get_logs()
+
+
+def test_ldcp006_children_identity(dash_dcc):
+    lock = Lock()
+
+    app = dash.Dash(__name__)
+    app.layout = html.Div([
+        html.Button("click", id="btn"),
+        dcc.Loading(dcc.Graph(id="graph"), className="loading")
+    ])
+
+    @app.callback(Output("graph", "figure"), [Input("btn", "n_clicks")])
+    def update_graph(n):
+        with lock:
+            bars = list(range(2, (n or 0) + 5))
+            return {
+                "data": [{"type": "bar", "x": bars, "y": bars}],
+                "layout": {"width": 400, "height": 400}
+            }
+
+    with lock:
+        dash_dcc.start_server(app)
+        dash_dcc.find_element(".loading .dash-spinner")
+        dash_dcc.find_element("#graph .js-plotly-plot")
+        dash_dcc.driver.execute_script(
+            "window.gd = document.querySelector('.js-plotly-plot');"
+            "window.gd.__test__ = 'boo';"
+        )
+
+    test_identity = (
+        "var gd_ = document.querySelector('.js-plotly-plot');"
+        "return gd_ === window.gd && gd_.__test__ === 'boo';"
+    )
+
+    assert len(dash_dcc.find_elements('.js-plotly-plot .bars path')) == 3
+    assert dash_dcc.driver.execute_script(test_identity)
+
+    with lock:
+        dash_dcc.find_element("#btn").click()
+        dash_dcc.find_element(".loading .dash-spinner")
+        assert len(dash_dcc.find_elements('.js-plotly-plot .bars path')) == 3
+        assert dash_dcc.driver.execute_script(test_identity)
+
+    assert len(dash_dcc.find_elements('.js-plotly-plot .bars path')) == 4
+    assert dash_dcc.driver.execute_script(test_identity)
