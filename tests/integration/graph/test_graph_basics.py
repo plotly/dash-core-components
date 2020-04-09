@@ -101,7 +101,7 @@ def test_grbs003_graph_wrapped_in_loading_component_does_not_fail(dash_dcc):
         dcc.Loading(id="page-content")
     ])
 
-    @app.callback(Output('page-content', 'children'), [Input('url', 'value')])
+    @app.callback(Output('page-content', 'children'), [Input('url', 'pathname')])
     def render_page(url):
         return [
             dcc.Dropdown(
