@@ -9,7 +9,7 @@ jobs:
   lint-unit-37: &lint-unit
     working_directory: ~/project
     docker:
-      - image: circleci/python:3.7.5-stretch-node-browsers
+      - image: circleci/python:3.7-stretch-node-browsers
         environment:
           PYTHON_VERSION: py37
     steps:
@@ -42,21 +42,21 @@ jobs:
   lint-unit-36:
     <<: *lint-unit
     docker:
-      - image: circleci/python:3.6.9-stretch-node-browsers
+      - image: circleci/python:3.6-stretch-node-browsers
         environment:
           PYTHON_VERSION: py36
 
   lint-unit-27:
     <<: *lint-unit
     docker:
-      - image: circleci/python:2.7.16-stretch-node-browsers
+      - image: circleci/python:2.7-stretch-node-browsers
         environment:
           PYTHON_VERSION: py27
 
   build-dash-37: &build-dash
     working_directory: ~/project
     docker:
-      - image: circleci/python:3.7.5-stretch-node-browsers
+      - image: circleci/python:3.7-stretch-node-browsers
         environment:
             PYTHON_VERSION: py37
     steps:
@@ -97,21 +97,21 @@ jobs:
   build-dash-36:
     <<: *build-dash
     docker:
-      - image: circleci/python:3.6.9-stretch-node-browsers
+      - image: circleci/python:3.6-stretch-node-browsers
         environment:
           PYTHON_VERSION: py36
 
   build-dash-27:
     <<: *build-dash
     docker:
-      - image: circleci/python:2.7.16-stretch-node-browsers
+      - image: circleci/python:2.7-stretch-node-browsers
         environment:
           PYTHON_VERSION: py27
 
   test-37: &test
     working_directory: ~/project
     docker:
-      - image: circleci/python:3.7.5-stretch-node-browsers
+      - image: circleci/python:3.7-stretch-node-browsers
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: -1
@@ -143,7 +143,7 @@ jobs:
   test-36:
     <<: *test
     docker:
-      - image: circleci/python:3.6.9-stretch-node-browsers
+      - image: circleci/python:3.6-stretch-node-browsers
         environment:
           PYTHON_VERSION: py36
           PERCY_ENABLE: 0
@@ -151,7 +151,7 @@ jobs:
   test-27:
     <<: *test
     docker:
-      - image: circleci/python:2.7.16-stretch-node-browsers
+      - image: circleci/python:2.7-stretch-node-browsers
         environment:
           PYTHON_VERSION: py27
           PERCY_ENABLE: 0
@@ -159,7 +159,7 @@ jobs:
   test-legacy-37: &test-legacy
     working_directory: ~/project
     docker:
-      - image: circleci/python:3.7.5-stretch-node-browsers
+      - image: circleci/python:3.7-stretch-node-browsers
         environment:
             PYTHON_VERSION: py37
             PERCY_PARALLEL_TOTAL: -1
@@ -193,14 +193,14 @@ jobs:
   test-legacy-36:
     <<: *test-legacy
     docker:
-      - image: circleci/python:3.6.9-stretch-node-browsers
+      - image: circleci/python:3.6-stretch-node-browsers
         environment:
           PYTHON_VERSION: py36
           PERCY_ENABLE: 0
   test-legacy-27:
     <<: *test-legacy
     docker:
-      - image: circleci/python:2.7.16-stretch-node-browsers
+      - image: circleci/python:2.7-stretch-node-browsers
         environment:
           PYTHON_VERSION: py27
           PERCY_ENABLE: 0
