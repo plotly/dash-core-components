@@ -159,7 +159,7 @@ export default class Store extends React.Component {
         // Note: this still allows you to set data to null
         if (!equals(data, old)) {
             if (data === undefined) {
-                setProps({data: old})
+                setProps({data: old});
             } else {
                 this._backstore.setItem(id, data);
                 setProps({
