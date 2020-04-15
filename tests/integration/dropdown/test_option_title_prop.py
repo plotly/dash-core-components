@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import pytest
 import dash
 from dash.dependencies import Input, Output
