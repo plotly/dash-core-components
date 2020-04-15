@@ -62,8 +62,7 @@ Dropdown.propTypes = {
              * information on hover. For more information on this attribute,
              * see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title
              */
-            title: PropTypes.string
-
+            title: PropTypes.string,
         })
     ),
 
