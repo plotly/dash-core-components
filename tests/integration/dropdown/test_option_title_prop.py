@@ -6,6 +6,7 @@ import dash_html_components as html
 
 from utils import wait_for
 
+
 @pytest.mark.DCC793
 @pytest.mark.parametrize("multi", [True, False])
 def test_ddot001_option_title(dash_dcc, multi):
