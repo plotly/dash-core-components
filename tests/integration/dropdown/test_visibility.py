@@ -7,7 +7,7 @@ import pytest
 
 
 @pytest.mark.DCC788
-def test_visi001_fixed_table(dash_duo):
+def test_ddvi001_fixed_table(dash_duo):
     app = Dash(__name__)
     app.layout = Div([
         Dropdown(
