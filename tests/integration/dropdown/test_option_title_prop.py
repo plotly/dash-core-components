@@ -7,6 +7,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 from utils import wait_for
+from selenium.webdriver.common.keys import Keys
 
 
 @pytest.mark.DCC793
@@ -66,7 +67,9 @@ def test_ddot001_option_title(dash_dcc, multi):
         ),
     )
 
-    dropdown_title_input.clear()
+    # For some reason, element.clear() doesn't work on either Chrome or CircleCI
+    dropdown_title_input.send_keys(Keys.CONTROL + "a")
+    dropdown_title_input.send_keys(Keys.DELETE);
 
     dropdown_title_input.send_keys("Gotham City?")
 
@@ -79,7 +82,8 @@ def test_ddot001_option_title(dash_dcc, multi):
         ),
     )
 
-    dropdown_title_input.clear()
+    dropdown_title_input.send_keys(Keys.CONTROL + "a")
+    dropdown_title_input.send_keys(Keys.DELETE);
 
     wait_for(
         lambda: dropdown_option_element.get_attribute("title")
