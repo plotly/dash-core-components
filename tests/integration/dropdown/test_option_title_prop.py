@@ -69,7 +69,7 @@ def test_ddot001_option_title(dash_dcc, multi):
 
     # For some reason, element.clear() doesn't work on either Chrome or CircleCI
     dropdown_title_input.send_keys(Keys.CONTROL + "a")
-    dropdown_title_input.send_keys(Keys.DELETE);
+    dropdown_title_input.send_keys(Keys.DELETE)
 
     dropdown_title_input.send_keys("Gotham City?")
 
@@ -83,7 +83,7 @@ def test_ddot001_option_title(dash_dcc, multi):
     )
 
     dropdown_title_input.send_keys(Keys.CONTROL + "a")
-    dropdown_title_input.send_keys(Keys.DELETE);
+    dropdown_title_input.send_keys(Keys.DELETE)
 
     wait_for(
         lambda: dropdown_option_element.get_attribute("title")
