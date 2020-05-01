@@ -76,8 +76,7 @@ r_examples:
                     )
 
                     bar <- animation_opts(plot_ly(
-                      data = df, x=~time, y=~value, type = "bar"
-                      ),
+                      data = df, x=~time, y=~value, type = "bar"),
                       1000, easing = "cubic-in-out"
                     )
 
@@ -85,9 +84,7 @@ r_examples:
                   }
                 )
 
-               # block=FALSE also required to pass CRAN checks
-               app$run_server(block = FALSE)
-               app$server$stop()
+               app$run_server()
             }
     - name: dccSlider
       dontrun: FALSE
@@ -107,7 +104,7 @@ r_examples:
                         min = -5,
                         max = 10,
                         step = 0.5,
-                        value = -3,
+                        value = -3
                       ),
                       htmlDiv(
                         id = "slider-output",
@@ -125,9 +122,7 @@ r_examples:
                   }
                 )
 
-               # block=FALSE also required to pass CRAN checks
-               app$run_server(block = FALSE)
-               app$server$stop()
+               app$run_server()
             }
     - name: dccConfirmDialog
       dontrun: FALSE
@@ -144,9 +139,7 @@ r_examples:
                     list(
                       dccConfirmDialog(
                         id='confirm',
-                        message='Danger danger! Are you sure you want to continue?'
-                      ),
-
+                        message='Danger danger! Are you sure you want to continue?'),
                       dccDropdown(
                         options=lapply(list('Safe', 'Danger!!'),function(x){list('label'= x, 'value'= x)}),
                         id='dropdown'
@@ -184,7 +177,6 @@ r_examples:
                           dccLink('Navigate to "/"', href='/'),
                           htmlBr(),
                           dccLink('Navigate to "/page-2"', href='/page-2'),
-
                           # content will be rendered in this element
                           htmlDiv(id='page-content')
                         )
@@ -192,10 +184,9 @@ r_examples:
                 )
 
                 app$callback(output=list(id='page-content', property='children'),
-                            params=list(
+                             params=list(
                           input(id='url', property='pathname')),
-                          function(pathname)
-                          {
+                          function(pathname) {
                           sprintf('You are on page %s', pathname)
                           }
                 )
@@ -209,7 +200,9 @@ r_examples:
                 library(dashCoreComponents)
                 library(dashHtmlComponents)
                 library(dash)
+
                 app <- Dash$new()
+
                 app$layout(htmlDiv(list(
                   # The memory store reverts to the default on every page refresh
                   dccStore(id='memory'),
@@ -243,6 +236,7 @@ r_examples:
                     ))
                   ))
                 )))
+
                 for (i in c('memory', 'local', 'session')) {
                   app$callback(
                     output(id = i, property = 'data'),
@@ -254,7 +248,6 @@ r_examples:
                       if(is.null(n_clicks)){
                         return()
                       }
-
                       if(is.null(data[[1]])){
                         data = list('clicks' = 0)
                       } else{
@@ -265,6 +258,7 @@ r_examples:
                     }
                   )
                 }
+
                 for (i in c('memory', 'local', 'session')) {
                   app$callback(
                     output(id = sprintf('%s-clicks', i), property = 'children'),
@@ -278,7 +272,7 @@ r_examples:
                       }
                       if(is.null(data[[1]])){
                         data = list()
-                      } else{
+                      } else {
                         data = data
                       }
                       return(data$clicks[[1]])
@@ -302,29 +296,28 @@ r_examples:
                   dccConfirmDialogProvider(
                     children=htmlButton(
                       'Click Me',
-                      n_clicks = 0
-                    ),
+                      n_clicks = 0 
+                    ),  
                     id='danger-danger-provider',
                     message='Danger danger! Are you sure you want to continue?',
                     submit_n_clicks=NULL
-                  ),
+                  ),  
                   htmlDiv(id='output-provider',
                           children='Click the button to submit')
-                )))
+                ))) 
 
                 app$callback(
                   output = list(id = 'output-provider', property = 'children'),
                   params=list(input(id = 'danger-danger-provider', property = 'submit_n_clicks')),
-                  function(submit_n_clicks){
-                    if (is.null(unlist(submit_n_clicks))){
+                  function(submit_n_clicks) {
+                    if (is.null(unlist(submit_n_clicks))) {
                       return('')
-                    } else{
-                      sprintf('That was a dangerous choice!
-                              Submitted %s times.', submit_n_clicks)
-                    }
-                    }
+                    } else {
+                      sprintf('That was a dangerous choice! Submitted %s times.', submit_n_clicks)
+                    }   
+                    }   
 
-                )
+                )   
 
               app$run_server()
             }
@@ -668,8 +661,8 @@ r_examples:
                   params = list(input(id = 'upload-image', property = 'contents'),
                                 state(id = 'upload-image', property = 'filename'),
                                 state(id = 'upload-image', property = 'last_modified')),
-                  function(list_of_contents, list_of_names, list_of_dates){
-                    if (!is.null(list_of_contents) && !is.null(list_of_names) && !is.null(list_of_dates[[1)) {
+                  function(list_of_contents, list_of_names, list_of_dates) {
+                    if (!is.null(list_of_contents) && !is.null(list_of_names) && !is.null(list_of_dates[[1]])) {
                       children = lapply(1:length(list_of_contents), function(x){
                         parse_content(list_of_contents[[x]], list_of_names[[x]], list_of_dates[[x]])
                       })
