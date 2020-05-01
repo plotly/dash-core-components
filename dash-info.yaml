@@ -118,7 +118,7 @@ r_examples:
                   output("slider-output", "children"),
                   list(input("slider-input", "value")),
                   function(value) {
-                    return(sprintf("You have chosen %s on the slider above.", value))
+                    return(paste0("You have chosen ", value, " on the slider above."))
                   }
                 )
 
@@ -187,7 +187,7 @@ r_examples:
                              params=list(
                           input(id='url', property='pathname')),
                           function(pathname) {
-                          sprintf('You are on page %s', pathname)
+                          paste0('You are on page ', pathname)
                           }
                 )
 
@@ -313,7 +313,7 @@ r_examples:
                     if (is.null(unlist(submit_n_clicks))) {
                       return('')
                     } else {
-                      sprintf('That was a dangerous choice! Submitted %s times.', submit_n_clicks)
+                      paste0('That was a dangerous choice! Submitted ', submit_n_clicks, ' times.')
                     }   
                     }   
 
@@ -453,7 +453,7 @@ r_examples:
                           input(id='url', property='pathname')),
                           function(pathname)
                           {
-                          sprintf('You are on page %s', pathname)
+                          paste0('You are on page ', pathname)
                           }
                 )
 
@@ -541,9 +541,8 @@ r_examples:
                 app$layout(
                   htmlDiv(
                     dccTextarea(
-                      placeholder = "Enter a value...",
-                      value = "This is a TextArea component",
-                      style = list("width" = "100%")
+                      placeholder = 'Enter a value...',
+                      value = 'This is a TextArea component'
                     )
                   )
                 )
@@ -627,7 +626,6 @@ r_examples:
                       htmlA('Select Files')
                     )),
                     style=list(
-                      'width'= '100%',
                       'height'= '60px',
                       'lineHeight'= '60px',
                       'borderWidth'= '1px',
