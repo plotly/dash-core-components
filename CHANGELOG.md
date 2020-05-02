@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] -
+### Changed
+- [#793](https://github.com/plotly/dash-core-components/pull/793) Added title key (i.e. HTML `title` attribute) to option dicts in `dcc.Dropdown` `options[]` list property.
+### Fixed
+- [#790](https://github.com/plotly/dash-core-components/pull/790) Fixed bug where the dcc.Dropdown dropdown was hidden by the dash_table.DataTable fixed rows and columns.
+
 ## [1.9.1] - 2020-04-10
 ### Changed
 - [#740](https://github.com/plotly/dash-core-components/pull/740) Keep components that are loading in the DOM, but not visible, as opposed to removing them entirely. This will ensure that the size of the component's container does not shrink or expand when the component goes into the loading state.
