@@ -2,9 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - 2020-05-04
+## [Unreleased]
+### Changed
+- [#793](https://github.com/plotly/dash-core-components/pull/793) Added title key (i.e. HTML `title` attribute) to option dicts in `dcc.Dropdown` `options[]` list property.
+
+### Fixed
+- [#790](https://github.com/plotly/dash-core-components/pull/790) Fixed bug where the dcc.Dropdown dropdown was hidden by the dash_table.DataTable fixed rows and columns.
+
 ### Updated
-- [#]()
+- [#800](https://github.com/plotly/dash-core-components/pull/800)
   - [Feature release of Plotly.js 1.54.0](https://github.com/plotly/plotly.js/releases/tag/v1.54.0) which:
     - Introduces new drag modes "drawline", "drawrect", "drawcircle", "drawopenpath", "drawclosedpath", adds optional modebar buttons for drawing & removing new shapes inside cartesian subplots, adds newshape and activeshape attributes to layout, and adds editable and fillrule attributes to layout.shapes[#4775](https://github.com/plotly/plotly.js/pull/4775)
   - Adda angle and allowoverlap attributes to marker of scattermapbox traces[#4575](https://github.com/plotly/plotly.js/pull/4575), [#4794](https://github.com/plotly/plotly.js/pull/4794)
