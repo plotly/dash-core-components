@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 - [#800](https://github.com/plotly/dash-core-components/pull/800)
+  - Upgraded plotly.js to [1.54.1](https://github.com/plotly/plotly.js/releases/tag/v1.54.1)
   - [Feature release of Plotly.js 1.54.0](https://github.com/plotly/plotly.js/releases/tag/v1.54.0) which:
     - Introduces new drag modes "drawline", "drawrect", "drawcircle", "drawopenpath", "drawclosedpath", adds optional modebar buttons for drawing & removing new shapes inside cartesian subplots, adds newshape and activeshape attributes to layout, and adds editable and fillrule attributes to layout.shapes[#4775](https://github.com/plotly/plotly.js/pull/4775)
   - Adda angle and allowoverlap attributes to marker of scattermapbox traces[#4575](https://github.com/plotly/plotly.js/pull/4575), [#4794](https://github.com/plotly/plotly.js/pull/4794)
