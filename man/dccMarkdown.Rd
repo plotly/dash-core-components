@@ -10,8 +10,9 @@ A component that renders Markdown text as specified by the GitHub Markdown spec.
 }
 
 \usage{
-dccMarkdown(children=NULL, id=NULL, className=NULL, dangerously_allow_html=NULL,
-dedent=NULL, highlight_config=NULL, loading_state=NULL, style=NULL)
+dccMarkdown(children=NULL, id=NULL, className=NULL,
+dangerously_allow_html=NULL, dedent=NULL,
+highlight_config=NULL, loading_state=NULL, style=NULL)
 }
 
 \arguments{
@@ -45,35 +46,39 @@ those elements have the following types:
 
 \item{style}{Named list. User-defined inline styles for the rendered Markdown}
 }
+
+\value{named list of JSON elements corresponding to React.js properties and their values}
+
 \examples{
-\dontrun{
-library(dash)
-library(dashHtmlComponents)
-library(dashCoreComponents)
+if (interactive() && require(dash)) {
+    library(dash)
+    library(dashHtmlComponents)
+    library(dashCoreComponents)
 
-app <- Dash$new()
+    app <- Dash$new()
 
-app$title("dccMarkdown Syntax Highlighting Demo")
+    app$title("dccMarkdown Syntax Highlighting Demo")
 
-# dccMarkdown leverages Highlight.js, which allows
-# app developers to specify the language inline
-# and highlight its syntax properly:
-app$layout(
-  htmlDiv(
-    list(
-      htmlDiv(htmlH2("Syntax markdown demo:")),
-      dccMarkdown(children = "
-      ```r
-      library(dash)
-      library(dashHtmlComponents)
-      
-      app <- Dash$new()
-      app$layout(htmlDiv('Dash app code wrapped within an app'))
-      app$run_server()
-      ```")
+    # dccMarkdown leverages Highlight.js, which allows
+    # app developers to specify the language inline
+    # and highlight its syntax properly:
+    app$layout(
+      htmlDiv(
+        list(
+          htmlDiv(htmlH2("Syntax markdown demo:")),
+          dccMarkdown(children = "
+          ```r
+          library(dash)
+          library(dashHtmlComponents)
+
+          app <- Dash$new()
+          app$layout(htmlDiv('Dash app code wrapped within an app'))
+          app$run_server()
+          ```")
+        )
+      )
     )
-  )
-)
 
-app$run_server()
-}}
+  app$run_server()
+}
+}

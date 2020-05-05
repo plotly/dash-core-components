@@ -10,9 +10,10 @@ Dropdown is an interactive dropdown element for selecting one or more items. The
 }
 
 \usage{
-dccDropdown(id=NULL, options=NULL, value=NULL, optionHeight=NULL, className=NULL,
-clearable=NULL, disabled=NULL, multi=NULL, placeholder=NULL, searchable=NULL,
-search_value=NULL, style=NULL, loading_state=NULL, persistence=NULL,
+dccDropdown(id=NULL, options=NULL, value=NULL, optionHeight=NULL,
+className=NULL, clearable=NULL, disabled=NULL, multi=NULL,
+placeholder=NULL, searchable=NULL, search_value=NULL,
+style=NULL, loading_state=NULL, persistence=NULL,
 persisted_props=NULL, persistence_type=NULL)
 }
 
@@ -21,13 +22,16 @@ persisted_props=NULL, persistence_type=NULL)
 in callbacks. The ID needs to be unique across all of the
 components in an app.}
 
-\item{options}{List of lists containing elements 'label', 'value', 'disabled'.
+\item{options}{List of lists containing elements 'label', 'value', 'disabled', 'title'.
 those elements have the following types:
   - label (character | numeric; required): the dropdown's label
   - value (character | numeric; required): the value of the dropdown. this value
 corresponds to the items specified in the
 `value` property.
-  - disabled (logical; optional): if true, this option is disabled and cannot be selected.s. An array of options {label: [string|number], value: [string|number]},
+  - disabled (logical; optional): if true, this option is disabled and cannot be selected.
+  - title (character; optional): the html 'title' attribute for the option. allows for
+information on hover. for more information on this attribute,
+see https://developer.mozilla.org/en-us/docs/web/html/global_attributes/titles. An array of options {label: [string|number], value: [string|number]},
 an optional disabled field can be used for each option}
 
 \item{value}{Character | numeric | list of character | numerics. The value of the input. If `multi` is false (the default)
@@ -79,25 +83,29 @@ memory: only kept in memory, reset on page refresh.
 local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.}
 }
+
+\value{named list of JSON elements corresponding to React.js properties and their values}
+
 \examples{
-\dontrun{
-library(dash)
-library(dashCoreComponents)
+if (interactive() && require(dash)) {
+    library(dash)
+    library(dashCoreComponents)
 
-app <- Dash$new()
+    app <- Dash$new()
 
-app$layout(
-  htmlDiv(
-    dccDropdown(
-      options=list(
-        list(label = "New York City", value = "NYC"),
-        list(label = "Montreal", value = "MTL"),
-        list(label = "San Francisco", value = "SF")
-      ),
-      value="MTL"
+    app$layout(
+      htmlDiv(
+        dccDropdown(
+          options=list(
+            list(label = "New York City", value = "NYC"),
+            list(label = "Montreal", value = "MTL"),
+            list(label = "San Francisco", value = "SF")
+          ),
+          value="MTL"
+        )
+      )
     )
-  )
-)
 
-app$run_server()
-}}
+  app$run_server()
+}
+}

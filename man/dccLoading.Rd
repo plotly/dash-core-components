@@ -10,8 +10,9 @@ A Loading component that wraps any other component and displays a spinner until 
 }
 
 \usage{
-dccLoading(children=NULL, id=NULL, type=NULL, fullscreen=NULL, debug=NULL, className=NULL,
-style=NULL, color=NULL, loading_state=NULL)
+dccLoading(children=NULL, id=NULL, type=NULL, fullscreen=NULL,
+debug=NULL, className=NULL, style=NULL, color=NULL,
+loading_state=NULL)
 }
 
 \arguments{
@@ -21,15 +22,17 @@ style=NULL, color=NULL, loading_state=NULL)
 in callbacks. The ID needs to be unique across all of the
 components in an app.}
 
-\item{type}{A value equal to: 'graph', 'cube', 'circle', 'dot', 'default'. Property that determines which spinner to show - one of 'graph', 'cube', 'circle', 'dot', or 'default'.}
+\item{type}{A value equal to: 'graph', 'cube', 'circle', 'dot', 'default'. Property that determines which spinner to show
+one of 'graph', 'cube', 'circle', 'dot', or 'default'.}
 
-\item{fullscreen}{Logical. Boolean that determines if the loading spinner will be displayed full-screen or not}
+\item{fullscreen}{Logical. Boolean that makes the spinner display full-screen}
 
-\item{debug}{Logical. Boolean that determines if the loading spinner will display the status.prop_name and component_name}
+\item{debug}{Logical. If true, the spinner will display the component_name and prop_name
+while loading}
 
-\item{className}{Character. Additional CSS class for the root DOM node}
+\item{className}{Character. Additional CSS class for the spinner root DOM node}
 
-\item{style}{Named list. Additional CSS styling for the root DOM node}
+\item{style}{Named list. Additional CSS styling for the spinner root DOM node}
 
 \item{color}{Character. Primary colour used for the loading spinners}
 
@@ -39,49 +42,53 @@ those elements have the following types:
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 }
+
+\value{named list of JSON elements corresponding to React.js properties and their values}
+
 \examples{
-\dontrun{
-library(dash)
-library(dashCoreComponents)
-library(dashHtmlComponents)
+if (interactive() && require(dash)) {
+    library(dash)
+    library(dashCoreComponents)
+    library(dashHtmlComponents)
 
-app <- Dash$new()
+    app <- Dash$new()
 
-app$layout(htmlDiv(
-  children=list(
-    htmlH3("Edit text input to see loading state"),
-    dccInput(id="input-1", value='Input triggers local spinner'),
-    dccLoading(id="loading-1", children=list(htmlDiv(id="loading-output-1")), type="default"),
-    htmlDiv(
-      list(
-        dccInput(id="input-2", value='Input triggers nested spinner'),
-        dccLoading(
-          id="loading-2",
-          children=list(htmlDiv(list(htmlDiv(id="loading-output-2")))),
-          type="circle"
+    app$layout(htmlDiv(
+      children=list(
+        htmlH3("Edit text input to see loading state"),
+        dccInput(id="input-1", value='Input triggers local spinner'),
+        dccLoading(id="loading-1", children=list(htmlDiv(id="loading-output-1")), type="default"),
+        htmlDiv(
+          list(
+            dccInput(id="input-2", value='Input triggers nested spinner'),
+            dccLoading(
+              id="loading-2",
+              children=list(htmlDiv(list(htmlDiv(id="loading-output-2")))),
+              type="circle"
+            )
+          )
         )
       )
+    ))
+
+    app$callback(
+      output = list(id='loading-output-1', property = 'children'),
+      params = list(input(id = 'input-1', property = 'value')),
+      function(value){
+        Sys.sleep(1)
+        return(value)
+      }
     )
-  )
-))
 
-app$callback(
-  output = list(id='loading-output-1', property = 'children'),
-  params = list(input(id = 'input-1', property = 'value')),
-  function(value){
-    Sys.sleep(1)
-    return(value)
-  }
-)
+    app$callback(
+      output = list(id='loading-output-2', property = 'children'),
+      params = list(input(id = 'input-2', property = 'value')),
+      function(value){
+        Sys.sleep(1)
+        return(value)
+      }
+    )
 
-app$callback(
-  output = list(id='loading-output-2', property = 'children'),
-  params = list(input(id = 'input-2', property = 'value')),
-  function(value){
-    Sys.sleep(1)
-    return(value)
-  }
-)
-
-app$run_server()            
-}}
+  app$run_server()
+}
+}

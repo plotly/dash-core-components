@@ -1,16 +1,16 @@
 Package: dashCoreComponents
-Title: Core Interactive UI Components for Dash 
-Version: 1.9.0
-Description: Dash ships with supercharged components for interactive user interfaces. A core set of components, written and maintained by the Dash team, is available in the dashCoreComponents package. The source for this package is on GitHub: plotly/dash-core-components.
+Title: Core Interactive UI Components for 'Dash'
+Version: 1.10.0
+Description: 'Dash' ships with supercharged components for interactive user interfaces. A core set of components, written and maintained by the 'Dash' team, is available in the 'dashCoreComponents' package. The source for this package is on GitHub: plotly/dash-core-components.
 Depends: R (>= 3.0.2)
 Imports: 
-Suggests: knitr, rmarkdown
+Suggests: dash, dashHtmlComponents, jsonlite, plotly, knitr, rmarkdown
+Authors@R: c(person("Chris", "Parmer", email = "chris@plotly.com", role = c("aut")), person("Ryan Patrick", "Kyle", email = "ryan@plotly.com", role = c("cre"), comment = c(ORCID = "0000-0002-4958-2844")), person(family = "Plotly Technologies, Inc.", role = "cph"))
 License: MIT + file LICENSE
+Copyright: Plotly Technologies, Inc.
 URL: https://github.com/plotly/dash-core-components
 BugReports: https://github.com/plotly/dash-core-components/issues
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
 KeepSource: true
-Author: Chris Parmer [aut]
-Maintainer: Chris Parmer <chris@plotly.com>

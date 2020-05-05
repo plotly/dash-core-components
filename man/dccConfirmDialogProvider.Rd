@@ -12,7 +12,8 @@ A wrapper component that will display a confirmation dialog when its child compo
 \usage{
 dccConfirmDialogProvider(children=NULL, id=NULL, message=NULL, submit_n_clicks=NULL,
 submit_n_clicks_timestamp=NULL, cancel_n_clicks=NULL,
-cancel_n_clicks_timestamp=NULL, displayed=NULL, loading_state=NULL)
+cancel_n_clicks_timestamp=NULL, displayed=NULL,
+loading_state=NULL)
 }
 
 \arguments{
@@ -40,41 +41,44 @@ those elements have the following types:
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 }
+
+\value{named list of JSON elements corresponding to React.js properties and their values}
+
 \examples{
-\dontrun{
-library(dash)
-library(dashCoreComponents)
-library(dashHtmlComponents)
+if (interactive() && require(dash)) {
+    library(dash)
+    library(dashCoreComponents)
+    library(dashHtmlComponents)
 
-app <- Dash$new()
+    app <- Dash$new()
 
-app$layout(htmlDiv(list(
-  dccConfirmDialogProvider(
-    children=htmlButton(
-      'Click Me',
-      n_clicks = 0
-    ),
-    id='danger-danger-provider',
-    message='Danger danger! Are you sure you want to continue?',
-    submit_n_clicks=NULL
-  ),
-  htmlDiv(id='output-provider',
-          children='Click the button to submit')
-)))
+    app$layout(htmlDiv(list(
+      dccConfirmDialogProvider(
+        children=htmlButton(
+          'Click Me',
+          n_clicks = 0 
+        ),  
+        id='danger-danger-provider',
+        message='Danger danger! Are you sure you want to continue?',
+        submit_n_clicks=NULL
+      ),  
+      htmlDiv(id='output-provider',
+              children='Click the button to submit')
+    ))) 
 
-app$callback(
-  output = list(id = 'output-provider', property = 'children'),
-  params=list(input(id = 'danger-danger-provider', property = 'submit_n_clicks')),
-  function(submit_n_clicks){
-    if (is.null(unlist(submit_n_clicks))){
-      return('')
-    } else{
-      sprintf('That was a dangerous choice!
-              Submitted %s times.', submit_n_clicks)
-    }
-    }
+    app$callback(
+      output = list(id = 'output-provider', property = 'children'),
+      params=list(input(id = 'danger-danger-provider', property = 'submit_n_clicks')),
+      function(submit_n_clicks) {
+        if (is.null(unlist(submit_n_clicks))) {
+          return('')
+        } else {
+          paste0('That was a dangerous choice! Submitted ', submit_n_clicks, ' times.')
+        }   
+        }   
 
-)
+    )   
 
-app$run_server()
-}}
+  app$run_server()
+}
+}

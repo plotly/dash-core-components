@@ -10,7 +10,8 @@ Update and track the current window.location object through the window.history s
 }
 
 \usage{
-dccLocation(id=NULL, pathname=NULL, search=NULL, hash=NULL, href=NULL, refresh=NULL)
+dccLocation(id=NULL, pathname=NULL, search=NULL, hash=NULL, href=NULL,
+refresh=NULL)
 }
 
 \arguments{
@@ -28,35 +29,39 @@ components in an app.}
 
 \item{refresh}{Logical. Refresh the page when the location is updated?}
 }
+
+\value{named list of JSON elements corresponding to React.js properties and their values}
+
 \examples{
-\dontrun{
-library(dash)
-library(dashCoreComponents)
-library(dashHtmlComponents)
+if (interactive() && require(dash)) {
+    library(dash)
+    library(dashCoreComponents)
+    library(dashHtmlComponents)
 
-app <- Dash$new()
+    app <- Dash$new()
 
-app$layout(htmlDiv(list(
-          # represents the URL bar, doesn't render anything
-          dccLocation(id = 'url', refresh=FALSE),
-          dccLink('Navigate to "/"', href='/'),
-          htmlBr(),
-          dccLink('Navigate to "/page-2"', href='/page-2'),
+    app$layout(htmlDiv(list(
+              # represents the URL bar, doesn't render anything
+              dccLocation(id = 'url', refresh=FALSE),
+              dccLink('Navigate to "/"', href='/'),
+              htmlBr(),
+              dccLink('Navigate to "/page-2"', href='/page-2'),
 
-          # content will be rendered in this element
-          htmlDiv(id='page-content')
+              # content will be rendered in this element
+              htmlDiv(id='page-content')
+            )
         )
     )
-)
 
-app$callback(output=list(id='page-content', property='children'),
-             params=list(
-          input(id='url', property='pathname')),
-          function(pathname)
-          {
-          sprintf('You are on page %s', pathname)
-          }
-)
+    app$callback(output=list(id='page-content', property='children'),
+                params=list(
+              input(id='url', property='pathname')),
+              function(pathname)
+              {
+              paste0('You are on page ', pathname)
+              }
+    )
 
-app$run_server()
-}}
+  app$run_server()
+}
+}

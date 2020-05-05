@@ -1226,6 +1226,11 @@
                 "name": "bool",
                 "description": "If true, this option is disabled and cannot be selected.",
                 "required": false
+              },
+              "title": {
+                "name": "string",
+                "description": "The HTML 'title' attribute for the option. Allows for\ninformation on hover. For more information on this attribute,\nsee https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title",
+                "required": false
               }
             }
           }
@@ -2935,7 +2940,7 @@
           ]
         },
         "required": false,
-        "description": "Property that determines which spinner to show - one of 'graph', 'cube', 'circle', 'dot', or 'default'.",
+        "description": "Property that determines which spinner to show\none of 'graph', 'cube', 'circle', 'dot', or 'default'.",
         "defaultValue": {
           "value": "'default'",
           "computed": false
@@ -2946,28 +2951,28 @@
           "name": "bool"
         },
         "required": false,
-        "description": "Boolean that determines if the loading spinner will be displayed full-screen or not"
+        "description": "Boolean that makes the spinner display full-screen"
       },
       "debug": {
         "type": {
           "name": "bool"
         },
         "required": false,
-        "description": "Boolean that determines if the loading spinner will display the status.prop_name and component_name"
+        "description": "If true, the spinner will display the component_name and prop_name\nwhile loading"
       },
       "className": {
         "type": {
           "name": "string"
         },
         "required": false,
-        "description": "Additional CSS class for the root DOM node"
+        "description": "Additional CSS class for the spinner root DOM node"
       },
       "style": {
         "type": {
           "name": "object"
         },
         "required": false,
-        "description": "Additional CSS styling for the root DOM node"
+        "description": "Additional CSS styling for the spinner root DOM node"
       },
       "color": {
         "type": {

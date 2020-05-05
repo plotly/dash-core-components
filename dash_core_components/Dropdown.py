@@ -19,13 +19,16 @@ Keyword arguments:
 in callbacks. The ID needs to be unique across all of the
 components in an app.
 - options (dict; optional): An array of options {label: [string|number], value: [string|number]},
-an optional disabled field can be used for each option. options has the following type: list of dicts containing keys 'label', 'value', 'disabled'.
+an optional disabled field can be used for each option. options has the following type: list of dicts containing keys 'label', 'value', 'disabled', 'title'.
 Those keys have the following types:
   - label (string | number; required): The dropdown's label
   - value (string | number; required): The value of the dropdown. This value
 corresponds to the items specified in the
 `value` property.
   - disabled (boolean; optional): If true, this option is disabled and cannot be selected.
+  - title (string; optional): The HTML 'title' attribute for the option. Allows for
+information on hover. For more information on this attribute,
+see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title
 - value (string | number | list of string | numbers; optional): The value of the input. If `multi` is false (the default)
 then value is just a string that corresponds to the values
 provided in the `options` property. If `multi` is true, then

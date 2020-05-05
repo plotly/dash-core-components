@@ -10,8 +10,8 @@ Logout button to submit a form post request to the `logout_url` prop. Usage is i
 }
 
 \usage{
-dccLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL, method=NULL, className=NULL,
-loading_state=NULL)
+dccLogoutButton(id=NULL, label=NULL, logout_url=NULL, style=NULL,
+method=NULL, className=NULL, loading_state=NULL)
 }
 
 \arguments{
@@ -33,16 +33,20 @@ those elements have the following types:
   - prop_name (character; optional): holds which property is loading
   - component_name (character; optional): holds the name of the component that is loading. Object that holds the loading state object coming from dash-renderer}
 }
+
+\value{named list of JSON elements corresponding to React.js properties and their values}
+
 \examples{
-\dontrun{
-library(dash)
-library(dashCoreComponents)
+if (interactive() && require(dash)) {
+    library(dash)
+    library(dashCoreComponents)
 
-app <- Dash$new()
+    app <- Dash$new()
 
-app$layout(
-  dccLogoutButton(logout_url='/custom-auth/logout')
-)
+    app$layout(
+      dccLogoutButton(logout_url='/custom-auth/logout')
+    )
 
-app$run_server()
-}}
+  app$run_server()
+}
+}
