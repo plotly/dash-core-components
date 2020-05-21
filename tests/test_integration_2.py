@@ -56,31 +56,20 @@ class Test2(IntegrationTests):
             ]
         )
 
-        call_count = Value("i", 0)
-
         @app.callback(
             Output("page-content", "children"), [Input("test-url", "pathname")]
         )
         def display_page(pathname):
-            call_count.value = call_count.value + 1
             return "You are on page {}".format(pathname)
 
         self.startServer(app=app)
 
         time.sleep(2)
 
-        # callback is called twice when defined
-        self.assertEqual(call_count.value, 2)
-
         # test if link correctly scrolls back to top of page
         test_link = self.wait_for_element_by_css_selector("#test-link")
         test_link.send_keys(Keys.NULL)
         test_link.click()
-        time.sleep(2)
-
-        # test link still fires update on Location
-        page_content = self.wait_for_element_by_css_selector("#page-content")
-        self.assertNotEqual(page_content.text, "You are on page /")
 
         self.wait_for_text_to_equal(
             "#page-content", "You are on page /test-link"
@@ -89,9 +78,6 @@ class Test2(IntegrationTests):
         # test if rendered Link's <a> tag has a href attribute
         link_href = test_link.get_attribute("href")
         self.assertEqual(link_href, "http://localhost:8050/test-link")
-
-        # test if callback is only fired once (offset of 2)
-        self.assertEqual(call_count.value, 3)
 
     def test_interval(self):
         app = dash.Dash(__name__)
