@@ -1,18 +1,93 @@
-import React, {Component, lazy, Suspense} from 'react';
+import React, {Component} from 'react';
+import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import PropTypes from 'prop-types';
-import slider from '../utils/LazyLoader/slider';
-
-const RealSlider = lazy(slider);
+import {assoc, omit} from 'ramda';
+import './css/rc-slider@6.1.2.css';
 
 /**
  * A slider component with a single handle.
  */
 export default class Slider extends Component {
+    constructor(props) {
+        super(props);
+        this.propsToState = this.propsToState.bind(this);
+        this.DashSlider = props.tooltip
+            ? createSliderWithTooltip(ReactSlider)
+            : ReactSlider;
+    }
+
+    propsToState(newProps) {
+        this.setState({value: newProps.value});
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.tooltip !== this.props.tooltip) {
+            this.DashSlider = newProps.tooltip
+                ? createSliderWithTooltip(ReactSlider)
+                : ReactSlider;
+        }
+        this.propsToState(newProps);
+    }
+
+    componentWillMount() {
+        this.propsToState(this.props);
+    }
+
     render() {
+        const {
+            className,
+            id,
+            loading_state,
+            setProps,
+            tooltip,
+            updatemode,
+            vertical,
+        } = this.props;
+        const value = this.state.value;
+
+        let tipProps;
+        if (tooltip && tooltip.always_visible) {
+            /**
+             * clone `tooltip` but with renamed key `always_visible` -> `visible`
+             * the rc-tooltip API uses `visible`, but `always_visible` is more semantic
+             * assigns the new (renamed) key to the old key and deletes the old key
+             */
+            tipProps = assoc('visible', tooltip.always_visible, tooltip);
+            delete tipProps.always_visible;
+        } else {
+            tipProps = tooltip;
+        }
+
         return (
-            <Suspense fallback={null}>
-                <RealSlider {...this.props} />
-            </Suspense>
+            <div
+                id={id}
+                data-dash-is-loading={
+                    (loading_state && loading_state.is_loading) || undefined
+                }
+                className={className}
+                style={vertical ? {height: '100%'} : {}}
+            >
+                <this.DashSlider
+                    onChange={value => {
+                        if (updatemode === 'drag') {
+                            setProps({value});
+                        } else {
+                            this.setState({value});
+                        }
+                    }}
+                    onAfterChange={value => {
+                        if (updatemode === 'mouseup') {
+                            setProps({value});
+                        }
+                    }}
+                    tipProps={tipProps}
+                    value={value}
+                    {...omit(
+                        ['className', 'setProps', 'updatemode', 'value'],
+                        this.props
+                    )}
+                />
+            </div>
         );
     }
 }
@@ -120,11 +195,6 @@ Slider.propTypes = {
     vertical: PropTypes.bool,
 
     /**
-     * The height, in px, of the slider if it is vertical.
-     */
-    verticalHeight: PropTypes.number,
-
-    /**
      * Determines when the component should update
      * its value. If `mouseup`, then the slider
      * will only trigger its value when the user has
@@ -192,8 +262,4 @@ Slider.defaultProps = {
     updatemode: 'mouseup',
     persisted_props: ['value'],
     persistence_type: 'local',
-    verticalHeight: 400,
 };
-
-export const propTypes = Slider.propTypes;
-export const defaultProps = Slider.defaultProps;

@@ -116,7 +116,7 @@ DefaultSpinner.propTypes = {
     color: PropTypes.string,
     className: PropTypes.string,
     fullscreen: PropTypes.bool,
-    style: PropTypes.object,
+    style: PropTypes.bool,
     debug: PropTypes.bool,
 };
 

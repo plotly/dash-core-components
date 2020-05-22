@@ -1,13 +1,22 @@
-import React, {Component, memo, Suspense} from 'react';
+import React, {Component, PureComponent, Suspense} from 'react';
 import PropTypes from 'prop-types';
 
 import {asyncDecorator} from '@plotly/dash-component-plugins';
-import graph from '../utils/LazyLoader/graph';
-import plotly from '../utils/LazyLoader/plotly';
-import {
-    privatePropTypes,
-    privateDefaultProps,
-} from '../fragments/Graph.privateprops';
+
+const loader = {
+    plotly: () =>
+        Promise.resolve(
+            window.Plotly ||
+                import(/* webpackChunkName: "plotlyjs" */ 'plotly.js').then(
+                    ({default: Plotly}) => {
+                        window.Plotly = Plotly;
+                        return Plotly;
+                    }
+                )
+        ),
+    graph: () =>
+        import(/* webpackChunkName: "graph" */ '../fragments/Graph.react'),
+};
 
 const EMPTY_EXTEND_DATA = [];
 
@@ -42,7 +51,7 @@ class PlotlyGraph extends Component {
         });
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         let extendData = this.state.extendData.slice(0);
 
         if (this.props.figure !== nextProps.figure) {
@@ -81,67 +90,37 @@ class PlotlyGraph extends Component {
     render() {
         return (
             <ControlledPlotlyGraph
-                {...this.props}
-                extendData={this.state.extendData}
-                clearExtendData={this.clearExtendData}
+                {...{
+                    ...this.props,
+                    extendData: this.state.extendData,
+                    clearExtendData: this.clearExtendData,
+                }}
             />
         );
     }
 }
 
 const RealPlotlyGraph = asyncDecorator(PlotlyGraph, () =>
-    Promise.all([plotly(), graph()]).then(([, graph]) => graph)
+    loader.plotly().then(() => loader.graph())
 );
 
-const ControlledPlotlyGraph = memo(props => {
-    const {className, id} = props;
+class ControlledPlotlyGraph extends PureComponent {
+    render() {
+        return (
+            <Suspense fallback={null}>
+                <RealPlotlyGraph {...this.props} />
+            </Suspense>
+        );
+    }
+}
 
-    const extendedClassName = className
-        ? 'dash-graph ' + className
-        : 'dash-graph';
-
-    return (
-        <Suspense
-            fallback={
-                <div
-                    id={id}
-                    key={id}
-                    className={`${extendedClassName} dash-graph--pending`}
-                />
-            }
-        >
-            <RealPlotlyGraph {...props} className={extendedClassName} />
-        </Suspense>
-    );
-});
-
-PlotlyGraph.propTypes = {
-    ...privatePropTypes,
-
+export const graphPropTypes = {
     /**
      * The ID of this component, used to identify dash components
      * in callbacks. The ID needs to be unique across all of the
      * components in an app.
      */
     id: PropTypes.string,
-
-    /**
-     * If True, the Plotly.js plot will be fully responsive to window resize
-     * and parent element resize event. This is achieved by overriding
-     * `config.responsive` to True, `figure.layout.autosize` to True and unsetting
-     * `figure.layout.height` and `figure.layout.width`.
-     * If False, the Plotly.js plot not be responsive to window resize and
-     * parent element resize event. This is achieved by overriding `config.responsive`
-     * to False and `figure.layout.autosize` to False.
-     * If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
-     * responsive (True) or not (False) based on the values in `config.responsive`,
-     * `figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
-     * This is the legacy behavior of the Graph component.
-     *
-     * Needs to be combined with appropriate dimension / styling through the `style` prop
-     * to fully take effect.
-     */
-    responsive: PropTypes.oneOf([true, false, 'auto']),
 
     /**
      * Data from latest click event. Read-only.
@@ -187,7 +166,7 @@ PlotlyGraph.propTypes = {
      * either an integer defining the maximum number of points allowed or an
      * object with key:value pairs matching `updateData`
      * Reference the Plotly.extendTraces API for full usage:
-     * https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces
+     * https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces
      */
     extendData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 
@@ -204,7 +183,7 @@ PlotlyGraph.propTypes = {
 
     /**
      * Plotly `figure` object. See schema:
-     * https://plotly.com/javascript/reference
+     * https://plot.ly/javascript/reference
      *
      * `config` is set separately by the `config` property
      */
@@ -238,7 +217,7 @@ PlotlyGraph.propTypes = {
 
     /**
      * Plotly.js config options.
-     * See https://plotly.com/javascript/configuration-options/
+     * See https://plot.ly/javascript/configuration-options/
      * for more info.
      */
     config: PropTypes.exact({
@@ -513,11 +492,7 @@ PlotlyGraph.propTypes = {
     }),
 };
 
-ControlledPlotlyGraph.propTypes = PlotlyGraph.propTypes;
-
-PlotlyGraph.defaultProps = {
-    ...privateDefaultProps,
-
+export const graphDefaultProps = {
     clickData: null,
     clickAnnotationData: null,
     hoverData: null,
@@ -530,7 +505,6 @@ PlotlyGraph.defaultProps = {
         layout: {},
         frames: [],
     },
-    responsive: 'auto',
     animate: false,
     animation_options: {
         frame: {
@@ -545,7 +519,8 @@ PlotlyGraph.defaultProps = {
     config: {},
 };
 
-export const graphPropTypes = PlotlyGraph.propTypes;
-export const graphDefaultProps = PlotlyGraph.defaultProps;
+PlotlyGraph.propTypes = graphPropTypes;
+
+PlotlyGraph.defaultProps = graphDefaultProps;
 
 export default PlotlyGraph;

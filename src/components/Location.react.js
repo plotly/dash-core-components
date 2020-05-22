@@ -1,8 +1,6 @@
 import {Component} from 'react';
 import PropTypes from 'prop-types';
 import {type} from 'ramda';
-
-import {History} from '@plotly/dash-component-plugins';
 /* global window:true */
 
 /**
@@ -13,7 +11,6 @@ export default class Location extends Component {
     constructor(props) {
         super(props);
         this.updateLocation = this.updateLocation.bind(this);
-        this.onLocationChange = this.onLocationChange.bind(this);
     }
 
     updateLocation(props) {
@@ -84,39 +81,27 @@ export default class Location extends Component {
         }
     }
 
-    onLocationChange() {
-        const {setProps} = this.props;
-        const propsToChange = {};
-
-        if (this.props.pathname !== window.location.pathname) {
-            propsToChange.pathname = window.location.pathname;
-        }
-        if (this.props.href !== window.location.href) {
-            propsToChange.href = window.location.href;
-        }
-        if (this.props.hash !== window.location.hash) {
-            propsToChange.hash = window.location.hash;
-        }
-        if (this.props.search !== window.location.search) {
-            propsToChange.search = window.location.search;
-        }
-
-        setProps(propsToChange);
-
-        History.dispatchChangeEvent();
-    }
-
     componentDidMount() {
-        window.onpopstate = this.onLocationChange;
+        const listener = () => {
+            return () => {
+                const {setProps} = this.props;
+                setProps({
+                    pathname: window.location.pathname,
+                    href: window.location.href,
+                    hash: window.location.hash,
+                    search: window.location.search,
+                });
+            };
+        };
+        window.addEventListener('onpopstate', listener());
+        window.onpopstate = listener('POP');
 
-        window.addEventListener(
-            '_dashprivate_pushstate',
-            this.onLocationChange
-        );
+        // non-standard, emitted by Link.react
+        window.addEventListener('onpushstate', listener());
         this.updateLocation(this.props);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.updateLocation(nextProps);
     }
 

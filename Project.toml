@@ -1,0 +1,12 @@
+
+name = "DashCoreComponents"
+uuid = "1b08a953-4be3-4667-9a23-f6ba134464e5"
+authors = ["Chris Parmer <chris@plot.ly>"]
+version = "1.4.0"
+
+[deps]
+Dash = "1b08a953-4be3-4667-9a23-3db579824955"
+
+[compact]
+julia = "1.1"
+Dash = ">=0.1"
