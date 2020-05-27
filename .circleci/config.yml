@@ -62,6 +62,14 @@ jobs:
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
+      - run:
+          name: Display environment
+          command: |
+            python --version
+            pip --version
+            node --version
+            npm --version
+
       - restore_cache:
           key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
