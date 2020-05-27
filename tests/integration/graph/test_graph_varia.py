@@ -3,7 +3,7 @@ import pytest
 import time
 import json
 import dash
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 import dash_html_components as html
 import dash_core_components as dcc
 from dash.exceptions import PreventUpdate
@@ -320,10 +320,9 @@ def test_graph_extend_trace(dash_dcc, is_eager):
 
         @app.callback(
             Output("output_{}".format(id), "children"),
-            [Input(id, "extendData")],
-            [State(id, "figure")],
+            [Input(id, "figure")]
         )
-        def display_data(trigger, fig):
+        def display_data(fig):
             return json.dumps(fig["data"])
 
     dash_dcc.start_server(app)

@@ -189,9 +189,9 @@ class PlotlyGraph extends Component {
     }
 
     extend(props) {
-        const {clearExtendData, extendData: extendDataArray} = props;
+        const {clearExtendData, extendData: extendDataArray, setProps} = props;
 
-        extendDataArray.forEach(extendData => {
+        const promises = extendDataArray.map(extendData => {
             let updateData, traceIndices, maxPoints;
             if (
                 Array.isArray(extendData) &&
@@ -216,6 +216,13 @@ class PlotlyGraph extends Component {
             const gd = this.gd.current;
             return Plotly.extendTraces(gd, updateData, traceIndices, maxPoints);
         });
+
+        Promise.all(promises).then(() => {
+            const {figure} = this.props;
+
+            setProps({figure}, true);
+        });
+
         clearExtendData();
     }
 
