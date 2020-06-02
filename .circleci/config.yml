@@ -22,9 +22,8 @@ jobs:
           command: |
             sudo pip install virtualenv --upgrade
             python -m venv venv || virtualenv venv && . venv/bin/activate
+            pip install --progress-bar off -e git+https://github.com/plotly/dash.git@dev#egg=dash[dev,testing]
             pip install --progress-bar off --no-cache-dir -r dev-requirements.txt
-            git clone --depth 1 https://github.com/plotly/dash.git dash-main
-            pip install --progress-bar off -e ./dash-main[dev,testing]
       - save_cache:
           key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
           paths:
