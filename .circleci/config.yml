@@ -34,6 +34,7 @@ jobs:
           command: |
             . venv/bin/activate
             set -eo pipefail
+            flake8 --version
             npm ci
             npm run lint
       - run:
