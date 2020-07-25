@@ -162,21 +162,14 @@ def test_grbs004_graph_loading_state_updates(dash_dcc):
                 }],
             }
 
+    dash_dcc.start_server(app)
+    dash_dcc.wait_for_element('#my-graph:not([data-dash-is-loading])')
+
     with lock:
-        dash_dcc.start_server(app)
-
-        my_graph = dash_dcc.wait_for_element('#my-graph')
-
-        assert not my_graph.get_attribute('data-dash-is-loading')
-
         title = dash_dcc.wait_for_element('#title')
-
         title.click()
-
         dash_dcc.wait_for_element('#my-graph[data-dash-is-loading="true"]')
 
-    my_graph = dash_dcc.wait_for_element('#my-graph')
-
-    assert not my_graph.get_attribute('data-dash-is-loading')
+    dash_dcc.wait_for_element('#my-graph:not([data-dash-is-loading])')
 
     assert not dash_dcc.get_logs()
