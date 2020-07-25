@@ -71,7 +71,7 @@ const filterEventData = (gd, eventData, event) => {
 
         for (let i = 0; i < eventData.points.length; i++) {
             const fullPoint = eventData.points[i];
-            const pointData = filter(function(o) {
+            const pointData = filter(function (o) {
                 return !includes(type(o), ['Object', 'Array']);
             }, fullPoint);
             if (
@@ -191,7 +191,7 @@ class PlotlyGraph extends Component {
     extend(props) {
         const {clearExtendData, extendData: extendDataArray} = props;
 
-        extendDataArray.forEach(extendData => {
+        extendDataArray.forEach((extendData) => {
             let updateData, traceIndices, maxPoints;
             if (
                 Array.isArray(extendData) &&
@@ -299,26 +299,26 @@ class PlotlyGraph extends Component {
 
         const gd = this.gd.current;
 
-        gd.on('plotly_click', eventData => {
+        gd.on('plotly_click', (eventData) => {
             const clickData = filterEventData(gd, eventData, 'click');
             if (!isNil(clickData)) {
                 setProps({clickData});
             }
         });
-        gd.on('plotly_clickannotation', eventData => {
+        gd.on('plotly_clickannotation', (eventData) => {
             const clickAnnotationData = omit(
                 ['event', 'fullAnnotation'],
                 eventData
             );
             setProps({clickAnnotationData});
         });
-        gd.on('plotly_hover', eventData => {
+        gd.on('plotly_hover', (eventData) => {
             const hover = filterEventData(gd, eventData, 'hover');
             if (!isNil(hover) && !equals(hover, hoverData)) {
                 setProps({hoverData: hover});
             }
         });
-        gd.on('plotly_selected', eventData => {
+        gd.on('plotly_selected', (eventData) => {
             const selected = filterEventData(gd, eventData, 'selected');
             if (!isNil(selected) && !equals(selected, selectedData)) {
                 setProps({selectedData: selected});
@@ -327,13 +327,13 @@ class PlotlyGraph extends Component {
         gd.on('plotly_deselect', () => {
             setProps({selectedData: null});
         });
-        gd.on('plotly_relayout', eventData => {
+        gd.on('plotly_relayout', (eventData) => {
             const relayout = filterEventData(gd, eventData, 'relayout');
             if (!isNil(relayout) && !equals(relayout, relayoutData)) {
                 setProps({relayoutData: relayout});
             }
         });
-        gd.on('plotly_restyle', eventData => {
+        gd.on('plotly_restyle', (eventData) => {
             const restyle = filterEventData(gd, eventData, 'restyle');
             if (!isNil(restyle) && !equals(restyle, restyleData)) {
                 setProps({restyleData: restyle});
@@ -366,8 +366,10 @@ class PlotlyGraph extends Component {
     shouldComponentUpdate(nextProps) {
         return (
             this.props.id !== nextProps.id ||
-            JSON.stringify(this.props.style) !== JSON.stringify(nextProps.style) ||
-            JSON.stringify(this.props.loading_state) !== JSON.stringify(nextProps.loading_state)
+            JSON.stringify(this.props.style) !==
+                JSON.stringify(nextProps.style) ||
+            JSON.stringify(this.props.loading_state) !==
+                JSON.stringify(nextProps.loading_state)
         );
     }
 
