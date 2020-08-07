@@ -57,10 +57,10 @@ export default class Loading extends Component {
         return (
             <div
                 className={isLoading ? null : className}
-                style={mergeRight(
-                    isLoading ? hiddenContainer : {},
-                    parent_style
-                )}
+                style={isLoading
+                    ? mergeRight(hiddenContainer, parent_style)
+                    : parent_style
+                }
             >
                 {this.props.children}
                 <div style={isLoading ? coveringSpinner : {}}>
