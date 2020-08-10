@@ -45,6 +45,7 @@ export default class Loading extends Component {
             color,
             className,
             style,
+            parent_className,
             parent_style,
             fullscreen,
             debug,
@@ -56,10 +57,11 @@ export default class Loading extends Component {
 
         return (
             <div
-                className={isLoading ? null : className}
-                style={isLoading
-                    ? mergeRight(hiddenContainer, parent_style)
-                    : parent_style
+                className={parent_className}
+                style={
+                    isLoading
+                        ? mergeRight(hiddenContainer, parent_style)
+                        : parent_style
                 }
             >
                 {this.props.children}
@@ -121,11 +123,14 @@ Loading.propTypes = {
     debug: PropTypes.bool,
 
     /**
-     * Additional CSS styling, applied to one of:
-     *   - the spinner root DOM node, if the component's children are currently loading
-     *   - the parent div of the children, once they are loaded
+     * CSS class for the spinner root DOM node
      */
     className: PropTypes.string,
+
+    /**
+     *  Additional CSS class for the outermost dcc.Loading parent div DOM node
+     */
+    parent_className: PropTypes.string,
 
     /**
      * Additional CSS styling for the spinner root DOM node
