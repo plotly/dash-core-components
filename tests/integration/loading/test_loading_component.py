@@ -278,3 +278,42 @@ def test_ldcp006_children_identity(dash_dcc):
     assert len(dash_dcc.find_elements(".js-plotly-plot .bars path")) == 4
     assert dash_dcc.driver.execute_script(test_identity)
     assert get_graph_visibility() == "visible"
+
+def test_ldcp007_class_and_style_props(dash_dcc):
+    lock = Lock()
+
+    app = dash.Dash(__name__)
+
+    print(dcc.__version__)
+
+    app.layout = html.Div([
+        html.Button("click", id="btn"),
+        dcc.Loading(
+            id="loading",
+            className='spinner-class',
+            parent_className='parent-class',
+            style={'background-color': 'rgb(255,192,203)'},
+            # rgb(240, 248, 255) = aliceblue
+            parent_style={'border': '3px solid rgb(240, 248, 255)'},
+            children=html.Div(id='loading-child')
+        )
+    ])
+
+    @app.callback(Output("loading-child", "children"), [Input("btn", "n_clicks")])
+    def updateDiv(n_clicks):
+        if n_clicks is None:
+            return
+
+        with lock:
+            return 'sample text content'
+
+    dash_dcc.start_server(app)
+
+    dash_dcc.wait_for_style_to_equal('.parent-class', 'border-color', 'rgb(240, 248, 255)')
+
+    with lock:
+        button = dash_dcc.find_element("#btn")
+        button.click()
+        dash_dcc.wait_for_style_to_equal('.spinner-class', 'background-color', 'rgba(255, 192, 203, 1)')
+
+    assert not dash_dcc.get_logs()
