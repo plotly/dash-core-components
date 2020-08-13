@@ -14,7 +14,7 @@ export default class Upload extends Component {
         const newProps = {
             contents: [],
             filename: [],
-            last_modified: [],
+            last_modified: []
         };
         files.forEach(file => {
             const reader = new FileReader();
@@ -35,7 +35,7 @@ export default class Upload extends Component {
                         setProps({
                             contents: newProps.contents[0],
                             filename: newProps.filename[0],
-                            last_modified: newProps.last_modified[0],
+                            last_modified: newProps.last_modified[0]
                         });
                     }
                 }
@@ -62,7 +62,7 @@ export default class Upload extends Component {
             style_active,
             style_reject,
             style_disabled,
-            loading_state,
+            loading_state
         } = this.props;
         return (
             <div

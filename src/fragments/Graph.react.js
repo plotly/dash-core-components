@@ -8,7 +8,7 @@ import {
     isNil,
     mergeDeepRight,
     omit,
-    type,
+    type
 } from 'ramda';
 import PropTypes from 'prop-types';
 import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
@@ -24,13 +24,13 @@ import {graphPropTypes, graphDefaultProps} from '../components/Graph.react';
 const RESPONSIVE_LAYOUT = {
     autosize: true,
     height: undefined,
-    width: undefined,
+    width: undefined
 };
 
 const AUTO_LAYOUT = {};
 
 const UNRESPONSIVE_LAYOUT = {
-    autosize: false,
+    autosize: false
 };
 
 /**
@@ -41,13 +41,13 @@ const UNRESPONSIVE_LAYOUT = {
  * if `responsive` is not set to True.
  */
 const RESPONSIVE_CONFIG = {
-    responsive: true,
+    responsive: true
 };
 
 const AUTO_CONFIG = {};
 
 const UNRESPONSIVE_CONFIG = {
-    responsive: false,
+    responsive: false
 };
 
 const filterEventData = (gd, eventData, event) => {
@@ -71,7 +71,7 @@ const filterEventData = (gd, eventData, event) => {
 
         for (let i = 0; i < eventData.points.length; i++) {
             const fullPoint = eventData.points[i];
-            const pointData = filter(function(o) {
+            const pointData = filter(function (o) {
                 return !includes(type(o), ['Object', 'Array']);
             }, fullPoint);
             if (
@@ -159,7 +159,7 @@ class PlotlyGraph extends Component {
             data: figure.data,
             layout: layoutClone,
             frames: figure.frames,
-            config: configClone,
+            config: configClone
         }).then(() => {
             const gd = this.gd.current;
 
@@ -294,7 +294,7 @@ class PlotlyGraph extends Component {
             relayoutData,
             restyleData,
             hoverData,
-            selectedData,
+            selectedData
         } = this.props;
 
         const gd = this.gd.current;
@@ -435,12 +435,12 @@ PlotlyGraph.propTypes = {
     extendData: PropTypes.arrayOf(
         PropTypes.oneOfType([PropTypes.array, PropTypes.object])
     ),
-    clearExtendData: PropTypes.func.isRequired,
+    clearExtendData: PropTypes.func.isRequired
 };
 
 PlotlyGraph.defaultProps = {
     ...graphDefaultProps,
-    extendData: [],
+    extendData: []
 };
 
 export default PlotlyGraph;

@@ -19,7 +19,7 @@ export default class Slider extends Component {
             : ReactSlider;
         this._computeStyle = computeSliderStyle();
         this.state = {
-            value: props.value,
+            value: props.value
         };
     }
 
@@ -51,7 +51,7 @@ export default class Slider extends Component {
             tooltip,
             updatemode,
             vertical,
-            verticalHeight,
+            verticalHeight
         } = this.props;
         const value = this.state.value;
 
@@ -107,7 +107,7 @@ export default class Slider extends Component {
                             'updatemode',
                             'value',
                             'marks',
-                            'verticalHeight',
+                            'verticalHeight'
                         ],
                         this.props
                     )}

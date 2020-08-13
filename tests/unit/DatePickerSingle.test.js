@@ -11,12 +11,12 @@ test('DatePickerSingle renders', () => {
 
 describe('Date can be set properly', () => {
     const defaultProps = {
-        id: 'datepicker',
+        id: 'datepicker'
     };
 
     test('null date is not converted by moment', () => {
         const props = merge(defaultProps, {
-            date: null,
+            date: null
         });
 
         const dps = mount(<DatePickerSingle {...props} />);
@@ -27,7 +27,7 @@ describe('Date can be set properly', () => {
 
     test('valid date is not converted by moment', () => {
         const props = merge(defaultProps, {
-            date: '2019-01-01',
+            date: '2019-01-01'
         });
 
         const dps = mount(<DatePickerSingle {...props} />);
@@ -44,7 +44,7 @@ describe('Date can be selected', () => {
             id: 'datepicker',
             date: '2019-01-01',
             placeholder: 'My Date',
-            setProps: setPropsSpy,
+            setProps: setPropsSpy
         };
 
         const dps = mount(<DatePickerSingle {...props} />);
@@ -63,7 +63,7 @@ describe('Date can be cleared', () => {
             id: 'datepicker',
             date: '2019-01-01',
             clearable: true,
-            setProps: setPropsSpy,
+            setProps: setPropsSpy
         };
 
         const dps = mount(<DatePickerSingle {...props} />);

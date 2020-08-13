@@ -83,7 +83,7 @@ export default class Input extends PureComponent {
                         'selectionEnd',
                         'selectionStart',
                         'setProps',
-                        'loading_state',
+                        'loading_state'
                     ],
                     this.props
                 )}
@@ -126,7 +126,7 @@ export default class Input extends PureComponent {
     onBlur() {
         this.props.setProps({
             n_blur: this.props.n_blur + 1,
-            n_blur_timestamp: Date.now(),
+            n_blur_timestamp: Date.now()
         });
         this.input.current.checkValidity();
         return this.props.debounce && this.onEvent();
@@ -136,7 +136,7 @@ export default class Input extends PureComponent {
         if (e.key === 'Enter') {
             this.props.setProps({
                 n_submit: this.props.n_submit + 1,
-                n_submit_timestamp: Date.now(),
+                n_submit_timestamp: Date.now()
             });
             this.input.current.checkValidity();
         }
@@ -161,7 +161,7 @@ Input.defaultProps = {
     debounce: false,
     step: 'any',
     persisted_props: ['value'],
-    persistence_type: 'local',
+    persistence_type: 'local'
 };
 
 Input.propTypes = {
@@ -206,7 +206,7 @@ Input.propTypes = {
         'search',
         'tel',
         'url',
-        'hidden',
+        'hidden'
     ]),
 
     /**
@@ -222,7 +222,7 @@ Input.propTypes = {
      */
     autoFocus: PropTypes.oneOfType([
         PropTypes.oneOf(['autoFocus', 'autofocus', 'AUTOFOCUS']),
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -232,7 +232,7 @@ Input.propTypes = {
      */
     disabled: PropTypes.oneOfType([
         PropTypes.oneOf(['disabled', 'DISABLED']),
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -293,7 +293,7 @@ Input.propTypes = {
         /**
          * URL input. Use type="url" if possible instead.
          */
-        'url',
+        'url'
     ]),
 
     /**
@@ -354,7 +354,7 @@ Input.propTypes = {
      */
     readOnly: PropTypes.oneOfType([
         PropTypes.bool,
-        PropTypes.oneOf(['readOnly', 'readonly', 'READONLY']),
+        PropTypes.oneOf(['readOnly', 'readonly', 'READONLY'])
     ]),
 
     /**
@@ -365,7 +365,7 @@ Input.propTypes = {
      */
     required: PropTypes.oneOfType([
         PropTypes.oneOf(['required', 'REQUIRED']),
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -394,7 +394,7 @@ Input.propTypes = {
     spellCheck: PropTypes.oneOfType([
         // enumerated property, not a boolean property: https://www.w3.org/TR/html51/editing.html#spelling-and-grammar-checking
         PropTypes.oneOf(['true', 'false']),
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -440,7 +440,7 @@ Input.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -454,7 +454,7 @@ Input.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -470,5 +470,5 @@ Input.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };

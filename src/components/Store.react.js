@@ -105,7 +105,7 @@ export default class Store extends React.Component {
         if (e.key === id && setProps && e.newValue !== e.oldValue) {
             setProps({
                 data: JSON.parse(e.newValue),
-                modified_timestamp: this._backstore.getModified(id),
+                modified_timestamp: this._backstore.getModified(id)
             });
         }
     }
@@ -121,7 +121,7 @@ export default class Store extends React.Component {
             // Initial data mount
             this._backstore.setItem(id, data);
             setProps({
-                modified_timestamp: this._backstore.getModified(id),
+                modified_timestamp: this._backstore.getModified(id)
             });
             return;
         }
@@ -129,7 +129,7 @@ export default class Store extends React.Component {
         if (!equals(old, data)) {
             setProps({
                 data: old,
-                modified_timestamp: this._backstore.getModified(id),
+                modified_timestamp: this._backstore.getModified(id)
             });
         }
     }
@@ -147,7 +147,7 @@ export default class Store extends React.Component {
             setProps({
                 clear_data: false,
                 data: null,
-                modified_timestamp: this._backstore.getModified(id),
+                modified_timestamp: this._backstore.getModified(id)
             });
             return;
         }
@@ -163,7 +163,7 @@ export default class Store extends React.Component {
             } else {
                 this._backstore.setItem(id, data);
                 setProps({
-                    modified_timestamp: this._backstore.getModified(id),
+                    modified_timestamp: this._backstore.getModified(id)
                 });
             }
         }
@@ -177,7 +177,7 @@ export default class Store extends React.Component {
 Store.defaultProps = {
     storage_type: 'memory',
     clear_data: false,
-    modified_timestamp: -1,
+    modified_timestamp: -1
 };
 
 Store.propTypes = {
@@ -205,7 +205,7 @@ Store.propTypes = {
         PropTypes.array,
         PropTypes.number,
         PropTypes.string,
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -221,5 +221,5 @@ Store.propTypes = {
     /**
      * Dash-assigned callback that gets fired when the value changes.
      */
-    setProps: PropTypes.func,
+    setProps: PropTypes.func
 };

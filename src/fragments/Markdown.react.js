@@ -86,7 +86,7 @@ export default class DashMarkdown extends Component {
             loading_state,
             dangerously_allow_html,
             children,
-            dedent,
+            dedent
         } = this.props;
 
         const textProp =
@@ -103,7 +103,7 @@ export default class DashMarkdown extends Component {
                         pick(['children'], props)
                     )}
                 />
-            ),
+            )
         };
 
         return (
@@ -141,7 +141,7 @@ export default class DashMarkdown extends Component {
                                     components={componentTransforms}
                                     renderInWrapper={false}
                                 />
-                            ),
+                            )
                     }}
                 />
             </div>

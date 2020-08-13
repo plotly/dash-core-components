@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {type} from 'ramda';
 
 import {History} from '@plotly/dash-component-plugins';
-/* global window:true */
 
 /**
  * Update and track the current window.location object through the window.history state.
@@ -148,9 +147,9 @@ Location.propTypes = {
     /**
      * Dash-assigned callback that gets fired when the value changes.
      */
-    setProps: PropTypes.func,
+    setProps: PropTypes.func
 };
 
 Location.defaultProps = {
-    refresh: true,
+    refresh: true
 };

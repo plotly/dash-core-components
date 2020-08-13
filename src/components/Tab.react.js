@@ -80,15 +80,15 @@ Tab.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
-    }),
+        component_name: PropTypes.string
+    })
 };
 
 Tab.defaultProps = {
     disabled: false,
     disabled_style: {
-        color: '#d6d6d6',
-    },
+        color: '#d6d6d6'
+    }
 };
 
 export default Tab;

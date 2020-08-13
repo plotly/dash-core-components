@@ -38,8 +38,8 @@ Slider.propTypes = {
             PropTypes.string,
             PropTypes.exact({
                 label: PropTypes.string,
-                style: PropTypes.object,
-            }),
+                style: PropTypes.object
+            })
         ])
     ),
 
@@ -105,8 +105,8 @@ Slider.propTypes = {
             'topLeft',
             'topRight',
             'bottomLeft',
-            'bottomRight',
-        ]),
+            'bottomRight'
+        ])
     }),
 
     /**
@@ -155,7 +155,7 @@ Slider.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -169,7 +169,7 @@ Slider.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -185,14 +185,14 @@ Slider.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };
 
 Slider.defaultProps = {
     updatemode: 'mouseup',
     persisted_props: ['value'],
     persistence_type: 'local',
-    verticalHeight: 400,
+    verticalHeight: 400
 };
 
 export const propTypes = Slider.propTypes;

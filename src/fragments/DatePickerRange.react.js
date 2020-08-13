@@ -15,7 +15,7 @@ export default class DatePickerRange extends Component {
         this.state = {
             focused: false,
             start_date_id: props.start_date_id || uniqid(),
-            end_date_id: props.end_date_id || uniqid(),
+            end_date_id: props.end_date_id || uniqid()
         };
     }
 
@@ -48,7 +48,7 @@ export default class DatePickerRange extends Component {
 
         const oldMomentDates = convertToMoment(this.state, [
             'start_date',
-            'end_date',
+            'end_date'
         ]);
 
         if (start_date && !start_date.isSame(oldMomentDates.start_date)) {
@@ -65,7 +65,7 @@ export default class DatePickerRange extends Component {
             } else if (updatemode === 'bothdates') {
                 setProps({
                     start_date: this.state.start_date,
-                    end_date: end_date.format('YYYY-MM-DD'),
+                    end_date: end_date.format('YYYY-MM-DD')
                 });
             }
         }
@@ -116,23 +116,23 @@ export default class DatePickerRange extends Component {
             style,
             className,
             start_date_id,
-            end_date_id,
+            end_date_id
         } = this.props;
 
         const {initial_visible_month} = convertToMoment(this.props, [
-            'initial_visible_month',
+            'initial_visible_month'
         ]);
 
         const {start_date, end_date} = convertToMoment(this.state, [
             'start_date',
-            'end_date',
+            'end_date'
         ]);
         const verticalFlag = calendar_orientation !== 'vertical';
 
         const DatePickerWrapperStyles = {
             position: 'relative',
             display: 'inline-block',
-            ...style,
+            ...style
         };
 
         // the height in px of the top part of the calendar (that holds

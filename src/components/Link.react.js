@@ -1,5 +1,3 @@
-/* global window:true */
-
 import PropTypes from 'prop-types';
 
 import React, {Component} from 'react';
@@ -16,7 +14,7 @@ function CustomEvent(event, params) {
         bubbles: false,
         cancelable: false,
         // eslint-disable-next-line no-undefined
-        detail: undefined,
+        detail: undefined
     };
     const evt = document.createEvent('CustomEvent');
     evt.initCustomEvent(
@@ -72,7 +70,7 @@ export default class Link extends Component {
             loading_state,
             children,
             title,
-            target,
+            target
         } = this.props;
         /*
          * ideally, we would use cloneElement however
@@ -149,10 +147,10 @@ Link.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
-    }),
+        component_name: PropTypes.string
+    })
 };
 
 Link.defaultProps = {
-    refresh: false,
+    refresh: false
 };

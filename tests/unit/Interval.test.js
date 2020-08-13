@@ -14,7 +14,7 @@ class IntervalWrapper extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            n_intervals: 0,
+            n_intervals: 0
         };
         this.setProps = this.setProps.bind(this);
     }
@@ -22,7 +22,7 @@ class IntervalWrapper extends Component {
     setProps({n_intervals}) {
         this.setState(
             {
-                n_intervals,
+                n_intervals
             },
             () => {
                 this.props.setProps({n_intervals});
@@ -34,14 +34,14 @@ class IntervalWrapper extends Component {
         return cloneElement(this.props.children, {
             ...omit(['children'], this.props),
             n_intervals: this.state.n_intervals,
-            setProps: this.setProps,
+            setProps: this.setProps
         });
     }
 }
 
 IntervalWrapper.propTypes = {
     children: PropTypes.node,
-    setProps: PropTypes.func,
+    setProps: PropTypes.func
 };
 
 const intervalLength = 50;
@@ -54,7 +54,7 @@ const intervalNegligibleMargin = intervalLength / 5;
 describe('Basic interval usage', () => {
     const makeSut = () => {
         const results = {
-            nIntervals: 0,
+            nIntervals: 0
         };
 
         const setProps = props => {
@@ -65,7 +65,7 @@ describe('Basic interval usage', () => {
 
         const defaultProps = {
             id: 'test-interval',
-            interval: intervalLength,
+            interval: intervalLength
         };
 
         const wrapper = mount(
@@ -116,7 +116,7 @@ describe('Usage of disabled = true', () => {
         constructor(props) {
             super(props);
             this.state = {
-                disabled: false,
+                disabled: false
             };
             this.setProps = this.setProps.bind(this);
         }
@@ -135,7 +135,7 @@ describe('Usage of disabled = true', () => {
             return cloneElement(this.props.children, {
                 ...omit(['children'], this.props),
                 disabled: this.state.disabled,
-                setProps: this.setProps,
+                setProps: this.setProps
             });
         }
     }
@@ -143,12 +143,12 @@ describe('Usage of disabled = true', () => {
     DisabledTestingIntervalWrapper.propTypes = {
         children: PropTypes.node,
         setProps: PropTypes.func,
-        handleInterval: PropTypes.func,
+        handleInterval: PropTypes.func
     };
 
     const makeSut = handleInterval => {
         const results = {
-            nIntervals: 0,
+            nIntervals: 0
         };
 
         const setProps = props => {
@@ -159,7 +159,7 @@ describe('Usage of disabled = true', () => {
 
         const defaultProps = {
             id: 'test-interval',
-            interval: intervalLength,
+            interval: intervalLength
         };
 
         const wrapper = mount(
@@ -182,7 +182,7 @@ describe('Usage of disabled = true', () => {
             // disable after one interval
             if (intervalsElapsed === 1) {
                 setState({
-                    disabled: true,
+                    disabled: true
                 });
             }
         };
@@ -232,13 +232,13 @@ describe('Usage of disabled = true', () => {
                 setTimeout(() => {
                     setState(
                         {
-                            disabled: true,
+                            disabled: true
                         },
                         () => {
                             // re-enable one interval later
                             setTimeout(() => {
                                 setState({
-                                    disabled: false,
+                                    disabled: false
                                 });
                             }, intervalLength);
                         }

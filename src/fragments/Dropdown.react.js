@@ -17,7 +17,7 @@ const TOKENIZER = {
             // Filter empty tokens
             text => text
         );
-    },
+    }
 };
 
 const DELIMETER = ',';
@@ -28,8 +28,8 @@ export default class Dropdown extends Component {
         this.state = {
             filterOptions: createFilterOptions({
                 options: props.options,
-                tokenizer: TOKENIZER,
-            }),
+                tokenizer: TOKENIZER
+            })
         };
     }
 
@@ -38,8 +38,8 @@ export default class Dropdown extends Component {
             this.setState({
                 filterOptions: createFilterOptions({
                     options: newProps.options,
-                    tokenizer: TOKENIZER,
-                }),
+                    tokenizer: TOKENIZER
+                })
             });
         }
     }
@@ -53,7 +53,7 @@ export default class Dropdown extends Component {
             setProps,
             style,
             loading_state,
-            value,
+            value
         } = this.props;
         const {filterOptions} = this.state;
         let selectedValue;

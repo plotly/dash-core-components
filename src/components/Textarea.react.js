@@ -22,13 +22,13 @@ export default class Textarea extends Component {
                 onBlur={() => {
                     setProps({
                         n_blur: this.props.n_blur + 1,
-                        n_blur_timestamp: Date.now(),
+                        n_blur_timestamp: Date.now()
                     });
                 }}
                 onClick={() => {
                     setProps({
                         n_clicks: this.props.n_clicks + 1,
-                        n_clicks_timestamp: Date.now(),
+                        n_clicks_timestamp: Date.now()
                     });
                 }}
                 {...omit(['setProps', 'value'], this.props)}
@@ -43,7 +43,7 @@ Textarea.defaultProps = {
     n_clicks: 0,
     n_clicks_timestamp: -1,
     persisted_props: ['value'],
-    persistence_type: 'local',
+    persistence_type: 'local'
 };
 
 Textarea.propTypes = {
@@ -107,7 +107,7 @@ Textarea.propTypes = {
      */
     readOnly: PropTypes.oneOfType([
         PropTypes.bool,
-        PropTypes.oneOf(['readOnly', 'readonly', 'READONLY']),
+        PropTypes.oneOf(['readOnly', 'readonly', 'READONLY'])
     ]),
 
     /**
@@ -118,7 +118,7 @@ Textarea.propTypes = {
      */
     required: PropTypes.oneOfType([
         PropTypes.oneOf(['required', 'REQUIRED']),
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -162,7 +162,7 @@ Textarea.propTypes = {
     draggable: PropTypes.oneOfType([
         // enumerated property, not a boolean property: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable
         PropTypes.oneOf(['true', 'false']),
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -181,7 +181,7 @@ Textarea.propTypes = {
     spellCheck: PropTypes.oneOfType([
         // enumerated property, not a boolean property: https://www.w3.org/TR/html51/editing.html#spelling-and-grammar-checking
         PropTypes.oneOf(['true', 'false']),
-        PropTypes.bool,
+        PropTypes.bool
     ]),
 
     /**
@@ -237,7 +237,7 @@ Textarea.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -251,7 +251,7 @@ Textarea.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -267,5 +267,5 @@ Textarea.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };

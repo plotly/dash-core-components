@@ -21,7 +21,7 @@ export default class ConfirmDialog extends Component {
             message,
             setProps,
             cancel_n_clicks,
-            submit_n_clicks,
+            submit_n_clicks
         } = this.props;
 
         if (shouldTriggerDisplay) {
@@ -31,13 +31,13 @@ export default class ConfirmDialog extends Component {
                         setProps({
                             submit_n_clicks: submit_n_clicks + 1,
                             submit_n_clicks_timestamp: Date.now(),
-                            displayed: false,
+                            displayed: false
                         });
                     } else {
                         setProps({
                             cancel_n_clicks: cancel_n_clicks + 1,
                             cancel_n_clicks_timestamp: Date.now(),
-                            displayed: false,
+                            displayed: false
                         });
                     }
                 }
@@ -54,7 +54,7 @@ ConfirmDialog.defaultProps = {
     submit_n_clicks: 0,
     submit_n_clicks_timestamp: -1,
     cancel_n_clicks: 0,
-    cancel_n_clicks_timestamp: -1,
+    cancel_n_clicks_timestamp: -1
 };
 
 ConfirmDialog.propTypes = {
@@ -93,5 +93,5 @@ ConfirmDialog.propTypes = {
     /**
      * Dash-assigned callback that gets fired when the value changes.
      */
-    setProps: PropTypes.func,
+    setProps: PropTypes.func
 };

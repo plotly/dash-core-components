@@ -45,7 +45,7 @@ DashMarkdown.propTypes = {
      */
     children: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.arrayOf(PropTypes.string)
     ]),
 
     /**
@@ -63,7 +63,7 @@ DashMarkdown.propTypes = {
         /**
          * Color scheme; default 'light'
          */
-        theme: PropTypes.oneOf(['dark', 'light']),
+        theme: PropTypes.oneOf(['dark', 'light'])
     }),
 
     /**
@@ -81,19 +81,19 @@ DashMarkdown.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
      * User-defined inline styles for the rendered Markdown
      */
-    style: PropTypes.object,
+    style: PropTypes.object
 };
 
 DashMarkdown.defaultProps = {
     dangerously_allow_html: false,
     highlight_config: {},
-    dedent: true,
+    dedent: true
 };
 
 export const propTypes = DashMarkdown.propTypes;

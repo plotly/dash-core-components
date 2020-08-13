@@ -22,7 +22,7 @@ const EnhancedTab = ({
     amountOfTabs,
     colors,
     vertical,
-    loading_state,
+    loading_state
 }) => {
     let tabStyle = style;
     if (disabled) {
@@ -117,8 +117,8 @@ EnhancedTab.defaultProps = {
     loading_state: {
         is_loading: false,
         component_name: '',
-        prop_name: '',
-    },
+        prop_name: ''
+    }
 };
 
 /**
@@ -136,7 +136,7 @@ export default class Tabs extends Component {
 
         if (!has('value', this.props)) {
             this.props.setProps({
-                value: this.valueOrDefault(),
+                value: this.valueOrDefault()
             });
         }
     }
@@ -250,22 +250,25 @@ export default class Tabs extends Component {
                         this.props.loading_state.is_loading) ||
                     undefined
                 }
-                className={`${tabParentClass} ${this.props.parent_className ||
-                    ''}`}
+                className={`${tabParentClass} ${
+                    this.props.parent_className || ''
+                }`}
                 style={this.props.parent_style}
                 id={`${this.props.id}-parent`}
             >
                 <div
-                    className={`${tabContainerClass} ${this.props.className ||
-                        ''}`}
+                    className={`${tabContainerClass} ${
+                        this.props.className || ''
+                    }`}
                     style={this.props.style}
                     id={this.props.id}
                 >
                     {EnhancedTabs}
                 </div>
                 <div
-                    className={`${tabContentClass} ${this.props
-                        .content_className || ''}`}
+                    className={`${tabContentClass} ${
+                        this.props.content_className || ''
+                    }`}
                     style={this.props.content_style}
                 >
                     {selectedTabContent || ''}
@@ -323,11 +326,11 @@ Tabs.defaultProps = {
     colors: {
         border: '#d6d6d6',
         primary: '#1975FA',
-        background: '#f9f9f9',
+        background: '#f9f9f9'
     },
     vertical: false,
     persisted_props: ['value'],
-    persistence_type: 'local',
+    persistence_type: 'local'
 };
 
 Tabs.propTypes = {
@@ -388,7 +391,7 @@ Tabs.propTypes = {
      */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
+        PropTypes.node
     ]),
 
     /**
@@ -402,7 +405,7 @@ Tabs.propTypes = {
     colors: PropTypes.exact({
         border: PropTypes.string,
         primary: PropTypes.string,
-        background: PropTypes.string,
+        background: PropTypes.string
     }),
 
     /**
@@ -420,7 +423,7 @@ Tabs.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -434,7 +437,7 @@ Tabs.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -450,5 +453,5 @@ Tabs.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };

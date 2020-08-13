@@ -62,7 +62,7 @@ Dropdown.propTypes = {
              * information on hover. For more information on this attribute,
              * see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title
              */
-            title: PropTypes.string,
+            title: PropTypes.string
         })
     ),
 
@@ -79,7 +79,7 @@ Dropdown.propTypes = {
         PropTypes.number,
         PropTypes.arrayOf(
             PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        ),
+        )
     ]),
 
     /**
@@ -149,7 +149,7 @@ Dropdown.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -163,7 +163,7 @@ Dropdown.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -179,7 +179,7 @@ Dropdown.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };
 
 Dropdown.defaultProps = {
@@ -189,7 +189,7 @@ Dropdown.defaultProps = {
     searchable: true,
     optionHeight: 35,
     persisted_props: ['value'],
-    persistence_type: 'local',
+    persistence_type: 'local'
 };
 
 export const propTypes = Dropdown.propTypes;

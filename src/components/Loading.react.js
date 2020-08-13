@@ -31,7 +31,7 @@ const coveringSpinner = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
 };
 
 /**
@@ -46,7 +46,7 @@ export default class Loading extends Component {
             style,
             fullscreen,
             debug,
-            type: spinnerType,
+            type: spinnerType
         } = this.props;
 
         const isLoading = loading_state && loading_state.is_loading;
@@ -76,7 +76,7 @@ Loading._dashprivate_isLoadingComponent = true;
 
 Loading.defaultProps = {
     type: 'default',
-    color: '#119DFF',
+    color: '#119DFF'
 };
 
 Loading.propTypes = {
@@ -92,7 +92,7 @@ Loading.propTypes = {
      */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
+        PropTypes.node
     ]),
 
     /**
@@ -142,6 +142,6 @@ Loading.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
-    }),
+        component_name: PropTypes.string
+    })
 };

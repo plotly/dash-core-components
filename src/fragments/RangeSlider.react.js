@@ -16,7 +16,7 @@ export default class RangeSlider extends Component {
             : Range;
         this._computeStyle = computeSliderStyle();
         this.state = {
-            value: props.value,
+            value: props.value
         };
     }
 
@@ -48,7 +48,7 @@ export default class RangeSlider extends Component {
             tooltip,
             updatemode,
             vertical,
-            verticalHeight,
+            verticalHeight
         } = this.props;
         const value = this.state.value;
 
@@ -104,7 +104,7 @@ export default class RangeSlider extends Component {
                             'setProps',
                             'marks',
                             'updatemode',
-                            'verticalHeight',
+                            'verticalHeight'
                         ],
                         this.props
                     )}
