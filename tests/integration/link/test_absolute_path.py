@@ -15,6 +15,7 @@ def test_lipa001_path(dash_dcc):
             html.Div(id="content")
         ]
     )
+
     @app.callback(Output("content", "children"), [Input("url", "pathname")])
     def display_children(children):
         return children

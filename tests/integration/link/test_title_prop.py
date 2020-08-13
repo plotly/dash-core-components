@@ -15,6 +15,7 @@ def test_liti001_prop(dash_dcc):
             html.Div(id="content")
         ]
     )
+
     @app.callback(Output("content", "children"), [Input("link1", "title")])
     def display_title(title):
         return title

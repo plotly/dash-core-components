@@ -5,6 +5,9 @@ import os as _os
 import sys as _sys
 import dash as _dash
 
+from ._imports_ import *  # noqa: F401, F403
+from ._imports_ import __all__  # noqa: E402
+
 _basepath = _os.path.dirname(__file__)
 _filepath = _os.path.abspath(_os.path.join(_basepath, 'package-info.json'))
 with open(_filepath) as f:
@@ -27,11 +30,7 @@ if not hasattr(_dash.development.base_component, '_explicitize_args'):
           file=_sys.stderr)
     _sys.exit(1)
 
-from ._imports_ import *  # noqa: F401, F403
-from ._imports_ import __all__  # noqa: E402
-
 _current_path = _os.path.dirname(_os.path.abspath(__file__))
-
 
 _this_module = _sys.modules[__name__]
 
