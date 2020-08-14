@@ -354,7 +354,7 @@ def test_ldcp008_graph_in_loading_fits_container_height(dash_dcc):
                 ),
             )
         ],
-        style={"display": "flex", "height": "300px",},
+        style={"display": "flex", "height": "300px"},
     )
 
     dash_dcc.start_server(app)
