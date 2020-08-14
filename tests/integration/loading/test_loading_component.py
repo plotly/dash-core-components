@@ -324,3 +324,46 @@ def test_ldcp007_class_and_style_props(dash_dcc):
         )
 
     assert not dash_dcc.get_logs()
+
+
+def test_ldcp008_graph_in_loading_fits_container_height(dash_dcc):
+    lock = Lock()
+
+    app = dash.Dash(__name__)
+
+    print(dcc.__version__)
+
+    app.layout = html.Div(
+        className="outer-container",
+        children=[
+            html.Div(
+                dcc.Loading(
+                    parent_style={"height": "100%"},
+                    children=dcc.Graph(
+                        style={"height": "100%"},
+                        figure={
+                            "data": [
+                                {
+                                    "x": [1, 2, 3, 4],
+                                    "y": [4, 1, 6, 9],
+                                    "line": {"shape": "spline"},
+                                }
+                            ]
+                        },
+                    ),
+                ),
+            )
+        ],
+        style={"display": "flex", "height": "300px",},
+    )
+
+    dash_dcc.start_server(app)
+
+    with lock:
+        dash_dcc.wait_for_style_to_equal(".js-plotly-plot", "height", "300px")
+
+        assert dash_dcc.wait_for_element(".js-plotly-plot").size.get(
+            "height"
+        ) == dash_dcc.wait_for_element(".outer-container").size.get("height")
+
+    assert not dash_dcc.get_logs()
