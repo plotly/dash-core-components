@@ -389,8 +389,8 @@ class Test1(IntegrationTests):
         ])
 
         @app.callback(
-            output=Output(component_id='test-pathname', component_property='children'),
-            inputs=[Input(component_id='test-location', component_property='pathname')])
+            Output(component_id='test-pathname', component_property='children'),
+            [Input(component_id='test-location', component_property='pathname')])
         def update_test_pathname(pathname):
             return pathname
 
