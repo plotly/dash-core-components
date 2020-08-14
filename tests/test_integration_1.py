@@ -389,16 +389,14 @@ class Test1(IntegrationTests):
         ])
 
         @app.callback(
-            output=Output(component_id='test-pathname',
-                          component_property='children'),
+            output=Output(component_id='test-pathname', component_property='children'),
             inputs=[Input(component_id='test-location', component_property='pathname')])
         def update_test_pathname(pathname):
             return pathname
 
         @app.callback(
-            output=Output(component_id='test-hash',
-                          component_property='children'),
-            inputs=[Input(component_id='test-location', component_property='hash')])
+            Output(component_id='test-hash', component_property='children'),
+            [Input(component_id='test-location', component_property='hash')])
         def update_test_hash(hash_val):
             if hash_val is None:
                 return ''
@@ -406,9 +404,8 @@ class Test1(IntegrationTests):
             return hash_val
 
         @app.callback(
-            output=Output(component_id='test-search',
-                          component_property='children'),
-            inputs=[Input(component_id='test-location', component_property='search')])
+            Output(component_id='test-search', component_property='children'),
+            [Input(component_id='test-location', component_property='search')])
         def update_test_search(search):
             if search is None:
                 return ''
@@ -416,10 +413,8 @@ class Test1(IntegrationTests):
             return search
 
         @app.callback(
-            output=Output(component_id='test-location',
-                          component_property='pathname'),
-            inputs=[Input(component_id='test-button',
-                          component_property='n_clicks')],
+            Output(component_id='test-location', component_property='pathname'),
+            [Input(component_id='test-button', component_property='n_clicks')],
             state=[State(component_id='test-location', component_property='pathname')])
         def update_pathname(n_clicks, current_pathname):
             if n_clicks is not None:
