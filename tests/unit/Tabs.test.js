@@ -25,8 +25,8 @@ describe('All props can be set properly', () => {
         colors: {
             border: 'red',
             primary: 'white',
-            background: 'blue',
-        },
+            background: 'blue'
+        }
     };
     const app = mount(
         <DashRendererMock>
@@ -57,7 +57,7 @@ describe('All props can be set properly', () => {
 describe('Tabs parses inline styles if they are set', () => {
     const testColor = 'hotpink';
     const testStyle = {
-        backgroundColor: testColor,
+        backgroundColor: testColor
     };
     const mockSetProps = jest.fn(value => value);
     const tabs = render(

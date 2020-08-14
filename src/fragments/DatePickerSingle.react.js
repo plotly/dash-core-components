@@ -55,12 +55,12 @@ export default class DatePickerSingle extends Component {
             loading_state,
             id,
             style,
-            className,
+            className
         } = this.props;
 
         const {date, initial_visible_month} = convertToMoment(this.props, [
             'date',
-            'initial_visible_month',
+            'initial_visible_month'
         ]);
 
         const verticalFlag = calendar_orientation !== 'vertical';
@@ -68,7 +68,7 @@ export default class DatePickerSingle extends Component {
         const DatePickerWrapperStyles = {
             position: 'relative',
             display: 'inline-block',
-            ...style,
+            ...style
         };
 
         // the height in px of the top part of the calendar (that holds

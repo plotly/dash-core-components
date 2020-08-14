@@ -21,7 +21,7 @@ export default class Checklist extends Component {
             setProps,
             style,
             loading_state,
-            value,
+            value
         } = this.props;
 
         return (
@@ -93,7 +93,7 @@ Checklist.propTypes = {
             /**
              * If true, this checkbox is disabled and can't be clicked on.
              */
-            disabled: PropTypes.bool,
+            disabled: PropTypes.bool
         })
     ),
 
@@ -156,7 +156,7 @@ Checklist.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -170,7 +170,7 @@ Checklist.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -186,7 +186,7 @@ Checklist.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };
 
 Checklist.defaultProps = {
@@ -197,5 +197,5 @@ Checklist.defaultProps = {
     options: [],
     value: [],
     persisted_props: ['value'],
-    persistence_type: 'local',
+    persistence_type: 'local'
 };

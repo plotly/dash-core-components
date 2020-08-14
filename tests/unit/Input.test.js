@@ -44,10 +44,10 @@ describe('Props can be set properly', () => {
         loading_state: {
             is_loading: false,
             component_name: '',
-            prop_name: '',
+            prop_name: ''
         },
         persisted_props: ['value'],
-        persistence_type: 'local',
+        persistence_type: 'local'
     };
     const input = mount(<Input {...defaultProps} />);
 
@@ -140,7 +140,7 @@ describe('Input with type=number', () => {
         const props = {
             value: 0,
             min: 0,
-            max: 2,
+            max: 2
         };
         beforeEach(() => {
             mockSetProps = jest.fn();

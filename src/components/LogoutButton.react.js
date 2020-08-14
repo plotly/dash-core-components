@@ -35,7 +35,7 @@ export default class LogoutButton extends React.Component {
             className,
             style,
             method,
-            loading_state,
+            loading_state
         } = this.props;
 
         let url, submitMethod;
@@ -73,7 +73,7 @@ export default class LogoutButton extends React.Component {
 
 LogoutButton.defaultProps = {
     label: 'Logout',
-    method: 'post',
+    method: 'post'
 };
 
 LogoutButton.propTypes = {
@@ -122,6 +122,6 @@ LogoutButton.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
-    }),
+        component_name: PropTypes.string
+    })
 };

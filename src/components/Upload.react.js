@@ -37,7 +37,7 @@ Upload.propTypes = {
         /**
          * If `multiple` is `true`, then the contents will be a list of strings
          */
-        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.arrayOf(PropTypes.string)
     ]),
 
     /**
@@ -54,7 +54,7 @@ Upload.propTypes = {
         /**
          * If `multiple` is `true`, then the contents will be a list of strings
          */
-        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.arrayOf(PropTypes.string)
     ]),
 
     /**
@@ -70,7 +70,7 @@ Upload.propTypes = {
         /**
          * If `multiple` is `true`, then the contents will be a list of numbers
          */
-        PropTypes.arrayOf(PropTypes.number),
+        PropTypes.arrayOf(PropTypes.number)
     ]),
 
     /**
@@ -174,8 +174,8 @@ Upload.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
-    }),
+        component_name: PropTypes.string
+    })
 };
 
 Upload.defaultProps = {
@@ -188,16 +188,16 @@ Upload.defaultProps = {
     style_active: {
         borderStyle: 'solid',
         borderColor: '#6c6',
-        backgroundColor: '#eee',
+        backgroundColor: '#eee'
     },
     style_disabled: {
-        opacity: 0.5,
+        opacity: 0.5
     },
     style_reject: {
         borderStyle: 'solid',
         borderColor: '#c66',
-        backgroundColor: '#eee',
-    },
+        backgroundColor: '#eee'
+    }
 };
 
 export const propTypes = Upload.propTypes;

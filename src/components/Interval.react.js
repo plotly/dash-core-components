@@ -112,11 +112,11 @@ Interval.propTypes = {
     /**
      * Dash assigned callback
      */
-    setProps: PropTypes.func,
+    setProps: PropTypes.func
 };
 
 Interval.defaultProps = {
     interval: 1000,
     n_intervals: 0,
-    max_intervals: -1,
+    max_intervals: -1
 };

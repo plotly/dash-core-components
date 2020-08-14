@@ -15,7 +15,7 @@ describe('Props can be set properly', () => {
         options: [
             {label: 'A', value: 'a'},
             {label: 1, value: 2},
-            {label: 'Disabled', value: 'x', disabled: true},
+            {label: 'Disabled', value: 'x', disabled: true}
         ],
         style: {backgroundColor: 'hotpink'},
         className: 'radio-class',
@@ -26,10 +26,10 @@ describe('Props can be set properly', () => {
         loading_state: {
             is_loading: false,
             component_name: '',
-            prop_name: '',
+            prop_name: ''
         },
         persisted_props: ['value'],
-        persistence_type: 'local',
+        persistence_type: 'local'
     };
 
     const testProps = Object.assign({}, testPropsNoValue, {value: ['a', 2]});

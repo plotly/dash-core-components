@@ -50,7 +50,7 @@ ConfirmDialogProvider.defaultProps = {
     submit_n_clicks: 0,
     submit_n_clicks_timestamp: -1,
     cancel_n_clicks: 0,
-    cancel_n_clicks_timestamp: -1,
+    cancel_n_clicks_timestamp: -1
 };
 
 ConfirmDialogProvider.propTypes = {
@@ -110,6 +110,6 @@ ConfirmDialogProvider.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
-    }),
+        component_name: PropTypes.string
+    })
 };

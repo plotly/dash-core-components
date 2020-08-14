@@ -187,7 +187,7 @@ DatePickerSingle.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -201,7 +201,7 @@ DatePickerSingle.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -217,7 +217,7 @@ DatePickerSingle.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };
 
 DatePickerSingle.defaultProps = {
@@ -234,7 +234,7 @@ DatePickerSingle.defaultProps = {
     clearable: false,
     disabled: false,
     persisted_props: ['date'],
-    persistence_type: 'local',
+    persistence_type: 'local'
 };
 
 export const propTypes = DatePickerSingle.propTypes;

@@ -22,7 +22,7 @@ export default class RadioItems extends Component {
             options,
             setProps,
             loading_state,
-            value,
+            value
         } = this.props;
 
         let ids = {};
@@ -92,7 +92,7 @@ RadioItems.propTypes = {
             /**
              * If true, this radio item is disabled and can't be clicked on.
              */
-            disabled: PropTypes.bool,
+            disabled: PropTypes.bool
         })
     ),
 
@@ -153,7 +153,7 @@ RadioItems.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -167,7 +167,7 @@ RadioItems.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -183,7 +183,7 @@ RadioItems.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };
 
 RadioItems.defaultProps = {
@@ -193,5 +193,5 @@ RadioItems.defaultProps = {
     labelClassName: '',
     options: [],
     persisted_props: ['value'],
-    persistence_type: 'local',
+    persistence_type: 'local'
 };

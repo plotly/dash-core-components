@@ -18,7 +18,7 @@ describe('dedent', () => {
             '        test',
             '\t\t\ttest',
             '    \t    test',
-            '\t    \ttest',
+            '\t    \ttest'
         ].forEach(s => {
             expect(md.dedent(s)).toEqual('test');
         });

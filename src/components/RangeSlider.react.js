@@ -39,8 +39,8 @@ RangeSlider.propTypes = {
             PropTypes.string,
             PropTypes.exact({
                 label: PropTypes.string,
-                style: PropTypes.object,
-            }),
+                style: PropTypes.object
+            })
         ])
     ),
 
@@ -125,8 +125,8 @@ RangeSlider.propTypes = {
             'topLeft',
             'topRight',
             'bottomLeft',
-            'bottomRight',
-        ]),
+            'bottomRight'
+        ])
     }),
 
     /**
@@ -175,7 +175,7 @@ RangeSlider.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
+        component_name: PropTypes.string
     }),
 
     /**
@@ -189,7 +189,7 @@ RangeSlider.propTypes = {
     persistence: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
     ]),
 
     /**
@@ -205,14 +205,14 @@ RangeSlider.propTypes = {
      * local: window.localStorage, data is kept after the browser quit.
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
-    persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+    persistence_type: PropTypes.oneOf(['local', 'session', 'memory'])
 };
 
 RangeSlider.defaultProps = {
     updatemode: 'mouseup',
     persisted_props: ['value'],
     persistence_type: 'local',
-    verticalHeight: 400,
+    verticalHeight: 400
 };
 
 export const propTypes = RangeSlider.propTypes;

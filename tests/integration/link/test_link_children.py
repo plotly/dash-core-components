@@ -30,6 +30,7 @@ def test_lich002_children(dash_dcc):
             html.Div(id="content")
         ]
     )
+
     @app.callback(Output("content", "children"), [Input("link1", "children")])
     def display_children(children):
         return children

@@ -6,7 +6,7 @@ import graph from '../utils/LazyLoader/graph';
 import plotly from '../utils/LazyLoader/plotly';
 import {
     privatePropTypes,
-    privateDefaultProps,
+    privateDefaultProps
 } from '../fragments/Graph.privateprops';
 
 const EMPTY_EXTEND_DATA = [];
@@ -22,7 +22,7 @@ class PlotlyGraph extends Component {
         super(props);
 
         this.state = {
-            extendData: [],
+            extendData: []
         };
 
         this.clearExtendData = this.clearExtendData.bind(this);
@@ -31,14 +31,14 @@ class PlotlyGraph extends Component {
     componentDidMount() {
         if (this.props.extendData) {
             this.setState({
-                extendData: [this.props.extendData],
+                extendData: [this.props.extendData]
             });
         }
     }
 
     componentWillUnmount() {
         this.setState({
-            extendData: [],
+            extendData: []
         });
     }
 
@@ -60,7 +60,7 @@ class PlotlyGraph extends Component {
 
         if (extendData !== EMPTY_EXTEND_DATA) {
             this.setState({
-                extendData,
+                extendData
             });
         }
     }
@@ -70,7 +70,7 @@ class PlotlyGraph extends Component {
             const res =
                 extendData && extendData.length
                     ? {
-                          extendData: EMPTY_EXTEND_DATA,
+                          extendData: EMPTY_EXTEND_DATA
                       }
                     : undefined;
 
@@ -211,7 +211,7 @@ PlotlyGraph.propTypes = {
     figure: PropTypes.exact({
         data: PropTypes.arrayOf(PropTypes.object),
         layout: PropTypes.object,
-        frames: PropTypes.arrayOf(PropTypes.object),
+        frames: PropTypes.arrayOf(PropTypes.object)
     }),
 
     /**
@@ -294,7 +294,7 @@ PlotlyGraph.propTypes = {
             /**
              * The global `layout.title`
              */
-            titleText: PropTypes.bool,
+            titleText: PropTypes.bool
         }),
 
         /**
@@ -335,7 +335,7 @@ PlotlyGraph.propTypes = {
             false,
             'reset',
             'autosize',
-            'reset+autosize',
+            'reset+autosize'
         ]),
 
         /**
@@ -445,7 +445,7 @@ PlotlyGraph.propTypes = {
              * Extra resolution to give the file after
              * rendering it with the given width and height
              */
-            scale: PropTypes.number,
+            scale: PropTypes.number
         }),
 
         /**
@@ -486,7 +486,7 @@ PlotlyGraph.propTypes = {
          * Localization definitions, if you choose to provide them with the
          * plot rather than registering them globally.
          */
-        locales: PropTypes.object,
+        locales: PropTypes.object
     }),
 
     /**
@@ -509,8 +509,8 @@ PlotlyGraph.propTypes = {
         /**
          * Holds the name of the component that is loading
          */
-        component_name: PropTypes.string,
-    }),
+        component_name: PropTypes.string
+    })
 };
 
 ControlledPlotlyGraph.propTypes = PlotlyGraph.propTypes;
@@ -528,21 +528,21 @@ PlotlyGraph.defaultProps = {
     figure: {
         data: [],
         layout: {},
-        frames: [],
+        frames: []
     },
     responsive: 'auto',
     animate: false,
     animation_options: {
         frame: {
-            redraw: false,
+            redraw: false
         },
         transition: {
             duration: 750,
-            ease: 'cubic-in-out',
-        },
+            ease: 'cubic-in-out'
+        }
     },
     clear_on_unhover: false,
-    config: {},
+    config: {}
 };
 
 export const graphPropTypes = PlotlyGraph.propTypes;

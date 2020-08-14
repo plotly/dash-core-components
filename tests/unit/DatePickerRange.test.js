@@ -6,7 +6,7 @@ import {mount, render} from 'enzyme';
 const defaultProps = {
     start_date_id: 'start-date-id',
     end_date_id: 'end-date-id',
-    id: 'datepicker',
+    id: 'datepicker'
 };
 
 test('DatePickerRange renders', () => {
@@ -19,7 +19,7 @@ describe('Date can be set properly', () => {
     test('null date is not converted by moment', () => {
         const props = merge(defaultProps, {
             end_date: null,
-            start_date: null,
+            start_date: null
         });
 
         const dps = mount(<DatePickerRange {...props} />);
@@ -32,7 +32,7 @@ describe('Date can be set properly', () => {
     test('valid date is not converted by moment', () => {
         const props = merge(defaultProps, {
             end_date: '2019-01-01',
-            start_date: '2019-01-01',
+            start_date: '2019-01-01'
         });
 
         const dps = mount(<DatePickerRange {...props} />);
