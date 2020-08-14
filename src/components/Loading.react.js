@@ -123,7 +123,7 @@ Loading.propTypes = {
     debug: PropTypes.bool,
 
     /**
-     * CSS class for the spinner root DOM node
+     * Additional CSS class for the spinner root DOM node
      */
     className: PropTypes.string,
 
