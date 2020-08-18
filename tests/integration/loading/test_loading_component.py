@@ -285,8 +285,6 @@ def test_ldcp007_class_and_style_props(dash_dcc):
 
     app = dash.Dash(__name__)
 
-    print(dcc.__version__)
-
     app.layout = html.Div(
         [
             html.Button("click", id="btn"),
@@ -330,8 +328,6 @@ def test_ldcp008_graph_in_loading_fits_container_height(dash_dcc):
     lock = Lock()
 
     app = dash.Dash(__name__)
-
-    print(dcc.__version__)
 
     app.layout = html.Div(
         className="outer-container",
