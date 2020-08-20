@@ -229,7 +229,7 @@ DatePickerSingle.persistenceTransforms = {
             } else {
                 return moment(propValue)
                     .startOf('day')
-                    .format();
+                    .format("YYYY-MM-DD");
             }
         },
         apply: storedValue => storedValue,
