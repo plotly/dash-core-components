@@ -281,7 +281,7 @@ DatePickerRange.persistenceTransforms = {
             } else {
                 return moment(propValue)
                     .startOf('day')
-                    .format();
+                    .format("YYYY-MM-DD");
             }
         },
     },
@@ -292,7 +292,7 @@ DatePickerRange.persistenceTransforms = {
             } else {
                 return moment(propValue)
                     .startOf('day')
-                    .format();
+                    .format("YYYY-MM-DD");
             }
         },
         apply: storedValue => storedValue,
