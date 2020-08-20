@@ -224,9 +224,7 @@ DatePickerSingle.propTypes = {
 DatePickerSingle.persistenceTransforms = {
     date: {
         extract: propValue => {
-            if (propValue === null || propValue === undefined) {
-                //
-            } else {
+            if (!(propValue === null || propValue === undefined)) {
                 return moment(propValue)
                     .startOf('day')
                     .format("YYYY-MM-DD");

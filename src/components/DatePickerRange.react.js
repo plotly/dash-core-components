@@ -267,29 +267,17 @@ DatePickerRange.propTypes = {
 DatePickerRange.persistenceTransforms = {
     end_date: {
         extract: propValue => {
-            if (propValue === null || propValue === undefined) {
-                //
-            } else {
-                return moment(propValue)
-                    .startOf('day')
-                    .format();
-            }
-        },
-        apply: propValue => {
-            if (propValue === null || propValue === undefined) {
-                //
-            } else {
+            if (!(propValue === null || propValue === undefined)) {
                 return moment(propValue)
                     .startOf('day')
                     .format("YYYY-MM-DD");
             }
         },
+        apply: storedValue => storedValue
     },
     start_date: {
         extract: propValue => {
-            if (propValue === null || propValue === undefined) {
-                //
-            } else {
+            if (!(propValue === null || propValue === undefined)) {
                 return moment(propValue)
                     .startOf('day')
                     .format("YYYY-MM-DD");
