@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- [#851]((https://github.com/plotly/dash-core-components/pull/851) Add support for Dash.jl Julia built components
+- [#851](https://github.com/plotly/dash-core-components/pull/851) Add support for Dash.jl Julia built components
 - [#840](https://github.com/plotly/dash-core-components/pull/840) Add styling properties to `dcc.Loading` component
   + `parent_className`: Add CSS class for the outermost `dcc.Loading` parent div DOM node
   + `parent_style`: Add CSS style property for the outermost `dcc.Loading` parent div DOM node
