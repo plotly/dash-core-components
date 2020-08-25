@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component, lazy, Suspense} from 'react';
 import datePickerRange from '../utils/LazyLoader/datePickerRange';
+import moment from 'moment';
 
 const RealDatePickerRange = lazy(datePickerRange);
 
@@ -261,6 +262,31 @@ DatePickerRange.propTypes = {
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
     persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+};
+
+DatePickerRange.persistenceTransforms = {
+    end_date: {
+        extract: propValue => {
+            if (!(propValue === null || propValue === undefined)) {
+                return moment(propValue)
+                    .startOf('day')
+                    .format('YYYY-MM-DD');
+            }
+            return propValue;
+        },
+        apply: storedValue => storedValue,
+    },
+    start_date: {
+        extract: propValue => {
+            if (!(propValue === null || propValue === undefined)) {
+                return moment(propValue)
+                    .startOf('day')
+                    .format('YYYY-MM-DD');
+            }
+            return propValue;
+        },
+        apply: storedValue => storedValue,
+    },
 };
 
 DatePickerRange.defaultProps = {
