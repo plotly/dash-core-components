@@ -11,7 +11,8 @@ A Loading component that wraps any other component and displays a spinner until 
 
 \usage{
 dccLoading(children=NULL, id=NULL, type=NULL, fullscreen=NULL,
-debug=NULL, className=NULL, style=NULL, color=NULL,
+debug=NULL, className=NULL, parent_className=NULL,
+style=NULL, parent_style=NULL, color=NULL,
 loading_state=NULL)
 }
 
@@ -32,7 +33,11 @@ while loading}
 
 \item{className}{Character. Additional CSS class for the spinner root DOM node}
 
+\item{parent_className}{Character. Additional CSS class for the outermost dcc.Loading parent div DOM node}
+
 \item{style}{Named list. Additional CSS styling for the spinner root DOM node}
+
+\item{parent_style}{Named list. Additional CSS styling for the outermost dcc.Loading parent div DOM node}
 
 \item{color}{Character. Primary colour used for the loading spinners}
 

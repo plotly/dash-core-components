@@ -2967,12 +2967,26 @@
         "required": false,
         "description": "Additional CSS class for the spinner root DOM node"
       },
+      "parent_className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Additional CSS class for the outermost dcc.Loading parent div DOM node"
+      },
       "style": {
         "type": {
           "name": "object"
         },
         "required": false,
         "description": "Additional CSS styling for the spinner root DOM node"
+      },
+      "parent_style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Additional CSS styling for the outermost dcc.Loading parent div DOM node"
       },
       "color": {
         "type": {
