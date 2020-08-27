@@ -15,7 +15,7 @@ import dash.testing.wait as wait
 def test_grbs001_graph_without_ids(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
     app.layout = html.Div(
-        [dcc.Graph(className="graph-no-id-1"), dcc.Graph(className="graph-no-id-2"),]
+        [dcc.Graph(className="graph-no-id-1"), dcc.Graph(className="graph-no-id-2")]
     )
 
     dash_dcc.start_server(app)

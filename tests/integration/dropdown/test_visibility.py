@@ -30,7 +30,7 @@ def test_ddvi001_fixed_table(dash_duo):
                 fixed_rows=dict(headers=True),
                 fixed_columns=dict(headers=True),
                 data=[
-                    {"a": "a" + str(x), "b": "b" + str(x), "c": "c" + str(x),}
+                    {"a": "a" + str(x), "b": "b" + str(x), "c": "c" + str(x)}
                     for x in range(0, 20)
                 ],
             ),

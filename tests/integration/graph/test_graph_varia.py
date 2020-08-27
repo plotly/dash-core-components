@@ -83,7 +83,7 @@ def test_graphs_with_different_figures(dash_dcc, is_eager):
                 id="example-graph",
                 figure={
                     "data": [
-                        {"x": [1, 2, 3], "y": [4, 1, 2], "type": "bar", "name": "SF",},
+                        {"x": [1, 2, 3], "y": [4, 1, 2], "type": "bar", "name": "SF"},
                         {
                             "x": [1, 2, 3],
                             "y": [2, 4, 5],
@@ -348,7 +348,7 @@ def test_graph_extend_trace(dash_dcc, is_eager):
     )
 
     comparison = json.dumps(
-        [dict(y=[0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.1, 0.2, 0.3, 0.4, 0.5,])]
+        [dict(y=[0, 0, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.1, 0.2, 0.3, 0.4, 0.5])]
     )
     dash_dcc.wait_for_text_to_equal(
         "#output_trace_will_allow_repeated_extend", comparison

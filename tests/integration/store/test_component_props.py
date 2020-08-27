@@ -158,7 +158,7 @@ def test_stcp004_remount_store_component(dash_dcc):
         return True, True, True
 
     @app.callback(
-        [Output("memory", "data"), Output("local", "data"), Output("session", "data"),],
+        [Output("memory", "data"), Output("local", "data"), Output("session", "data")],
         [Input("btn", "n_clicks")],
     )
     def on_click(n_clicks):
