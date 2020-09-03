@@ -12,17 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 def test_rdpr001_persisted_dps(dash_dcc):
     def send_date_dps(target, date):
         (
-            ActionChains(dash_dcc.driver)
-            .move_to_element(target)
-            .pause(0.2)
-            .click(target)
-            .send_keys(Keys.END)
-            .key_down(Keys.SHIFT)
-            .send_keys(Keys.HOME)
-            .key_up(Keys.SHIFT)
-            .send_keys(Keys.DELETE)
-            .send_keys(str(date))
-            .send_keys(Keys.ENTER)
+            ActionChains(dash_dcc.driver).send_keys(str(date)).send_keys(Keys.ENTER)
         ).perform()
 
     app = dash.Dash(__name__)
@@ -66,9 +56,11 @@ def test_rdpr001_persisted_dps(dash_dcc):
     dps1 = dash_dcc.find_element("#dps1")
     dps2 = dash_dcc.find_element("#dps2")
 
+    dash_dcc.clear_input(dps1)
     send_date_dps(dps1, "01/01/2020")
     dash_dcc.wait_for_text_to_equal("#dps1-p", "2020-01-01")
 
+    dash_dcc.clear_input(dps2)
     send_date_dps(dps2, "01/01/2020")
     dash_dcc.wait_for_text_to_equal("#dps2-p", "2020-01-01")
 
