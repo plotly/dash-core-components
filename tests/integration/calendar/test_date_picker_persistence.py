@@ -6,7 +6,7 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 
 
-def test_rdpr003_persisted_dps(dash_dcc):
+def test_rdpr001_persisted_dps(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -15,6 +15,8 @@ def test_rdpr003_persisted_dps(dash_dcc):
         ]
     )
 
+    # changing value of date with each callback to verify
+    # persistenceTransforms is stripping the time-part from the date-time
     @app.callback(Output("container", "children"), [Input("btn", "n_clicks")])
     def update_output(value):
         return dcc.DatePickerSingle(
@@ -33,13 +35,12 @@ def test_rdpr003_persisted_dps(dash_dcc):
     dash_dcc.start_server(app)
 
     dash_dcc.select_date_single("dps", day="2")
-
     dash_dcc.wait_for_text_to_equal("#dps-p", "2020-01-02")
     dash_dcc.find_element("#btn").click()
     dash_dcc.wait_for_text_to_equal("#dps-p", "2020-01-02")
 
 
-def test_rdpr004_persisted_dpr(dash_dcc):
+def test_rdpr002_persisted_dpr(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -54,6 +55,8 @@ def test_rdpr004_persisted_dpr(dash_dcc):
         ]
     )
 
+    # changing value of start_date and end_date with each callback to verify
+    # persistenceTransforms is stripping the time-part from the date-time
     @app.callback(Output("container", "children"), [Input("btn", "n_clicks")])
     def update_output(value):
         return dcc.DatePickerRange(
@@ -77,7 +80,6 @@ def test_rdpr004_persisted_dpr(dash_dcc):
     dash_dcc.start_server(app)
 
     dash_dcc.select_date_range("dpr", (2, 5))
-
     dash_dcc.wait_for_text_to_equal("#dpr-p-start", "2020-01-02")
     dash_dcc.wait_for_text_to_equal("#dpr-p-end", "2020-01-05")
     dash_dcc.find_element("#btn").click()
