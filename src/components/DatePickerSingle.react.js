@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component, lazy, Suspense} from 'react';
 import datePickerSingle from '../utils/LazyLoader/datePickerSingle';
 import moment from 'moment';
+import {isNil} from 'ramda';
 
 const RealDateSingleRange = lazy(datePickerSingle);
 
@@ -224,7 +225,7 @@ DatePickerSingle.propTypes = {
 DatePickerSingle.persistenceTransforms = {
     date: {
         extract: propValue => {
-            if (!(propValue === null || propValue === undefined)) {
+            if (!isNil(propValue)) {
                 return moment(propValue)
                     .startOf('day')
                     .format('YYYY-MM-DD');
