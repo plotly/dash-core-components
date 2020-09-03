@@ -70,7 +70,7 @@ class Test2(IntegrationTests):
         time.sleep(2)
 
         # callback is called twice when defined
-        self.assertEqual(call_count.value, 2)
+        self.assertEqual(call_count.value, 1)
 
         # test if link correctly scrolls back to top of page
         test_link = self.wait_for_element_by_css_selector("#test-link")
@@ -89,7 +89,7 @@ class Test2(IntegrationTests):
         self.assertEqual(link_href, "http://localhost:8050/test-link")
 
         # test if callback is only fired once (offset of 2)
-        self.assertEqual(call_count.value, 3)
+        self.assertEqual(call_count.value, 2)
 
     def test_interval(self):
         app = dash.Dash(__name__)
