@@ -69,7 +69,7 @@ class Test2(IntegrationTests):
 
         time.sleep(2)
 
-        # callback is called twice when defined
+        # callback is called once when defined
         self.assertEqual(call_count.value, 1)
 
         # test if link correctly scrolls back to top of page
@@ -88,7 +88,7 @@ class Test2(IntegrationTests):
         link_href = test_link.get_attribute("href")
         self.assertEqual(link_href, "http://localhost:8050/test-link")
 
-        # test if callback is only fired once (offset of 2)
+        # test if callback is only fired once more
         self.assertEqual(call_count.value, 2)
 
     def test_interval(self):
