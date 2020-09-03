@@ -11,7 +11,7 @@ def test_rdpr001_persisted_dps(dash_dcc):
     app.layout = html.Div(
         [
             html.Button("fire callback", id="btn", n_clicks=1),
-            html.Div(children=[html.Div(id="container"), html.P("dps", id="dps-p"),]),
+            html.Div(children=[html.Div(id="container"), html.P("dps", id="dps-p")]),
         ]
     )
 
