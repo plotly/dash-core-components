@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, {Component, lazy, Suspense} from 'react';
 import datePickerRange from '../utils/LazyLoader/datePickerRange';
-import moment from 'moment';
-import {isNil} from 'ramda';
+import transformDate from '../utils/DatePickerPersistence';
 
 const RealDatePickerRange = lazy(datePickerRange);
+const end_date = transformDate;
+const start_date = transformDate;
 
 /**
  * DatePickerRange is a tailor made component designed for selecting
@@ -266,28 +267,8 @@ DatePickerRange.propTypes = {
 };
 
 DatePickerRange.persistenceTransforms = {
-    end_date: {
-        extract: propValue => {
-            if (!isNil(propValue)) {
-                return moment(propValue)
-                    .startOf('day')
-                    .format('YYYY-MM-DD');
-            }
-            return propValue;
-        },
-        apply: storedValue => storedValue,
-    },
-    start_date: {
-        extract: propValue => {
-            if (!isNil(propValue)) {
-                return moment(propValue)
-                    .startOf('day')
-                    .format('YYYY-MM-DD');
-            }
-            return propValue;
-        },
-        apply: storedValue => storedValue,
-    },
+    end_date,
+    start_date,
 };
 
 DatePickerRange.defaultProps = {
