@@ -4,8 +4,6 @@ import datePickerRange from '../utils/LazyLoader/datePickerRange';
 import transformDate from '../utils/DatePickerPersistence';
 
 const RealDatePickerRange = lazy(datePickerRange);
-const end_date = transformDate;
-const start_date = transformDate;
 
 /**
  * DatePickerRange is a tailor made component designed for selecting
@@ -267,8 +265,8 @@ DatePickerRange.propTypes = {
 };
 
 DatePickerRange.persistenceTransforms = {
-    end_date,
-    start_date,
+    end_date: transformDate,
+    start_date: transformDate,
 };
 
 DatePickerRange.defaultProps = {

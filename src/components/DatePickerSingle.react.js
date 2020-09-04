@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component, lazy, Suspense} from 'react';
 import datePickerSingle from '../utils/LazyLoader/datePickerSingle';
-import date from '../utils/DatePickerPersistence';
+import transformDate from '../utils/DatePickerPersistence';
 
 const RealDateSingleRange = lazy(datePickerSingle);
 
@@ -222,7 +222,7 @@ DatePickerSingle.propTypes = {
 };
 
 DatePickerSingle.persistenceTransforms = {
-    date,
+    date: transformDate,
 };
 
 DatePickerSingle.defaultProps = {
