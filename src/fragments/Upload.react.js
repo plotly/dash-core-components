@@ -15,6 +15,7 @@ export default class Upload extends Component {
             contents: [],
             filename: [],
             last_modified: [],
+            upload_timestamp: -1,
         };
         files.forEach(file => {
             const reader = new FileReader();
@@ -28,6 +29,7 @@ export default class Upload extends Component {
                 newProps.filename.push(file.name);
                 // eslint-disable-next-line no-magic-numbers
                 newProps.last_modified.push(file.lastModified / 1000);
+                newProps.upload_timestamp = Date.now();
                 if (newProps.contents.length === files.length) {
                     if (multiple) {
                         setProps(newProps);
@@ -36,6 +38,7 @@ export default class Upload extends Component {
                             contents: newProps.contents[0],
                             filename: newProps.filename[0],
                             last_modified: newProps.last_modified[0],
+                            upload_timestamp: newProps.upload_timestamp,
                         });
                     }
                 }

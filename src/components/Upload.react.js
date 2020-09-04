@@ -74,6 +74,11 @@ Upload.propTypes = {
     ]),
 
     /**
+     * Timestamp of last completed upload in unix time (seconds since 1970)
+     */
+    upload_timestamp: PropTypes.oneOfType([PropTypes.number]),
+
+    /**
      * Contents of the upload component
      */
     children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
