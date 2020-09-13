@@ -76,6 +76,7 @@ _known_pandas_writers = {
     "to_csv": False,
     "to_json": False,
     "to_html": False,
+    "to_excel": True,
     "to_feather": True,
     "to_parquet": True,
     "to_msgpack": True,
