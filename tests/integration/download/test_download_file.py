@@ -10,7 +10,7 @@ from dash.dependencies import Input, Output
 
 def test_download_file(dash_dcc):
     filename = "Lenna.jpeg"
-    asset_folder = "./download-assets"
+    asset_folder = os.path.join(os.path.dirname(__file__), "download-assets")
     # Create app.
     app = dash.Dash(__name__)
     app.layout = html.Div(
