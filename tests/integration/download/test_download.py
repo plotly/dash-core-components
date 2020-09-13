@@ -30,6 +30,6 @@ def test_download_text(dash_dcc):
     dash_dcc.start_server(app)
     time.sleep(0.5)
     # Check that a file has been download, and that it's content matches the original text.
-    with open(fp, 'r') as f:
+    with open(fp, "r") as f:
         content = f.read()
     assert content == text

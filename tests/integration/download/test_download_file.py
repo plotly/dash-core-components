@@ -31,8 +31,8 @@ def test_download_file(dash_dcc):
     dash_dcc.start_server(app)
     time.sleep(0.5)
     # Check that a file has been download, and that it's content matches the original.
-    with open(fp, 'rb') as f:
+    with open(fp, "rb") as f:
         content = f.read()
-    with open(os.path.join(asset_folder, filename), 'rb') as f:
+    with open(os.path.join(asset_folder, filename), "rb") as f:
         original = f.read()
     assert content == original
