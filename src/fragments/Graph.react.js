@@ -354,11 +354,7 @@ class PlotlyGraph extends Component {
             this.mergeTraces(this.props, 'extendData', 'extendTraces');
         }
 
-        if (
-            (this.props.prependData?.length ?? 0) +
-                (this.props.extendData?.length ?? 0) >
-            0
-        ) {
+        if (this.props.prependData?.length || this.props.extendData?.length) {
             this.props._dashprivate_onFigureModified(this.props.figure);
         }
     }
@@ -410,11 +406,7 @@ class PlotlyGraph extends Component {
             this.mergeTraces(nextProps, 'extendData', 'extendTraces');
         }
 
-        if (
-            (this.props.prependData?.length ?? 0) +
-                (this.props.extendData?.length ?? 0) >
-            0
-        ) {
+        if (this.props.prependData?.length || this.props.extendData?.length) {
             this.props._dashprivate_onFigureModified(this.props.figure);
         }
     }
