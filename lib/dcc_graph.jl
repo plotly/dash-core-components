@@ -48,6 +48,14 @@ either an integer defining the maximum number of points allowed or an
 object with key:value pairs matching `updateData`
 Reference the Plotly.extendTraces API for full usage:
 https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces
+- `prependData` (Array | Dict; optional): Data that should be prepended to existing traces. Has the form
+`[updateData, traceIndices, maxPoints]`, where `updateData` is an object
+containing the data to prepend, `traceIndices` (optional) is an array of
+trace indices that should be prepended, and `maxPoints` (optional) is
+either an integer defining the maximum number of points allowed or an
+object with key:value pairs matching `updateData`
+Reference the Plotly.prependTraces API for full usage:
+https://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces
 - `restyleData` (Array; optional): Data from latest restyle event which occurs
 when the user toggles a legend item, changes
 parcoords selections, or other trace-level edits.
@@ -157,7 +165,7 @@ Those elements have the following types:
   - `component_name` (String; optional): Holds the name of the component that is loading
 """
 function dcc_graph(; kwargs...)
-        available_props = Symbol[:id, :responsive, :clickData, :clickAnnotationData, :hoverData, :clear_on_unhover, :selectedData, :relayoutData, :extendData, :restyleData, :figure, :style, :className, :animate, :animation_options, :config, :loading_state]
+        available_props = Symbol[:id, :responsive, :clickData, :clickAnnotationData, :hoverData, :clear_on_unhover, :selectedData, :relayoutData, :extendData, :prependData, :restyleData, :figure, :style, :className, :animate, :animation_options, :config, :loading_state]
         wild_props = Symbol[]
         return Component("dcc_graph", "Graph", "dash_core_components", available_props, wild_props; kwargs...)
 end
