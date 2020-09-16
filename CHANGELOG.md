@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.1] - 2020-09-16
+### Fixed
+- [#854](https://github.com/plotly/dash-core-components/pull/854) Used `persistenceTransforms` to strip the time part of the datetime in the persited props of DatePickerSingle (date) and DatePickerRange (end_date, start_date), fixing [dcc#700](https://github.com/plotly/dash-core-components/issues/700).
+
+### Added
+- [#850](https://github.com/plotly/dash-core-components/pull/850) Add property `prependData` to `Graph` to support `Plotly.prependTraces`
+  + refactored the existing `extendTraces` API to be a single `mergeTraces` API that can handle both `prepend` as well as `extend`.
+
+### Updated
+- [#864](https://github.com/plotly/dash-core-components/pull/864) Upgraded Plotly.js to [1.55.2](https://github.com/plotly/plotly.js/releases/tag/v1.55.2)
+
 ## [1.12.0] - 2020-09-03
 ### Updated
 - [#858](https://github.com/plotly/dash-core-components/pull/858)

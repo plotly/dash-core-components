@@ -1463,10 +1463,15 @@
         "returns": null
       },
       {
-        "name": "clearExtendData",
+        "name": "clearState",
         "docblock": null,
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "dataKey",
+            "type": null
+          }
+        ],
         "returns": null
       }
     ],
@@ -1583,6 +1588,25 @@
         },
         "required": false,
         "description": "Data that should be appended to existing traces. Has the form\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\ncontaining the data to extend, `traceIndices` (optional) is an array of\ntrace indices that should be extended, and `maxPoints` (optional) is\neither an integer defining the maximum number of points allowed or an\nobject with key:value pairs matching `updateData`\nReference the Plotly.extendTraces API for full usage:\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "prependData": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "array"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Data that should be prepended to existing traces. Has the form\n`[updateData, traceIndices, maxPoints]`, where `updateData` is an object\ncontaining the data to prepend, `traceIndices` (optional) is an array of\ntrace indices that should be prepended, and `maxPoints` (optional) is\neither an integer defining the maximum number of points allowed or an\nobject with key:value pairs matching `updateData`\nReference the Plotly.prependTraces API for full usage:\nhttps://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces",
         "defaultValue": {
           "value": "null",
           "computed": false

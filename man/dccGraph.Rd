@@ -13,9 +13,9 @@ Graph can be used to render any plotly.js-powered data visualization.  You can d
 dccGraph(id=NULL, responsive=NULL, clickData=NULL,
 clickAnnotationData=NULL, hoverData=NULL,
 clear_on_unhover=NULL, selectedData=NULL, relayoutData=NULL,
-extendData=NULL, restyleData=NULL, figure=NULL, style=NULL,
-className=NULL, animate=NULL, animation_options=NULL,
-config=NULL, loading_state=NULL)
+extendData=NULL, prependData=NULL, restyleData=NULL,
+figure=NULL, style=NULL, className=NULL, animate=NULL,
+animation_options=NULL, config=NULL, loading_state=NULL)
 }
 
 \arguments{
@@ -64,6 +64,15 @@ either an integer defining the maximum number of points allowed or an
 object with key:value pairs matching `updateData`
 Reference the Plotly.extendTraces API for full usage:
 https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces}
+
+\item{prependData}{Unnamed list | named list. Data that should be prepended to existing traces. Has the form
+`[updateData, traceIndices, maxPoints]`, where `updateData` is an object
+containing the data to prepend, `traceIndices` (optional) is an array of
+trace indices that should be prepended, and `maxPoints` (optional) is
+either an integer defining the maximum number of points allowed or an
+object with key:value pairs matching `updateData`
+Reference the Plotly.prependTraces API for full usage:
+https://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces}
 
 \item{restyleData}{Unnamed list. Data from latest restyle event which occurs
 when the user toggles a legend item, changes
