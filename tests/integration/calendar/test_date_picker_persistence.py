@@ -34,6 +34,7 @@ def test_rdpr001_persisted_dps(dash_dcc):
 
     dash_dcc.start_server(app)
 
+    dash_dcc.wait_for_text_to_equal("#dps-p", "2020-01-03")
     dash_dcc.select_date_single("dps", day="2")
     dash_dcc.wait_for_text_to_equal("#dps-p", "2020-01-02")
     dash_dcc.find_element("#btn").click()
@@ -78,6 +79,8 @@ def test_rdpr002_persisted_dpr(dash_dcc):
         return value
 
     dash_dcc.start_server(app)
+    dash_dcc.wait_for_text_to_equal("#dpr-p-start", "2020-01-03")
+    dash_dcc.wait_for_text_to_equal("#dpr-p-end", "2020-01-04")
 
     dash_dcc.select_date_range("dpr", (2, 5))
     dash_dcc.wait_for_text_to_equal("#dpr-p-start", "2020-01-02")
