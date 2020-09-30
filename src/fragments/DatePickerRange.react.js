@@ -2,6 +2,7 @@ import 'react-dates/initialize';
 import {DateRangePicker} from 'react-dates';
 import React, {Component} from 'react';
 import uniqid from 'uniqid';
+import moment from 'moment';
 
 import {propTypes, defaultProps} from '../components/DatePickerRange.react';
 import convertToMoment from '../utils/convertToMoment';
@@ -118,6 +119,19 @@ export default class DatePickerRange extends Component {
             start_date_id,
             end_date_id,
         } = this.props;
+
+        const dateFormat = () => {
+            const {setProps} = this.props;
+            setProps({
+                start_date: moment(this.props.start_date)
+                    .startOf('day')
+                    .format('YYYY-MM-DD'),
+                end_date: moment(this.props.end_date)
+                    .startOf('day')
+                    .format('YYYY-MM-DD'),
+            });
+        };
+        dateFormat();
 
         const {initial_visible_month} = convertToMoment(this.props, [
             'initial_visible_month',

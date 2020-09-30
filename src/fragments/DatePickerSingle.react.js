@@ -58,6 +58,16 @@ export default class DatePickerSingle extends Component {
             className,
         } = this.props;
 
+        const dateFormat = () => {
+            const {setProps} = this.props;
+            setProps({
+                date: moment(this.props.date)
+                    .startOf('day')
+                    .format('YYYY-MM-DD'),
+            });
+        };
+        dateFormat();
+
         const {date, initial_visible_month} = convertToMoment(this.props, [
             'date',
             'initial_visible_month',
