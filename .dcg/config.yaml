@@ -1,0 +1,169 @@
+componentPaths:
+  - src/components
+
+recipes:
+  - py
+  - R
+
+dist:
+  - source: dash_core_components/dash_core_components.min.js
+    target: dash_core_components.min.js
+    external: true
+  - source: dash_core_components/dash_core_components.min.js.map
+    target: dash_core_components.min.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/dash_core_components-shared.js
+    target: dash_core_components-shared.js
+    external: true
+  - source: dash_core_components/dash_core_components-shared.js.map
+    target: dash_core_components-shared.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/async-plotlyjs.js
+    target: async-plotlyjs.js
+    async: 'lazy'
+    external: true
+  - source: dash_core_components/plotlyjs.min.js
+    target: plotlyjs.min.js
+    async: 'eager'
+    external: true
+  - source: dash_core_components/async-datepicker.js
+    target: async-datepicker.js
+    async: true
+    external: true
+  - source: dash_core_components/async-datepicker.js.map
+    target: async-datepicker.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/async-dropdown.js
+    target: async-dropdown.js
+    async: true
+    external: true
+  - source: dash_core_components/async-dropdown.js.map
+    target: async-dropdown.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/async-graph.js
+    target: async-graph.js
+    async: true
+    external: true
+  - source: dash_core_components/async-graph.js.map
+    target: async-graph.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/async-highlight.js
+    target: async-highlight.js
+    async: true
+    external: true
+  - source: dash_core_components/async-highlight.js.map
+    target: async-highlight.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/async-markdown.js
+    target: async-markdown.js
+    async: true
+    external: true
+  - source: dash_core_components/async-markdown.js.map
+    target: async-markdown.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/async-slider.js
+    target: async-slider.js
+    async: true
+    external: true
+  - source: dash_core_components/async-slider.js.map
+    target: async-slider.js.map
+    dynamic: true
+    external: true
+  - source: dash_core_components/async-upload.js
+    target: async-upload.js
+    async: true
+    external: true
+  - source: dash_core_components/async-upload.js.map
+    target: async-upload.js.map
+    dynamic: true
+    external: true
+
+vars:
+  py:
+    dist:
+
+  R:
+    prefix: dcc
+    depends:
+    imports:
+    suggests:
+      - dash
+      - dashHtmlComponents
+      - jsonlite
+      - plotly
+
+    pkg_authors: c(person("Chris", "Parmer", email = "chris@plotly.com", role = c("aut")), person("Ryan Patrick", "Kyle", email = "ryan@plotly.com", role = c("cre"), comment = c(ORCID = "0000-0002-4958-2844")), person(family = "Plotly Technologies, Inc.", role = "cph"))
+    pkg_help_description: ${js.core.readConfigFile('pkg_help_description.txt')}
+    pkg_help_title: Core Interactive UI Components for 'Dash'
+    pkg_copyright: Plotly Technologies, Inc.
+    examples:
+      Checklist:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccChecklist.R')}
+      ConfirmDialogProvider:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccConfirmDialogProvider.R')}
+      DatePickerRange:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccDatePickerRange.R')}
+      DatePickerSingle:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccDatePickerSingle.R')}
+      Dropdown:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccDropdown.R')}
+      Graph:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccGraph.R')}
+      Input:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccInput.R')}
+      Interval:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccInterval.R')}
+      Link:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccLink.R')}
+      Loading:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccLoading.R')}
+      Location:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccLocation.R')}
+      LogoutButton:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccLogoutButton.R')}
+      Markdown:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccMarkdown.R')}
+      RadioItem:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccRadioItem.R')}
+      RangeSlider:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccRangeSlider.R')}
+      Slider:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccSlider.R')}
+      Store:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccStore.R')}
+      Tab:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccTab.R')}
+      Tabs:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccTabs.R')}
+      Textarea:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccTextarea.R')}
+      Upload:
+        dontrun: false
+        code: ${js.core.readConfigFile('dccUpload.R')}
