@@ -13,10 +13,7 @@ def test_download_text(dash_dcc):
     # Create app.
     app = dash.Dash(__name__)
     app.layout = html.Div(
-        [
-            dcc.Store(id="content", data=text),
-            dcc.Download(id="download"),
-        ]
+        [dcc.Store(id="content", data=text), dcc.Download(id="download")]
     )
 
     @app.callback(Output("download", "data"), [Input("content", "data")])

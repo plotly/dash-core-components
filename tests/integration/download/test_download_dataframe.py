@@ -2,7 +2,6 @@ import os
 import time
 import dash
 import dash_core_components as dcc
-import dash_core_components.express as dcx
 import dash_html_components as html
 import pytest
 import pandas as pd
@@ -22,23 +21,20 @@ def test_download_dataframe(fmt, dash_dcc):
     # Create app.
     app = dash.Dash(__name__)
     app.layout = html.Div(
-        [
-            html.Button("Click me", id="btn"),
-            dcc.Download(id="download"),
-        ]
+        [html.Button("Click me", id="btn"), dcc.Download(id="download")]
     )
 
     @app.callback(Output("download", "data"), [Input("btn", "n_clicks")])
     def download(n_clicks):
         # For csv and html, the index must be removed to preserve the structure.
         if fmt in ["csv", "html", "excel"]:
-            return dcx.send_data_frame(writer, filename, index=False)
+            return dcc.send_data_frame(writer, filename, index=False)
         # For csv and html, the index must be removed to preserve the structure.
         if fmt in ["stata"]:
-            a = dcx.send_data_frame(writer, filename, write_index=False)
+            a = dcc.send_data_frame(writer, filename, write_index=False)
             return a
         # For other formats, no modifications are needed.
-        return dcx.send_data_frame(writer, filename)
+        return dcc.send_data_frame(writer, filename)
 
     # Check that there is nothing before starting the app
     fp = os.path.join(dash_dcc.download_path, filename)

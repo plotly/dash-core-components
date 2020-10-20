@@ -2,7 +2,6 @@ import os
 import time
 import dash
 import dash_core_components as dcc
-import dash_core_components.express as dcx
 import dash_html_components as html
 
 from dash.dependencies import Input, Output
@@ -14,15 +13,12 @@ def test_download_file(dash_dcc):
     # Create app.
     app = dash.Dash(__name__)
     app.layout = html.Div(
-        [
-            dcc.Input(id="input", value=filename),
-            dcc.Download(id="download"),
-        ]
+        [dcc.Input(id="input", value=filename), dcc.Download(id="download")]
     )
 
     @app.callback(Output("download", "data"), [Input("input", "value")])
     def download(value):
-        return dcx.send_file(os.path.join(asset_folder, value))
+        return dcc.send_file(os.path.join(asset_folder, value))
 
     # Check that there is nothing before starting the app
     fp = os.path.join(dash_dcc.download_path, filename)
