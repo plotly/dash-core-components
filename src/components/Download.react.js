@@ -39,7 +39,7 @@ Download.propTypes = {
     /**
      * On change, a download is invoked.
      */
-    data: PropTypes.shape({
+    data: PropTypes.exact({
         /**
          * Suggested filename in the download dialogue.
          */
