@@ -105,9 +105,9 @@ jobs:
             # build html
             git clone --depth 1 https://github.com/plotly/dash-html-components.git
             cd dash-html-components && npm ci && npm run build
-            python setup.py sdist && mv dist/* ../packages && cd .. && ls -la packages
+            python setup.py sdist && mv dist/* ../packages && cd ..
             # build dcc
-            npm ci && npm run build && python setup.py sdist && mv dist/* ./packages
+            npm ci && npm run build && python setup.py sdist && mv dist/* ./packages && ls -la packages
       - persist_to_workspace:
           root: ~/project
           paths:
