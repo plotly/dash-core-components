@@ -111,15 +111,52 @@ def test_slsl005_slider_tooltip(dash_dcc):
                             tooltip={"always_visible": True, "placement": "top"},
                         ),
                         style=dict(height=100),
-                    )
-                ]
-                * 5,
+                    ),
+                    html.Div(
+                        dcc.Slider(
+                            min=0,
+                            max=100,
+                            value=65,
+                            tooltip={"always_visible": True, "placement": "top"},
+                        ),
+                        style=dict(height=100),
+                    ),
+                    html.Div(
+                        dcc.Slider(
+                            min=0,
+                            max=100,
+                            value=65,
+                            tooltip={"always_visible": True, "placement": "top"},
+                        ),
+                        style=dict(height=100),
+                    ),
+                    html.Div(
+                        dcc.Slider(
+                            min=0,
+                            max=100,
+                            value=65,
+                            tooltip={"always_visible": True, "placement": "top"},
+                        ),
+                        style=dict(height=100),
+                    ),
+                    html.Div(
+                        dcc.Slider(
+                            id="test-slider",
+                            min=0,
+                            max=100,
+                            value=65,
+                            tooltip={"always_visible": True, "placement": "top"},
+                        ),
+                        style=dict(height=100),
+                    ),
+                ],
                 style=dict(maxHeight=300, overflowX="scroll"),
             )
         ]
     )
 
     dash_dcc.start_server(app)
+    dash_dcc.wait_for_element("#test-slider")
     dash_dcc.percy_snapshot(
         "slider-make sure tooltips are only visible if parent slider is visible"
     )
