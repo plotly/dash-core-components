@@ -97,7 +97,11 @@ export default class Slider extends Component {
                             setProps({value});
                         }
                     }}
-                    tipProps={tipProps}
+                    tipProps={{
+                        ...tipProps,
+                        getTooltipContainer: node => node
+                    }}
+                    style={{position:'relative'}}
                     value={value}
                     marks={truncatedMarks}
                     {...omit(
