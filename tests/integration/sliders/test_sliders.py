@@ -96,20 +96,30 @@ def test_slsl004_out_of_range_marks_rangeslider(dash_dcc):
 
     assert len(dash_dcc.find_elements("span.rc-slider-mark-text")) == 6
 
+
 def test_slsl005_slider_tooltip(dash_dcc):
     app = dash.Dash(__name__)
-    app.layout = html.Div([
-        html.Div([
-            html.Div(dcc.Slider(
-                min=0,
-                max=100,
-                value=65,
-                tooltip={'always_visible':True, 'placement':'top'}
-            ),
-            style=dict(height=100))
-        ]*5,
-        style=dict(maxHeight=300, overflowX='scroll'))
-    ])
+    app.layout = html.Div(
+        [
+            html.Div(
+                [
+                    html.Div(
+                        dcc.Slider(
+                            min=0,
+                            max=100,
+                            value=65,
+                            tooltip={"always_visible": True, "placement": "top"},
+                        ),
+                        style=dict(height=100),
+                    )
+                ]
+                * 5,
+                style=dict(maxHeight=300, overflowX="scroll"),
+            )
+        ]
+    )
 
     dash_dcc.start_server(app)
-    dash_dcc.percy_snapshot("slider-make sure tooltips are only visible if parent slider is visible")
+    dash_dcc.percy_snapshot(
+        "slider-make sure tooltips are only visible if parent slider is visible"
+    )
