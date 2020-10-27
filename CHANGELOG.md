@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Updated
 - [#878](https://github.com/plotly/dash-core-components/pull/878)
-  - used the `getTooltipContainter` prop of dcc.Slider to make sure tooltips are positioned correctly when the parent slider is not visible due to it being in a HTML element with an `overflow-x` style, fixing [#751](https://github.com/plotly/dash-core-components/issues/751)
+  - Fixed [#751](https://github.com/plotly/dash-core-components/issues/751), a bug that causes `dcc.Slider` and `dcc.RangerSlider` tooltips to be visible even if the slider component isn't visible (e.g. overflow),
 - [#875](https://github.com/plotly/dash-core-components/pull/875)
   - Upgraded Plotly.js to [1.57.1](https://github.com/plotly/plotly.js/releases/tag/v1.57.1)
     - Patch release [1.57.1](https://github.com/plotly/plotly.js/releases/tag/v1.57.1)
