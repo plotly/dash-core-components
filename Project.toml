@@ -2,7 +2,7 @@
 name = "DashCoreComponents"
 uuid = "1b08a953-4be3-4667-9a23-9da06441d987"
 authors = ["Chris Parmer <chris@plotly.com>"]
-version = "1.12.1"
+version = "1.13.0"
 
 [deps]
 DashBase = "03207cf0-e2b3-4b91-9ca8-690cf0fb507e"
