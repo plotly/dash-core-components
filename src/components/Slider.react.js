@@ -49,6 +49,11 @@ Slider.propTypes = {
     value: PropTypes.number,
 
     /**
+     * The value of the input during a drag
+     */
+    drag_value: PropTypes.number,
+
+    /**
      * Additional CSS class for the root DOM node
      */
     className: PropTypes.string,
