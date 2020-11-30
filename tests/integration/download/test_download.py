@@ -18,7 +18,7 @@ def test_download_text(dash_dcc):
 
     @app.callback(Output("download", "data"), [Input("content", "data")])
     def download(content):
-        return dict(filename=filename, content=content)
+        return dcc.send_string(content, filename)
 
     # Check that there is nothing before starting the app
     fp = os.path.join(dash_dcc.download_path, filename)

@@ -17,33 +17,49 @@ def send_file(path, filename=None, type=None):
     # If filename is not set, read it from the path.
     if filename is None:
         filename = ntpath.basename(path)
-    # Read the file into a base64 string.
+    # Read the file contents and send it.
     with open(path, "rb") as f:
-        content = base64.b64encode(f.read()).decode()
-    # Wrap in dict.
-    return dict(content=content, filename=filename, type=type, base64=True)
+        return send_bytes(f.read(), filename, type)
 
 
-def send_bytes(writer, filename, type=None, **kwargs):
+def send_bytes(src, filename, type=None, **kwargs):
     """
     Convert data written to BytesIO into the format expected by the Download component.
-    :param writer: a writer that can write to BytesIO
+    :param src: array of bytes or a writer that can write to BytesIO
     :param filename: the name of the file
     :param type: type of the file (optional, passed to Blob in the javascript layer)
     :return: dict of data frame content (base64 encoded) and meta data used by the Download component
     """
-    return _send_data_io(io.BytesIO(), False, writer, filename, type, **kwargs)
+    content = src if isinstance(src, bytes) else _io_to_str(io.BytesIO(), src, **kwargs)
+    return dict(
+        content=base64.b64encode(content).decode(),
+        filename=filename,
+        type=type,
+        base64=True,
+    )
 
 
-def send_string(writer, filename, type=None, **kwargs):
+def send_string(src, filename, type=None, **kwargs):
     """
     Convert data written to StringIO into the format expected by the Download component.
-    :param writer: a writer that can write to StringIO
+    :param src: a string or a writer that can write to StringIO
     :param filename: the name of the file
     :param type: type of the file (optional, passed to Blob in the javascript layer)
-    :return: dict of data frame content (base64 encoded) and meta data used by the Download component
+    :return: dict of data frame content (NOT base64 encoded) and meta data used by the Download component
     """
-    return _send_data_io(io.StringIO(), True, writer, filename, type, **kwargs)
+    content = src if isinstance(src, str) else _io_to_str(io.StringIO(), src, **kwargs)
+    return dict(content=content, filename=filename, type=type, base64=False)
+
+
+def _io_to_str(data_io, writer, **kwargs):
+    # Some pandas writers try to close the IO, we do not want that.
+    data_io_close = data_io.close
+    data_io.close = lambda: None
+    # Write data content.
+    writer(data_io, **kwargs)
+    data_value = data_io.getvalue()
+    data_io_close()
+    return data_value
 
 
 def send_data_frame(writer, filename, type=None, **kwargs):
@@ -76,26 +92,11 @@ def send_data_frame(writer, filename, type=None, **kwargs):
     return _data_frame_senders[name](writer, filename, type, **kwargs)
 
 
-def _send_data_io(data_io, encode, writer, filename, type, **kwargs):
-    # Some pandas writers try to close the IO, we do not want that.
-    data_io_close = data_io.close
-    data_io.close = lambda: None
-    # Write data content.
-    writer(data_io, **kwargs)
-    data_value = data_io.getvalue()
-    if encode:
-        data_value = data_value.encode()
-    data_io_close()
-    content = base64.b64encode(data_value).decode()
-    # Wrap in dict.
-    return dict(content=content, filename=filename, type=type, base64=True)
-
-
 _data_frame_senders = {
     "to_csv": send_string,
     "to_json": send_string,
     "to_html": send_string,
-    "to_excel": send_bytes,
+    "to_excel": send_string,
     "to_feather": send_bytes,
     "to_parquet": send_bytes,
     "to_msgpack": send_bytes,
