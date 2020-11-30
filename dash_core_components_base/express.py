@@ -96,7 +96,7 @@ _data_frame_senders = {
     "to_csv": send_string,
     "to_json": send_string,
     "to_html": send_string,
-    "to_excel": send_string,
+    "to_excel": send_bytes,
     "to_feather": send_bytes,
     "to_parquet": send_bytes,
     "to_msgpack": send_bytes,
