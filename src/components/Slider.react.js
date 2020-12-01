@@ -141,7 +141,7 @@ Slider.propTypes = {
     updatemode: PropTypes.oneOf(['mouseup', 'drag']),
 
     /**
-     * Dash-assigned callback that gets fired when the value changes.
+     * Dash-assigned callback that gets fired when the value or drag_value changes.
      */
     setProps: PropTypes.func,
 

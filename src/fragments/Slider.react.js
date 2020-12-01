@@ -23,6 +23,7 @@ export default class Slider extends Component {
             value: props.value,
             drag_value: props.value,
         };
+        this.props.setProps({drag_value: props.value});
     }
 
     propsToState(newProps) {
@@ -117,6 +118,7 @@ export default class Slider extends Component {
                             'setProps',
                             'updatemode',
                             'value',
+                            'drag_value',
                             'marks',
                             'verticalHeight',
                         ],
