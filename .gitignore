@@ -1,9 +1,6 @@
 .build_cache/
 build/
 dist/
-lib/
-lib/bundle.js*
-Project.toml
 coverage/
 node_modules/
 .npm
@@ -15,14 +12,4 @@ venv/
 *.log
 .idea/
 .DS_Store
-
-/build
-/dash_core_components
 dash_core_components_base/plotly.min.js
-/deps
-/inst
-/man
-/R
-/src/*.jl
-DESCRIPTION
-NAMESPACE
