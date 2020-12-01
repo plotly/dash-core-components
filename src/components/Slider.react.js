@@ -130,13 +130,13 @@ Slider.propTypes = {
     verticalHeight: PropTypes.number,
 
     /**
-     * Determines when the component should update
-     * its value. If `mouseup`, then the slider
-     * will only trigger its value when the user has
-     * finished dragging the slider. If `drag`, then
-     * the slider will update its value continuously
-     * as it is being dragged.
-     * Only use `drag` if your updates are fast.
+     * Determines when the component should update its `value`
+     * property. If `mouseup` (the default) then the slider
+     * will only trigger its value when the user has finished
+     * dragging the slider. If `drag`, then the slider will
+     * update its value continuously as it is being dragged.
+     * Note that for the latter case, the `drag_value`
+     * property could be used instead.
      */
     updatemode: PropTypes.oneOf(['mouseup', 'drag']),
 
