@@ -149,7 +149,7 @@ RangeSlider.propTypes = {
      */
     verticalHeight: PropTypes.number,
 
-     /**
+    /**
      * Determines when the component should update its `value`
      * property. If `mouseup` (the default) then the slider
      * will only trigger its value when the user has finished
