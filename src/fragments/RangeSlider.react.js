@@ -17,12 +17,14 @@ export default class RangeSlider extends Component {
         this._computeStyle = computeSliderStyle();
         this.state = {
             value: props.value,
+            drag_value: props.value,
         };
+        this.props.setProps({drag_value: props.value});
     }
 
     propsToState(newProps) {
         if (newProps.value !== this.props.value) {
-            this.setState({value: newProps.value});
+            this.setState({value: newProps.value, drag_value: newProps.value});
         }
     }
 
@@ -84,9 +86,10 @@ export default class RangeSlider extends Component {
                 <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
-                            setProps({value});
+                            setProps({value: value, drag_value: value});
                         } else {
-                            this.setState({value});
+                            this.setState({value: value});
+                            setProps({drag_value: value});
                         }
                     }}
                     onAfterChange={value => {
@@ -101,6 +104,7 @@ export default class RangeSlider extends Component {
                         [
                             'className',
                             'value',
+                            'drag_value',
                             'setProps',
                             'marks',
                             'updatemode',

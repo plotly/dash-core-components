@@ -18,7 +18,6 @@ export default class Slider extends Component {
             ? createSliderWithTooltip(ReactSlider)
             : ReactSlider;
         this._computeStyle = computeSliderStyle();
-        this.drag_value = props.value;
         this.state = {
             value: props.value,
             drag_value: props.value,
