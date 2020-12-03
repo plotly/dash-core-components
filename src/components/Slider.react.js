@@ -135,8 +135,9 @@ Slider.propTypes = {
      * will only trigger its value when the user has finished
      * dragging the slider. If `drag`, then the slider will
      * update its value continuously as it is being dragged.
-     * Note that for the latter case, the `drag_value`
-     * property could be used instead.
+     * If you want different actions during and after drag,
+     * leave `updatemode` as `mouseup` and use `drag_value`
+     * for the continuously updating value.
      */
     updatemode: PropTypes.oneOf(['mouseup', 'drag']),
 
