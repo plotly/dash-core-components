@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.14.0] - 2020-12-07
+### Updated
+- [#889](https://github.com/plotly/dash-core-components/pull/889) & [#893](https://github.com/plotly/dash-core-components/pull/893)
+  - Upgraded Plotly.js to [1.58.1](https://github.com/plotly/plotly.js/releases/tag/v1.58.1)
+    - Patch Release [1.58.1](https://github.com/plotly/plotly.js/releases/tag/v1.58.1)
+    - [Feature release of Plotly.js 1.58.0](https://github.com/plotly/plotly.js/releases/tag/v1.58.0) which:
+      - Add `ticklabelposition` attribute to cartesian axes and colorbars [#5275](https://github.com/plotly/plotly.js/pull/5275)
+      - Add "strict" `autotypenumbers` to axes and `layout` [#5240](https://github.com/plotly/plotly.js/pull/5240)
+      - Add `itemwidth` to legends [#5212](https://github.com/plotly/plotly.js/pull/5212)
+      - Add `root.color` attribute to `sunburst` and `treemap` traces [#5232](https://github.com/plotly/plotly.js/pull/5232), [#5245](https://github.com/plotly/plotly.js/pull/5245)
+      - Enable fast image rendering for all linear axes [#5307](https://github.com/plotly/plotly.js/pull/5307)
+      - Rework matches and scaleanchor so they work together [#5287](https://github.com/plotly/plotly.js/pull/5287)
+
 ## [1.13.0] - 2020-10-29
 ### Added
 - [#871](https://github.com/plotly/dash-core-components/pull/871) Add Julia syntax highlighting support for dcc.Markdown
