@@ -1,6 +1,7 @@
 .build_cache/
 build/
 dist/
+lib/*.jl
 coverage/
 node_modules/
 .npm
