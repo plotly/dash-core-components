@@ -165,15 +165,19 @@ def test_slsl005_slider_tooltip(dash_dcc):
 def test_slsl006_drag_value_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
-        [dcc.Slider(id="slider", min=0, max=20, step=1, value=5,), html.Div(id="out"),]
+        [dcc.Slider(id="slider", min=0, max=20, step=1, value=5), html.Div(id="out")]
     )
+
+    @app.callback(Output("out", "children"), [Input("slider", "value")])
+    def update_output(value):
+        return "You have selected {}".format(value)
 
     @app.callback(Output("out", "children"), [Input("slider", "drag_value")])
     def update_output(value):
         return "You have dragged {}".format(value)
 
     dash_dcc.start_server(app)
-    dash_dcc.wait_for_text_to_equal("#out", "You have dragged 5")
+    dash_dcc.wait_for_text_to_equal("#out", "You have selected 5")
 
     slider = dash_dcc.find_element("#slider")
     dash_dcc.click_and_hold_at_coord_fractions(slider, 0.5, 0.25)
@@ -182,6 +186,7 @@ def test_slsl006_drag_value_slider(dash_dcc):
     dash_dcc.move_to_coord_fractions(slider, 0.25, 0.25)
     dash_dcc.wait_for_text_to_equal("#out", "You have dragged 5")
     dash_dcc.release()
+    dash_dcc.wait_for_text_to_equal("#out", "You have selected 5")
 
 
 def test_slsl007_drag_value_rangeslider(dash_dcc):
