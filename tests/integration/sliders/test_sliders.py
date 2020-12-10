@@ -165,7 +165,10 @@ def test_slsl005_slider_tooltip(dash_dcc):
 def test_slsl006_drag_value_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
-        [dcc.Slider(id="slider", min=0, max=20, step=1, value=5), html.Div(id="out")]
+        [
+            dcc.Slider(id="slider", min=0, max=20, step=1, value=5),
+            html.Div(id="out", children="init"),
+        ]
     )
 
     @app.callback(Output("out", "children"), [Input("slider", "drag_value")])
@@ -173,6 +176,7 @@ def test_slsl006_drag_value_slider(dash_dcc):
         return "You have dragged {}".format(value)
 
     dash_dcc.start_server(app)
+    dash_dcc.wait_for_text_to_equal("#out", "init")
 
     slider = dash_dcc.find_element("#slider")
     dash_dcc.click_and_hold_at_coord_fractions(slider, 0.25, 0.25)
