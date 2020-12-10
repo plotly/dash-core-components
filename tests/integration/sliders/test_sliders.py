@@ -166,8 +166,15 @@ def test_slsl006_drag_value_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
-            dcc.Slider(id="slider", min=0, max=20, step=1, value=5),
-            html.Div(id="out", children="init"),
+            dcc.Slider(
+                id="slider",
+                min=0,
+                max=20,
+                step=1,
+                value=5,
+                tooltip={"always_visible": True},
+            ),
+            html.Div(id="out"),
         ]
     )
 
