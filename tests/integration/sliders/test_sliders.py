@@ -193,6 +193,5 @@ def test_slsl006_drag_value_slider(dash_dcc):
     dash_dcc.release()
 
 
-
 def test_slsl007_drag_value_rangeslider(dash_dcc):
     pass  # todo: xx
