@@ -10,22 +10,11 @@ import {propTypes, defaultProps} from '../components/RangeSlider.react';
 export default class RangeSlider extends Component {
     constructor(props) {
         super(props);
-        this.propsToState = this.propsToState.bind(this);
         this.DashSlider = props.tooltip
             ? createSliderWithTooltip(Range)
             : Range;
         this._computeStyle = computeSliderStyle();
-        this.state = {
-            value: props.value,
-            drag_value: props.value,
-        };
-        this.props.setProps({drag_value: props.value});
-    }
-
-    propsToState(newProps) {
-        if (newProps.value !== this.props.value) {
-            this.setState({value: newProps.value, drag_value: newProps.value});
-        }
+        this.state = {value: props.value};
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -34,11 +23,17 @@ export default class RangeSlider extends Component {
                 ? createSliderWithTooltip(Range)
                 : Range;
         }
-        this.propsToState(newProps);
+        if (newProps.value !== this.props.value) {
+            this.props.setProps({drag_value: newProps.value});
+            this.setState({value: newProps.value});
+        }
     }
 
     UNSAFE_componentWillMount() {
-        this.propsToState(this.props);
+        if (this.props.value !== null) {
+            this.props.setProps({drag_value: this.props.value});
+            this.setState({value: this.props.value});
+        }
     }
 
     render() {
