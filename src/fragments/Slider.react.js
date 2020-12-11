@@ -17,9 +17,7 @@ export default class Slider extends Component {
             ? createSliderWithTooltip(ReactSlider)
             : ReactSlider;
         this._computeStyle = computeSliderStyle();
-        this.state = {
-            value: props.value
-        };
+        this.state = {value: props.value};
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -35,8 +33,10 @@ export default class Slider extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        this.props.setProps({drag_value: this.props.value});
-        this.setState({value: this.props.value});
+        if (this.props.value !== null) {
+            this.props.setProps({drag_value: this.props.value});
+            this.setState({value: this.props.value});
+        }
     }
 
     render() {

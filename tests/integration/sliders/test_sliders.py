@@ -189,7 +189,8 @@ def test_slsl006_drag_value_slider(dash_dcc):
 
     dash_dcc.start_server(app)
     dash_dcc.wait_for_text_to_equal("#out-value", "You have selected 5")
-    assert dash_dcc.find_element("#out-drag-value").text == "You have dragged 5"
+    #assert dash_dcc.find_element("#out-drag-value").text == "You have dragged 5"
+    dash_dcc.wait_for_text_to_equal("#out-drag-value", "You have dragged 5")
 
     slider = dash_dcc.find_element("#slider")
     dash_dcc.click_and_hold_at_coord_fractions(slider, 0.25, 0.25)
