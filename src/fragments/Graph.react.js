@@ -151,13 +151,12 @@ class PlotlyGraph extends Component {
         }
 
         const configClone = this.getConfig(config, responsive);
-        const layoutClone = this.getLayout(figure.layout, responsive);
 
         gd.classList.add('dash-graph--pending');
 
         return Plotly.react(gd, {
             data: figure.data,
-            layout: layoutClone,
+            layout: figure.layout,
             frames: figure.frames,
             config: configClone,
         }).then(() => {
