@@ -151,12 +151,13 @@ class PlotlyGraph extends Component {
         }
 
         const configClone = this.getConfig(config, responsive);
+        const layoutClone = this.getLayout(figure.layout, responsive);
 
         gd.classList.add('dash-graph--pending');
 
         return Plotly.react(gd, {
             data: figure.data,
-            layout: figure.layout,
+            layout: layoutClone,
             frames: figure.frames,
             config: configClone,
         }).then(() => {
@@ -225,8 +226,11 @@ class PlotlyGraph extends Component {
         if (!layout) {
             return layout;
         }
-
-        return mergeDeepRight(layout, this.getLayoutOverride(responsive));
+        let override = this.getLayoutOverride(responsive);
+        for (let key in override) {
+            layout[key] = override[key];
+        }
+        return layout;  // not really a clone
     }
 
     getConfigOverride(responsive) {
