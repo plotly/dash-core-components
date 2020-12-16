@@ -226,8 +226,23 @@ class PlotlyGraph extends Component {
         if (!layout) {
             return layout;
         }
-        let override = this.getLayoutOverride(responsive);
-        for (let key in override) {
+        const override = this.getLayoutOverride(responsive);
+        const prev_layout = this.gd.current.layout;  // === this.props.figure.layout
+        const prev_override_originals = (this.state && this.state.override_originals) || {};
+        // Store the original data that we're about to override
+        const override_originals = {};
+        for (const key in override) {
+            override_originals[key] = layout[key];
+        }
+        this.setState({override_originals: override_originals});
+        // Undo the previous override, but only for keys that the user did not change
+        for (const key in prev_override_originals) {
+            if (layout[key] === prev_layout[key]) {
+                layout[key] = prev_override_originals[key];
+            }
+        }
+        // Apply the current override
+        for (const key in override) {
             layout[key] = override[key];
         }
         return layout;  // not really a clone
