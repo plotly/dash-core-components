@@ -2,6 +2,7 @@
 import pytest
 import time
 import json
+import plotly
 import dash
 from dash.dependencies import Input, Output, State
 import dash_html_components as html
@@ -658,3 +659,59 @@ def test_external_plotlyjs_prevents_lazy(dash_dcc):
     scripts = dash_dcc.driver.find_elements(By.CSS_SELECTOR, "script")
     assert findSyncPlotlyJs(scripts) is None
     assert findAsyncPlotlyJs(scripts) is None
+
+
+def test_shapes_not_lost(dash_dcc):
+    # See issue #879
+    app = dash.Dash(__name__)
+
+    fig = plotly.graph_objects.Figure(data=[])
+    fig.update_layout(dragmode="drawrect")
+    graph = dcc.Graph(id="graph", figure=fig)
+    graph.config = {"modeBarButtonsToAdd": ["drawrect"]}
+
+    app.layout = html.Div(
+        [
+            graph,
+            html.Br(),
+            html.Button(id='button', children="Clone figure"),
+            html.Div(id='output', children=""),
+        ]
+    )
+
+    app.clientside_callback(
+        """function clone_figure(_, figure) {
+            let new_figure = {...figure};
+            let shapes = new_figure.layout.shapes || [];
+            return [new_figure, shapes.length];
+        }
+        """,
+        [Output("graph", "figure"), Output("output", "children")],
+        [Input("button", "n_clicks")],
+        [State("graph", "figure")],
+    )
+
+    dash_dcc.start_server(app)
+    button = dash_dcc.wait_for_element("#button")
+    output = dash_dcc.wait_for_element("#output")
+    time.sleep(1)
+
+    # Draw a shape
+    dash_dcc.click_and_hold_at_coord_fractions("#graph", 0.25, 0.25)
+    dash_dcc.move_to_coord_fractions("#graph", 0.35, 0.75)
+    dash_dcc.release()
+
+    # Click to trigger an update of the output, the shape should survive
+    dash_dcc.wait_for_text_to_equal("#output", "0")
+    button.click()
+    dash_dcc.wait_for_text_to_equal("#output", "1")
+
+    # Draw another shape
+    dash_dcc.click_and_hold_at_coord_fractions("#graph", 0.75, 0.25)
+    dash_dcc.move_to_coord_fractions("#graph", 0.85, 0.75)
+    dash_dcc.release()
+
+    # Click to trigger an update of the output, the shape should survive
+    dash_dcc.wait_for_text_to_equal("#output", "1")
+    button.click()
+    dash_dcc.wait_for_text_to_equal("#output", "2")
