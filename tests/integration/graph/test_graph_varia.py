@@ -2,7 +2,6 @@
 import pytest
 import time
 import json
-import plotly
 import dash
 from dash.dependencies import Input, Output, State
 import dash_html_components as html
@@ -665,17 +664,15 @@ def test_shapes_not_lost(dash_dcc):
     # See issue #879
     app = dash.Dash(__name__)
 
-    fig = plotly.graph_objects.Figure(data=[])
-    fig.update_layout(dragmode="drawrect")
+    fig = {"data": [], "layout": {"dragmode": "drawrect"}}
     graph = dcc.Graph(id="graph", figure=fig)
-    graph.config = {"modeBarButtonsToAdd": ["drawrect"]}
 
     app.layout = html.Div(
         [
             graph,
             html.Br(),
-            html.Button(id='button', children="Clone figure"),
-            html.Div(id='output', children=""),
+            html.Button(id="button", children="Clone figure"),
+            html.Div(id="output", children=""),
         ]
     )
 
