@@ -690,7 +690,6 @@ def test_shapes_not_lost(dash_dcc):
 
     dash_dcc.start_server(app)
     button = dash_dcc.wait_for_element("#button")
-    output = dash_dcc.wait_for_element("#output")
     time.sleep(1)
 
     # Draw a shape
