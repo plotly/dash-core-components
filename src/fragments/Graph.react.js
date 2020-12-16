@@ -227,8 +227,9 @@ class PlotlyGraph extends Component {
             return layout;
         }
         const override = this.getLayoutOverride(responsive);
-        const prev_layout = this.gd.current.layout;  // === this.props.figure.layout
-        const prev_override_originals = (this.state && this.state.override_originals) || {};
+        const prev_layout = this.gd.current.layout; // === this.props.figure.layout
+        const prev_override_originals =
+            (this.state && this.state.override_originals) || {};
         // Store the original data that we're about to override
         const override_originals = {};
         for (const key in override) {
@@ -245,7 +246,7 @@ class PlotlyGraph extends Component {
         for (const key in override) {
             layout[key] = override[key];
         }
-        return layout;  // not really a clone
+        return layout; // not really a clone
     }
 
     getConfigOverride(responsive) {
