@@ -661,7 +661,7 @@ def test_external_plotlyjs_prevents_lazy(dash_dcc):
 
 
 def test_shapes_not_lost(dash_dcc):
-    # See issue #879
+    # See issue #879 and pr #905
     app = dash.Dash(__name__)
 
     fig = {"data": [], "layout": {"dragmode": "drawrect"}}
@@ -711,3 +711,62 @@ def test_shapes_not_lost(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#output", "1")
     button.click()
     dash_dcc.wait_for_text_to_equal("#output", "2")
+
+
+def test_originals_maintained_for_responsive_override(dash_dcc):
+    # In #905 we made changes to prevent shapes from being lost.
+    # This test makes sure that the overrides applied by the `responsive`
+    # prop are "undone" when the `responsive` prop changes.
+
+    app = dash.Dash(__name__)
+
+    fig = {"data": [], "layout": {"autosize": None, "width": 300, "height": 300}}
+    graph = dcc.Graph(id="graph", figure=fig)
+
+    app.layout = html.Div(
+        [
+            graph,
+            html.Br(),
+            html.Button(id="button", children="Clone figure"),
+            html.Div(id="output", children=""),
+        ]
+    )
+
+    # Each time that the button is pressed we change responsive mode.
+    # It goes from null (default), to true, false, and back to null.
+    app.clientside_callback(
+        """function clone_figure(_, figure) {
+            let new_figure = {...figure};
+            let index = window.internal_state_905 || 0;
+            window.internal_state_905 = index + 1;
+        let responsive = [true, false, null, null][index];
+        return [new_figure, responsive, figure.layout.autosize + ' ' + figure.layout.width];
+        }
+        """,
+        [
+            Output("graph", "figure"),
+            Output("graph", "responsive"),
+            Output("output", "children"),
+        ],
+        [Input("button", "n_clicks")],
+        [State("graph", "figure")],
+    )
+
+    dash_dcc.start_server(app)
+    button = dash_dcc.wait_for_element("#button")
+    time.sleep(1)
+
+    # Draw a shape
+    dash_dcc.release()
+
+    # Initial values of autosize and width
+    dash_dcc.wait_for_text_to_equal("#output", "null 300")
+    button.click()
+    # Values for responsive is true
+    dash_dcc.wait_for_text_to_equal("#output", "true undefined")
+    button.click()
+    # Values for responsive is false
+    dash_dcc.wait_for_text_to_equal("#output", "false 300")
+    button.click()
+    # Values for responsive is null
+    dash_dcc.wait_for_text_to_equal("#output", "null 300")
