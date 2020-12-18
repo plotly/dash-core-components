@@ -690,7 +690,7 @@ def test_shapes_not_lost(dash_dcc):
 
     dash_dcc.start_server(app)
     button = dash_dcc.wait_for_element("#button")
-    time.sleep(1)
+    dash_dcc.wait_for_text_to_equal("#output", "0")
 
     # Draw a shape
     dash_dcc.click_and_hold_at_coord_fractions("#graph", 0.25, 0.25)
@@ -754,19 +754,15 @@ def test_originals_maintained_for_responsive_override(dash_dcc):
 
     dash_dcc.start_server(app)
     button = dash_dcc.wait_for_element("#button")
-    time.sleep(1)
-
-    # Draw a shape
-    dash_dcc.release()
 
     # Initial values of autosize and width
     dash_dcc.wait_for_text_to_equal("#output", "null 300")
-    button.click()
     # Values for responsive is true
+    button.click()
     dash_dcc.wait_for_text_to_equal("#output", "true undefined")
-    button.click()
     # Values for responsive is false
-    dash_dcc.wait_for_text_to_equal("#output", "false 300")
     button.click()
+    dash_dcc.wait_for_text_to_equal("#output", "false 300")
     # Values for responsive is null
+    button.click()
     dash_dcc.wait_for_text_to_equal("#output", "null 300")
