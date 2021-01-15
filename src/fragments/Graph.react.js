@@ -131,6 +131,8 @@ class PlotlyGraph extends Component {
         this.getLayoutOverride = this.getLayoutOverride.bind(this);
         this.graphResize = this.graphResize.bind(this);
         this.isResponsive = this.isResponsive.bind(this);
+
+        this.state = {override: {}, originals: {}};
     }
 
     plot(props) {
@@ -227,8 +229,7 @@ class PlotlyGraph extends Component {
             return layout;
         }
         const override = this.getLayoutOverride(responsive);
-        const prev_override = (this.state && this.state.override) || {};
-        const prev_originals = (this.state && this.state.originals) || {};
+        const {override: prev_override, originals: prev_originals} = this.state;
         // Store the original data that we're about to override
         const originals = {};
         for (const key in override) {
@@ -238,7 +239,7 @@ class PlotlyGraph extends Component {
                 originals[key] = prev_originals[key];
             }
         }
-        this.setState({override: override, originals: originals});
+        this.setState({override, originals});
         // Undo the previous override, but only for keys that the user did not change
         for (const key in prev_originals) {
             if (layout[key] === prev_override[key]) {
