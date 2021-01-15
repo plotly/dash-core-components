@@ -25,7 +25,7 @@ def findAsyncPlotlyJs(scripts):
 
 
 @pytest.mark.parametrize("is_eager", [True, False])
-def test_candlestick(dash_dcc, is_eager):
+def test_grva001_candlestick(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
     app.layout = html.Div(
         [
@@ -75,7 +75,7 @@ def test_candlestick(dash_dcc, is_eager):
 
 
 @pytest.mark.parametrize("is_eager", [True, False])
-def test_graphs_with_different_figures(dash_dcc, is_eager):
+def test_grva002_graphs_with_different_figures(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
     app.layout = html.Div(
         [
@@ -160,7 +160,7 @@ def test_graphs_with_different_figures(dash_dcc, is_eager):
 
 
 @pytest.mark.parametrize("is_eager", [True, False])
-def test_empty_graph(dash_dcc, is_eager):
+def test_grva003_empty_graph(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
 
     app.layout = html.Div(
@@ -193,7 +193,7 @@ def test_empty_graph(dash_dcc, is_eager):
 
 
 @pytest.mark.parametrize("is_eager", [True, False])
-def test_graph_prepend_trace(dash_dcc, is_eager):
+def test_grva004_graph_prepend_trace(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
 
     def generate_with_id(id, data=None):
@@ -358,7 +358,7 @@ def test_graph_prepend_trace(dash_dcc, is_eager):
 
 
 @pytest.mark.parametrize("is_eager", [True, False])
-def test_graph_extend_trace(dash_dcc, is_eager):
+def test_grva005_graph_extend_trace(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
 
     def generate_with_id(id, data=None):
@@ -521,7 +521,7 @@ def test_graph_extend_trace(dash_dcc, is_eager):
 
 
 @pytest.mark.parametrize("is_eager", [True, False])
-def test_unmounted_graph_resize(dash_dcc, is_eager):
+def test_grva006_unmounted_graph_resize(dash_dcc, is_eager):
     app = dash.Dash(__name__, eager_loading=is_eager)
 
     app.layout = html.Div(
@@ -619,7 +619,7 @@ def test_unmounted_graph_resize(dash_dcc, is_eager):
     dash_dcc.driver.set_window_size(window_size["width"], window_size["height"])
 
 
-def test_external_plotlyjs_prevents_lazy(dash_dcc):
+def test_grva007_external_plotlyjs_prevents_lazy(dash_dcc):
     app = dash.Dash(
         __name__,
         eager_loading=False,
@@ -660,7 +660,7 @@ def test_external_plotlyjs_prevents_lazy(dash_dcc):
     assert findAsyncPlotlyJs(scripts) is None
 
 
-def test_shapes_not_lost(dash_dcc):
+def test_grva008_shapes_not_lost(dash_dcc):
     # See issue #879 and pr #905
     app = dash.Dash(__name__)
 
@@ -713,7 +713,7 @@ def test_shapes_not_lost(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#output", "2")
 
 
-def test_originals_maintained_for_responsive_override(dash_dcc):
+def test_grva009_originals_maintained_for_responsive_override(dash_dcc):
     # In #905 we made changes to prevent shapes from being lost.
     # This test makes sure that the overrides applied by the `responsive`
     # prop are "undone" when the `responsive` prop changes.
