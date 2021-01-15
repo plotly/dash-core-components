@@ -679,8 +679,8 @@ def test_grva008_shapes_not_lost(dash_dcc):
     app.clientside_callback(
         """
         function clone_figure(_, figure) {
-            let new_figure = {...figure};
-            let shapes = new_figure.layout.shapes || [];
+            const new_figure = {...figure};
+            const shapes = new_figure.layout.shapes || [];
             return [new_figure, shapes.length];
         }
         """,
@@ -715,59 +715,111 @@ def test_grva008_shapes_not_lost(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#output", "2")
 
 
-def test_grva009_originals_maintained_for_responsive_override(dash_dcc):
+@pytest.mark.parametrize("mutate_fig", [True, False])
+def test_grva009_originals_maintained_for_responsive_override(mutate_fig, dash_dcc):
     # In #905 we made changes to prevent shapes from being lost.
     # This test makes sure that the overrides applied by the `responsive`
     # prop are "undone" when the `responsive` prop changes.
 
     app = dash.Dash(__name__)
 
-    fig = {"data": [], "layout": {"autosize": None, "width": 300, "height": 300}}
-    graph = dcc.Graph(id="graph", figure=fig, style={"height": "400px"})
+    graph = dcc.Graph(
+        id="graph",
+        figure={"data": [{"y": [1, 2]}], "layout": {"width": 300, "height": 250}},
+        style={"height": "400px", "width": "500px"},
+    )
+    responsive_size = [500, 400]
+    fixed_size = [300, 250]
 
     app.layout = html.Div(
         [
             graph,
             html.Br(),
-            html.Button(id="button", children="Clone figure"),
+            html.Button(id="edit_figure", children="Edit figure"),
+            html.Button(id="edit_responsive", children="Edit responsive"),
             html.Div(id="output", children=""),
         ]
     )
 
-    # Each time that the button is pressed we change responsive mode.
-    # It goes from null (default), to true, false, and back to null.
-    app.clientside_callback(
+    if mutate_fig:
+        # Modify the layout in place (which still has changes made by responsive)
+        change_fig = """
+            figure.layout.title = {text: String(n_fig || 0)};
+            const new_figure = {...figure};
         """
-        function clone_figure(_, figure) {
-            let new_figure = {...figure};
-            let index = window.internal_state_905 || 0;
-            window.internal_state_905 = index + 1;
-            let responsive = [true, false, null, null][index];
-            return [
-                new_figure,
-                responsive,
-                figure.layout.autosize + ' ' + figure.layout.width
-            ];
+    else:
+        # Or create a new one each time
+        change_fig = """
+            const new_figure = {
+                data: [{y: [1, 2]}],
+                layout: {width: 300, height: 250, title: {text: String(n_fig || 0)}}
+            };
+        """
+
+    callback = (
+        """
+        function clone_figure(n_fig, n_resp, figure) {
+        """
+        + change_fig
+        + """
+            let responsive = [true, false, 'auto'][(n_resp || 0) % 3];
+            return [new_figure, responsive, (n_fig || 0) + ' ' + responsive];
         }
-        """,
+        """
+    )
+
+    app.clientside_callback(
+        callback,
         Output("graph", "figure"),
         Output("graph", "responsive"),
         Output("output", "children"),
-        Input("button", "n_clicks"),
+        Input("edit_figure", "n_clicks"),
+        Input("edit_responsive", "n_clicks"),
         State("graph", "figure"),
     )
 
     dash_dcc.start_server(app)
-    button = dash_dcc.wait_for_element("#button")
+    edit_figure = dash_dcc.wait_for_element("#edit_figure")
+    edit_responsive = dash_dcc.wait_for_element("#edit_responsive")
 
-    # Initial values of autosize and width
-    dash_dcc.wait_for_text_to_equal("#output", "null 300")
-    # Values for responsive is true
-    button.click()
-    dash_dcc.wait_for_text_to_equal("#output", "true undefined")
-    # Values for responsive is false
-    button.click()
-    dash_dcc.wait_for_text_to_equal("#output", "false 300")
-    # Values for responsive is null
-    button.click()
-    dash_dcc.wait_for_text_to_equal("#output", "null 300")
+    def graph_dims():
+        return dash_dcc.driver.execute_script(
+            """
+            const layout = document.querySelector('.js-plotly-plot')._fullLayout;
+            return [layout.width, layout.height];
+            """
+        )
+
+    dash_dcc.wait_for_text_to_equal("#output", "0 true")
+    dash_dcc.wait_for_text_to_equal(".gtitle", "0")
+    assert graph_dims() == responsive_size
+
+    edit_figure.click()
+    dash_dcc.wait_for_text_to_equal("#output", "1 true")
+    dash_dcc.wait_for_text_to_equal(".gtitle", "1")
+    assert graph_dims() == responsive_size
+
+    edit_responsive.click()
+    dash_dcc.wait_for_text_to_equal("#output", "1 false")
+    dash_dcc.wait_for_text_to_equal(".gtitle", "1")
+    assert graph_dims() == fixed_size
+
+    edit_figure.click()
+    dash_dcc.wait_for_text_to_equal("#output", "2 false")
+    dash_dcc.wait_for_text_to_equal(".gtitle", "2")
+    assert graph_dims() == fixed_size
+
+    edit_responsive.click()
+    dash_dcc.wait_for_text_to_equal("#output", "2 auto")
+    dash_dcc.wait_for_text_to_equal(".gtitle", "2")
+    assert graph_dims() == fixed_size
+
+    edit_figure.click()
+    dash_dcc.wait_for_text_to_equal("#output", "3 auto")
+    dash_dcc.wait_for_text_to_equal(".gtitle", "3")
+    assert graph_dims() == fixed_size
+
+    edit_responsive.click()
+    dash_dcc.wait_for_text_to_equal("#output", "3 true")
+    dash_dcc.wait_for_text_to_equal(".gtitle", "3")
+    assert graph_dims() == responsive_size
