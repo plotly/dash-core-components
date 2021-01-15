@@ -665,7 +665,7 @@ def test_grva008_shapes_not_lost(dash_dcc):
     app = dash.Dash(__name__)
 
     fig = {"data": [], "layout": {"dragmode": "drawrect"}}
-    graph = dcc.Graph(id="graph", figure=fig)
+    graph = dcc.Graph(id="graph", figure=fig, style={"height": "400px"})
 
     app.layout = html.Div(
         [
@@ -677,15 +677,17 @@ def test_grva008_shapes_not_lost(dash_dcc):
     )
 
     app.clientside_callback(
-        """function clone_figure(_, figure) {
+        """
+        function clone_figure(_, figure) {
             let new_figure = {...figure};
             let shapes = new_figure.layout.shapes || [];
             return [new_figure, shapes.length];
         }
         """,
-        [Output("graph", "figure"), Output("output", "children")],
-        [Input("button", "n_clicks")],
-        [State("graph", "figure")],
+        Output("graph", "figure"),
+        Output("output", "children"),
+        Input("button", "n_clicks"),
+        State("graph", "figure"),
     )
 
     dash_dcc.start_server(app)
@@ -721,7 +723,7 @@ def test_grva009_originals_maintained_for_responsive_override(dash_dcc):
     app = dash.Dash(__name__)
 
     fig = {"data": [], "layout": {"autosize": None, "width": 300, "height": 300}}
-    graph = dcc.Graph(id="graph", figure=fig)
+    graph = dcc.Graph(id="graph", figure=fig, style={"height": "400px"})
 
     app.layout = html.Div(
         [
@@ -735,21 +737,24 @@ def test_grva009_originals_maintained_for_responsive_override(dash_dcc):
     # Each time that the button is pressed we change responsive mode.
     # It goes from null (default), to true, false, and back to null.
     app.clientside_callback(
-        """function clone_figure(_, figure) {
+        """
+        function clone_figure(_, figure) {
             let new_figure = {...figure};
             let index = window.internal_state_905 || 0;
             window.internal_state_905 = index + 1;
-        let responsive = [true, false, null, null][index];
-        return [new_figure, responsive, figure.layout.autosize + ' ' + figure.layout.width];
+            let responsive = [true, false, null, null][index];
+            return [
+                new_figure,
+                responsive,
+                figure.layout.autosize + ' ' + figure.layout.width
+            ];
         }
         """,
-        [
-            Output("graph", "figure"),
-            Output("graph", "responsive"),
-            Output("output", "children"),
-        ],
-        [Input("button", "n_clicks")],
-        [State("graph", "figure")],
+        Output("graph", "figure"),
+        Output("graph", "responsive"),
+        Output("output", "children"),
+        Input("button", "n_clicks"),
+        State("graph", "figure"),
     )
 
     dash_dcc.start_server(app)
