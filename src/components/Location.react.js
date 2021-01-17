@@ -133,13 +133,13 @@ Location.propTypes = {
      */
     id: PropTypes.string.isRequired,
 
-    /** pathname in window.location - e.g., "/my/full/pathname" */
+    /** pathname in window.location - e.g., '/my/full/pathname' */
     pathname: PropTypes.string,
-    /** search in window.location - e.g., "?myargument=1" */
+    /** search in window.location - e.g., '?myargument=1' */
     search: PropTypes.string,
-    /** hash in window.location - e.g., "#myhash" */
+    /** hash in window.location - e.g., '#myhash' */
     hash: PropTypes.string,
-    /** href in window.location - e.g., "/my/full/pathname?myargument=1#myhash" */
+    /** href in window.location - e.g., '/my/full/pathname?myargument=1#myhash' */
     href: PropTypes.string,
 
     /** Refresh the page when the location is updated? */
