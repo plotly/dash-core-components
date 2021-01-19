@@ -3627,6 +3627,16 @@
         "required": false,
         "description": "The value of the input"
       },
+      "drag_value": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "number"
+          }
+        },
+        "required": false,
+        "description": "The value of the input during a drag"
+      },
       "allowCross": {
         "type": {
           "name": "bool"
@@ -3791,7 +3801,7 @@
           ]
         },
         "required": false,
-        "description": "Determines when the component should update\nits value. If `mouseup`, then the slider\nwill only trigger its value when the user has\nfinished dragging the slider. If `drag`, then\nthe slider will update its value continuously\nas it is being dragged.\nOnly use `drag` if your updates are fast.",
+        "description": "Determines when the component should update its `value`\nproperty. If `mouseup` (the default) then the slider\nwill only trigger its value when the user has finished\ndragging the slider. If `drag`, then the slider will\nupdate its value continuously as it is being dragged.\nNote that for the latter case, the `drag_value`\nproperty could be used instead.",
         "defaultValue": {
           "value": "'mouseup'",
           "computed": false
@@ -3802,7 +3812,7 @@
           "name": "func"
         },
         "required": false,
-        "description": "Dash-assigned callback that gets fired when the value changes."
+        "description": "Dash-assigned callback that gets fired when the value or drag_value changes."
       },
       "loading_state": {
         "type": {
@@ -3940,6 +3950,13 @@
         "required": false,
         "description": "The value of the input"
       },
+      "drag_value": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The value of the input during a drag"
+      },
       "className": {
         "type": {
           "name": "string"
@@ -4075,7 +4092,7 @@
           ]
         },
         "required": false,
-        "description": "Determines when the component should update\nits value. If `mouseup`, then the slider\nwill only trigger its value when the user has\nfinished dragging the slider. If `drag`, then\nthe slider will update its value continuously\nas it is being dragged.\nOnly use `drag` if your updates are fast.",
+        "description": "Determines when the component should update its `value`\nproperty. If `mouseup` (the default) then the slider\nwill only trigger its value when the user has finished\ndragging the slider. If `drag`, then the slider will\nupdate its value continuously as it is being dragged.\nIf you want different actions during and after drag,\nleave `updatemode` as `mouseup` and use `drag_value`\nfor the continuously updating value.",
         "defaultValue": {
           "value": "'mouseup'",
           "computed": false
@@ -4086,7 +4103,7 @@
           "name": "func"
         },
         "required": false,
-        "description": "Dash-assigned callback that gets fired when the value changes."
+        "description": "Dash-assigned callback that gets fired when the value or drag_value changes."
       },
       "loading_state": {
         "type": {

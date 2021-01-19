@@ -10,11 +10,12 @@ A slider component with a single handle.
 }
 
 \usage{
-dccSlider(id=NULL, marks=NULL, value=NULL, className=NULL,
-disabled=NULL, dots=NULL, included=NULL, min=NULL, max=NULL,
-tooltip=NULL, step=NULL, vertical=NULL, verticalHeight=NULL,
-updatemode=NULL, loading_state=NULL, persistence=NULL,
-persisted_props=NULL, persistence_type=NULL)
+dccSlider(id=NULL, marks=NULL, value=NULL, drag_value=NULL,
+className=NULL, disabled=NULL, dots=NULL, included=NULL,
+min=NULL, max=NULL, tooltip=NULL, step=NULL, vertical=NULL,
+verticalHeight=NULL, updatemode=NULL, loading_state=NULL,
+persistence=NULL, persisted_props=NULL,
+persistence_type=NULL)
 }
 
 \arguments{
@@ -33,6 +34,8 @@ the value should be an object which
 contains style and label properties.}
 
 \item{value}{Numeric. The value of the input}
+
+\item{drag_value}{Numeric. The value of the input during a drag}
 
 \item{className}{Character. Additional CSS class for the root DOM node}
 
@@ -64,13 +67,14 @@ will in reality appear to be on the top right of the handle. Configuration for t
 
 \item{verticalHeight}{Numeric. The height, in px, of the slider if it is vertical.}
 
-\item{updatemode}{A value equal to: 'mouseup', 'drag'. Determines when the component should update
-its value. If `mouseup`, then the slider
-will only trigger its value when the user has
-finished dragging the slider. If `drag`, then
-the slider will update its value continuously
-as it is being dragged.
-Only use `drag` if your updates are fast.}
+\item{updatemode}{A value equal to: 'mouseup', 'drag'. Determines when the component should update its `value`
+property. If `mouseup` (the default) then the slider
+will only trigger its value when the user has finished
+dragging the slider. If `drag`, then the slider will
+update its value continuously as it is being dragged.
+If you want different actions during and after drag,
+leave `updatemode` as `mouseup` and use `drag_value`
+for the continuously updating value.}
 
 \item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.
 those elements have the following types:

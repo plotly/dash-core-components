@@ -21,6 +21,7 @@ Those elements have the following types:
   - `label` (String; optional)
   - `style` (Dict; optional)
 - `value` (Real; optional): The value of the input
+- `drag_value` (Real; optional): The value of the input during a drag
 - `className` (String; optional): Additional CSS class for the root DOM node
 - `disabled` (Bool; optional): If true, the handles can't be moved.
 - `dots` (Bool; optional): When the step value is greater than 1,
@@ -41,13 +42,14 @@ will in reality appear to be on the top right of the handle
 - `step` (Real; optional): Value by which increments or decrements are made
 - `vertical` (Bool; optional): If true, the slider will be vertical
 - `verticalHeight` (Real; optional): The height, in px, of the slider if it is vertical.
-- `updatemode` (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
-its value. If `mouseup`, then the slider
-will only trigger its value when the user has
-finished dragging the slider. If `drag`, then
-the slider will update its value continuously
-as it is being dragged.
-Only use `drag` if your updates are fast.
+- `updatemode` (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update its `value`
+property. If `mouseup` (the default) then the slider
+will only trigger its value when the user has finished
+dragging the slider. If `drag`, then the slider will
+update its value continuously as it is being dragged.
+If you want different actions during and after drag,
+leave `updatemode` as `mouseup` and use `drag_value`
+for the continuously updating value.
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not
@@ -68,7 +70,7 @@ local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.
 """
 function dcc_slider(; kwargs...)
-        available_props = Symbol[:id, :marks, :value, :className, :disabled, :dots, :included, :min, :max, :tooltip, :step, :vertical, :verticalHeight, :updatemode, :loading_state, :persistence, :persisted_props, :persistence_type]
+        available_props = Symbol[:id, :marks, :value, :drag_value, :className, :disabled, :dots, :included, :min, :max, :tooltip, :step, :vertical, :verticalHeight, :updatemode, :loading_state, :persistence, :persisted_props, :persistence_type]
         wild_props = Symbol[]
         return Component("dcc_slider", "Slider", "dash_core_components", available_props, wild_props; kwargs...)
 end
