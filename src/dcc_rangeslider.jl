@@ -22,6 +22,7 @@ Those elements have the following types:
   - `label` (String; optional)
   - `style` (Dict; optional)
 - `value` (Array of Reals; optional): The value of the input
+- `drag_value` (Array of Reals; optional): The value of the input during a drag
 - `allowCross` (Bool; optional): allowCross could be set as true to allow those handles to cross.
 - `className` (String; optional): Additional CSS class for the root DOM node
 - `count` (Real; optional): Determine how many ranges to render, and multiple handles
@@ -49,13 +50,13 @@ will in reality appear to be on the top right of the handle
 - `step` (Real; optional): Value by which increments or decrements are made
 - `vertical` (Bool; optional): If true, the slider will be vertical
 - `verticalHeight` (Real; optional): The height, in px, of the slider if it is vertical.
-- `updatemode` (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update
-its value. If `mouseup`, then the slider
-will only trigger its value when the user has
-finished dragging the slider. If `drag`, then
-the slider will update its value continuously
-as it is being dragged.
-Only use `drag` if your updates are fast.
+- `updatemode` (a value equal to: 'mouseup', 'drag'; optional): Determines when the component should update its `value`
+property. If `mouseup` (the default) then the slider
+will only trigger its value when the user has finished
+dragging the slider. If `drag`, then the slider will
+update its value continuously as it is being dragged.
+Note that for the latter case, the `drag_value`
+property could be used instead.
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not
@@ -76,7 +77,7 @@ local: window.localStorage, data is kept after the browser quit.
 session: window.sessionStorage, data is cleared once the browser quit.
 """
 function dcc_rangeslider(; kwargs...)
-        available_props = Symbol[:id, :marks, :value, :allowCross, :className, :count, :disabled, :dots, :included, :min, :max, :pushable, :tooltip, :step, :vertical, :verticalHeight, :updatemode, :loading_state, :persistence, :persisted_props, :persistence_type]
+        available_props = Symbol[:id, :marks, :value, :drag_value, :allowCross, :className, :count, :disabled, :dots, :included, :min, :max, :pushable, :tooltip, :step, :vertical, :verticalHeight, :updatemode, :loading_state, :persistence, :persisted_props, :persistence_type]
         wild_props = Symbol[]
         return Component("dcc_rangeslider", "RangeSlider", "dash_core_components", available_props, wild_props; kwargs...)
 end
