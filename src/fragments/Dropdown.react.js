@@ -8,6 +8,8 @@ import '../components/css/Dropdown.css';
 
 import {propTypes, defaultProps} from '../components/Dropdown.react';
 
+// inputProps={{ ...inputProps, autoComplete: 'off', autoCorrect: 'off', spellCheck: 'off' }}
+
 // Custom tokenizer, see https://github.com/bvaughn/js-search/issues/43
 // Split on spaces
 const REGEX = /\s+/;
@@ -54,6 +56,8 @@ export default class Dropdown extends Component {
             style,
             loading_state,
             value,
+            inputProps,
+            autoComplete,
         } = this.props;
         const {filterOptions} = this.state;
         let selectedValue;
@@ -97,6 +101,7 @@ export default class Dropdown extends Component {
                     onInputChange={search_value => setProps({search_value})}
                     backspaceRemoves={clearable}
                     deleteRemoves={clearable}
+                    inputProps={{...inputProps, autoComplete: autoComplete}}
                     {...omit(['setProps', 'value'], this.props)}
                 />
             </div>

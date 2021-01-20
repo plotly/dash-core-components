@@ -33,6 +33,11 @@ Dropdown.propTypes = {
     id: PropTypes.string,
 
     /**
+     * This attribute indicates whether the value of the dropdown can be automatically completed by the browser.
+     */
+    autoComplete: PropTypes.string,
+
+    /**
      * An array of options {label: [string|number], value: [string|number]},
      * an optional disabled field can be used for each option
      */
@@ -183,6 +188,7 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+    autoComplete: 'off',
     clearable: true,
     disabled: false,
     multi: false,
