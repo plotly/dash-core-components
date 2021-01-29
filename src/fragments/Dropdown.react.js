@@ -54,6 +54,7 @@ export default class Dropdown extends Component {
             style,
             loading_state,
             value,
+            inputProps,
         } = this.props;
         const {filterOptions} = this.state;
         let selectedValue;
@@ -97,6 +98,7 @@ export default class Dropdown extends Component {
                     onInputChange={search_value => setProps({search_value})}
                     backspaceRemoves={clearable}
                     deleteRemoves={clearable}
+                    inputProps={{...inputProps, autoComplete: 'off'}}
                     {...omit(['setProps', 'value'], this.props)}
                 />
             </div>
