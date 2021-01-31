@@ -54,7 +54,6 @@ export default class Dropdown extends Component {
             style,
             loading_state,
             value,
-            inputProps,
         } = this.props;
         const {filterOptions} = this.state;
         let selectedValue;
