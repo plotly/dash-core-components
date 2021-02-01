@@ -2,13 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [UNRELEASED]
+## [1.15.0] - 2021-01-19
 ### Fixed
-- [#903](https://github.com/plotly/dash-core-components/pull/903) - part of fixing dash import bug https://github.com/plotly/dash/issues/1143
+- [#905](https://github.com/plotly/dash-core-components/pull/905) Make sure the `figure` prop of `dcc.Graph` receives updates from user interactions in the graph, by using the same `layout` object as provided in the prop rather than cloning it. Fixes [#879](https://github.com/plotly/dash-core-components/issues/879).
+- [#903](https://github.com/plotly/dash-core-components/pull/903) Part of fixing dash import bug https://github.com/plotly/dash/issues/1143
 
 ### Updated
-- [#906](https://github.com/plotly/dash-core-components/pull/906)
+- [#911](https://github.com/plotly/dash-core-components/pull/911), [#906](https://github.com/plotly/dash-core-components/pull/906)
+  - Upgraded Plotly.js to [1.58.4](https://github.com/plotly/plotly.js/releases/tag/v1.58.4)
+    - Patch Release [1.58.4](https://github.com/plotly/plotly.js/releases/tag/v1.58.4)
     - Patch Release [1.58.3](https://github.com/plotly/plotly.js/releases/tag/v1.58.3)
+
+### Added
+- [#888](https://github.com/plotly/dash-core-components/pull/888) Adds a `drag_value` prop to `dcc.Slider`to be able to fire callbacks from dragging and releasing the slider.
 
 ## [1.14.1] - 2020-12-09
 ### Updated
