@@ -2,7 +2,68 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## UNRELEASED
+
+### Changed
+- [#923](https://github.com/plotly/dash-core-components/pull/923)
+  Set autoComplete to off in `dcc.Dropdown`. This fixes [#808](https://github.com/plotly/dash-core-components/issues/808)
+
+## [1.15.0] - 2021-01-19
+### Fixed
+- [#905](https://github.com/plotly/dash-core-components/pull/905) Make sure the `figure` prop of `dcc.Graph` receives updates from user interactions in the graph, by using the same `layout` object as provided in the prop rather than cloning it. Fixes [#879](https://github.com/plotly/dash-core-components/issues/879).
+- [#903](https://github.com/plotly/dash-core-components/pull/903) Part of fixing dash import bug https://github.com/plotly/dash/issues/1143
+
+### Updated
+- [#911](https://github.com/plotly/dash-core-components/pull/911), [#906](https://github.com/plotly/dash-core-components/pull/906)
+  - Upgraded Plotly.js to [1.58.4](https://github.com/plotly/plotly.js/releases/tag/v1.58.4)
+    - Patch Release [1.58.4](https://github.com/plotly/plotly.js/releases/tag/v1.58.4)
+    - Patch Release [1.58.3](https://github.com/plotly/plotly.js/releases/tag/v1.58.3)
+
+### Added
+- [#888](https://github.com/plotly/dash-core-components/pull/888) Adds a `drag_value` prop to `dcc.Slider`to be able to fire callbacks from dragging and releasing the slider.
+
+## [1.14.1] - 2020-12-09
+### Updated
+- [#898](https://github.com/plotly/dash-core-components/pull/898)
+    - Patch Release [1.58.2](https://github.com/plotly/plotly.js/releases/tag/v1.58.2)
+
+## [1.14.0] - 2020-12-07
+### Updated
+- [#889](https://github.com/plotly/dash-core-components/pull/889), [#893](https://github.com/plotly/dash-core-components/pull/893)
+  - Upgraded Plotly.js to [1.58.1](https://github.com/plotly/plotly.js/releases/tag/v1.58.1)
+    - Patch Release [1.58.1](https://github.com/plotly/plotly.js/releases/tag/v1.58.1)
+    - [Feature release of Plotly.js 1.58.0](https://github.com/plotly/plotly.js/releases/tag/v1.58.0) which:
+      - Add `ticklabelposition` attribute to cartesian axes and colorbars [#5275](https://github.com/plotly/plotly.js/pull/5275)
+      - Add "strict" `autotypenumbers` to axes and `layout` [#5240](https://github.com/plotly/plotly.js/pull/5240)
+      - Add `itemwidth` to legends [#5212](https://github.com/plotly/plotly.js/pull/5212)
+      - Add `root.color` attribute to `sunburst` and `treemap` traces [#5232](https://github.com/plotly/plotly.js/pull/5232), [#5245](https://github.com/plotly/plotly.js/pull/5245)
+      - Enable fast image rendering for all linear axes [#5307](https://github.com/plotly/plotly.js/pull/5307)
+      - Rework matches and scaleanchor so they work together [#5287](https://github.com/plotly/plotly.js/pull/5287)
+
+## [1.13.0] - 2020-10-29
+### Added
+- [#871](https://github.com/plotly/dash-core-components/pull/871) Add Julia syntax highlighting support for dcc.Markdown
+
+### Fixed
+- [#878](https://github.com/plotly/dash-core-components/pull/878)
+  - Fixed [#751](https://github.com/plotly/dash-core-components/issues/751), a bug that causes `dcc.Slider` and `dcc.RangerSlider` tooltips to be visible even if the slider component isn't visible (e.g. overflow),
+
+### Updated
+- [#875](https://github.com/plotly/dash-core-components/pull/875)
+  - Upgraded Plotly.js to [1.57.1](https://github.com/plotly/plotly.js/releases/tag/v1.57.1)
+    - Patch release [1.57.1](https://github.com/plotly/plotly.js/releases/tag/v1.57.1)
+    - [Feature release of Plotly.js 1.57.0](https://github.com/plotly/plotly.js/releases/tag/v1.57.0) which:
+      - Add "domain" axis references in layout `images`, `shapes` and `annotations` [#5014](https://github.com/plotly/plotly.js/pull/5014)
+      - Add `rotation` attribute to `sunburst` traces [#5171](https://github.com/plotly/plotly.js/pull/5171), [#5201](https://github.com/plotly/plotly.js/pull/5201)
+      - Add computed margins in "full-json" export [#5203](https://github.com/plotly/plotly.js/pull/5203)
+    - [Feature release of Plotly.js 1.56.0](https://github.com/plotly/plotly.js/releases/tag/v1.56.0) which:
+        - Introduce period positioning attributes on date axes in various cartesian traces [#5074](https://github.com/plotly/plotly.js/pull/5074), [#5175](https://github.com/plotly/plotly.js/pull/5175)
+        - Add minexponent attribute to improve control over SI prefixes in axis tick labels [#5121](https://github.com/plotly/plotly.js/pull/5121),
+        - Add sort attribute to sunburst and treemap traces to disable automatic sort [#5164](https://github.com/plotly/plotly.js/pull/5164)
+        - Handle rgba colors in colorscale of surface traces [#5166](https://github.com/plotly/plotly.js/pull/5166)
+    - Patch release [1.55.2](https://github.com/plotly/plotly.js/releases/tag/v1.55.2)
+
+## [1.12.1] - 2020-09-16
 ### Fixed
 - [#854](https://github.com/plotly/dash-core-components/pull/854) Used `persistenceTransforms` to strip the time part of the datetime in the persited props of DatePickerSingle (date) and DatePickerRange (end_date, start_date), fixing [dcc#700](https://github.com/plotly/dash-core-components/issues/700).
 
@@ -10,6 +71,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [#863](https://github.com/plotly/dash-core-components/pull/863) Added new `Download` component.
 - [#850](https://github.com/plotly/dash-core-components/pull/850) Add property `prependData` to `Graph` to support `Plotly.prependTraces`
   + refactored the existing `extendTraces` API to be a single `mergeTraces` API that can handle both `prepend` as well as `extend`.
+
+### Updated
+- [#864](https://github.com/plotly/dash-core-components/pull/864) Upgraded Plotly.js to [1.55.2](https://github.com/plotly/plotly.js/releases/tag/v1.55.2)
 
 ## [1.12.0] - 2020-09-03
 ### Updated
@@ -959,7 +1023,7 @@ LIMIT 10;
 ## [0.6.0] - 2017-07-18
 ### Added
 - The `Slider` and the `RangeSlider` component can update when the user finishes dragging the slider rather than just while they drag. The default behaviour has remained the same (updates while dragging) but you can toggle that the updates only get fired on "mouse up" by setting `updatemode` to `'mouseup'` (`'drag'` is the default).
-- A `Link` and `Location` were added. `Location` represents the address bar of the web browser and `Link` provides a way to modify the address bar without refreshing the page. Combined, these two components can be used to create a "single page app" with multiple URLs. That is, apps that have mulitple URLs but surfing between the different pages doesn't trigger a full page refresh like it would with traditional links.
+- A `Link` and `Location` were added. `Location` represents the address bar of the web browser and `Link` provides a way to modify the address bar without refreshing the page. Combined, these two components can be used to create a "single page app" with multiple URLs. That is, apps that have multiple URLs but surfing between the different pages doesn't trigger a full page refresh like it would with traditional links.
 - Previously, if callback functions weren't supplied to a component, it wouldn't update. This caused a lot of confusion: users would create a simple layout without any callbacks and then wonder why the sliders wouldn't slide or the text inputs wouldn't update. Now, all of the components manage their own state and their appearance will update regardless of whether Dash has assigned a callback to them.
 
 ## [0.5.3] - 2017-07-03
