@@ -7,7 +7,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 
-def test_download_text(dash_dcc):
+def test_dltx001_download_text(dash_dcc):
     text = "Hello, world!"
     filename = "hello.txt"
     # Create app.

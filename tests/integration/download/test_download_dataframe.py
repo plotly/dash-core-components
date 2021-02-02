@@ -13,7 +13,7 @@ from dash.dependencies import Input, Output
 @pytest.mark.parametrize(
     "fmt", ("csv", "json", "html", "feather", "parquet", "stata", "pickle")
 )
-def test_download_dataframe(fmt, dash_dcc):
+def test_dldf001_download_dataframe(fmt, dash_dcc):
     df = pd.DataFrame({"a": [1, 2, 3, 4], "b": [2, 1, 5, 6], "c": ["x", "x", "y", "y"]})
     reader = getattr(pd, "read_{}".format(fmt))  # e.g. read_csv
     writer = getattr(df, "to_{}".format(fmt))  # e.g. to_csv

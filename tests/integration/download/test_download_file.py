@@ -7,7 +7,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 
-def test_download_file(dash_dcc):
+def test_dlfi001_download_file(dash_dcc):
     filename = "Lenna.jpeg"
     asset_folder = os.path.join(os.path.dirname(__file__), "download-assets")
     # Create app.
