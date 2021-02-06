@@ -1,10 +1,11 @@
 import os
-import time
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 
 from dash.dependencies import Input, Output
+
+from dash.testing.wait import until
 
 
 def test_dlfi001_download_file(dash_dcc):
@@ -25,8 +26,9 @@ def test_dlfi001_download_file(dash_dcc):
     assert not os.path.isfile(fp)
     # Run the app.
     dash_dcc.start_server(app)
-    time.sleep(0.5)
+
     # Check that a file has been download, and that it's content matches the original.
+    until(lambda: os.path.exists(fp), 5)
     with open(fp, "rb") as f:
         content = f.read()
     with open(os.path.join(asset_folder, filename), "rb") as f:

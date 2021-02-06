@@ -1,10 +1,11 @@
 import os
-import time
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 
 from dash.dependencies import Input, Output
+
+from dash.testing.wait import until
 
 
 def test_dltx001_download_text(dash_dcc):
@@ -25,8 +26,9 @@ def test_dltx001_download_text(dash_dcc):
     assert not os.path.isfile(fp)
     # Run the app.
     dash_dcc.start_server(app)
-    time.sleep(0.5)
+
     # Check that a file has been download, and that it's content matches the original text.
+    until(lambda: os.path.exists(fp), 5)
     with open(fp, "r") as f:
         content = f.read()
     assert content == text

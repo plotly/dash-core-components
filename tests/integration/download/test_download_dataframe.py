@@ -1,5 +1,4 @@
 import os
-import time
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -8,6 +7,8 @@ import pandas as pd
 import numpy as np
 
 from dash.dependencies import Input, Output
+
+from dash.testing.wait import until
 
 
 @pytest.mark.parametrize(
@@ -41,8 +42,9 @@ def test_dldf001_download_dataframe(fmt, dash_dcc):
     assert not os.path.isfile(fp)
     # Run the app.
     dash_dcc.start_server(app)
-    time.sleep(0.5)
+
     # Check that a file has been download, and that it's content matches the original data frame.
+    until(lambda: os.path.exists(fp), 5)
     df_download = reader(fp)
     if isinstance(df_download, list):
         df_download = df_download[0]
