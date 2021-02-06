@@ -12,23 +12,23 @@ def test_dlfi001_download_file(dash_dcc):
     filename = "Lenna.jpeg"
     asset_folder = os.path.join(os.path.dirname(__file__), "download-assets")
     # Create app.
-    app = dash.Dash(__name__)
-    app.layout = html.Div(
-        [dcc.Input(id="input", value=filename), dcc.Download(id="download")]
-    )
+    app = dash.Dash(__name__, prevent_initial_callbacks=True)
+    app.layout = html.Div([html.Button("Click", id="btn"), dcc.Download(id="download")])
 
-    @app.callback(Output("download", "data"), [Input("input", "value")])
-    def download(value):
-        return dcc.send_file(os.path.join(asset_folder, value))
+    @app.callback(Output("download", "data"), Input("btn", "n_clicks"))
+    def download(_):
+        return dcc.send_file(os.path.join(asset_folder, filename))
 
-    # Check that there is nothing before starting the app
-    fp = os.path.join(dash_dcc.download_path, filename)
-    assert not os.path.isfile(fp)
-    # Run the app.
     dash_dcc.start_server(app)
 
+    # Check that there is nothing before clicking
+    fp = os.path.join(dash_dcc.download_path, filename)
+    assert not os.path.isfile(fp)
+
+    dash_dcc.find_element("#btn").click()
+
     # Check that a file has been download, and that it's content matches the original.
-    until(lambda: os.path.exists(fp), 5)
+    until(lambda: os.path.exists(fp), 10)
     with open(fp, "rb") as f:
         content = f.read()
     with open(os.path.join(asset_folder, filename), "rb") as f:

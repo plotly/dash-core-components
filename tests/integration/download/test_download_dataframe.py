@@ -20,13 +20,13 @@ def test_dldf001_download_dataframe(fmt, dash_dcc):
     writer = getattr(df, "to_{}".format(fmt))  # e.g. to_csv
     filename = "df.{}".format(fmt)
     # Create app.
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, prevent_initial_callbacks=True)
     app.layout = html.Div(
         [html.Button("Click me", id="btn"), dcc.Download(id="download")]
     )
 
-    @app.callback(Output("download", "data"), [Input("btn", "n_clicks")])
-    def download(n_clicks):
+    @app.callback(Output("download", "data"), Input("btn", "n_clicks"))
+    def download(_):
         # For csv and html, the index must be removed to preserve the structure.
         if fmt in ["csv", "html", "excel"]:
             return dcc.send_data_frame(writer, filename, index=False)
@@ -37,14 +37,16 @@ def test_dldf001_download_dataframe(fmt, dash_dcc):
         # For other formats, no modifications are needed.
         return dcc.send_data_frame(writer, filename)
 
-    # Check that there is nothing before starting the app
-    fp = os.path.join(dash_dcc.download_path, filename)
-    assert not os.path.isfile(fp)
-    # Run the app.
     dash_dcc.start_server(app)
 
+    # Check that there is nothing before clicking
+    fp = os.path.join(dash_dcc.download_path, filename)
+    assert not os.path.isfile(fp)
+
+    dash_dcc.find_element("#btn").click()
+
     # Check that a file has been download, and that it's content matches the original data frame.
-    until(lambda: os.path.exists(fp), 5)
+    until(lambda: os.path.exists(fp), 10)
     df_download = reader(fp)
     if isinstance(df_download, list):
         df_download = df_download[0]
