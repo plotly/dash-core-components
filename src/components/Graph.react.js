@@ -180,6 +180,8 @@ PlotlyGraph.propTypes = {
 
     /**
      * Data from latest click annotation event. Read-only.
+     * In order for an annotation to be "clickable", set
+     *`captureevents=True` within the annotation object.
      */
     clickAnnotationData: PropTypes.object,
 
