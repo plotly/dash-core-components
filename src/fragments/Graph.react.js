@@ -332,6 +332,14 @@ class PlotlyGraph extends Component {
                 ['event', 'fullAnnotation'],
                 eventData
             );
+            if (this.props.clickAnnotationData) {
+                // Provide n_clicks so that multiple clicks on an annotation are triggered
+                clickAnnotationData.n_clicks = (
+                    parseInt(this.props.clickAnnotationData.n_clicks, 10) + 1
+                );
+            } else {
+                clickAnnotationData.n_clicks = 1;
+            }
             setProps({clickAnnotationData});
         });
         gd.on('plotly_hover', eventData => {
