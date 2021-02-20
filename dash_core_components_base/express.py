@@ -7,7 +7,7 @@ from functools import partial
 try:
     from StringIO import StringIO as _StringIO
     py2 = True
-except ModuleNotFoundError:
+except ImportError:
     _StringIO = io.StringIO
     py2 = False
 
