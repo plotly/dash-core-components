@@ -120,6 +120,11 @@ Slider.propTypes = {
     step: PropTypes.number,
 
     /**
+     * If true, the handles can't be moved.
+     */
+    syncedInput: PropTypes.bool,
+
+    /**
      * If true, the slider will be vertical
      */
     vertical: PropTypes.bool,

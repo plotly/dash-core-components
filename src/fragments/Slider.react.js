@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import {assoc, omit, pickBy} from 'ramda';
 import computeSliderStyle from '../utils/computeSliderStyle';
+import Input from '../components/Input.react.js'
 
 import 'rc-slider/assets/index.css';
 
@@ -47,6 +48,7 @@ export default class Slider extends Component {
             setProps,
             tooltip,
             updatemode,
+            syncedInput,
             vertical,
             verticalHeight,
         } = this.props;
@@ -103,7 +105,7 @@ export default class Slider extends Component {
                         ...tipProps,
                         getTooltipContainer: node => node,
                     }}
-                    style={{position: 'relative'}}
+                    style={{position: 'relative', float: 'left'}}
                     value={value}
                     marks={truncatedMarks}
                     {...omit(
@@ -118,7 +120,15 @@ export default class Slider extends Component {
                         ],
                         this.props
                     )}
-                />
+                >
+                </this.DashSlider>
+                {
+                    this.props.syncedInput ? (
+                        <Input
+                        value={value}
+                        />
+                    ) : null
+                }
             </div>
         );
     }
