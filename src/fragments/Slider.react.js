@@ -17,6 +17,7 @@ export default class Slider extends Component {
         this.DashSlider = props.tooltip
             ? createSliderWithTooltip(ReactSlider)
             : ReactSlider;
+        this.SyncedInput = Input
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
     }
@@ -49,10 +50,12 @@ export default class Slider extends Component {
             tooltip,
             updatemode,
             syncedInput,
+            step,
             vertical,
             verticalHeight,
         } = this.props;
         const value = this.state.value;
+        let debounce = true;
 
         let tipProps;
         if (tooltip && tooltip.always_visible) {
@@ -124,9 +127,25 @@ export default class Slider extends Component {
                 </this.DashSlider>
                 {
                     this.props.syncedInput ? (
-                        <Input
+                        <this.SyncedInput
+                        onChange={e => {
+                            e.preventDefault()
+                        }}
+                        onBlur={e => {
+                            this.setState({value: Number(e.target.value)});
+                            setProps({drag_value: Number(e.target.value)});
+                        }}
+                        onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                                this.setState({value: Number(e.target.value)});
+                                setProps({drag_value: Number(e.target.value)});
+                            }
+                        }}
+                        type="number"
                         value={value}
-                        />
+                        step={this.props.step}
+                        >
+                        </this.SyncedInput>
                     ) : null
                 }
             </div>
