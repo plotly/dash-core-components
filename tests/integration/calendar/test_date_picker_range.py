@@ -98,7 +98,7 @@ def test_dtpr004_max_and_min_dates_are_clickable(dash_dcc):
 
     dash_dcc.start_server(app)
 
-    dash_dcc.select_date_range('dps-initial-month', (10, 20))
+    dash_dcc.select_date_range("dps-initial-month", (10, 20))
 
     dash_dcc.wait_for_text_to_equal(
         '#dps-initial-month .DateInput_input.DateInput_input_1[placeholder="Start Date"]',
