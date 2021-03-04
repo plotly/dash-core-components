@@ -55,7 +55,6 @@ export default class Slider extends Component {
             verticalHeight,
         } = this.props;
         const value = this.state.value;
-        let debounce = true;
 
         let tipProps;
         if (tooltip && tooltip.always_visible) {
@@ -126,7 +125,7 @@ export default class Slider extends Component {
                 >
                 </this.DashSlider>
                 {
-                    this.props.syncedInput ? (
+                    syncedInput ? (
                         <this.SyncedInput
                         onChange={e => {
                             e.preventDefault()
@@ -143,7 +142,7 @@ export default class Slider extends Component {
                         }}
                         type="number"
                         value={value}
-                        step={this.props.step}
+                        step={step}
                         >
                         </this.SyncedInput>
                     ) : null
