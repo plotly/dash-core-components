@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import {assoc, omit, pickBy} from 'ramda';
 import computeSliderStyle from '../utils/computeSliderStyle';
-import Input from '../components/Input.react.js'
+import Input from '../components/Input.react.js';
 
 import 'rc-slider/assets/index.css';
 
@@ -17,7 +17,7 @@ export default class Slider extends Component {
         this.DashSlider = props.tooltip
             ? createSliderWithTooltip(ReactSlider)
             : ReactSlider;
-        this.SyncedInput = Input
+        this.SyncedInput = Input;
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
     }
@@ -122,13 +122,11 @@ export default class Slider extends Component {
                         ],
                         this.props
                     )}
-                >
-                </this.DashSlider>
-                {
-                    syncedInput ? (
-                        <this.SyncedInput
+                />
+                {syncedInput ? (
+                    <this.SyncedInput
                         onChange={e => {
-                            e.preventDefault()
+                            e.preventDefault();
                         }}
                         onBlur={e => {
                             this.setState({value: Number(e.target.value)});
@@ -143,10 +141,8 @@ export default class Slider extends Component {
                         type="number"
                         value={value}
                         step={step}
-                        >
-                        </this.SyncedInput>
-                    ) : null
-                }
+                    />
+                ) : null}
             </div>
         );
     }
