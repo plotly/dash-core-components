@@ -120,7 +120,7 @@ Slider.propTypes = {
     step: PropTypes.number,
 
     /**
-     * If true, the handles can't be moved.
+     * If true, display an Input component whose value is synced with the Slider's value.
      */
     syncedInput: PropTypes.bool,
 

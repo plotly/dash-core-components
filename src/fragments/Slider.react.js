@@ -8,6 +8,8 @@ import 'rc-slider/assets/index.css';
 
 import {propTypes, defaultProps} from '../components/Slider.react';
 
+const timeoutTime = 2000;
+
 /**
  * A slider component with a single handle.
  */
@@ -85,6 +87,45 @@ export default class Slider extends Component {
                 className={className}
                 style={this._computeStyle(vertical, verticalHeight, tooltip)}
             >
+                {syncedInput ? (
+                    <this.SyncedInput
+                        onChange={e => {
+                            e.persist();
+                            if (this.timeout) {
+                                clearTimeout(this.timeout);
+                            }
+                            this.timeout = setTimeout(
+                                function() {
+                                    this.setState({
+                                        value: Number(e.target.value),
+                                    });
+                                    setProps({
+                                        drag_value: Number(e.target.value),
+                                    });
+                                }.bind(this),
+                                timeoutTime
+                            );
+                        }}
+                        onBlur={e => {
+                            this.setState({value: Number(e.target.value)});
+                            setProps({drag_value: Number(e.target.value)});
+                        }}
+                        onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                                this.setState({value: Number(e.target.value)});
+                                setProps({drag_value: Number(e.target.value)});
+                            }
+                        }}
+                        type="number"
+                        value={value}
+                        step={step}
+                        style={{
+                            width: '15%',
+                            minWidth: '100px',
+                            marginRight: '30px',
+                        }}
+                    />
+                ) : null}
                 <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
@@ -107,7 +148,7 @@ export default class Slider extends Component {
                         ...tipProps,
                         getTooltipContainer: node => node,
                     }}
-                    style={{position: 'relative', float: 'left'}}
+                    style={{position: 'relative', float: 'left', width: '85%'}}
                     value={value}
                     marks={truncatedMarks}
                     {...omit(
@@ -123,26 +164,6 @@ export default class Slider extends Component {
                         this.props
                     )}
                 />
-                {syncedInput ? (
-                    <this.SyncedInput
-                        onChange={e => {
-                            e.preventDefault();
-                        }}
-                        onBlur={e => {
-                            this.setState({value: Number(e.target.value)});
-                            setProps({drag_value: Number(e.target.value)});
-                        }}
-                        onKeyPress={e => {
-                            if (e.key === 'Enter') {
-                                this.setState({value: Number(e.target.value)});
-                                setProps({drag_value: Number(e.target.value)});
-                            }
-                        }}
-                        type="number"
-                        value={value}
-                        step={step}
-                    />
-                ) : null}
             </div>
         );
     }

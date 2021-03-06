@@ -4,6 +4,8 @@ export default () => {
     return memoizeWith(identity, (vertical, verticalHeight, tooltip) => {
         const style = {
             padding: '25px',
+            display: 'flex',
+            alignItems: 'center',
         };
 
         if (vertical) {
