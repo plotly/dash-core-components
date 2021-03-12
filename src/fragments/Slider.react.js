@@ -148,7 +148,7 @@ export default class Slider extends Component {
                         ...tipProps,
                         getTooltipContainer: node => node,
                     }}
-                    style={{position: 'relative', float: 'left', width: '85%'}}
+                    style={{position: 'relative', float: 'left', width: syncedInput ? '85%' : '100%'}}
                     value={value}
                     marks={truncatedMarks}
                     {...omit(

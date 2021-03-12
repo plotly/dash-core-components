@@ -8,7 +8,13 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.layout = html.Div(
     [
         dcc.Slider(
-            id="my-slider", min=0, syncedInput=True, max=20, step=0.5, value=10,
+            id="my-slider",
+            min=0,
+            max=100,
+            syncedInput=True,
+            step=0.5,
+            value=10,
+            tooltip={"always_visible": True, "placement": "bottom"},
         ),
         html.Div(id="slider-output-container"),
     ]
