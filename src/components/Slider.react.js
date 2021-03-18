@@ -125,6 +125,16 @@ Slider.propTypes = {
     syncedInput: PropTypes.bool,
 
     /**
+     * The classname to be given to the synced Input component.
+     */
+     syncedInputClassName: PropTypes.string,
+
+     /**
+     * The amount of time the synced Input should wait before passing along state changes without a change of focus or the user pressing Enter. In milliseconds, default is 2000. 
+     */
+      syncedInputDebounceTime: PropTypes.number,
+
+    /**
      * If true, the slider will be vertical
      */
     vertical: PropTypes.bool,

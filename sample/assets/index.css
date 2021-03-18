@@ -1,0 +1,14 @@
+.syncedInput1{
+    box-shadow: 5px 10px #888888;
+    min-width: 10% !important;
+}
+
+.syncedInput2{
+    box-shadow: 5px 10px #888888;
+    min-width: 20% !important;
+}
+
+.syncedInput3{
+    box-shadow: 5px 10px #888888;
+    width: 50px !important;
+}

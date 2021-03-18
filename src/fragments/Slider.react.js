@@ -8,7 +8,7 @@ import 'rc-slider/assets/index.css';
 
 import {propTypes, defaultProps} from '../components/Slider.react';
 
-const timeoutTime = 2000;
+const defaultDebounceTimeout = 2000;
 
 /**
  * A slider component with a single handle.
@@ -52,6 +52,8 @@ export default class Slider extends Component {
             tooltip,
             updatemode,
             syncedInput,
+            syncedInputClassName,
+            syncedInputDebounceTime,
             step,
             vertical,
             verticalHeight,
@@ -103,7 +105,7 @@ export default class Slider extends Component {
                                         drag_value: Number(e.target.value),
                                     });
                                 }.bind(this),
-                                timeoutTime
+                                syncedInputDebounceTime ? syncedInputDebounceTime : defaultDebounceTimeout
                             );
                         }}
                         onBlur={e => {
@@ -119,9 +121,9 @@ export default class Slider extends Component {
                         type="number"
                         value={value}
                         step={step}
+                        className={syncedInputClassName}
                         style={{
-                            width: '15%',
-                            minWidth: '100px',
+                            minWidth: '1%',
                             marginRight: '30px',
                         }}
                     />
