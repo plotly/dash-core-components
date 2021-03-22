@@ -1,5 +1,4 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
 
@@ -28,12 +27,6 @@ module.exports = (env, argv) => {
         mode = 'production';
     }
 
-    let filename = (overrides.output || {}).filename;
-    if (!filename) {
-        const modeSuffix = mode === 'development' ? 'dev' : 'min';
-        filename = `${dashLibraryName}.${modeSuffix}.js`;
-    }
-
     const entry = overrides.entry || { main: './src/index.js' };
 
     const externals = ('externals' in overrides) ? overrides.externals : ({
@@ -45,10 +38,10 @@ module.exports = (env, argv) => {
     return {
         mode,
         entry,
+        target: ['web', 'es5'],
         output: {
             path: path.resolve(__dirname, dashLibraryName),
-            chunkFilename: '[name].js',
-            filename,
+            filename: '[name].js',
             library: dashLibraryName,
             libraryTarget: 'window',
         },
@@ -65,7 +58,7 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.jsx?$/,
-                    include: /node_modules[\\\/](react-jsx-parser|highlight[.]js)[\\\/]/,
+                    include: /node_modules[\\\/](react-jsx-parser|highlight[.]js|react-markdown|is-plain-obj)[\\\/]/,
                     use: {
                         loader: 'babel-loader',
                         options: {
@@ -100,19 +93,9 @@ module.exports = (env, argv) => {
             }
         },
         optimization: {
-            minimizer: [
-                new TerserPlugin({
-                    sourceMap: true,
-                    parallel: true,
-                    cache: './.build_cache/terser',
-                    terserOptions: {
-                        warnings: false,
-                        ie8: false
-                    }
-                })
-            ],
+            minimize: false,
             splitChunks: {
-                name: true,
+                name: '[name].js',
                 cacheGroups: {
                     async: {
                         chunks: 'async',

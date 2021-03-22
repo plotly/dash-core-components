@@ -250,22 +250,25 @@ export default class Tabs extends Component {
                         this.props.loading_state.is_loading) ||
                     undefined
                 }
-                className={`${tabParentClass} ${this.props.parent_className ||
-                    ''}`}
+                className={`${tabParentClass} ${
+                    this.props.parent_className || ''
+                }`}
                 style={this.props.parent_style}
                 id={`${this.props.id}-parent`}
             >
                 <div
-                    className={`${tabContainerClass} ${this.props.className ||
-                        ''}`}
+                    className={`${tabContainerClass} ${
+                        this.props.className || ''
+                    }`}
                     style={this.props.style}
                     id={this.props.id}
                 >
                     {EnhancedTabs}
                 </div>
                 <div
-                    className={`${tabContentClass} ${this.props
-                        .content_className || ''}`}
+                    className={`${tabContentClass} ${
+                        this.props.content_className || ''
+                    }`}
                     style={this.props.content_style}
                 >
                     {selectedTabContent || ''}
