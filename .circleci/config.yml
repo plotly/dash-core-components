@@ -21,8 +21,6 @@ jobs:
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
-      - restore_cache:
-          key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -30,10 +28,6 @@ jobs:
             python -m venv venv || virtualenv venv && . venv/bin/activate
             pip install --progress-bar off -e git+https://github.com/plotly/dash.git@dev#egg=dash[dev,testing]
             pip install --progress-bar off --no-cache-dir -r dev-requirements.txt
-      - save_cache:
-          key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
-          paths:
-              - venv
       - run:
           name: 🌸 Lint
           command: |
@@ -74,8 +68,6 @@ jobs:
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
-      - restore_cache:
-          key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -83,10 +75,6 @@ jobs:
             python -m venv venv || virtualenv venv && . venv/bin/activate
             set -eo pipefail
             pip install --progress-bar off --no-cache-dir -r dev-requirements.txt
-      - save_cache:
-          key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
-          paths:
-              - venv
       - run:
           name: 🏗️ build dash
           command: |
@@ -142,8 +130,6 @@ jobs:
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
-      - restore_cache:
-          key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
@@ -200,8 +186,6 @@ jobs:
     steps:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
-      - restore_cache:
-          key: dep-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
