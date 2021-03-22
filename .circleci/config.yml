@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep2-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -31,7 +31,7 @@ jobs:
             pip install --progress-bar off -e git+https://github.com/plotly/dash.git@dev#egg=dash[dev,testing]
             pip install --progress-bar off --no-cache-dir -r dev-requirements.txt
       - save_cache:
-          key: dep1-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep2-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
           paths:
               - venv
       - run:
@@ -75,7 +75,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep2-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - run:
           name: 🐍 pip dev requirements
           command: |
@@ -84,7 +84,7 @@ jobs:
             set -eo pipefail
             pip install --progress-bar off --no-cache-dir -r dev-requirements.txt
       - save_cache:
-          key: dep1-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep2-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
           paths:
               - venv
       - run:
@@ -143,7 +143,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep2-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
@@ -201,7 +201,7 @@ jobs:
       - checkout
       - run: echo $PYTHON_VERSION > ver.txt
       - restore_cache:
-          key: dep1-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
+          key: dep2-{{ checksum ".circleci/config.yml" }}-{{ checksum "ver.txt" }}-{{ checksum "dev-requirements.txt" }}
       - attach_workspace:
           at: ~/project
       - run:
