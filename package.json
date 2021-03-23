@@ -10,7 +10,7 @@
     "url": "https://github.com/plotly/dash-core-components/issues"
   },
   "homepage": "https://github.com/plotly/dash-core-components",
-  "main": "dash_core_components/dash_core_components.min.js",
+  "main": "dash_core_components/dash_core_components.js",
   "scripts": {
     "private::format.black": "black --exclude dash_core_components .",
     "private::format.eslint": "eslint src tests --fix",
