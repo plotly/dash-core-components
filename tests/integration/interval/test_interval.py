@@ -1,11 +1,10 @@
-from multiprocessing import Value
-from selenium.webdriver.common.keys import Keys
 import dash
 from dash.testing import wait
 from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 import time
+
 
 def test_intv001_interval(dash_dcc):
     app = dash.Dash(__name__)
@@ -24,7 +23,7 @@ def test_intv001_interval(dash_dcc):
 
     time.sleep(5)
 
-    dash_dcc.wait_for_text_to_equal('#output', '2')
+    dash_dcc.wait_for_text_to_equal("#output", "2")
     assert dash_dcc.get_logs() == []
 
 
@@ -32,9 +31,7 @@ def test_intv002_restart(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
-            dcc.Interval(
-                id="interval", interval=100, n_intervals=0, max_intervals=-1,
-            ),
+            dcc.Interval(id="interval", interval=100, n_intervals=0, max_intervals=-1,),
             html.Button("Start", id="start", n_clicks_timestamp=-1),
             html.Button("Stop", id="stop", n_clicks_timestamp=-1),
             html.Div(id="output"),
@@ -43,10 +40,7 @@ def test_intv002_restart(dash_dcc):
 
     @app.callback(
         Output("interval", "max_intervals"),
-        [
-            Input("start", "n_clicks_timestamp"),
-            Input("stop", "n_clicks_timestamp"),
-        ],
+        [Input("start", "n_clicks_timestamp"), Input("stop", "n_clicks_timestamp"),],
     )
     def start_stop(start, stop):
         if start < stop:
@@ -60,13 +54,12 @@ def test_intv002_restart(dash_dcc):
 
     dash_dcc.start_server(app)
 
-    wait.until(lambda: dash_dcc.find_element('#output').text != 'Updated 0', 3)
-    stop_button = dash_dcc.find_element('#stop').click()
+    wait.until(lambda: dash_dcc.find_element("#output").text != "Updated 0", 3)
     time.sleep(2)
 
-    text_now = dash_dcc.find_element('#output').text
+    text_now = dash_dcc.find_element("#output").text
     time.sleep(2)
-    text_later = dash_dcc.find_element('#output').text
+    text_later = dash_dcc.find_element("#output").text
 
     assert text_now == text_later
     assert dash_dcc.get_logs() == []

@@ -157,6 +157,6 @@ def test_tabs005_disabled(dash_dcc):
 
     dash_dcc.start_server(app)
 
-    dash_dcc.wait_for_element('#tab-2')
-    dash_dcc.wait_for_element('.tab--disabled')
+    dash_dcc.wait_for_element("#tab-2")
+    dash_dcc.wait_for_element(".tab--disabled")
     assert dash_dcc.get_logs() == []

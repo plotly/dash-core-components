@@ -1,5 +1,4 @@
 from multiprocessing import Value
-from selenium.webdriver.common.keys import Keys
 import dash
 from dash import callback_context
 from dash.testing import wait
@@ -9,48 +8,43 @@ import dash_html_components as html
 import pytest
 import time
 
-@pytest.mark.parametrize("confirms", [
-    [False, False],
-    [False, True],
-    [True, False],
-    [True, True]
-])
+
+@pytest.mark.parametrize(
+    "confirms", [[False, False], [False, True], [True, False], [True, True]]
+)
 @pytest.mark.parametrize("confirm_callback", [True, False])
-@pytest.mark.parametrize("components", [
+@pytest.mark.parametrize(
+    "components",
     [
-        html.Button(id="button", children="Send confirm", n_clicks=0),
-        dcc.ConfirmDialog(id="confirm", message="Please confirm.")
+        [
+            html.Button(id="button", children="Send confirm", n_clicks=0),
+            dcc.ConfirmDialog(id="confirm", message="Please confirm."),
+        ],
+        [
+            dcc.ConfirmDialogProvider(
+                html.Button("click me", id="button"),
+                id="confirm",
+                message="Please confirm.",
+            )
+        ],
     ],
-    [
-        dcc.ConfirmDialogProvider(
-            html.Button("click me", id="button"),
-            id="confirm",
-            message="Please confirm.",
-        )
-    ]
-])
+)
 def test_cnfd001_dialog(dash_dcc, confirm_callback, confirms, components):
     app = dash.Dash(__name__)
-    app.layout = html.Div(
-        components + [
-            html.Div(id="confirmed")
-        ]
-    )
+    app.layout = html.Div(components + [html.Div(id="confirmed")])
 
     @app.callback(Output("confirm", "displayed"), [Input("button", "n_clicks")])
     def on_click_confirm(n_clicks):
         if n_clicks:
             return True
 
-    count = Value('i', 0)
+    count = Value("i", 0)
 
     if confirm_callback:
+
         @app.callback(
             Output("confirmed", "children"),
-            [
-                Input("confirm", "submit_n_clicks"),
-                Input("confirm", "cancel_n_clicks"),
-            ],
+            [Input("confirm", "submit_n_clicks"), Input("confirm", "cancel_n_clicks"),],
             [
                 State("confirm", "submit_n_clicks_timestamp"),
                 State("confirm", "cancel_n_clicks_timestamp"),
@@ -69,10 +63,10 @@ def test_cnfd001_dialog(dash_dcc, confirm_callback, confirms, components):
             return "confirmed" if trigger == "submit_n_clicks" else "canceled"
 
     dash_dcc.start_server(app)
-    dash_dcc.wait_for_element('#button')
+    dash_dcc.wait_for_element("#button")
 
     for confirm in confirms:
-        dash_dcc.find_element('#button').click()
+        dash_dcc.find_element("#button").click()
         time.sleep(0.5)
         if confirm:
             dash_dcc.driver.switch_to.alert.accept()
@@ -81,7 +75,9 @@ def test_cnfd001_dialog(dash_dcc, confirm_callback, confirms, components):
         time.sleep(0.5)
 
         if confirm_callback:
-            dash_dcc.wait_for_text_to_equal('#confirmed', "confirmed" if confirm else "canceled")
+            dash_dcc.wait_for_text_to_equal(
+                "#confirmed", "confirmed" if confirm else "canceled"
+            )
 
     if confirm_callback:
         assert wait.until(lambda: count.value == 1 + len(confirms), 3)
@@ -109,9 +105,7 @@ def test_cnfd002_injected_confirm(dash_dcc):
             )
 
     dash_dcc.start_server(app)
-    dash_dcc.wait_for_element('#button').click()
+    dash_dcc.wait_for_element("#button").click()
 
     time.sleep(1)
     dash_dcc.driver.switch_to.alert.accept()
-
-

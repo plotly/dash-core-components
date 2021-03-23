@@ -116,9 +116,17 @@ def test_grrs001_graph(dash_dcc, responsive, autosize, height, width, is_respons
     )
 
     # 500px card minus (100px header + 20px padding) minus (20px padding on container) -> 360px left
-    wait.until(lambda: dash_dcc.wait_for_element("#graph svg.main-svg").size.get("height", -1) == initial_height, 3)
+    wait.until(
+        lambda: dash_dcc.wait_for_element("#graph svg.main-svg").size.get("height", -1)
+        == initial_height,
+        3,
+    )
 
     dash_dcc.wait_for_element("#resize").click()
 
     # 500px card minus (200px header + 20px padding) minus (20px padding on container) -> 260px left
-    wait.until(lambda: dash_dcc.wait_for_element("#graph svg.main-svg").size.get("height", -1) == resize_height, 3)
+    wait.until(
+        lambda: dash_dcc.wait_for_element("#graph svg.main-svg").size.get("height", -1)
+        == resize_height,
+        3,
+    )

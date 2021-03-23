@@ -54,13 +54,17 @@ def test_ddot001_option_title(dash_dcc, multi):
 
     dropdown_title_input.send_keys("The Big Apple")
 
-    wait.until(lambda: dropdown_option_element.get_attribute("title") == "The Big Apple", 3)
+    wait.until(
+        lambda: dropdown_option_element.get_attribute("title") == "The Big Apple", 3
+    )
 
     dash_dcc.clear_input(dropdown_title_input)
 
     dropdown_title_input.send_keys("Gotham City?")
 
-    wait.until(lambda: dropdown_option_element.get_attribute("title") == "Gotham City?", 3)
+    wait.until(
+        lambda: dropdown_option_element.get_attribute("title") == "Gotham City?", 3
+    )
 
     dash_dcc.clear_input(dropdown_title_input)
 

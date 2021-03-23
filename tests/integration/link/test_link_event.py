@@ -5,7 +5,7 @@ from dash.testing import wait
 from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
-import time
+
 
 def test_link001_event(dash_dcc):
     app = dash.Dash(__name__)
@@ -78,9 +78,7 @@ def test_link002_scroll(dash_dcc):
 
     call_count = Value("i", 0)
 
-    @app.callback(
-        Output("page-content", "children"), [Input("test-url", "pathname")]
-    )
+    @app.callback(Output("page-content", "children"), [Input("test-url", "pathname")])
     def display_page(pathname):
         call_count.value = call_count.value + 1
         return "You are on page {}".format(pathname)
@@ -89,13 +87,15 @@ def test_link002_scroll(dash_dcc):
 
     wait.until(lambda: call_count.value == 1, 3)
 
-    test_link = dash_dcc.wait_for_element('#test-link')
+    test_link = dash_dcc.wait_for_element("#test-link")
     test_link.send_keys(Keys.NULL)
     test_link.click()
 
-    dash_dcc.wait_for_text_to_equal('#page-content', 'You are on page /test-link')
+    dash_dcc.wait_for_text_to_equal("#page-content", "You are on page /test-link")
 
-    wait.until(lambda: test_link.get_attribute('href') == 'http://localhost:8050/test-link', 3)
+    wait.until(
+        lambda: test_link.get_attribute("href") == "http://localhost:8050/test-link", 3
+    )
     wait.until(lambda: call_count.value == 2, 3)
 
     assert dash_dcc.get_logs() == []
