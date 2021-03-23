@@ -84,7 +84,23 @@ module.exports = (env, argv) => {
                         {
                             loader: 'style-loader',
                             options: {
-                                insertAt: 'top'
+                                insert: function insertAtTop(element) {
+                                    var parent = document.querySelector('head');
+                                    // eslint-disable-next-line no-underscore-dangle
+                                    var lastInsertedElement =
+                                        window._lastElementInsertedByStyleLoader;
+
+                                    if (!lastInsertedElement) {
+                                        parent.insertBefore(element, parent.firstChild);
+                                    } else if (lastInsertedElement.nextSibling) {
+                                        parent.insertBefore(element, lastInsertedElement.nextSibling);
+                                    } else {
+                                        parent.appendChild(element);
+                                    }
+
+                                    // eslint-disable-next-line no-underscore-dangle
+                                    window._lastElementInsertedByStyleLoader = element;
+                                }
                             }
                         },
                         {
