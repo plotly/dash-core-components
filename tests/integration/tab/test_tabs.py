@@ -125,3 +125,38 @@ def test_tabs004_without_value(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#tabs-content", "Default selected Tab content 1")
     dash_dcc.percy_snapshot("Tab 1 should be selected by default")
     assert dash_dcc.get_logs() == []
+
+
+def test_tabs005_disabled(dash_dcc):
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.H1("Dash Tabs component with disabled tab demo"),
+            dcc.Tabs(
+                id="tabs-example",
+                value="tab-2",
+                children=[
+                    dcc.Tab(
+                        label="Disabled Tab",
+                        value="tab-1",
+                        id="tab-1",
+                        className="test-custom-tab",
+                        disabled=True,
+                    ),
+                    dcc.Tab(
+                        label="Active Tab",
+                        value="tab-2",
+                        id="tab-2",
+                        className="test-custom-tab",
+                    ),
+                ],
+            ),
+            html.Div(id="tabs-content-example"),
+        ]
+    )
+
+    dash_dcc.start_server(app)
+
+    dash_dcc.wait_for_element('#tab-2')
+    dash_dcc.wait_for_element('.tab--disabled')
+    assert dash_dcc.get_logs() == []

@@ -4,7 +4,6 @@ coverage/
 src/
 lib/
 .babelrc
-.builderrc
 .eslintrc
 .npmignore
 .editorconfig
