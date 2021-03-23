@@ -75,7 +75,7 @@ def test_tabs002_without_children(dash_dcc):
     dash_dcc.percy_snapshot("initial tab - tab 2")
 
     dash_dcc.wait_for_element("#tab-1").click()
-    dash_dcc.wait_for_text_to_equal("#tabs-content", "Test content1")
+    dash_dcc.wait_for_text_to_equal("#tabs-content", "Test content 1")
     assert dash_dcc.get_logs() == []
 
 

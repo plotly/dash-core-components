@@ -55,6 +55,7 @@ def test_intv002_restart(dash_dcc):
     dash_dcc.start_server(app)
 
     wait.until(lambda: dash_dcc.find_element("#output").text != "Updated 0", 3)
+    dash_dcc.find_element('#stop').click()
     time.sleep(2)
 
     text_now = dash_dcc.find_element("#output").text
@@ -62,4 +63,9 @@ def test_intv002_restart(dash_dcc):
     text_later = dash_dcc.find_element("#output").text
 
     assert text_now == text_later
+
+    dash_dcc.find_element('#start').click()
+
+    wait.until(lambda: dash_dcc.find_element("#output").text != text_later, 3)
+
     assert dash_dcc.get_logs() == []
