@@ -1,4 +1,6 @@
+from multiprocessing import Lock
 import dash
+from dash.testing import wait
 from dash.dependencies import Input, Output
 import dash_html_components as html
 import dash_core_components as dcc
@@ -241,3 +243,197 @@ def test_slsl007_drag_value_rangeslider(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#out-value", "You have selected 5-15")
     dash_dcc.release()
     dash_dcc.wait_for_text_to_equal("#out-value", "You have selected 10-15")
+
+
+def test_slsl008_loading_state(dash_dcc):
+    lock = Lock()
+
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Button(id="test-btn"),
+            html.Label(id="test-div", children=["Horizontal Slider"]),
+            dcc.Slider(
+                id="horizontal-slider",
+                min=0,
+                max=9,
+                marks={
+                    i: "Label {}".format(i) if i == 1 else str(i)
+                    for i in range(1, 6)
+                },
+                value=5,
+            ),
+        ]
+    )
+
+    @app.callback(
+        Output("horizontal-slider", "value"), [Input("test-btn", "n_clicks")]
+    )
+    def user_delayed_value(n_clicks):
+        with lock:
+            return 5
+
+    with lock:
+        dash_dcc.start_server(app)
+        dash_dcc.wait_for_element('#horizontal-slider[data-dash-is-loading="true"]')
+
+    dash_dcc.wait_for_element('#horizontal-slider:not([data-dash-is-loading="true"])')
+
+    with lock:
+        dash_dcc.wait_for_element("#test-btn").click()
+        dash_dcc.wait_for_element('#horizontal-slider[data-dash-is-loading="true"]')
+
+    dash_dcc.wait_for_element('#horizontal-slider:not([data-dash-is-loading="true"])')
+    assert dash_dcc.get_logs() == []
+
+
+def test_slsl009_range_loading_state(dash_dcc):
+    lock = Lock()
+
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Button(id="test-btn"),
+            html.Label(id="test-div", children=["Horizontal Range Slider"]),
+            dcc.RangeSlider(
+                id="horizontal-range-slider",
+                min=0,
+                max=9,
+                marks={
+                    i: "Label {}".format(i) if i == 1 else str(i)
+                    for i in range(1, 6)
+                },
+                value=[4, 6],
+            ),
+        ]
+    )
+
+    @app.callback(
+        Output("horizontal-range-slider", "value"), [Input("test-btn", "n_clicks")]
+    )
+    def delayed_value(children):
+        with lock:
+            return [4, 6]
+
+    with lock:
+        dash_dcc.start_server(app)
+        dash_dcc.wait_for_element('#horizontal-range-slider[data-dash-is-loading="true"]')
+
+    dash_dcc.wait_for_element('#horizontal-range-slider:not([data-dash-is-loading="true"])')
+
+    with lock:
+        dash_dcc.wait_for_element("#test-btn").click()
+        dash_dcc.wait_for_element('#horizontal-range-slider[data-dash-is-loading="true"]')
+
+    dash_dcc.wait_for_element('#horizontal-range-slider:not([data-dash-is-loading="true"])')
+    assert dash_dcc.get_logs() == []
+
+
+def test_slsl010_horizontal_slider(dash_dcc):
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Label("Horizontal Slider"),
+            dcc.Slider(
+                id="horizontal-slider",
+                min=0,
+                max=9,
+                marks={
+                    i: "Label {}".format(i) if i == 1 else str(i)
+                    for i in range(1, 6)
+                },
+                value=5,
+            ),
+        ]
+    )
+
+    dash_dcc.start_server(app)
+    dash_dcc.wait_for_element('#horizontal-slider')
+    dash_dcc.percy_snapshot('horizontal slider')
+
+    dash_dcc.wait_for_element('#horizontal-slider div[role="slider"]').click()
+    assert dash_dcc.get_logs() == []
+
+
+def test_slsl011_vertical_slider(dash_dcc):
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Label("Vertical Slider"),
+            dcc.Slider(
+                id="vertical-slider",
+                min=0,
+                max=9,
+                marks={
+                    i: "Label {}".format(i) if i == 1 else str(i)
+                    for i in range(1, 6)
+                },
+                value=5,
+                vertical=True,
+            ),
+        ],
+        style={"height": "500px"},
+    )
+
+    dash_dcc.start_server(app)
+    dash_dcc.wait_for_element('#vertical-slider')
+    dash_dcc.percy_snapshot('vertical slider')
+
+    dash_dcc.wait_for_element('#vertical-slider div[role="slider"]').click()
+    assert dash_dcc.get_logs() == []
+
+
+def test_slsl012_horizontal_range_slider(dash_dcc):
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Label("Horizontal Range Slider"),
+            dcc.RangeSlider(
+                id="horizontal-range-slider",
+                min=0,
+                max=9,
+                marks={
+                    i: "Label {}".format(i) if i == 1 else str(i)
+                    for i in range(1, 6)
+                },
+                value=[4, 6],
+            ),
+        ]
+    )
+
+    dash_dcc.start_server(app)
+    dash_dcc.wait_for_element('#horizontal-range-slider')
+    dash_dcc.percy_snapshot('horizontal range slider')
+
+    dash_dcc.wait_for_element('#horizontal-range-slider div.rc-slider-handle-1[role="slider"]').click()
+    dash_dcc.wait_for_element('#horizontal-range-slider div.rc-slider-handle-2[role="slider"]').click()
+    assert dash_dcc.get_logs() == []
+
+
+def test_slsl013_vertical_range_slider(dash_dcc):
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Label("Vertical Range Slider"),
+            dcc.RangeSlider(
+                id="vertical-range-slider",
+                min=0,
+                max=9,
+                marks={
+                    i: "Label {}".format(i) if i == 1 else str(i)
+                    for i in range(1, 6)
+                },
+                value=[4, 6],
+                vertical=True,
+            ),
+        ],
+        style={"height": "500px"},
+    )
+
+    dash_dcc.start_server(app)
+    dash_dcc.wait_for_element('#vertical-range-slider')
+    dash_dcc.percy_snapshot('vertical range slider')
+
+    dash_dcc.wait_for_element('#vertical-range-slider div.rc-slider-handle-1[role="slider"]').click()
+    dash_dcc.wait_for_element('#vertical-range-slider div.rc-slider-handle-2[role="slider"]').click()
+    assert dash_dcc.get_logs() == []
