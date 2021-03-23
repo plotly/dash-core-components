@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
 
 const packagejson = require('./package.json');
@@ -124,7 +125,8 @@ module.exports = (env, argv) => {
             new webpack.SourceMapDevToolPlugin({
                 filename: '[file].map',
                 exclude: ['async-plotlyjs']
-            })
+            }),
+            new NodePolyfillPlugin()
         ]
     }
 };
