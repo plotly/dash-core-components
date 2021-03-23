@@ -27,6 +27,11 @@ module.exports = (env, argv) => {
         mode = 'production';
     }
 
+    let filename = (overrides.output || {}).filename;
+    if (!filename) {
+        filename = `${dashLibraryName}.js`;
+    }
+
     const entry = overrides.entry || { main: './src/index.js' };
 
     const externals = ('externals' in overrides) ? overrides.externals : ({
@@ -41,7 +46,8 @@ module.exports = (env, argv) => {
         target: ['web', 'es5'],
         output: {
             path: path.resolve(__dirname, dashLibraryName),
-            filename: '[name].js',
+            chunkFilename: '[name].js',
+            filename,
             library: dashLibraryName,
             libraryTarget: 'window',
         },
