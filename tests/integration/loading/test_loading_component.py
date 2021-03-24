@@ -2,6 +2,7 @@ from multiprocessing import Lock
 
 import dash
 from dash.dependencies import Input, Output
+from dash.testing import wait
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -264,7 +265,7 @@ def test_ldcp006_children_identity(dash_dcc):
         "return gd_ === window.gd && gd_.__test__ === 'boo';"
     )
 
-    assert len(dash_dcc.find_elements(".js-plotly-plot .bars path")) == 3
+    wait.until(lambda: len(dash_dcc.find_elements(".js-plotly-plot .bars path")) == 3, 3)
     assert dash_dcc.driver.execute_script(test_identity)
     assert get_graph_visibility() == "visible"
 
@@ -275,7 +276,8 @@ def test_ldcp006_children_identity(dash_dcc):
         assert dash_dcc.driver.execute_script(test_identity)
         assert get_graph_visibility() == "hidden"
 
-    assert len(dash_dcc.find_elements(".js-plotly-plot .bars path")) == 4
+
+    wait.until(lambda: len(dash_dcc.find_elements(".js-plotly-plot .bars path")) == 4, 3)
     assert dash_dcc.driver.execute_script(test_identity)
     assert get_graph_visibility() == "visible"
 
