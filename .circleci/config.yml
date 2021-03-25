@@ -225,7 +225,6 @@ workflows:
       - percy-finalize:
           requires:
             - test-37
-            - test-39
 
   python3.6:
     jobs:
