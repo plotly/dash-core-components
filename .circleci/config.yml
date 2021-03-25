@@ -148,7 +148,6 @@ jobs:
         environment:
             PYTHON_VERSION: py39
             PERCY_PARALLEL_TOTAL: -1
-            PERCY_ENABLE: 0
     parallelism: 3
     steps:
       - checkout
@@ -185,8 +184,6 @@ jobs:
           password: $DASH_PAT_DOCKERHUB
         environment:
           PYTHON_VERSION: py37
-          PERCY_PARALLEL_TOTAL: -1
-          PERCY_ENABLE: 1
 
   test-36:
     <<: *test
