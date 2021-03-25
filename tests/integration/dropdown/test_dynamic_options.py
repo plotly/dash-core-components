@@ -3,6 +3,7 @@ from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 import dash_core_components as dcc
 
+
 def test_dddo001_dynamic_options(dash_dcc):
     dropdown_options = [
         {"label": "New York City", "value": "NYC"},
