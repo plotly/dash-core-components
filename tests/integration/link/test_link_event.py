@@ -60,6 +60,8 @@ def test_link001_event(dash_dcc):
     assert link_counter == 1
     assert history_counter == 1
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_link002_scroll(dash_dcc):
     app = dash.Dash(__name__)

@@ -109,3 +109,5 @@ def test_cnfd002_injected_confirm(dash_dcc):
 
     time.sleep(1)
     dash_dcc.driver.switch_to.alert.accept()
+
+    assert dash_dcc.get_logs() == []

@@ -29,7 +29,7 @@ def test_ldcp001_loading_component_initialization(dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#div-1", "content")
 
-    assert not dash_dcc.get_logs()
+    assert dash_dcc.get_logs() == []
 
 
 def test_ldcp002_loading_component_action(dash_dcc):
@@ -61,7 +61,7 @@ def test_ldcp002_loading_component_action(dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#div-1", "changed")
 
-    assert not dash_dcc.get_logs()
+    assert dash_dcc.get_logs() == []
 
 
 def test_ldcp003_multiple_loading_components(dash_dcc):
@@ -114,7 +114,7 @@ def test_ldcp003_multiple_loading_components(dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#btn-1", "changed 1")
 
-    assert not dash_dcc.get_logs()
+    assert dash_dcc.get_logs() == []
 
 
 def test_ldcp004_nested_loading_components(dash_dcc):
@@ -172,7 +172,7 @@ def test_ldcp004_nested_loading_components(dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#btn-1", "changed 1")
 
-    assert not dash_dcc.get_logs()
+    assert dash_dcc.get_logs() == []
 
 
 def test_ldcp005_dynamic_loading_component(dash_dcc):
@@ -221,7 +221,7 @@ def test_ldcp005_dynamic_loading_component(dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#btn-3", "changed")
 
-    assert not dash_dcc.get_logs()
+    assert dash_dcc.get_logs() == []
 
 
 def test_ldcp006_children_identity(dash_dcc):
@@ -284,6 +284,8 @@ def test_ldcp006_children_identity(dash_dcc):
     assert dash_dcc.driver.execute_script(test_identity)
     assert get_graph_visibility() == "visible"
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_ldcp007_class_and_style_props(dash_dcc):
     lock = Lock()
@@ -326,7 +328,7 @@ def test_ldcp007_class_and_style_props(dash_dcc):
             ".spinner-class", "background-color", "rgba(255, 192, 203, 1)"
         )
 
-    assert not dash_dcc.get_logs()
+    assert dash_dcc.get_logs() == []
 
 
 def test_ldcp008_graph_in_loading_fits_container_height(dash_dcc):
@@ -367,4 +369,4 @@ def test_ldcp008_graph_in_loading_fits_container_height(dash_dcc):
             "height"
         ) == dash_dcc.wait_for_element(".outer-container").size.get("height")
 
-    assert not dash_dcc.get_logs()
+    assert dash_dcc.get_logs() == []

@@ -69,3 +69,5 @@ def test_ddot001_option_title(dash_dcc, multi):
     dash_dcc.clear_input(dropdown_title_input)
 
     wait.until(lambda: dropdown_option_element.get_attribute("title") == "", 3)
+
+    assert dash_dcc.get_logs() == []

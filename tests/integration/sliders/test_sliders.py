@@ -34,6 +34,8 @@ def test_slsl001_always_visible_slider(dash_dcc):
     dash_dcc.click_at_coord_fractions(slider, 0.75, 0.25)
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 15")
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_slsl002_always_visible_rangeslider(dash_dcc):
     app = dash.Dash(__name__)
@@ -65,6 +67,8 @@ def test_slsl002_always_visible_rangeslider(dash_dcc):
     dash_dcc.click_at_coord_fractions(slider, 0.5, 0.25)
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 2-10")
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_slsl003_out_of_range_marks_slider(dash_dcc):
 
@@ -81,6 +85,8 @@ def test_slsl003_out_of_range_marks_slider(dash_dcc):
 
     assert len(dash_dcc.find_elements("span.rc-slider-mark-text")) == 6
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_slsl004_out_of_range_marks_rangeslider(dash_dcc):
 
@@ -96,6 +102,8 @@ def test_slsl004_out_of_range_marks_rangeslider(dash_dcc):
     dash_dcc.start_server(app)
 
     assert len(dash_dcc.find_elements("span.rc-slider-mark-text")) == 6
+
+    assert dash_dcc.get_logs() == []
 
 
 def test_slsl005_slider_tooltip(dash_dcc):
@@ -162,6 +170,8 @@ def test_slsl005_slider_tooltip(dash_dcc):
         "slider-make sure tooltips are only visible if parent slider is visible"
     )
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_slsl006_drag_value_slider(dash_dcc):
     app = dash.Dash(__name__)
@@ -203,6 +213,8 @@ def test_slsl006_drag_value_slider(dash_dcc):
     dash_dcc.release()
     dash_dcc.wait_for_text_to_equal("#out-value", "You have selected 10")
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_slsl007_drag_value_rangeslider(dash_dcc):
     app = dash.Dash(__name__)
@@ -242,6 +254,8 @@ def test_slsl007_drag_value_rangeslider(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#out-value", "You have selected 5-15")
     dash_dcc.release()
     dash_dcc.wait_for_text_to_equal("#out-value", "You have selected 10-15")
+
+    assert dash_dcc.get_logs() == []
 
 
 def test_slsl008_loading_state(dash_dcc):

@@ -130,3 +130,5 @@ def test_grrs001_graph(dash_dcc, responsive, autosize, height, width, is_respons
         == resize_height,
         3,
     )
+
+    assert dash_dcc.get_logs() == []

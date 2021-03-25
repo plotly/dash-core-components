@@ -91,3 +91,5 @@ def test_upft001_test_upload_with_different_file_types(filetype, dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#raw-title", "Raw Content")
     dash_dcc.percy_snapshot(filepath)
+
+    assert dash_dcc.get_logs() == []
