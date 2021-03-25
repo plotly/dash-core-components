@@ -44,4 +44,4 @@ def test_ddvi001_fixed_table(dash_duo):
 
     dash_duo.percy_snapshot("dcc.Dropdown dropdown overlaps table fixed rows/columns")
 
-    assert dash_dcc.get_logs() == []
+    assert dash_duo.get_logs() == []

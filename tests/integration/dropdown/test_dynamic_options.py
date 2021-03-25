@@ -52,4 +52,4 @@ def test_dddo001_dynamic_options(dash_duo):
     print(options)
     assert options[0].text == "Montreal"
 
-    assert dash_dcc.get_logs() == []
+    assert dash_duo.get_logs() == []
