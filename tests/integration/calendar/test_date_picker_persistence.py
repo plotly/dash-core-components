@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 
 
 def test_rdpr001_persisted_dps(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, suppress_callback_exceptions=True)
     app.layout = html.Div(
         [
             html.Button("fire callback", id="btn", n_clicks=1),
@@ -43,7 +43,7 @@ def test_rdpr001_persisted_dps(dash_dcc):
 
 
 def test_rdpr002_persisted_dpr(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, suppress_callback_exceptions=True)
     app.layout = html.Div(
         [
             html.Button("fire callback", id="btn", n_clicks=1),
