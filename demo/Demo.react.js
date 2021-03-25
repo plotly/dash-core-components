@@ -12,7 +12,8 @@ import {
     Slider,
     Interval,
     Markdown,
-    Upload
+    Upload,
+    ToolTip
 } from '../src';
 
 
@@ -293,6 +294,27 @@ class Controller extends Component {
 ReactDOM.render(<Controller/>, mountNode);`
 
 
+const ToolTipExample = `class Controller extends Component {
+    render() {
+        return (
+            <div>
+                <p>This is an inline <ToolTip direction="top" colors={{background:"#ccc", border:"#f00"}}>ToolTip top</ToolTip> tooltip.</p>
+                <p>
+                    You can also position them using CSS:
+                    <ToolTip direction="top" style={{position: 'relative', left: '140px', top: '-20px'}}>ToolTip top</ToolTip>
+                    <ToolTip direction="right" style={{position: 'relative', left: '160px', top: '0px'}}>ToolTip right</ToolTip>
+                    <ToolTip direction="bottom" style={{position: 'relative', left: '140px', top: '20px'}}>ToolTip bottom</ToolTip>
+                    <ToolTip direction="left" style={{position: 'relative', left: '120px', top:'0px'}}>ToolTip left</ToolTip>
+                </p>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<Controller/>, mountNode);
+`;
+
+
 const examples = [
     {name: 'Upload', code: UploadExample},
     {name: 'Markdown', code: MarkdownExample},
@@ -304,7 +326,8 @@ const examples = [
     {name: 'Slider', code: SliderExample},
     {name: 'RangeSlider', code: RangeSliderExample},
     {name: 'Input', code: InputExample},
-    {name: 'DatePickerRange', code: DatePickerRangeExample}
+    {name: 'DatePickerRange', code: DatePickerRangeExample},
+    {name: 'Tooltip', code: ToolTipExample},
 ];
 
 class Demo extends Component {
