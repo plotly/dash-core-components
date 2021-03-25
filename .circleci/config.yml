@@ -108,6 +108,16 @@ jobs:
           paths:
             - packages
 
+  build-dash-37:
+    <<: *build-dash
+    docker:
+      - image: circleci/python:3.7.9-stretch-node-browsers
+        auth:
+          username: dashautomation
+          password: $DASH_PAT_DOCKERHUB
+        environment:
+          PYTHON_VERSION: py37
+
   build-dash-36:
     <<: *build-dash
     docker:
@@ -138,6 +148,7 @@ jobs:
         environment:
             PYTHON_VERSION: py39
             PERCY_PARALLEL_TOTAL: -1
+            PERCY_ENABLE: 0
     parallelism: 3
     steps:
       - checkout
@@ -164,6 +175,18 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: /tmp/dash_artifacts
+
+  test-37:
+    <<: *test
+    docker:
+      - image: circleci/python:3.7.9-stretch-node-browsers
+        auth:
+          username: dashautomation
+          password: $DASH_PAT_DOCKERHUB
+        environment:
+          PYTHON_VERSION: py37
+          PERCY_PARALLEL_TOTAL: -1
+          PERCY_ENABLE: 1
 
   test-36:
     <<: *test
@@ -192,12 +215,17 @@ workflows:
   python3.9:
     jobs:
       - lint-unit-39
+      - build-dash-37
       - build-dash-39
+      - test-37:
+          requires:
+            - build-dash-37
       - test-39:
           requires:
             - build-dash-39
       - percy-finalize:
           requires:
+            - test-37
             - test-39
 
   python3.6:
