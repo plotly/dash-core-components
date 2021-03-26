@@ -76,18 +76,18 @@ _js_dist.extend(
 _js_dist.extend(
     [
         {
-            "relative_package_path": "{}.min.js".format(__name__),
+            "relative_package_path": "{}.js".format(__name__),
             "external_url": (
                 "https://unpkg.com/dash-core-components@{}"
-                "/dash_core_components/dash_core_components.min.js"
+                "/dash_core_components/dash_core_components.js"
             ).format(__version__),
             "namespace": "dash_core_components",
         },
         {
-            "relative_package_path": "{}.min.js.map".format(__name__),
+            "relative_package_path": "{}.js.map".format(__name__),
             "external_url": (
                 "https://unpkg.com/dash-core-components@{}"
-                "/dash_core_components/dash_core_components.min.js.map"
+                "/dash_core_components/dash_core_components.js.map"
             ).format(__version__),
             "namespace": "dash_core_components",
             "dynamic": True,

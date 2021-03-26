@@ -47,10 +47,6 @@ You can run the Selenium integration tests with the
 ```sh
 npm test
 ```
-command, and the Jest unit tests with the
-```sh
-npm run test-unit
-```
 
 ### Testing your components in Dash
 1. Run the build watcher by running
@@ -88,4 +84,4 @@ See the [dash-component-boilerplate](https://github.com/plotly/dash-component-bo
 
 
 ## Big Thanks
-Cross-browser Testing Powered by [![image](https://user-images.githubusercontent.com/1394467/64290307-e4c66600-cf33-11e9-85a1-12c82230a597.png)](https://saucelabs.com) 
+Cross-browser Testing Powered by [![image](https://user-images.githubusercontent.com/1394467/64290307-e4c66600-cf33-11e9-85a1-12c82230a597.png)](https://saucelabs.com)
