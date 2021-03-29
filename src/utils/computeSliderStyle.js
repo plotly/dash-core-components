@@ -5,11 +5,11 @@ export default () => {
         const style = {
             padding: '25px',
             display: 'flex',
-            alignItems: 'center',
         };
 
         if (vertical) {
             style.height = verticalHeight + 'px';
+            style.flexDirection = "column";
 
             if (
                 !tooltip ||
@@ -30,6 +30,7 @@ export default () => {
             ) {
                 style.paddingTop = '0px';
             }
+            style.alignItems = 'center';
         }
 
         return style;

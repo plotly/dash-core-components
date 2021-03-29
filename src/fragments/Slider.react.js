@@ -8,7 +8,6 @@ import 'rc-slider/assets/index.css';
 
 import {propTypes, defaultProps} from '../components/Slider.react';
 
-const defaultDebounceTimeout = 2000;
 
 /**
  * A slider component with a single handle.
@@ -22,6 +21,12 @@ export default class Slider extends Component {
         this.SyncedInput = Input;
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
+        this.updatePropsAndState = this.updatePropsAndState.bind(this)
+    }
+
+    updatePropsAndState(e){
+        this.setState({value: Number(e.target.value)});
+        this.setProps({drag_value: Number(e.target.value)});
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -52,8 +57,10 @@ export default class Slider extends Component {
             tooltip,
             updatemode,
             syncedInput,
-            syncedInputClassName,
             syncedInputDebounceTime,
+            syncedInputClassName,
+            syncedInputStyle,
+            style,
             step,
             vertical,
             verticalHeight,
@@ -80,6 +87,14 @@ export default class Slider extends Component {
               )
             : this.props.marks;
 
+        const computedStyle = this._computeStyle(vertical, verticalHeight, tooltip);
+
+        const defaultInputStyle = {
+            width: '60px',
+            marginRight: vertical ? '' : '25px',
+            marginBottom: vertical ? '25px' : '',
+        };
+
         return (
             <div
                 id={id}
@@ -87,45 +102,32 @@ export default class Slider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={this._computeStyle(vertical, verticalHeight, tooltip)}
+                style={{...computedStyle, ...style}}
             >
                 {syncedInput ? (
                     <this.SyncedInput
-                        onChange={e => {
+                        onChange={(e) => {
                             e.persist();
                             if (this.timeout) {
                                 clearTimeout(this.timeout);
                             }
                             this.timeout = setTimeout(
                                 function() {
-                                    this.setState({
-                                        value: Number(e.target.value),
-                                    });
-                                    setProps({
-                                        drag_value: Number(e.target.value),
-                                    });
-                                }.bind(this),
-                                syncedInputDebounceTime ? syncedInputDebounceTime : defaultDebounceTimeout
+                                    this.updatePropsAndState()}.bind(this),
+                                    syncedInputDebounceTime
                             );
                         }}
-                        onBlur={e => {
-                            this.setState({value: Number(e.target.value)});
-                            setProps({drag_value: Number(e.target.value)});
-                        }}
-                        onKeyPress={e => {
+                        onBlur={(e) => {this.updatePropsAndState(e)}}
+                        onKeyPress={(e) => {
                             if (e.key === 'Enter') {
-                                this.setState({value: Number(e.target.value)});
-                                setProps({drag_value: Number(e.target.value)});
+                                this.updatePropsAndState(e)
                             }
                         }}
                         type="number"
                         value={value}
                         step={step}
                         className={syncedInputClassName}
-                        style={{
-                            minWidth: '1%',
-                            marginRight: '30px',
-                        }}
+                        style={{...defaultInputStyle, ...syncedInputStyle}}
                     />
                 ) : null}
                 <this.DashSlider
