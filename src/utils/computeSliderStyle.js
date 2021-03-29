@@ -9,7 +9,7 @@ export default () => {
 
         if (vertical) {
             style.height = verticalHeight + 'px';
-            style.flexDirection = "column";
+            style.flexDirection = 'column';
 
             if (
                 !tooltip ||

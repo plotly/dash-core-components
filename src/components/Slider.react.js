@@ -122,27 +122,27 @@ Slider.propTypes = {
     /**
      * If true, display an Input component whose value is synced with the Slider's value.
      */
-     syncedInput: PropTypes.bool,
+    syncedInput: PropTypes.bool,
 
     /**
      * The classname to be given to the synced Input component.
      */
-     syncedInputClassName: PropTypes.string,
+    syncedInputClassName: PropTypes.string,
 
-     /**
+    /**
      * The CSS to be applied to the class of the input (div)
      */
-      syncedInputStyle: PropTypes.object,
+    syncedInputStyle: PropTypes.object,
 
-      /**
+    /**
      * The CSS to be applied to the class of the slider (div)
      */
-     style: PropTypes.object,
+    style: PropTypes.object,
 
-     /**
+    /**
      * The amount of time the synced Input should wait before passing along state changes without a change of focus or the user pressing Enter. In milliseconds.
      */
-      syncedInputDebounceTime: PropTypes.number,
+    syncedInputDebounceTime: PropTypes.number,
 
     /**
      * If true, the slider will be vertical
@@ -224,7 +224,7 @@ Slider.defaultProps = {
     persisted_props: ['value'],
     persistence_type: 'local',
     verticalHeight: 400,
-    syncedInputDebounceTime: 2000
+    syncedInputDebounceTime: 2000,
 };
 
 export const propTypes = Slider.propTypes;

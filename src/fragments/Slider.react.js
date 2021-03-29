@@ -8,7 +8,6 @@ import 'rc-slider/assets/index.css';
 
 import {propTypes, defaultProps} from '../components/Slider.react';
 
-
 /**
  * A slider component with a single handle.
  */
@@ -21,12 +20,12 @@ export default class Slider extends Component {
         this.SyncedInput = Input;
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
-        this.updatePropsAndState = this.updatePropsAndState.bind(this)
+        this.updatePropsAndState = this.updatePropsAndState.bind(this);
     }
 
-    updatePropsAndState(e){
+    updatePropsAndState(e) {
         this.setState({value: Number(e.target.value)});
-        this.setProps({drag_value: Number(e.target.value)});
+        this.props.setProps({drag_value: Number(e.target.value)});
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -87,7 +86,11 @@ export default class Slider extends Component {
               )
             : this.props.marks;
 
-        const computedStyle = this._computeStyle(vertical, verticalHeight, tooltip);
+        const computedStyle = this._computeStyle(
+            vertical,
+            verticalHeight,
+            tooltip
+        );
 
         const defaultInputStyle = {
             width: '60px',
@@ -106,21 +109,29 @@ export default class Slider extends Component {
             >
                 {syncedInput ? (
                     <this.SyncedInput
-                        onChange={(e) => {
+                        onChange={e => {
                             e.persist();
                             if (this.timeout) {
                                 clearTimeout(this.timeout);
                             }
                             this.timeout = setTimeout(
                                 function() {
-                                    this.updatePropsAndState()}.bind(this),
-                                    syncedInputDebounceTime
+                                    this.setState({
+                                        value: Number(e.target.value),
+                                    });
+                                    setProps({
+                                        drag_value: Number(e.target.value),
+                                    });
+                                }.bind(this),
+                                syncedInputDebounceTime
                             );
                         }}
-                        onBlur={(e) => {this.updatePropsAndState(e)}}
-                        onKeyPress={(e) => {
+                        onBlur={e => {
+                            this.updatePropsAndState(e);
+                        }}
+                        onKeyPress={e => {
                             if (e.key === 'Enter') {
-                                this.updatePropsAndState(e)
+                                this.updatePropsAndState(e);
                             }
                         }}
                         type="number"
@@ -152,7 +163,11 @@ export default class Slider extends Component {
                         ...tipProps,
                         getTooltipContainer: node => node,
                     }}
-                    style={{position: 'relative', float: 'left', width: syncedInput ? '85%' : '100%'}}
+                    style={{
+                        position: 'relative',
+                        float: 'left',
+                        width: syncedInput ? '85%' : '100%',
+                    }}
                     value={value}
                     marks={truncatedMarks}
                     {...omit(
