@@ -20,12 +20,14 @@ export default class Slider extends Component {
         this.SyncedInput = Input;
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
-        this.updatePropsAndState = this.updatePropsAndState.bind(this);
+        this.syncInput = this.syncInput.bind(this);
     }
 
-    updatePropsAndState(e) {
-        this.setState({value: Number(e.target.value)});
-        this.props.setProps({drag_value: Number(e.target.value)});
+    syncInput(event) {
+        if(event){
+            this.setState({value: Number(event.target.value)});
+            this.props.setProps({value: Number(event.target.value), drag_value: Number(event.target.value)});
+        }
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -109,27 +111,22 @@ export default class Slider extends Component {
             >
                 {syncedInput ? (
                     <this.SyncedInput
-                        onChange={e => {
-                            e.persist();
+                        onChange={event => {
+                            event.persist();
                             if (this.timeout) {
                                 clearTimeout(this.timeout);
                             }
                             this.timeout = setTimeout(
-                                function() {
-                                    this.setState({value: Number(e.target.value)});
-                                    setProps({value: Number(e.target.value), drag_value: Number(e.target.value)});
-                                }.bind(this),
+                                this.syncInput(event),
                                 syncedInputDebounceTime
                             );
                         }}
-                        onBlur={e => {
-                            this.setState({value: Number(e.target.value)});
-                            setProps({value: Number(e.target.value), drag_value: Number(e.target.value)});
+                        onBlur={event => {
+                            this.syncInput(event)
                         }}
-                        onKeyPress={e => {
-                            if (e.key === 'Enter') {
-                                this.setState({value: Number(e.target.value)});
-                                setProps({value: Number(e.target.value), drag_value: Number(e.target.value)});
+                        onKeyPress={event => {
+                            if (event.key === 'Enter') {
+                                this.syncInput()
                             }
                         }}
                         type="number"
