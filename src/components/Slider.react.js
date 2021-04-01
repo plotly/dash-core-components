@@ -224,7 +224,7 @@ Slider.defaultProps = {
     persisted_props: ['value'],
     persistence_type: 'local',
     verticalHeight: 400,
-    syncedInputDebounceTime: 2000,
+    syncedInputDebounceTime: 450,
 };
 
 export const propTypes = Slider.propTypes;

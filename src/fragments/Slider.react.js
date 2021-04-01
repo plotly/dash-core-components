@@ -116,22 +116,20 @@ export default class Slider extends Component {
                             }
                             this.timeout = setTimeout(
                                 function() {
-                                    this.setState({
-                                        value: Number(e.target.value),
-                                    });
-                                    setProps({
-                                        drag_value: Number(e.target.value),
-                                    });
+                                    this.setState({value: Number(e.target.value)});
+                                    setProps({value: Number(e.target.value), drag_value: Number(e.target.value)});
                                 }.bind(this),
                                 syncedInputDebounceTime
                             );
                         }}
                         onBlur={e => {
-                            this.updatePropsAndState(e);
+                            this.setState({value: Number(e.target.value)});
+                            setProps({value: Number(e.target.value), drag_value: Number(e.target.value)});
                         }}
                         onKeyPress={e => {
                             if (e.key === 'Enter') {
-                                this.updatePropsAndState(e);
+                                this.setState({value: Number(e.target.value)});
+                                setProps({value: Number(e.target.value), drag_value: Number(e.target.value)});
                             }
                         }}
                         type="number"
