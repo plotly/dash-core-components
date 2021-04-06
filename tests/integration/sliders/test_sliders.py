@@ -310,7 +310,7 @@ def test_slsl009_vertical_slider_with_input(dash_dcc):
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 8")
 
 
-def test_slsl010_horizontal_slider_with_input_class_id(dash_dcc):
+def test_slsl010_horizontal_slider_with_input(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [

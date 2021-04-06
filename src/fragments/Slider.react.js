@@ -100,8 +100,8 @@ export default class Slider extends Component {
 
         const defaultInputStyle = {
             width: '60px',
-            marginRight: vertical ? '' : '25px',
-            marginBottom: vertical ? '25px' : '',
+            marginRight: vertical && syncedInput ? '' : '25px',
+            marginBottom: vertical && syncedInput ? '25px' : '',
         };
 
         return (
@@ -121,7 +121,9 @@ export default class Slider extends Component {
                                 clearTimeout(this.timeout);
                             }
                             this.timeout = setTimeout(
-                                this.syncInput(event),
+                                function() {
+                                    this.syncInput(event);
+                                }.bind(this),
                                 syncedInputDebounceTime
                             );
                         }}
@@ -163,11 +165,7 @@ export default class Slider extends Component {
                         ...tipProps,
                         getTooltipContainer: node => node,
                     }}
-                    style={{
-                        position: 'relative',
-                        float: 'left',
-                        width: syncedInput ? '85%' : '100%',
-                    }}
+                    style={{position: 'relative'}}
                     value={value}
                     marks={truncatedMarks}
                     {...omit(
