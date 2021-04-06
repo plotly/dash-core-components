@@ -176,11 +176,9 @@ class Test1(IntegrationTests):
         self.startServer(app)
 
         self.wait_for_element_by_css_selector("#horizontal-slider-with-input")
-        self.snapshot("horizontal slider with input")
+        self.wait_for_element_by_css_selector(".arbitraryClassName")
 
-        input_by_class_name = self.driver.find_element_by_class_name(
-            "arbitraryClassName"
-        )
+        self.snapshot("horizontal slider with input")
 
         for entry in self.get_log():
             raise Exception("browser error logged during test", entry)
@@ -206,11 +204,9 @@ class Test1(IntegrationTests):
         self.startServer(app)
 
         self.wait_for_element_by_css_selector("#vertical-slider-with-input")
-        self.snapshot("vertical slider with input")
+        self.wait_for_element_by_css_selector(".arbitraryClassName")
 
-        input_by_class_name = self.driver.find_element_by_class_name(
-            "arbitraryClassName"
-        )
+        self.snapshot("vertical slider with input")
 
         for entry in self.get_log():
             raise Exception("browser error logged during test", entry)

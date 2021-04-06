@@ -115,7 +115,7 @@ Slider.propTypes = {
     }),
 
     /**
-     * Value by which increments or decrements are made
+     * Value by which increments or decrements are made.
      */
     step: PropTypes.number,
 
@@ -130,7 +130,7 @@ Slider.propTypes = {
     syncedInputClassName: PropTypes.string,
 
     /**
-     * The CSS to be applied to the class of the input (div)
+     * The CSS to be applied to the class of the input (div).
      */
     syncedInputStyle: PropTypes.object,
 
@@ -140,7 +140,7 @@ Slider.propTypes = {
      syncedInputID: PropTypes.string,
 
     /**
-     * The CSS to be applied to the class of the slider (div)
+     * The CSS to be applied to the class of the slider (div).
      */
     style: PropTypes.object,
 
