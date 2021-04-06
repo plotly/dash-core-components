@@ -156,6 +156,67 @@ class Test1(IntegrationTests):
         for entry in self.get_log():
             raise Exception("browser error logged during test", entry)
 
+    def test_horizontal_slider_with_input(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div(
+            [
+                html.Label("Horizontal Slider with Input"),
+                dcc.Slider(
+                    id="horizontal-slider-with-input",
+                    min=0,
+                    max=9,
+                    value=5,
+                    syncedInput=True,
+                ),
+            ],
+            style={"height": "500px"},
+        )
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector("#horizontal-slider-with-input")
+        self.snapshot("horizontal slider with input")
+
+        input_ = self.driver.find_element_by_id('syncedInput')
+
+        input_.clear()
+        input_.send_keys("8")
+
+        for entry in self.get_log():
+            raise Exception("browser error logged during test", entry)
+
+    def test_vertical_slider_with_input(self):
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div(
+            [
+                html.Label("Vertical Slider with Input"),
+                dcc.Slider(
+                    id="vertical-slider-with-input",
+                    min=0,
+                    max=9,
+                    value=5,
+                    vertical=True,
+                    syncedInput=True,
+                ),
+            ],
+            style={"height": "500px"},
+        )
+        self.startServer(app)
+
+        self.wait_for_element_by_css_selector("#vertical-slider-with-input")
+        self.snapshot("vertical slider with input")
+
+        time.sleep(120)
+
+        input_ = self.driver.find_element_by_id('syncedInput')
+
+        input_.clear()
+        input_.send_keys("8")
+
+        for entry in self.get_log():
+            raise Exception("browser error logged during test", entry)
+
     def test_loading_range_slider(self):
         lock = Lock()
 

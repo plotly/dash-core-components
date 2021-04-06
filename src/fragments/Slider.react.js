@@ -61,6 +61,7 @@ export default class Slider extends Component {
             syncedInputDebounceTime,
             syncedInputClassName,
             syncedInputStyle,
+            syncedInputID,
             style,
             step,
             vertical,
@@ -133,6 +134,7 @@ export default class Slider extends Component {
                         value={value}
                         step={step}
                         className={syncedInputClassName}
+                        id={syncedInputID}
                         style={{...defaultInputStyle, ...syncedInputStyle}}
                     />
                 ) : null}

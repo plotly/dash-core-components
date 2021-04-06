@@ -135,6 +135,11 @@ Slider.propTypes = {
     syncedInputStyle: PropTypes.object,
 
     /**
+     * The id to be applied to the input (div). Default is "syncedInput".
+     */
+     syncedInputID: PropTypes.string,
+
+    /**
      * The CSS to be applied to the class of the slider (div)
      */
     style: PropTypes.object,
@@ -225,6 +230,7 @@ Slider.defaultProps = {
     persistence_type: 'local',
     verticalHeight: 400,
     syncedInputDebounceTime: 450,
+    syncedInputID: "syncedInput"
 };
 
 export const propTypes = Slider.propTypes;
