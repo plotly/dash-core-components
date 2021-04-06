@@ -167,6 +167,7 @@ class Test1(IntegrationTests):
                     min=0,
                     max=9,
                     value=5,
+                    syncedInputClassName="arbitraryClassName",
                     syncedInput=True,
                 ),
             ],
@@ -177,10 +178,9 @@ class Test1(IntegrationTests):
         self.wait_for_element_by_css_selector("#horizontal-slider-with-input")
         self.snapshot("horizontal slider with input")
 
-        input_ = self.driver.find_element_by_id('syncedInput')
-
-        input_.clear()
-        input_.send_keys("8")
+        input_by_class_name = self.driver.find_element_by_class_name(
+            "arbitraryClassName"
+        )
 
         for entry in self.get_log():
             raise Exception("browser error logged during test", entry)
@@ -197,6 +197,7 @@ class Test1(IntegrationTests):
                     max=9,
                     value=5,
                     vertical=True,
+                    syncedInputClassName="arbitraryClassName",
                     syncedInput=True,
                 ),
             ],
@@ -207,12 +208,9 @@ class Test1(IntegrationTests):
         self.wait_for_element_by_css_selector("#vertical-slider-with-input")
         self.snapshot("vertical slider with input")
 
-        time.sleep(120)
-
-        input_ = self.driver.find_element_by_id('syncedInput')
-
-        input_.clear()
-        input_.send_keys("8")
+        input_by_class_name = self.driver.find_element_by_class_name(
+            "arbitraryClassName"
+        )
 
         for entry in self.get_log():
             raise Exception("browser error logged during test", entry)

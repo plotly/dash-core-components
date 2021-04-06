@@ -242,6 +242,7 @@ def test_slsl007_drag_value_rangeslider(dash_dcc):
     dash_dcc.release()
     dash_dcc.wait_for_text_to_equal("#out-value", "You have selected 10-15")
 
+
 def test_slsl008_horizontal_slider_with_input(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
@@ -274,6 +275,7 @@ def test_slsl008_horizontal_slider_with_input(dash_dcc):
 
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 8")
 
+
 def test_slsl009_vertical_slider_with_input(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
@@ -286,7 +288,7 @@ def test_slsl009_vertical_slider_with_input(dash_dcc):
                 value=5,
                 vertical=True,
                 syncedInput=True,
-                syncedInputID="syncedInput",
+                syncedInputID="arbitraryID",
                 tooltip={"always_visible": True},
             ),
             html.Div(id="out"),
@@ -300,12 +302,13 @@ def test_slsl009_vertical_slider_with_input(dash_dcc):
     dash_dcc.start_server(app)
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 5")
 
-    input_ = dash_dcc.find_element("#syncedInput")
+    input_ = dash_dcc.find_element("#arbitraryID")
 
     input_.clear()
     input_.send_keys("8")
 
     dash_dcc.wait_for_text_to_equal("#out", "You have selected 8")
+
 
 def test_slsl010_horizontal_slider_with_input_class_id(dash_dcc):
     app = dash.Dash(__name__)
