@@ -24,9 +24,12 @@ export default class Slider extends Component {
     }
 
     syncInput(event) {
-        if(event){
+        if (event) {
             this.setState({value: Number(event.target.value)});
-            this.props.setProps({value: Number(event.target.value), drag_value: Number(event.target.value)});
+            this.props.setProps({
+                value: Number(event.target.value),
+                drag_value: Number(event.target.value),
+            });
         }
     }
 
@@ -123,11 +126,11 @@ export default class Slider extends Component {
                             );
                         }}
                         onBlur={event => {
-                            this.syncInput(event)
+                            this.syncInput(event);
                         }}
                         onKeyPress={event => {
                             if (event.key === 'Enter') {
-                                this.syncInput()
+                                this.syncInput();
                             }
                         }}
                         type="number"
