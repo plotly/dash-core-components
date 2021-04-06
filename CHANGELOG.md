@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## UNRELEASED
 
 ### Added
+- [#932](https://github.com/plotly/dash-core-components/pull/932). Adds a new copy to clipboard component.
+
 - [#863](https://github.com/plotly/dash-core-components/pull/863) Adds a new `Download` component. Along with this several utility functions are added to help construct the appropriate data format:
   - `dcc.send_file` - send a file from disk
   - `dcc.send_data_frame` - send a `DataFrame`, using one of its writer methods
