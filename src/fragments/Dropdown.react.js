@@ -97,7 +97,7 @@ export default class Dropdown extends Component {
                     onInputChange={search_value => setProps({search_value})}
                     backspaceRemoves={clearable}
                     deleteRemoves={clearable}
-                    {...omit(['setProps', 'value'], this.props)}
+                    {...omit(['setProps', 'value', 'id'], this.props)}
                 />
             </div>
         );
