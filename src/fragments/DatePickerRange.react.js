@@ -117,6 +117,8 @@ export default class DatePickerRange extends Component {
             className,
             start_date_id,
             end_date_id,
+            start_date_aria_label,
+            end_date_aria_label
         } = this.props;
 
         const {initial_visible_month} = convertToMoment(this.props, [
@@ -154,6 +156,8 @@ export default class DatePickerRange extends Component {
                     displayFormat={display_format}
                     enableOutsideDays={show_outside_days}
                     endDate={end_date}
+                    startDateAriaLabel={start_date_aria_label}
+                    endDateAriaLabel={end_date_aria_label}
                     endDatePlaceholderText={end_date_placeholder_text}
                     firstDayOfWeek={first_day_of_week}
                     focusedInput={focusedInput}

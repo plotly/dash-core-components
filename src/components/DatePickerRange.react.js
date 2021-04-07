@@ -179,6 +179,16 @@ DatePickerRange.propTypes = {
     display_format: PropTypes.string,
 
     /**
+     * The aria label to add to the start date
+     */
+    start_date_aria_label: PropTypes.string,
+
+    /**
+     * The aria label to add to the end date
+     */
+    end_date_aria_label: PropTypes.string,
+
+    /**
      * If True, no dates can be selected.
      */
     disabled: PropTypes.bool,
