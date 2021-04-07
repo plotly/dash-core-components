@@ -84,6 +84,8 @@ export default class Input extends PureComponent {
                         'selectionStart',
                         'setProps',
                         'loading_state',
+                        'persisted_props',
+                        'persistence_type'
                     ],
                     this.props
                 )}
