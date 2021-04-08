@@ -24,6 +24,9 @@ export default class Slider extends Component {
     }
 
     syncInput(event) {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
         if (event) {
             this.setState({value: Number(event.target.value)});
             this.props.setProps({
@@ -117,9 +120,6 @@ export default class Slider extends Component {
                     <this.SyncedInput
                         onChange={event => {
                             event.persist();
-                            if (this.timeout) {
-                                clearTimeout(this.timeout);
-                            }
                             this.timeout = setTimeout(
                                 function() {
                                     this.syncInput(event);
