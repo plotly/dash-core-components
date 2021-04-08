@@ -50,6 +50,12 @@ export default class Clipboard extends React.Component {
         // get the inner text.  If none, use the content of the value param
         const id = this.stringifyId(this.props.target_id);
         const target = document.getElementById(id);
+        if (!target) {
+            throw new Error(
+                'Clipboard copy failed: no element found for target_id ' +
+                    this.props.target_id
+            );
+        }
         let text = target.innerText;
         if (!text) {
             text = target.value;
@@ -67,8 +73,6 @@ export default class Clipboard extends React.Component {
             clipboardAPI.writeText(text).then(this.copySuccess, function() {
                 alert('copy error');
             });
-        } else {
-            this.copySuccess();
         }
     }
 
@@ -85,8 +89,14 @@ export default class Clipboard extends React.Component {
         const btnIcon = this.state.copied ? copiedIcon : copyIcon;
 
         return clipboardAPI ? (
-            <div id={id} title={title} style={style} className={className}>
-                <i onClick={() => this.copyToClipboard()}>{btnIcon}</i>
+            <div
+                id={id}
+                title={title}
+                style={style}
+                className={className}
+                onClick={this.copyToClipboard}
+            >
+                <i> {btnIcon}</i>
             </div>
         ) : null;
     }
@@ -113,10 +123,6 @@ Clipboard.propTypes = {
 
     /**
      * The text to  be copied to the clipboard if the `target_id` is None.
-     * If the `target_id` is None and `text` is None, then the
-     * icon copy animation will display, but nothing is copied to the clipboard.  This
-     * allows for the use of other copy to clipboard methods in a callback, such as
-     *  `pandas.DataFrame.to_clipboard`.
      */
     text: PropTypes.string,
 
