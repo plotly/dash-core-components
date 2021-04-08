@@ -3,6 +3,7 @@ from .ConfirmDialog import ConfirmDialog
 from .ConfirmDialogProvider import ConfirmDialogProvider
 from .DatePickerRange import DatePickerRange
 from .DatePickerSingle import DatePickerSingle
+from .Download import Download
 from .Dropdown import Dropdown
 from .Graph import Graph
 from .Input import Input
@@ -27,6 +28,7 @@ __all__ = [
     "ConfirmDialogProvider",
     "DatePickerRange",
     "DatePickerSingle",
+    "Download",
     "Dropdown",
     "Graph",
     "Input",

@@ -14,69 +14,17 @@ Keyword arguments:
 - `id` (String; optional): The ID of this component, used to identify dash components
 in callbacks. The ID needs to be unique across all of the
 components in an app.
-- `responsive` (a value equal to: true, false, 'auto'; optional): If True, the Plotly.js plot will be fully responsive to window resize
-and parent element resize event. This is achieved by overriding
-`config.responsive` to True, `figure.layout.autosize` to True and unsetting
-`figure.layout.height` and `figure.layout.width`.
-If False, the Plotly.js plot not be responsive to window resize and
-parent element resize event. This is achieved by overriding `config.responsive`
-to False and `figure.layout.autosize` to False.
-If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
-responsive (True) or not (False) based on the values in `config.responsive`,
-`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
-This is the legacy behavior of the Graph component.
-
-Needs to be combined with appropriate dimension / styling through the `style` prop
-to fully take effect.
-- `clickData` (Dict; optional): Data from latest click event. Read-only.
-- `clickAnnotationData` (Dict; optional): Data from latest click annotation event. Read-only.
-- `hoverData` (Dict; optional): Data from latest hover event. Read-only.
-- `clear_on_unhover` (Bool; optional): If True, `clear_on_unhover` will clear the `hoverData` property
-when the user "unhovers" from a point.
-If False, then the `hoverData` property will be equal to the
-data from the last point that was hovered over.
-- `selectedData` (Dict; optional): Data from latest select event. Read-only.
-- `relayoutData` (Dict; optional): Data from latest relayout event which occurs
-when the user zooms or pans on the plot or other
-layout-level edits. Has the form `{<attr string>: <value>}`
-describing the changes made. Read-only.
-- `extendData` (Array | Dict; optional): Data that should be appended to existing traces. Has the form
-`[updateData, traceIndices, maxPoints]`, where `updateData` is an object
-containing the data to extend, `traceIndices` (optional) is an array of
-trace indices that should be extended, and `maxPoints` (optional) is
-either an integer defining the maximum number of points allowed or an
-object with key:value pairs matching `updateData`
-Reference the Plotly.extendTraces API for full usage:
-https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces
-- `prependData` (Array | Dict; optional): Data that should be prepended to existing traces. Has the form
-`[updateData, traceIndices, maxPoints]`, where `updateData` is an object
-containing the data to prepend, `traceIndices` (optional) is an array of
-trace indices that should be prepended, and `maxPoints` (optional) is
-either an integer defining the maximum number of points allowed or an
-object with key:value pairs matching `updateData`
-Reference the Plotly.prependTraces API for full usage:
-https://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces
-- `restyleData` (Array; optional): Data from latest restyle event which occurs
-when the user toggles a legend item, changes
-parcoords selections, or other trace-level edits.
-Has the form `[edits, indices]`, where `edits` is an object
-`{<attr string>: <value>}` describing the changes made,
-and `indices` is an array of trace indices that were edited.
-Read-only.
-- `figure` (optional): Plotly `figure` object. See schema:
-https://plotly.com/javascript/reference
-
-`config` is set separately by the `config` property. figure has the following type: lists containing elements 'data', 'layout', 'frames'.
-Those elements have the following types:
-  - `data` (Array of Dicts; optional)
-  - `layout` (Dict; optional)
-  - `frames` (Array of Dicts; optional)
-- `style` (Dict; optional): Generic style overrides on the plot div
-- `className` (String; optional): className of the parent div
 - `animate` (Bool; optional): Beta: If true, animate between updates using
 plotly.js's `animate` function
 - `animation_options` (Dict; optional): Beta: Object containing animation settings.
 Only applies if `animate` is `true`
+- `className` (String; optional): className of the parent div
+- `clear_on_unhover` (Bool; optional): If True, `clear_on_unhover` will clear the `hoverData` property
+when the user "unhovers" from a point.
+If False, then the `hoverData` property will be equal to the
+data from the last point that was hovered over.
+- `clickAnnotationData` (Dict; optional): Data from latest click annotation event. Read-only.
+- `clickData` (Dict; optional): Data from latest click event. Read-only.
 - `config` (optional): Plotly.js config options.
 See https://plotly.com/javascript/configuration-options/
 for more info.. config has the following type: lists containing elements 'staticPlot', 'plotlyServerURL', 'editable', 'edits', 'autosizable', 'responsive', 'queueLength', 'fillFrame', 'frameMargins', 'scrollZoom', 'doubleClick', 'doubleClickDelay', 'showTips', 'showAxisDragHandles', 'showAxisRangeEntryBoxes', 'showLink', 'sendData', 'linkText', 'displayModeBar', 'showSendToCloud', 'showEditInChartStudio', 'modeBarButtonsToRemove', 'modeBarButtonsToAdd', 'modeBarButtons', 'toImageButtonOptions', 'displaylogo', 'watermark', 'plotGlPixelRatio', 'topojsonURL', 'mapboxAccessToken', 'locale', 'locales'.
@@ -158,14 +106,66 @@ so that plotly.js won't attempt to authenticate to the public Mapbox server.
 https://github.com/plotly/plotly.js/blob/master/dist/README.md#to-include-localization
   - `locales` (Dict; optional): Localization definitions, if you choose to provide them with the
 plot rather than registering them globally.
+- `extendData` (Array | Dict; optional): Data that should be appended to existing traces. Has the form
+`[updateData, traceIndices, maxPoints]`, where `updateData` is an object
+containing the data to extend, `traceIndices` (optional) is an array of
+trace indices that should be extended, and `maxPoints` (optional) is
+either an integer defining the maximum number of points allowed or an
+object with key:value pairs matching `updateData`
+Reference the Plotly.extendTraces API for full usage:
+https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces
+- `figure` (optional): Plotly `figure` object. See schema:
+https://plotly.com/javascript/reference
+
+`config` is set separately by the `config` property. figure has the following type: lists containing elements 'data', 'layout', 'frames'.
+Those elements have the following types:
+  - `data` (Array of Dicts; optional)
+  - `layout` (Dict; optional)
+  - `frames` (Array of Dicts; optional)
+- `hoverData` (Dict; optional): Data from latest hover event. Read-only.
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not
   - `prop_name` (String; optional): Holds which property is loading
   - `component_name` (String; optional): Holds the name of the component that is loading
+- `prependData` (Array | Dict; optional): Data that should be prepended to existing traces. Has the form
+`[updateData, traceIndices, maxPoints]`, where `updateData` is an object
+containing the data to prepend, `traceIndices` (optional) is an array of
+trace indices that should be prepended, and `maxPoints` (optional) is
+either an integer defining the maximum number of points allowed or an
+object with key:value pairs matching `updateData`
+Reference the Plotly.prependTraces API for full usage:
+https://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces
+- `relayoutData` (Dict; optional): Data from latest relayout event which occurs
+when the user zooms or pans on the plot or other
+layout-level edits. Has the form `{<attr string>: <value>}`
+describing the changes made. Read-only.
+- `responsive` (a value equal to: true, false, 'auto'; optional): If True, the Plotly.js plot will be fully responsive to window resize
+and parent element resize event. This is achieved by overriding
+`config.responsive` to True, `figure.layout.autosize` to True and unsetting
+`figure.layout.height` and `figure.layout.width`.
+If False, the Plotly.js plot not be responsive to window resize and
+parent element resize event. This is achieved by overriding `config.responsive`
+to False and `figure.layout.autosize` to False.
+If 'auto' (default), the Graph will determine if the Plotly.js plot can be made fully
+responsive (True) or not (False) based on the values in `config.responsive`,
+`figure.layout.autosize`, `figure.layout.height`, `figure.layout.width`.
+This is the legacy behavior of the Graph component.
+
+Needs to be combined with appropriate dimension / styling through the `style` prop
+to fully take effect.
+- `restyleData` (Array; optional): Data from latest restyle event which occurs
+when the user toggles a legend item, changes
+parcoords selections, or other trace-level edits.
+Has the form `[edits, indices]`, where `edits` is an object
+`{<attr string>: <value>}` describing the changes made,
+and `indices` is an array of trace indices that were edited.
+Read-only.
+- `selectedData` (Dict; optional): Data from latest select event. Read-only.
+- `style` (Dict; optional): Generic style overrides on the plot div
 """
 function dcc_graph(; kwargs...)
-        available_props = Symbol[:id, :responsive, :clickData, :clickAnnotationData, :hoverData, :clear_on_unhover, :selectedData, :relayoutData, :extendData, :prependData, :restyleData, :figure, :style, :className, :animate, :animation_options, :config, :loading_state]
+        available_props = Symbol[:id, :animate, :animation_options, :className, :clear_on_unhover, :clickAnnotationData, :clickData, :config, :extendData, :figure, :hoverData, :loading_state, :prependData, :relayoutData, :responsive, :restyleData, :selectedData, :style]
         wild_props = Symbol[]
         return Component("dcc_graph", "Graph", "dash_core_components", available_props, wild_props; kwargs...)
 end

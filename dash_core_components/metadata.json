@@ -1178,6 +1178,78 @@
       }
     }
   },
+  "src/components/Download.react.js": {
+    "description": "The Download component opens a download dialog when the data property changes.",
+    "displayName": "Download",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID of this component, used to identify dash components in callbacks."
+      },
+      "data": {
+        "type": {
+          "name": "exact",
+          "value": {
+            "filename": {
+              "name": "string",
+              "description": "Suggested filename in the download dialogue.",
+              "required": true
+            },
+            "content": {
+              "name": "string",
+              "description": "File content.",
+              "required": true
+            },
+            "base64": {
+              "name": "bool",
+              "description": "Set to true, when data is base64 encoded.",
+              "required": false
+            },
+            "type": {
+              "name": "string",
+              "description": "Blob type, usually a MIME-type.",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "On change, a download is invoked."
+      },
+      "base64": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Default value for base64, used when not set as part of the data property.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "type": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Default value for type, used when not set as part of the data property.",
+        "defaultValue": {
+          "value": "'text/plain'",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-supplied function for updating props."
+      }
+    }
+  },
   "src/components/Dropdown.react.js": {
     "description": "Dropdown is an interactive dropdown element for selecting one or more\nitems.\nThe values and labels of the dropdown items are specified in the `options`\nproperty and the selected item(s) are specified with the `value` property.\n\nUse a dropdown when you have many options (more than 5) or when you are\nconstrained for space. Otherwise, you can use RadioItems or a Checklist,\nwhich have the benefit of showing the users all of the items at once.",
     "displayName": "Dropdown",
@@ -5244,7 +5316,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "Maximum file size. If `-1`, then infinite",
+        "description": "Maximum file size in bytes. If `-1`, then infinite",
         "defaultValue": {
           "value": "-1",
           "computed": false
@@ -5255,7 +5327,7 @@
           "name": "number"
         },
         "required": false,
-        "description": "Minimum file size",
+        "description": "Minimum file size in bytes",
         "defaultValue": {
           "value": "0",
           "computed": false
