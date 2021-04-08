@@ -29,19 +29,19 @@ See https://dash.plotly.com/dash-core-components/logout_button
 for more documentation and examples.
 Keyword arguments:
 - `id` (String; optional): Id of the button.
-- `label` (String; optional): Text of the button
-- `logout_url` (String; optional): Url to submit a post logout request.
-- `style` (Dict; optional): Style of the button
-- `method` (String; optional): Http method to submit the logout form.
 - `className` (String; optional): CSS class for the button.
+- `label` (String; optional): Text of the button
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not
   - `prop_name` (String; optional): Holds which property is loading
   - `component_name` (String; optional): Holds the name of the component that is loading
+- `logout_url` (String; optional): Url to submit a post logout request.
+- `method` (String; optional): Http method to submit the logout form.
+- `style` (Dict; optional): Style of the button
 """
 function dcc_logoutbutton(; kwargs...)
-        available_props = Symbol[:id, :label, :logout_url, :style, :method, :className, :loading_state]
+        available_props = Symbol[:id, :className, :label, :loading_state, :logout_url, :method, :style]
         wild_props = Symbol[]
         return Component("dcc_logoutbutton", "LogoutButton", "dash_core_components", available_props, wild_props; kwargs...)
 end

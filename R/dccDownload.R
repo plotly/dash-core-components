@@ -1,16 +1,16 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-dccLocation <- function(id=NULL, hash=NULL, href=NULL, pathname=NULL, refresh=NULL, search=NULL) {
+dccDownload <- function(id=NULL, base64=NULL, data=NULL, type=NULL) {
     
-    props <- list(id=id, hash=hash, href=href, pathname=pathname, refresh=refresh, search=search)
+    props <- list(id=id, base64=base64, data=data, type=type)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
     component <- list(
         props = props,
-        type = 'Location',
+        type = 'Download',
         namespace = 'dash_core_components',
-        propNames = c('id', 'hash', 'href', 'pathname', 'refresh', 'search'),
+        propNames = c('id', 'base64', 'data', 'type'),
         package = 'dashCoreComponents'
         )
 
