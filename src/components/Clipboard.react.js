@@ -71,7 +71,7 @@ export default class Clipboard extends React.Component {
         }
         if (text) {
             clipboardAPI.writeText(text).then(this.copySuccess, function() {
-                alert('copy error');
+                console.warn('Copy error'); // eslint-disable-line no-console
             });
         }
     }
