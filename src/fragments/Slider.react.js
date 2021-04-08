@@ -132,7 +132,7 @@ export default class Slider extends Component {
                         }}
                         onKeyPress={event => {
                             if (event.key === 'Enter') {
-                                this.syncInput();
+                                this.syncInput(event);
                             }
                         }}
                         type="number"
