@@ -38,13 +38,12 @@ export default class Clipboard extends React.Component {
         return '{' + parts.join(',') + '}';
     }
 
-    copySuccess() {
+    async copySuccess(text) {
         const showCopiedIcon = 1000;
-        this.setState({copied: true}, () => {
-            setTimeout(() => {
-                this.setState({copied: false});
-            }, showCopiedIcon);
-        });
+        await clipboardAPI.writeText(text);
+        this.setState({copied: true});
+        await wait(showCopiedIcon);
+        this.setState({copied: false});
     }
 
     getTargetText() {
@@ -66,14 +65,9 @@ export default class Clipboard extends React.Component {
     }
 
     async loading() {
-        let isLoading =
-            this.props.loading_state && this.props.loading_state.is_loading;
-        while (isLoading) {
+        while (this.props.loading_state?.is_loading) {
             await wait(100);
-            isLoading =
-                this.props.loading_state && this.props.loading_state.is_loading;
         }
-        return;
     }
 
     async copyToClipboard() {
@@ -90,9 +84,7 @@ export default class Clipboard extends React.Component {
             text = this.props.text;
         }
         if (text) {
-            clipboardAPI.writeText(text).then(this.copySuccess, function() {
-                console.warn('Copy error'); // eslint-disable-line no-console
-            });
+            this.copySuccess(text);
         }
     }
 
