@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import ReactSlider, {createSliderWithTooltip} from 'rc-slider';
 import {assoc, omit, pickBy} from 'ramda';
 import computeSliderStyle from '../utils/computeSliderStyle';
-import Input from '../components/Input.react.js';
 
 import 'rc-slider/assets/index.css';
 
@@ -17,23 +16,32 @@ export default class Slider extends Component {
         this.DashSlider = props.tooltip
             ? createSliderWithTooltip(ReactSlider)
             : ReactSlider;
-        this.SyncedInput = Input;
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
-        this.syncInput = this.syncInput.bind(this);
+        this.syncInputWithSlider = this.syncInputWithSlider.bind(this);
+        this.input = React.createRef();
     }
 
-    syncInput(event) {
+    syncInputWithSlider() {
+        if (this.input.current.value > this.props.max) {
+            this.input.current.value = this.props.max;
+        }
+
+        if (this.input.current.value < this.props.min) {
+            this.input.current.value = this.props.min;
+        }
+
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
-        if (event) {
-            this.setState({value: Number(event.target.value)});
-            this.props.setProps({
-                value: Number(event.target.value),
-                drag_value: Number(event.target.value),
-            });
-        }
+
+        const valueAsNumber = Number(this.input.current.value);
+
+        this.setState({value: valueAsNumber});
+        this.props.setProps({
+            value: valueAsNumber,
+            drag_value: valueAsNumber,
+        });
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -117,30 +125,30 @@ export default class Slider extends Component {
                 style={{...computedStyle, ...style}}
             >
                 {syncedInput ? (
-                    <this.SyncedInput
-                        onChange={event => {
-                            event.persist();
+                    <input
+                        onChange={() => {
                             this.timeout = setTimeout(
                                 function() {
-                                    this.syncInput(event);
+                                    this.syncInputWithSlider();
                                 }.bind(this),
                                 syncedInputDebounceTime
                             );
                         }}
-                        onBlur={event => {
-                            this.syncInput(event);
+                        onBlur={() => {
+                            this.syncInputWithSlider();
                         }}
                         onKeyPress={event => {
                             if (event.key === 'Enter') {
-                                this.syncInput(event);
+                                this.syncInputWithSlider();
                             }
                         }}
                         type="number"
-                        value={value}
+                        defaultValue={value}
                         step={step}
                         className={syncedInputClassName}
                         id={syncedInputID}
                         style={{...defaultInputStyle, ...syncedInputStyle}}
+                        ref={this.input}
                     />
                 ) : null}
                 <this.DashSlider
@@ -151,10 +159,16 @@ export default class Slider extends Component {
                             this.setState({value: value});
                             setProps({drag_value: value});
                         }
+                        if (syncedInput) {
+                            this.input.current.value = value;
+                        }
                     }}
                     onAfterChange={value => {
                         if (updatemode === 'mouseup') {
                             setProps({value});
+                        }
+                        if (syncedInput) {
+                            this.input.current.value = value;
                         }
                     }}
                     /*
