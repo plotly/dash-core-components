@@ -90,6 +90,9 @@ module.exports = (env, argv) => {
                         {
                             loader: 'css-loader',
                         },
+                        {
+                            loader: 'sass-loader',
+                        },
                     ],
                 },
             ],
