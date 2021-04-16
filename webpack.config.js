@@ -2,6 +2,7 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
+// const findAndReplace = require('./custom_loaders/find_and_replace')
 
 const packagejson = require('./package.json');
 
@@ -93,8 +94,22 @@ module.exports = (env, argv) => {
                         {
                             loader: 'sass-loader',
                         },
+                        // {
+                        //     loader: path.resolve(__dirname, 'find_and_replace.js'),
+                        // }
+                        {
+                            loader: 'string-replace-loader',
+                            options: {
+                                search: /font-weight\s*(:)\s*auto/gm,
+                                replace: 'font-weight:normal',
+                            }
+                        }
                     ],
                 },
+                // {
+                //     test: /fileInWhichJQueryIsUndefined\.js$/,
+                    
+                //   }
             ],
         },
         resolve: {
