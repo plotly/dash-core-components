@@ -262,6 +262,16 @@ DatePickerRange.propTypes = {
      * session: window.sessionStorage, data is cleared once the browser quit.
      */
     persistence_type: PropTypes.oneOf(['local', 'session', 'memory']),
+
+    /**
+     * The language used to set locale globally.
+     * Pass the default parameter `auto` to use the browser's default language.
+     * For example: `language='en'` sets the default locale of this component globally to English.
+     * Important: The same locale needs to be set for ALL DatePicker components located on the same page!
+     * This limitation is caused by the fact that locale is being set GLOBALLY.
+     * See https://momentjs.com/docs/#/i18n/ for details.
+     */
+    language: PropTypes.string,
 };
 
 DatePickerRange.persistenceTransforms = {
@@ -284,6 +294,7 @@ DatePickerRange.defaultProps = {
     updatemode: 'singledate',
     persisted_props: ['start_date', 'end_date'],
     persistence_type: 'local',
+    language: 'auto',
 };
 
 export const propTypes = DatePickerRange.propTypes;

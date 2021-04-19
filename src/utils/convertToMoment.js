@@ -1,6 +1,20 @@
 import moment from 'moment';
 import {has} from 'ramda';
 
+/**
+ * Set locale globally based on `language` parameter.
+ * Pass `language` parameter `auto` to use the browser's default language.
+ * See https://momentjs.com/docs/#/i18n/ for details.
+ *
+ * @param {string} language
+ */
+export const setLocaleGlobally = (language) => {
+    if (language === "auto") {
+        language = window.navigator.language || 'en';
+    }
+    moment.locale(language);
+};
+
 export default (newProps, momentProps) => {
     const dest = {};
 

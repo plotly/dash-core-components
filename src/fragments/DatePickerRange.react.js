@@ -4,11 +4,12 @@ import React, {Component} from 'react';
 import uniqid from 'uniqid';
 
 import {propTypes, defaultProps} from '../components/DatePickerRange.react';
-import convertToMoment from '../utils/convertToMoment';
+import convertToMoment, {setLocaleGlobally} from '../utils/convertToMoment';
 
 export default class DatePickerRange extends Component {
     constructor(props) {
         super(props);
+        setLocaleGlobally(this.props.language);
         this.propsToState = this.propsToState.bind(this);
         this.onDatesChange = this.onDatesChange.bind(this);
         this.isOutsideRange = this.isOutsideRange.bind(this);
