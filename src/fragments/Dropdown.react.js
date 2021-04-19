@@ -72,6 +72,7 @@ export default class Dropdown extends Component {
                 }
             >
                 <ReactDropdown
+                    id={id+'_dropdown'}
                     filterOptions={filterOptions}
                     options={options}
                     value={selectedValue}

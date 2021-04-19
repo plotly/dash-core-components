@@ -33,6 +33,11 @@ Dropdown.propTypes = {
     id: PropTypes.string,
 
     /**
+     * THis is the label for accessiblity purposes
+     */
+    label: PropTypes.string,
+
+    /**
      * An array of options {label: [string|number], value: [string|number]},
      * an optional disabled field can be used for each option
      */

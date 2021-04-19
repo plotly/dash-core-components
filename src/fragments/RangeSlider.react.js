@@ -69,6 +69,8 @@ export default class RangeSlider extends Component {
                 this.props.marks
             );
 
+        var labels = ['Slider option 1', 'Slider Option 2'];
+
         return (
             <div
                 id={id}
@@ -95,6 +97,7 @@ export default class RangeSlider extends Component {
                     tipProps={tipProps}
                     value={value}
                     marks={truncatedMarks}
+                    ariaLabelGroupForHandles={labels}
                     {...omit(
                         [
                             'className',
