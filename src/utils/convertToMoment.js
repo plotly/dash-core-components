@@ -20,9 +20,7 @@ export default (newProps, momentProps) => {
                 );
             }
         } else if (Array.isArray(value)) {
-            dest[key] = value.map(d =>
-                d === null || d === undefined ? null : moment(d)
-            );
+            dest[key] = value.map(moment);
         } else {
             dest[key] = moment(value);
 
