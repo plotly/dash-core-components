@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## UNRELEASED
 ### Added
 - [#932](https://github.com/plotly/dash-core-components/pull/932). Adds a new copy to clipboard component.
+- [#948](https://github.com/plotly/dash-core-components/pull/948)] Adds `disabled_days` prop to `DatePickerRange` and `DatePickerSingle` components. With this prop you can specify days that should be made unselectable in the date picker, in addition to those that fall outside of the range specified by `min_date_allowed` and `max_date_allowed`.
 
 
 ## [1.16.0] - 2021-04-08
@@ -15,7 +16,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - `dcc.send_data_frame` - send a `DataFrame`, using one of its writer methods
   - `dcc.send_bytes` - send a bytestring or the result of a bytestring writer
   - `dcc.send_string` - send a string or the result of a string writer
-- [#948](https://github.com/plotly/dash-core-components/pull/948)] Adds `disabled_days` prop to `DatePickerRange` and `DatePickerSingle` components. With this prop you can specify days that should be made unselectable in the date picker, in addition to those that fall outside of the range specified by `min_date_allowed` and `max_date_allowed`.
 
 ### Changed
 - [#923](https://github.com/plotly/dash-core-components/pull/923)
