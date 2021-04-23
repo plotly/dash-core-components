@@ -47,6 +47,11 @@ RangeSlider.propTypes = {
     /**
      * The value of the input
      */
+    slider_labels: PropTypes.arrayOf(PropTypes.string),
+
+    /**
+     * The value of the input
+     */
     value: PropTypes.arrayOf(PropTypes.number),
 
     /**
@@ -218,6 +223,7 @@ RangeSlider.defaultProps = {
     persisted_props: ['value'],
     persistence_type: 'local',
     verticalHeight: 400,
+    slider_labels:['slider option 1', 'slider option 2']
 };
 
 export const propTypes = RangeSlider.propTypes;

@@ -262,7 +262,7 @@ DatePickerRange.propTypes = {
      * component or the page.
      */
     persisted_props: PropTypes.arrayOf(
-        PropTypes.oneOf(['start_date', 'end_date'])
+        PropTypes.oneOf(['start_date', 'end_date', 'start_date_placeholder_text', 'start_date_aria_text'])
     ),
 
     /**
@@ -277,6 +277,8 @@ DatePickerRange.propTypes = {
 DatePickerRange.persistenceTransforms = {
     end_date: transformDate,
     start_date: transformDate,
+    start_date_placeholder_text: transformDate,
+    start_date_aria_text: transformDate,
 };
 
 DatePickerRange.defaultProps = {
@@ -292,7 +294,7 @@ DatePickerRange.defaultProps = {
     clearable: false,
     disabled: false,
     updatemode: 'singledate',
-    persisted_props: ['start_date', 'end_date'],
+    persisted_props: ['start_date', 'end_date', 'start_date_aria_text', 'start_date_placeholder_text'],
     persistence_type: 'local',
 };
 

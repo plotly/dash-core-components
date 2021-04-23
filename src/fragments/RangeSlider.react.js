@@ -69,7 +69,7 @@ export default class RangeSlider extends Component {
                 this.props.marks
             );
 
-        var labels = ['Slider option 1', 'Slider Option 2'];
+        var labels = this.props.slider_labels;
 
         return (
             <div
