@@ -71,11 +71,11 @@ export default class Slider extends Component {
             setProps,
             tooltip,
             updatemode,
-            syncedInput,
-            syncedInputDebounceTime,
-            syncedInputClassName,
-            syncedInputStyle,
-            syncedInputID,
+            synced_input,
+            synced_input_debounce_time,
+            synced_input_class_name,
+            synced_input_style,
+            synced_input_id,
             style,
             step,
             vertical,
@@ -111,8 +111,8 @@ export default class Slider extends Component {
 
         const defaultInputStyle = {
             width: '60px',
-            marginRight: vertical && syncedInput ? '' : '25px',
-            marginBottom: vertical && syncedInput ? '25px' : '',
+            marginRight: vertical && synced_input ? '' : '25px',
+            marginBottom: vertical && synced_input ? '25px' : '',
         };
 
         return (
@@ -124,14 +124,14 @@ export default class Slider extends Component {
                 className={className}
                 style={{...computedStyle, ...style}}
             >
-                {syncedInput ? (
+                {synced_input ? (
                     <input
                         onChange={() => {
                             this.timeout = setTimeout(
                                 function() {
                                     this.syncInputWithSlider();
                                 }.bind(this),
-                                syncedInputDebounceTime
+                                synced_input_debounce_time
                             );
                         }}
                         onBlur={() => {
@@ -145,9 +145,9 @@ export default class Slider extends Component {
                         type="number"
                         defaultValue={value}
                         step={step}
-                        className={syncedInputClassName}
-                        id={syncedInputID}
-                        style={{...defaultInputStyle, ...syncedInputStyle}}
+                        className={synced_input_class_name}
+                        id={synced_input_id}
+                        style={{...defaultInputStyle, ...synced_input_style}}
                         ref={this.input}
                     />
                 ) : null}
@@ -159,7 +159,7 @@ export default class Slider extends Component {
                             this.setState({value: value});
                             setProps({drag_value: value});
                         }
-                        if (syncedInput) {
+                        if (synced_input) {
                             this.input.current.value = value;
                         }
                     }}
@@ -167,7 +167,7 @@ export default class Slider extends Component {
                         if (updatemode === 'mouseup') {
                             setProps({value});
                         }
-                        if (syncedInput) {
+                        if (synced_input) {
                             this.input.current.value = value;
                         }
                     }}
