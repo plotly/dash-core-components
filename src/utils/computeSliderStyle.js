@@ -4,10 +4,12 @@ export default () => {
     return memoizeWith(identity, (vertical, verticalHeight, tooltip) => {
         const style = {
             padding: '25px',
+            display: 'flex',
         };
 
         if (vertical) {
             style.height = verticalHeight + 'px';
+            style.flexDirection = 'column';
 
             if (
                 !tooltip ||
@@ -28,6 +30,7 @@ export default () => {
             ) {
                 style.paddingTop = '0px';
             }
+            style.alignItems = 'center';
         }
 
         return style;

@@ -18,6 +18,30 @@ export default class Slider extends Component {
             : ReactSlider;
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
+        this.syncInputWithSlider = this.syncInputWithSlider.bind(this);
+        this.input = React.createRef();
+    }
+
+    syncInputWithSlider() {
+        if (this.input.current.value > this.props.max) {
+            this.input.current.value = this.props.max;
+        }
+
+        if (this.input.current.value < this.props.min) {
+            this.input.current.value = this.props.min;
+        }
+
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
+
+        const valueAsNumber = Number(this.input.current.value);
+
+        this.setState({value: valueAsNumber});
+        this.props.setProps({
+            value: valueAsNumber,
+            drag_value: valueAsNumber,
+        });
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -47,6 +71,13 @@ export default class Slider extends Component {
             setProps,
             tooltip,
             updatemode,
+            syncedInput,
+            syncedInputDebounceTime,
+            syncedInputClassName,
+            syncedInputStyle,
+            syncedInputID,
+            style,
+            step,
             vertical,
             verticalHeight,
         } = this.props;
@@ -72,6 +103,18 @@ export default class Slider extends Component {
               )
             : this.props.marks;
 
+        const computedStyle = this._computeStyle(
+            vertical,
+            verticalHeight,
+            tooltip
+        );
+
+        const defaultInputStyle = {
+            width: '60px',
+            marginRight: vertical && syncedInput ? '' : '25px',
+            marginBottom: vertical && syncedInput ? '25px' : '',
+        };
+
         return (
             <div
                 id={id}
@@ -79,8 +122,35 @@ export default class Slider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={this._computeStyle(vertical, verticalHeight, tooltip)}
+                style={{...computedStyle, ...style}}
             >
+                {syncedInput ? (
+                    <input
+                        onChange={() => {
+                            this.timeout = setTimeout(
+                                function() {
+                                    this.syncInputWithSlider();
+                                }.bind(this),
+                                syncedInputDebounceTime
+                            );
+                        }}
+                        onBlur={() => {
+                            this.syncInputWithSlider();
+                        }}
+                        onKeyPress={event => {
+                            if (event.key === 'Enter') {
+                                this.syncInputWithSlider();
+                            }
+                        }}
+                        type="number"
+                        defaultValue={value}
+                        step={step}
+                        className={syncedInputClassName}
+                        id={syncedInputID}
+                        style={{...defaultInputStyle, ...syncedInputStyle}}
+                        ref={this.input}
+                    />
+                ) : null}
                 <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
@@ -89,10 +159,16 @@ export default class Slider extends Component {
                             this.setState({value: value});
                             setProps({drag_value: value});
                         }
+                        if (syncedInput) {
+                            this.input.current.value = value;
+                        }
                     }}
                     onAfterChange={value => {
                         if (updatemode === 'mouseup') {
                             setProps({value});
+                        }
+                        if (syncedInput) {
+                            this.input.current.value = value;
                         }
                     }}
                     /*
