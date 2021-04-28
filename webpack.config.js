@@ -85,7 +85,10 @@ module.exports = (env, argv) => {
                         {
                             loader: 'style-loader',
                             options: {
-                                insertAt: 'top'
+                                insertAt: {
+                                    before: '#dash_components_css'
+                                }
+                                // insertInto: 'head style.dash_components'
                             }
                         },
                         {
@@ -103,7 +106,14 @@ module.exports = (env, argv) => {
                                 search: /font-weight\s*(:)\s*auto/gm,
                                 replace: 'font-weight:normal',
                             }
-                        }
+                        },
+                        // {
+                        //     loader: 'string-replace-loader',
+                        //     options: {
+                        //         search: /border-color:\s*transparent\s*inherit\s*transparent\s*transparent\s*!important/gm,
+                        //         replace: 'border-color: transparent inherit transparent transparent',
+                        //     }
+                        // }
                     ],
                 },
                 // {
