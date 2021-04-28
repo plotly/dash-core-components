@@ -49,10 +49,11 @@ export default class Loading extends Component {
             parent_style,
             fullscreen,
             debug,
+            in_progress,
             type: spinnerType,
         } = this.props;
 
-        const isLoading = loading_state && loading_state.is_loading;
+        const isLoading = (loading_state && loading_state.is_loading) || in_progress;
         const Spinner = isLoading && getSpinner(spinnerType);
 
         return (
@@ -121,6 +122,11 @@ Loading.propTypes = {
      * while loading
      */
     debug: PropTypes.bool,
+
+    /**
+     * If true, the spinner will remain in the loading state until set to false
+     */
+    in_progress: PropTypes.bool,
 
     /**
      * Additional CSS class for the spinner root DOM node
