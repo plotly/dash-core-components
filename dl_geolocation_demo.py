@@ -131,7 +131,9 @@ def make_position_card(pos, date, show_address):
         [
             html.H4(f"As of {date} your location:"),
             html.P(
-                f"within {pos['accuracy']} meters of  lat,lon: ( {pos['lat']:.2f},  {pos['lon']:.2f})"
+                "within {} meters of  lat,lon: ( {:.2f},  {:.2f})".format(
+                    pos["accuracy"], pos["lat"], pos["lon"]
+                )
             ),
             html.P(get_address(pos["lat"], pos["lon"], show_address)),
         ]

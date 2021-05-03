@@ -58,7 +58,7 @@ export default class Geolocation extends Component {
             lon: crd.longitude,
             accuracy: crd.accuracy,
             alt: crd.altitude,
-            altAccuracy: crd.altitudeAccuracy,
+            alt_accuracy: crd.altitudeAccuracy,
             speed: crd.speed,
             heading: crd.heading,
         };
@@ -111,7 +111,7 @@ Geolocation.propTypes = {
     local_date: PropTypes.string,
 
     /**
-     * The Unix timestamp in seconds from when the position was updated
+     * The Unix timestamp from when the position was updated
      */
     timestamp: PropTypes.number,
 
@@ -124,7 +124,7 @@ Geolocation.propTypes = {
      *       `accuracy` is the accuracy of the lat/lon in meters.    *
      *
      *       `alt` is altitude above mean sea level in meters.
-     *       `altAccuracy` is the accuracy of the altitude  in meters.
+     *       `alt_accuracy` is the accuracy of the altitude  in meters.
      *       `heading` is the compass heading in degrees.
      *       `speed` is the  speed in meters per second.
      *
@@ -134,7 +134,7 @@ Geolocation.propTypes = {
         lon: PropTypes.number,
         accuracy: PropTypes.number,
         alt: PropTypes.number,
-        altAccuracy: PropTypes.number,
+        alt_accuracy: PropTypes.number,
         heading: PropTypes.number,
         speed: PropTypes.number,
     }),
