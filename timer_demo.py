@@ -44,12 +44,12 @@ __The first 5 examples are `dcc.Timer` components with messages updated clientsi
 
 shuttle_intro_text = dcc.Markdown(
     """
-    ### Space Shuttle Countdown app  
-    This app uses the `dcc.Timer` component to launch the space shuttle. It uses the `messages` property to define the 
-    messages that will display at the specified times. The `fire_times` property sets the 
+    ### Space Shuttle Countdown app
+    This app uses the `dcc.Timer` component to launch the space shuttle. It uses the `messages` property to define the
+    messages that will display at the specified times. The `fire_times` property sets the
     time to trigger a callback to start the launch. Even though the timer runs for 50 seconds 
-    (`n_intervals = 50, interval=1000`), it only fires the callback one time (at liftoff) All the other 
-    messages are handled clientside by the component.   
+    (`n_intervals = 50, interval=1000`), it only fires the callback one time (at liftoff) All the other
+    messages are handled clientside by the component.
     ### Click "resume countdown" to launch!
     """,
     className="border p-4",
@@ -146,8 +146,8 @@ countdown_target_time_md2 = dcc.Markdown(
             "Hurry! Special offer ends in ",
             dbc.Badge(
                 dcc.Timer(mode="countdown", duration=100000000, timer_format="display"),
-                color="danger",        
-            ),            
+                color="danger",
+            ),
         ]
     )```"""
 )
@@ -317,7 +317,7 @@ shuttle = html.Div(
 )
 
 shuttle_md = dcc.Markdown(
-    """```    
+    """```
     html.Div(
         [
             dbc.Button("start", id="start", size="lg", color="info", className="m-4"),
