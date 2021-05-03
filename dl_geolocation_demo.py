@@ -129,7 +129,7 @@ def make_map(position, show_address, zoom=12):
 def make_position_card(pos, date, show_address):
     return html.Div(
         [
-            html.H4(f"As of {date} your location:"),
+            html.H4("As of {} your location:".format(date)),
             html.P(
                 "within {} meters of  lat,lon: ( {:.2f},  {:.2f})".format(
                     pos["accuracy"], pos["lat"], pos["lon"]
