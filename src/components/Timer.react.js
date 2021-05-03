@@ -252,7 +252,8 @@ Timer.propTypes = {
     fire_times: PropTypes.arrayOf(PropTypes.number),
 
     /**
-     * This number is updated when the timer it reaches a time in the  fire_times property. (Read only)
+     * This is updated when the timer reaches one of the times in the `fire_times` list. Using `at_fire_time` in a
+     * callback will trigger the callback at the time(s) in `fire_times` (Read only)
      */
     at_fire_time: PropTypes.number,
 

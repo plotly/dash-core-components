@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## UNRELEASED
 ### Added
+- [#961](https://github.com/plotly/dash-core-components/pull/961)  Adds a new Timer component
 - [#932](https://github.com/plotly/dash-core-components/pull/932). Adds a new copy to clipboard component.
 - [#948](https://github.com/plotly/dash-core-components/pull/948)] Adds `disabled_days` prop to `DatePickerRange` and `DatePickerSingle` components. With this prop you can specify days that should be made unselectable in the date picker, in addition to those that fall outside of the range specified by `min_date_allowed` and `max_date_allowed`.
 

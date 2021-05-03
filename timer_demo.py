@@ -1,7 +1,7 @@
 import dash
 from dash.exceptions import PreventUpdate
 import dash_core_components as dcc
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import datetime as dt
@@ -26,7 +26,7 @@ Introduction
 
 intro_text = dcc.Markdown(
     """
-    
+
 `dcc.Timer` is based on the `dcc.Interval` component.  It has all the functionality of `dcc.Interval` plus these new features:
 
  - Operate the timer in either `countdown` or `stopwatch` (count up) modes.
@@ -376,7 +376,7 @@ def start(btn_clicks):
 )
 def blastoff(at_fire_time):
     return at_fire_time == 0
-    
+
     ```"""
 )
 
@@ -408,7 +408,7 @@ stages_md = dcc.Markdown(
         ],
         size="lg",
     )
-    
+
 
 @app.callback(
     [Output("stage" + str(i), "color") for i in range(1, 5)],
@@ -611,7 +611,7 @@ def time_of_day_job_starter(start_btn_clicks):
 )
 def update_time_of_day_job(at_fire_time):
     next_update = dt.datetime.now() + dt.timedelta(seconds=900)
-    return f"Next update at {next_update}"
+    return "Next update at {}".format(next_update)
 
 
 if __name__ == "__main__":
