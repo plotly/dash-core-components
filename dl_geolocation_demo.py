@@ -236,7 +236,7 @@ def update_interval(time):
 def display_output(checklist, zoom, location_data):
     date, timestamp, pos, err = location_data
     if err:
-        return f"Error {err['code']} : {err['message']}", dash.no_update
+        return "Error {} : {}".format(err["code"], err["message"]), dash.no_update
 
     # update  message
     show_address = True if checklist and "address" in checklist else False
@@ -259,7 +259,9 @@ def display_output(checklist, zoom, location_data):
     timestamp = timestamp if timestamp else 0
     datetime_local = dt.datetime.fromtimestamp(int(timestamp / 1000))
     datetime_utc = dt.datetime.utcfromtimestamp(int(timestamp / 1000))
-    iso_date = f"UTC datetime: {datetime_utc}      Local datetime: {datetime_local}"
+    iso_date = "UTC datetime: {}      Local datetime: {}".format(
+        datetime_utc, datetime_local
+    )
 
     return None, [position, graph_map, position_table, iso_date, markdown_card]
 
