@@ -47,7 +47,7 @@ shuttle_intro_text = dcc.Markdown(
     ### Space Shuttle Countdown app
     This app uses the `dcc.Timer` component to launch the space shuttle. It uses the `messages` property to define the
     messages that will display at the specified times. The `fire_times` property sets the
-    time to trigger a callback to start the launch. Even though the timer runs for 50 seconds 
+    time to trigger a callback to start the launch. Even though the timer runs for 50 seconds
     (`n_intervals = 50, interval=1000`), it only fires the callback one time (at liftoff) All the other
     messages are handled clientside by the component.
     ### Click "resume countdown" to launch!
@@ -69,7 +69,7 @@ countdown_repeating = html.H4(
             duration=30000,
             timer_format="verbose",
             rerun=True,
-            className="d-inline-block",
+            class_name="d-inline-block",
         ),
     ]
 )
@@ -84,7 +84,7 @@ countdown_repeating_md = dcc.Markdown(
                 duration=30000,
                 timer_format="verbose",
                 rerun=True,
-                className="d-inline-block",
+                class_name="d-inline-block",
             ),
         ]
     )
@@ -106,7 +106,7 @@ countdown_target_time = html.H4(
             mode="countdown",
             duration=100000000,
             timer_format="verbose",
-            className="d-inline-block",
+            class_name="d-inline-block",
         ),
     ]
 )
@@ -119,7 +119,7 @@ countdown_target_time_md = dcc.Markdown(
                 mode="countdown",
                 duration=100000000,
                 timer_format="verbose",
-                className="d-inline-block",
+                class_name="d-inline-block",
             ),
         ]
     )```"""
@@ -134,7 +134,7 @@ countdown_target_time2 = html.H4(
     [
         "Hurry! Special offer ends in ",
         dbc.Badge(
-            dcc.Timer(mode="countdown", duration=100000000, timer_format="display"),
+            dcc.Timer(mode="countdown", duration=1000000, timer_format="display"),
             color="danger",
         ),
     ]
@@ -177,7 +177,7 @@ stopwatch_repeating = html.H4(
                     duration=30000,
                     timer_format="verbose",
                     rerun=True,
-                    className="d-inline-block",
+                    class_name="d-inline-block",
                 ),
             ],
             className="text-info",
@@ -197,7 +197,7 @@ stopwatch_repeating_md = dcc.Markdown(
                         duration=30000,
                         timer_format="verbose",
                         rerun=True,
-                        className="d-inline-block",
+                        class_name="d-inline-block",
                     ),
                 ], className='text-info'
             ),
@@ -302,7 +302,7 @@ shuttle = html.Div(
                     duration=51000,
                     timer_format="colonNotation",
                     disabled=True,
-                    className="border bg-dark text-white p-2",
+                    class_name="border bg-dark text-white p-2",
                     style={"width": 100},
                 ),
             ]
