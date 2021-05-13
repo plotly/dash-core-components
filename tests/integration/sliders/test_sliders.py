@@ -175,7 +175,7 @@ def test_slsl005_rangeslider_tooltip(dash_dcc):
                             value=[0, 65],
                             tooltip={"always_visible": True, "placement": "top"},
                         ),
-                        style=dict(height=100),
+                        style=dict(height=100, marginTop=25),
                     ),
                     html.Div(
                         dcc.RangeSlider(
@@ -215,7 +215,7 @@ def test_slsl005_rangeslider_tooltip(dash_dcc):
                         style=dict(height=100),
                     ),
                 ],
-                style=dict(maxHeight=300, overflowX="scroll"),
+                style=dict(maxHeight=300, overflowX="scroll", backgroundColor="#edf9f7"),
             )
         ]
     )
