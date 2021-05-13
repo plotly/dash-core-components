@@ -215,7 +215,9 @@ def test_slsl005_rangeslider_tooltip(dash_dcc):
                         style=dict(height=100),
                     ),
                 ],
-                style=dict(maxHeight=300, overflowX="scroll", backgroundColor="#edf9f7"),
+                style=dict(
+                    maxHeight=300, overflowX="scroll", backgroundColor="#edf9f7"
+                ),
             )
         ]
     )
