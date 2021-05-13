@@ -222,9 +222,7 @@ def test_slsl005_rangeslider_tooltip(dash_dcc):
 
     dash_dcc.start_server(app)
     dash_dcc.wait_for_element("#test-slider")
-    dash_dcc.percy_snapshot(
-        "slider-make sure tooltips are only visible if parent slider is visible"
-    )
+    dash_dcc.percy_snapshot("slsl005- dcc.RangeSlider tooltip position")
 
 
 def test_slsl006_drag_value_slider(dash_dcc):
