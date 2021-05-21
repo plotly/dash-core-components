@@ -7,6 +7,10 @@ import 'rc-slider/assets/index.css';
 
 import {propTypes, defaultProps} from '../components/Slider.react';
 
+function round(number, increment, offset) {
+    return Math.round((number - offset) / increment ) * increment + offset;
+}
+
 /**
  * A slider component with a single handle.
  */
@@ -22,25 +26,37 @@ export default class Slider extends Component {
         this.input = React.createRef();
     }
 
-    syncInputWithSlider() {
-        if (this.input.current.value > this.props.max) {
+    syncInputWithSlider(trigger) {
+
+        if (trigger == "onChange"){
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+            }
+            return
+        }
+
+        if (this.input.current.value === ""){
+            this.input.current.value = this.props.value
+        }
+
+        if (Number(this.input.current.value) > this.props.max) {
             this.input.current.value = this.props.max;
         }
 
-        if (this.input.current.value < this.props.min) {
+        if (Number(this.input.current.value) < this.props.min) {
             this.input.current.value = this.props.min;
         }
 
-        if (this.timeout) {
-            clearTimeout(this.timeout);
+        if (this.props.step){
+            if ((this.input.current.value - this.props.step) % 1 !== 0){
+                this.input.current.value = round(this.input.current.value, this.props.step, 0)
+            }
         }
 
-        const valueAsNumber = Number(this.input.current.value);
-
-        this.setState({value: valueAsNumber});
+        this.setState({value: Number(this.input.current.value)});
         this.props.setProps({
-            value: valueAsNumber,
-            drag_value: valueAsNumber,
+            value: Number(this.input.current.value),
+            drag_value: Number(this.input.current.value),
         });
     }
 
@@ -129,17 +145,17 @@ export default class Slider extends Component {
                         onChange={() => {
                             this.timeout = setTimeout(
                                 function() {
-                                    this.syncInputWithSlider();
+                                    this.syncInputWithSlider("onChange");
                                 }.bind(this),
                                 synced_input_debounce_time
                             );
                         }}
                         onBlur={() => {
-                            this.syncInputWithSlider();
+                            this.syncInputWithSlider("onBlur");
                         }}
                         onKeyPress={event => {
                             if (event.key === 'Enter') {
-                                this.syncInputWithSlider();
+                                this.syncInputWithSlider("onKeyPress");
                             }
                         }}
                         type="number"
