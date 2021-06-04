@@ -7,6 +7,10 @@ import 'rc-slider/assets/index.css';
 
 import {propTypes, defaultProps} from '../components/Slider.react';
 
+function round(number, increment, offset) {
+    return Math.round((number - offset) / increment ) * increment + offset;
+}
+
 /**
  * A slider component with a single handle.
  */
@@ -18,6 +22,42 @@ export default class Slider extends Component {
             : ReactSlider;
         this._computeStyle = computeSliderStyle();
         this.state = {value: props.value};
+        this.syncInputWithSlider = this.syncInputWithSlider.bind(this);
+        this.input = React.createRef();
+    }
+
+    syncInputWithSlider(trigger) {
+
+        if (trigger == "onChange"){
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+            }
+            return
+        }
+
+        if (this.input.current.value === ""){
+            this.input.current.value = this.props.value
+        }
+
+        if (Number(this.input.current.value) > this.props.max) {
+            this.input.current.value = this.props.max;
+        }
+
+        if (Number(this.input.current.value) < this.props.min) {
+            this.input.current.value = this.props.min;
+        }
+
+        if (this.props.step){
+            if ((this.input.current.value - this.props.step) % 1 !== 0){
+                this.input.current.value = round(this.input.current.value, this.props.step, 0)
+            }
+        }
+
+        this.setState({value: Number(this.input.current.value)});
+        this.props.setProps({
+            value: Number(this.input.current.value),
+            drag_value: Number(this.input.current.value),
+        });
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
@@ -47,6 +87,13 @@ export default class Slider extends Component {
             setProps,
             tooltip,
             updatemode,
+            synced_input,
+            synced_input_debounce_time,
+            synced_input_class_name,
+            synced_input_style,
+            synced_input_id,
+            style,
+            step,
             vertical,
             verticalHeight,
         } = this.props;
@@ -72,6 +119,18 @@ export default class Slider extends Component {
               )
             : this.props.marks;
 
+        const computedStyle = this._computeStyle(
+            vertical,
+            verticalHeight,
+            tooltip
+        );
+
+        const defaultInputStyle = {
+            width: '60px',
+            marginRight: vertical && synced_input ? '' : '25px',
+            marginBottom: vertical && synced_input ? '25px' : '',
+        };
+
         return (
             <div
                 id={id}
@@ -79,8 +138,35 @@ export default class Slider extends Component {
                     (loading_state && loading_state.is_loading) || undefined
                 }
                 className={className}
-                style={this._computeStyle(vertical, verticalHeight, tooltip)}
+                style={{...computedStyle, ...style}}
             >
+                {synced_input ? (
+                    <input
+                        onChange={() => {
+                            this.timeout = setTimeout(
+                                function() {
+                                    this.syncInputWithSlider("onChange");
+                                }.bind(this),
+                                synced_input_debounce_time
+                            );
+                        }}
+                        onBlur={() => {
+                            this.syncInputWithSlider("onBlur");
+                        }}
+                        onKeyPress={event => {
+                            if (event.key === 'Enter') {
+                                this.syncInputWithSlider("onKeyPress");
+                            }
+                        }}
+                        type="number"
+                        defaultValue={value}
+                        step={step}
+                        className={synced_input_class_name}
+                        id={synced_input_id}
+                        style={{...defaultInputStyle, ...synced_input_style}}
+                        ref={this.input}
+                    />
+                ) : null}
                 <this.DashSlider
                     onChange={value => {
                         if (updatemode === 'drag') {
@@ -89,10 +175,16 @@ export default class Slider extends Component {
                             this.setState({value: value});
                             setProps({drag_value: value});
                         }
+                        if (synced_input) {
+                            this.input.current.value = value;
+                        }
                     }}
                     onAfterChange={value => {
                         if (updatemode === 'mouseup') {
                             setProps({value});
+                        }
+                        if (synced_input) {
+                            this.input.current.value = value;
                         }
                     }}
                     /*
