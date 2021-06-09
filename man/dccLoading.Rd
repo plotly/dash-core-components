@@ -11,9 +11,9 @@ A Loading component that wraps any other component and displays a spinner until 
 
 \usage{
 dccLoading(children=NULL, id=NULL, className=NULL, color=NULL,
-debug=NULL, fullscreen=NULL, loading_state=NULL,
-parent_className=NULL, parent_style=NULL, style=NULL,
-type=NULL)
+debug=NULL, fullscreen=NULL, in_progress=NULL,
+loading_state=NULL, parent_className=NULL,
+parent_style=NULL, style=NULL, type=NULL)
 }
 
 \arguments{
@@ -31,6 +31,8 @@ components in an app.}
 while loading}
 
 \item{fullscreen}{Logical. Boolean that makes the spinner display full-screen}
+
+\item{in_progress}{Logical. If true, the spinner will remain in the loading state until set to false}
 
 \item{loading_state}{Lists containing elements 'is_loading', 'prop_name', 'component_name'.
 those elements have the following types:

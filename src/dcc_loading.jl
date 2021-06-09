@@ -20,6 +20,7 @@ components in an app.
 - `debug` (Bool; optional): If true, the spinner will display the component_name and prop_name
 while loading
 - `fullscreen` (Bool; optional): Boolean that makes the spinner display full-screen
+- `in_progress` (Bool; optional): If true, the spinner will remain in the loading state until set to false
 - `loading_state` (optional): Object that holds the loading state object coming from dash-renderer. loading_state has the following type: lists containing elements 'is_loading', 'prop_name', 'component_name'.
 Those elements have the following types:
   - `is_loading` (Bool; optional): Determines if the component is loading or not
@@ -32,7 +33,7 @@ Those elements have the following types:
 one of 'graph', 'cube', 'circle', 'dot', or 'default'.
 """
 function dcc_loading(; kwargs...)
-        available_props = Symbol[:children, :id, :className, :color, :debug, :fullscreen, :loading_state, :parent_className, :parent_style, :style, :type]
+        available_props = Symbol[:children, :id, :className, :color, :debug, :fullscreen, :in_progress, :loading_state, :parent_className, :parent_style, :style, :type]
         wild_props = Symbol[]
         return Component("dcc_loading", "Loading", "dash_core_components", available_props, wild_props; kwargs...)
 end

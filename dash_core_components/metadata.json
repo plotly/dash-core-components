@@ -3056,6 +3056,13 @@
         "required": false,
         "description": "If true, the spinner will display the component_name and prop_name\nwhile loading"
       },
+      "in_progress": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, the spinner will remain in the loading state until set to false"
+      },
       "className": {
         "type": {
           "name": "string"
