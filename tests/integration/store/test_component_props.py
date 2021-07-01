@@ -42,7 +42,8 @@ def test_stcp002_modified_ts(store_app, dash_dcc):
     )
 
     @app.callback(
-        Output("initial-storage", "data"), [Input("set-init-storage", "n_clicks")],
+        Output("initial-storage", "data"),
+        [Input("set-init-storage", "n_clicks")],
     )
     def on_init(n_clicks):
         if n_clicks is None:

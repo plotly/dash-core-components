@@ -46,7 +46,11 @@ def test_grrs001_graph(dash_dcc, responsive, autosize, height, width, is_respons
                 figure=dict(
                     layout=dict(autosize=autosize, height=height, width=width),
                     data=[
-                        dict(x=[1, 2, 3, 4], y=[5, 4, 3, 6], line=dict(shape="spline"),)
+                        dict(
+                            x=[1, 2, 3, 4],
+                            y=[5, 4, 3, 6],
+                            line=dict(shape="spline"),
+                        )
                     ],
                 ),
             )
