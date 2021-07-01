@@ -2,8 +2,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
 ## UNRELEASED
 
+### Fixed
+
+- [#963](https://github.com/plotly/dash-core-components/pull/963) Fixes [#885](https://github.com/plotly/dash-core-components/issues/885)
+
+  This applies the fix from [#878](https://github.com/plotly/dash-core-components/pull/878) to the RangeSlider.
+  It not only fixes the bug where the tooltips were visible when slider was not, but it also reduces the lag in the
+  tooltip when the slider handles are moved.
+
+### Added
+- [#932](https://github.com/plotly/dash-core-components/pull/932). Adds a new copy to clipboard component.
+- [#948](https://github.com/plotly/dash-core-components/pull/948)] Adds `disabled_days` prop to `DatePickerRange` and `DatePickerSingle` components. With this prop you can specify days that should be made unselectable in the date picker, in addition to those that fall outside of the range specified by `min_date_allowed` and `max_date_allowed`.
+
+### Changed
+- [#972](https://github.com/plotly/dash-core-components/pull/972) Updated R package vignettes and `dash-info.yaml` to regenerate examples without attaching now-deprecated core component packages (`dashHtmlComponents`, `dashCoreComponents`, or `dashTable`).
+
+## [1.16.0] - 2021-04-08
 ### Added
 - [#863](https://github.com/plotly/dash-core-components/pull/863) Adds a new `Download` component. Along with this several utility functions are added to help construct the appropriate data format:
   - `dcc.send_file` - send a file from disk
@@ -13,7 +30,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - [#923](https://github.com/plotly/dash-core-components/pull/923)
-  Set autoComplete to off in `dcc.Dropdown`. This fixes [#808](https://github.com/plotly/dash-core-components/issues/808)
+  Set `autoComplete` to off in `dcc.Dropdown`. This fixes [#808](https://github.com/plotly/dash-core-components/issues/808)
 
 ### Fixed
 - [#930](https://github.com/plotly/dash-core-components/pull/930) Fixed a bug [#867](https://github.com/plotly/dash-core-components/issues/867) with `DatePickerRange` that would sometimes shift the allowed dates by one day.
