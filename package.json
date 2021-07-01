@@ -20,7 +20,6 @@
     "private::lint.flake8": "flake8 --exclude=dash_core_components,node_modules,venv",
     "private::lint.prettier": "prettier --config .prettierrc src/**/*.js --list-different",
     "prepublishOnly": "rm -rf lib && babel src --out-dir lib --copy-files",
-    "start": "webpack-serve ./webpack.serve.config.js --open",
     "test": "run-s -c lint test:intg test:pyimport",
     "test:intg": "pytest --nopercyfinalize --headless tests/integration",
     "test:pyimport": "python -m unittest tests/test_dash_import.py",
@@ -91,8 +90,7 @@
     "style-loader": "^2.0.0",
     "styled-jsx": "^3.1.1",
     "webpack": "^5.27.2",
-    "webpack-cli": "^4.5.0",
-    "webpack-serve": "^3.2.0"
+    "webpack-cli": "^4.5.0"
   },
   "files": [
     "/dash_core_components/*{.js,.map}",

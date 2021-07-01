@@ -29,17 +29,6 @@ $ npm i --ignore-scripts && npm run build
 $ pip install -e .
 ```
 
-### Demo server
-
-You can start up a demo development server to see a demo of the rendered
-components:
-
-```sh
-$ npm start
-```
-
-You have to maintain the list of components in `demo/Demo.react.js`.
-
 ### Code quality and tests
 
 ### To run integration tests (test_integration.py)
