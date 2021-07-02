@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {has, is, isNil} from 'ramda';
 
+// some weird interaction btwn styled-jsx 3.4 and babel
+// see https://github.com/vercel/styled-jsx/pull/716
+import _JSXStyle from 'styled-jsx/style'; // eslint-disable-line no-unused-vars
+
 // EnhancedTab is defined here instead of in Tab.react.js because if exported there,
 // it will mess up the Python imports and metadata.json
 const EnhancedTab = ({
