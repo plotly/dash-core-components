@@ -40,7 +40,7 @@ def test_msmh002_window_override(dash_dcc):
     dash_dcc.start_server(app)
 
     dash_dcc.driver.execute_script(
-        'window.hljs = {highlightBlock: (block) => {block.innerHTML="hljs override"}};'
+        'window.hljs = {highlightElement: (block) => {block.innerHTML="hljs override"}};'
     )
 
     dash_dcc.find_element("#md-trigger").click()
