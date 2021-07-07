@@ -32,6 +32,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - Legend group titles
     - Half-year directive (`%h`) for date formatting
     - Several other bug fixes and performance improvements
+  - [Patch release 2.2.1](https://github.com/plotly/plotly.js/releases/tag/v2.2.1) containing a security fix.
 
 ### Added
 - [#932](https://github.com/plotly/dash-core-components/pull/932) Adds a new copy to clipboard component.
