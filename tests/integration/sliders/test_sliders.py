@@ -173,7 +173,7 @@ def test_slsl005_slider_tooltip(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl005_rangeslider_tooltip(dash_dcc):
+def test_slsl006_rangeslider_tooltip(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -235,10 +235,10 @@ def test_slsl005_rangeslider_tooltip(dash_dcc):
 
     dash_dcc.start_server(app)
     dash_dcc.wait_for_element("#test-slider")
-    dash_dcc.percy_snapshot("slsl005- dcc.RangeSlider tooltip position")
+    dash_dcc.percy_snapshot("slsl006- dcc.RangeSlider tooltip position")
 
 
-def test_slsl006_drag_value_slider(dash_dcc):
+def test_slsl007_drag_value_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -281,7 +281,7 @@ def test_slsl006_drag_value_slider(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl007_drag_value_rangeslider(dash_dcc):
+def test_slsl008_drag_value_rangeslider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -323,7 +323,7 @@ def test_slsl007_drag_value_rangeslider(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl008_loading_state(dash_dcc):
+def test_slsl009_loading_state(dash_dcc):
     lock = Lock()
 
     app = dash.Dash(__name__)
@@ -362,7 +362,7 @@ def test_slsl008_loading_state(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl009_range_loading_state(dash_dcc):
+def test_slsl010_range_loading_state(dash_dcc):
     lock = Lock()
 
     app = dash.Dash(__name__)
@@ -411,7 +411,7 @@ def test_slsl009_range_loading_state(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl010_horizontal_slider(dash_dcc):
+def test_slsl011_horizontal_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -436,7 +436,7 @@ def test_slsl010_horizontal_slider(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl011_vertical_slider(dash_dcc):
+def test_slsl012_vertical_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -463,7 +463,7 @@ def test_slsl011_vertical_slider(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl012_horizontal_range_slider(dash_dcc):
+def test_slsl013_horizontal_range_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
@@ -493,7 +493,7 @@ def test_slsl012_horizontal_range_slider(dash_dcc):
     assert dash_dcc.get_logs() == []
 
 
-def test_slsl013_vertical_range_slider(dash_dcc):
+def test_slsl014_vertical_range_slider(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
