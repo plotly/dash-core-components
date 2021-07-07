@@ -60,7 +60,7 @@ def test_inbs001_all_types(dash_dcc):
 
 
 def test_inbs002_user_class(dash_dcc):
-    app = dash.Dash(__name__, assets_folder="../../assets")
+    app = dash.Dash(__name__)
 
     app.layout = html.Div(className="test-input-css", children=[dcc.Input()])
 
