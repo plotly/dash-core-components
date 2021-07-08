@@ -159,7 +159,7 @@ def test_slsl005_slider_tooltip(dash_dcc):
                         style=dict(height=100),
                     ),
                 ],
-                style=dict(maxHeight=300, overflowX="scroll"),
+                style=dict(maxHeight=300, overflowX="scroll", width=400),
             )
         ]
     )
@@ -227,7 +227,10 @@ def test_slsl006_rangeslider_tooltip(dash_dcc):
                     ),
                 ],
                 style=dict(
-                    maxHeight=300, overflowX="scroll", backgroundColor="#edf9f7"
+                    maxHeight=300,
+                    overflowX="scroll",
+                    backgroundColor="#edf9f7",
+                    width=400,
                 ),
             )
         ]
