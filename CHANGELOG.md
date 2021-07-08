@@ -14,7 +14,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   tooltip when the slider handles are moved.
 
 ### Updated
-- [#939](https://github.com/plotly/dash-core-components/pull/939) Upgrade Plotly.js to v2.2.0. Note that this is a major version upgrade to Plotly.js, however we are not treating this as a breaking change for DCC as the majority of breaking changes in Plotly.js do not affect the Dash API. The one exception is that several trace types that have long been deprecated are removed entirely.
+- [#939](https://github.com/plotly/dash-core-components/pull/939) Upgrade Plotly.js to v2.2.1. Note that this is a major version upgrade to Plotly.js, however we are not treating this as a breaking change for DCC as the majority of breaking changes in Plotly.js do not affect the Dash API. The one exception is that several trace types that have long been deprecated are removed entirely.
   - [Major release 2.0.0](https://github.com/plotly/plotly.js/releases/tag/v2.0.0):
     - Stop exporting d3 as `Plotly.d3`, and remove many other deep pieces of the public API. This does not affect the `dcc.Graph` component, but if you make use of `Plotly` from the global scope in some other way you may be affected.
     - Drop the deprecated trace types `contourgl` and `area`, as well as legacy pre-`scatterpolar` polar attributes `bar.r`, `bar.t`, `scatter.r`, `scatter.t`, `layout.radialaxis`, `layout.angularaxis`. Use `scatterpolar`, `barpolar`, and `polar` subplots instead.
