@@ -128,7 +128,7 @@ def test_tabs004_without_value(dash_dcc):
 
 
 def test_tabs005_disabled(dash_dcc):
-    app = dash.Dash(__name__)
+    app = dash.Dash(__name__, assets_folder="../../assets")
     app.layout = html.Div(
         [
             html.H1("Dash Tabs component with disabled tab demo"),

@@ -4,7 +4,7 @@ import dash_html_components as html
 
 
 def test_mkdw001_img(dash_dcc):
-    app = dash.Dash(__name__, eager_loading=True)
+    app = dash.Dash(__name__, eager_loading=True, assets_folder="../../assets")
 
     app.layout = html.Div(
         [
@@ -24,7 +24,7 @@ def test_mkdw001_img(dash_dcc):
 
 
 def test_mkdw002_dcclink(dash_dcc):
-    app = dash.Dash(__name__, eager_loading=True)
+    app = dash.Dash(__name__, eager_loading=True, assets_folder="../../assets")
 
     app.layout = html.Div(
         [
