@@ -34,10 +34,8 @@ and if 0 then the interval stops running.}
 \value{named list of JSON elements corresponding to React.js properties and their values}
 
 \examples{
-if (interactive() && require(dash)) {
+if (interactive()) {
     library(dash)
-    library(dashHtmlComponents)
-    library(dashCoreComponents)
     library(plotly)
 
     app <- Dash$new()

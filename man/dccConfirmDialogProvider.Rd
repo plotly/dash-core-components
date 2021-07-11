@@ -45,10 +45,8 @@ those elements have the following types:
 \value{named list of JSON elements corresponding to React.js properties and their values}
 
 \examples{
-if (interactive() && require(dash)) {
+if (interactive()) {
     library(dash)
-    library(dashCoreComponents)
-    library(dashHtmlComponents)
 
     app <- Dash$new()
 
@@ -56,15 +54,15 @@ if (interactive() && require(dash)) {
       dccConfirmDialogProvider(
         children=htmlButton(
           'Click Me',
-          n_clicks = 0 
-        ),  
+          n_clicks = 0
+        ),
         id='danger-danger-provider',
         message='Danger danger! Are you sure you want to continue?',
         submit_n_clicks=NULL
-      ),  
+      ),
       htmlDiv(id='output-provider',
               children='Click the button to submit')
-    ))) 
+    )))
 
     app$callback(
       output = list(id = 'output-provider', property = 'children'),
@@ -74,10 +72,10 @@ if (interactive() && require(dash)) {
           return('')
         } else {
           paste0('That was a dangerous choice! Submitted ', submit_n_clicks, ' times.')
-        }   
-        }   
+        }
+        }
 
-    )   
+    )
 
   app$run_server()
 }

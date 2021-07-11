@@ -26,7 +26,7 @@ If it's false, it will sent the value back on every change.
 - `disabled` (a value equal to: 'disabled', 'DISABLED' | Bool; optional): If true, the input is disabled and can't be clicked on.
 disabled is an HTML boolean attribute - it is enabled by a boolean or
 'disabled'. Alternative capitalizations `DISABLED`
-- `inputMode` (a value equal to: "verbatim", "latin", "latin-name", "latin-prose", "full-width-latin", "kana", "katakana", "numeric", "tel", "email", "url"; optional): Provides a hint to the browser as to the type of data that might be
+- `inputMode` (a value equal to: 'verbatim', 'latin', 'latin-name', 'latin-prose', 'full-width-latin', 'kana', 'katakana', 'numeric', 'tel', 'email', 'url'; optional): Provides a hint to the browser as to the type of data that might be
 entered by the user while editing the element or its contents.
 - `list` (String; optional): Identifies a list of pre-defined options to suggest to the user.
 The value must be the id of a <datalist> element in the same document.
@@ -79,7 +79,7 @@ are also acccepted.
 - `spellCheck` (a value equal to: 'true', 'false' | Bool; optional): Setting the value of this attribute to true indicates that the element needs to have its spelling and grammar checked. The value default indicates that the element is to act according to a default behavior, possibly based on the parent element's own spellcheck value. The value false indicates that the element should not be checked.
 - `step` (String | Real; optional): Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only values at multiples of the step value greater than the minimum.
 - `style` (Dict; optional): The input's inline styles
-- `type` (a value equal to: "text", 'number', 'password', 'email', 'range', 'search', 'tel', 'url', 'hidden'; optional): The type of control to render.
+- `type` (a value equal to: 'text', 'number', 'password', 'email', 'range', 'search', 'tel', 'url', 'hidden'; optional): The type of control to render.
 - `value` (String | Real; optional): The value of the input
 """
 function dcc_input(; kwargs...)
