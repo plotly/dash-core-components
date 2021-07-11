@@ -31,6 +31,8 @@ def test_dtpr001_initial_month_provided(dash_dcc):
         1,
     )
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_dtpr002_no_initial_month_min_date(dash_dcc):
     app = dash.Dash(__name__)
@@ -56,6 +58,8 @@ def test_dtpr002_no_initial_month_min_date(dash_dcc):
         "January 2010",
     )
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_dtpr003_no_initial_month_no_min_date_start_date(dash_dcc):
     app = dash.Dash(__name__)
@@ -80,6 +84,8 @@ def test_dtpr003_no_initial_month_no_min_date_start_date(dash_dcc):
         "#dps-initial-month .CalendarMonth.CalendarMonth_1[data-visible=true] strong",
         "August 2019",
     )
+
+    assert dash_dcc.get_logs() == []
 
 
 def test_dtpr004_max_and_min_dates_are_clickable(dash_dcc):
@@ -109,3 +115,41 @@ def test_dtpr004_max_and_min_dates_are_clickable(dash_dcc):
         '#dps-initial-month .DateInput_input.DateInput_input_1[placeholder="End Date"]',
         "01/20/2021",
     )
+
+    assert dash_dcc.get_logs() == []
+
+
+def test_dtpr005_disabled_days_arent_clickable(dash_dcc):
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Label("Operating Date"),
+            dcc.DatePickerRange(
+                id="dpr",
+                min_date_allowed=datetime(2021, 1, 1),
+                max_date_allowed=datetime(2021, 1, 31),
+                initial_visible_month=datetime(2021, 1, 1),
+                disabled_days=[datetime(2021, 1, 10), datetime(2021, 1, 11)],
+            ),
+        ],
+        style={
+            "width": "10%",
+            "display": "inline-block",
+            "marginLeft": 10,
+            "marginRight": 10,
+            "marginBottom": 10,
+        },
+    )
+    dash_dcc.start_server(app)
+    date = dash_dcc.find_element("#dpr input")
+    assert not date.get_attribute("value")
+    assert not any(
+        dash_dcc.select_date_range("dpr", day_range=(10, 11))
+    ), "Disabled days should not be clickable"
+    assert all(
+        dash_dcc.select_date_range("dpr", day_range=(1, 2))
+    ), "Other days should be clickable"
+
+    # open datepicker to take snapshot
+    date.click()
+    dash_dcc.percy_snapshot("dtpr005 - disabled days")
