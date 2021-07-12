@@ -234,6 +234,165 @@
       }
     }
   },
+  "src/components/Clipboard.react.js": {
+    "description": "The Clipboard component copies text to the clipboard",
+    "displayName": "Clipboard",
+    "methods": [
+      {
+        "name": "stringifyId",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "id",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "copySuccess",
+        "docblock": null,
+        "modifiers": [
+          "async"
+        ],
+        "params": [
+          {
+            "name": "content",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "getTargetText",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "loading",
+        "docblock": null,
+        "modifiers": [
+          "async"
+        ],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "copyToClipboard",
+        "docblock": null,
+        "modifiers": [
+          "async"
+        ],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component."
+      },
+      "target_id": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The id of target component containing text to copy to the clipboard.\nThe inner text of the `children` prop will be copied to the clipboard.  If none, then the text from the\n `value` prop will be copied.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "content": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The text to  be copied to the clipboard if the `target_id` is None.",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "n_clicks": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The number of times copy button was clicked",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The text shown as a tooltip when hovering over the copy icon."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The icon's styles"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The class  name of the icon element"
+      },
+      "loading_state": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "is_loading": {
+              "name": "bool",
+              "description": "Determines if the component is loading or not",
+              "required": false
+            },
+            "prop_name": {
+              "name": "string",
+              "description": "Holds which property is loading",
+              "required": false
+            },
+            "component_name": {
+              "name": "string",
+              "description": "Holds the name of the component that is loading",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Object that holds the loading state object coming from dash-renderer"
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that gets fired when the value changes."
+      }
+    }
+  },
   "src/components/ConfirmDialog.react.js": {
     "description": "ConfirmDialog is used to display the browser's native \"confirm\" modal,\nwith an optional message and two buttons (\"OK\" and \"Cancel\").\nThis ConfirmDialog can be used in conjunction with buttons when the user\nis performing an action that should require an extra step of verification.",
     "displayName": "ConfirmDialog",
@@ -489,6 +648,20 @@
         },
         "required": false,
         "description": "Specifies the highest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
+      },
+      "disabled_days": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": "Specifies additional days between min_date_allowed and max_date_allowed\nthat should be disabled. Accepted datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
       },
       "initial_visible_month": {
         "type": {
@@ -867,6 +1040,20 @@
         },
         "required": false,
         "description": "Specifies the highest selectable date for the component.\nAccepts datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'"
+      },
+      "disabled_days": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": "Specifies additional days between min_date_allowed and max_date_allowed\nthat should be disabled. Accepted datetime.datetime objects or strings\nin the format 'YYYY-MM-DD'",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
       },
       "initial_visible_month": {
         "type": {
@@ -1523,18 +1710,6 @@
     "displayName": "PlotlyGraph",
     "methods": [
       {
-        "name": "UNSAFE_componentWillReceiveProps",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "nextProps",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
         "name": "clearState",
         "docblock": null,
         "modifiers": [],
@@ -2099,25 +2274,6 @@
     "displayName": "Input",
     "methods": [
       {
-        "name": "UNSAFE_componentWillReceiveProps",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "nextProps",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "UNSAFE_componentWillMount",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
         "name": "setInputValue",
         "docblock": null,
         "modifiers": [],
@@ -2236,7 +2392,7 @@
           "name": "enum",
           "value": [
             {
-              "value": "\"text\"",
+              "value": "'text'",
               "computed": false
             },
             {
@@ -2346,47 +2502,47 @@
           "name": "enum",
           "value": [
             {
-              "value": "\"verbatim\"",
+              "value": "'verbatim'",
               "computed": false
             },
             {
-              "value": "\"latin\"",
+              "value": "'latin'",
               "computed": false
             },
             {
-              "value": "\"latin-name\"",
+              "value": "'latin-name'",
               "computed": false
             },
             {
-              "value": "\"latin-prose\"",
+              "value": "'latin-prose'",
               "computed": false
             },
             {
-              "value": "\"full-width-latin\"",
+              "value": "'full-width-latin'",
               "computed": false
             },
             {
-              "value": "\"kana\"",
+              "value": "'kana'",
               "computed": false
             },
             {
-              "value": "\"katakana\"",
+              "value": "'katakana'",
               "computed": false
             },
             {
-              "value": "\"numeric\"",
+              "value": "'numeric'",
               "computed": false
             },
             {
-              "value": "\"tel\"",
+              "value": "'tel'",
               "computed": false
             },
             {
-              "value": "\"email\"",
+              "value": "'email'",
               "computed": false
             },
             {
-              "value": "\"url\"",
+              "value": "'url'",
               "computed": false
             }
           ]
@@ -2804,18 +2960,6 @@
         "modifiers": [],
         "params": [],
         "returns": null
-      },
-      {
-        "name": "UNSAFE_componentWillReceiveProps",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "nextProps",
-            "type": null
-          }
-        ],
-        "returns": null
       }
     ],
     "props": {
@@ -3142,18 +3286,6 @@
         "docblock": null,
         "modifiers": [],
         "params": [],
-        "returns": null
-      },
-      {
-        "name": "UNSAFE_componentWillReceiveProps",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "nextProps",
-            "type": null
-          }
-        ],
         "returns": null
       }
     ],
@@ -4280,13 +4412,6 @@
             "type": null
           }
         ],
-        "returns": null
-      },
-      {
-        "name": "UNSAFE_componentWillMount",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
         "returns": null
       }
     ],

@@ -112,10 +112,8 @@ property could be used instead.}
 \value{named list of JSON elements corresponding to React.js properties and their values}
 
 \examples{
-if (interactive() && require(dash)) {
+if (interactive()) {
     library(dash)
-    library(dashHtmlComponents)
-    library(dashCoreComponents)
 
     app <- Dash$new()
 

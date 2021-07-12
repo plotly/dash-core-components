@@ -36,6 +36,8 @@ def test_dtps001_simple_click(dash_dcc):
         "dps", index=3
     ), "Component should be clickable to choose a valid date"
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_dtps010_local_and_session_persistence(dash_dcc):
     app = dash.Dash(__name__)
@@ -68,6 +70,8 @@ def test_dtps010_local_and_session_persistence(dash_dcc):
             and dash_dcc.find_element("#dps-session input").get_attribute("value")
             == session
         ), "the date value should be consistent after refresh"
+
+    assert dash_dcc.get_logs() == []
 
 
 def test_dtps011_memory_persistence(dash_dcc):
@@ -119,6 +123,8 @@ def test_dtps011_memory_persistence(dash_dcc):
     switched = dash_dcc.find_element("#dps-none input").get_attribute("value")
     assert switched != amnesiaed and switched == ""
 
+    assert dash_dcc.get_logs() == []
+
 
 def test_dtps012_initial_month(dash_dcc):
     app = dash.Dash(__name__)
@@ -140,3 +146,39 @@ def test_dtps012_initial_month(dash_dcc):
         "#dps-initial-month .CalendarMonth.CalendarMonth_1[data-visible=true] strong",
         "January 2010",
     )
+
+    assert dash_dcc.get_logs() == []
+
+
+def test_dtps013_disabled_days_arent_clickable(dash_dcc):
+    app = dash.Dash(__name__)
+    app.layout = html.Div(
+        [
+            html.Label("Operating Date"),
+            dcc.DatePickerSingle(
+                id="dps",
+                min_date_allowed=datetime(2021, 1, 1),
+                max_date_allowed=datetime(2021, 1, 31),
+                initial_visible_month=datetime(2021, 1, 1),
+                disabled_days=[datetime(2021, 1, 10)],
+            ),
+        ],
+        style={
+            "width": "10%",
+            "display": "inline-block",
+            "marginLeft": 10,
+            "marginRight": 10,
+            "marginBottom": 10,
+        },
+    )
+    dash_dcc.start_server(app)
+    date = dash_dcc.find_element("#dps input")
+    assert not date.get_attribute("value")
+    assert not dash_dcc.select_date_single(
+        "dps", day=10
+    ), "Disabled days should not be clickable"
+    assert dash_dcc.select_date_single("dps", day=1), "Other days should be clickable"
+
+    # open datepicker to take snapshot
+    date.click()
+    dash_dcc.percy_snapshot("dtps013 - disabled days")

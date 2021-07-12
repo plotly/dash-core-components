@@ -12,12 +12,12 @@ DatePickerSingle is a tailor made component designed for selecting a single day 
 \usage{
 dccDatePickerSingle(id=NULL, calendar_orientation=NULL, className=NULL,
 clearable=NULL, date=NULL, day_size=NULL, disabled=NULL,
-display_format=NULL, first_day_of_week=NULL,
-initial_visible_month=NULL, is_RTL=NULL, loading_state=NULL,
-max_date_allowed=NULL, min_date_allowed=NULL,
-month_format=NULL, number_of_months_shown=NULL,
-persisted_props=NULL, persistence=NULL,
-persistence_type=NULL, placeholder=NULL,
+disabled_days=NULL, display_format=NULL,
+first_day_of_week=NULL, initial_visible_month=NULL,
+is_RTL=NULL, loading_state=NULL, max_date_allowed=NULL,
+min_date_allowed=NULL, month_format=NULL,
+number_of_months_shown=NULL, persisted_props=NULL,
+persistence=NULL, persistence_type=NULL, placeholder=NULL,
 reopen_calendar_on_clear=NULL, show_outside_days=NULL,
 stay_open_on_select=NULL, style=NULL,
 with_full_screen_portal=NULL, with_portal=NULL)
@@ -44,6 +44,10 @@ value via datetime object}
 means bigger day size and larger calendar overall}
 
 \item{disabled}{Logical. If True, no dates can be selected.}
+
+\item{disabled_days}{List of characters. Specifies additional days between min_date_allowed and max_date_allowed
+that should be disabled. Accepted datetime.datetime objects or strings
+in the format 'YYYY-MM-DD'}
 
 \item{display_format}{Character. Specifies the format that the selected dates will be displayed
 valid formats are variations of "MM YY DD". For example:
@@ -125,9 +129,8 @@ not supported on vertical calendar}
 \value{named list of JSON elements corresponding to React.js properties and their values}
 
 \examples{
-if (interactive() && require(dash)) {
+if (interactive()) {
     library(dash)
-    library(dashCoreComponents)
 
     app <- Dash$new()
 

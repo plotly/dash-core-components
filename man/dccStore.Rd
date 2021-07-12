@@ -35,9 +35,7 @@ session: window.sessionStorage, data is cleared once the browser quit.}
 \value{named list of JSON elements corresponding to React.js properties and their values}
 
 \examples{
-if (interactive() && require(dash)) {
-    library(dashCoreComponents)
-    library(dashHtmlComponents)
+if (interactive()) {
     library(dash)
 
     app <- Dash$new()
