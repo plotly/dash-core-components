@@ -16,7 +16,17 @@ def formatted(milliseconds):
 
 
 def make_card(header, timer, code):
-    return html.Div([html.H2(header,), html.Hr(), timer, code], className="m-2 pb-4",)
+    return html.Div(
+        [
+            html.H2(
+                header,
+            ),
+            html.Hr(),
+            timer,
+            code,
+        ],
+        className="m-2 pb-4",
+    )
 
 
 """
@@ -126,7 +136,9 @@ countdown_target_time_md = dcc.Markdown(
 )
 
 countdown_target_time_card = make_card(
-    "Countdown timer - to target time", countdown_target_time, countdown_target_time_md,
+    "Countdown timer - to target time",
+    countdown_target_time,
+    countdown_target_time_md,
 )
 # ----------------------------
 
@@ -134,7 +146,7 @@ countdown_target_time2 = html.H4(
     [
         "Hurry! Special offer ends in ",
         dbc.Badge(
-            dcc.Timer(mode="countdown", duration=1000000, timer_format="display"),
+            dcc.Timer(mode="countdown", duration=1000000, timer_format="default"),
             color="danger",
         ),
     ]
@@ -145,7 +157,7 @@ countdown_target_time_md2 = dcc.Markdown(
         [
             "Hurry! Special offer ends in ",
             dbc.Badge(
-                dcc.Timer(mode="countdown", duration=100000000, timer_format="display"),
+                dcc.Timer(mode="countdown", duration=100000000, timer_format="default"),
                 color="danger",
             ),
         ]
@@ -218,7 +230,7 @@ stopwatch_messages = html.H4(
         mode="stopwatch",
         duration=421000,
         messages={
-            1000: "Task submitted! This will take around five minutes.",
+            5000: "Task submitted! This will take around five minutes.",
             10000: "Task submitted! This will take around five minutes. It has been 10 seconds.",
             30000: "Task submitted! This will take around five minutes. It has been 30 seconds.",
             60000: "Task submitted! This will take around five minutes. It has been one minute.",
@@ -261,7 +273,9 @@ stopwatch_messages_md = dcc.Markdown(
 )
 
 stopwatch_messages_card = make_card(
-    "Stopwatch - with custom messages", stopwatch_messages, stopwatch_messages_md,
+    "Stopwatch - with custom messages",
+    stopwatch_messages,
+    stopwatch_messages_md,
 )
 
 
@@ -300,7 +314,8 @@ shuttle = html.Div(
                 dcc.Timer(
                     id="clock",
                     duration=51000,
-                    timer_format="colonNotation",
+                    mode="countdown",
+                    timer_format="colons",
                     disabled=True,
                     class_name="border bg-dark text-white p-2",
                     style={"width": 100},
@@ -343,7 +358,7 @@ shuttle_md = dcc.Markdown(
                     dcc.Timer(
                         id="clock",
                         duration=51000,
-                        timer_format="colonNotation",
+                        timer_format="colons",
                         disabled=True,
                     ),
                 ]
@@ -559,7 +574,8 @@ def start(btn_clicks):
 
 
 @app.callback(
-    Output("modal", "is_open"), Input("shuttle_countdown", "at_fire_time"),
+    Output("modal", "is_open"),
+    Input("shuttle_countdown", "at_fire_time"),
 )
 def blastoff(at_fire_time):
     return at_fire_time == 0
