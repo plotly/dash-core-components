@@ -175,9 +175,9 @@ export default class Timer extends Component {
     }
 
     render() {
-        const {id, class_name, style} = this.props;
+        const {id, className, style} = this.props;
         return (
-            <div id={id} style={style} className={class_name}>
+            <div id={id} style={style} className={className}>
                 <div>{this.renderMessage}</div>
             </div>
         );
@@ -293,7 +293,7 @@ Timer.propTypes = {
     /**
      * The class  name of the messages container
      */
-    class_name: PropTypes.string,
+    className: PropTypes.string,
 
     /**
      * Dash assigned callback

@@ -79,7 +79,7 @@ countdown_repeating = html.H4(
             duration=30000,
             timer_format="verbose",
             rerun=True,
-            class_name="d-inline-block",
+            className="d-inline-block",
         ),
     ]
 )
@@ -94,7 +94,7 @@ countdown_repeating_md = dcc.Markdown(
                 duration=30000,
                 timer_format="verbose",
                 rerun=True,
-                class_name="d-inline-block",
+                className="d-inline-block",
             ),
         ]
     )
@@ -116,7 +116,7 @@ countdown_target_time = html.H4(
             mode="countdown",
             duration=100000000,
             timer_format="verbose",
-            class_name="d-inline-block",
+            className="d-inline-block",
         ),
     ]
 )
@@ -129,7 +129,7 @@ countdown_target_time_md = dcc.Markdown(
                 mode="countdown",
                 duration=100000000,
                 timer_format="verbose",
-                class_name="d-inline-block",
+                className="d-inline-block",
             ),
         ]
     )```"""
@@ -189,7 +189,7 @@ stopwatch_repeating = html.H4(
                     duration=30000,
                     timer_format="verbose",
                     rerun=True,
-                    class_name="d-inline-block",
+                    className="d-inline-block",
                 ),
             ],
             className="text-info",
@@ -209,7 +209,7 @@ stopwatch_repeating_md = dcc.Markdown(
                         duration=30000,
                         timer_format="verbose",
                         rerun=True,
-                        class_name="d-inline-block",
+                        className="d-inline-block",
                     ),
                 ], className='text-info'
             ),
@@ -317,7 +317,7 @@ shuttle = html.Div(
                     mode="countdown",
                     timer_format="colons",
                     disabled=True,
-                    class_name="border bg-dark text-white p-2",
+                    className="border bg-dark text-white p-2",
                     style={"width": 100},
                 ),
             ]
