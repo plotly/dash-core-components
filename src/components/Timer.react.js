@@ -271,11 +271,11 @@ Timer.propTypes = {
      * readable formats.  The options are:
      *  `'none'`: no timer will be displayed;
      *  `'display'`:  example - 1337000000 milliseconds will display as: '15d 11h 23m 20s';
-     *  `'compact'`: will show only the first unit: 1h 10m → 1h ;
+     *  `'compact'`: will show only the first unit: 1h 10m --> 1h ;
      *  `'verbose'`: will show full-length units. Example --  5 hours 1 minute 45 seconds
      *  `'colons'`: Useful when you want to show time without the time units, similar to
-     *                   a digital watch. Will always shows time in at least minutes: 1s → 0:01.
-     *                   Example - 5h 1m 45s → 5:01:45.
+     *                   a digital watch. Will always shows time in at least minutes: 1s --> 0:01.
+     *                   Example - 5h 1m 45s --> 5:01:45.
      */
     timer_format: PropTypes.oneOf([
         'none',
