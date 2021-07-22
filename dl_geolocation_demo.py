@@ -13,7 +13,7 @@ import dash_bootstrap_components as dbc
 app = dash.Dash(
     __name__, prevent_initial_callbacks=True, plugins=[dl.plugins.FlexibleCallbacks()]
 )
-tpl = dl.templates.dbc.DbcSidebar(
+tpl = dl.templates.dbc.DbcSidebar(app,
     title="dcc.Geolocation demo", figure_template=True, theme=dbc.themes.SPACELAB
 )
 
@@ -235,6 +235,7 @@ def update_interval(time):
 )
 def display_output(checklist, zoom, location_data):
     date, timestamp, pos, err = location_data
+    print(pos)
     if err:
         return "Error {} : {}".format(err["code"], err["message"]), dash.no_update
 
@@ -266,15 +267,15 @@ def display_output(checklist, zoom, location_data):
     return None, [position, graph_map, position_table, iso_date, markdown_card]
 
 
-tpl.add_component(update_btn, role="input", before=0)
-tpl.add_component(max_age, role="input", after=1, label="Max Age (ms)")
-tpl.add_component(timeout_input, role="input", after=1, label="Timeout (ms)")
+tpl.add_component(update_btn, location="sidebar", before=0)
+tpl.add_component(max_age, location="sidebar", after=1, label="Max Age (ms)")
+tpl.add_component(timeout_input, location="sidebar", after=1, label="Timeout (ms)")
 tpl.add_component(
-    follow_me_interval, role="input", after=4, label="Follow me (update interval ms)"
+    follow_me_interval, location="sidebar", after=4, label="Follow me (update interval ms)"
 )
-tpl.add_component(interval, label="")
+tpl.add_component(interval, label="", location="main")
 
-app.layout = tpl.layout(app)
+app.layout = dbc.Container(fluid=True, children=tpl.children)
 
 
 if __name__ == "__main__":

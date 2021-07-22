@@ -13,10 +13,15 @@ export default class Geolocation extends Component {
         this.error = this.error.bind(this);
         this.updatePosition = this.updatePosition.bind(this);
     }
-
     updatePosition() {
         if (!navigator.geolocation) {
-            alert('Your browser does not support Geolocation');
+            this.error({
+                code: 999,
+                message: 'Your browser does not support Geolocation',
+            });
+            if (this.props.show_alert) {
+                alert(`ERROR(${this.error.code}): ${this.error.message}`);
+            }
         } else {
             this.props.setProps({
                 update_now: false,
