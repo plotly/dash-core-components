@@ -1,20 +1,20 @@
+import datetime as dt
 import dash_labs as dl
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
-import dash_core_components as dcc
 import dash_table
 import plotly.graph_objects as go
 from geopy.geocoders import Nominatim
 import pandas as pd
-import datetime as dt
 import dash_bootstrap_components as dbc
+import dash_core_components as dcc
 
 app = dash.Dash(
     __name__, prevent_initial_callbacks=True, plugins=[dl.plugins.FlexibleCallbacks()]
 )
-tpl = dl.templates.dbc.DbcSidebar(app,
-    title="dcc.Geolocation demo", figure_template=True, theme=dbc.themes.SPACELAB
+tpl = dl.templates.dbc.DbcSidebar(
+    app, title="dcc.Geolocation demo", figure_template=True, theme=dbc.themes.SPACELAB
 )
 
 df = pd.DataFrame(
@@ -147,7 +147,10 @@ Input components
 
 
 update_btn = dbc.Button(
-    "Update Now", id="update_btn", className="m-2", color="secondary",
+    "Update Now",
+    id="update_btn",
+    className="m-2",
+    color="secondary",
 )
 options_checklist = dbc.Checklist(
     id="options_checklist",
@@ -168,7 +171,11 @@ max_age = dbc.Input(
 )
 
 timeout_input = dbc.Input(
-    id="timeout_input", type="number", debounce=True, value=10000, min=0,
+    id="timeout_input",
+    type="number",
+    debounce=True,
+    value=10000,
+    min=0,
 )
 
 zoom_center = dbc.Input(id="zoom", type="number", value=8, min=0, max=22, step=1)
@@ -188,7 +195,10 @@ Callbacks
 
 
 @app.callback(
-    dl.Output(geolocation, ("high_accuracy", "maximum_age", "timeout", "show_alert"),),
+    dl.Output(
+        geolocation,
+        ("high_accuracy", "maximum_age", "timeout", "show_alert"),
+    ),
     Input("options_checklist", "value"),
     Input("max_age", "value"),
     Input("timeout_input", "value"),
@@ -271,7 +281,10 @@ tpl.add_component(update_btn, location="sidebar", before=0)
 tpl.add_component(max_age, location="sidebar", after=1, label="Max Age (ms)")
 tpl.add_component(timeout_input, location="sidebar", after=1, label="Timeout (ms)")
 tpl.add_component(
-    follow_me_interval, location="sidebar", after=4, label="Follow me (update interval ms)"
+    follow_me_interval,
+    location="sidebar",
+    after=4,
+    label="Follow me (update interval ms)",
 )
 tpl.add_component(interval, label="", location="main")
 
