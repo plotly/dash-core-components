@@ -22,7 +22,8 @@ import Tabs from './components/Tabs.react';
 import Tab from './components/Tab.react';
 import Store from './components/Store.react';
 import LogoutButton from './components/LogoutButton.react';
-import Clipboard from './components/Clipboard.react';
+import Clipboard from './components/Clipboard.react';;
+import ToolTip from './components/ToolTip.react';
 
 import 'react-dates/lib/css/_datepicker.css';
 import './components/css/react-dates@20.1.0-fix.css';
@@ -51,5 +52,6 @@ export {
     Store,
     LogoutButton,
     Download,
-    Clipboard
+    Clipboard,
+    ToolTip
 };
