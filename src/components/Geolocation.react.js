@@ -59,13 +59,13 @@ export default class Geolocation extends Component {
     success(pos) {
         const crd = pos.coords;
         const position_obj = {
-            lat: crd.latitude,
-            lon: crd.longitude,
-            accuracy: crd.accuracy,
-            alt: crd.altitude,
-            alt_accuracy: crd.altitudeAccuracy,
-            speed: crd.speed,
-            heading: crd.heading,
+            lat: crd.latitude ?? null,
+            lon: crd.longitude ?? null,
+            accuracy: crd.accuracy ?? null,
+            alt: crd.altitude ?? null,
+            alt_accuracy: crd.altitudeAccuracy ?? null,
+            speed: crd.speed ?? null,
+            heading: crd.heading ?? null,
         };
 
         this.props.setProps({
