@@ -31,12 +31,7 @@ def test_intv002_restart(dash_dcc):
     app = dash.Dash(__name__)
     app.layout = html.Div(
         [
-            dcc.Interval(
-                id="interval",
-                interval=100,
-                n_intervals=0,
-                max_intervals=-1,
-            ),
+            dcc.Interval(id="interval", interval=100, n_intervals=0, max_intervals=-1,),
             html.Button("Start", id="start", n_clicks_timestamp=-1),
             html.Button("Stop", id="stop", n_clicks_timestamp=-1),
             html.Div(id="output"),
@@ -45,10 +40,7 @@ def test_intv002_restart(dash_dcc):
 
     @app.callback(
         Output("interval", "max_intervals"),
-        [
-            Input("start", "n_clicks_timestamp"),
-            Input("stop", "n_clicks_timestamp"),
-        ],
+        [Input("start", "n_clicks_timestamp"), Input("stop", "n_clicks_timestamp"),],
     )
     def start_stop(start, stop):
         if start < stop:
