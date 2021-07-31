@@ -49,6 +49,7 @@ export default class Dropdown extends Component {
             id,
             clearable,
             multi,
+            close_on_select,
             options,
             setProps,
             style,
@@ -94,6 +95,7 @@ export default class Dropdown extends Component {
                             setProps({value});
                         }
                     }}
+                    closeOnSelect={close_on_select}
                     onInputChange={search_value => setProps({search_value})}
                     backspaceRemoves={clearable}
                     deleteRemoves={clearable}

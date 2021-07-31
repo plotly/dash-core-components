@@ -110,6 +110,11 @@ Dropdown.propTypes = {
     multi: PropTypes.bool,
 
     /**
+     * If true, dropdown menu closes when option is selected
+     */
+    close_on_select: PropTypes.bool,
+
+    /**
      * The grey, default text shown when no option is selected
      */
     placeholder: PropTypes.string,
@@ -186,6 +191,7 @@ Dropdown.defaultProps = {
     clearable: true,
     disabled: false,
     multi: false,
+    close_on_select: true,
     searchable: true,
     optionHeight: 35,
     persisted_props: ['value'],

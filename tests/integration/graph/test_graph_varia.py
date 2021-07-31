@@ -122,8 +122,7 @@ def test_grva002_graphs_with_different_figures(dash_dcc, is_eager):
     )
 
     @app.callback(
-        Output("restyle-data", "children"),
-        [Input("example-graph", "restyleData")],
+        Output("restyle-data", "children"), [Input("example-graph", "restyleData")],
     )
     def show_restyle_data(data):
         if data is None:  # ignore initial
@@ -131,8 +130,7 @@ def test_grva002_graphs_with_different_figures(dash_dcc, is_eager):
         return json.dumps(data)
 
     @app.callback(
-        Output("relayout-data", "children"),
-        [Input("example-graph", "relayoutData")],
+        Output("relayout-data", "children"), [Input("example-graph", "relayoutData")],
     )
     def show_relayout_data(data):
         if data is None or "autosize" in data:  # ignore initial & auto width
@@ -351,12 +349,7 @@ def test_grva004_graph_prepend_trace(dash_dcc, is_eager):
     )
 
     comparison = json.dumps(
-        [
-            dict(
-                x=[5, 6, 7, 8, 9, 10, 11],
-                y=[0.1, 0.2, 0.3, 0.4, 0.5, 0, 0.5],
-            )
-        ]
+        [dict(x=[5, 6, 7, 8, 9, 10, 11], y=[0.1, 0.2, 0.3, 0.4, 0.5, 0, 0.5],)]
     )
     dash_dcc.wait_for_text_to_equal(
         "#output_trace_will_prepend_with_max_points", comparison
@@ -521,12 +514,7 @@ def test_grva005_graph_extend_trace(dash_dcc, is_eager):
     dash_dcc.wait_for_text_to_equal("#output_trace_will_extend_selectively", comparison)
 
     comparison = json.dumps(
-        [
-            dict(
-                x=[3, 4, 5, 6, 7, 8, 9],
-                y=[0.5, 0, 0.1, 0.2, 0.3, 0.4, 0.5],
-            )
-        ]
+        [dict(x=[3, 4, 5, 6, 7, 8, 9], y=[0.5, 0, 0.1, 0.2, 0.3, 0.4, 0.5],)]
     )
     dash_dcc.wait_for_text_to_equal(
         "#output_trace_will_extend_with_max_points", comparison

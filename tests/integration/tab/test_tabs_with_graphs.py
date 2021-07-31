@@ -38,8 +38,7 @@ def test_graph_does_not_resize_in_tabs(dash_dcc, is_eager):
     )
 
     @app.callback(
-        Output("tabs-content-example", "children"),
-        [Input("tabs-example", "value")],
+        Output("tabs-content-example", "children"), [Input("tabs-example", "value")],
     )
     def render_content(tab):
         if tab == "tab-1-example":

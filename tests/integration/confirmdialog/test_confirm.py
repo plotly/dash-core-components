@@ -44,20 +44,14 @@ def test_cnfd001_dialog(dash_dcc, confirm_callback, confirms, components):
 
         @app.callback(
             Output("confirmed", "children"),
-            [
-                Input("confirm", "submit_n_clicks"),
-                Input("confirm", "cancel_n_clicks"),
-            ],
+            [Input("confirm", "submit_n_clicks"), Input("confirm", "cancel_n_clicks"),],
             [
                 State("confirm", "submit_n_clicks_timestamp"),
                 State("confirm", "cancel_n_clicks_timestamp"),
             ],
         )
         def on_confirmed(
-            submit_n_clicks,
-            cancel_n_clicks,
-            submit_timestamp,
-            cancel_timestamp,
+            submit_n_clicks, cancel_n_clicks, submit_timestamp, cancel_timestamp,
         ):
             count.value += 1
 
@@ -102,8 +96,7 @@ def test_cnfd002_injected_confirm(dash_dcc):
     )
 
     @app.callback(
-        Output("confirm-container", "children"),
-        [Input("button", "n_clicks")],
+        Output("confirm-container", "children"), [Input("button", "n_clicks")],
     )
     def on_click(n_clicks):
         if n_clicks:
