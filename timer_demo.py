@@ -335,7 +335,7 @@ shuttle_md = dcc.Markdown(
     """```
     html.Div(
         [
-            dbc.Button("start", id="start", size="lg", color="info", className="m-4"),
+            dbc.Button("resume countdown", id="start", size="lg", color="info", className="m-4"),
             html.H1("Space Shuttle Endeavour Countdown"),
             html.H3(
                 [
@@ -456,6 +456,7 @@ stages = html.Div(
             duration=20000,
             rerun=True,
             mode="stopwatch",
+            timer_format='none'
         ),
         dbc.ButtonGroup(
             [
@@ -529,6 +530,7 @@ time_of_day_card = dbc.Card(
 ===============================================================================
 Layout
 """
+
 app.layout = dbc.Container(
     [
         html.H1("dcc.Timer() Demo", className="bg-primary text-white p-2"),

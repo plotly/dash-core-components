@@ -1,4 +1,4 @@
-import {includes} from 'ramda';
+import {includes, isEmpty} from 'ramda';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react'; // eslint-disable-line no-unused-vars
 import prettyMilliseconds from 'pretty-ms';
@@ -9,6 +9,7 @@ function getFormat(format_type) {
         verbose: {verbose: true},
         colons: {colonNotation: true},
         compact: {compact: true},
+        sub_ms: {formatSubMilliseconds: true},
     };
     return formats[format_type];
 }
@@ -29,12 +30,16 @@ export default class Timer extends Component {
         super(props);
         this.intervalId = null;
         this.renderMessage = null;
+        this.intervalError = false;
+        this.handleIntervalError = this.handleIntervalError.bind(this);
+        this.displayIntervalErrorMessage =
+            this.displayIntervalErrorMessage.bind(this);
         this.reportInterval = this.reportInterval.bind(this);
         this.handleTimer = this.handleTimer.bind(this);
         this.handleMessages = this.handleMessages.bind(this);
     }
 
-    handleTimer(props) {
+    handleTimer() {
         const {
             n_intervals,
             max_intervals,
@@ -53,10 +58,10 @@ export default class Timer extends Component {
             (n_intervals >= max_intervals && max_intervals !== -1) ||
             duration === 0 ||
             duration < 0 ||
-            (mode === 'countdown' && duration === null) || // operates as stopwatch only if duration is null
+            (mode === 'countdown' && duration === null) || // operates as stopwatch if duration is null
             (mode === 'countdown' && time === 0 && !rerun) ||
             (mode === 'stopwatch' && time === duration && !rerun) ||
-            time < 0
+            this.intervalError
         ) {
             // stop existing timer
             if (this.intervalId) {
@@ -72,7 +77,7 @@ export default class Timer extends Component {
                 (mode === 'countdown' && time === 0 && rerun) ||
                 (mode === 'stopwatch' && time === duration && rerun)
             ) {
-                this.initTimer(props);
+                this.initTimer();
             }
             return;
         }
@@ -81,17 +86,17 @@ export default class Timer extends Component {
         this.intervalId = window.setInterval(this.reportInterval, interval);
     } // end handle timer
 
-    handleMessages(props, new_time) {
+    handleMessages(time) {
         const {messages, timer_format} = this.props;
 
         const messagesObj = Object.assign({}, messages);
-        if (new_time in messagesObj) {
-            this.renderMessage = `${messagesObj[new_time]}`;
+        if (time in messagesObj) {
+            this.renderMessage = messagesObj[time];
         }
 
-        if (timer_format !== 'none') {
+        if (timer_format !== 'none' && isEmpty(messagesObj)) {
             const formatObj = getFormat(timer_format);
-            this.renderMessage = prettyMilliseconds(new_time, formatObj);
+            this.renderMessage = prettyMilliseconds(time, formatObj);
         }
     } // end handleMessages
 
@@ -112,7 +117,7 @@ export default class Timer extends Component {
             new_time = interval * new_n_intervals;
         }
 
-        this.handleMessages(this.props, new_time);
+        this.handleMessages(new_time);
         updateProps.time = new_time;
 
         if (includes(new_time, fire_times)) {
@@ -131,6 +136,8 @@ export default class Timer extends Component {
             // stopwatch
             startTime = 0;
         }
+        this.handleMessages(startTime);
+
         setProps({
             n_intervals: 0,
             reset: false,
@@ -138,10 +145,11 @@ export default class Timer extends Component {
         });
     }
 
-    resetTimer(props) {
+    resetTimer() {
+        this.handleIntervalError();
         this.clearTimer();
-        this.initTimer(props);
-        this.handleTimer(props);
+        this.initTimer();
+        this.handleTimer();
     }
 
     clearTimer() {
@@ -149,9 +157,48 @@ export default class Timer extends Component {
         this.intervalId = null;
     }
 
+    displayIntervalErrorMessage(timeError) {
+        this.intervalError = true;
+        throw new Error(
+            timeError +
+                ' is not a multiple of the interval (' +
+                this.props.interval +
+                ')'
+        );
+    }
+
+    handleIntervalError() {
+        const {interval, duration, messages, fire_times} = this.props;
+        this.intervalError = false;
+
+        // check if times are a multiple of the interval
+        const isIntervalError = timeVal => timeVal % interval > 0;
+
+        if (isIntervalError(duration)) {
+            this.displayIntervalErrorMessage(
+                'The Timer duration (' + duration + ')'
+            );
+        }
+
+        if (Array.isArray(fire_times) && fire_times.length) {
+            if (fire_times.some(isIntervalError)) {
+                this.displayIntervalErrorMessage(
+                    'One or more of the Timer fire_times'
+                );
+            }
+        }
+
+        const msgObj = Object.assign({}, messages);
+        if (Object.keys(msgObj).some(isIntervalError)) {
+            this.displayIntervalErrorMessage(
+                'One or more of the keys in the Timer messages dictionary '
+            );
+        }
+    }
+
     componentDidMount() {
-        this.initTimer(this.props);
-        this.handleTimer(this.props);
+        this.initTimer();
+        this.handleTimer();
     }
 
     componentDidUpdate(prevProps) {
@@ -164,9 +211,9 @@ export default class Timer extends Component {
             prevProps.messages !== this.props.messages ||
             prevProps.mode !== this.props.mode
         ) {
-            this.resetTimer(this.props);
+            this.resetTimer();
         } else {
-            this.handleTimer(this.props);
+            this.handleTimer();
         }
     }
 
@@ -261,8 +308,8 @@ Timer.propTypes = {
     /**
      * Timer messages to be displayed by the component rather than showing the timer. It is a dictionary in the form of:
      * {integer: string} where integer is the time in milliseconds of when the string message is to be displayed.
-     * Note: timer_format will override messages. For example, {10000 : "updating in 10 seconds"} will display the message
-     * "updating in 10 seconds" once the timer equals 10000.
+     * For example, {10000 : "updating in 10 seconds"} will display the message "updating in 10 seconds" once the
+     * timer equals 10000. Note: messages will over-ride the timer display.
      */
     messages: PropTypes.objectOf(PropTypes.string),
 
@@ -270,12 +317,12 @@ Timer.propTypes = {
      * If a timer is displayed, it will override timer `messages`.  This formats the timer (milliseconds) into human
      * readable formats.  The options are:
      *  `'none'`: no timer will be displayed;
-     *  `'display'`:  example - 1337000000 milliseconds will display as: '15d 11h 23m 20s';
+     *  `'default'`:  example - 1337000000 milliseconds will display as: '15d 11h 23m 20s';
      *  `'compact'`: will show only the first unit: 1h 10m --> 1h ;
      *  `'verbose'`: will show full-length units. Example --  5 hours 1 minute 45 seconds
-     *  `'colons'`: Useful when you want to show time without the time units, similar to
-     *                   a digital watch. Will always shows time in at least minutes: 1s --> 0:01.
-     *                   Example - 5h 1m 45s --> 5:01:45.
+     *  `'colons'`: Useful when you want to show time without the time units, similar to a digital watch.
+     *   Will always shows time in at least minutes: 1s --> 0:01. Example - 5h 1m 45s --> 5:01:45.
+     *  `'sub_ms'`:  will display sub milliseconds. Example 1800 milliseconds will display as '1s 800ms'
      */
     timer_format: PropTypes.oneOf([
         'none',
@@ -283,6 +330,7 @@ Timer.propTypes = {
         'compact',
         'verbose',
         'colons',
+        'sub_ms',
     ]),
 
     /**
@@ -313,5 +361,5 @@ Timer.defaultProps = {
     messages: {},
     fire_times: [],
     at_fire_time: null,
-    timer_format: 'none',
+    timer_format: 'default',
 };
