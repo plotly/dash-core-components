@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import AbsoluteTooltip from './components/AbsoluteTooltip.react';
 import ConfirmDialog from './components/ConfirmDialog.react';
 import ConfirmDialogProvider from './components/ConfirmDialogProvider.react';
 import Dropdown from './components/Dropdown.react';
@@ -29,6 +30,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import './components/css/react-dates@20.1.0-fix.css';
 
 export {
+    AbsoluteTooltip,
     Checklist,
     ConfirmDialog,
     ConfirmDialogProvider,
@@ -53,5 +55,5 @@ export {
     LogoutButton,
     Download,
     Clipboard,
-    ToolTip
+    ToolTip,
 };
