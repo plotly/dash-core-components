@@ -10,9 +10,27 @@ const AbsoluteTooltip = props => {
     const {bbox, colors, loading_state} = props;
 
     return (
-        <div className={`dccTooltipHoverArea ${props.containerClassName}`}>
+        <>
+            <div
+                className={`dcc-tooltip-hover-area ${props.hoverAreaClassName}`}
+                style={props.hoverAreaStyle}
+            >
+                <span
+                    data-dash-is-loading={
+                        (loading_state && loading_state.is_loading) || undefined
+                    }
+                    className={`hover hover-${props.direction}`}
+                >
+                    <span
+                        className={`hover-content ${props.className}`}
+                        style={props.style}
+                    >
+                        {props.children}
+                    </span>
+                </span>
+            </div>
             <style jsx>{`
-                .dccTooltipHoverArea {
+                .dcc-tooltip-hover-area {
                     position: absolute;
                     top: ${bbox.y0}px;
                     left: ${bbox.x0}px;
@@ -22,7 +40,7 @@ const AbsoluteTooltip = props => {
                     z-index: ${props.zindex + 1};
                 }
 
-                .dccTooltipHoverArea:hover .hover {
+                .dcc-tooltip-hover-area:hover .hover {
                     visibility: visible;
                 }
 
@@ -187,27 +205,19 @@ const AbsoluteTooltip = props => {
                     display: block;
                 }
             `}</style>
-            <span
-                data-dash-is-loading={
-                    (loading_state && loading_state.is_loading) || undefined
-                }
-                className={`hover hover-${props.direction}`}
-            >
-                <span className="hover-content">{props.children}</span>
-            </span>
-        </div>
+        </>
     );
 };
 
 AbsoluteTooltip.defaultProps = {
     show: true,
-    caretSize: 5,
     direction: 'right',
     colors: {
         border: '#d6d6d6',
         background: 'white',
     },
-    containerClassName: '',
+    hoverAreaClassName: '',
+    className: '',
     zindex: 1,
 };
 
@@ -230,9 +240,9 @@ AbsoluteTooltip.propTypes = {
      */
     className: PropTypes.string,
     /**
-     * The class of the container (invisible bounding box)
+     * The class of the invisible area determined by `bbox`. When you hover over that area, the tooltip will appear.
      */
-    containerClassName: PropTypes.string,
+    hoverAreaClassName: PropTypes.string,
 
     /**
      * The style of the tooltip
@@ -240,9 +250,9 @@ AbsoluteTooltip.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The style of the container (invisible bounding box)
+     * The style of the invisible area determined by `bbox`. When you hover over that area, the tooltip will appear.
      */
-    containerStyle: PropTypes.object,
+    hoverAreaStyle: PropTypes.object,
 
     /**
      * Dash-assigned callback that gets fired when the value changes.
@@ -264,11 +274,6 @@ AbsoluteTooltip.propTypes = {
      * Whether to show the tooltip or not
      */
     show: PropTypes.bool,
-
-    /**
-     * The size of the caret in pixels
-     */
-    caretSize: PropTypes.number,
 
     /**
      * Defines the direction in which the hover opens.
