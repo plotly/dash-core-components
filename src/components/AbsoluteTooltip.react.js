@@ -10,19 +10,26 @@ const AbsoluteTooltip = props => {
     const {bbox, colors, loading_state} = props;
 
     return (
-        <div className={`container ${props.containerClassName}`}>
+        <div className={`dccTooltipHoverArea ${props.containerClassName}`}>
             <style jsx>{`
-                .container {
+                .dccTooltipHoverArea {
                     position: absolute;
                     top: ${bbox.y0}px;
                     left: ${bbox.x0}px;
                     width: ${bbox.x1 - bbox.x0}px;
                     height: ${bbox.y1 - bbox.y0}px;
                     display: ${props.show ? 'inline-block' : 'none'};
+                    z-index: ${props.zindex + 1};
+                }
+
+                .dccTooltipHoverArea:hover .hover {
+                    visibility: visible;
                 }
 
                 .hover {
                     position: absolute;
+                    visibility: hidden;
+                    z-index: ${props.zindex};
                 }
                 .hover-right {
                     /* Offset so that the triangle caret lands directly on what's hovered */
@@ -200,6 +207,8 @@ AbsoluteTooltip.defaultProps = {
         border: '#d6d6d6',
         background: 'white',
     },
+    containerClassName: '',
+    zindex: 1,
 };
 
 AbsoluteTooltip.propTypes = {
@@ -301,6 +310,11 @@ AbsoluteTooltip.propTypes = {
          */
         component_name: PropTypes.string,
     }),
+
+    /**
+     * This corresponds to the `z-index` CSS property you want to assign to the tooltip. Components with higher values will be displayed first on the screen.
+     */
+    zindex: PropTypes.number,
 };
 
 export default AbsoluteTooltip;
