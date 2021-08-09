@@ -12,7 +12,7 @@ const AbsoluteTooltip = props => {
     return (
         <>
             <div
-                className={`dcc-tooltip-hover-area ${props.hoverAreaClassName}`}
+                className={`dcc-tooltip-bounding-box ${props.hoverAreaClassName}`}
                 style={props.hoverAreaStyle}
             >
                 <span
@@ -30,23 +30,17 @@ const AbsoluteTooltip = props => {
                 </span>
             </div>
             <style jsx>{`
-                .dcc-tooltip-hover-area {
+                .dcc-tooltip-bounding-box {
                     position: absolute;
                     top: ${bbox.y0}px;
                     left: ${bbox.x0}px;
                     width: ${bbox.x1 - bbox.x0}px;
                     height: ${bbox.y1 - bbox.y0}px;
                     display: ${props.show ? 'inline-block' : 'none'};
-                    z-index: ${props.zindex + 1};
-                }
-
-                .dcc-tooltip-hover-area:hover .hover {
-                    visibility: visible;
                 }
 
                 .hover {
                     position: absolute;
-                    visibility: hidden;
                     z-index: ${props.zindex};
                 }
                 .hover-right {
