@@ -41,7 +41,6 @@ const AbsoluteTooltip = props => {
 
                 .hover {
                     position: absolute;
-                    z-index: ${props.zindex};
                 }
                 .hover-right {
                     /* Offset so that the triangle caret lands directly on what's hovered */
@@ -73,6 +72,7 @@ const AbsoluteTooltip = props => {
                     padding: 5px 10px;
                     background: ${colors.background};
                     white-space: nowrap;
+                    z-index: ${props.zindex};
                 }
 
                 .hover .hover-content,
@@ -130,7 +130,6 @@ const AbsoluteTooltip = props => {
                     border-color: transparent ${colors.border} transparent
                         transparent;
                     left: -5px;
-                    z-index: 2;
                 }
 
                 .hover:after,
@@ -138,7 +137,6 @@ const AbsoluteTooltip = props => {
                     border-color: transparent ${colors.background} transparent
                         transparent;
                     left: -4px;
-                    z-index: 3;
                 }
 
                 .hover-left:before {
