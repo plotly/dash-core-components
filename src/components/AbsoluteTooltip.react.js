@@ -11,10 +11,7 @@ const AbsoluteTooltip = props => {
 
     return (
         <>
-            <div
-                className={`dcc-tooltip-bounding-box ${props.hoverAreaClassName}`}
-                style={props.hoverAreaStyle}
-            >
+            <div className={`dcc-tooltip-bounding-box`}>
                 <span
                     data-dash-is-loading={
                         (loading_state && loading_state.is_loading) || undefined
@@ -37,11 +34,13 @@ const AbsoluteTooltip = props => {
                     width: ${bbox.x1 - bbox.x0}px;
                     height: ${bbox.y1 - bbox.y0}px;
                     display: ${props.show ? 'inline-block' : 'none'};
+                    pointer-events: ${props.targetable ? 'auto' : 'none'};
                 }
 
                 .hover {
                     position: absolute;
                 }
+
                 .hover-right {
                     /* Offset so that the triangle caret lands directly on what's hovered */
                     transform: translate(5px, 0);
@@ -73,6 +72,7 @@ const AbsoluteTooltip = props => {
                     background: ${colors.background};
                     white-space: nowrap;
                     z-index: ${props.zindex};
+                    pointer-events: none;
                 }
 
                 .hover .hover-content,
@@ -203,12 +203,12 @@ const AbsoluteTooltip = props => {
 
 AbsoluteTooltip.defaultProps = {
     show: true,
+    targetable: false,
     direction: 'right',
     colors: {
         border: '#d6d6d6',
         background: 'white',
     },
-    hoverAreaClassName: '',
     className: '',
     zindex: 1,
 };
@@ -231,20 +231,11 @@ AbsoluteTooltip.propTypes = {
      * The class of the tooltip
      */
     className: PropTypes.string,
-    /**
-     * The class of the invisible area determined by `bbox`. When you hover over that area, the tooltip will appear.
-     */
-    hoverAreaClassName: PropTypes.string,
 
     /**
      * The style of the tooltip
      */
     style: PropTypes.object,
-
-    /**
-     * The style of the invisible area determined by `bbox`. When you hover over that area, the tooltip will appear.
-     */
-    hoverAreaStyle: PropTypes.object,
 
     /**
      * Dash-assigned callback that gets fired when the value changes.
@@ -312,6 +303,12 @@ AbsoluteTooltip.propTypes = {
      * This corresponds to the `z-index` CSS property you want to assign to the tooltip. Components with higher values will be displayed first on the screen.
      */
     zindex: PropTypes.number,
+
+    /**
+     * Whether the tooltip can be targeted (hovered, selected, interacted) or not. When set to `False`,
+     * the tooltip's `pointer-events` CSS property will be `none` and it can't be the target of pointer events.
+     */
+    targetable: PropTypes.bool,
 };
 
 export default AbsoluteTooltip;
