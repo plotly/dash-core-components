@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-// import './css/AbsoluteTooltip.css';
 
 import _JSXStyle from 'styled-jsx/style'; // eslint-disable-line no-unused-vars
 
