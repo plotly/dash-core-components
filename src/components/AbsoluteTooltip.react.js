@@ -7,21 +7,24 @@ import _JSXStyle from 'styled-jsx/style'; // eslint-disable-line no-unused-vars
  */
 const AbsoluteTooltip = props => {
     const {bbox, colors, loading_state} = props;
+    const is_loading = loading_state && loading_state.is_loading;
 
     return (
         <>
             <div className={`dcc-tooltip-bounding-box`}>
                 <span
-                    data-dash-is-loading={
-                        (loading_state && loading_state.is_loading) || undefined
-                    }
+                    data-dash-is-loading={is_loading || undefined}
                     className={`hover hover-${props.direction}`}
                 >
                     <span
                         className={`hover-content ${props.className}`}
                         style={props.style}
                     >
-                        {props.children}
+                        {is_loading ? (
+                            <span>{props.loading_text}</span>
+                        ) : (
+                            props.children
+                        )}
                     </span>
                 </span>
             </div>
@@ -180,22 +183,6 @@ const AbsoluteTooltip = props => {
                     top: -2px;
                 }
             `}</style>
-            <style jsx global>{`
-                /* By default, hide the loader */
-                .hover-loader {
-                    display: none;
-                }
-
-                /* Don't display hovers while server-side computation is taking place */
-                [data-dash-is-loading='true'] .hover {
-                    display: none;
-                }
-
-                /* Show a loader when the hover immediately preceeding it is loading */
-                [data-dash-is-loading='true'] + .hover-loader {
-                    display: block;
-                }
-            `}</style>
         </>
     );
 };
@@ -210,6 +197,7 @@ AbsoluteTooltip.defaultProps = {
     },
     className: '',
     zindex: 1,
+    loading_text: 'Loading...',
 };
 
 AbsoluteTooltip.propTypes = {
@@ -297,6 +285,11 @@ AbsoluteTooltip.propTypes = {
          */
         component_name: PropTypes.string,
     }),
+
+    /**
+     * The text displayed in the tooltip when loading
+     */
+    loading_text: PropTypes.string,
 
     /**
      * This corresponds to the `z-index` CSS property you want to assign to the tooltip. Components with higher values will be displayed first on the screen.
