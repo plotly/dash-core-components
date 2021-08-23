@@ -1,19 +1,16 @@
+import io
 from setuptools import setup
-import json
-
-with open("package.json") as f:
-    package = json.load(f)
-
-package_name = str(package["name"].replace(" ", "_").replace("-", "_"))
 
 setup(
     name="dash_core_components",
-    version=package["version"],
-    author=package["author"],
+    version="2.0.0rc1",
+    author="Chris Parmer <chris@plotly.com>",
     author_email="chris@plotly.com",
-    packages=[package_name],
+    packages=["dash_core_components"],
     include_package_data=True,
-    license=package["license"],
-    description=package.get("description", package_name),
+    license="MIT",
+    description="Core component suite for Dash",
+    long_description=io.open("README.md", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
     install_requires=[],
 )
