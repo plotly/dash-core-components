@@ -1,5 +1,5 @@
 module DashCoreComponents
     function __init__()
-        @warn "`using DashCoreComponents` is deprecated, all DashCoreComponents functions have been moved to Dash package. Use `using Dash` instead"
+        @warn "The `DashCoreComponents` package is deprecated. All DashCoreComponents functions have been moved to the Dash package. Please switch to `using Dash` instead."
     end
 end
